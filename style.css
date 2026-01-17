@@ -83,13 +83,8 @@
 /* Theme Toggle Component */
 .theme-toggle {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
     gap: 4px;
-    padding: 12px 0;
-    margin-bottom: -40px;
-    /* Align with header/nav flow */
-    position: relative;
-    z-index: 100;
 }
 
 .theme-btn {
