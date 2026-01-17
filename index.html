@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Design systems built, adopted, and scaled. Subscription-based design system support.">
+    <title>Layerone — Design Systems</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.0.0/dist/fonts/geist-sans/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="container">
+        <!-- Theme Toggle -->
+        <div class="theme-toggle">
+            <button class="theme-btn active" data-theme="light">Light</button>
+            <button class="theme-btn" data-theme="dark">Dark</button>
+            <button class="theme-btn" data-theme="paper">Paper</button>
+        </div>
+
+        <nav class="nav">
+            <div class="logo">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                    <circle cx="12" cy="12" r="3" fill="currentColor" />
+                </svg>
+                Layerone
+            </div>
+            <a href="mailto:hello@layerone.design" class="contact-link">Contact</a>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero fade-in">
+            <span class="sys-tag">v1.0.0 — SYSTEM</span>
+            <h1 class="hero-title">Design systems that actually get used.</h1>
+            <p class="hero-sub">We help teams design, build, and scale design systems that work in real products, with
+                real engineers, and real constraints.
+                Most design systems fail not because of bad components, but because they don’t fit how teams actually
+                work.
+                We focus on foundations, decisions, and workflows that make systems usable, maintainable, and easy to
+                adopt over time.</p>
+            <div class="hero-actions">
+                <a href="#pricing" class="btn-primary">Build a usable design system &rarr;</a>
+                <a href="#process" class="btn-secondary">See how we work &rarr;</a>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- What We Do (Spec Sheet Look) -->
+        <section class="section fade-in">
+            <div class="spec-header">
+                <span class="mono-label">01. SCOPE</span>
+                <h2 class="section-label-large">What We Do</h2>
+            </div>
+
+            <div class="spec-grid">
+                <!-- Left: Supported -->
+                <div class="spec-column valid">
+                    <span class="column-header">IN SCOPE</span>
+                    <ul class="spec-list">
+                        <li>
+                            <span class="icon-check">✓</span>
+                            <div>
+                                <strong>System Foundations</strong>
+                                <p>We define the rules before the components.
+                                    Tokens, naming, accessibility standards, and structural decisions that keep the
+                                    system consistent without slowing teams down.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="icon-check">✓</span>
+                            <div>
+                                <strong>Component Architecture</strong>
+                                <p>Components designed as shared infrastructure, not static assets.
+                                    Clear states, variants, ownership, and documentation that engineers can trust and
+                                    reuse.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="icon-check">✓</span>
+                            <div>
+                                <strong>Adoption & Governance</strong>
+                                <p>A system only matters if people use it.
+                                    We help teams roll out, document, and govern design systems so they evolve without
+                                    breaking products.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="icon-check">✓</span>
+                            <div>
+                                <strong>Migration & Scaling</strong>
+                                <p>Already have a system?
+                                    We help clean it up, restructure it, and make it scalable without stopping product
+                                    work.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Right: Not Supported -->
+                <div class="spec-column invalid">
+                    <span class="column-header">OUT OF SCOPE</span>
+                    <ul class="spec-list">
+                        <li>
+                            <span class="icon-cross">×</span>
+                            <div>
+                                <strong>Product Feature Work</strong>
+                                <p>No day-to-day UX screens</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="icon-cross">×</span>
+                            <div>
+                                <strong>Brand Identity</strong>
+                                <p>No logo or marketing design</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="icon-cross">×</span>
+                            <div>
+                                <strong>One-off Projects</strong>
+                                <p>We build systems, not disconnected assets</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Who This Is For (Persona Cards) -->
+        <section class="section fade-in">
+            <div class="spec-header">
+                <span class="mono-label">02. TARGET</span>
+                <h2 class="section-label-large">Who This Is For</h2>
+            </div>
+
+            <div class="persona-grid">
+                <div class="persona-card">
+                    <span class="sys-tag">TYPE: SCALING</span>
+                    <h3>Product Growth</h3>
+                    <p>Teams growing fast where design needs to keep up with engineering velocity.</p>
+                    <div class="card-meta">
+                        <span>Pain point:</span>
+                        <span>Design Debt</span>
+                    </div>
+                </div>
+                <div class="persona-card">
+                    <span class="sys-tag">TYPE: ENTERPRISE</span>
+                    <h3>Fragmented UI</h3>
+                    <p>Large orgs with multiple products and inconsistencies across surfaces.</p>
+                    <div class="card-meta">
+                        <span>Pain point:</span>
+                        <span>Inconsistency</span>
+                    </div>
+                </div>
+                <div class="persona-card">
+                    <span class="sys-tag">TYPE: ENGINEERING</span>
+                    <h3>Blocked Devs</h3>
+                    <p>Teams slowed down by lack of reusable, documented components.</p>
+                    <div class="card-meta">
+                        <span>Pain point:</span>
+                        <span>Velocity</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- How We Work (Process Pipeline) -->
+        <section id="process" class="section fade-in">
+            <div class="spec-header">
+                <span class="mono-label">03. WORKFLOW</span>
+                <h2 class="section-label-large">How We Work</h2>
+            </div>
+
+            <div class="pipeline-track">
+                <div class="pipeline-line"></div>
+
+                <div class="pipeline-step">
+                    <div class="step-marker">01</div>
+                    <div class="step-content">
+                        <h3>Understand the Product Reality</h3>
+                        <p>We study how your teams actually design, build, and ship today.
+                            No assumptions. No theory-first frameworks.</p>
+                    </div>
+                </div>
+
+                <div class="pipeline-step">
+                    <div class="step-marker">02</div>
+                    <div class="step-content">
+                        <h3>Define System Decisions</h3>
+                        <p>We lock core decisions early: tokens, structure, component boundaries, and contribution
+                            rules.
+                            This prevents long-term inconsistency.</p>
+                    </div>
+                </div>
+
+                <div class="pipeline-step">
+                    <div class="step-marker">03</div>
+                    <div class="step-content">
+                        <h3>Build With the Team</h3>
+                        <p>We work alongside designers and engineers, not in isolation.
+                            The system is built where it will live and be used.</p>
+                    </div>
+                </div>
+
+                <div class="pipeline-step">
+                    <div class="step-marker">04</div>
+                    <div class="step-content">
+                        <h3>Enable Long-Term Ownership</h3>
+                        <p>Clear documentation, contribution workflows, and governance so your team owns the system
+                            after we step away.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pipeline-note">
+                <p>Pause or cancel anytime. Total flexibility.</p>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Scenarios -->
+        <section id="capabilities" class="section fade-in">
+            <div class="spec-header">
+                <span class="mono-label">04. CAPABILITIES</span>
+                <h2 class="section-label-large">System Modules</h2>
+            </div>
+            <div class="modules-grid">
+                <!-- Module 01 -->
+                <div class="module-card">
+                    <span class="module-id">M-01</span>
+                    <h3>Zero &rarr; One</h3>
+                    <p class="module-desc">Starting without a system? We build the foundation.</p>
+                    <ul class="bullet-list small">
+                        <li>Define system principles</li>
+                        <li>Establish token strategy</li>
+                        <li>Design core components</li>
+                        <li>Align design and engineering</li>
+                    </ul>
+                </div>
+
+                <!-- Module 02 -->
+                <div class="module-card">
+                    <span class="module-id">M-02</span>
+                    <h3>Existing Systems</h3>
+                    <p class="module-desc">Already have a system? We make it usable.</p>
+                    <ul class="bullet-list small">
+                        <li>Audit what exists</li>
+                        <li>Simplify and restructure</li>
+                        <li>Improve documentation</li>
+                        <li>Align teams around usage</li>
+                    </ul>
+                </div>
+
+                <!-- Module 03 -->
+                <div class="module-card">
+                    <span class="module-id">M-03</span>
+                    <h3>Governance</h3>
+                    <p class="module-desc">Systems don’t fail. Ownership does.</p>
+                    <ul class="bullet-list small">
+                        <li>Clear ownership models</li>
+                        <li>Contribution workflows</li>
+                        <li>Versioning rules</li>
+                        <li>Change management</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Philosophy (Modern Split) -->
+    </main>
+
+    <section class="container" style="margin: var(--spacing-xl) auto;">
+        <div class="philo-editorial">
+            <!-- Header -->
+            <div class="philo-ed-header">
+                <span class="mono-label">06. PHILOSOPHY</span>
+                <h2>Our Philosophy.</h2>
+            </div>
+
+            <!-- Grid -->
+            <div class="philo-ed-grid">
+                <!-- Item 01 -->
+                <div class="philo-ed-item">
+                    <span class="ed-number">01</span>
+                    <div class="ed-content">
+                        <h3>Model</h3>
+                        <h4>Why Subscription?</h4>
+                        <p>Design systems are products, not projects. They evolve. A subscription aligns incentives: we
+                            are rewarded for your long-term efficiency, not for dragging out a project.</p>
+                    </div>
+                </div>
+
+                <!-- Item 02 -->
+                <div class="philo-ed-item">
+                    <span class="ed-number">02</span>
+                    <div class="ed-content">
+                        <h3>Approach</h3>
+                        <h4>System First</h4>
+                        <p>We don't just "tidy up" styles. We build governance, token architecture, and component APIs
+                            that scale. We treat your design system as critical infrastructure.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="container">
+
+        <hr class="divider">
+
+        <!-- Pricing -->
+        <section id="pricing" class="section fade-in">
+            <div class="spec-header">
+                <span class="mono-label">05. PLANS</span>
+                <h2 class="section-label-large">Pricing</h2>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Foundation -->
+                <div class="pricing-card">
+                    <span class="plan-name">Company Engagement</span>
+                    <p class="plan-desc">Best for teams building or restructuring a core design system.</p>
+                    <div class="plan-features">
+                        <h4>Includes</h4>
+                        <ul>
+                            <li>System foundations and architecture</li>
+                            <li>Core component library</li>
+                            <li>Documentation and governance setup</li>
+                            <li>Team enablement</li>
+                        </ul>
+                    </div>
+                    <a href="mailto:hello@layerone.design?subject=Start Foundation" class="btn-block">Start Foundation
+                        &rarr;</a>
+                </div>
+
+                <!-- Scale -->
+                <div class="pricing-card highlight">
+                    <div class="popular-tag">Most Popular</div>
+                    <span class="plan-name">Subscription Engagement</span>
+                    <p class="plan-desc">Best for ongoing system evolution and support.</p>
+                    <div class="plan-features">
+                        <h4>Includes</h4>
+                        <ul>
+                            <li>Continuous system improvements</li>
+                            <li>New components and patterns</li>
+                            <li>Refactoring and cleanup</li>
+                            <li>Adoption and documentation updates</li>
+                        </ul>
+                    </div>
+                    <a href="mailto:hello@layerone.design?subject=Start Scale" class="btn-block primary">Start Scale
+                        &rarr;</a>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="pricing-card">
+                    <span class="plan-name">Enterprise</span>
+                    <p class="plan-desc">For complex systems and long-term governance.</p>
+                    <div class="plan-features">
+                        <h4>Includes</h4>
+                        <ul>
+                            <li>Governance models & workflows</li>
+                            <li>Contribution processes</li>
+                            <li>Versioning strategy</li>
+                            <li>Cross-team adoption</li>
+                            <li>System roadmap planning</li>
+                        </ul>
+                    </div>
+                    <a href="mailto:hello@layerone.design?subject=Talk to Us" class="btn-block">Talk to Us &rarr;</a>
+                </div>
+            </div>
+            <div class="trust-bar">
+                <h3>Included in everything:</h3>
+                <div class="trust-grid">
+                    <div class="trust-item">
+                        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.75 11.25L10.75 14.25L16.25 8.75" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" />
+                        </svg>
+                        <span>Design-System Focused</span>
+                    </div>
+                    <div class="trust-item">
+                        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.75 11.25L10.75 14.25L16.25 8.75" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" />
+                        </svg>
+                        <span>Practical, Not Theoretical</span>
+                    </div>
+                    <div class="trust-item">
+                        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.75 11.25L10.75 14.25L16.25 8.75" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" />
+                        </svg>
+                        <span>Built for Engineers Too</span>
+                    </div>
+                    <div class="trust-item">
+                        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7.75 11.25L10.75 14.25L16.25 8.75" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" />
+                        </svg>
+                        <span>Calm, Direct Collaboration</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- FAQ -->
+        <section id="faq" class="section fade-in">
+            <div class="spec-header">
+                <span class="mono-label">FAQ</span>
+            </div>
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-trigger">Do you design full products or marketing sites?</button>
+                    <div class="accordion-content">
+                        <p>No. We only work on design systems and shared UI infrastructure.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-trigger">Can you work with our existing system?</button>
+                    <div class="accordion-content">
+                        <p>Yes. Most of our work involves improving or scaling existing systems.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-trigger">Do you work with engineers directly?</button>
+                    <div class="accordion-content">
+                        <p>Always. Design systems fail without engineering alignment.</p>
+                    </div>
+                </div>
+                <!-- More items can be added here -->
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-trigger">Is this tool-specific?</button>
+                <div class="accordion-content">
+                    <p>No. We design system logic that works across tools and frameworks.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-trigger">How long does a system take to build?</button>
+                <div class="accordion-content">
+                    <p>It depends on scope, maturity, and team size. We define this clearly before starting.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <button class="accordion-trigger">Do you support multiple brands/themes?</button>
+                <div class="accordion-content">
+                    <p>Yes. We specialize in multi-brand architecture. We set up token structures that allow you to
+                        manage multiple visual identities from a single source of truth.</p>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer-cta fade-in">
+        <div class="container">
+            <div class="cta-content">
+                <h2>If your design system feels heavy, ignored, or hard to maintain, we should talk.</h2>
+                <p>Not a library. Not a Figma file. A living system your teams can rely on.</p>
+                <a href="#pricing" class="btn-primary large">Start a conversation &rarr;</a>
+            </div>
+            <div class="footer-links">
+                <a href="mailto:hello@layerone.design">hello@layerone.design</a>
+                <span class="copyright">&copy; Layerone Design Systems</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom Cursor -->
+    <div id="cursor">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M5.65376 12.3673H5.46026L5.31717 12.4976L0.500002 16.8829L0.500002 1.19841L11.7841 12.3673H5.65376Z"
+                fill="#0D99FF" stroke="white" />
+        </svg>
+        <span class="cursor-tag">You</span>
+    </div>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+
+</html>
