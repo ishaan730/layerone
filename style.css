@@ -160,7 +160,8 @@ a {
 .container {
     max-width: var(--container-max);
     margin: 0 auto;
-    padding: 0 var(--spacing-sm);
+    padding: 0 var(--spacing-md);
+    /* Consistent side padding */
     position: relative;
 
     /* System Crop Marks (Corner Anchors) */
@@ -260,6 +261,7 @@ a {
 .hero {
     padding: var(--spacing-xl) 0 var(--spacing-lg);
     position: relative;
+    border-bottom: 1px solid var(--line-color);
 }
 
 /* Subtle visual separator at bottom of hero */
@@ -535,7 +537,8 @@ a {
     border-radius: var(--border-radius);
     display: flex;
     flex-direction: column;
-    transition: all 0.2s ease;
+    background: var(--bg-color);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .persona-card:hover {
@@ -631,55 +634,154 @@ a {
     color: var(--text-secondary);
 }
 
-/* Pricing Grid */
-.pricing-grid {
+/* Services Grid */
+.services-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-sm);
-    align-items: start;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
 }
 
-.pricing-card {
+.service-card {
     border: 1px solid var(--line-color);
     padding: var(--spacing-md);
     border-radius: var(--border-radius);
     display: flex;
     flex-direction: column;
     background: var(--bg-color);
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    height: 100%;
+}
+
+.service-card:hover {
+    border-color: var(--text-primary);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.04);
+}
+
+/* Restructured header as vertical unit */
+.service-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-md);
+}
+
+/* Service ID as eyebrow label */
+.service-id {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    opacity: 0.6;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    display: block;
+    line-height: 1;
+}
+
+/* Title with normalized line height */
+.service-card h3 {
+    font-size: 1.25rem;
+    line-height: 1.3;
+    font-weight: 500;
+    margin: 0 0 10px 0;
+    max-width: 100%;
+}
+
+/* Positioning text tightly bound to header */
+.positioning {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    margin: 0 0 var(--spacing-sm) 0;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+    opacity: 0.85;
+    line-height: 1.4;
+}
+
+.description {
+    font-size: 0.95rem;
+    margin-bottom: var(--spacing-md);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    flex-grow: 1;
+    /* Pushes list to bottom */
+}
+
+.scope-list {
+    list-style: none;
+    margin-top: auto;
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--line-color);
+    opacity: 0.8;
+}
+
+.scope-list li {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.4;
+}
+
+.scope-list li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+}
+
+.section-cta {
+    margin-top: var(--spacing-lg);
+    text-align: center;
+}
+
+.section-desc {
+    font-size: 1.15rem;
+    max-width: 60ch;
+    margin-top: var(--spacing-xs);
+    color: var(--text-secondary);
+}
+
+/* Pricing Grid Enhancement */
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+    align-items: stretch;
+}
+
+.pricing-card {
+    border: 1px solid var(--line-color);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius);
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-color);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     position: relative;
     height: 100%;
 }
 
 .pricing-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+    transform: translateY(-8px);
+    border-color: var(--text-primary);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
 }
 
 .pricing-card.highlight {
-    border: 1px solid var(--text-primary);
     background: var(--highlight-bg);
+    border: 1.5px solid var(--text-primary);
     transform: scale(1.02);
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
-    z-index: 1;
 }
 
 .pricing-card.highlight:hover {
-    transform: scale(1.02) translateY(-4px);
-}
-
-.popular-tag {
-    position: absolute;
-    top: -12px;
-    right: 24px;
-    background: var(--text-primary);
-    color: var(--bg-color);
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    padding: 4px 12px;
-    border-radius: 100px;
-    letter-spacing: 0.05em;
+    transform: scale(1.02) translateY(-8px);
 }
 
 .plan-name {
@@ -687,31 +789,45 @@ a {
     font-size: 0.8rem;
     text-transform: uppercase;
     display: block;
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-xs);
     color: var(--text-secondary);
+    letter-spacing: 0.05em;
+    font-weight: 500;
 }
 
-.pricing-card.highlight .plan-name {
-    color: var(--text-primary);
+.price-indicative {
+    font-size: 1.5rem;
     font-weight: 600;
+    margin: 4px 0 8px;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+.duration-tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+    display: block;
+    opacity: 0.7;
 }
 
 .plan-desc {
-    font-size: 1.15rem;
+    font-size: 1rem;
     margin-bottom: var(--spacing-lg);
-    min-height: 4em;
-    line-height: 1.4;
-    color: var(--text-primary);
+    line-height: 1.5;
+    color: var(--text-secondary);
+    flex-grow: 1;
 }
 
 .plan-features h4 {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
-    color: var(--text-secondary);
-    margin-bottom: var(--spacing-sm);
-    letter-spacing: 0.05em;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    letter-spacing: 0.06em;
     font-weight: 600;
-    opacity: 0.8;
 }
 
 .plan-features ul {
@@ -720,21 +836,32 @@ a {
 }
 
 .plan-features li {
-    font-size: 0.95rem;
-    margin-bottom: 12px;
-    padding-left: 24px;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    padding-left: 20px;
     position: relative;
     color: var(--text-secondary);
+    line-height: 1.4;
 }
 
 .plan-features li::before {
     content: "✓";
     position: absolute;
     left: 0;
-    top: 1px;
+    top: 0;
     font-weight: bold;
-    font-size: 0.9em;
     color: var(--text-primary);
+}
+
+.outcome-focused {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-top: auto;
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--line-color);
+    margin-bottom: var(--spacing-md);
+    line-height: 1.4;
 }
 
 .btn-block {
@@ -745,74 +872,252 @@ a {
     border: 1px solid var(--line-color);
     font-size: 0.95rem;
     color: var(--text-primary);
-    margin-top: auto;
     border-radius: var(--border-radius);
     background: transparent;
     font-weight: 500;
+    transition: all 0.2s ease;
 }
 
 .btn-block:hover {
-    background: var(--highlight-bg);
-    border-color: var(--text-primary);
+    background: var(--text-primary);
+    color: var(--bg-color);
 }
 
 .btn-block.primary {
     background: var(--text-primary);
     color: var(--bg-color);
-    border-color: var(--text-primary);
 }
 
 .btn-block.primary:hover {
     opacity: 0.9;
-    transform: translateY(-1px);
 }
 
 .trust-bar {
-    margin-top: var(--spacing-lg);
-    background: var(--highlight-bg);
-    border: 1px solid var(--line-color);
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius);
+    margin-top: var(--spacing-xl);
+    padding: var(--spacing-xl) 0;
+    border-top: 1px solid var(--line-color);
     text-align: center;
 }
 
 .trust-bar h3 {
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--text-secondary);
-    margin-bottom: var(--spacing-md);
-    font-weight: 600;
+    font-family: var(--font-sans);
+    font-size: 1.5rem;
+    text-transform: none;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-lg);
+    font-weight: 500;
+    line-height: 1.2;
 }
 
 .trust-grid {
-    display: flex;
-    justify-content: center;
-    gap: var(--spacing-lg);
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-md);
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .trust-item {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 8px;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: default;
+}
+
+.trust-item:hover {
+    background: var(--highlight-bg);
+    transform: translateY(-2px);
+}
+
+.trust-item span {
     font-size: 0.95rem;
-    color: var(--text-primary);
     font-weight: 500;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+    text-align: center;
+    line-height: 1.3;
 }
 
 .trust-icon {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     color: var(--text-primary);
-    opacity: 0.8;
+    stroke-width: 1.5;
+    flex-shrink: 0;
 }
 
-@media (max-width: 768px) {
-    .trust-grid {
-        flex-direction: column;
-        align-items: center;
+/* ============================================
+   RESPONSIVE DESIGN - MOBILE & TABLET
+   ============================================ */
+
+/* Tablet Breakpoint (968px) */
+@media (max-width: 968px) {
+
+    .services-grid,
+    .pricing-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-md);
+    }
+
+    .persona-grid {
+        grid-template-columns: 1fr;
         gap: var(--spacing-sm);
+    }
+
+    .pipeline-track {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile Breakpoint (640px) */
+@media (max-width: 640px) {
+
+    .services-grid,
+    .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+    }
+
+    /* Hero typography scaling */
+    .hero-title {
+        font-size: clamp(2.25rem, 8vw, 3.5rem);
+        line-height: 1.1;
+    }
+
+    .hero-sub {
+        font-size: 1.05rem;
+        line-height: 1.6;
+    }
+
+    /* Section headers */
+    .section-label-large {
+        font-size: 1.75rem;
+    }
+
+    /* Navigation improvements */
+    .nav {
+        padding: var(--spacing-sm) 0;
+        margin-bottom: var(--spacing-md);
+    }
+
+    .logo {
+        font-size: 1.1rem;
+    }
+
+    .theme-toggle {
+        gap: 2px;
+    }
+
+    .theme-btn {
+        padding: 4px 8px;
+        font-size: 0.65rem;
+    }
+
+    /* Service cards mobile optimization */
+    .service-card {
+        padding: var(--spacing-md);
+    }
+
+    .service-card h3 {
+        font-size: 1.15rem;
+    }
+
+    .positioning {
+        font-size: 0.7rem;
+    }
+
+    /* Pricing cards */
+    .pricing-card {
+        padding: var(--spacing-md);
+    }
+
+    .plan-name {
+        font-size: 0.75rem;
+    }
+
+    .price-indicative {
+        font-size: 1.35rem;
+    }
+
+    /* Accordion */
+    .accordion-trigger {
+        font-size: 1.05rem;
+        padding: var(--spacing-sm) 0;
+    }
+
+    .accordion-content p {
+        max-width: 100%;
+        font-size: 0.95rem;
+    }
+
+    /* Footer CTA */
+    .cta-content h2 {
+        font-size: 1.75rem;
+    }
+
+    .cta-content p {
+        font-size: 1.05rem;
+    }
+
+    /* Container padding */
+    .container {
+        padding: 0 var(--spacing-sm);
+    }
+}
+
+/* Trust Bar Responsive */
+@media (max-width: 768px) {
+    .trust-bar {
+        padding: var(--spacing-lg) 0;
+    }
+
+    .trust-bar h3 {
+        font-size: 1.25rem;
+        margin-bottom: var(--spacing-md);
+    }
+
+    .trust-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-sm);
+    }
+
+    .trust-item {
+        padding: var(--spacing-sm);
+    }
+
+    .trust-item span {
+        font-size: 0.85rem;
+    }
+}
+
+/* Extra Small Mobile (480px) */
+@media (max-width: 480px) {
+    .trust-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-xs);
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .section-label-large {
+        font-size: 1.5rem;
+    }
+
+    /* Tighter spacing on very small screens */
+    .divider {
+        margin: var(--spacing-md) 0;
+    }
+
+    .spec-header {
+        margin-bottom: var(--spacing-md);
     }
 }
 
@@ -873,63 +1178,7 @@ a {
     max-height: 400px;
 }
 
-/* Capabilities (System Modules) */
-.modules-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-sm);
-    /* Tighter gap for card look */
-    margin-top: var(--spacing-lg);
-}
 
-.module-card {
-    border: 1px solid var(--line-color);
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius);
-    background: var(--bg-color);
-    transition: all 0.2s ease;
-    display: flex;
-    flex-direction: column;
-}
-
-.module-card:hover {
-    border-color: var(--text-primary);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.module-id {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    border: 1px solid var(--line-color);
-    padding: 4px 8px;
-    border-radius: 4px;
-    align-self: flex-start;
-    margin-bottom: var(--spacing-sm);
-    background: var(--highlight-bg);
-}
-
-.module-card h3 {
-    font-size: 1.25rem;
-    margin-bottom: var(--spacing-xs);
-}
-
-.module-desc {
-    margin-bottom: var(--spacing-md);
-    min-height: 3em;
-    font-size: 1rem;
-    color: var(--text-secondary);
-}
-
-.bullet-list.small {
-    padding-left: 18px;
-}
-
-.bullet-list.small li {
-    font-size: 0.95rem;
-    margin-bottom: 8px;
-}
 
 /* ============================================
    IMMERSIVE WORK CAROUSEL - HORIZONTAL SCROLL
@@ -1020,6 +1269,47 @@ a {
 .panel:hover img {
     opacity: 1;
 }
+
+/* Minimal Hover Tooltip */
+.panel-tooltip {
+    position: absolute;
+    bottom: var(--spacing-lg);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.85);
+    color: #ffffff;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    max-width: 400px;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 10;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.panel:hover .panel-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-4px);
+}
+
+/* Dark theme tooltip */
+[data-theme="dark"] .panel-tooltip {
+    background: rgba(255, 255, 255, 0.9);
+    color: #0a0a0a;
+}
+
+/* Paper theme tooltip */
+[data-theme="paper"] .panel-tooltip {
+    background: rgba(53, 46, 42, 0.9);
+    color: #f5f2eb;
+}
+
 
 /* Minimal Scroll Indicator */
 .scroll-indicator-container {
