@@ -335,12 +335,27 @@ a {
     opacity: 0.8;
 }
 
-.hero-company-logos {
+/* Infinite Logo Marquee */
+.logo-marquee {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    /* Fade mask at edges */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    padding: var(--spacing-sm) 0;
+}
+
+.logo-track {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
     gap: var(--spacing-lg);
-    flex-wrap: wrap;
+    width: max-content;
+    animation: marquee-scroll 40s linear infinite;
+}
+
+/* Pause animation on hover */
+.logo-track:hover {
+    animation-play-state: paused;
 }
 
 .hero-company-logo {
@@ -348,10 +363,26 @@ a {
     font-size: 1.1rem;
     font-weight: 600;
     color: var(--text-primary);
-    opacity: 0;
+    opacity: 0.6;
     transition: opacity 0.3s ease;
     letter-spacing: -0.01em;
-    animation: logoStaggerFadeIn 0.8s ease-out forwards;
+    white-space: nowrap;
+    user-select: none;
+}
+
+.hero-company-logo:hover {
+    opacity: 1;
+}
+
+/* Infinite Scroll Keyframes */
+@keyframes marquee-scroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
 }
 
 /* Staggered animation for each logo */
@@ -782,6 +813,25 @@ a {
 
 .pricing-card.highlight:hover {
     transform: scale(1.02) translateY(-8px);
+}
+
+.popular-tag {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--text-primary);
+    color: var(--bg-color);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    letter-spacing: 0.05em;
+    z-index: 2;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .plan-name {
@@ -1219,7 +1269,7 @@ a {
     height: 70vh;
     min-height: 500px;
     max-height: 800px;
-    gap: 0;
+    gap: 24px;
     overflow-x: auto;
     overflow-y: hidden;
     scroll-behavior: smooth;
@@ -1247,7 +1297,7 @@ a {
     height: 100%;
     overflow: hidden;
     transition: opacity 0.3s ease;
-    background: var(--bg-color);
+    background: oklch(96.8% 0.007 247.896);
 }
 
 /* Panel Images - Full Visibility (No Cropping) */
