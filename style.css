@@ -254,12 +254,12 @@ a {
     font-size: 2.25rem;
     font-weight: 500;
     letter-spacing: -0.02em;
-    margin-top: var(--spacing-xs);
+    margin-top: var(--spacing-lg);
 }
 
 /* Hero */
 .hero {
-    padding: var(--spacing-xl) 0 var(--spacing-lg);
+    padding: var(--spacing-md) 0 var(--spacing-lg);
     position: relative;
     border-bottom: 1px solid var(--line-color);
 }
