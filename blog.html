@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Insights and articles on design systems, token architecture, and UI engineering.">
+    <title>Blog — Layerone Design Systems</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/geist@1.0.0/dist/fonts/geist-sans/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="container">
+        <nav class="nav">
+            <div class="logo">
+                <a href="index.html"
+                    style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: inherit;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                        <circle cx="12" cy="12" r="3" fill="currentColor" />
+                    </svg>
+                    Layerone
+                </a>
+            </div>
+
+            <div class="nav-links">
+                <a href="blog.html" class="nav-link">Blog</a>
+            </div>
+
+            <!-- Theme Toggle -->
+            <div class="theme-toggle">
+                <button class="theme-btn active" data-theme="light" aria-label="Switch to Light Theme">Light</button>
+                <button class="theme-btn" data-theme="dark" aria-label="Switch to Dark Theme">Dark</button>
+                <button class="theme-btn" data-theme="paper" aria-label="Switch to Paper Theme">Paper</button>
+            </div>
+        </nav>
+
+        <section class="blog-header fade-in">
+            <span class="mono-label">INSIGHTS</span>
+            <h1 class="section-label-large" style="margin-top: var(--spacing-sm);">Our Thinking on Systems.</h1>
+            <p class="section-desc">Deep dives into the architecture, governance, and engineering of scalable design
+                systems.</p>
+        </section>
+
+        <div class="blog-grid fade-in">
+            <!-- Blog Card 01 -->
+            <a href="https://medium.com/@layerone/foundations-of-modern-design-systems" target="_blank"
+                rel="noopener noreferrer" class="blog-card">
+                <div class="blog-image-wrap">
+                    <img src="assets/images/blog/foundations.png" alt="Abstract geometric foundations representation">
+                </div>
+                <div class="blog-content">
+                    <span class="blog-category">Architecture</span>
+                    <h3>Foundations of Modern Design Systems</h3>
+                    <p class="blog-excerpt">Why most systems fail at the token level, and how to build a robust
+                        structural logic that lasts years, not months.</p>
+                    <div class="blog-footer">
+                        <span>5 min read</span>
+                        <span class="read-more">Read on Medium &rarr;</span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Blog Card 02 -->
+            <a href="https://medium.com/@layerone/scaling-ui-engineering" target="_blank" rel="noopener noreferrer"
+                class="blog-card">
+                <div class="blog-image-wrap">
+                    <img src="assets/images/blog/scaling.png" alt="Abstract scaling technology representation">
+                </div>
+                <div class="blog-content">
+                    <span class="blog-category">Engineering</span>
+                    <h3>Scaling UI Engineering Across Orgs</h3>
+                    <p class="blog-excerpt">Exploring the technical challenges of maintaining consistency across
+                        fragmented product ecosystems.</p>
+                    <div class="blog-footer">
+                        <span>8 min read</span>
+                        <span class="read-more">Read on Medium &rarr;</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <footer class="footer-cta fade-in" style="margin-top: 0; background: transparent; border-top: none;">
+        <div class="container">
+            <div class="footer-links" style="border-top: 1px solid var(--line-color); padding-top: var(--spacing-lg);">
+                <a href="mailto:shweta.x5@outlook.com">shweta.x5@outlook.com</a>
+                <span class="copyright">&copy; Layerone Design Systems</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom Cursor -->
+    <div id="cursor">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M5.65376 12.3673H5.46026L5.31717 12.4976L0.500002 16.8829L0.500002 1.19841L11.7841 12.3673H5.65376Z"
+                fill="#0D99FF" stroke="white" />
+        </svg>
+        <span class="cursor-tag">You</span>
+    </div>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+
+</html>
