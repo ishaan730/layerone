@@ -1702,31 +1702,50 @@ a {
     }
 }
 
-/* Footer */
 .footer-cta {
-    padding: var(--spacing-2xl) 0;
+    padding: var(--spacing-3xl) 0;
+    /* More vertical breathing room */
     border-top: 1px solid var(--line-color);
-    margin-top: var(--spacing-2xl);
-    text-align: left;
+    margin-top: var(--spacing-3xl);
+    text-align: center;
+    /* Center-aligned for billboard impact */
 }
 
 .cta-content {
-    max-width: 600px;
+    max-width: 1000px;
+    /* Wider for billboard effect */
     margin: 0 auto;
 }
 
-.cta-content h2 {
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
+.cta-title {
+    font-size: clamp(3rem, 8vw, 6rem);
+    /* Huge billboard typography */
     margin-bottom: var(--spacing-lg);
-    line-height: 1.1;
-    max-width: 25ch;
+    line-height: 0.95;
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    color: var(--text-primary);
 }
 
-.cta-content p {
-    font-size: 1.5rem;
-    margin-bottom: var(--spacing-xl);
-    max-width: 45ch;
+.cta-highlight {
     color: var(--text-secondary);
+    /* Elegant contrast for the callout */
+    display: block;
+    /* Force to new line for emphasis */
+    margin-top: 16px;
+    opacity: 0.8;
+}
+
+.cta-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-2xl);
+    color: var(--text-secondary);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+}
+
+.cta-actions {
+    margin-bottom: var(--spacing-3xl);
 }
 
 .footer-links {
