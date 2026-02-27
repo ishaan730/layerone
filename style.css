@@ -1703,49 +1703,40 @@ a {
 }
 
 .footer-cta {
-    padding: var(--spacing-3xl) 0;
-    /* More vertical breathing room */
+    padding: var(--spacing-2xl) 0;
     border-top: 1px solid var(--line-color);
-    margin-top: var(--spacing-3xl);
+    margin-top: var(--spacing-2xl);
     text-align: center;
-    /* Center-aligned for billboard impact */
 }
 
 .cta-content {
-    max-width: 1000px;
-    /* Wider for billboard effect */
+    max-width: 600px;
     margin: 0 auto;
 }
 
 .cta-title {
-    font-size: clamp(3rem, 8vw, 6rem);
-    /* Huge billboard typography */
-    margin-bottom: var(--spacing-lg);
-    line-height: 0.95;
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    /* Minimal professional scale */
+    margin-bottom: var(--spacing-md);
+    line-height: 1.25;
     font-weight: 500;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.02em;
     color: var(--text-primary);
 }
 
 .cta-highlight {
-    color: var(--text-secondary);
-    /* Elegant contrast for the callout */
-    display: block;
-    /* Force to new line for emphasis */
-    margin-top: 16px;
-    opacity: 0.8;
+    color: var(--text-primary);
 }
 
 .cta-subtitle {
-    font-size: 1.5rem;
-    margin-bottom: var(--spacing-2xl);
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-lg);
     color: var(--text-secondary);
-    font-weight: 300;
-    letter-spacing: -0.01em;
+    font-weight: 400;
 }
 
 .cta-actions {
-    margin-bottom: var(--spacing-3xl);
+    margin-bottom: var(--spacing-lg);
 }
 
 .footer-links {
