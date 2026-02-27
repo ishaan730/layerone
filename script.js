@@ -9,12 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+                entry.target.classList.add('active'); // Added for .reveal-up
                 observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    document.querySelectorAll('.fade-in, .reveal-up').forEach(el => observer.observe(el));
 
     // Accordion functionality
     const accordions = document.querySelectorAll('.accordion-trigger');
@@ -82,102 +83,100 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================
-    // HORIZONTAL SCROLL CAROUSEL WITH INDICATOR
+    // PROJECT MODAL LOGIC
     // ============================================
+    const modal = document.getElementById('projectModal');
+    const modalBody = document.getElementById('modalBody');
+    const modalClose = document.querySelector('.modal-close');
+    const modalOverlay = document.querySelector('.modal-overlay');
+    const bentoItems = document.querySelectorAll('.bento-item');
 
-    const panelTrack = document.getElementById('panelTrack');
-    const scrollIndicator = document.getElementById('scrollIndicator');
-    const scrollThumb = document.getElementById('scrollThumb');
-
-    if (panelTrack && scrollIndicator && scrollThumb) {
-        let isDragging = false;
-        let startX = 0;
-        let scrollLeft = 0;
-
-        // Update scroll indicator position based on carousel scroll
-        function updateScrollIndicator() {
-            const scrollPercentage = panelTrack.scrollLeft / (panelTrack.scrollWidth - panelTrack.clientWidth);
-            const indicatorWidth = scrollIndicator.clientWidth;
-            const thumbWidth = scrollThumb.clientWidth;
-            const maxThumbPosition = indicatorWidth - thumbWidth;
-
-            scrollThumb.style.left = `${scrollPercentage * maxThumbPosition}px`;
+    const projectData = {
+        'cars24-pattern': {
+            title: 'Cars24 Pattern Library',
+            subtitle: 'Design System Infrastructure for rapid scaling',
+            description: 'We built a comprehensive pattern library for Cars24 that enabled product teams to launch new features 3x faster. The system focuses on production-ready components and automated documentation.',
+            image: 'assets/images/work/cars24_pattern_library.png'
+        },
+        'cars24-tools': {
+            title: 'Internal Tool Design System',
+            subtitle: 'Powering 20+ internal applications',
+            description: 'A specialized UI kit designed for administrative and internal operational tools. Focus on high data density, accessibility, and engineering efficiency.',
+            image: 'assets/images/work/cars24_internal_tools.png'
+        },
+        'lego-system': {
+            title: 'Lego Design System',
+            subtitle: 'Global Architecture for 100+ designers',
+            description: 'Strategic consulting and architecture for a global-scale design system. We defined the token logic and contribution workflows that made the system sustainable across multi-disciplinary teams.',
+            image: 'assets/images/work/lego_design_system.png'
+        },
+        'riyadh-air': {
+            title: 'Riyadh Air Base Elements',
+            subtitle: 'Defining a new visual language',
+            description: 'Foundational UI architecture for a next-generation airline. We built the base elements and decisions that power the entire digital ecosystem from booking to check-in.',
+            image: 'assets/images/work/riyadh_air_base_elements.png'
+        },
+        'design-audit': {
+            title: 'Design System Audit',
+            subtitle: 'Diagnostics for high-growth teams',
+            description: 'Detailed analysis of existing UI debt and inconsistency. We provided a roadmap for recovery and scaling that saved the team' + "'" + 's engineering capacity.',
+            image: 'assets/images/work/cars24_pattern_library.png'
+        },
+        'token-architecture': {
+            title: 'Token Logic',
+            subtitle: 'Multi-brand foundations',
+            description: 'Dynamic design token structures that support multi-brand and multi-platform deployments from a single source of truth.',
+            image: 'assets/images/work/lego_design_system.png'
         }
+    };
 
-        // Sync indicator with carousel scroll
-        panelTrack.addEventListener('scroll', updateScrollIndicator);
+    function openModal(projectId) {
+        const data = projectData[projectId];
+        if (!data) return;
 
-        // Drag to scroll on carousel
-        panelTrack.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            startX = e.pageX - panelTrack.offsetLeft;
-            scrollLeft = panelTrack.scrollLeft;
-        });
+        modalBody.innerHTML = `
+            <div class="case-study-hero">
+                <span class="mono-label">CASE STUDY</span>
+                <h2>${data.title}</h2>
+                <p>${data.subtitle}</p>
+            </div>
+            <div class="case-study-grid">
+                <div class="case-study-text">
+                    <p>${data.description}</p>
+                    <div class="spec-list" style="margin-top: 32px;">
+                        <div class="spec-item"><strong>Objective</strong><p>Establish production-ready infrastructure.</p></div>
+                        <div class="spec-item" style="margin-top: 16px;"><strong>Outcome</strong><p>Reduction in design debt by 40%.</p></div>
+                    </div>
+                </div>
+                <div class="case-study-visuals">
+                    <img src="${data.image}" class="case-study-image" alt="${data.title}">
+                </div>
+            </div>
+        `;
 
-        panelTrack.addEventListener('mouseleave', () => {
-            isDragging = false;
-        });
-
-        panelTrack.addEventListener('mouseup', () => {
-            isDragging = false;
-        });
-
-        panelTrack.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-            const x = e.pageX - panelTrack.offsetLeft;
-            const walk = (x - startX) * 2;
-            panelTrack.scrollLeft = scrollLeft - walk;
-        });
-
-        // Drag scroll indicator thumb
-        let isThumbDragging = false;
-        let thumbStartX = 0;
-
-        scrollThumb.addEventListener('mousedown', (e) => {
-            isThumbDragging = true;
-            thumbStartX = e.clientX - scrollThumb.offsetLeft;
-            e.preventDefault();
-        });
-
-        document.addEventListener('mousemove', (e) => {
-            if (!isThumbDragging) return;
-            e.preventDefault();
-
-            const indicatorRect = scrollIndicator.getBoundingClientRect();
-            const x = e.clientX - indicatorRect.left - thumbStartX;
-            const indicatorWidth = scrollIndicator.clientWidth;
-            const thumbWidth = scrollThumb.clientWidth;
-            const maxThumbPosition = indicatorWidth - thumbWidth;
-
-            const clampedX = Math.max(0, Math.min(x, maxThumbPosition));
-            const scrollPercentage = clampedX / maxThumbPosition;
-
-            panelTrack.scrollLeft = scrollPercentage * (panelTrack.scrollWidth - panelTrack.clientWidth);
-        });
-
-        document.addEventListener('mouseup', () => {
-            isThumbDragging = false;
-        });
-
-        // Click on indicator track to jump
-        scrollIndicator.addEventListener('click', (e) => {
-            if (e.target === scrollThumb) return;
-
-            const indicatorRect = scrollIndicator.getBoundingClientRect();
-            const clickX = e.clientX - indicatorRect.left;
-            const indicatorWidth = scrollIndicator.clientWidth;
-            const thumbWidth = scrollThumb.clientWidth;
-            const maxThumbPosition = indicatorWidth - thumbWidth;
-
-            const scrollPercentage = (clickX - thumbWidth / 2) / maxThumbPosition;
-            panelTrack.scrollLeft = scrollPercentage * (panelTrack.scrollWidth - panelTrack.clientWidth);
-        });
-
-        // Initialize indicator position
-        updateScrollIndicator();
-
-        // Update on window resize
-        window.addEventListener('resize', updateScrollIndicator);
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scroll
     }
+
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    bentoItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const projectId = item.getAttribute('data-project');
+            openModal(projectId);
+        });
+    });
+
+    if (modalClose) modalClose.addEventListener('click', closeModal);
+    if (modalOverlay) modalOverlay.addEventListener('click', closeModal);
+
+    // Close on ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
 });

@@ -20,10 +20,7 @@
     <main class="container">
         <nav class="nav">
             <div class="logo">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
-                    <circle cx="12" cy="12" r="3" fill="currentColor" />
-                </svg>
+                <img src="assets/images/logo/layerone logo.png" alt="Layerone Logo" class="logo-img">
                 Layerone
             </div>
 
@@ -93,49 +90,74 @@
             <!-- Section Heading (Static, Left-Aligned) -->
             <div class="container">
                 <div class="work-section-header">
-                    <span class="mono-label">PROOF OF WORK</span>
+                    <span class="mono-label">PROOF OF EXECUTION</span>
                     <h2 class="work-section-title">Built and scaled at companies that ship.</h2>
                 </div>
             </div>
 
-            <!-- Full-Width Multi-Panel Carousel -->
-            <div class="multi-panel-carousel">
-                <div class="panel-track" id="panelTrack">
-                    <div class="panel active" data-panel="0">
-                        <img src="assets/images/work/cars24_pattern_library.png"
-                            alt="Cars24 Pattern Library - Pre-built patterns for rapid landing page creation">
-                        <div class="panel-tooltip">
-                            I'd be happy to walk you through these projects during our introductory call
+            <!-- Bento Grid Section (Full Width) -->
+            <div class="bento-grid-wrapper">
+                <div class="bento-grid">
+                    <!-- Project 1 -->
+                    <div class="bento-item" data-project="cars24-pattern">
+                        <div class="bento-header">
+                            <h3>Cars24 Pattern Library</h3>
+                            <p>Design System Infrastructure</p>
+                        </div>
+                        <div class="bento-visual">
+                            <img src="assets/images/work/cars24_pattern_library.png" alt="Cars24 Pattern Library">
                         </div>
                     </div>
-                    <div class="panel" data-panel="1">
-                        <img src="assets/images/work/cars24_internal_tools.png"
-                            alt="Cars24 Internal Tool Design System - Powering 20+ internal apps">
-                        <div class="panel-tooltip">
-                            I'd be happy to walk you through these projects during our introductory call
+                    <!-- Project 2 -->
+                    <div class="bento-item" data-project="lego-system">
+                        <div class="bento-header">
+                            <h3>Lego Design System</h3>
+                            <p>Global Architecture</p>
+                        </div>
+                        <div class="bento-visual">
+                            <img src="assets/images/work/lego_design_system.png" alt="Lego Design System">
                         </div>
                     </div>
-                    <div class="panel" data-panel="2">
-                        <img src="assets/images/work/lego_design_system.png"
-                            alt="Lego Design System - Empowering 100+ designers and engineers">
-                        <div class="panel-tooltip">
-                            I'd be happy to walk you through these projects during our introductory call
+                    <!-- Project 3 -->
+                    <div class="bento-item" data-project="cars24-tools">
+                        <div class="bento-header">
+                            <h3>Internal Tools</h3>
+                            <p>Scalable UI Kits</p>
+                        </div>
+                        <div class="bento-visual">
+                            <img src="assets/images/work/cars24_internal_tools.png" alt="Cars24 Internal Tools">
                         </div>
                     </div>
-                    <div class="panel" data-panel="3">
-                        <img src="assets/images/work/riyadh_air_base_elements.png"
-                            alt="Riyadh Air Base Elements - Design system ready for development">
-                        <div class="panel-tooltip">
-                            I'd be happy to walk you through these projects during our introductory call
+                    <!-- Project 4 -->
+                    <div class="bento-item" data-project="riyadh-air">
+                        <div class="bento-header">
+                            <h3>Riyadh Air</h3>
+                            <p>Visual Language</p>
+                        </div>
+                        <div class="bento-visual">
+                            <img src="assets/images/work/riyadh_air_base_elements.png" alt="Riyadh Air Base Elements">
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <!-- Minimal Scroll Indicator -->
-            <div class="scroll-indicator-container">
-                <div class="scroll-indicator" id="scrollIndicator">
-                    <div class="scroll-indicator-thumb" id="scrollThumb"></div>
+                    <!-- Project 5 -->
+                    <div class="bento-item" data-project="design-audit">
+                        <div class="bento-header">
+                            <h3>System Audit</h3>
+                            <p>Diagnostics & Optimization</p>
+                        </div>
+                        <div class="bento-visual">
+                            <img src="assets/images/work/cars24_pattern_library.png" alt="Design Audit">
+                        </div>
+                    </div>
+                    <!-- Project 6 -->
+                    <div class="bento-item" data-project="token-architecture">
+                        <div class="bento-header">
+                            <h3>Token Logic</h3>
+                            <p>Multi-brand Foundations</p>
+                        </div>
+                        <div class="bento-visual">
+                            <img src="assets/images/work/lego_design_system.png" alt="Token Architecture">
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -406,117 +428,103 @@
 
         <hr class="divider">
 
-        <!-- Pricing -->
-        <section id="pricing" class="section fade-in">
-            <div class="spec-header">
-                <span class="mono-label">04. PRICING</span>
-                <h2 class="section-label-large">Subscription Models</h2>
-                <p class="section-desc">Design systems are living products that evolve with your team. Our subscriptions
-                    ensure continuous alignment, not one-time handoffs.</p>
-            </div>
-
-            <div class="pricing-grid">
-                <!-- Foundation -->
-                <div class="pricing-card">
-                    <span class="plan-name">Core Design System Subscription</span>
-                    <p class="price-indicative">$2,000 – $3,000 / month</p>
-                    <span class="duration-tag">Duration: Ongoing subscription</span>
-                    <p class="plan-desc">Best for teams building, stabilizing, or scaling a design system with
-                        continuous design–engineering alignment.</p>
-                    <div class="plan-features">
-                        <h4>Includes</h4>
-                        <ul>
-                            <li>Core design system evolution (tokens, components, patterns)</li>
-                            <li>Design ↔ engineering collaboration</li>
-                            <li>Documentation & governance workflows</li>
-                            <li>Monthly roadmap planning and reviews</li>
-                        </ul>
+        <!-- Pricing Section -->
+        <section id="pricing" class="section pricing-redesign fade-in">
+            <div class="pricing-container">
+                <div class="pricing-grid-two">
+                    <!-- Standard Plan -->
+                    <div class="ref-card standard-card reveal-up stagger-1">
+                        <div class="card-top">
+                            <h3 class="card-title">Standard</h3>
+                            <p class="card-tagline">One request at a time. Pause or cancel anytime.</p>
+                            <div class="price-wrap">
+                                <span class="price-amount">$4,395/m</span>
+                                <span class="price-note">Pause or cancel anytime</span>
+                            </div>
+                            <div class="card-actions">
+                                <a href="#" class="btn-ref-primary">Subscribe today</a>
+                                <a href="#" class="btn-ref-link">Book a call</a>
+                            </div>
+                        </div>
+                        <div class="card-bottom">
+                            <ul class="ref-feature-list">
+                                <li>One request at a time</li>
+                                <li>One senior designer</li>
+                                <li>Average 2-3 days delivery</li>
+                                <li>Unlimited revisions</li>
+                                <li>Unlimited design requests</li>
+                                <li>Managed via Slack and Trello</li>
+                                <li>Pause or cancel anytime</li>
+                                <li class="text-disabled">No-code development (Add-on)</li>
+                            </ul>
+                        </div>
                     </div>
-                    <p class="outcome-focused">A living system that evolves with your product needs.</p>
-                    <a href="https://cal.com/shweta.x5" target="_blank" rel="noopener noreferrer" class="btn-block">Book
-                        a
-                        consultation &rarr;</a>
-                </div>
 
-                <!-- Subscription -->
-                <div class="pricing-card highlight">
-                    <div class="popular-tag">Most Popular</div>
-                    <span class="plan-name">Growth / Platform Subscription</span>
-                    <p class="price-indicative">$4,000 – $5,500 / month</p>
-                    <span class="duration-tag">Duration: Ongoing subscription</span>
-                    <p class="plan-desc">Best for scaling products, multi-team environments, and platform-level systems.
-                    </p>
-                    <div class="plan-features">
-                        <h4>Includes</h4>
-                        <ul>
-                            <li>Everything in Core</li>
-                            <li>Multi-brand or multi-platform support</li>
-                            <li>Adoption & usage analysis</li>
-                            <li>System debt identification and cleanup</li>
-                            <li>Closer engineering pairing</li>
-                        </ul>
+                    <!-- Pro Plan -->
+                    <div class="ref-card pro-card reveal-up stagger-2">
+                        <div class="card-top">
+                            <div class="popular-indicator">Popular</div>
+                            <h3 class="card-title">Pro</h3>
+                            <p class="card-tagline">Two requests at a time. Pause or cancel anytime.</p>
+                            <div class="price-wrap">
+                                <span class="price-amount">$6,895/m</span>
+                                <span class="price-note">Pause or cancel anytime</span>
+                            </div>
+                            <div class="card-actions">
+                                <a href="#" class="btn-ref-primary">Subscribe today</a>
+                                <a href="#" class="btn-ref-link">Book a call</a>
+                            </div>
+                        </div>
+                        <div class="card-bottom">
+                            <ul class="ref-feature-list">
+                                <li class="font-bold">Two requests at a time</li>
+                                <li class="font-bold">Two senior designers and art director</li>
+                                <li>Average 2-3 days delivery</li>
+                                <li>Unlimited revisions</li>
+                                <li>Unlimited design requests</li>
+                                <li>Managed via Slack and Trello</li>
+                                <li>Pause or cancel anytime</li>
+                                <li>Webflow/Framer development</li>
+                            </ul>
+                        </div>
                     </div>
-                    <p class="outcome-focused">A scalable foundation for growing product ecosystems.</p>
-                    <a href="https://cal.com/shweta.x5" target="_blank" rel="noopener noreferrer"
-                        class="btn-block primary">Book a
-                        consultation &rarr;</a>
-                </div>
-
-                <!-- Enterprise -->
-                <div class="pricing-card">
-                    <span class="plan-name">Enterprise / Strategic Partnership</span>
-                    <p class="price-indicative">Custom subscription</p>
-                    <span class="duration-tag">Duration: Long-term partnership</span>
-                    <p class="plan-desc">Best for large organizations managing complex ecosystems, governance, and
-                        long-term transformation.</p>
-                    <div class="plan-features">
-                        <h4>Includes</h4>
-                        <ul>
-                            <li>Strategic system architecture & governance</li>
-                            <li>Organization-wide alignment</li>
-                            <li>Dedicated partnership and support</li>
-                        </ul>
-                    </div>
-                    <p class="outcome-focused">A strategic partner for enterprise-scale design systems.</p>
-                    <a href="mailto:shweta.x5@outlook.com?subject=Enterprise Partnership" class="btn-block">Talk to Us
-                        &rarr;</a>
                 </div>
             </div>
-
-            <div class="section-cta">
-                <a href="https://cal.com/shweta.x5" target="_blank" rel="noopener noreferrer" class="btn-primary">Talk
-                    to us about your design system &rarr;</a>
-            </div>
-            <div class="trust-bar">
-                <h3>The layerone standard:</h3>
+        </section>
+        <section class="trust-bar fade-in">
+            <div class="container">
+                <div class="trust-header">
+                    <span class="mono-label">THE LAYERONE STANDARD</span>
+                    <h3>Built on foundations that last.</h3>
+                </div>
                 <div class="trust-grid">
-                    <div class="trust-item">
+                    <div class="trust-item reveal-up stagger-1">
                         <svg class="trust-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7.75 11.25L10.75 14.25L16.25 8.75" stroke="currentColor" stroke-width="1.5"
+                            <path d="M7.75 11.25L10.75 14.25L16.25 8.75" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round" />
                             <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" />
                         </svg>
                         <span>Specialist Focus</span>
                     </div>
-                    <div class="trust-item">
+                    <div class="trust-item reveal-up stagger-2">
                         <svg class="trust-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7.75 11.25L10.75 14.25L16.25 8.75" stroke="currentColor" stroke-width="1.5"
+                            <path d="M7.75 11.25L10.75 14.25L16.25 8.75" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round" />
                             <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" />
                         </svg>
                         <span>Systems, Not Projects</span>
                     </div>
-                    <div class="trust-item">
+                    <div class="trust-item reveal-up stagger-3">
                         <svg class="trust-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7.75 11.25L10.75 14.25L16.25 8.75" stroke="currentColor" stroke-width="1.5"
+                            <path d="M7.75 11.25L10.75 14.25L16.25 8.75" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round" />
                             <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" />
                         </svg>
                         <span>Engineering Alignment</span>
                     </div>
-                    <div class="trust-item">
+                    <div class="trust-item reveal-up stagger-4">
                         <svg class="trust-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7.75 11.25L10.75 14.25L16.25 8.75" stroke="currentColor" stroke-width="1.5"
+                            <path d="M7.75 11.25L10.75 14.25L16.25 8.75" stroke="currentColor" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round" />
                             <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" />
                         </svg>
@@ -588,9 +596,14 @@
                 <p>Not a library. Not a Figma file. A living system your teams can rely on.</p>
                 <a href="#pricing" class="btn-primary large">Start a conversation &rarr;</a>
             </div>
-            <div class="footer-links">
-                <a href="mailto:shweta.x5@outlook.com">shweta.x5@outlook.com</a>
-                <span class="copyright">&copy; Layerone Design Systems</span>
+            <div class="footer-bottom">
+                <div class="footer-brand">
+                    <img src="assets/images/logo/layerone logo.png" alt="Layerone Logo" class="footer-logo">
+                    <span class="copyright">&copy; Layerone Design Systems</span>
+                </div>
+                <div class="footer-links">
+                    <a href="mailto:shweta.x5@outlook.com">shweta.x5@outlook.com</a>
+                </div>
             </div>
         </div>
     </footer>
@@ -603,6 +616,18 @@
                 fill="#0D99FF" stroke="white" />
         </svg>
         <span class="cursor-tag">You</span>
+    </div>
+
+    <!-- Project Modal -->
+    <div id="projectModal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-container">
+            <button class="modal-close" aria-label="Close Modal">&times;</button>
+            <div class="modal-content">
+                <!-- Data populated via JS -->
+                <div id="modalBody"></div>
+            </div>
+        </div>
     </div>
 
     <!-- Script -->
