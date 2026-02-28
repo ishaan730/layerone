@@ -2086,6 +2086,32 @@ a {
     /* Reduced font size */
 }
 
+.footer-social {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.social-link {
+    color: var(--text-secondary);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.7;
+}
+
+.social-link:hover {
+    color: var(--text-primary);
+    transform: translateY(-2px);
+    opacity: 1;
+}
+
+.social-link svg {
+    width: 20px;
+    height: 20px;
+}
+
 /* Bento Grid */
 .bento-grid-wrapper {
     width: 100vw;
