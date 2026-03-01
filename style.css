@@ -232,6 +232,10 @@ a {
 
 /* Utilities */
 /* Utilities */
+.section {
+    padding: var(--spacing-xl) 0;
+}
+
 .container {
     max-width: var(--container-max);
     margin: 0 auto;
