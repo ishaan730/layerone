@@ -9,18 +9,17 @@
     --font-sans: 'Geist Sans', 'Inter', system-ui, -apple-system, sans-serif;
     --font-mono: 'JetBrains Mono', 'Menlo', 'Monaco', monospace;
 
-    /* Refined spacing scale (Base 8px) - Increased for wegrow style */
-    --spacing-xs: 8px;
-    --spacing-sm: 16px;
-    --spacing-md: 24px;
-    --spacing-lg: 48px;
-    --spacing-xl: 96px;
-    --spacing-2xl: 192px;
+    /* Refined spacing scale (Base 8px) - Slightly increased for breathing room */
+    --spacing-xs: 10px;
+    --spacing-sm: 20px;
+    --spacing-md: 28px;
+    --spacing-lg: 32px;
+    --spacing-xl: 56px;
+    --spacing-2xl: 80px;
 
-    --container-max: 1280px;
-    /* Wider for premium feel */
+    --container-max: 1200px;
+    /* Slighting narrower for tighter feel */
     --border-radius: 4px;
-    /* Sharper, more premium */
 }
 
 /* Theme: Dark */
@@ -1042,12 +1041,22 @@ a {
     padding: 0 var(--spacing-md);
 }
 
+.pricing-grid-three {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    /* Tighter gap for 3 columns */
+    align-items: stretch;
+}
+
+
 .pricing-grid-two {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 24px;
     align-items: stretch;
 }
+
 
 .ref-card {
     background: var(--bg-color);
@@ -1065,19 +1074,38 @@ a {
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
 }
 
-.pro-card {
-    background-color: #D9D9FF;
-    /* Pro Lavender Tint */
-}
-
 .card-top {
-    padding: 48px;
-    flex: 1;
+    padding: 32px;
+    flex: 0 0 auto;
+    /* Don't grow, let content define height */
     position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
-.pro-card .card-top {
+
+.core-card .card-top {
+    background-color: var(--bg-color);
+}
+
+.growth-card {
     background-color: #D9D9FF;
+    /* Growth Lavender Tint */
+    color: #1a1a3a;
+    /* Darker text for readability */
+}
+
+.growth-card .card-top {
+    background-color: #D9D9FF;
+}
+
+.scale-card {
+    background: #fff;
+    color: #111;
+}
+
+.scale-card .card-top {
+    background-color: #fff;
 }
 
 .standard-card .card-top {
@@ -1085,11 +1113,14 @@ a {
 }
 
 .card-title {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
+    /* Further reduced from 1.75rem */
     font-weight: 700;
-    margin-bottom: 12px;
+    margin-bottom: 4px;
     letter-spacing: -0.02em;
 }
+
+
 
 .card-tagline {
     font-size: 1.1rem;
@@ -1103,12 +1134,15 @@ a {
 
 .price-amount {
     display: block;
-    font-size: 3.5rem;
+    font-size: 2.15rem;
+    /* Further reduced from 2.5rem */
     font-weight: 700;
     line-height: 1;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     letter-spacing: -0.04em;
 }
+
+
 
 .price-note {
     font-size: 1rem;
@@ -1125,32 +1159,28 @@ a {
 
 .btn-ref-primary {
     background: #001A1A;
-    /* Dark button from ref */
     color: #fff;
     width: 100%;
-    padding: 20px;
+    padding: 16px;
+    /* Reduced from 20px */
     border-radius: 100px;
     text-align: center;
     font-weight: 600;
-    font-size: 1.1rem;
-    transition: opacity 0.2s;
-}
-
-.btn-ref-primary:hover {
-    opacity: 0.9;
-}
-
-.btn-ref-link {
-    font-size: 1rem;
-    color: #000;
-    text-decoration: underline;
-    font-weight: 500;
+    font-size: 0.95rem;
+    /* Slightly smaller button text */
+    transition: all 0.2s;
 }
 
 .card-bottom {
-    padding: 48px;
+    padding: 32px;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
+    flex: 1;
+    /* Grow to fill card height */
+    display: flex;
+    flex-direction: column;
 }
+
+
 
 .pro-card .card-bottom {
     background-color: #E5E5FF;
@@ -1169,12 +1199,28 @@ a {
 }
 
 .ref-feature-list li {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    /* Slightly smaller */
     color: #333;
     display: flex;
     align-items: center;
     gap: 12px;
 }
+
+.growth-card .ref-feature-list li {
+    color: #1a1a3a;
+    /* Darker for lavender bg */
+}
+
+.scale-card .ref-feature-list li {
+    color: #333;
+}
+
+.scale-card .ref-feature-list li::before {
+    color: #000;
+    /* Black checkmarks for white card */
+}
+
 
 .ref-feature-list li::before {
     content: "✓";
@@ -1211,9 +1257,12 @@ a {
 }
 
 @media (max-width: 968px) {
+
+    .pricing-grid-three,
     .pricing-grid-two {
         grid-template-columns: 1fr;
     }
+
 }
 
 /* ============================================
