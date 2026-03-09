@@ -99,34 +99,240 @@ document.addEventListener('DOMContentLoaded', () => {
             image: 'assets/images/work/cars24_pattern_library.png'
         },
         'cars24-tools': {
-            title: 'Internal Tool Design System',
-            subtitle: 'Powering 20+ internal applications',
-            description: 'A specialized UI kit designed for administrative and internal operational tools. Focus on high data density, accessibility, and engineering efficiency.',
-            image: 'assets/images/work/cars24_internal_tools.png'
+            contentHtml: `
+            <div class="case-study-hero">
+                <span class="mono-label">CASE STUDY</span>
+                <h2>CARS24</h2>
+                <p>Internal Tools Design System</p>
+            </div>
+            <div class="case-study-grid custom-layout" style="display: block;">
+                <div class="case-study-text full-width" style="max-width: 800px; margin: 0 auto;">
+                    <h3 style="margin-top: 0; margin-bottom: 16px;">Key Facts</h3>
+                    <div class="facts-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 40px; padding: 24px; background: rgba(13, 153, 255, 0.05); border-radius: 8px; border: 1px solid rgba(13, 153, 255, 0.1);">
+                        <div><strong style="color: #0D99FF; font-size: 0.8rem; text-transform: uppercase;">Industry</strong><br><span style="font-weight: 500; font-size: 0.95rem;">Automotive Marketplace</span></div>
+                        <div><strong style="color: #0D99FF; font-size: 0.8rem; text-transform: uppercase;">Team</strong><br><span style="font-weight: 500; font-size: 0.95rem;">3 Designers, 2 Design Engineers</span></div>
+                        <div><strong style="color: #0D99FF; font-size: 0.8rem; text-transform: uppercase;">Platforms</strong><br><span style="font-weight: 500; font-size: 0.95rem;">Internal Web Applications, Operational Tools</span></div>
+                        <div><strong style="color: #0D99FF; font-size: 0.8rem; text-transform: uppercase;">Adoption</strong><br><span style="font-weight: 500; font-size: 0.95rem;">10–15 Designers, 35+ Engineers</span></div>
+                        <div><strong style="color: #0D99FF; font-size: 0.8rem; text-transform: uppercase;">Timeline</strong><br><span style="font-weight: 500; font-size: 0.95rem;">6 Months Rollout</span></div>
+                    </div>
+
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">Context</h3>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">CARS24 operates a large number of internal products that support its operations, including tools for engineering, sales operations, logistics, and marketing workflows.</p>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">Over time, these internal tools had evolved independently, resulting in fragmented user experiences, duplicated UI patterns, and inconsistent interaction models across products.</p>
+                    <p style="margin-bottom: 40px; line-height: 1.7;">As the organization began expanding into B2B products and scaling internal operations, there was a growing need for a unified design system to bring consistency and efficiency to internal product development.</p>
+
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">Challenge</h3>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">The internal tooling ecosystem consisted of multiple complex applications built by different teams over time.</p>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">Designers and engineers were solving similar problems repeatedly without shared components or standardized design patterns. This created inconsistencies in user experience and increased development effort.</p>
+                    <p style="margin-bottom: 40px; line-height: 1.7;">The challenge was to create a design system tailored specifically for internal tools — one capable of handling complex workflows, dense data interfaces, and operational dashboards while supporting scalability across multiple teams.</p>
+
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">Approach</h3>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">We began with a comprehensive discovery phase to understand the structure and complexity of CARS24's internal tooling ecosystem.</p>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">This involved reviewing existing tools, understanding engineering workflows, and identifying the most common UI patterns across internal applications. We also worked closely with designers and engineers to understand their day-to-day challenges when building and maintaining internal tools.</p>
+                    <p style="margin-bottom: 40px; line-height: 1.7;">These insights helped define the architecture and scope of the internal design system.</p>
+
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">System Implementation</h3>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">Based on our research, we designed a robust component library tailored for complex internal applications.</p>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">The system included 30+ production-ready components, many of which supported advanced and data-heavy interfaces such as dashboards, tables, navigation systems, and structured workflows.</p>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">We also established a scalable design token architecture to ensure visual consistency and support long-term scalability as new tools and products were introduced.</p>
+                    <p style="margin-bottom: 40px; line-height: 1.7;">Given the complexity of the components, the system was developed in close collaboration with frontend engineers to ensure smooth implementation across internal platforms.</p>
+
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">Governance &amp; Adoption</h3>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">To drive adoption across teams, we introduced a structured governance and rollout strategy.</p>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">We worked closely with developers and product teams to support migration efforts and provided dedicated guidance on how the system should be implemented across projects.</p>
+                    <p style="margin-bottom: 40px; line-height: 1.7;">Internal workshops, training sessions, and documentation helped designers and engineers understand how to use the system effectively and maintain consistency across products.</p>
+
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">Impact</h3>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">The internal tools design system became the foundation for building and scaling operational products at CARS24.</p>
+                    <ul style="list-style-type: none; padding: 0; display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;">
+                        <li style="display: flex; gap: 12px;"><span style="color: #0D99FF;">&bull;</span> Adopted by 10–15 designers across internal product teams</li>
+                        <li style="display: flex; gap: 12px;"><span style="color: #0D99FF;">&bull;</span> Used by 35+ frontend engineers building internal tools</li>
+                        <li style="display: flex; gap: 12px;"><span style="color: #0D99FF;">&bull;</span> 30+ complex components designed for data-heavy interfaces</li>
+                        <li style="display: flex; gap: 12px;"><span style="color: #0D99FF;">&bull;</span> 10–15 internal tools migrated to the new system</li>
+                        <li style="display: flex; gap: 12px;"><span style="color: #0D99FF;">&bull;</span> Improved consistency across operational products</li>
+                        <li style="display: flex; gap: 12px;"><span style="color: #0D99FF;">&bull;</span> Reduced development effort for new internal tools</li>
+                        <li style="display: flex; gap: 12px;"><span style="color: #0D99FF;">&bull;</span> Increased productivity for both design and engineering teams</li>
+                    </ul>
+                </div>
+            </div>
+            `
         },
-        'lego-system': {
-            title: 'Lego Design System',
-            subtitle: 'Global Architecture for 100+ designers',
-            description: 'Strategic consulting and architecture for a global-scale design system. We defined the token logic and contribution workflows that made the system sustainable across multi-disciplinary teams.',
-            image: 'assets/images/work/lego_design_system.png'
+
+        'cars24-consumer': {
+            contentHtml: `
+            <div class="case-study-hero">
+                <span class="mono-label">CASE STUDY</span>
+                <h2>CARS24</h2>
+                <p>Consumer Product Design System</p>
+            </div>
+            <div class="case-study-grid custom-layout" style="display: block;">
+                <div class="case-study-text full-width" style="max-width: 800px; margin: 0 auto;">
+                    <h3 style="margin-top: 0; margin-bottom: 16px;">Key Facts</h3>
+                    <div class="facts-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 40px; padding: 24px; background: rgba(13, 153, 255, 0.05); border-radius: 8px; border: 1px solid rgba(13, 153, 255, 0.1);">
+                        <div><strong style="color: #0D99FF; font-size: 0.8rem; text-transform: uppercase;">Industry</strong><br><span style="font-weight: 500; font-size: 0.95rem;">Automotive Marketplace</span></div>
+                        <div><strong style="color: #0D99FF; font-size: 0.8rem; text-transform: uppercase;">Team</strong><br><span style="font-weight: 500; font-size: 0.95rem;">3 Designers, 2 Design Engineers</span></div>
+                        <div><strong style="color: #0D99FF; font-size: 0.8rem; text-transform: uppercase;">Platforms</strong><br><span style="font-weight: 500; font-size: 0.95rem;">Mobile, Web</span></div>
+                        <div><strong style="color: #0D99FF; font-size: 0.8rem; text-transform: uppercase;">Adoption</strong><br><span style="font-weight: 500; font-size: 0.95rem;">60+ Designers, 80+ Engineers</span></div>
+                        <div><strong style="color: #0D99FF; font-size: 0.8rem; text-transform: uppercase;">Timeline</strong><br><span style="font-weight: 500; font-size: 0.95rem;">2 Months Rollout</span></div>
+                    </div>
+
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">Context</h3>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">As part of a broader brand transformation, CARS24 needed a unified design foundation to support its growing consumer product ecosystem across mobile and web.</p>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">With multiple product teams building features simultaneously, inconsistencies in UI patterns, design decisions, and implementation approaches were beginning to slow development.</p>
+                    <p style="margin-bottom: 40px; line-height: 1.7;">The goal was to establish a scalable design system that could align design and engineering teams while enabling faster and more consistent product development.</p>
+
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">Challenge</h3>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">Over time, different teams had created their own UI patterns and components. This resulted in fragmented interfaces and duplicated effort across design and engineering.</p>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">Without a centralized system, maintaining consistency across products became increasingly difficult as the organization scaled.</p>
+                    <p style="margin-bottom: 40px; line-height: 1.7;">The challenge was to create a design system that not only standardized UI components but also introduced a structure that teams across the company could adopt and evolve.</p>
+
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">Approach</h3>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">We started with a comprehensive discovery phase to understand the product ecosystem, team structures, and existing workflows.</p>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">Through discussions with design leads, product managers, and engineers, we mapped the current UI landscape and identified the most critical inconsistencies.</p>
+                    <p style="margin-bottom: 40px; line-height: 1.7;">Rather than rebuilding everything at once, we designed a flexible system architecture that could gradually replace existing patterns while allowing teams to continue shipping product improvements.</p>
+
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">System Implementation</h3>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">We established the foundational layer of the design system, including typography, color tokens, iconography, and layout principles.</p>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">From there, we prioritized component development based on real product usage. High-impact components used across multiple product surfaces were developed first to enable early adoption.</p>
+                    <p style="margin-bottom: 40px; line-height: 1.7;">The system was built in close collaboration with frontend engineers to ensure seamless translation from design to production.</p>
+
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">Governance & Adoption</h3>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">To ensure long-term sustainability, we helped establish the governance and operating model for the design system.</p>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">This included defining ownership, contribution workflows, versioning practices, and processes for evolving the system over time.</p>
+                    <p style="margin-bottom: 40px; line-height: 1.7;">We also ran internal workshops and onboarding sessions to help designers and engineers integrate the system into their workflows.</p>
+
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">Impact</h3>
+                    <ul style="list-style-type: none; padding: 0; display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;">
+                        <li style="display: flex; gap: 12px;"><span style="color: #0D99FF;">&bull;</span> Adopted by 60+ designers across product teams</li>
+                        <li style="display: flex; gap: 12px;"><span style="color: #0D99FF;">&bull;</span> Used by 80+ frontend engineers in production</li>
+                        <li style="display: flex; gap: 12px;"><span style="color: #0D99FF;">&bull;</span> Rolled out across multiple mobile and web consumer products</li>
+                        <li style="display: flex; gap: 12px;"><span style="color: #0D99FF;">&bull;</span> Migrated the core mobile application to the new system</li>
+                        <li style="display: flex; gap: 12px;"><span style="color: #0D99FF;">&bull;</span> Reduced rollout timeline from ~5 months to ~2 months</li>
+                        <li style="display: flex; gap: 12px;"><span style="color: #0D99FF;">&bull;</span> Significantly improved UI consistency and development efficiency</li>
+                    </ul>
+                </div>
+            </div>
+            `
         },
+
         'riyadh-air': {
-            title: 'Riyadh Air Base Elements',
-            subtitle: 'Defining a new visual language',
-            description: 'Foundational UI architecture for a next-generation airline. We built the base elements and decisions that power the entire digital ecosystem from booking to check-in.',
-            image: 'assets/images/work/riyadh_air_base_elements.png'
+            contentHtml: `
+            <div class="case-study-hero">
+                <span class="mono-label">CASE STUDY</span>
+                <h2>Riyadh Air</h2>
+                <p>Foundational Design System for a New Aviation Platform</p>
+            </div>
+            <div class="case-study-grid custom-layout" style="display:block;">
+                <div class="case-study-text full-width" style="max-width:800px;margin:0 auto;">
+                    <p style="margin-bottom:32px;line-height:1.7;font-style:italic;color:var(--text-secondary);">Building the design foundation for a next-generation airline's digital products across web and mobile.</p>
+                    <h3 style="margin-top:0;margin-bottom:16px;">Key Facts</h3>
+                    <div class="facts-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:40px;padding:24px;background:rgba(13,153,255,0.05);border-radius:8px;border:1px solid rgba(13,153,255,0.1);">
+                        <div><strong style="color:#0D99FF;font-size:0.8rem;text-transform:uppercase;">Industry</strong><br><span style="font-weight:500;font-size:0.95rem;">Aviation</span></div>
+                        <div><strong style="color:#0D99FF;font-size:0.8rem;text-transform:uppercase;">Platforms</strong><br><span style="font-weight:500;font-size:0.95rem;">Consumer Web, Mobile Applications</span></div>
+                        <div><strong style="color:#0D99FF;font-size:0.8rem;text-transform:uppercase;">Components</strong><br><span style="font-weight:500;font-size:0.95rem;">20+ Core Components</span></div>
+                        <div><strong style="color:#0D99FF;font-size:0.8rem;text-transform:uppercase;">Timeline</strong><br><span style="font-weight:500;font-size:0.95rem;">~4 Months</span></div>
+                        <div><strong style="color:#0D99FF;font-size:0.8rem;text-transform:uppercase;">Focus</strong><br><span style="font-weight:500;font-size:0.95rem;">Foundational Design System, Component Library, Adoption</span></div>
+                    </div>
+
+                    <h3 style="margin-top:32px;margin-bottom:16px;">Context</h3>
+                    <p style="margin-bottom:16px;line-height:1.7;">Riyadh Air is a new airline entering the global aviation market from the Middle East. As the company was building its digital products from the ground up, there was a unique opportunity to establish a strong design foundation from day one.</p>
+                    <p style="margin-bottom:40px;line-height:1.7;">The goal was to create a scalable design system that could support the development of their core consumer experiences across web and mobile while enabling product teams to move quickly as the platform evolved.</p>
+
+                    <h3 style="margin-top:32px;margin-bottom:16px;">Challenge</h3>
+                    <p style="margin-bottom:16px;line-height:1.7;">Aviation platforms are inherently complex, with intricate booking flows, large data structures, and multiple operational scenarios that must work seamlessly together.</p>
+                    <p style="margin-bottom:16px;line-height:1.7;">Since Riyadh Air's digital ecosystem was still being developed, the challenge was to architect a design system that could support upcoming product features while aligning with the brand identity and engineering capabilities already in place.</p>
+                    <p style="margin-bottom:40px;line-height:1.7;">The system needed to be flexible enough to scale as new products and features were introduced.</p>
+
+                    <h3 style="margin-top:32px;margin-bottom:16px;">Approach</h3>
+                    <p style="margin-bottom:16px;line-height:1.7;">We began by working closely with Riyadh Air's product, design, and engineering stakeholders to understand the roadmap and upcoming product capabilities.</p>
+                    <p style="margin-bottom:16px;line-height:1.7;">Alongside this, we conducted a detailed benchmark of leading aviation platforms to understand how complex airline interfaces are structured, particularly around booking flows, data presentation, and interaction patterns.</p>
+                    <p style="margin-bottom:40px;line-height:1.7;">These insights helped us define the structure and scope of the design system and identify the components required to support the early product roadmap.</p>
+
+                    <h3 style="margin-top:32px;margin-bottom:16px;">System Implementation</h3>
+                    <p style="margin-bottom:16px;line-height:1.7;">We first established the foundational layer of the design system, aligning with the visual language already defined by the brand team, including typography, color tokens, and iconography.</p>
+                    <p style="margin-bottom:16px;line-height:1.7;">With the foundation in place, we worked closely with the product design team to identify the most critical UI components required for the first phase of product development.</p>
+                    <p style="margin-bottom:16px;line-height:1.7;">Over the course of four months, we designed and delivered 20+ core components to support the initial development of the platform's web and mobile experiences.</p>
+                    <p style="margin-bottom:40px;line-height:1.7;">Components were released incrementally to allow teams to start using the system early while the library continued to evolve.</p>
+
+                    <h3 style="margin-top:32px;margin-bottom:16px;">Governance &amp; Adoption</h3>
+                    <p style="margin-bottom:16px;line-height:1.7;">Since the internal team was new to design systems, we worked closely with designers and engineers to help them understand how to adopt and scale the system effectively.</p>
+                    <p style="margin-bottom:16px;line-height:1.7;">We supported the team through workshops, collaborative working sessions, and ongoing guidance on how to design new features using the system.</p>
+                    <p style="margin-bottom:40px;line-height:1.7;">Instead of a single large rollout, the system was introduced in smaller iterations, allowing teams to gradually adapt their workflows and integrate the components into product development.</p>
+
+                    <h3 style="margin-top:32px;margin-bottom:16px;">Impact</h3>
+                    <ul style="list-style-type:none;padding:0;display:flex;flex-direction:column;gap:12px;margin-bottom:24px;">
+                        <li style="display:flex;gap:12px;"><span style="color:#0D99FF;">&bull;</span> 20+ core components delivered for early product development</li>
+                        <li style="display:flex;gap:12px;"><span style="color:#0D99FF;">&bull;</span> Supported web and mobile platform foundations</li>
+                        <li style="display:flex;gap:12px;"><span style="color:#0D99FF;">&bull;</span> Reduced design and development overhead for new features</li>
+                        <li style="display:flex;gap:12px;"><span style="color:#0D99FF;">&bull;</span> Improved collaboration between design and engineering teams</li>
+                        <li style="display:flex;gap:12px;"><span style="color:#0D99FF;">&bull;</span> Reduced QA and review cycles through standardized UI patterns</li>
+                        <li style="display:flex;gap:12px;"><span style="color:#0D99FF;">&bull;</span> Enabled teams to move faster while maintaining design consistency</li>
+                    </ul>
+                </div>
+            </div>
+            `
         },
         'design-audit': {
-            title: 'Design System Audit',
-            subtitle: 'Diagnostics for high-growth teams',
-            description: 'Detailed analysis of existing UI debt and inconsistency. We provided a roadmap for recovery and scaling that saved the team' + "'" + 's engineering capacity.',
-            image: 'assets/images/work/cars24_pattern_library.png'
+            contentHtml: `
+            <div class="case-study-hero">
+                <span class="mono-label">CASE STUDY</span>
+                <h2>Global Pharmaceutical Company (USA)</h2>
+                <p>Next-Generation B2B Platform Design System</p>
+            </div>
+            <div class="case-study-grid custom-layout" style="display:block;">
+                <div class="case-study-text full-width" style="max-width:800px;margin:0 auto;">
+                    <p style="margin-bottom:32px;line-height:1.7;font-style:italic;color:var(--text-secondary);">Designing the foundational design system for a large-scale B2B healthcare commerce platform.</p>
+                    <h3 style="margin-top:0;margin-bottom:16px;">Key Facts</h3>
+                    <div class="facts-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:40px;padding:24px;background:rgba(13,153,255,0.05);border-radius:8px;border:1px solid rgba(13,153,255,0.1);">
+                        <div><strong style="color:#0D99FF;font-size:0.8rem;text-transform:uppercase;">Industry</strong><br><span style="font-weight:500;font-size:0.95rem;">Pharmaceutical &amp; Healthcare</span></div>
+                        <div><strong style="color:#0D99FF;font-size:0.8rem;text-transform:uppercase;">Platforms</strong><br><span style="font-weight:500;font-size:0.95rem;">B2B E-commerce &amp; Enterprise Web</span></div>
+                        <div><strong style="color:#0D99FF;font-size:0.8rem;text-transform:uppercase;">Scope</strong><br><span style="font-weight:500;font-size:0.95rem;">Design System Foundation, Component Library, Tooling Migration</span></div>
+                        <div><strong style="color:#0D99FF;font-size:0.8rem;text-transform:uppercase;">Focus</strong><br><span style="font-weight:500;font-size:0.95rem;">Platform Redesign Initiative</span></div>
+                    </div>
+
+                    <h3 style="margin-top:32px;margin-bottom:16px;">Context</h3>
+                    <p style="margin-bottom:16px;line-height:1.7;">As part of a major digital transformation initiative, one of the largest pharmaceutical companies in the United States began redesigning its B2B e-commerce platform to support the next generation of healthcare commerce.</p>
+                    <p style="margin-bottom:16px;line-height:1.7;">The initiative aimed to modernize the platform's user experience, improve operational efficiency, and establish a consistent design language across a complex ecosystem of internal and customer-facing tools.</p>
+                    <p style="margin-bottom:40px;line-height:1.7;">We partnered with their product and design teams to build a scalable design system that could support the platform redesign and enable teams to build new features efficiently.</p>
+
+                    <h3 style="margin-top:32px;margin-bottom:16px;">Challenge</h3>
+                    <p style="margin-bottom:16px;line-height:1.7;">The platform was highly complex, supporting a wide range of workflows related to healthcare commerce, product management, and enterprise operations.</p>
+                    <p style="margin-bottom:16px;line-height:1.7;">At the same time, the organization was undergoing a major tooling shift — migrating its design workflows from Adobe XD to Figma. This transition created an additional challenge in ensuring that teams could adopt the new tools while also aligning around a unified design system.</p>
+                    <p style="margin-bottom:40px;line-height:1.7;">The goal was to establish a structured design system that could support the platform redesign while enabling smooth collaboration between designers and engineers.</p>
+
+                    <h3 style="margin-top:32px;margin-bottom:16px;">Approach</h3>
+                    <p style="margin-bottom:16px;line-height:1.7;">We began by working closely with the product, design, and engineering teams to understand the platform architecture and the evolving requirements of the new B2B ecosystem.</p>
+                    <p style="margin-bottom:16px;line-height:1.7;">This included mapping key product workflows, identifying common interface patterns, and defining the structural foundations required for scalable UI development.</p>
+                    <p style="margin-bottom:40px;line-height:1.7;">Alongside this, we supported the organization's transition from Adobe XD to Figma, helping teams adopt a more collaborative and system-driven design workflow.</p>
+
+                    <h3 style="margin-top:32px;margin-bottom:16px;">System Implementation</h3>
+                    <p style="margin-bottom:16px;line-height:1.7;">We built the design system from the ground up, starting with the foundational layer including typography, color tokens, layout principles, and interaction patterns.</p>
+                    <p style="margin-bottom:16px;line-height:1.7;">On top of this foundation, we designed a comprehensive component and pattern library tailored for enterprise-level workflows. The system included modular components and composable patterns that allowed teams to build complex interfaces efficiently.</p>
+                    <p style="margin-bottom:40px;line-height:1.7;">Throughout the process, we collaborated closely with frontend engineers to ensure that components were implemented accurately in production. We also helped establish a structured Storybook environment to support engineering teams in maintaining and scaling the component library.</p>
+
+                    <h3 style="margin-top:32px;margin-bottom:16px;">Governance &amp; Adoption</h3>
+                    <p style="margin-bottom:16px;line-height:1.7;">To ensure long-term adoption, we worked closely with internal design teams to introduce system-driven workflows.</p>
+                    <p style="margin-bottom:16px;line-height:1.7;">We conducted workshops and collaborative sessions to help designers understand how to design using the new component library and how the system could support their day-to-day product work.</p>
+                    <p style="margin-bottom:40px;line-height:1.7;">These efforts helped the organization transition smoothly to a design system-driven approach to product development.</p>
+
+                    <h3 style="margin-top:32px;margin-bottom:16px;">Impact</h3>
+                    <ul style="list-style-type:none;padding:0;display:flex;flex-direction:column;gap:12px;margin-bottom:24px;">
+                        <li style="display:flex;gap:12px;"><span style="color:#0D99FF;">&bull;</span> Established a scalable design system foundation for the new platform</li>
+                        <li style="display:flex;gap:12px;"><span style="color:#0D99FF;">&bull;</span> Enabled the organization's migration from Adobe XD to Figma</li>
+                        <li style="display:flex;gap:12px;"><span style="color:#0D99FF;">&bull;</span> Introduced a composable component and pattern library for enterprise workflows</li>
+                        <li style="display:flex;gap:12px;"><span style="color:#0D99FF;">&bull;</span> Improved collaboration between design and engineering teams</li>
+                        <li style="display:flex;gap:12px;"><span style="color:#0D99FF;">&bull;</span> Reduced design inconsistencies across the platform</li>
+                        <li style="display:flex;gap:12px;"><span style="color:#0D99FF;">&bull;</span> Accelerated product development during the platform redesign initiative</li>
+                    </ul>
+                </div>
+            </div>
+            `
         },
         'token-architecture': {
-            title: 'Token Logic',
-            subtitle: 'Multi-brand foundations',
-            description: 'Dynamic design token structures that support multi-brand and multi-platform deployments from a single source of truth.',
-            image: 'assets/images/work/lego_design_system.png'
+            title: 'District',
+            subtitle: 'Branding Project',
+            description: 'A comprehensive branding project for District, establishing a cohesive visual identity and design language across all touchpoints.',
+            image: 'assets/images/work/Slide 4_3 - 6.png'
         }
     };
 
@@ -134,25 +340,29 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = projectData[projectId];
         if (!data) return;
 
-        modalBody.innerHTML = `
-            <div class="case-study-hero">
-                <span class="mono-label">CASE STUDY</span>
-                <h2>${data.title}</h2>
-                <p>${data.subtitle}</p>
-            </div>
-            <div class="case-study-grid">
-                <div class="case-study-text">
-                    <p>${data.description}</p>
-                    <div class="spec-list" style="margin-top: 32px;">
-                        <div class="spec-item"><strong>Objective</strong><p>Establish production-ready infrastructure.</p></div>
-                        <div class="spec-item" style="margin-top: 16px;"><strong>Outcome</strong><p>Reduction in design debt by 40%.</p></div>
+        if (data.contentHtml) {
+            modalBody.innerHTML = data.contentHtml;
+        } else {
+            modalBody.innerHTML = `
+                <div class="case-study-hero">
+                    <span class="mono-label">CASE STUDY</span>
+                    <h2>${data.title}</h2>
+                    <p>${data.subtitle}</p>
+                </div>
+                <div class="case-study-grid">
+                    <div class="case-study-text">
+                        <p>${data.description}</p>
+                        <div class="spec-list" style="margin-top: 32px;">
+                            <div class="spec-item"><strong>Objective</strong><p>Establish production-ready infrastructure.</p></div>
+                            <div class="spec-item" style="margin-top: 16px;"><strong>Outcome</strong><p>Reduction in design debt by 40%.</p></div>
+                        </div>
+                    </div>
+                    <div class="case-study-visuals">
+                        <img src="${data.image}" class="case-study-image" alt="${data.title}">
                     </div>
                 </div>
-                <div class="case-study-visuals">
-                    <img src="${data.image}" class="case-study-image" alt="${data.title}">
-                </div>
-            </div>
-        `;
+            `;
+        }
 
         modal.classList.add('active');
         document.body.style.overflow = 'hidden'; // Prevent background scroll
