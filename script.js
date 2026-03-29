@@ -93,10 +93,61 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const projectData = {
         'cars24-pattern': {
-            title: 'Cars24 Pattern Library',
-            subtitle: 'Design System Infrastructure for rapid scaling',
-            description: 'We built a comprehensive pattern library for Cars24 that enabled product teams to launch new features 3x faster. The system focuses on production-ready components and automated documentation.',
-            image: 'assets/images/work/cars24_pattern_library.png'
+            contentHtml: `
+            <div class="case-study-hero">
+                <span class="mono-label">CASE STUDY</span>
+                <h2>CARS24</h2>
+                <p>Product Design Language &amp; Pattern Library</p>
+            </div>
+            <div class="case-study-grid custom-layout" style="display: block;">
+                <div class="case-study-text full-width" style="max-width: 800px; margin: 0 auto;">
+                    <p style="margin-bottom: 32px; line-height: 1.7; font-style: italic; color: var(--text-secondary);">Accelerating large-scale product redesign through a scalable pattern library built on top of the design system.</p>
+
+                    <h3 style="margin-top: 0; margin-bottom: 16px;">Key Facts</h3>
+                    <div class="facts-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-bottom: 40px; border: 1px solid rgba(13, 153, 255, 0.12); border-radius: 8px; overflow: hidden;">
+                        <div style="padding: 20px 24px; border-right: 1px solid rgba(13, 153, 255, 0.12); border-bottom: 1px solid rgba(13, 153, 255, 0.12);"><strong style="color: #0D99FF; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em;">Industry</strong><br><span style="font-weight: 500; font-size: 0.95rem; margin-top: 6px; display: inline-block;">Automotive Marketplace</span></div>
+                        <div style="padding: 20px 24px; border-bottom: 1px solid rgba(13, 153, 255, 0.12);"><strong style="color: #0D99FF; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em;">Platforms</strong><br><span style="font-weight: 500; font-size: 0.95rem; margin-top: 6px; display: inline-block;">Consumer Mobile App, Consumer Web</span></div>
+                        <div style="padding: 20px 24px; border-right: 1px solid rgba(13, 153, 255, 0.12);"><strong style="color: #0D99FF; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em;">Scope</strong><br><span style="font-weight: 500; font-size: 0.95rem; margin-top: 6px; display: inline-block;">Pattern Library, Product Design Language (PDL), Landing Page Framework, Design Guidelines</span></div>
+                        <div style="padding: 20px 24px;"><strong style="color: #0D99FF; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em;">Impact Area</strong><br><span style="font-weight: 500; font-size: 0.95rem; margin-top: 6px; display: inline-block;">Consumer Product Redesign Initiative</span></div>
+                    </div>
+
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">Context</h3>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">Following the rollout of the CARS24 consumer design system, the company initiated a major redesign of its consumer product ecosystem, particularly across its core mobile application and digital platform.</p>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">With multiple teams working simultaneously on the redesign, there was a need for a faster way to design, experiment, and ship new experiences while maintaining visual consistency.</p>
+                    <p style="margin-bottom: 40px; line-height: 1.7;">To support this large-scale transformation, we partnered with the team to build a pattern library and product design language on top of the existing design system.</p>
+
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">Challenge</h3>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">While the design system provided reusable UI components, product teams still needed a faster way to assemble complex product experiences such as landing pages, promotional flows, and content-heavy interfaces.</p>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">Designers were spending significant time repeatedly designing similar layouts and experimenting with different structures for product pages.</p>
+                    <p style="margin-bottom: 40px; line-height: 1.7;">The challenge was to create a scalable design language and pattern framework that would allow teams to rapidly build and experiment with product experiences while maintaining consistency across the platform.</p>
+
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">Approach</h3>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">We began by analyzing the most common layout patterns used across the platform, particularly within landing pages and marketing-driven product flows.</p>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">Alongside internal product research, we benchmarked leading consumer applications to understand how high-performing platforms structure content, cards, layouts, and visual hierarchy.</p>
+                    <p style="margin-bottom: 40px; line-height: 1.7;">Working closely with product, design, and engineering teams, we defined a Product Design Language (PDL) that established the structural rules for layouts, grid systems, cards, content hierarchy, and visual patterns. This framework ensured that designers could quickly compose new experiences using a consistent design language.</p>
+
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">System Implementation</h3>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">Building on top of the existing component system, we designed a structured pattern library that included reusable layouts, landing page structures, and composable UI patterns.</p>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">The library defined how components should be combined to create complete product experiences, covering areas such as card layouts, content sections, grids, promotional modules, and structured page compositions.</p>
+                    <p style="margin-bottom: 40px; line-height: 1.7;">We also created detailed design guidelines that documented best practices for designers, developers, and product teams to ensure consistent implementation.</p>
+
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">Governance &amp; Adoption</h3>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">To ensure adoption across the organization, the pattern library was introduced as a shared framework for building product experiences during the redesign initiative.</p>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">Design teams were able to use the library to quickly assemble layouts and prototype new product ideas, while engineering teams benefited from clearer UI structures and repeatable implementation patterns.</p>
+                    <p style="margin-bottom: 40px; line-height: 1.7;">The framework also helped align product, design, and engineering teams around a common language for building product experiences.</p>
+
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">Impact</h3>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">The pattern library significantly accelerated the redesign of CARS24's consumer platform while maintaining visual consistency across the product ecosystem.</p>
+                    <ul style="list-style-type: none; padding: 0; display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;">
+                        <li style="display: flex; gap: 12px;"><span style="color: #0D99FF;">&bull;</span> Enabled redesign of 10+ product landing pages across services</li>
+                        <li style="display: flex; gap: 12px;"><span style="color: #0D99FF;">&bull;</span> Accelerated design iteration and experimentation across teams</li>
+                        <li style="display: flex; gap: 12px;"><span style="color: #0D99FF;">&bull;</span> Reduced design time for new page layouts and product experiences</li>
+                        <li style="display: flex; gap: 12px;"><span style="color: #0D99FF;">&bull;</span> Improved collaboration between product, design, and engineering teams</li>
+                        <li style="display: flex; gap: 12px;"><span style="color: #0D99FF;">&bull;</span> Established a shared product design language for building experiences at scale</li>
+                    </ul>
+                </div>
+            </div>
+            `
         },
         'cars24-tools': {
             contentHtml: `
@@ -283,11 +334,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="case-study-text full-width" style="max-width:800px;margin:0 auto;">
                     <p style="margin-bottom:32px;line-height:1.7;font-style:italic;color:var(--text-secondary);">Designing the foundational design system for a large-scale B2B healthcare commerce platform.</p>
                     <h3 style="margin-top:0;margin-bottom:16px;">Key Facts</h3>
-                    <div class="facts-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:40px;padding:24px;background:rgba(13,153,255,0.05);border-radius:8px;border:1px solid rgba(13,153,255,0.1);">
-                        <div><strong style="color:#0D99FF;font-size:0.8rem;text-transform:uppercase;">Industry</strong><br><span style="font-weight:500;font-size:0.95rem;">Pharmaceutical &amp; Healthcare</span></div>
-                        <div><strong style="color:#0D99FF;font-size:0.8rem;text-transform:uppercase;">Platforms</strong><br><span style="font-weight:500;font-size:0.95rem;">B2B E-commerce &amp; Enterprise Web</span></div>
-                        <div><strong style="color:#0D99FF;font-size:0.8rem;text-transform:uppercase;">Scope</strong><br><span style="font-weight:500;font-size:0.95rem;">Design System Foundation, Component Library, Tooling Migration</span></div>
-                        <div><strong style="color:#0D99FF;font-size:0.8rem;text-transform:uppercase;">Focus</strong><br><span style="font-weight:500;font-size:0.95rem;">Platform Redesign Initiative</span></div>
+                    <div class="facts-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:40px;border:1px solid rgba(13,153,255,0.12);border-radius:8px;overflow:hidden;">
+                        <div style="padding:20px 24px;border-right:1px solid rgba(13,153,255,0.12);border-bottom:1px solid rgba(13,153,255,0.12);"><strong style="color:#0D99FF;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;">Industry</strong><br><span style="font-weight:500;font-size:0.95rem;margin-top:6px;display:inline-block;">Pharmaceutical &amp; Healthcare</span></div>
+                        <div style="padding:20px 24px;border-bottom:1px solid rgba(13,153,255,0.12);"><strong style="color:#0D99FF;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;">Platforms</strong><br><span style="font-weight:500;font-size:0.95rem;margin-top:6px;display:inline-block;">B2B E-commerce &amp; Enterprise Web</span></div>
+                        <div style="padding:20px 24px;border-right:1px solid rgba(13,153,255,0.12);"><strong style="color:#0D99FF;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;">Scope</strong><br><span style="font-weight:500;font-size:0.95rem;margin-top:6px;display:inline-block;">Design System Foundation, Component Library, Tooling Migration</span></div>
+                        <div style="padding:20px 24px;"><strong style="color:#0D99FF;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;">Focus</strong><br><span style="font-weight:500;font-size:0.95rem;margin-top:6px;display:inline-block;">Platform Redesign Initiative</span></div>
                     </div>
 
                     <h3 style="margin-top:32px;margin-bottom:16px;">Context</h3>
@@ -329,10 +380,57 @@ document.addEventListener('DOMContentLoaded', () => {
             `
         },
         'token-architecture': {
-            title: 'District',
-            subtitle: 'Branding Project',
-            description: 'A comprehensive branding project for District, establishing a cohesive visual identity and design language across all touchpoints.',
-            image: 'assets/images/work/Slide 4_3 - 6.png'
+            contentHtml: `
+            <div class="case-study-hero">
+                <span class="mono-label">CASE STUDY</span>
+                <h2>District (by Zomato)</h2>
+                <p>Visual Identity System for a New Consumer App</p>
+            </div>
+            <div class="case-study-grid custom-layout" style="display: block;">
+                <div class="case-study-text full-width" style="max-width: 800px; margin: 0 auto;">
+                    <p style="margin-bottom: 32px; line-height: 1.7; font-style: italic; color: var(--text-secondary);">Designing the foundational visual language for a new entertainment and ticketing platform.</p>
+
+                    <h3 style="margin-top: 0; margin-bottom: 16px;">Key Facts</h3>
+                    <div class="facts-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-bottom: 40px; border: 1px solid rgba(13, 153, 255, 0.12); border-radius: 8px; overflow: hidden;">
+                        <div style="padding: 20px 24px; border-right: 1px solid rgba(13, 153, 255, 0.12); border-bottom: 1px solid rgba(13, 153, 255, 0.12);"><strong style="color: #0D99FF; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em;">Industry</strong><br><span style="font-weight: 500; font-size: 0.95rem; margin-top: 6px; display: inline-block;">Entertainment &amp; Ticketing</span></div>
+                        <div style="padding: 20px 24px; border-bottom: 1px solid rgba(13, 153, 255, 0.12);"><strong style="color: #0D99FF; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em;">Platforms</strong><br><span style="font-weight: 500; font-size: 0.95rem; margin-top: 6px; display: inline-block;">Mobile Application</span></div>
+                        <div style="padding: 20px 24px; border-right: 1px solid rgba(13, 153, 255, 0.12);"><strong style="color: #0D99FF; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em;">Scope</strong><br><span style="font-weight: 500; font-size: 0.95rem; margin-top: 6px; display: inline-block;">Visual Identity System, Typography System, Color System, Iconography, Visual Language Guidelines</span></div>
+                        <div style="padding: 20px 24px;"><strong style="color: #0D99FF; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em;">Parent Brand</strong><br><span style="font-weight: 500; font-size: 0.95rem; margin-top: 6px; display: inline-block;">Zomato</span></div>
+                    </div>
+
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">Context</h3>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">District is a consumer platform developed by Zomato that enables users to discover and book entertainment experiences such as movie tickets, events, and local gigs.</p>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">As the product was being built from the ground up, the team needed a clear and cohesive visual language that could define the overall look and feel of the mobile application.</p>
+                    <p style="margin-bottom: 40px; line-height: 1.7;">We partnered with the team to design the foundational visual identity system that would guide the interface design and help establish a consistent product experience from day one.</p>
+
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">Challenge</h3>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">Since the application was entirely new, there was no established visual framework to guide the design of the product interface.</p>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">The challenge was to create a visual system that felt modern, scalable, and aligned with the broader ecosystem while also being flexible enough to support a wide range of content-heavy entertainment experiences.</p>
+                    <p style="margin-bottom: 40px; line-height: 1.7;">The system needed to provide clear visual rules that designers and engineers could follow as the product continued to evolve.</p>
+
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">Approach</h3>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">We began by defining the core visual principles that would shape the identity of the application.</p>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">Working closely with the product and design teams, we explored visual directions for typography, color usage, iconography, and overall interface styling. These explorations helped establish the aesthetic foundation for the platform.</p>
+                    <p style="margin-bottom: 40px; line-height: 1.7;">From these explorations, we defined a cohesive visual language that could support different interface scenarios across the mobile application.</p>
+
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">System Implementation</h3>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">The visual identity system established the foundational design elements required to build the app's UI.</p>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">This included defining the typography system, color system, and iconography framework, along with guidelines for layout clarity and visual hierarchy.</p>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">We also documented how these visual elements should be applied across the interface to ensure a consistent and recognizable product experience.</p>
+                    <p style="margin-bottom: 40px; line-height: 1.7;">This visual foundation enabled the product team to design new features quickly while maintaining a cohesive look and feel across the application.</p>
+
+                    <h3 style="margin-top: 32px; margin-bottom: 16px;">Impact</h3>
+                    <p style="margin-bottom: 16px; line-height: 1.7;">The visual identity system became the foundational layer for the District mobile application and guided the early development of the platform's interface.</p>
+                    <ul style="list-style-type: none; padding: 0; display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px;">
+                        <li style="display: flex; gap: 12px;"><span style="color: #0D99FF;">&bull;</span> Established the core visual language for the mobile app</li>
+                        <li style="display: flex; gap: 12px;"><span style="color: #0D99FF;">&bull;</span> Designed a scalable typography and color system</li>
+                        <li style="display: flex; gap: 12px;"><span style="color: #0D99FF;">&bull;</span> Developed a cohesive iconography framework</li>
+                        <li style="display: flex; gap: 12px;"><span style="color: #0D99FF;">&bull;</span> Enabled consistent UI design across product screens</li>
+                        <li style="display: flex; gap: 12px;"><span style="color: #0D99FF;">&bull;</span> Provided a strong visual foundation for the platform's launch</li>
+                    </ul>
+                </div>
+            </div>
+            `
         }
     };
 
