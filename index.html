@@ -1,819 +1,310 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Design systems built, adopted, and scaled. Subscription-based design system support.">
-    <title>Layerone — Design Systems</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://cdn.jsdelivr.net/npm/geist@1.0.0/dist/fonts/geist-sans/style.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="canonical" href="https://layerone.co.in">
-    <script>
-        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Layer One — Design systems studio</title>
+<meta name="description" content="Layer One is a design systems studio. We help product companies build, scale and govern their design systems.">
+<meta property="og:title" content="Layer One — Design systems studio">
+<meta property="og:description" content="Layer One is a design systems studio. We help product companies build, scale and govern their design systems.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://www.layerone.co.in/assets/work/tokens/cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<script>try{var t=localStorage.getItem("l1-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
-
 <body>
-
-    <main class="container">
-        <nav class="nav">
-            <div class="logo">
-                <img src="assets/images/logo/layerone logo.png" alt="Layerone Logo" class="logo-img">
-                Layerone
-            </div>
-
-            <div class="nav-links">
-                <a href="blog.html" class="nav-link">Blog</a>
-            </div>
-
-            <!-- Theme Toggle -->
-            <div class="theme-toggle">
-                <button class="theme-btn active" data-theme="light" aria-label="Switch to Light Theme">Light</button>
-                <button class="theme-btn" data-theme="dark" aria-label="Switch to Dark Theme">Dark</button>
-                <button class="theme-btn" data-theme="paper" aria-label="Switch to Paper Theme">Paper</button>
-            </div>
-        </nav>
-
-        <!-- Hero Section -->
-        <section class="hero fade-in">
-            <span class="sys-tag">v1.1.0 — SPECIALIST</span>
-            <h1 class="hero-title">Design systems are all we do.</h1>
-            <p class="hero-sub">We build production-ready, scalable, real-world systems that teams actually use.
-                Most systems fail because they don’t fit product reality. We focus on the foundations,
-                decisions, and workflows that make systems sustainable, maintainable, and easy to adopt.</p>
-            <div class="hero-actions">
-                <a href="https://cal.com/layerone" target="_blank" rel="noopener noreferrer" class="btn-primary">Build
-                    a scalable system &rarr;</a>
-                <a href="#services" class="btn-secondary">Explore our services &rarr;</a>
-            </div>
-
-            <div class="hero-social-proof">
-                <span class="hero-proof-label">Experts who’ve built and scaled design systems at</span>
-                <div class="logo-marquee">
-                    <div class="logo-track">
-                        <div class="hero-company-logo">IBM</div>
-                        <div class="hero-company-logo">JPMorgan&Chase</div>
-                        <div class="hero-company-logo">Cars24</div>
-                        <div class="hero-company-logo">Zomato</div>
-                        <div class="hero-company-logo">HDFC</div>
-                        <div class="hero-company-logo">Riyadh Air</div>
-                        <div class="hero-company-logo">IBM</div>
-                        <div class="hero-company-logo">JPMorgan&Chase</div>
-                        <div class="hero-company-logo">Cars24</div>
-                        <div class="hero-company-logo">Zomato</div>
-                        <div class="hero-company-logo">HDFC</div>
-                        <div class="hero-company-logo">Riyadh Air</div>
-                        <div class="hero-company-logo">IBM</div>
-                        <div class="hero-company-logo">JPMorgan&Chase</div>
-                        <div class="hero-company-logo">Cars24</div>
-                        <div class="hero-company-logo">Zomato</div>
-                        <div class="hero-company-logo">HDFC</div>
-                        <div class="hero-company-logo">Riyadh Air</div>
-                        <div class="hero-company-logo">IBM</div>
-                        <div class="hero-company-logo">JPMorgan&Chase</div>
-                        <div class="hero-company-logo">Cars24</div>
-                        <div class="hero-company-logo">Zomato</div>
-                        <div class="hero-company-logo">HDFC</div>
-                        <div class="hero-company-logo">Riyadh Air</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- Proof of Work Section: Immersive Multi-Panel Carousel -->
-        <section class="immersive-work-section">
-            <!-- Section Heading (Static, Left-Aligned) -->
-            <div class="container">
-                <div class="work-section-header">
-                    <span class="mono-label">PROOF OF EXECUTION</span>
-                    <h2 class="work-section-title">Built and scaled at companies that ship.</h2>
-                </div>
-            </div>
-
-            <!-- Bento Grid Section (Full Width) -->
-            <div class="bento-grid-wrapper">
-                <div class="bento-grid">
-                    <!-- Project 1 -->
-                    <div class="bento-item" data-project="cars24-pattern">
-                        <div class="bento-header">
-                            <h3>Cars24 Pattern Library</h3>
-                            <p>Design System Infrastructure</p>
-                        </div>
-                        <div class="bento-visual">
-                            <img src="assets/images/work/cars24_pattern_library.png" alt="Cars24 Pattern Library">
-                        </div>
-                    </div>
-                    <!-- Project 2 -->
-                    <div class="bento-item" data-project="cars24-consumer">
-                        <div class="bento-header">
-                            <h3>CARS24</h3>
-                            <p>Consumer Product Design System</p>
-                        </div>
-                        <div class="bento-visual">
-                            <img src="assets/images/work/lego_design_system.png" alt="CARS24 Consumer Design System">
-                        </div>
-                    </div>
-                    <!-- Project 3 -->
-                    <div class="bento-item" data-project="cars24-tools">
-                        <div class="bento-header">
-                            <h3>Internal Tools</h3>
-                            <p>Scalable UI Kits</p>
-                        </div>
-                        <div class="bento-visual">
-                            <img src="assets/images/work/cars24_internal_tools.png" alt="Cars24 Internal Tools">
-                        </div>
-                    </div>
-                    <!-- Project 4 -->
-                    <div class="bento-item" data-project="riyadh-air">
-                        <div class="bento-header">
-                            <h3>Riyadh Air</h3>
-                            <p>Visual Language</p>
-                        </div>
-                        <div class="bento-visual">
-                            <img src="assets/images/work/riyadh_air_base_elements.png" alt="Riyadh Air Base Elements">
-                        </div>
-                    </div>
-                    <!-- Project 5 -->
-                    <div class="bento-item" data-project="design-audit">
-                        <div class="bento-header">
-                            <h3>Global Pharmaceutical Company (USA)</h3>
-                            <p>Next-Generation B2B Platform Design System</p>
-                        </div>
-                        <div class="bento-visual">
-                            <img src="assets/images/work/Slide 4_3 - 5.png" alt="Global Pharma B2B Design System">
-                        </div>
-                    </div>
-                    <!-- Project 6 -->
-                    <div class="bento-item" data-project="token-architecture">
-                        <div class="bento-header">
-                            <h3>District</h3>
-                            <p>Branding Project</p>
-                        </div>
-                        <div class="bento-visual">
-                            <img src="assets/images/work/Slide 4_3 - 6.png" alt="District Branding Project">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <hr class="divider">
-
-        <!-- Our Services Section -->
-        <section id="services" class="section fade-in">
-            <div class="spec-header">
-                <span class="mono-label">01. SERVICES</span>
-                <h2 class="section-label-large">Our Services</h2>
-                <p class="section-desc">We provide specialist architecture and execution for every stage of your design
-                    system journey.</p>
-            </div>
-
-            <div class="services-grid">
-                <!-- Service 01 -->
-                <div class="service-card">
-                    <div class="service-header">
-                        <span class="service-id">S-01</span>
-                        <h3>Full-Service Design System</h3>
-                    </div>
-                    <p class="positioning">Complete infrastructure for product teams.</p>
-                    <p class="description">We build your entire system from foundations to documentation, ensuring a
-                        seamless bridge between design and engineering.</p>
-                    <ul class="scope-list">
-                        <li>Token architecture & naming</li>
-                        <li>Multi-platform core components</li>
-                        <li>Automated documentation</li>
-                        <li>Versioning & release strategy</li>
-                    </ul>
-                </div>
-
-                <!-- Service 02 -->
-                <div class="service-card">
-                    <div class="service-header">
-                        <span class="service-id">S-02</span>
-                        <h3>Design System Development</h3>
-                    </div>
-                    <p class="positioning">Production-ready build and execution.</p>
-                    <p class="description">We translate your vision into high-performance, accessible code that reduces
-                        engineering debt and accelerates shipping.</p>
-                    <ul class="scope-list">
-                        <li>React, Vue, or Web Components</li>
-                        <li>Accessibility (A11y) compliance</li>
-                        <li>Visual regression testing</li>
-                        <li>Package management setup</li>
-                    </ul>
-                </div>
-
-                <!-- Service 03 -->
-                <div class="service-card">
-                    <div class="service-header">
-                        <span class="service-id">S-03</span>
-                        <h3>Design System Audit</h3>
-                    </div>
-                    <p class="positioning">Diagnostic health check for adoption.</p>
-                    <p class="description">We identify the friction points and blockers preventing adoption, providing a
-                        clear roadmap to repair inconsistencies.</p>
-                    <ul class="scope-list">
-                        <li>Figma and Code parity analysis</li>
-                        <li>Usage & adoption metrics</li>
-                        <li>Performance & payload audit</li>
-                        <li>System debt identification</li>
-                    </ul>
-                </div>
-
-                <!-- Service 04 -->
-                <div class="service-card">
-                    <div class="service-header">
-                        <span class="service-id">S-04</span>
-                        <h3>Strategy & Architecture</h3>
-                    </div>
-                    <p class="positioning">The blueprint for a scalable UI ecosystem.</p>
-                    <p class="description">We design the structural logic for multi-brand systems, ensuring your
-                        architecture remains robust as your product scales.</p>
-                    <ul class="scope-list">
-                        <li>Multi-brand token structures</li>
-                        <li>Contribution & workflow design</li>
-                        <li>Governance & ownership policy</li>
-                        <li>Decision log & tracking</li>
-                    </ul>
-                </div>
-
-                <!-- Service 05 -->
-                <div class="service-card">
-                    <div class="service-header">
-                        <span class="service-id">S-05</span>
-                        <h3>Coaching & Enablement</h3>
-                    </div>
-                    <p class="positioning">Empowering your team to own the system.</p>
-                    <p class="description">We move your team from users to owners with training and workflows designed
-                        for long-term independence and success.</p>
-                    <ul class="scope-list">
-                        <li>Custom training workshops</li>
-                        <li>Design & Engineering pairing</li>
-                        <li>Documentation best practices</li>
-                        <li>Community governance setup</li>
-                    </ul>
-                </div>
-
-                <!-- Service 06 -->
-                <div class="service-card">
-                    <div class="service-header">
-                        <span class="service-id">S-06</span>
-                        <h3>Maintenance & Evolution</h3>
-                    </div>
-                    <p class="positioning">Continuous support for living products.</p>
-                    <p class="description">Design systems are never "done." We stay on as partners to ship new patterns,
-                        fix bugs, and refactor for changing needs.</p>
-                    <ul class="scope-list">
-                        <li>Regular maintenance cycles</li>
-                        <li>New component requests</li>
-                        <li>Framework & library updates</li>
-                        <li>On-call system support</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="section-cta">
-                <a href="https://cal.com/layerone" target="_blank" rel="noopener noreferrer" class="btn-primary">Talk
-                    to us about your design system &rarr;</a>
-            </div>
-        </section>
-
-        <hr class="divider">
-
-        <!-- Who This Is For (Persona Cards) -->
-        <section class="section fade-in">
-            <div class="spec-header">
-                <span class="mono-label">02. AUDIENCE</span>
-                <h2 class="section-label-large">Who We Help</h2>
-                <p class="section-desc">We work with teams that have outgrown their current processes and need
-                    infrastructure that scales.</p>
-            </div>
-
-            <div class="persona-grid">
-                <div class="persona-card">
-                    <span class="sys-tag">TYPE: SCALING</span>
-                    <h3>Product Growth</h3>
-                    <p>Teams growing fast where design needs to keep up with engineering velocity.</p>
-                    <div class="card-meta">
-                        <span>Pain point:</span>
-                        <span>Design Debt</span>
-                    </div>
-                </div>
-                <div class="persona-card">
-                    <span class="sys-tag">TYPE: ENTERPRISE</span>
-                    <h3>Fragmented UI</h3>
-                    <p>Large orgs with multiple products and inconsistencies across surfaces.</p>
-                    <div class="card-meta">
-                        <span>Pain point:</span>
-                        <span>Inconsistency</span>
-                    </div>
-                </div>
-                <div class="persona-card">
-                    <span class="sys-tag">TYPE: ENGINEERING</span>
-                    <h3>Blocked Devs</h3>
-                    <p>Teams slowed down by lack of reusable, documented components.</p>
-                    <div class="card-meta">
-                        <span>Pain point:</span>
-                        <span>Velocity</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <hr class="divider">
-
-        <!-- How We Work (Process Pipeline) -->
-        <section id="process" class="section fade-in">
-            <div class="spec-header">
-                <span class="mono-label">03. PROCESS</span>
-                <h2 class="section-label-large">How We Work</h2>
-            </div>
-
-            <div class="pipeline-track">
-                <div class="pipeline-line"></div>
-
-                <div class="pipeline-step">
-                    <div class="step-marker">01</div>
-                    <div class="step-content">
-                        <h3>Understand the Product Reality</h3>
-                        <p>We study how your teams actually design, build, and ship today.
-                            No assumptions. No theory-first frameworks.</p>
-                    </div>
-                </div>
-
-                <div class="pipeline-step">
-                    <div class="step-marker">02</div>
-                    <div class="step-content">
-                        <h3>Define System Decisions</h3>
-                        <p>We lock core decisions early: tokens, structure, component boundaries, and contribution
-                            rules.
-                            This prevents long-term inconsistency.</p>
-                    </div>
-                </div>
-
-                <div class="pipeline-step">
-                    <div class="step-marker">03</div>
-                    <div class="step-content">
-                        <h3>Build With the Team</h3>
-                        <p>We work alongside designers and engineers, not in isolation.
-                            The system is built where it will live and be used.</p>
-                    </div>
-                </div>
-
-                <div class="pipeline-step">
-                    <div class="step-marker">04</div>
-                    <div class="step-content">
-                        <h3>Enable Long-Term Ownership</h3>
-                        <p>Clear documentation, contribution workflows, and governance so your team owns the system
-                            after we step away.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pipeline-note">
-                <p>Pause or cancel anytime. Total flexibility.</p>
-            </div>
-        </section>
-
-        <hr class="divider">
-
-
-
-        <hr class="divider">
-
-        <!-- Philosophy (Modern Split) -->
-    </main>
-
-    <section class="container" style="margin: var(--spacing-xl) auto;">
-        <div class="philo-editorial">
-            <!-- Header -->
-            <div class="philo-ed-header">
-                <span class="mono-label">05. PHILOSOPHY</span>
-                <h2>Our Philosophy.</h2>
-            </div>
-
-            <!-- Grid -->
-            <div class="philo-ed-grid">
-                <!-- Item 01 -->
-                <div class="philo-ed-item">
-                    <span class="ed-number">01</span>
-                    <div class="ed-content">
-                        <h3>Model</h3>
-                        <h4>Why Subscription?</h4>
-                        <p>Design systems are products, not projects. They evolve. A subscription aligns incentives: we
-                            are rewarded for your long-term efficiency, not for dragging out a project.</p>
-                    </div>
-                </div>
-
-                <!-- Item 02 -->
-                <div class="philo-ed-item">
-                    <span class="ed-number">02</span>
-                    <div class="ed-content">
-                        <h3>Approach</h3>
-                        <h4>System First</h4>
-                        <p>We don't just "tidy up" styles. We build governance, token architecture, and component APIs
-                            that scale. We treat your design system as critical infrastructure.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <main class="container">
-
-        <hr class="divider">
-
-        <!-- Pricing Section -->
-        <section id="pricing" class="section pricing-redesign fade-in">
-            <div class="pricing-container">
-                <div class="pricing-intro reveal-up" style="margin-bottom: 40px;">
-                    <span class="mono-label" style="display: block; margin-bottom: 12px;">04. PRICING</span>
-                    <h2 class="section-label-large">Pricing</h2>
-                    <p class="section-subtitle" style="margin-top: 8px; margin-bottom: 0;">Your product is growing. Your
-                        UI shouldn't turn into system debt.</p>
-                    <p class="section-desc" style="margin-top: 12px; margin-bottom: 0;">Layerone helps
-                        founders build design systems that make teams faster, aligned, and scalable. Choose the level of
-                        partnership you need.</p>
-                </div>
-                <div class="pricing-grid-three"
-                    style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch;">
-                    <!-- Core Plan -->
-                    <div class="ref-card core-card reveal-up stagger-1"
-                        style="display: flex; flex-direction: column; background: #fff; border-radius: var(--border-radius); overflow: hidden; border: 1px solid #e0e0e0; min-height: 100%;">
-                        <div class="card-top"
-                            style="padding: 32px; flex: 0 0 auto; display: flex; flex-direction: column;">
-                            <h3 class="card-title"
-                                style="font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; letter-spacing: -0.02em; color: #111 !important; margin-top: 0;">
-                                Core</h3>
-                            <p class="card-tagline"
-                                style="font-size: 0.85rem; margin-bottom: 12px; color: #555 !important;">For teams
-                                setting up their first structured UI foundation.</p>
-                            <div class="price-wrap" style="margin-bottom: 12px;">
-                                <span class="price-amount"
-                                    style="font-size: 2.15rem; font-weight: 700; color: #111 !important; display: block; margin-bottom: 4px; line-height: 1;">$3,299
-                                    / Month</span>
-                            </div>
-                            <p class="card-sub-description"
-                                style="margin-bottom: 16px; color: #555 !important; font-size: 0.8rem; line-height: 1.4;">
-                                For design teams moving from scattered components to a structured UI library.</p>
-                            <a href="https://cal.com/layerone" target="_blank" class="btn-ref-primary"
-                                style="display: block; text-align: center; width: 100%; box-sizing: border-box; margin-top: auto;">Book
-                                a
-                                consultation &rarr;</a>
-                        </div>
-                        <div class="card-bottom"
-                            style="padding: 32px; border-top: 1px solid rgba(0, 0, 0, 0.1); background-color: #fff; flex: 1; display: flex; flex-direction: column;">
-                            <span class="feature-label"
-                                style="display: block; font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase; margin-bottom: 12px; opacity: 0.6; color: #111 !important;">What
-                                we establish</span>
-                            <ul class="ref-feature-list"
-                                style="padding: 0; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 8px;">
-                                <li
-                                    style="font-size: 0.95rem; color: #333 !important; display: flex; align-items: center; gap: 12px;">
-                                    Structured UI kit (tokens, styles, core components)</li>
-                                <li
-                                    style="font-size: 0.95rem; color: #333 !important; display: flex; align-items: center; gap: 12px;">
-                                    Scalable Figma architecture</li>
-                                <li
-                                    style="font-size: 0.95rem; color: #333 !important; display: flex; align-items: center; gap: 12px;">
-                                    Naming conventions &amp; component logic</li>
-                                <li
-                                    style="font-size: 0.95rem; color: #333 !important; display: flex; align-items: center; gap: 12px;">
-                                    Basic documentation setup</li>
-                                <li
-                                    style="font-size: 0.95rem; color: #333 !important; display: flex; align-items: center; gap: 12px;">
-                                    Design-to-dev handoff guidelines</li>
-                                <li
-                                    style="font-size: 0.95rem; color: #333 !important; display: flex; align-items: center; gap: 12px;">
-                                    Intro to design system thinking (workshops + alignment)</li>
-                                <li
-                                    style="font-size: 0.95rem; color: #333 !important; display: flex; align-items: center; gap: 12px;">
-                                    Roadmap for evolving from UI kit &#x2192; system</li>
-                            </ul>
-                            <p
-                                style="margin-top: 20px; margin-bottom: 0; font-size: 0.8rem; font-style: italic; color: #777; line-height: 1.4;">
-                                This is where consistency begins.</p>
-                        </div>
-                    </div>
-
-                    <!-- Growth Plan -->
-                    <div class="ref-card growth-card reveal-up stagger-2"
-                        style="display: flex; flex-direction: column; background: #D9D9FF; border-radius: var(--border-radius); overflow: hidden; border: 1px solid #c0c0f0; min-height: 100%;">
-                        <div class="card-top"
-                            style="padding: 32px; flex: 0 0 auto; display: flex; flex-direction: column; position: relative;">
-                            <div class="popular-indicator"
-                                style="position: absolute; top: 12px; right: 12px; font-size: 0.6rem; padding: 4px 8px; background: #1a1a3a; color: #fff; border-radius: 4px;">
-                                Popular</div>
-                            <h3 class="card-title"
-                                style="font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; letter-spacing: -0.02em; color: #1a1a3a !important; margin-top: 0;">
-                                Growth</h3>
-                            <p class="card-tagline"
-                                style="font-size: 0.85rem; margin-bottom: 12px; color: #1a1a3a !important;">For teams
-                                building a real design system operating model.</p>
-                            <div class="price-wrap" style="margin-bottom: 12px;">
-                                <span class="price-amount"
-                                    style="font-size: 2.15rem; font-weight: 700; color: #1a1a3a !important; display: block; margin-bottom: 4px; line-height: 1;">$4,899
-                                    / Month</span>
-                            </div>
-                            <p class="card-sub-description"
-                                style="margin-bottom: 24px; color: #1a1a3a !important; font-size: 0.8rem; line-height: 1.4;">
-                                For larger product teams that need governance, dev alignment, and system ownership.</p>
-                            <a href="https://cal.com/layerone" target="_blank" class="btn-ref-primary"
-                                style="display: block; text-align: center; width: 100%; box-sizing: border-box; margin-top: auto;">Book
-                                a
-                                consultation &rarr;</a>
-                        </div>
-                        <div class="card-bottom"
-                            style="padding: 32px; border-top: 1px solid rgba(0, 0, 0, 0.1); background-color: #E5E5FF; flex: 1; display: flex; flex-direction: column;">
-                            <span class="feature-label"
-                                style="display: block; font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase; margin-bottom: 12px; opacity: 0.6; color: #1a1a3a !important;">Everything
-                                in Core, plus</span>
-                            <ul class="ref-feature-list"
-                                style="padding: 0; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 8px;">
-                                <li
-                                    style="font-size: 0.95rem; color: #1a1a3a !important; display: flex; align-items: center; gap: 12px;">
-                                    Full system audit & debt cleanup</li>
-                                <li
-                                    style="font-size: 0.95rem; color: #1a1a3a !important; display: flex; align-items: center; gap: 12px;">
-                                    Strong governance structure</li>
-                                <li
-                                    style="font-size: 0.95rem; color: #1a1a3a !important; display: flex; align-items: center; gap: 12px;">
-                                    Team education & enablement</li>
-                                <li
-                                    style="font-size: 0.95rem; color: #1a1a3a !important; display: flex; align-items: center; gap: 12px;">
-                                    1:1 pairing on major components</li>
-                                <li
-                                    style="font-size: 0.95rem; color: #1a1a3a !important; display: flex; align-items: center; gap: 12px;">
-                                    Dedicated feature flow reviews</li>
-                                <li
-                                    style="font-size: 0.95rem; color: #1a1a3a !important; display: flex; align-items: center; gap: 12px;">
-                                    Multi-product/brand architecture</li>
-                                <li
-                                    style="font-size: 0.95rem; color: #1a1a3a !important; display: flex; align-items: center; gap: 12px;">
-                                    Advanced token structure</li>
-                                <li
-                                    style="font-size: 0.95rem; color: #1a1a3a !important; display: flex; align-items: center; gap: 12px;">
-                                    Adoption tracking & optimization</li>
-                                <li
-                                    style="font-size: 0.95rem; color: #1a1a3a !important; display: flex; align-items: center; gap: 12px;">
-                                    Contribution workflows that scale</li>
-                                <li
-                                    style="font-size: 0.95rem; color: #1a1a3a !important; display: flex; align-items: center; gap: 12px;">
-                                    Closer engineering collaboration</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Scale Plan -->
-                    <div class="ref-card scale-card reveal-up stagger-3"
-                        style="display: flex; flex-direction: column; background: #fff; border-radius: var(--border-radius); overflow: hidden; border: 1px solid #e0e0e0; min-height: 100%;">
-                        <div class="card-top"
-                            style="padding: 32px; flex: 0 0 auto; display: flex; flex-direction: column;">
-                            <h3 class="card-title"
-                                style="font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; letter-spacing: -0.02em; color: #111 !important; margin-top: 0;">
-                                Scale</h3>
-                            <p class="card-tagline"
-                                style="font-size: 0.85rem; margin-bottom: 12px; color: #555 !important;">For
-                                large organizations with complex, multi-product UI needs.</p>
-                            <div class="price-wrap" style="margin-bottom: 12px;">
-                                <span class="price-amount"
-                                    style="font-size: 2.15rem; font-weight: 700; color: #111 !important; display: block; margin-bottom: 4px; line-height: 1;">Contact</span>
-                            </div>
-                            <p class="card-sub-description"
-                                style="margin-bottom: 16px; color: #555 !important; font-size: 0.8rem; line-height: 1.4;">
-                                Tailored
-                                infrastructure support for enterprise teams requiring deep integration.</p>
-                            <a href="mailto:layerone@proton.me" class="btn-ref-primary"
-                                style="display: block; text-align: center; width: 100%; box-sizing: border-box; margin-top: auto;">Contact
-                                for details
-                                &rarr;</a>
-                        </div>
-                        <div class="card-bottom"
-                            style="padding: 32px; border-top: 1px solid rgba(0, 0, 0, 0.1); background-color: #fff; flex: 1; display: flex; flex-direction: column;">
-                            <span class="feature-label"
-                                style="display: block; font-family: var(--font-mono); font-size: 0.6rem; text-transform: uppercase; margin-bottom: 12px; opacity: 0.6; color: #111 !important;">Enterprise
-                                focus</span>
-                            <ul class="ref-feature-list"
-                                style="padding: 0; margin: 0; list-style: none; display: flex; flex-direction: column; gap: 8px;">
-                                <li
-                                    style="font-size: 0.95rem; color: #333 !important; display: flex; align-items: center; gap: 12px;">
-                                    Dedicated architectural advisory</li>
-                                <li
-                                    style="font-size: 0.95rem; color: #333 !important; display: flex; align-items: center; gap: 12px;">
-                                    Custom internal tooling & plugins</li>
-                                <li
-                                    style="font-size: 0.95rem; color: #333 !important; display: flex; align-items: center; gap: 12px;">
-                                    Enterprise-wide adoption strategy</li>
-                                <li
-                                    style="font-size: 0.95rem; color: #333 !important; display: flex; align-items: center; gap: 12px;">
-                                    Legacy system migration & mapping</li>
-                                <li
-                                    style="font-size: 0.95rem; color: #333 !important; display: flex; align-items: center; gap: 12px;">
-                                    White-label & multi-tenant foundations</li>
-                                <li
-                                    style="font-size: 0.95rem; color: #333 !important; display: flex; align-items: center; gap: 12px;">
-                                    Role-based governance & security</li>
-                                <li
-                                    style="font-size: 0.95rem; color: #333 !important; display: flex; align-items: center; gap: 12px;">
-                                    Priority on-call support</li>
-                                <li
-                                    style="font-size: 0.95rem; color: #333 !important; display: flex; align-items: center; gap: 12px;">
-                                    Custom contract & SLA</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="trust-bar fade-in">
-            <div class="container">
-                <div class="trust-header">
-                    <span class="mono-label">THE LAYERONE STANDARD</span>
-                    <h3>Built on foundations that last.</h3>
-                </div>
-                <div class="trust-grid">
-                    <div class="trust-item reveal-up stagger-1">
-                        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7.75 11.25L10.75 14.25L16.25 8.75" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" />
-                        </svg>
-                        <span>Specialist Focus</span>
-                    </div>
-                    <div class="trust-item reveal-up stagger-2">
-                        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7.75 11.25L10.75 14.25L16.25 8.75" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" />
-                        </svg>
-                        <span>Systems, Not Projects</span>
-                    </div>
-                    <div class="trust-item reveal-up stagger-3">
-                        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7.75 11.25L10.75 14.25L16.25 8.75" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" />
-                        </svg>
-                        <span>Engineering Alignment</span>
-                    </div>
-                    <div class="trust-item reveal-up stagger-4">
-                        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7.75 11.25L10.75 14.25L16.25 8.75" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" />
-                        </svg>
-                        <span>Direct Partnership</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <hr class="divider">
-
-        <!-- FAQ -->
-        <section id="faq" class="section fade-in">
-            <div class="spec-header">
-                <span class="mono-label">06. FAQ</span>
-            </div>
-            <div class="accordion">
-                <div class="accordion-item">
-                    <button class="accordion-trigger">Do you design full products or marketing sites?</button>
-                    <div class="accordion-content">
-                        <p>No. We only work on design systems and shared UI infrastructure.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <button class="accordion-trigger">Can you work with our existing system?</button>
-                    <div class="accordion-content">
-                        <p>Yes. Most of our work involves improving or scaling existing systems.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <button class="accordion-trigger">Do you work with engineers directly?</button>
-                    <div class="accordion-content">
-                        <p>Always. Design systems fail without engineering alignment.</p>
-                    </div>
-                </div>
-                <!-- More items can be added here -->
-            </div>
-            <div class="accordion-item">
-                <button class="accordion-trigger">Is this tool-specific?</button>
-                <div class="accordion-content">
-                    <p>No. We design system logic that works across tools and frameworks.</p>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <button class="accordion-trigger">How long does a system take to build?</button>
-                <div class="accordion-content">
-                    <p>It depends on scope, maturity, and team size. We define this clearly before starting.</p>
-                </div>
-            </div>
-            <div class="accordion-item">
-                <button class="accordion-trigger">Do you support multiple brands/themes?</button>
-                <div class="accordion-content">
-                    <p>Yes. We specialize in multi-brand architecture. We set up token structures that allow you to
-                        manage multiple visual identities from a single source of truth.</p>
-                </div>
-            </div>
-            </div>
-        </section>
-
-        <hr class="divider">
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer-cta fade-in">
-        <div class="container">
-            <div class="cta-content">
-                <h2 class="cta-title">If your design system feels heavy, ignored, or hard to maintain, <span
-                        class="cta-highlight">we should talk.</span></h2>
-                <p class="cta-subtitle">Not a library. Not a Figma file. A living system your teams can rely on.</p>
-                <div class="cta-actions">
-                    <a href="https://cal.com/layerone" target="_blank" class="btn-primary large">Start a conversation
-                        &rarr;</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <div class="footer-brand">
-                    <img src="assets/images/logo/layerone logo.png" alt="Layerone Logo" class="footer-logo">
-                    <span class="copyright">&copy; Layerone Design Systems</span>
-                </div>
-                <div class="footer-links">
-                    <a href="mailto:layerone@proton.me">layerone@proton.me</a>
-                </div>
-                <div class="footer-social">
-                    <a href="https://x.com/LayeroneStudios" target="_blank" rel="noopener noreferrer"
-                        class="social-link" aria-label="X (Twitter)">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
-                            <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
-                        </svg>
-                    </a>
-                    <a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener noreferrer"
-                        class="social-link" aria-label="Medium">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.82 6.82 0 010 12a6.82 6.82 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42s-3.38-2.88-3.38-6.42 1.51-6.42 3.38-6.42 3.38 2.88 3.38 6.42zM24 12c0 3.17-.53 5.75-1.19 5.75s-1.19-2.58-1.19-5.75.54-5.75 1.19-5.75S24 8.83 24 12z" />
-                        </svg>
-                    </a>
-                    <a href="https://www.linkedin.com/company/layerone.co.in/?viewAsMember=true" target="_blank"
-                        rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                            <rect x="2" y="9" width="4" height="12" />
-                            <circle cx="4" cy="4" r="2" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Custom Cursor -->
-    <div id="cursor">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-                d="M5.65376 12.3673H5.46026L5.31717 12.4976L0.500002 16.8829L0.500002 1.19841L11.7841 12.3673H5.65376Z"
-                fill="#0D99FF" stroke="white" />
-        </svg>
-        <span class="cursor-tag">You</span>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>Layer One</span></a>
+    <nav class="nav" aria-label="Main"><a href="work.html">Work</a><a href="services.html">Services</a><a href="index.html#approach">Approach</a><a href="blog.html">Writing</a></nav>
+    <button class="menu-toggle" type="button" aria-expanded="false">Menu</button>
+    <div class="header-actions">
+      <button class="theme-toggle" type="button" data-theme-toggle><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.75a6.25 6.25 0 0 1 0 12.5Z" fill="currentColor"/></svg></button>
+      <a class="btn btn--small" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+    </div>
+  </div>
+</header>
+<main id="main"><section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1>We build and scale design systems.</h1>
+      <p class="lede">Layer One is a design systems studio. We help product companies create a system from scratch, scale the one they already have across products and markets, and set up the governance that keeps teams using it.</p>
+      <div class="btn-row">
+        <a class="btn" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a 30-minute call</a>
+        <a class="btn btn--ghost" href="work.html">See the work</a>
+      </div>
+      <p class="hero-note">Design systems are all we do. No marketing sites, no app builds.</p>
     </div>
 
-    <!-- Project Modal -->
-    <div id="projectModal" class="modal">
-        <div class="modal-overlay"></div>
-        <div class="modal-container">
-            <button class="modal-close" aria-label="Close Modal">&times;</button>
-            <div class="modal-content">
-                <!-- Data populated via JS -->
-                <div id="modalBody"></div>
-            </div>
+    <figure class="stack" data-stack style="--brand:#4736FE" aria-labelledby="stack-cap">
+      <figcaption class="stack-title" id="stack-cap">One button, built from four token layers</figcaption>
+      <ol class="stack-layers">
+        <li class="layer">
+          <span class="layer-name">Component<span class="layer-hint">What people see</span></span>
+          <span class="demo-ui"><span class="demo-button">Get best price</span><span class="demo-link">See how it works</span></span>
+        </li>
+        <li class="layer">
+          <span class="layer-name">Semantic<span class="layer-hint">What it's for</span></span>
+          <span class="layer-token">color-action-primary</span>
+        </li>
+        <li class="layer">
+          <span class="layer-name">Primitive<span class="layer-hint">Its place in the scale</span></span>
+          <span class="layer-token" data-primitive-text>color-blue-500</span>
+        </li>
+        <li class="layer">
+          <span class="layer-name">Value<span class="layer-hint">The raw colour</span></span>
+          <span class="layer-token"><span class="swatch-chip"></span><span data-value-text>#4736FE</span></span>
+        </li>
+      </ol>
+      <div class="stack-controls">
+        <p>Change the value once. Everything above it follows.</p>
+        <div class="value-picker" role="group" aria-label="Brand value">
+          <button type="button" aria-pressed="true" aria-label="Electric blue, #4736FE" data-hex="#4736fe" data-primitive="color-blue-500" style="background:#4736fe"></button>
+          <button type="button" aria-pressed="false" aria-label="Old CARS24 blue, #0059A3" data-hex="#0059a3" data-primitive="color-blue-700" style="background:#0059a3"></button>
+          <button type="button" aria-pressed="false" aria-label="Teal, #0E7C6B" data-hex="#0e7c6b" data-primitive="color-teal-600" style="background:#0e7c6b"></button>
+          <button type="button" aria-pressed="false" aria-label="Pink, #C3128A" data-hex="#c3128a" data-primitive="color-pink-600" style="background:#c3128a"></button>
         </div>
+      </div>
+    </figure>
+  </div>
+</section>
+<section class="logos" aria-label="Where our team has built design systems">
+  <div class="wrap">
+    <p class="logos-label">Our team has built and run design systems at</p>
+    <ul>
+      <li>CARS24</li><li>IBM</li><li>JPMorgan Chase</li><li>Zomato</li><li>HDFC</li><li>Riyadh Air</li>
+    </ul>
+  </div>
+</section>
+<section class="section" id="situations" aria-labelledby="sit-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="sit-title">Where is your system today?</h2>
+      <p>Most teams come to us at one of four points. Pick the one closest to yours to see what we'd do about it, and where we've done it before.</p>
     </div>
-
-    <!-- Script -->
-    <script src="script.js"></script>
-
-    <!-- Intercom Chatbot -->
-    <script>
-        window.intercomSettings = {
-            api_base: "https://api-iam.intercom.io",
-            app_id: "", // TODO: Replace with your actual Intercom App ID
-            email: "layerone@proton.me"
-    </script>
-
-    <script>
-                (function () { var w = window; var ic = w.Intercom; if (typeof ic === "function") { ic('reattach_activator'); ic('update', w.intercomSettings); } else { var d = document; var i = function () { i.c(arguments); }; i.q = []; i.c = function (args) { i.q.push(args); }; w.Intercom = i; var l = function () { var s = d.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = 'https://widget.intercom.io/widget/'; var x = d.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x); }; if (document.readyState === 'complete') { l(); } else if (w.attachEvent) { w.attachEvent('onload', l); } else { w.addEventListener('load', l, false); } } })    </script>
+    <div class="situations">
+      <div class="situation-tabs" role="tablist" aria-label="Where your system is today" aria-orientation="vertical"><button class="situation-tab" role="tab" id="tab-start" aria-controls="panel-start" aria-selected="true" tabindex="0"><span>We don't have a design system yet</span><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="situation-tab" role="tab" id="tab-scale" aria-controls="panel-scale" aria-selected="false" tabindex="-1"><span>Our system doesn't scale past one product</span><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="situation-tab" role="tab" id="tab-govern" aria-controls="panel-govern" aria-selected="false" tabindex="-1"><span>Our design system team is a bottleneck</span><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="situation-tab" role="tab" id="tab-adopt" aria-controls="panel-adopt" aria-selected="false" tabindex="-1"><span>Teams aren't really using it</span><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
+      <div><div class="situation-panel" role="tabpanel" id="panel-start" aria-labelledby="tab-start">
+      <div class="panel-body">
+        <div><h3>What's usually going on</h3><p>Every team keeps its own styles. The same button exists five ways in code, designers copy colours from old screens, and every new product starts from scratch.</p></div>
+        <div><h3>What we do</h3><p>We audit what you already have, agree the foundations with design and engineering, and build tokens, core components and documentation that match one-to-one in Figma and code.</p><ul><li>Audit</li><li>Token architecture</li><li>Core components</li><li>Documentation</li></ul></div>
+      </div>
+      <a class="panel-proof" href="work/cars24-tokens.html">
+        <img src="assets/work/tokens/cover.jpg" alt="" loading="lazy" width="1800" height="1238">
+        <div><strong>5 → 1</strong><span>button implementations merged into one shared component</span><em>Read the colour and token system case study</em></div>
+      </a>
+    </div>
+<div class="situation-panel" role="tabpanel" id="panel-scale" aria-labelledby="tab-scale" hidden>
+      <div class="panel-body">
+        <div><h3>What's usually going on</h3><p>It worked when there was one product. Now there are several products, brands or countries, and each of them overrides the core until nobody trusts it.</p></div>
+        <div><h3>What we do</h3><p>We restructure your tokens into layers, set up theming so each brand overrides only what it needs, and give every team a clear place for its own components.</p><ul><li>Multi-brand theming</li><li>Token layers</li><li>Library architecture</li><li>Migration plan</li></ul></div>
+      </div>
+      <a class="panel-proof" href="work/cars24-tokens.html">
+        <img src="assets/work/tokens/cover.jpg" alt="" loading="lazy" width="1800" height="1238">
+        <div><strong>10+</strong><span>product lines and 3 countries on one token system</span><em>Read the colour and token system case study</em></div>
+      </a>
+    </div>
+<div class="situation-panel" role="tabpanel" id="panel-govern" aria-labelledby="tab-govern" hidden>
+      <div class="panel-body">
+        <div><h3>What's usually going on</h3><p>Requests arrive by DM, Slack and hallway chats. Decisions depend on who asks loudest, and teams build around you while they wait.</p></div>
+        <div><h3>What we do</h3><p>We set up one front door for requests, a scoring model any team can apply, clear ownership tiers and a contribution playbook, then run it with you until it holds.</p><ul><li>Intake</li><li>Prioritisation</li><li>Ownership tiers</li><li>Contribution</li></ul></div>
+      </div>
+      <a class="panel-proof" href="work/cars24-governance.html">
+        <img src="assets/work/governance/cover.jpg" alt="" loading="lazy" width="1800" height="1238">
+        <div><strong>70 pts</strong><span>a shared scorecard that replaced the loudest-voice backlog</span><em>Read the governance and contribution case study</em></div>
+      </a>
+    </div>
+<div class="situation-panel" role="tabpanel" id="panel-adopt" aria-labelledby="tab-adopt" hidden>
+      <div class="panel-body">
+        <div><h3>What's usually going on</h3><p>The library exists, but pages are still designed from a blank canvas, and adoption is something you hope for rather than something you measure.</p></div>
+        <div><h3>What we do</h3><p>We build patterns for the pages teams actually ship, connect them to your CMS and code, and run the rituals and audits that keep adoption visible.</p><ul><li>Pattern libraries</li><li>CMS integration</li><li>Workshops</li><li>Adoption metrics</li></ul></div>
+      </div>
+      <a class="panel-proof" href="work/cars24-pattern-library.html">
+        <img src="assets/work/patterns/cover.jpg" alt="" loading="lazy" width="1800" height="1238">
+        <div><strong>~43%</strong><span>less time to design and build a new page</span><em>Read the pattern library case study</em></div>
+      </a>
+    </div>
+</div>
+    </div>
+  </div>
+</section>
+<section class="section" id="work" aria-labelledby="work-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="work-title">Selected work</h2>
+      <p>Three projects at one company, CARS24, that together cover the whole life of a design system: getting the foundations right, running it as a service, and getting teams to build with it.</p>
+    </div>
+    <ol class="lifecycle" aria-label="The three stages">
+      <li><strong>Foundations</strong>Colour, tokens and the architecture every product sits on</li>
+      <li><strong>Operations</strong>How requests come in, get decided and get built</li>
+      <li><strong>Adoption</strong>Patterns that make the system the fastest way to ship</li>
+    </ol>
+    <div class="work-list"><article class="work-row">
+      <a class="work-media" href="work/cars24-tokens.html" tabindex="-1" aria-hidden="true"><img src="assets/work/tokens/cover.jpg" alt="" loading="lazy" width="1800" height="1238"></a>
+      <div>
+        <p class="work-meta">Foundations at CARS24</p>
+        <h3><a href="work/cars24-tokens.html">One colour system for 10+ products in three countries</a></h3>
+        <p class="summary">CARS24 grew from one product to more than six across India, the UAE and Australia, and every team had built its own colours. We rebuilt the palette, designed a four-layer token architecture and gave every product one source of truth. The palette became the colour of the CARS24 rebrand.</p>
+        <dl class="metrics"><div><dt>65%</dt><dd>faster design-to-development handoff</dd></div><div><dt>5 → 1</dt><dd>button implementations merged into one</dd></div><div><dt>10+</dt><dd>product lines on one token system</dd></div><div><dt>~$156k</dt><dd>estimated yearly engineering savings</dd></div></dl>
+        <ul class="scope" aria-label="Scope"><li>Colour audit</li><li>Palette in OKLCH</li><li>WCAG contrast</li><li>Token architecture</li><li>Multi-brand theming</li><li>Figma to code</li></ul>
+        <a class="link-arrow" href="work/cars24-tokens.html">Read the case study <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </article>
+<article class="work-row">
+      <a class="work-media" href="work/cars24-governance.html" tabindex="-1" aria-hidden="true"><img src="assets/work/governance/cover.jpg" alt="" loading="lazy" width="1800" height="1238"></a>
+      <div>
+        <p class="work-meta">Operations at CARS24</p>
+        <h3><a href="work/cars24-governance.html">How the design system team stopped being the bottleneck</a></h3>
+        <p class="summary">Every team needed something from the design system, and one small team couldn't keep up. Requests arrived by DM, decisions felt random and teams built around the system. We designed one front door, a 70-point scorecard anyone can apply, three ownership tiers and a contribution playbook.</p>
+        <dl class="metrics"><div><dt>70 pts</dt><dd>scorecard that replaced the loudest-voice backlog</dd></div><div><dt>7 steps</dt><dd>one path for every request, bug or component</dd></div><div><dt>3 tiers</dt><dd>core, extended and custom ownership</dd></div><div><dt>Quarterly</dt><dd>audits that feed drift back into the backlog</dd></div></dl>
+        <ul class="scope" aria-label="Scope"><li>Intake</li><li>Prioritisation model</li><li>Ownership tiers</li><li>Contribution playbook</li><li>Release rituals</li><li>Audits</li></ul>
+        <a class="link-arrow" href="work/cars24-governance.html">Read the case study <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </article>
+<article class="work-row">
+      <a class="work-media" href="work/cars24-pattern-library.html" tabindex="-1" aria-hidden="true"><img src="assets/work/patterns/cover.jpg" alt="" loading="lazy" width="1800" height="1238"></a>
+      <div>
+        <p class="work-meta">Adoption at CARS24</p>
+        <h3><a href="work/cars24-pattern-library.html">Pages built from tested blocks, not from scratch</a></h3>
+        <p class="summary">CARS24 was becoming a super app and launching new services almost every month, and every homepage and landing page started from a blank canvas. We built a pattern library of page blocks with content rules, wired to the CMS and the design tokens, so teams assemble pages instead of designing them.</p>
+        <dl class="metrics"><div><dt>~43%</dt><dd>less time to design and build a new page</dd></div><div><dt>3 months</dt><dd>to reach every major redesign</dd></div><div><dt>~$212k</dt><dd>saved in design and development time</dd></div><div><dt>3</dt><dd>countries building from one library</dd></div></dl>
+        <ul class="scope" aria-label="Scope"><li>Page audit</li><li>Pattern families</li><li>Content rules</li><li>CMS integration</li><li>Spec sheets</li><li>Request template</li></ul>
+        <a class="link-arrow" href="work/cars24-pattern-library.html">Read the case study <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </article>
+</div>
+    <p class="credit">These projects were led by Layer One's founder as Design Systems Lead at CARS24, working with CARS24's design, engineering, brand and content teams. Images belong to CARS24 and are shown with that context.</p>
+  </div>
+</section>
+<section class="section" id="services" aria-labelledby="svc-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="svc-title">What we do</h2>
+      <p>A design system is three things at once: a set of decisions, a way of working, and a habit across teams. We work on all three, and most engagements touch more than one.</p>
+    </div>
+    <div class="pillars"><div class="pillar"><h3>Systems</h3><p>The parts of the system itself.</p><ul><li>Design system audit<span>2–3 weeks</span></li><li>Token architecture</li><li>Core components</li><li>Multi-brand theming</li><li>Documentation</li><li>Figma-to-code parity</li></ul></div><div class="pillar"><h3>Operations</h3><p>How the system is run, day to day.</p><ul><li>Governance model</li><li>Intake and prioritisation</li><li>Ownership tiers</li><li>Contribution playbook</li><li>Releases and versioning</li><li>Quarterly system audits</li></ul></div><div class="pillar"><h3>Adoption</h3><p>How teams come to build with it.</p><ul><li>Pattern libraries</li><li>CMS and page building</li><li>Team workshops</li><li>Design and engineering pairing</li><li>Adoption metrics</li><li>Leadership reporting</li></ul></div></div>
+    <p style="margin-top:32px"><a class="link-arrow" href="services.html">Services in detail <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
+  </div>
+</section>
+<section class="section" id="approach" aria-labelledby="ap-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="ap-title">How an engagement runs</h2>
+      <p>Every engagement starts with an audit, because the right answer depends on where your system is now. After that we build with your team, not for it.</p>
+    </div>
+    <ol class="process"><li><h3>Audit</h3><p class="duration">Typically 2–3 weeks</p><p>We look at your files, your code and how work actually moves between teams. You get a written report and a ranked list of what to fix first.</p></li><li><h3>Decide</h3><p class="duration">Typically 1–2 weeks</p><p>We agree the structure with your design and engineering leads: token layers, naming, what belongs in the core and who owns what.</p></li><li><h3>Build</h3><p class="duration">Ongoing, in releases</p><p>We build alongside your team, in your Figma files and your repository, and ship in releases your teams can plan around.</p></li><li><h3>Hand over</h3><p class="duration">Last month of the engagement</p><p>Documentation, training and a governance model your team can run without us. Success is how little you need us at the end.</p></li></ol>
+    <div id="pricing" class="plans"><div class="plan">
+      <div class="plan-head"><h3>Core</h3></div><p class="for">For teams setting up their first structured foundation.</p>
+      <p class="price">$3,299 <small>/ month</small></p>
+      <ul><li>Audit of your current styles and components</li><li>Token structure and naming conventions</li><li>Core component library in Figma</li><li>Design-to-development handoff guidelines</li><li>Documentation set-up</li><li>Roadmap from UI kit to system</li></ul><a class="btn btn--ghost" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+    </div><div class="plan plan--featured">
+      <div class="plan-head"><h3>Growth</h3><span class="plan-tag">Most teams start here</span></div><p class="for">For product teams that need a system with an operating model.</p>
+      <p class="price">$4,899 <small>/ month</small></p>
+      <ul><li>Everything in Core</li><li>Full audit and debt clean-up</li><li>Multi-product and multi-brand architecture</li><li>Governance, intake and contribution model</li><li>Pairing with engineers on key components</li><li>Adoption tracking and reporting</li><li>Team workshops</li></ul><a class="btn" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+    </div><div class="plan">
+      <div class="plan-head"><h3>Scale</h3></div><p class="for">For organisations running several systems at once.</p>
+      <p class="price">Custom <small></small></p>
+      <ul><li>Architecture advisory for a system of systems</li><li>Migration from legacy libraries</li><li>Enterprise adoption strategy</li><li>Custom tooling and plugins</li><li>Role-based governance</li><li>Agreed scope, contract and SLA</li></ul><a class="btn btn--ghost" href="mailto:layerone@proton.me">Email us about Scale</a>
+    </div></div>
+    <p class="plans-note">Monthly, with no long-term contract. Pause or cancel at any time. A standalone audit is available on its own; ask us for a quote.</p>
+  </div>
+</section>
+<section class="section" aria-labelledby="bel-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="bel-title">What we believe about systems</h2>
+      <p>Learned the slow way, at companies with dozens of designers, hundreds of engineers and more than one country to keep consistent.</p>
+    </div>
+    <ul class="beliefs"><li><h3>A system is an agreement, not a library.</h3><p>Components are the easy part. Ownership, contribution and release cadence are what keep a system alive once it's out in the world.</p></li><li><h3>Tie it to what the business is trying to do.</h3><p>Systems keep their funding when they show time saved and cost avoided. Usage counts alone don't make that case.</p></li><li><h3>Build where the system will live.</h3><p>We work in your files and your codebase, next to your designers and engineers. Nothing is designed in isolation and thrown over a wall.</p></li><li><h3>Every decision comes with a reason.</h3><p>Scored, written down and visible to everyone, so a no is understood and a yes can be planned around.</p></li><li><h3>Accessible by default.</h3><p>Contrast and responsive behaviour are built into the tokens from day one, not patched in after an audit.</p></li><li><h3>Leave the team able to run it.</h3><p>Documentation, training and governance are part of the work. We measure ourselves by how little you need us at the end.</p></li></ul>
+  </div>
+</section>
+<section class="section" id="studio" aria-labelledby="studio-title">
+  <div class="wrap studio">
+    <h2 id="studio-title">Small and senior, on purpose</h2>
+    <div class="studio-body">
+      <p>Layer One is a specialist studio. The person you talk to on the first call is the person doing the work.</p>
+      <p>We've built and governed design systems for organisations with 70+ designers, 200+ engineers and products in several countries. We stay small, take on a few engagements at a time, and bring in trusted specialists in front-end engineering, accessibility and brand when a project needs them.</p>
+      <div class="person">
+        <img src="assets/studio/aniket.jpg" alt="" width="52" height="52" loading="lazy">
+        <div><strong>Aniket Pandey</strong><span>Founder. Previously Design Systems Lead at CARS24.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section" id="writing" aria-labelledby="wr-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="wr-title">Writing</h2>
+      <p>Notes on governance, tokens and the organisational side of design systems.</p>
+    </div>
+    <ul class="posts"><li class="post"><a href="blog-librarian-vs-leader.html"><h3>Most design system leads are just librarians</h3><span>Leadership</span><span>12 min read</span><p>Why maintaining a library isn't the same as leading a system, and what changes when you design the agreements between teams.</p></a></li><li class="post"><a href="https://medium.com/@layerone_11803/design-systems-as-operational-backbones-95b782c17f71" target="_blank" rel="noopener"><h3>Design systems as operational backbones</h3><span>Operations</span><span>5 min read</span><p>The real value of a design system in a large organisation isn't speed. It's structure.</p></a></li><li class="post"><a href="https://medium.com/@layerone_11803/most-design-systems-are-just-expensive-ui-libraries-e0cc8b146f2d" target="_blank" rel="noopener"><h3>Most design systems are just expensive UI libraries</h3><span>Strategy</span><span>8 min read</span><p>Why the most expensive systems often deliver the least, and what's missing from them.</p></a></li></ul>
+    <p style="margin-top:32px"><a class="link-arrow" href="blog.html">All writing <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></p>
+  </div>
+</section>
+<section class="section" id="faq" aria-labelledby="faq-title">
+  <div class="wrap">
+    <div class="section-head"><h2 id="faq-title">Questions</h2><p>If yours isn't here, ask it on a call or by email.</p></div>
+    <div class="faq"><details><summary>Do you design products or marketing websites?</summary><p>No. We only work on design systems and the shared UI infrastructure around them: tokens, components, patterns, documentation and governance.</p></details><details><summary>Can you work with the system we already have?</summary><p>Yes, and most of our work is exactly that. We start with an audit of what exists and keep everything that's working.</p></details><details><summary>Do you work with engineers directly?</summary><p>Always. A design system that only lives in Figma isn't a system. We pair with your engineers on token pipelines and component APIs, and we can build components in React, Vue or web components when you need extra hands.</p></details><details><summary>Do you support multiple brands, products or countries?</summary><p>Yes. Multi-brand token architecture is one of our specialities. At CARS24 the same token system runs 10+ product lines across India, the UAE and Australia, with each theme overriding only what it needs.</p></details><details><summary>How long does it take?</summary><p>An audit typically takes two to three weeks. Building or restructuring a system usually runs for three to six months, depending on scope and how many teams are involved. We agree the plan before we start.</p></details><details><summary>Which tools do you work in?</summary><p>Figma, Storybook, Tokens Studio and Style Dictionary are common, but the structure we design isn't tied to a tool. We work in whatever your teams already use.</p></details><details><summary>Why monthly instead of a fixed project fee?</summary><p>Design systems are products, not projects. They keep changing as your company does. A monthly engagement lets the scope follow what you actually need, and you can pause or stop at any time.</p></details></div>
+  </div>
+</section>
+</main><section class="cta" aria-labelledby="cta-title">
+  <div class="wrap">
+    <h2 id="cta-title">Tell us where your system is today.</h2>
+    <div>
+      <p>Thirty minutes is enough to tell whether we're the right fit. If we're not, we'll say so and point you somewhere better.</p>
+      <div class="btn-row">
+        <a class="btn" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a 30-minute call</a>
+        <a class="btn btn--ghost" href="mailto:layerone@proton.me">Email layerone@proton.me</a>
+      </div>
+    </div>
+  </div>
+</section>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="index.html"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>Layer One</span></a>
+        <p class="footer-blurb">A design systems studio. We help product companies build, scale and govern their design systems.</p>
+      </div>
+      <div>
+        <h2>Studio</h2>
+        <ul>
+          <li><a href="work.html">Work</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="index.html#approach">Approach</a></li>
+          <li><a href="index.html#pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Case studies</h2>
+        <ul>
+          <li><a href="work/cars24-tokens.html">Colour and tokens</a></li>
+          <li><a href="work/cars24-governance.html">Governance</a></li>
+          <li><a href="work/cars24-pattern-library.html">Pattern library</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <ul>
+          <li><a href="mailto:layerone@proton.me">layerone@proton.me</a></li>
+          <li><a href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a></li>
+          <li><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://x.com/LayeroneStudios" target="_blank" rel="noopener">X</a></li>
+          <li><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>&copy; <span data-year>2026</span> Layer One Design Systems</span>
+      <span>Made in India, working with teams everywhere</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/site.js" defer></script>
 </body>
-
 </html>

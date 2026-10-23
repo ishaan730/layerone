@@ -1,208 +1,90 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Insights and articles on design systems, token architecture, and UI engineering.">
-    <title>Blog — Layerone Design Systems</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://cdn.jsdelivr.net/npm/geist@1.0.0/dist/fonts/geist-sans/style.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <script>
-        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-    </script>
-    <script defer src="/_vercel/insights/script.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Writing — Layer One</title>
+<meta name="description" content="Notes on design system governance, tokens and leadership from Layer One.">
+<meta property="og:title" content="Writing — Layer One">
+<meta property="og:description" content="Notes on design system governance, tokens and leadership from Layer One.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://www.layerone.co.in/assets/work/tokens/cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<script>try{var t=localStorage.getItem("l1-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
-
 <body>
-
-    <main class="container">
-        <nav class="nav">
-            <div class="logo">
-                <a href="index.html"
-                    style="display: flex; align-items: center; gap: 8px; text-decoration: none; color: inherit;">
-                    <img src="assets/images/logo/layerone logo.png" alt="Layerone Logo" class="logo-img"
-                        style="height: 20px; width: auto;">
-                    Layerone
-                </a>
-            </div>
-
-            <div class="nav-links">
-                <a href="blog.html" class="nav-link">Blog</a>
-            </div>
-
-            <!-- Theme Toggle -->
-            <div class="theme-toggle">
-                <button class="theme-btn active" data-theme="light" aria-label="Switch to Light Theme">Light</button>
-                <button class="theme-btn" data-theme="dark" aria-label="Switch to Dark Theme">Dark</button>
-                <button class="theme-btn" data-theme="paper" aria-label="Switch to Paper Theme">Paper</button>
-            </div>
-        </nav>
-
-        <section class="blog-header fade-in">
-            <span class="mono-label">INSIGHTS</span>
-            <h1 class="section-label-large" style="margin-top: var(--spacing-sm);">Our Thinking on Systems.</h1>
-            <p class="section-desc">Deep dives into the architecture, governance, and engineering of scalable design
-                systems.</p>
-        </section>
-
-        <div class="blog-grid fade-in">
-            <!-- Blog Card (Newest) -->
-            <a href="https://medium.com/@layerone_11803/design-systems-as-operational-backbones-95b782c17f71"
-                target="_blank" rel="noopener noreferrer" class="blog-card">
-                <div class="blog-image-wrap">
-                    <img src="assets/images/blog/operational-backbone.png" alt="Abstract architectural representation">
-                </div>
-                <div class="blog-content">
-                    <span class="blog-category">Operations / Strategy</span>
-                    <h3>Design Systems as Operational Backbones</h3>
-                    <p class="blog-excerpt">If you look closely at how large product organizations actually work, the real value of a design system is not speed. The real value is operational structure.</p>
-                    <div class="blog-footer">
-                        <span>5 min read</span>
-                        <span class="read-more">Read on Medium &rarr;</span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Blog Card 00 -->
-            <a href="https://medium.com/@layerone_11803/most-design-systems-are-just-expensive-ui-libraries-e0cc8b146f2d"
-                target="_blank" rel="noopener noreferrer" class="blog-card">
-                <div class="blog-image-wrap">
-                    <img src="assets/images/blog/foundations.png" alt="Abstract architectural representation">
-                </div>
-                <div class="blog-content">
-                    <span class="blog-category">Architecture / Strategy</span>
-                    <h3>Most Design Systems Are Just Expensive UI Libraries</h3>
-                    <p class="blog-excerpt">Design systems are more than just component libraries. Exploring why the
-                        most expensive systems often fail to deliver real value.</p>
-                    <div class="blog-footer">
-                        <span>8 min read</span>
-                        <span class="read-more">Read on Medium &rarr;</span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Blog Card 01 -->
-            <a href="blog-librarian-vs-leader.html" class="blog-card">
-                <div class="blog-image-wrap">
-                    <img src="assets/images/blog/librarian-vs-leader.png"
-                        alt="Conceptual illustration of a librarian vs a leader">
-                </div>
-                <div class="blog-content">
-                    <span class="blog-category">Leadership / Strategy</span>
-                    <h3>Most Design System Leads Are Just Librarians</h3>
-                    <p class="blog-excerpt">Exploring the critical shift from managing assets to shaping organizational
-                        ecosystems through strategic governance.</p>
-                    <div class="blog-footer">
-                        <span>12 min read</span>
-                        <span class="read-more">Read Article &rarr;</span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Blog Card 02 -->
-            <a href="https://medium.com/@layerone/foundations-of-modern-design-systems" target="_blank"
-                rel="noopener noreferrer" class="blog-card">
-                <div class="blog-image-wrap">
-                    <img src="assets/images/blog/foundations.png" alt="Abstract geometric foundations representation">
-                </div>
-                <div class="blog-content">
-                    <span class="blog-category">Architecture</span>
-                    <h3>Foundations of Modern Design Systems</h3>
-                    <p class="blog-excerpt">Why most systems fail at the token level, and how to build a robust
-                        structural logic that lasts years, not months.</p>
-                    <div class="blog-footer">
-                        <span>5 min read</span>
-                        <span class="read-more">Read on Medium &rarr;</span>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Blog Card 02 -->
-            <a href="https://medium.com/@layerone/scaling-ui-engineering" target="_blank" rel="noopener noreferrer"
-                class="blog-card">
-                <div class="blog-image-wrap">
-                    <img src="assets/images/blog/scaling.png" alt="Abstract scaling technology representation">
-                </div>
-                <div class="blog-content">
-                    <span class="blog-category">Engineering</span>
-                    <h3>Scaling UI Engineering Across Orgs</h3>
-                    <p class="blog-excerpt">Exploring the technical challenges of maintaining consistency across
-                        fragmented product ecosystems.</p>
-                    <div class="blog-footer">
-                        <span>8 min read</span>
-                        <span class="read-more">Read on Medium &rarr;</span>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer-cta fade-in">
-        <div class="container">
-            <div class="cta-content">
-                <h2 class="cta-title">If your design system feels heavy, ignored, or hard to maintain, <span
-                        class="cta-highlight">we should talk.</span></h2>
-                <p class="cta-subtitle">Not a library. Not a Figma file. A living system your teams can rely on.</p>
-                <div class="cta-actions">
-                    <a href="https://cal.com/layerone" target="_blank" class="btn-primary large">Start a conversation
-                        &rarr;</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <div class="footer-brand">
-                    <img src="assets/images/logo/layerone logo.png" alt="Layerone Logo" class="footer-logo">
-                    <span class="copyright">&copy; Layerone Design Systems</span>
-                </div>
-                <div class="footer-links">
-                    <a href="mailto:layerone@proton.me">layerone@proton.me</a>
-                </div>
-                <div class="footer-social">
-                    <a href="https://x.com/LayeroneStudios" target="_blank" rel="noopener noreferrer"
-                        class="social-link" aria-label="X (Twitter)">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
-                            <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
-                        </svg>
-                    </a>
-                    <a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener noreferrer"
-                        class="social-link" aria-label="Medium">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path
-                                d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.82 6.82 0 010 12a6.82 6.82 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42s-3.38-2.88-3.38-6.42 1.51-6.42 3.38-6.42 3.38 2.88 3.38 6.42zM24 12c0 3.17-.53 5.75-1.19 5.75s-1.19-2.58-1.19-5.75.54-5.75 1.19-5.75S24 8.83 24 12z" />
-                        </svg>
-                    </a>
-                    <a href="https://www.linkedin.com/company/layerone.co.in/?viewAsMember=true" target="_blank"
-                        rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                            <rect x="2" y="9" width="4" height="12" />
-                            <circle cx="4" cy="4" r="2" />
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Custom Cursor -->
-    <div id="cursor">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-                d="M5.65376 12.3673H5.46026L5.31717 12.4976L0.500002 16.8829L0.500002 1.19841L11.7841 12.3673H5.65376Z"
-                fill="#0D99FF" stroke="white" />
-        </svg>
-        <span class="cursor-tag">You</span>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>Layer One</span></a>
+    <nav class="nav" aria-label="Main"><a href="work.html">Work</a><a href="services.html">Services</a><a href="index.html#approach">Approach</a><a href="blog.html" aria-current="page">Writing</a></nav>
+    <button class="menu-toggle" type="button" aria-expanded="false">Menu</button>
+    <div class="header-actions">
+      <button class="theme-toggle" type="button" data-theme-toggle><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.75a6.25 6.25 0 0 1 0 12.5Z" fill="currentColor"/></svg></button>
+      <a class="btn btn--small" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
     </div>
-
-    <!-- Script -->
-    <script src="script.js"></script>
+  </div>
+</header>
+<main id="main">
+<section class="page-head"><div class="wrap"><h1>Writing</h1><p class="lede">Notes on governance, tokens and the organisational side of design systems.</p></div></section>
+<section class="section--tight" style="padding-top:0"><div class="wrap"><ul class="posts"><li class="post"><a href="blog-librarian-vs-leader.html"><h3>Most design system leads are just librarians</h3><span>Leadership</span><span>12 min read</span><p>Why maintaining a library isn't the same as leading a system, and what changes when you design the agreements between teams.</p></a></li><li class="post"><a href="https://medium.com/@layerone_11803/design-systems-as-operational-backbones-95b782c17f71" target="_blank" rel="noopener"><h3>Design systems as operational backbones</h3><span>Operations</span><span>5 min read on Medium</span><p>The real value of a design system in a large organisation isn't speed. It's structure.</p></a></li><li class="post"><a href="https://medium.com/@layerone_11803/most-design-systems-are-just-expensive-ui-libraries-e0cc8b146f2d" target="_blank" rel="noopener"><h3>Most design systems are just expensive UI libraries</h3><span>Strategy</span><span>8 min read on Medium</span><p>Why the most expensive systems often deliver the least, and what's missing from them.</p></a></li><li class="post"><a href="https://medium.com/@layerone/foundations-of-modern-design-systems" target="_blank" rel="noopener"><h3>Foundations of modern design systems</h3><span>Architecture</span><span>5 min read on Medium</span><p>Why most systems fail at the token level, and how to build structure that lasts years.</p></a></li><li class="post"><a href="https://medium.com/@layerone/scaling-ui-engineering" target="_blank" rel="noopener"><h3>Scaling UI engineering across organisations</h3><span>Engineering</span><span>8 min read on Medium</span><p>Keeping UI consistent when the product is spread across many teams and codebases.</p></a></li></ul></div></section>
+</main><section class="cta" aria-labelledby="cta-title">
+  <div class="wrap">
+    <h2 id="cta-title">Tell us where your system is today.</h2>
+    <div>
+      <p>Thirty minutes is enough to tell whether we're the right fit. If we're not, we'll say so and point you somewhere better.</p>
+      <div class="btn-row">
+        <a class="btn" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a 30-minute call</a>
+        <a class="btn btn--ghost" href="mailto:layerone@proton.me">Email layerone@proton.me</a>
+      </div>
+    </div>
+  </div>
+</section>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="index.html"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>Layer One</span></a>
+        <p class="footer-blurb">A design systems studio. We help product companies build, scale and govern their design systems.</p>
+      </div>
+      <div>
+        <h2>Studio</h2>
+        <ul>
+          <li><a href="work.html">Work</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="index.html#approach">Approach</a></li>
+          <li><a href="index.html#pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Case studies</h2>
+        <ul>
+          <li><a href="work/cars24-tokens.html">Colour and tokens</a></li>
+          <li><a href="work/cars24-governance.html">Governance</a></li>
+          <li><a href="work/cars24-pattern-library.html">Pattern library</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <ul>
+          <li><a href="mailto:layerone@proton.me">layerone@proton.me</a></li>
+          <li><a href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a></li>
+          <li><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://x.com/LayeroneStudios" target="_blank" rel="noopener">X</a></li>
+          <li><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>&copy; <span data-year>2026</span> Layer One Design Systems</span>
+      <span>Made in India, working with teams everywhere</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/site.js" defer></script>
 </body>
-
 </html>

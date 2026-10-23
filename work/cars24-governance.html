@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Governance and contribution at CARS24 — Layer One case study</title>
+<meta name="description" content="Every team needed something from the design system, and one small team couldn't keep up. Requests arrived by DM, decisions felt random and teams built arou">
+<meta property="og:title" content="Governance and contribution at CARS24 — Layer One case study">
+<meta property="og:description" content="Every team needed something from the design system, and one small team couldn't keep up. Requests arrived by DM, decisions felt random and teams built arou">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://www.layerone.co.in/assets/work/governance/cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{var t=localStorage.getItem("l1-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>Layer One</span></a>
+    <nav class="nav" aria-label="Main"><a href="../work.html" aria-current="page">Work</a><a href="../services.html">Services</a><a href="../index.html#approach">Approach</a><a href="../blog.html">Writing</a></nav>
+    <button class="menu-toggle" type="button" aria-expanded="false">Menu</button>
+    <div class="header-actions">
+      <button class="theme-toggle" type="button" data-theme-toggle><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.75a6.25 6.25 0 0 1 0 12.5Z" fill="currentColor"/></svg></button>
+      <a class="btn btn--small" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+    </div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap">
+  <header class="cs-head">
+    <p class="crumb"><a href="../work.html">Work</a><span aria-hidden="true">/</span><span>Operations at CARS24</span></p>
+    <h1>How the design system team stopped being the bottleneck</h1>
+    <p class="lede">As CARS24 grew, every team needed something from the design system, and one small team couldn't keep up. We changed how work came in, got decided and got built, so teams moved fast without going around the system.</p>
+    <dl class="facts"><div><dt>Client</dt><dd>CARS24</dd></div><div><dt>Focus</dt><dd>Governance, prioritisation, contribution</dd></div><div><dt>Platforms</dt><dd>Web, iOS and Android</dd></div><div><dt>Markets</dt><dd>India, UAE, Australia</dd></div></dl>
+  </header>
+  <figure class="cs-cover"><img src="../assets/work/governance/cover.jpg" alt="Diagram of requests from six teams flowing through one front door, a score, and three ownership tiers to release" width="1800" height="1238"></figure>
+  <dl class="results" aria-label="Results"><div><dt>70 pts</dt><dd>scorecard any team can apply to its own request</dd></div><div><dt>7 steps</dt><dd>one path for every bug, variant and component</dd></div><div><dt>3 tiers</dt><dd>core, extended and custom ownership</dd></div><div><dt>4 rhythms</dt><dd>daily, weekly, quarterly and per-release listening</dd></div></dl>
+  <div class="cs-layout">
+    <nav class="cs-toc" aria-label="On this page"><p>On this page</p><ol><li><a href="#setting">The setting</a></li><li><a href="#problem">The problem</a></li><li><a href="#research">Research</a></li><li><a href="#front-door">One front door</a></li><li><a href="#score">The score</a></li><li><a href="#ownership">Who owns what</a></li><li><a href="#contributing">Contributing</a></li><li><a href="#changed">What changed</a></li><li><a href="#learnings">Learnings</a></li></ol></nav>
+    <div class="cs-body"><section class="cs-section" id="setting" aria-labelledby="setting-h">
+        <p class="cs-kicker">The setting</p><h2 id="setting-h">10+ products, three countries, one library</h2><div class="prose"><p>CARS24 runs buying, selling, loans and new cars across India, the UAE and Australia, on web, iOS and Android. Every one of those products used the same design system, looked after by one small team.</p><p>As the company grew, product teams needed changes faster than that team could make them. There was no clear way to ask for something, no fair way to decide what came first, and no way for teams to help. So everything waited.</p></div><div class="cards cards--3"><div class="card"><h3>Slower launches</h3><p>Product work waited on library changes that had no date.</p></div><div class="card"><h3>Paying twice</h3><p>The same card, chip or carousel got built again by different teams.</p></div><div class="card"><h3>Less trust</h3><p>People buying a car worth lakhs saw screens that didn't match.</p></div></div></section><section class="cs-section" id="problem" aria-labelledby="problem-h">
+        <p class="cs-kicker">The problem</p><h2 id="problem-h">Six requests a week, one answered</h2><div class="prose"><p>Requests arrived through DMs, Slack threads, meetings and hallway chats. Nobody could see the full list, including the design system team. Whether the answer was yes depended on who asked and how loudly, so teams stopped trusting it and built their own versions.</p><p>Here's a typical week in the help channel, recreated from real requests with names removed.</p></div><div class="table-wrap"><table class="data"><thead><tr><th>Team</th><th>Role</th><th>Request</th></tr></thead><tbody><tr><td>Seller</td><td>Product designer</td><td>We need a custom card for car pricing on the seller flow. Can it go into the library? We launch in two weeks.</td></tr><tr><td>Loans</td><td>Frontend engineer</td><td>Can we add a heatmap chart? Our dashboard needs one and I'd rather not build it from scratch.</td></tr><tr><td>Buyer</td><td>Product designer</td><td>Our flow needs a special carousel. Is there a way to do it with what we have?</td></tr><tr><td>New cars</td><td>Product designer</td><td>Can I add this new filter pattern? Happy to do the Figma work myself.</td></tr><tr><td>UAE</td><td>Mobile engineer</td><td>We built a checkout component. Can other teams use it? Where would I even put it?</td></tr><tr><td>Australia</td><td>Product designer</td><td>How do I propose a new button variant? Is there a form somewhere?</td></tr></tbody></table></div><div class="cards cards--3"><div class="card"><h3>No front door</h3><p>Requests came in everywhere, so nobody could see them all.</p></div><div class="card"><h3>No shared rules</h3><p>Answers depended on who asked, so teams couldn't predict them.</p></div><div class="card"><h3>No way to help</h3><p>Teams that had already built something had nowhere to put it.</p></div></div></section><section class="cs-section" id="research" aria-labelledby="research-h">
+        <p class="cs-kicker">Research</p><h2 id="research-h">First, we listened</h2><div class="prose"><p>Before designing any process, we looked at where things actually broke, from seven angles: interviews with designers, engineers and PMs; a workflow audit of where requests got stuck; usage data on unused and stalled requests; benchmarking against Base, Shopify Polaris and Agoda; surveys on trust in the process; shadowing to watch delays happen live; and experiments with existing frameworks.</p><p>The hardest part was deciding what to work on first. We scored a batch of real requests with RICE and MoSCoW. With RICE, people argued about the numbers, because reach and confidence are guesses for a shared component. With MoSCoW, every team's request came back as a Must.</p><p>For a shared component, it came down to four things: where it's used, who can reuse it, whether it already exists, and how hard it is to build.</p></div></section><section class="cs-section" id="front-door" aria-labelledby="front-door-h">
+        <p class="cs-kicker">Intake</p><h2 id="front-door-h">Every request takes the same path</h2><div class="prose"><p>A bug, a new variant or a whole new component: it doesn't matter. Everything goes through the same seven steps, so anyone can tell where a request is and what happens next.</p></div><ol class="flow"><li><div><h3>Ask</h3><p>Post in the help channel or fill in the proposal form: what it's for, who needs it and how often it comes up.</p></div><span class="who">Anyone, any time</span></li><li><div><h3>Review</h3><p>New requests are reviewed together at weekly office hours. Anything unclear goes back as a question.</p></div><span class="who">DS team and requester, weekly</span></li><li><div><h3>Score</h3><p>Four questions, out of 70. The score is shared, so the requester sees why it landed where it did.</p></div><span class="who">DS team, in the open</span></li><li><div><h3>Decide</h3><p>Accept, defer or reject. Every decision goes back to the team with the reason attached.</p></div><span class="who">DS team, same week</span></li><li><div><h3>Build</h3><p>Core work is built by the DS team, extended work together, and custom work stays with the product team.</p></div><span class="who">Depends on the tier</span></li><li><div><h3>Release</h3><p>Documented in Figma and Storybook, announced with a changelog and migration steps.</p></div><span class="who">DS team, every release</span></li><li><div><h3>Check</h3><p>Live screens are audited every quarter. Anything that has drifted comes back in as a new request.</p></div><span class="who">DS team, quarterly</span></li></ol><div class="prose"><p>Step seven feeds step one, so the system keeps improving without anyone having to remember to ask.</p></div></section><section class="cs-section" id="score" aria-labelledby="score-h">
+        <p class="cs-kicker">Prioritisation</p><h2 id="score-h">A score instead of an argument</h2><div class="prose"><p>Four plain questions that any product designer can answer without the design system team. Each answer is worth points, the points add up to a priority, and the priority decides what happens next. It works the same way for every team. Try it.</p></div><form class="scorer" data-scorer onsubmit="return false" aria-label="Request scorecard"><div class="scorer-q"><fieldset><legend class="label">Where is it needed?</legend><p class="help">Work in main products helps the most people.</p><div class="seg"><label><input type="radio" name="where" value="20"><span><b>20</b> Main products</span></label><label><input type="radio" name="where" value="15"><span><b>15</b> Smaller products</span></label><label><input type="radio" name="where" value="5"><span><b>5</b> One small team</span></label><label><input type="radio" name="where" value="x"><span>✕ Nowhere</span></label></div></fieldset></div><div class="scorer-q"><fieldset><legend class="label">How many can reuse it?</legend><p class="help">A design system is for shared things.</p><div class="seg"><label><input type="radio" name="reuse" value="20"><span><b>20</b> Many teams</span></label><label><input type="radio" name="reuse" value="15"><span><b>15</b> A few teams</span></label><label><input type="radio" name="reuse" value="5"><span><b>5</b> One team</span></label><label><input type="radio" name="reuse" value="x"><span>✕ Only one product</span></label></div></fieldset></div><div class="scorer-q"><fieldset><legend class="label">Do we already have it?</legend><p class="help">Filling a real gap beats rebuilding what works.</p><div class="seg"><label><input type="radio" name="exists" value="15"><span><b>15</b> No</span></label><label><input type="radio" name="exists" value="10"><span><b>10</b> Partly</span></label><label><input type="radio" name="exists" value="5"><span><b>5</b> Mostly</span></label><label><input type="radio" name="exists" value="x"><span>✕ Fully solved</span></label></div></fieldset></div><div class="scorer-q"><fieldset><legend class="label">How hard is it to build?</legend><p class="help">Quick wins go first, so teams aren't stuck waiting.</p><div class="seg"><label><input type="radio" name="effort" value="15"><span><b>15</b> Under a week</span></label><label><input type="radio" name="effort" value="10"><span><b>10</b> 1–3 weeks</span></label><label><input type="radio" name="effort" value="5"><span><b>5</b> 3+ weeks</span></label><label><input type="radio" name="effort" value="x"><span>✕ Not worth it</span></label></div></fieldset></div>
+  <div class="scorer-out" aria-live="polite"><div class="scorer-total"><span data-total>0</span> <small>/ 70</small></div>
+  <div class="scorer-verdict"><strong data-verdict></strong><span data-detail></span></div></div>
+</form><div class="table-wrap"><table class="data"><thead><tr><th>Score</th><th>Priority</th><th>What happens</th></tr></thead><tbody>
+<tr><td class="num">55–70</td><td>High</td><td>Accepted and picked up first. The design system team builds it.</td></tr>
+<tr><td class="num">40–54</td><td>Medium</td><td>Accepted, after high-priority work. The requesting team can contribute to speed it up.</td></tr>
+<tr><td class="num">20–39</td><td>Low</td><td>Deferred. The team can build it as a custom or extended component.</td></tr>
+<tr><td class="num">Any ✕</td><td>Won't fix</td><td>Rejected, whatever the total. The team builds it outside the system using the design language.</td></tr>
+</tbody></table></div><div class="prose"><p>Here's the filter request from the help channel, as it was scored in office hours.</p></div><div class="table-wrap"><table class="data"><thead><tr><th>Question</th><th>Answer</th><th>Points</th></tr></thead><tbody>
+<tr><td>Where is it needed?</td><td>Search and filters sit in the main Buy funnel.</td><td class="num">20</td></tr>
+<tr><td>How many can reuse it?</td><td>Buyer and New cars both filter listings. Seller doesn't.</td><td class="num">15</td></tr>
+<tr><td>Do we already have it?</td><td>There were chips, but no way to pick several filters.</td><td class="num">10</td></tr>
+<tr><td>How hard is it to build?</td><td>About two weeks, starting from the existing chip.</td><td class="num">10</td></tr>
+<tr><td><strong>Total</strong></td><td>Accepted. Built by the design system team with the requester.</td><td class="num">55 / 70</td></tr>
+</tbody></table></div><div class="prose"><p>It held up because the questions were ones requesters could answer themselves. Once requesters and the design system team kept landing on the same score, it became the default.</p></div></section><section class="cs-section" id="ownership" aria-labelledby="ownership-h">
+        <p class="cs-kicker">Ownership</p><h2 id="ownership-h">Not everything belongs in the core</h2><div class="prose"><p>Components are split into three rings. The closer to the centre, the more widely a component is used and the more the design system team looks after it.</p></div><div class="rings">
+  <svg viewBox="0 0 280 280" role="img" aria-label="Three nested rings: core inside extended inside custom">
+    <circle cx="140" cy="140" r="130" stroke-width="1" stroke-dasharray="4 5"/>
+    <circle cx="140" cy="140" r="88" stroke-width="1"/>
+    <circle cx="140" cy="140" r="46" stroke-width="2"/>
+    <text x="140" y="144" text-anchor="middle">Core</text>
+    <text x="140" y="74" text-anchor="middle">Extended</text>
+    <text x="140" y="30" text-anchor="middle">Custom</text>
+  </svg>
+  <div class="table-wrap" style="margin-top:0"><table class="data"><thead><tr><th>Tier</th><th>Designs</th><th>Builds</th><th>Reviews</th><th>Maintains</th></tr></thead><tbody>
+    <tr><td><strong>Core</strong></td><td>DS team</td><td>DS team</td><td>DS team</td><td>DS team</td></tr>
+    <tr><td><strong>Extended</strong></td><td>Together</td><td>Product team</td><td>DS team</td><td>Together</td></tr>
+    <tr><td><strong>Custom</strong></td><td>Product team</td><td>Product team</td><td>Product team</td><td>Product team</td></tr>
+  </tbody></table></div>
+</div></section><section class="cs-section" id="contributing" aria-labelledby="contributing-h">
+        <p class="cs-kicker">Contribution</p><h2 id="contributing-h">Building with us, not waiting on us</h2><div class="prose"><p>Once people saw the system working, many of them wanted to add to it. Without a clear path that meant uneven quality, long reviews and confusion about ownership. So we wrote a four-step playbook, with a template for every step.</p></div><ol class="flow"><li><div><h3>Propose</h3><p>Start with context, not just a component: use cases, how often it comes up, the problem it solves, screenshots and suggested tokens.</p></div><span class="who">Requesting team</span></li><li><div><h3>Review and score</h3><p>Data, not debate. The proposal is scored with the same four questions as every other request.</p></div><span class="who">DS team, with the requester</span></li><li><div><h3>Build together</h3><p>Design system and product designers refine the spec together; engineers pair on reusable, tokenised code, checked for accessibility on web, iOS and Android.</p></div><span class="who">Both teams</span></li><li><div><h3>Document and release</h3><p>A component without documentation doesn't exist. It ships with docs, a version number and a release note.</p></div><span class="who">DS team</span></li></ol><div class="prose"><p>Around the playbook, we built listening into the routine at four speeds.</p></div><div class="cards"><div class="card"><h3>Every day</h3><p>Slack channels for help, releases and changelogs. Fast answers, so nobody stays blocked.</p></div><div class="card"><h3>Every week</h3><p>Office hours where any designer brings real use cases, friction and ideas.</p></div><div class="card"><h3>Every quarter</h3><p>A system audit of live screens for token use, forked components and accessibility gaps.</p></div><div class="card"><h3>Every release</h3><p>Changelogs with migration steps, so platforms stop drifting apart.</p></div></div></section><section class="cs-section" id="changed" aria-labelledby="changed-h">
+        <p class="cs-kicker">Outcome</p><h2 id="changed-h">From gatekeeper to partner</h2><ul class="shift"><li><span>Teams worked in silos</span><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>A shared language and shared habits</span></li><li><span>Forked styles and duplicate work</span><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Consistency through tokens and the system</span></li><li><span>Rules handed down from the top</span><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Contributions led by the community</span></li><li><span>The design system was a blocker</span><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>The design system was an enabler</span></li><li><span>Fear of change</span><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Trust and collaboration</span></li></ul><div class="prose"><p>Designers trusted the tools and patterns. Engineers started suggesting improvements themselves. Product managers saw the system as a way to ship faster, and planned around releases. The design system team stopped being a bottleneck and became a facilitator.</p></div></section><section class="cs-section" id="learnings" aria-labelledby="learnings-h">
+        <p class="cs-kicker">Learnings</p><h2 id="learnings-h">What we'd do again</h2><div class="cards"><div class="card"><h3>Agree on the goal first</h3><p>Every later argument is easier when everyone signed up to the same outcome.</p></div><div class="card"><h3>Governance is what lets you scale</h3><p>Without it, more demand just means a longer queue.</p></div><div class="card"><h3>Docs and templates are lifelines</h3><p>Templates made the right thing the easy thing.</p></div><div class="card"><h3>Culture matters as much as code</h3><p>The process only worked once people trusted it.</p></div></div></section></div>
+  </div>
+  <aside class="next-case">
+    <a href="../work/cars24-pattern-library.html"><div><p>Next case study</p><h2>Pages built from tested blocks, not from scratch</h2></div><img src="../assets/work/patterns/cover.jpg" alt="" loading="lazy"></a>
+  </aside>
+  <p class="credit" style="margin-bottom:64px">Led by Layer One's founder, Aniket Pandey, as Design Systems Lead at CARS24, with CARS24's design, engineering, brand and content teams. Images belong to CARS24.</p>
+</div>
+</main><section class="cta" aria-labelledby="cta-title">
+  <div class="wrap">
+    <h2 id="cta-title">Facing something similar?</h2>
+    <div>
+      <p>Tell us where your system is today. We'll tell you honestly what we'd do and whether we're the right people to do it.</p>
+      <div class="btn-row">
+        <a class="btn" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a 30-minute call</a>
+        <a class="btn btn--ghost" href="mailto:layerone@proton.me">Email layerone@proton.me</a>
+      </div>
+    </div>
+  </div>
+</section>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="../index.html"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>Layer One</span></a>
+        <p class="footer-blurb">A design systems studio. We help product companies build, scale and govern their design systems.</p>
+      </div>
+      <div>
+        <h2>Studio</h2>
+        <ul>
+          <li><a href="../work.html">Work</a></li>
+          <li><a href="../services.html">Services</a></li>
+          <li><a href="../index.html#approach">Approach</a></li>
+          <li><a href="../index.html#pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Case studies</h2>
+        <ul>
+          <li><a href="../work/cars24-tokens.html">Colour and tokens</a></li>
+          <li><a href="../work/cars24-governance.html">Governance</a></li>
+          <li><a href="../work/cars24-pattern-library.html">Pattern library</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <ul>
+          <li><a href="mailto:layerone@proton.me">layerone@proton.me</a></li>
+          <li><a href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a></li>
+          <li><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://x.com/LayeroneStudios" target="_blank" rel="noopener">X</a></li>
+          <li><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>&copy; <span data-year>2026</span> Layer One Design Systems</span>
+      <span>Made in India, working with teams everywhere</span>
+    </div>
+  </div>
+</footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>
