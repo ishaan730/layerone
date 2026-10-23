@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Colour and token system at CARS24 — Layer One case study</title>
+<meta name="description" content="CARS24 grew from one product to more than six across India, the UAE and Australia, and every team had built its own colours. We rebuilt the palette, design">
+<meta property="og:title" content="Colour and token system at CARS24 — Layer One case study">
+<meta property="og:description" content="CARS24 grew from one product to more than six across India, the UAE and Australia, and every team had built its own colours. We rebuilt the palette, design">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://www.layerone.co.in/assets/work/tokens/cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css">
+<script>try{var t=localStorage.getItem("l1-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>Layer One</span></a>
+    <nav class="nav" aria-label="Main"><a href="../work.html" aria-current="page">Work</a><a href="../services.html">Services</a><a href="../index.html#approach">Approach</a><a href="../blog.html">Writing</a></nav>
+    <button class="menu-toggle" type="button" aria-expanded="false">Menu</button>
+    <div class="header-actions">
+      <button class="theme-toggle" type="button" data-theme-toggle><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.75a6.25 6.25 0 0 1 0 12.5Z" fill="currentColor"/></svg></button>
+      <a class="btn btn--small" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+    </div>
+  </div>
+</header>
+<main id="main">
+<div class="wrap">
+  <header class="cs-head">
+    <p class="crumb"><a href="../work.html">Work</a><span aria-hidden="true">/</span><span>Foundations at CARS24</span></p>
+    <h1>One colour system for 10+ products in three countries</h1>
+    <p class="lede">CARS24 grew from one product to more than six, across three countries, in about three years, and its design didn't keep up. We gave every team one colour palette and one set of design tokens, and that palette became the colour of the CARS24 rebrand.</p>
+    <dl class="facts"><div><dt>Client</dt><dd>CARS24</dd></div><div><dt>Duration</dt><dd>4 months</dd></div><div><dt>Team</dt><dd>2 designers, 3 developers</dd></div><div><dt>Scope</dt><dd>Colour overhaul and token architecture</dd></div></dl>
+  </header>
+  <figure class="cs-cover"><img src="../assets/work/tokens/hero.jpg" alt="CARS24 campaign graphics in the new electric blue and mint palette" width="1800" height="923"></figure>
+  <dl class="results" aria-label="Results"><div><dt>65%</dt><dd>faster design-to-development handoff</dd></div><div><dt>5 → 1</dt><dd>button implementations merged into one</dd></div><div><dt>100%</dt><dd>of Figma tokens map one-to-one to code</dd></div><div><dt>~$156k</dt><dd>estimated yearly savings in engineering time</dd></div></dl>
+  <div class="cs-layout">
+    <nav class="cs-toc" aria-label="On this page"><p>On this page</p><ol><li><a href="#context">Context</a></li><li><a href="#problem">The problem</a></li><li><a href="#research">Research</a></li><li><a href="#palette">The palette</a></li><li><a href="#oklch">Why OKLCH</a></li><li><a href="#tokens">Token architecture</a></li><li><a href="#architecture">Architecture</a></li><li><a href="#impact">Impact</a></li><li><a href="#learnings">Learnings</a></li></ol></nav>
+    <div class="cs-body"><section class="cs-section" id="context" aria-labelledby="context-h">
+        <p class="cs-kicker">Context</p><h2 id="context-h">A company that grew faster than its design</h2><div class="prose"><p>CARS24 started as a place to buy and sell used cars. In three years it became a family of products, including loans, insurance, servicing and new cars, and it expanded from India into the UAE and Australia.</p><p>The teams grew just as fast. Design went from 20 people to 70, and engineering from about 100 to more than 200. Nothing shared held the work together, so each product and each country slowly built its own look.</p></div><div class="table-wrap"><table class="data"><thead><tr><th>Measure</th><th>Three years earlier</th><th>At the start of the project</th></tr></thead><tbody><tr><td>Product lines</td><td class="num">1</td><td class="num">6+</td></tr><tr><td>Countries</td><td class="num">1</td><td class="num">3</td></tr><tr><td>Designers</td><td class="num">20</td><td class="num">70</td></tr><tr><td>Engineers</td><td class="num">~100</td><td class="num">200+</td></tr></tbody></table></div><figure class="figure"><img src="../assets/work/tokens/products.jpg" alt="Logos of CARS24 products including Loans24, Insure24 and Autopilot" width="1800" height="1018" loading="lazy"><figcaption>The CARS24 family when the project started. Every product had drifted into its own style.</figcaption></figure></section><section class="cs-section" id="problem" aria-labelledby="problem-h">
+        <p class="cs-kicker">The problem</p><h2 id="problem-h">Five codes for one colour</h2><div class="prose"><p>One shade of blue lived in the codebase as five different values. There was no central home for colour, type or spacing, so each team defined its own. Designers copied colours from old screens, developers copied them again in code, and the small differences kept piling up.</p></div><div class="cards"><div class="card"><h3>Design</h3><p>Every team kept its own styles. Buttons, inputs, alerts and tabs looked different from product to product, and nothing was documented.</p></div><div class="card"><h3>Engineering</h3><p>With no shared UI code, each team rebuilt the same values. Handoffs broke and the same bugs kept coming back.</p></div><div class="card"><h3>Brand</h3><p>India, the UAE and Australia each had their own design language. New products launched with styles of their own.</p></div><div class="card"><h3>People</h3><p>Nobody owned the foundations, and with an average tenure of six to seven months, context kept walking out the door.</p></div></div><figure class="figure"><img src="../assets/work/tokens/before.jpg" alt="A collage of inconsistent CARS24 UI before the project" width="1800" height="1012" loading="lazy"><figcaption>The old visual language: off-brand promo colours, mixed icon styles, three illustration styles, and one orange doing every job.</figcaption></figure></section><section class="cs-section" id="research" aria-labelledby="research-h">
+        <p class="cs-kicker">Research</p><h2 id="research-h">Listening before changing anything</h2><div class="prose"><p>The existing setup was closer to a starter template than a system. Before touching it, we learned how teams were organised, where they got stuck, and where the business was heading over the next six to twelve months, including a rebrand.</p><p>We interviewed stakeholders, sat in on team rituals and looked at how styles were really used in files and in code. Then we brought design, engineering, marketing, brand, product managers and a few external users into the same workshops to map problems, desired outcomes and priorities.</p><p>The aim was a system people would want to use, not one they were told to use.</p></div><figure class="figure"><div class="figure-pair"><img src="../assets/work/tokens/workshop-1.jpg" alt="A cross-team workshop in progress" width="1800" height="1350" loading="lazy"><img src="../assets/work/tokens/workshop-2.jpg" alt="Workshop participants sorting sticky notes" width="1800" height="1350" loading="lazy"></div><figcaption>Cross-team workshops with design, engineering, marketing, brand and product.</figcaption></figure><figure class="figure"><img src="../assets/work/tokens/insights-board.jpg" alt="A large board of grouped workshop findings" width="1800" height="964" loading="lazy"><figcaption>Everything from the workshops went onto one board, grouped into themes and ranked.</figcaption></figure></section><section class="cs-section" id="palette" aria-labelledby="palette-h">
+        <p class="cs-kicker">Colour</p><h2 id="palette-h">The colours had to go first</h2><div class="prose"><p>While planning the tokens, it became clear the colours themselves were the biggest problem. Many pairs failed basic contrast checks, nobody could say which colours were brand and which were UI, and the palette couldn't stretch across many products and markets.</p><p>A design system team doesn't change a brand colour on its own. We built a deck with the accessibility failures, the dated visuals and what designers had told us in interviews, took it to the Head of Design, and leadership agreed to a full overhaul.</p></div><figure class="figure"><img src="../assets/work/tokens/buyin-deck.jpg" alt="Slides from the rebrand proposal deck" width="1800" height="1085" loading="lazy"><figcaption>The deck that got leadership on board.</figcaption></figure><div class="prose"><p>We moved the CARS24 blue from the older, darker <code>#0059A3</code> to an electric <code>#4736FE</code> that holds its contrast on screens and still prints true. Swatches were matched against Pantone cards, because printers, sign makers and vendors all work from Pantone.</p><p>To find the blue's partner we tested teal, pink and mint on the same real layouts, with the same photos and copy, so the only thing that changed was the colour. Mint won.</p></div><figure class="figure"><div class="figure-pair"><img src="../assets/work/tokens/pantone.jpg" alt="Testing blues against Pantone shade cards" width="1800" height="1071" loading="lazy"><img src="../assets/work/tokens/dir-mint.jpg" alt="Campaign layouts using the final blue and mint pairing" width="1800" height="923" loading="lazy"></div><figcaption>Testing against Pantone cards, and the final blue and mint pairing on real campaign layouts.</figcaption></figure><figure class="figure"><img src="../assets/work/tokens/colour-studies.jpg" alt="Bold geometric poster studies in the new palette" width="1800" height="1208" loading="lazy"><figcaption>Poster studies that pushed shape and colour hard before the strongest ideas went back into the brand graphics.</figcaption></figure></section><section class="cs-section" id="oklch" aria-labelledby="oklch-h">
+        <p class="cs-kicker">Colour science</p><h2 id="oklch-h">Describing colour the way people see it</h2><div class="prose"><p>The old palette only existed as HEX and RGB, which tell a screen how much red, green and blue to mix but say nothing about how bright a colour looks to a person.</p><p>We specified the new palette in OKLCH as well. OKLCH describes colour by lightness, chroma and hue, and its lightness follows human perception. That made it much easier to build even ten-step ramps, predict contrast before testing, and keep colours steady between screen and print.</p><p>Every step of every ramp was checked against WCAG: AA as the minimum for product and marketing, AAA for important text and key actions.</p></div><figure class="figure"><div class="hue-compare"><p>HSL, 50% lightness</p><div class="hue-row"><span style="background:hsl(0 100% 50%)"></span><span style="background:hsl(55 100% 50%)"></span><span style="background:hsl(120 100% 50%)"></span><span style="background:hsl(185 100% 50%)"></span><span style="background:hsl(235 100% 50%)"></span><span style="background:hsl(300 100% 50%)"></span></div><p>OKLCH, 70% lightness</p><div class="hue-row"><span style="background:oklch(70% 0.17 25)"></span><span style="background:oklch(70% 0.17 85)"></span><span style="background:oklch(70% 0.17 145)"></span><span style="background:oklch(70% 0.17 200)"></span><span style="background:oklch(70% 0.17 265)"></span><span style="background:oklch(70% 0.17 330)"></span></div></div><figcaption>Six hues at one lightness value, rendered live. In HSL, yellow and cyan glare while blue looks dark. In OKLCH they read as equally bright.</figcaption></figure></section><section class="cs-section" id="tokens" aria-labelledby="tokens-h">
+        <p class="cs-kicker">Tokens</p><h2 id="tokens-h">Four layers between a hex code and a button</h2><div class="prose"><p>We studied Shopify Polaris, Salesforce Lightning, IBM Carbon and Material. None fitted how CARS24 was organised: one company, three countries and several businesses sharing one system. So we built our own, and started with colour because the rebrand was about to change every colour anyway.</p></div><ol class="token-chain">
+   <li><span class="q">What is it?</span><h3>Value</h3><code>#4736FE</code><p>A raw colour. Nobody uses these directly.</p></li>
+   <li><span class="q">Which step of which ramp?</span><h3>Primitive</h3><code>color-blue-500</code><p>Gives every value a name and a place in a scale.</p></li>
+   <li><span class="q">What is it for?</span><h3>Semantic</h3><code>color-surface-background-primary</code><p>Names the purpose. Themes and dark mode swap values here.</p></li>
+   <li><span class="q">Exactly where is it used?</span><h3>Component</h3><code>button-background-primary</code><p>Scoped to one component, so it can be tuned on its own.</p></li>
+ </ol><div class="prose"><p>The question we heard most in reviews was whether something should be a new semantic token. Too many and nobody can find the right one; too few and teams hard-code values. So we wrote two short rules: make it semantic when the idea is shared by several components, is about intent rather than colour, and is likely to change between themes. Keep it a component token when it's specific to one component and might need overriding.</p><p>Names were where teams disagreed most. One file had <code>primaryBtnBg</code>, another <code>blue-button-new</code>, and both meant the same thing. We agreed one grammar, with parts in a fixed order, and wrote documentation and onboarding so any team could extend it and contribute back.</p></div><figure class="figure"><img src="../assets/work/tokens/benchmarking.jpg" alt="Figma frames comparing token structures" width="1800" height="932" loading="lazy"><figcaption>Benchmarking other systems, and the first drafts of base and alias colour tokens.</figcaption></figure></section><section class="cs-section" id="architecture" aria-labelledby="architecture-h">
+        <p class="cs-kicker">Architecture</p><h2 id="architecture-h">One system, many products</h2><div class="prose"><p>Everything sits on one base system. India is the default theme; each other country and business adds a theme that overrides only what it has to, with its name at the front of its tokens so an override is easy to spot.</p><p>Teams plug in at three levels, each a Figma library and a GitHub repository: the core system owned by the design system team, a pattern library per vertical, and shared pattern libraries for verticals that look alike. Components move up a level when more teams need them.</p></div><div class="cards"><div class="card"><h3>Core system</h3><p>Tokens, components and docs. Owned by the design system team.</p></div><div class="card"><h3>Vertical pattern libraries</h3><p>Buy and sell, Loans, Australia, Dubai, New cars. Unique components for one business.</p></div><div class="card"><h3>Shared pattern libraries</h3><p>For verticals that look alike, such as Dubai and Australia.</p></div><div class="card"><h3>Labs</h3><p>Where foundation and pattern experiments are tested before they're promoted.</p></div></div></section><section class="cs-section" id="impact" aria-labelledby="impact-h">
+        <p class="cs-kicker">Impact</p><h2 id="impact-h">What one colour change costs</h2><div class="prose"><p>Say a colour used in more than a thousand places needs to change. At a mid-level designer's rate of $24 an hour, here's the same job done two ways.</p></div><div class="cost" role="img" aria-label="By hand: about 9 hours and $216. With a token: 30 seconds and $0.19.">
+   <div class="cost-row"><span>By hand</span><div class="cost-bar" style="width:100%"></div><span>~9 h, $216</span></div>
+   <div class="cost-row"><span>With a token</span><div class="cost-bar cost-bar--tiny"></div><span>30 s, $0.19</span></div>
+ </div><div class="prose"><p>That's 99.9% less time on every colour change from then on. Across the company it added up to an estimated $156k a year in engineering time, and the rebrand rolled out 60% faster across three countries.</p></div><figure class="figure"><img src="../assets/work/tokens/apps.jpg" alt="CARS24 app screens in the new palette" width="1800" height="1012" loading="lazy"><figcaption>The same palette now runs through the apps, campaigns and brand graphics in India and the UAE.</figcaption></figure></section><section class="cs-section" id="learnings" aria-labelledby="learnings-h">
+        <p class="cs-kicker">Learnings</p><h2 id="learnings-h">What we'd tell ourselves at the start</h2><div class="cards"><div class="card"><h3>Tie it to business goals</h3><p>A system earns support when it clearly helps what the company is trying to do, and the success measures should show that.</p></div><div class="card"><h3>Measure more than adoption</h3><p>Time saved, cost avoided and quality gained tell a far better story than usage alone.</p></div><div class="card"><h3>Show, don't tell</h3><p>Demos and regular rituals changed more minds than any document.</p></div><div class="card"><h3>Governance keeps it alive</h3><p>Clear ownership and a clear token structure are what stop a system drifting again.</p></div></div></section></div>
+  </div>
+  <aside class="next-case">
+    <a href="../work/cars24-governance.html"><div><p>Next case study</p><h2>How the design system team stopped being the bottleneck</h2></div><img src="../assets/work/governance/cover.jpg" alt="" loading="lazy"></a>
+  </aside>
+  <p class="credit" style="margin-bottom:64px">Led by Layer One's founder, Aniket Pandey, as Design Systems Lead at CARS24, with CARS24's design, engineering, brand and content teams. Images belong to CARS24.</p>
+</div>
+</main><section class="cta" aria-labelledby="cta-title">
+  <div class="wrap">
+    <h2 id="cta-title">Facing something similar?</h2>
+    <div>
+      <p>Tell us where your system is today. We'll tell you honestly what we'd do and whether we're the right people to do it.</p>
+      <div class="btn-row">
+        <a class="btn" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a 30-minute call</a>
+        <a class="btn btn--ghost" href="mailto:layerone@proton.me">Email layerone@proton.me</a>
+      </div>
+    </div>
+  </div>
+</section>
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="../index.html"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>Layer One</span></a>
+        <p class="footer-blurb">A design systems studio. We help product companies build, scale and govern their design systems.</p>
+      </div>
+      <div>
+        <h2>Studio</h2>
+        <ul>
+          <li><a href="../work.html">Work</a></li>
+          <li><a href="../services.html">Services</a></li>
+          <li><a href="../index.html#approach">Approach</a></li>
+          <li><a href="../index.html#pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Case studies</h2>
+        <ul>
+          <li><a href="../work/cars24-tokens.html">Colour and tokens</a></li>
+          <li><a href="../work/cars24-governance.html">Governance</a></li>
+          <li><a href="../work/cars24-pattern-library.html">Pattern library</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <ul>
+          <li><a href="mailto:layerone@proton.me">layerone@proton.me</a></li>
+          <li><a href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a></li>
+          <li><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://x.com/LayeroneStudios" target="_blank" rel="noopener">X</a></li>
+          <li><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>&copy; <span data-year>2026</span> Layer One Design Systems</span>
+      <span>Made in India, working with teams everywhere</span>
+    </div>
+  </div>
+</footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>
