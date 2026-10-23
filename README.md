@@ -4,22 +4,27 @@ The website for Layer One, a design systems studio. Plain static HTML, CSS and J
 
 ## Pages
 
+Direction for every page lives in `.claude/skills/layer-one-site/SKILL.md` (Hex analysis, palette, offer, voice, honesty rules). Read it before changing anything.
+
 | Page | What it is |
 |---|---|
-| `index.html` | Home: positioning, "where is your system today?", selected work, services, engagement and pricing, beliefs, studio, writing, FAQ |
-| `work.html` | Work index |
-| `work/cars24-tokens.html` | Case study: colour and token system (foundations) |
-| `work/cars24-governance.html` | Case study: governance and contribution (operations), with a working request scorecard |
-| `work/cars24-pattern-library.html` | Case study: pattern library (adoption) |
-| `services.html` | Services in detail: Systems, Operations, Adoption |
-| `blog.html`, `blog-librarian-vs-leader.html` | Writing index and one article |
+| `index.html` | Home: banner, statement, animated token-layer stage, select work frames, where we've built systems, how to start, rules, writing |
+| `work.html` | All work: featured case studies and more projects |
+| `work/cars24-*.html` | Three full case studies (light theme) |
+| `work/riyadh-air.html` and four others | Short project pages |
+| `clients.html` | Companies the team has built systems for |
+| `studio.html` | About: story, founder, what we do, how we work, founding partners invitation |
+| `services.html` | Engagements and pricing, founding partners, process, FAQ |
+| `lab.html` | Free tools: OKLCH ramp builder, token chain, request scorecard |
+| `blog.html`, `blog-librarian-vs-leader.html` | Writing |
+| `contact.html` | Project enquiry (opens an email draft) |
 
 ## Assets
 
 ```
 assets/
-├── site.css        all styles; tokens are layered primitive → semantic → component, light and dark
-├── site.js         theme switch, mobile menu, hero layer stack, tabs, case study contents, scorecard
+├── site.css        all styles; tokens layered primitive → semantic; dark listing pages, light case studies
+├── site.js         mobile menu, hero stage, Lab tools (OKLCH ramp, token chain, scorecard), contact form
 ├── fonts/          Schibsted Grotesk and JetBrains Mono, self-hosted (SIL Open Font License)
 ├── favicon.svg
 ├── studio/         founder portrait
@@ -31,23 +36,22 @@ assets/
 
 - **Copy:** edit the HTML directly, or edit the generator (below) and rebuild.
 - **Colours, type, spacing:** primitives and semantic tokens are at the top of `assets/site.css`. Dark mode overrides the semantic layer only.
-- **Project numbers:** every page quotes the same figures from the `CASES` dictionary in `tools/build/common.py`, so change them there.
+- **Projects:** titles, colours, covers and blurbs come from `PROJECTS` in `tools/build/common.py`.
 
 ## Adding a case study
 
 The pages are generated once by small Python scripts in `tools/build/` so that the header, footer and case study layout stay identical everywhere. The output is plain HTML, so the site still deploys with no build step.
 
 1. Put the images in `assets/work/<name>/` (around 1800px wide, JPEG).
-2. Add an entry to `CASES` in `tools/build/common.py` and to `ORDER` in `tools/build/cs.py`.
-3. Copy `tools/build/cs_tokens.py` to `cs_<name>.py` and write the sections.
-4. Add the new script to `tools/build/build_all.py` and run:
+2. Add an entry to `PROJECTS` in `tools/build/common.py`. With `case=False` it gets a short project page automatically; for a full case study set `case=True`, copy `tools/build/cs_tokens.py` to `cs_<name>.py`, add its slug to `KEY` in `cs.py` and add the script to `build_all.py`.
+3. Run:
 
 ```bash
 pip install pillow
 python3 tools/build/build_all.py
 ```
 
-`blog-librarian-vs-leader.html` is hand-written and isn't touched by the build.
+The article text lives in `tools/build/content/`.
 
 ## Run it locally
 

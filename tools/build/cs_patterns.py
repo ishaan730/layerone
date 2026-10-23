@@ -4,7 +4,7 @@ P = "assets/work/patterns/"
 
 services = ["Buy a used car", "Sell your car", "Get a loan", "Car check", "New cars", "Insurance", "Pay challan",
             "Recharge FASTag", "Car servicing", "Car wash", "Scrap and earn", "Hire a driver", "Credit cards", "Showrooms"]
-svc_chips = '<ul class="scope" style="margin-top:24px">' + "".join(f"<li>{s}</li>" for s in services) + "</ul>"
+svc_chips = '<ul class="chips" style="margin-top:20px">' + "".join(f"<li>{s}</li>" for s in services) + "</ul>"
 
 rules = '''<div class="table-wrap"><table class="data"><thead><tr><th>Rule</th><th>What it fixes</th><th>Example values</th></tr></thead><tbody>
 <tr><td><strong>Grid structure</strong></td><td>Columns, gaps and scrolling, so every page has the same rhythm.</td><td>12px gap; 2, 3 or 4 columns; scroll only when the next card peeks in</td></tr>
@@ -31,7 +31,7 @@ sections = [
 ("context", "Context", "Context", "A car company turning into a super app",
  prose("By the time of this project, CARS24 was more than a place to buy and sell used cars. In one app you could get a loan, check a car's history, pay a fine, recharge FASTag, book a service or a car wash. New services launched almost every month, in India, the UAE and Australia.",
        "The back end was keeping up. The screens people saw were not. Several redesigns were running at once, each with its own team, and the app was starting to feel like many apps stitched together.")
- + svc_chips + '<p class="figure" style="margin-top:10px;font-size:14px;color:var(--color-text-muted)">Some of the services sharing one app. Each needed its own homepage, landing pages and offer pages.</p>'),
+ + svc_chips + '<p class="cap">Some of the services sharing one app. Each needed its own homepage, landing pages and offer pages.</p>'),
 
 ("problem", "The problem", "The problem", "Every page started from a blank canvas",
  prose("Whenever a team needed a homepage or a landing page, they designed and built it from scratch. Nothing was shared, so the same cards, buttons and carousels were made again and again, it cost more, it took longer, and the app felt different on every screen.")
@@ -74,7 +74,7 @@ sections = [
         "Both targets were beaten. New pages took about 43% less time to design and build, against a target of 30–40%, and every major redesign was on the library within three months, against a target of half. Teams could test ideas without new builds, and the savings in design and development came to an estimated $212k.")
  + fig(P + "rollout-uae.jpg", "The UAE revamp, built from library patterns.", "Redesigned CARS24 UAE app screens")
  + pair((P + "rollout-india.jpg", "India app screens built from patterns"), (P + "rollout-au.jpg", "Australia app screens built from patterns"), "India and Australia, from the same library.")
- + '<figure class="figure"><div class="figure-scroll" tabindex="0" aria-label="Scrollable full homepage"><img src="../' + P + 'home-live.jpg" alt="A full CARS24 homepage assembled entirely from library patterns" width="720" height="10192" loading="lazy"></div><figcaption>A full homepage assembled from patterns. Scroll inside the frame to see all of it.</figcaption></figure>'),
+ + '<figure style="margin:20px 0 0"><div class="scroll-frame" tabindex="0" aria-label="Scrollable full homepage"><img src="../' + P + 'home-live.jpg" alt="A full CARS24 homepage assembled entirely from library patterns" width="720" height="10192" loading="lazy"></div><figcaption class="cap">A full homepage assembled from patterns. Scroll inside the frame to see all of it.</figcaption></figure>'),
 
 ("learnings", "Learnings", "Learnings", "What we'd do again",
  cards([("Small, token-driven blocks scale", "They made fast experiments possible without new design debt."),
