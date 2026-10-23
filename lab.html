@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lab — Layer One</title>
+<meta name="description" content="Free design system tools from Layer One: an OKLCH ramp builder, a token chain explorer and a request scorecard.">
+<meta property="og:title" content="Lab — Layer One">
+<meta property="og:description" content="Free design system tools from Layer One: an OKLCH ramp builder, a token chain explorer and a request scorecard.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://www.layerone.co.in/assets/work/tokens/cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body class="theme-dark">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <a class="logo" href="index.html" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="index.html">Home</a><a href="work.html">Work</a><a href="clients.html">Clients</a><a href="studio.html">Studio</a><a href="services.html">Services</a><a href="lab.html" aria-current="page">Lab</a><a href="blog.html">Writing</a><a href="contact.html">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</header>
+<div class="shell"><aside class="side" aria-label="Studio">
+    <nav class="side-nav" aria-label="On this page"><a href="#ramp">Ramp builder</a><a href="#chain">Token chain</a><a href="#scorecard">Scorecard</a></nav>
+    <a class="side-card side-card--bar" href="contact.html"><span>Start a project</span><svg viewBox="0 0 34 14" fill="none" aria-hidden="true"><path d="M1 7h31M26 1l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <p class="side-blurb">Layer One is a design systems studio in Bangalore, India.<br>Led by Aniket Pandey.</p>
+    <div class="wordmark"><svg viewBox="0 0 300 182" role="img" aria-label="Layer One"><g transform="translate(10 10)" opacity="0.35" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="none" stroke="currentColor" stroke-width="1.4">LAYER</text><text x="4" y="164" fill="none" stroke="currentColor" stroke-width="1.4">ONE</text></g><g transform="translate(5 5)" opacity="0.6" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="none" stroke="currentColor" stroke-width="1.4">LAYER</text><text x="4" y="164" fill="none" stroke="currentColor" stroke-width="1.4">ONE</text></g><g transform="translate(0 0)" opacity="1" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="currentColor">LAYER</text><text x="4" y="164" fill="currentColor">ONE</text></g><g transform="translate(222 100) scale(.62)"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></g></svg></div>
+    <div class="side-foot">
+      <ul><li><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">linkedin</a></li><li><a href="https://x.com/LayeroneStudios" target="_blank" rel="noopener">x</a></li><li><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">medium</a></li></ul>
+      <a href="mailto:layerone@proton.me">layerone@proton.me</a>
+    </div>
+  </aside><main id="main" class="content">
+<h1 class="statement">Lab</h1>
+<p class="sub muted">Small tools we built to think with. They're the same methods we use on client systems, and they're free to use.</p>
+
+<section class="tool" id="ramp" data-ramp aria-labelledby="ramp-t">
+  <div class="tool-head"><div><h3 id="ramp-t">OKLCH ramp builder</h3><p>Pick a hue and a chroma. You get ten perceptually even steps, fitted to the sRGB gamut, with a contrast check on every step and tokens ready to paste.</p></div></div>
+  <div class="ctrl">
+    <label>Hue <span data-hv></span><input type="range" name="hue" min="0" max="360" value="275"></label>
+    <label>Chroma <span data-cv></span><input type="range" name="chroma" min="0.02" max="0.32" step="0.01" value="0.24"></label>
+    <label>Name<input class="btn-line" name="rname" value="brand" style="height:32px"></label>
+  </div>
+  <div class="ramp-out"></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:12px;flex-wrap:wrap"><span class="small muted">Contrast is measured against white and black text.</span><button class="btn-line" type="button" data-copy>Copy tokens</button></div>
+  <pre class="code-out"></pre>
+</section>
+
+<section class="tool" id="chain" data-chain style="--brand:#4736fe" aria-labelledby="chain-t">
+  <div class="tool-head"><div><h3 id="chain-t">Token chain</h3><p>The four layers between a hex code and a button, from the CARS24 architecture. Switch the theme: components never change, only the mapping underneath.</p></div></div>
+  <div class="ctrl" style="gap:8px"><button type="button" class="btn-line" data-theme-pick data-hex="#4736fe" data-prim="color-blue-500" data-sem="color-action-primary" aria-pressed="true">CARS24</button><button type="button" class="btn-line" data-theme-pick data-hex="#5b2d90" data-prim="color-violet-600" data-sem="color-action-primary" aria-pressed="false">Riyadh Air</button><button type="button" class="btn-line" data-theme-pick data-hex="#1f3a8a" data-prim="nbfc-color-navy-500" data-sem="nbfc-color-action-primary" aria-pressed="false">Loans</button><button type="button" class="btn-line" data-theme-pick data-hex="#7b3fe4" data-prim="color-purple-500" data-sem="color-action-primary" aria-pressed="false">District</button></div>
+  <div class="chain">
+    <div><span>Value</span><div class="sw"></div><code data-v>#4736FE</code></div>
+    <div><span>Primitive</span><code data-p>color-blue-500</code></div>
+    <div><span>Semantic</span><code data-s>color-action-primary</code></div>
+    <div><span>Component</span><code>button-background-primary</code><div class="sw" style="height:34px;border-radius:8px;display:grid;place-items:center;color:#fff;font-size:13px;font-weight:600">Get best price</div></div>
+  </div>
+</section>
+
+<section class="tool" id="scorecard" aria-labelledby="sc-t">
+  <div class="tool-head"><div><h3 id="sc-t">Request scorecard</h3><p>The 70-point model that ended the loudest-voice backlog at CARS24. Score any component request in four questions.</p></div><a class="btn-line" href="work/cars24-governance.html">Read the case study</a></div>
+  <form class="scorer" data-scorer onsubmit="return false"><div class="scorer-q"><fieldset><legend>Where is it needed?</legend><p class="help">Work in main products helps the most people.</p><div class="seg"><label><input type="radio" name="where" value="20"><span><b>20</b> Main products</span></label><label><input type="radio" name="where" value="15"><span><b>15</b> Smaller products</span></label><label><input type="radio" name="where" value="5"><span><b>5</b> One small team</span></label><label><input type="radio" name="where" value="x"><span>✕ Nowhere</span></label></div></fieldset></div><div class="scorer-q"><fieldset><legend>How many can reuse it?</legend><p class="help">A design system is for shared things.</p><div class="seg"><label><input type="radio" name="reuse" value="20"><span><b>20</b> Many teams</span></label><label><input type="radio" name="reuse" value="15"><span><b>15</b> A few teams</span></label><label><input type="radio" name="reuse" value="5"><span><b>5</b> One team</span></label><label><input type="radio" name="reuse" value="x"><span>✕ Only one product</span></label></div></fieldset></div><div class="scorer-q"><fieldset><legend>Do we already have it?</legend><p class="help">Filling a real gap beats rebuilding what works.</p><div class="seg"><label><input type="radio" name="exists" value="15"><span><b>15</b> No</span></label><label><input type="radio" name="exists" value="10"><span><b>10</b> Partly</span></label><label><input type="radio" name="exists" value="5"><span><b>5</b> Mostly</span></label><label><input type="radio" name="exists" value="x"><span>✕ Fully solved</span></label></div></fieldset></div><div class="scorer-q"><fieldset><legend>How hard is it to build?</legend><p class="help">Quick wins go first.</p><div class="seg"><label><input type="radio" name="effort" value="15"><span><b>15</b> Under a week</span></label><label><input type="radio" name="effort" value="10"><span><b>10</b> 1–3 weeks</span></label><label><input type="radio" name="effort" value="5"><span><b>5</b> 3+ weeks</span></label><label><input type="radio" name="effort" value="x"><span>✕ Not worth it</span></label></div></fieldset></div>
+    <div class="scorer-out" aria-live="polite"><div class="scorer-total"><span data-total>0</span> <small>/ 70</small></div><div class="scorer-verdict"><strong data-verdict></strong><span data-detail></span></div></div>
+  </form>
+</section>
+</main></div><script src="assets/site.js" defer></script>
+</body>
+</html>
