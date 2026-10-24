@@ -41,8 +41,8 @@ BANNER = ('<svg viewBox="0 0 1000 150" role="img" aria-label="Layer One">'
                     for d, o, f in ((18, 0.3, False), (9, 0.55, False), (0, 1, True)))
           + "</svg>")
 
-NAV = [("home", "Home", "index.html"), ("work", "Work", "work.html"), ("clients", "Clients", "clients.html"),
-       ("studio", "Studio", "studio.html"), ("services", "Services", "services.html"), ("lab", "Lab", "lab.html"),
+NAV = [("home", "Home", "index.html"), ("work", "Work", "work.html"), ("experience", "Experience", "clients.html"),
+       ("studio", "Studio", "studio.html"), ("pricing", "Pricing", "pricing.html"), ("lab", "Lab", "lab.html"),
        ("writing", "Writing", "blog.html"), ("contact", "Contact", "contact.html")]
 
 
@@ -83,7 +83,7 @@ def topbar(active=None, depth=0):
 '''
 
 
-CHIP_COLORS = ["#4736fe", "#ff6b3d", "#9de7c8", "#220e54", "#e5343f", "#512aac", "#0b0d12", "#174527"]
+CHIP_COLORS = ["#4736fe", "#ff6b3d", "#9de7c8", "#0f62fe", "#8a5434", "#cfcbff", "#0b0d12", "#174527"]
 
 
 def sidebar(subnav, depth=0, card="founding"):
@@ -93,10 +93,10 @@ def sidebar(subnav, depth=0, card="founding"):
         c = f'<a class="side-card side-card--bar" href="{p}contact.html"><span>Start a project</span>{LONG_ARROW}</a>'
     else:
         chips = "".join(f'<span style="--c:{col};--i:{i}"></span>' for i, col in enumerate(CHIP_COLORS))
-        c = f'''<a class="side-card" href="{p}services.html#founding">
+        c = f'''<a class="side-card" href="{p}pricing.html#founding">
       <div class="chips" aria-hidden="true">{chips}</div>
       <div><strong>Founding partners, 2027</strong><p>Three teams get 20% off any engagement. We publish the case study together.</p></div>
-      <span class="go">Book a call {LONG_ARROW}</span>
+      <span class="go">See pricing {LONG_ARROW}</span>
     </a>'''
     return f'''<aside class="side" aria-label="Studio">
     <nav class="side-nav" aria-label="On this page">{sub}</nav>
@@ -131,50 +131,81 @@ def write(path, html):
 
 
 # ---------------------------------------------------------------------------
-# Projects. "case" = full case study page; otherwise a short project page.
-# Frame colours come from each project's own work.
+# Companies and projects. Only CARS24, IBM and JPMorgan Chase appear on the site.
 # ---------------------------------------------------------------------------
+COMPANIES = {
+    "cars24": dict(name="CARS24", logo="assets/logos/cars24.png", years="2024–25", role="Design Systems Lead",
+                   line="One of India's largest platforms for buying and selling used cars, with loans, insurance and servicing, in India, the UAE and Australia."),
+    "ibm": dict(name="IBM", logo="assets/logos/ibm.png", years="2021–24", role="UX Designer, design systems",
+                line="Enterprise software and infrastructure used by businesses around the world."),
+    "jpmc": dict(name="JPMorgan Chase", logo="assets/logos/jpmorgan-chase.jpg", years="2025–now", role="Senior Designer, Design Systems",
+                 line="One of the world's largest financial services companies."),
+}
+
+
+def logo_tile(key, depth=0, size=None, label=True):
+    c = COMPANIES[key]
+    st = f' style="--s:{size}px"' if size else ""
+    cap = f'<span>{c["name"]}</span>' if label else ""
+    return f'<span class="ltile"{st}><img src="{"../" * depth}{c["logo"]}" alt="{c["name"]}" width="200" height="200" loading="lazy">{cap}</span>'
+
+
 PROJECTS = [
-    dict(slug="cars24-tokens", case=True, client="CARS24", year="2024–25",
+    dict(slug="cars24-tokens", case=True, co="cars24", client="CARS24", year="2024–25",
          title="CARS24: one colour system for 10+ products in three countries",
          kind="Colour, Tokens, Architecture", f="#4736fe", ft="#ffffff", cover="assets/work/tokens/cover.jpg",
          blurb="A new palette in OKLCH and a four-layer token system that carried the CARS24 rebrand across India, the UAE and Australia.",
          stat=("65%", "faster design-to-development handoff")),
-    dict(slug="cars24-governance", case=True, client="CARS24", year="2025",
+    dict(slug="cars24-governance", case=True, co="cars24", client="CARS24", year="2025",
          title="CARS24: how the design system team stopped being the bottleneck",
          kind="Governance, Operations", f="#f1efff", ft="#0b0d12", cover="assets/work/governance/cover.jpg",
          blurb="One front door for requests, a 70-point scorecard any team can apply, three ownership tiers and a contribution playbook.",
          stat=("70 pts", "scorecard any team can apply")),
-    dict(slug="cars24-pattern-library", case=True, client="CARS24", year="2025",
+    dict(slug="cars24-pattern-library", case=True, co="cars24", client="CARS24", year="2025",
          title="CARS24: a pattern library that builds pages from tested blocks",
          kind="Patterns, CMS, Adoption", f="#9de7c8", ft="#0b0d12", cover="assets/work/patterns/cover.jpg",
          blurb="Six families of page blocks wired to the CMS and the tokens, so a super app with new services every month ships pages in days.",
          stat=("~43%", "less time to design and build a page")),
-    dict(slug="riyadh-air", case=False, client="Riyadh Air", year="",
-         title="Riyadh Air: a bilingual design system and pattern library",
-         kind="Design system, Patterns, Arabic and English", f="#220e54", ft="#ffffff", cover="assets/work/riyadh-air/cover.jpg",
-         blurb="Base elements, components and patterns for a new airline's digital products, built to work in English and in Arabic, right to left.",
-         scope=[("Design system", "Foundations, base elements, components"), ("Pattern library", "Lists, titles, navigation"), ("Localisation", "Arabic and English, right-to-left layouts")]),
-    dict(slug="cars24-consumer", case=False, client="CARS24", year="2024–25",
+    dict(slug="jpmc-system-checks", case=False, co="jpmc", client="JPMorgan Chase", year="2026",
+         title="JPMorgan Chase: design system checks for 500+ designers and 1,000+ engineers",
+         kind="Tooling, Governance", f="#8a5434", ft="#ffffff", cover="assets/work/jpmc-checks/cover.jpg", illus=True,
+         blurb="Two tools that point out where a design file or a piece of code doesn't match the design system, so problems are fixed before review.",
+         points=["A checker for designers that compares a Figma file against the design system and suggests the right token or pattern.",
+                 "A matching checker for engineers that flags hard-coded values and detached patterns in code.",
+                 "Used by a community of 500+ designers and 1,000+ engineers."],
+         scope=[("Designer tool", "Checks Figma files against tokens and patterns"), ("Engineer tool", "Checks code against the same rules"), ("Reach", "500+ designers, 1,000+ engineers")]),
+    dict(slug="jpmc-patterns", case=False, co="jpmc", client="JPMorgan Chase", year="2025–26",
+         title="JPMorgan Chase: company-wide design patterns, drafted with an AI workflow",
+         kind="Patterns, AI workflow", f="#c99a74", ft="#1a120c", cover="assets/work/jpmc-patterns/cover.jpg", illus=True,
+         blurb="Shared design patterns that product teams across the company use, and a workflow where an AI agent does the early research and drafts each pattern for designers to review.",
+         points=["Leads the creation of design patterns used by product teams across the company.",
+                 "An AI agent does the early research, talks through needs with product teams and drafts a first version of each pattern.",
+                 "Designers review, refine and publish. Regular office hours help teams use what's there."],
+         scope=[("Pattern library", "Patterns used across the company"), ("AI workflow", "Research and first drafts by an agent, reviewed by designers"), ("Support", "Office hours for product teams")]),
+    dict(slug="ibm-design-systems", case=False, co="ibm", client="IBM", year="2021–24",
+         title="IBM: design systems for products used around the world",
+         kind="Design systems, Contribution", f="#0f62fe", ft="#ffffff", cover="assets/work/ibm-design-systems/cover.jpg", illus=True,
+         blurb="Several product design systems built and launched in Bangalore, with a contribution process other teams could follow, regular releases and training.",
+         points=["Built and launched several design systems for products used around the world.",
+                 "Set up a clear process for other teams to contribute and keep the systems consistent.",
+                 "Ran research and usability tests, managed regular releases and ran training to help teams adopt the systems."],
+         scope=[("Design systems", "Several product systems, built and launched"), ("Contribution", "A process other teams could follow"), ("Releases", "Regular releases with training")]),
+    dict(slug="cars24-consumer", case=False, co="cars24", client="CARS24", year="2024–25",
          title="CARS24: a token-driven component library for consumer products",
          kind="Components, Tokens", f="#cfcbff", ft="#0b0d12", cover="assets/work/cars24-consumer/cover.jpg",
          blurb="The consumer design system and component library behind the CARS24 apps, with every component built on tokens rather than hard-coded values.",
+         points=["Buttons, chips, toasts, inline alerts, inputs and more, each built on the token architecture.",
+                 "100% token-driven, so the rebrand and every theme flowed through without redesigning components.",
+                 "Shared by app and mobile web teams across the CARS24 businesses."],
          scope=[("Component library", "Buttons, chips, toasts, inline alerts and more"), ("Token architecture", "100% token-driven components"), ("Platforms", "App and mobile web")]),
-    dict(slug="cars24-internal-tools", case=False, client="CARS24", year="2024–25",
+    dict(slug="cars24-internal-tools", case=False, co="cars24", client="CARS24", year="2024–25",
          title="CARS24: a design system for internal tools at enterprise scale",
          kind="Design system, Documentation", f="#174527", ft="#ffffff", cover="assets/work/cars24-internal-tools/cover.jpg",
          blurb="A separate system for the dashboards and operations tools CARS24 teams use every day: enterprise-ready, localised, with spec-first documentation.",
+         points=["Foundations tuned for dense, data-heavy screens: type weights, spacing and radius tokens.",
+                 "Components for forms, tables, navigation and account flows.",
+                 "Spec-first documentation so engineering could build without waiting on design."],
          scope=[("Foundations", "Type weights, spacing and radius tokens"), ("Components", "Forms, tables, navigation, account flows"), ("Documentation", "Spec-first docs for engineering")]),
-    dict(slug="pharma-b2b", case=False, client="Global pharmaceutical company (USA)", year="",
-         title="A US pharmaceutical company: web components for a B2B platform",
-         kind="Web components, Tokens", f="#e5343f", ft="#ffffff", cover="assets/work/pharma-b2b/cover.jpg",
-         blurb="A design system for a next-generation B2B ordering platform, delivered as framework-agnostic web components on a semantic token layer.",
-         scope=[("Token architecture", "Semantic background, surface, action and status tokens"), ("Components", "Web components for search, navigation and account flows"), ("Platform", "B2B web")]),
-    dict(slug="district", case=False, client="District by Zomato", year="",
-         title="District by Zomato: a visual design system for going out",
-         kind="Visual design system", f="#512aac", ft="#ffffff", cover="assets/work/district/cover.jpg",
-         blurb="A visual design system for District, Zomato's app for movies, events and dining in one place.",
-         scope=[("Visual language", "Colour, illustration and iconography"), ("Product UI", "Category navigation and discovery"), ("Platforms", "Mobile app")]),
 ]
 
 
@@ -182,30 +213,32 @@ def href(proj, depth=0):
     return ("../" * depth) + f"work/{proj['slug']}.html"
 
 
-def frame(proj, depth=0, show_year=False, small=False):
+def frame(proj, depth=0, show_year=False):
     p = "../" * depth
     year = f'<span>{proj["year"]}</span>' if show_year and proj["year"] else ""
+    illus = '<span class="illus">Illustration</span>' if proj.get("illus") else ""
     return f'''<a class="frame" href="{href(proj, depth)}" style="--f:{proj["f"]};--ft:{proj["ft"]}">
-      <div class="frame-media"><img src="{p}{proj["cover"]}" alt="" loading="lazy" width="1800" height="1238"></div>
+      <div class="frame-media"><img src="{p}{proj["cover"]}" alt="" loading="lazy" width="1800" height="1238">{illus}</div>
       <h3>{proj["title"]}</h3>
       <div class="frame-meta"><span class="kind">{proj["kind"]}</span>{year}</div>
     </a>'''
 
 
-STAGE_BRANDS = [("CARS24", "#4736fe"), ("Riyadh Air", "#5b2d90"), ("Pharma B2B", "#e5343f"), ("District", "#7b3fe4"), ("Internal tools", "#1f7a4a")]
-
-
-def stage(depth=0):
-    dots = "".join(f'<button type="button" style="--c:{h}" data-hex="{h}" data-name="{n}" aria-label="Show the {n} theme" aria-pressed="false"></button>' for n, h in STAGE_BRANDS)
-    return f'''<figure class="stage" data-stage aria-label="One design system, many brands: the same four token layers re-themed for each client">
-      <div class="stage-grid"></div>
-      <p class="stage-legend">value → primitive → semantic → component</p>
-      <div class="iso-wrap" aria-hidden="true"><div class="iso">
-        <div class="plate plate--value"><span class="tag">value</span><div class="swatch"></div></div>
-        <div class="plate plate--primitive"><span class="tag">primitive · color-brand-50…900</span><div class="ramp">{"<span></span>" * 10}</div></div>
-        <div class="plate plate--semantic"><span class="tag">semantic</span><div class="sem"><div><i></i>color-action-primary</div><div><i></i>color-surface-accent</div><div><i></i>color-text-strong</div></div></div>
-        <div class="plate plate--component"><span class="tag">component</span><div class="ui"><div class="bar"></div><div class="bar s"></div><div class="card"></div><div class="btn">Get started</div></div></div>
-      </div></div>
-      <figcaption class="stage-caption"><span>One system, re-themed: <span class="mono" data-brand-name>CARS24</span> <span class="mono" data-brand-hex>#4736FE</span></span><span class="brand-dots">{dots}</span></figcaption>
+def reel(depth=0):
+    p = "../" * depth
+    return f'''<figure class="reel" data-reel>
+      <video autoplay muted loop playsinline preload="auto" poster="{p}assets/video/hero-poster.jpg" aria-label="A 24-second recap of our design system work at CARS24, IBM and JPMorgan Chase">
+        <source src="{p}assets/video/hero-reel.webm" type="video/webm">
+        <source src="{p}assets/video/hero-reel.mp4" type="video/mp4">
+      </video>
+      <button class="reel-btn" type="button" aria-label="Pause the video" data-reel-toggle><svg viewBox="0 0 16 16" aria-hidden="true"><rect class="i-pause" x="3.5" y="3" width="3" height="10" rx="1"/><rect class="i-pause" x="9.5" y="3" width="3" height="10" rx="1"/><path class="i-play" d="M4.5 2.8v10.4L13 8z"/></svg></button>
+      <div class="reel-progress" aria-hidden="true"><span></span></div>
     </figure>'''
+
 ARROW_SHIFT = ARROW
+
+
+def short(p):
+    """Project title without the client prefix, sentence case."""
+    t = p["title"].split(": ", 1)[1]
+    return t[0].upper() + t[1:]

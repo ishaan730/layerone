@@ -8,7 +8,7 @@ description: Direction for the Layer One website (design systems studio). Use be
 Layer One is a design systems studio based in Bangalore, India, led by Aniket Pandey. The site exists to win the studio's first clients. Every page must make two things obvious within seconds:
 
 1. Layer One only does design systems: building them, scaling them, governing them, and getting teams to adopt them.
-2. The proof is real: shipped systems at CARS24, IBM, JPMorgan Chase, Riyadh Air and others, shown with images and numbers.
+2. The proof is real: shipped systems at CARS24, IBM and JPMorgan Chase, shown with images and numbers.
 
 ## The two references, and what each is for
 
@@ -49,56 +49,68 @@ Studied in a live browser across home, /work, /work/grafana, /clients, /info and
 
 ## How Layer One adapts it (do not copy Hex's colours, artwork or copy)
 
-- **Palette:** background `--ink #0B0D12` (graphite with a blue cast), raised `#13161D`, text `#ECECE8`, muted `#9AA0AA`, light card `#ECECE8` with ink text, accent `--signal #FF6B3D` (signal orange, a spec-annotation colour). Case study pages use the light theme `#F6F6F3`.
+- **Palette:** background `--ink #0B0D12` (graphite with a blue cast), raised `#13161D`, text `#ECECE8`, muted `#9AA0AA`, light card `#ECECE8` with ink text, accent `--signal #FF6B3D` (signal orange, a spec-annotation colour). Every page is dark, case studies included.
 - **Type:** Schibsted Grotesk (self-hosted), weights 400–600, scale 14/16/20/24/32/44. JetBrains Mono only for literal token names and code.
 - **Wordmark artwork:** "Layer One" set large in the accent with offset outline copies stacked behind it (layers), plus the star mark.
-- **Hero media:** an animated isometric stack of the four token layers (value, primitive, semantic, component) whose brand colour cycles through real client palettes. This is the studio's signature visual; keep it.
-- **Frames:** every project gets a frame colour taken from its own work (CARS24 `#4736FE`, Riyadh Air purple, District purple, pharma red, etc.).
+- **Hero media:** the hero reel video (see Founder's decisions).
+- **Frames:** every project gets a frame colour taken from its own work (CARS24 `#4736FE`, JPMorgan Chase brown `#8A5434`, IBM blue `#0F62FE`).
 - **Radius** 8px on media and cards, 999px on pill buttons. No shadows.
+
+## Founder's decisions (24 October 2026)
+
+- **Only three companies appear anywhere:** CARS24, IBM, JPMorgan Chase. Use the logo tiles in `assets/logos/` wherever a company is named (`logo_tile()` in `tools/build/common.py`). Riyadh Air, District/Zomato, HDFC and the pharma project were removed: that work was done by other designers and can't be claimed.
+- **Hero is a video**, not a static or random visual: `assets/video/hero-reel.{webm,mp4}`, a 24-second cinematic recap of the real projects (token-layer intro → CARS24 old-to-new blue → campaign → colour montage → governance → pattern library → component systems → IBM and JPMorgan → end card with the three logos). It autoplays muted, loops, pauses off-screen and for reduced motion, and has a pause button. Source: `tools/video/hero.html`; render with `tools/video/render.py`.
+- **Case studies must be interactive and scannable**, not long scrolls copied from Hex: sticky chapter bar with progress, a 30-second summary, count-up KPIs, one interactive or visual module per chapter (before/after slider, animated bars, stepper, calculator, live demo), long text folded into "Read the detail", gallery with lightbox. Engine: `tools/build/cs.py`.
+- **Pricing stays affordable**, around $5–6k for the main build. The pricing page is the most important conversion page.
+- **IBM and JPMorgan imagery:** the portfolio's images for these were placeholders, so project covers are drawn illustrations (`tools/covers/covers.html`), always labelled "Illustration".
 
 ## Page inventory
 
-| Page | Hex equivalent | Contents |
-|---|---|---|
-| `index.html` | Home | Hero statement + layer-stack media, company strip, "selected work:" frames, client blurbs, "rules", writings, where to reach out |
-| `work.html` | /work | Sidebar sub-nav (Case studies, Projects), all frames with years |
-| `work/<slug>.html` | /work/<slug> | Light theme case study: title, hero, intro, scope table, gallery + short text, results, credits, more work |
-| `clients.html` | /clients | Companies the team has built systems for: name, sector, one line on the work |
-| `studio.html` | /info | About: statement, story (Bangalore), founder, what we do (numbered rows), how we work, rules, founding partners invitation, our work link rows |
-| `services.html` | Info → Services/Pricing | Engagements with price, duration, deliverables; process; FAQ |
-| `lab.html` | Web Work / Swipe File | Interactive tools that prove craft: token layer explorer, OKLCH ramp builder, request scorecard |
-| `blog.html` + articles | /writings | 2-up cards |
-| `contact.html` | /contact | Email, call link, what to send |
+| Page | Contents |
+|---|---|
+| `index.html` | Statement, hero reel, logo row, select work frames, three experience cards, how to start, rules, writing, reach out |
+| `work.html` | Featured case studies and more projects |
+| `work/cars24-*.html` | Three interactive case studies (dark, chaptered) |
+| `work/jpmc-*.html`, `work/ibm-*.html`, `work/cars24-consumer.html`, `work/cars24-internal-tools.html` | Short project pages |
+| `clients.html` (nav: Experience) | CARS24, IBM, JPMorgan Chase with logos, facts and linked projects |
+| `studio.html` | About: story (Bangalore), founder, what we do, how we work, founding partners invitation |
+| `pricing.html` | Pricing (services.html redirects here) |
+| `lab.html` | OKLCH ramp builder, token chain, request scorecard |
+| `blog.html` + articles | Writing |
+| `contact.html` | Enquiry form (choice cards and chips, validated, opens an email draft), founder card, what happens next |
 
-## The offer (owner's decisions, October 2026)
+## The offer
 
-Specialist studios lead with a fixed-price audit, then a foundations build, then long-term partnership and training (Baseline: systems / strategy / training; Sparkbox: strategy, delivery, organisational readiness; Ariel Salminen: audits from €10k). Layer One is new, so the entry offer is priced to start relationships:
+| Engagement | Duration | Price | Founding partner (−20%) |
+|---|---|---|---|
+| Audit | 2 weeks, fixed | $1,500 | $1,200 |
+| Foundations (recommended) | 6 weeks, fixed | $5,900 | $4,720 |
+| Partner | monthly, pause any time | $2,900 / month | $2,320 / month |
+| Add-ons | Workshop $450 / half day · Extra theme $900 · Component pack (6) $1,500 | | |
 
-| Engagement | Duration | Price |
-|---|---|---|
-| System Audit | 2 weeks, fixed | $3,500 |
-| Foundations Build | 6–8 weeks | from $14,000 |
-| System Partner | monthly, pause any time | from $4,900 / month |
-| Workshops | half-day sessions | from $1,200 |
+Terms: Audit fee credited in full against Foundations within 60 days. Foundations 50% to start, 50% on handover. Partner billed monthly in advance. USD invoices.
 
-**Founding partners:** three slots in 2027 at 20% off any engagement, in exchange for a jointly published case study. This is how the studio earns its first studio case studies; mention it on Home (sidebar card), Services and Studio.
+Pricing page structure: standard / founding-partner toggle → three tier cards (Foundations highlighted) → every engagement includes → comparison table → three-question plan finder → founding partners → add-ons → logos and promises → pricing FAQ → final CTA.
+
+**Founding partners:** three slots in 2027 at 20% off, in exchange for a jointly published case study.
 
 ## Voice
 
 - Plain, specific, confident. Say what the system is and what changed, with numbers.
 - Never: "transform", "elevate", "extraordinary", "seamless", "unlock", "world-class".
 - Sentence case. Lowercase section labels with a colon are allowed (Hex habit): "selected work:".
-- Project titles follow "Client: what we did" ("CARS24: one colour system for 10+ products in three countries").
+- Project titles follow "Client: what we did".
 
 ## Honesty rules (non-negotiable)
 
-- The CARS24, IBM and JPMorgan work was done by the founder as an employee. Pages say "Led by Aniket Pandey as Design Systems Lead at CARS24" (or similar). Never call these Layer One client engagements.
-- No testimonials until real quotes exist. No invented metrics. Projects without a full write-up say "Full case study on request" and only state known facts.
-- Don't show JPMorgan Chase project imagery (current employer).
+- The CARS24, IBM and JPMorgan Chase work was done by the founder as an employee. Say so on work, experience and case study pages. Never call it Layer One client work.
+- No testimonials until real quotes exist. No invented metrics. Illustrative numbers (like the scorecard queue) are labelled as illustrative.
+- Drawn covers are labelled "Illustration". Don't present placeholders as real screens.
 
 ## Adding a project
 
-1. Images to `assets/work/<slug>/` (≤1800px wide JPEG).
-2. Add the project to `PROJECTS` in `tools/build/common.py` with frame colour, year, tags, title and cover.
-3. For a full case study, copy `tools/build/cs_tokens.py` and write sections; otherwise the build makes a short project page from the PROJECTS entry.
-4. `python3 tools/build/build_all.py`, then check desktop and 390px mobile.
+1. Images to `assets/work/<slug>/` (≤1800px wide JPEG), or draw a cover in `tools/covers/covers.html` and render it.
+2. Add it to `PROJECTS` in `tools/build/common.py` (company key, frame colour, year, kind, title, cover, blurb, points, scope).
+3. For a full case study set `case=True`, copy `tools/build/cs_tokens.py`, add the slug to `KEY` in `cs.py` and the script to `build_all.py`.
+4. If it should appear in the hero, add a scene to `tools/video/hero.html` and re-render.
+5. `python3 tools/build/build_all.py`, then check 1440px and 390px.

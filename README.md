@@ -8,23 +8,25 @@ Direction for every page lives in `.claude/skills/layer-one-site/SKILL.md` (Hex 
 
 | Page | What it is |
 |---|---|
-| `index.html` | Home: banner, statement, animated token-layer stage, select work frames, where we've built systems, how to start, rules, writing |
-| `work.html` | All work: featured case studies and more projects |
-| `work/cars24-*.html` | Three full case studies (light theme) |
-| `work/riyadh-air.html` and four others | Short project pages |
-| `clients.html` | Companies the team has built systems for |
-| `studio.html` | About: story, founder, what we do, how we work, founding partners invitation |
-| `services.html` | Engagements and pricing, founding partners, process, FAQ |
+| `index.html` | Home: statement, hero reel video, logos, work, experience, offer, rules, writing |
+| `work.html` | All work |
+| `work/cars24-*.html` | Three interactive case studies |
+| `work/jpmc-*.html`, `work/ibm-*.html`, `work/cars24-consumer.html`, `work/cars24-internal-tools.html` | Short project pages |
+| `clients.html` | Experience: CARS24, IBM, JPMorgan Chase |
+| `studio.html` | About the studio and founder |
+| `pricing.html` | Pricing (`services.html` redirects here) |
 | `lab.html` | Free tools: OKLCH ramp builder, token chain, request scorecard |
 | `blog.html`, `blog-librarian-vs-leader.html` | Writing |
-| `contact.html` | Project enquiry (opens an email draft) |
+| `contact.html` | Project enquiry (validated form that opens an email draft) |
 
 ## Assets
 
 ```
 assets/
 ├── site.css        all styles; tokens layered primitive → semantic; dark listing pages, light case studies
-├── site.js         mobile menu, hero stage, Lab tools (OKLCH ramp, token chain, scorecard), contact form
+├── site.js         menu, hero reel controls, case study modules, pricing toggle and plan finder, Lab tools, contact form
+├── video/          hero reel (webm, mp4) and poster
+├── logos/          CARS24, IBM, JPMorgan Chase tiles
 ├── fonts/          Schibsted Grotesk and JetBrains Mono, self-hosted (SIL Open Font License)
 ├── favicon.svg
 ├── studio/         founder portrait
@@ -52,6 +54,15 @@ python3 tools/build/build_all.py
 ```
 
 The article text lives in `tools/build/content/`.
+
+## Re-rendering the hero video and covers
+
+With the site served on port 8765 (`python3 -m http.server 8765`):
+
+```bash
+python3 tools/video/render.py      # assets/video/hero-reel.mp4, .webm and poster (needs ffmpeg + playwright)
+python3 tools/covers/render.py     # illustrated covers for IBM and JPMorgan Chase projects
+```
 
 ## Run it locally
 

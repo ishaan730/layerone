@@ -2,5 +2,5 @@
 import runpy, os
 here = os.path.dirname(os.path.abspath(__file__))
 os.chdir(here)
-for name in ["home", "pages", "cs_tokens", "cs_governance", "cs_patterns", "article"]:
+for name in ["home", "pages", "pricing", "contact", "cs_tokens", "cs_governance", "cs_patterns", "article"]:
     runpy.run_path(os.path.join(here, name + ".py"), run_name="__main__")

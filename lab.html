@@ -20,7 +20,7 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="topbar">
   <a class="logo" href="index.html" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
-  <nav class="topnav" aria-label="Main"><a href="index.html">Home</a><a href="work.html">Work</a><a href="clients.html">Clients</a><a href="studio.html">Studio</a><a href="services.html">Services</a><a href="lab.html" aria-current="page">Lab</a><a href="blog.html">Writing</a><a href="contact.html">Contact</a></nav>
+  <nav class="topnav" aria-label="Main"><a href="index.html">Home</a><a href="work.html">Work</a><a href="clients.html">Experience</a><a href="studio.html">Studio</a><a href="pricing.html">Pricing</a><a href="lab.html" aria-current="page">Lab</a><a href="blog.html">Writing</a><a href="contact.html">Contact</a></nav>
   <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
   <a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
 </header>
@@ -36,7 +36,6 @@
   </aside><main id="main" class="content">
 <h1 class="statement">Lab</h1>
 <p class="sub muted">Small tools we built to think with. They're the same methods we use on client systems, and they're free to use.</p>
-
 <section class="tool" id="ramp" data-ramp aria-labelledby="ramp-t">
   <div class="tool-head"><div><h3 id="ramp-t">OKLCH ramp builder</h3><p>Pick a hue and a chroma. You get ten perceptually even steps, fitted to the sRGB gamut, with a contrast check on every step and tokens ready to paste.</p></div></div>
   <div class="ctrl">
@@ -48,10 +47,9 @@
   <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:12px;flex-wrap:wrap"><span class="small muted">Contrast is measured against white and black text.</span><button class="btn-line" type="button" data-copy>Copy tokens</button></div>
   <pre class="code-out"></pre>
 </section>
-
 <section class="tool" id="chain" data-chain style="--brand:#4736fe" aria-labelledby="chain-t">
   <div class="tool-head"><div><h3 id="chain-t">Token chain</h3><p>The four layers between a hex code and a button, from the CARS24 architecture. Switch the theme: components never change, only the mapping underneath.</p></div></div>
-  <div class="ctrl" style="gap:8px"><button type="button" class="btn-line" data-theme-pick data-hex="#4736fe" data-prim="color-blue-500" data-sem="color-action-primary" aria-pressed="true">CARS24</button><button type="button" class="btn-line" data-theme-pick data-hex="#5b2d90" data-prim="color-violet-600" data-sem="color-action-primary" aria-pressed="false">Riyadh Air</button><button type="button" class="btn-line" data-theme-pick data-hex="#1f3a8a" data-prim="nbfc-color-navy-500" data-sem="nbfc-color-action-primary" aria-pressed="false">Loans</button><button type="button" class="btn-line" data-theme-pick data-hex="#7b3fe4" data-prim="color-purple-500" data-sem="color-action-primary" aria-pressed="false">District</button></div>
+  <div class="ctrl" style="gap:8px"><button type="button" class="btn-line" data-theme-pick data-hex="#4736fe" data-prim="color-blue-500" data-sem="color-action-primary" aria-pressed="true">New brand</button><button type="button" class="btn-line" data-theme-pick data-hex="#0059a3" data-prim="color-blue-700" data-sem="color-action-primary" aria-pressed="false">Old brand</button><button type="button" class="btn-line" data-theme-pick data-hex="#1f3a8a" data-prim="nbfc-color-navy-500" data-sem="nbfc-color-action-primary" aria-pressed="false">Loans theme</button><button type="button" class="btn-line" data-theme-pick data-hex="#2bb58a" data-prim="color-mint-500" data-sem="color-action-accent" aria-pressed="false">Mint accent</button></div>
   <div class="chain">
     <div><span>Value</span><div class="sw"></div><code data-v>#4736FE</code></div>
     <div><span>Primitive</span><code data-p>color-blue-500</code></div>
@@ -59,7 +57,6 @@
     <div><span>Component</span><code>button-background-primary</code><div class="sw" style="height:34px;border-radius:8px;display:grid;place-items:center;color:#fff;font-size:13px;font-weight:600">Get best price</div></div>
   </div>
 </section>
-
 <section class="tool" id="scorecard" aria-labelledby="sc-t">
   <div class="tool-head"><div><h3 id="sc-t">Request scorecard</h3><p>The 70-point model that ended the loudest-voice backlog at CARS24. Score any component request in four questions.</p></div><a class="btn-line" href="work/cars24-governance.html">Read the case study</a></div>
   <form class="scorer" data-scorer onsubmit="return false"><div class="scorer-q"><fieldset><legend>Where is it needed?</legend><p class="help">Work in main products helps the most people.</p><div class="seg"><label><input type="radio" name="where" value="20"><span><b>20</b> Main products</span></label><label><input type="radio" name="where" value="15"><span><b>15</b> Smaller products</span></label><label><input type="radio" name="where" value="5"><span><b>5</b> One small team</span></label><label><input type="radio" name="where" value="x"><span>✕ Nowhere</span></label></div></fieldset></div><div class="scorer-q"><fieldset><legend>How many can reuse it?</legend><p class="help">A design system is for shared things.</p><div class="seg"><label><input type="radio" name="reuse" value="20"><span><b>20</b> Many teams</span></label><label><input type="radio" name="reuse" value="15"><span><b>15</b> A few teams</span></label><label><input type="radio" name="reuse" value="5"><span><b>5</b> One team</span></label><label><input type="radio" name="reuse" value="x"><span>✕ Only one product</span></label></div></fieldset></div><div class="scorer-q"><fieldset><legend>Do we already have it?</legend><p class="help">Filling a real gap beats rebuilding what works.</p><div class="seg"><label><input type="radio" name="exists" value="15"><span><b>15</b> No</span></label><label><input type="radio" name="exists" value="10"><span><b>10</b> Partly</span></label><label><input type="radio" name="exists" value="5"><span><b>5</b> Mostly</span></label><label><input type="radio" name="exists" value="x"><span>✕ Fully solved</span></label></div></fieldset></div><div class="scorer-q"><fieldset><legend>How hard is it to build?</legend><p class="help">Quick wins go first.</p><div class="seg"><label><input type="radio" name="effort" value="15"><span><b>15</b> Under a week</span></label><label><input type="radio" name="effort" value="10"><span><b>10</b> 1–3 weeks</span></label><label><input type="radio" name="effort" value="5"><span><b>5</b> 3+ weeks</span></label><label><input type="radio" name="effort" value="x"><span>✕ Not worth it</span></label></div></fieldset></div>
