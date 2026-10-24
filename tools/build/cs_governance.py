@@ -2,144 +2,108 @@ from cs import *
 
 G = "assets/work/governance/"
 
-requests = [
-    ("Seller", "Product designer", "We need a custom card for car pricing on the seller flow. Can it go into the library? We launch in two weeks."),
-    ("Loans", "Frontend engineer", "Can we add a heatmap chart? Our dashboard needs one and I'd rather not build it from scratch."),
-    ("Buyer", "Product designer", "Our flow needs a special carousel. Is there a way to do it with what we have?"),
-    ("New cars", "Product designer", "Can I add this new filter pattern? Happy to do the Figma work myself."),
-    ("UAE", "Mobile engineer", "We built a checkout component. Can other teams use it? Where would I even put it?"),
-    ("Australia", "Product designer", "How do I propose a new button variant? Is there a form somewhere?"),
-]
-req_rows = "".join(f"<tr><td>{a}</td><td>{b}</td><td>{c}</td></tr>" for a, b, c in requests)
+msgs = [("SE", "Product designer · Seller", "10:14", "We need a custom card for car pricing on the seller flow. Can it go into the library? We launch in two weeks.", "No replies yet"),
+        ("LO", "Frontend engineer · Loans", "11:02", "Can we add a heatmap chart? Our dashboard needs one and I'd rather not build it from scratch.", "👀 1"),
+        ("BU", "Product designer · Buyer", "16:40", "Our flow needs a special carousel. Is there a way to do it with what we have?", ""),
+        ("NC", "Product designer · New cars", "09:31", "Can I add this new filter pattern? Happy to do the Figma work myself.", "2 replies · last reply 9 days ago"),
+        ("AE", "Mobile engineer · UAE", "12:05", "We built a checkout component. Can other teams use it? Where would I even put it?", ""),
+        ("AU", "Product designer · Australia", "15:22", "How do I propose a new button variant? Is there a form somewhere?", "👍 4 · +1 same question")]
+chat = '<div class="m-chat"><div class="mc-head"><b># design-system-help</b><span>6 new requests this week · 1 answered</span></div>' + "".join(
+    f'<div class="mc-msg"><span class="av">{a}</span><div><p class="mc-who">{w}<span>{t}</span></p><p>{m}</p>{f"<p class=mc-meta>{r}</p>" if r else ""}</div></div>'
+    for a, w, t, m, r in msgs) + '<p class="mc-foot">Recreated from real requests. Names removed.</p></div>'
 
-flow = [
-    ("Ask", "Post in the help channel or fill in the proposal form: what it's for, who needs it and how often it comes up.", "Anyone, any time"),
-    ("Review", "New requests are reviewed together at weekly office hours. Anything unclear goes back as a question.", "DS team and requester, weekly"),
-    ("Score", "Four questions, out of 70. The score is shared, so the requester sees why it landed where it did.", "DS team, in the open"),
-    ("Decide", "Accept, defer or reject. Every decision goes back to the team with the reason attached.", "DS team, same week"),
-    ("Build", "Core work is built by the DS team, extended work together, and custom work stays with the product team.", "Depends on the tier"),
-    ("Release", "Documented in Figma and Storybook, announced with a changelog and migration steps.", "DS team, every release"),
-    ("Check", "Live screens are audited every quarter. Anything that has drifted comes back in as a new request.", "DS team, quarterly"),
-]
-flow_html = '<ol class="flow">' + "".join(f'<li><div><h3>{a}</h3><p>{b}</p></div><span class="who">{c}</span></li>' for a, b, c in flow) + "</ol>"
+steps = [("Ask", "Anyone", "Any time", "Post in #design-system-help or fill in the proposal form: what it's for, who needs it and how often it comes up.", "A request with context"),
+         ("Review", "Design system team and the requester", "Weekly office hours", "New requests are reviewed together. Anything unclear goes back as a question.", "A complete request"),
+         ("Score", "Design system team, in the open", "At review", "Four questions, out of 70. The score is shared, so the requester sees why it landed where it did.", "A priority"),
+         ("Decide", "Design system team", "Same week", "Accept, defer or reject. Every decision goes back to the team with the reason attached.", "A decision and a reason"),
+         ("Build", "Depends on the tier", "By priority", "Core work is built by the system team, extended work together, custom work stays with the product team.", "A tokenised, accessible component"),
+         ("Release", "Design system team", "Every release", "Documented in Figma and Storybook, announced with a changelog and migration steps.", "A note in #design-system-releases"),
+         ("Check", "Design system team", "Every quarter", "Live screens are audited. Anything that has drifted comes back in as a new request, so step 7 feeds step 1.", "New requests for step 1")]
 
 questions = [
     ("where", "Where is it needed?", "Work in main products helps the most people.", [("20", "Main products"), ("15", "Smaller products"), ("5", "One small team"), ("x", "Nowhere")]),
     ("reuse", "How many can reuse it?", "A design system is for shared things.", [("20", "Many teams"), ("15", "A few teams"), ("5", "One team"), ("x", "Only one product")]),
     ("exists", "Do we already have it?", "Filling a real gap beats rebuilding what works.", [("15", "No"), ("10", "Partly"), ("5", "Mostly"), ("x", "Fully solved")]),
-    ("effort", "How hard is it to build?", "Quick wins go first, so teams aren't stuck waiting.", [("15", "Under a week"), ("10", "1–3 weeks"), ("5", "3+ weeks"), ("x", "Not worth it")]),
+    ("effort", "How hard is it to build?", "Quick wins go first.", [("15", "Under a week"), ("10", "1–3 weeks"), ("5", "3+ weeks"), ("x", "Not worth it")]),
 ]
-qs = ""
-for name, q, help_, opts in questions:
-    radios = "".join(
-        f'<label><input type="radio" name="{name}" value="{v}"><span>{("✕ " if v == "x" else "<b>" + v + "</b> ")}{t}</span></label>' for v, t in opts)
-    qs += f'<div class="scorer-q"><fieldset><legend class="label">{q}</legend><p class="help">{help_}</p><div class="seg">{radios}</div></fieldset></div>'
+qs = "".join(
+    f'<div class="scorer-q"><fieldset><legend>{q}</legend><p class="help">{h}</p><div class="seg">'
+    + "".join(f'<label><input type="radio" name="{n}" value="{v}"><span>{"✕ " if v == "x" else "<b>" + v + "</b> "}{t}</span></label>' for v, t in o)
+    + "</div></fieldset></div>" for n, q, h, o in questions)
 scorer = f'''<form class="scorer" data-scorer onsubmit="return false" aria-label="Request scorecard">{qs}
-  <div class="scorer-out" aria-live="polite"><div class="scorer-total"><span data-total>0</span> <small>/ 70</small></div>
-  <div class="scorer-verdict"><strong data-verdict></strong><span data-detail></span></div></div>
-</form>'''
+  <div class="scorer-out" aria-live="polite"><div class="scorer-total"><span data-total>0</span> <small>/ 70</small></div><div class="scorer-verdict"><strong data-verdict></strong><span data-detail></span></div></div></form>'''
 
-bands = '''<div class="table-wrap"><table class="data"><thead><tr><th>Score</th><th>Priority</th><th>What happens</th></tr></thead><tbody>
-<tr><td class="num">55–70</td><td>High</td><td>Accepted and picked up first. The design system team builds it.</td></tr>
-<tr><td class="num">40–54</td><td>Medium</td><td>Accepted, after high-priority work. The requesting team can contribute to speed it up.</td></tr>
-<tr><td class="num">20–39</td><td>Low</td><td>Deferred. The team can build it as a custom or extended component.</td></tr>
-<tr><td class="num">Any ✕</td><td>Won't fix</td><td>Rejected, whatever the total. The team builds it outside the system using the design language.</td></tr>
-</tbody></table></div>'''
+queue = [("Filter pattern", "New cars", 55), ("Checkout component", "UAE", 50), ("Button variant", "Australia", 45), ("Carousel variant", "Buyer", 35), ("Pricing card", "Seller", 25), ("Heatmap chart", "Loans", 0)]
+qbars = '<figure class="m-fig"><div class="m-queue" data-inview>' + "".join(
+    f'<div class="q"><span class="q-l">{n}<small>{t}</small></span><div class="q-t"><i style="--w:{s / 70 * 100:.0f}%" class="{"hi" if s >= 55 else "md" if s >= 40 else "lo" if s else "no"}"></i></div><b>{"Won’t fix" if s == 0 else s}</b></div>'
+    for n, t, s in queue) + '</div><figcaption>The six requests from the channel, scored and put in order. Scores are illustrative.</figcaption></figure>'
 
-example = '''<div class="table-wrap"><table class="data"><thead><tr><th>Question</th><th>Answer</th><th>Points</th></tr></thead><tbody>
-<tr><td>Where is it needed?</td><td>Search and filters sit in the main Buy funnel.</td><td class="num">20</td></tr>
-<tr><td>How many can reuse it?</td><td>Buyer and New cars both filter listings. Seller doesn't.</td><td class="num">15</td></tr>
-<tr><td>Do we already have it?</td><td>There were chips, but no way to pick several filters.</td><td class="num">10</td></tr>
-<tr><td>How hard is it to build?</td><td>About two weeks, starting from the existing chip.</td><td class="num">10</td></tr>
-<tr><td><strong>Total</strong></td><td>Accepted. Built by the design system team with the requester.</td><td class="num">55 / 70</td></tr>
-</tbody></table></div>'''
+tiers = [("core", "Core", "Used everywhere: buttons, inputs, tokens.", ["Designs: system team", "Builds: system team", "Reviews: system team", "Maintains: system team"]),
+         ("extended", "Extended", "Used by a few teams: advanced filters, pricing cards.", ["Designs: together", "Builds: product team", "Reviews: system team", "Maintains: together"]),
+         ("custom", "Custom", "One product, one use: a seasonal campaign card.", ["Designs: product team", "Builds: product team", "Reviews: product team", "Maintains: product team"])]
+rings = '''<div class="m-rings" data-tabs><svg viewBox="0 0 300 300" aria-hidden="true">
+  <circle cx="150" cy="150" r="140" class="r-custom"/><circle cx="150" cy="150" r="96" class="r-extended"/><circle cx="150" cy="150" r="52" class="r-core"/>
+  <text x="150" y="155" text-anchor="middle">Core</text><text x="150" y="80" text-anchor="middle">Extended</text><text x="150" y="30" text-anchor="middle">Custom</text></svg>
+  <div><div role="tablist" aria-label="Ownership tiers" class="rt">''' + "".join(
+    f'<button role="tab" type="button" id="rt-{k}" aria-controls="rp-{k}" aria-selected="{"true" if i == 0 else "false"}" tabindex="{0 if i == 0 else -1}" data-ring="{k}">{n}</button>' for i, (k, n, *_r) in enumerate(tiers)) + "</div>" + "".join(
+    f'<div role="tabpanel" id="rp-{k}" aria-labelledby="rt-{k}"{"" if i == 0 else " hidden"}><p>{d}</p><ul>{"".join("<li>" + x + "</li>" for x in xs)}</ul></div>' for i, (k, n, d, xs) in enumerate(tiers)) + "</div></div>"
 
-rings = '''<div class="rings">
-  <svg viewBox="0 0 280 280" role="img" aria-label="Three nested rings: core inside extended inside custom">
-    <circle cx="140" cy="140" r="130" stroke-width="1" stroke-dasharray="4 5"/>
-    <circle cx="140" cy="140" r="88" stroke-width="1"/>
-    <circle cx="140" cy="140" r="46" stroke-width="2"/>
-    <text x="140" y="144" text-anchor="middle">Core</text>
-    <text x="140" y="74" text-anchor="middle">Extended</text>
-    <text x="140" y="30" text-anchor="middle">Custom</text>
-  </svg>
-  <div class="table-wrap" style="margin-top:0"><table class="data"><thead><tr><th>Tier</th><th>Designs</th><th>Builds</th><th>Reviews</th><th>Maintains</th></tr></thead><tbody>
-    <tr><td><strong>Core</strong></td><td>DS team</td><td>DS team</td><td>DS team</td><td>DS team</td></tr>
-    <tr><td><strong>Extended</strong></td><td>Together</td><td>Product team</td><td>DS team</td><td>Together</td></tr>
-    <tr><td><strong>Custom</strong></td><td>Product team</td><td>Product team</td><td>Product team</td><td>Product team</td></tr>
-  </tbody></table></div>
-</div>'''
+weeks = "".join(
+    f'<div class="w"><span>W{i + 1}</span><i class="d"></i><i class="{"wk" if i % 1 == 0 else ""}"></i>{"<i class=qt></i>" if i == 12 else ""}</div>' for i in range(13))
+quarter = f'''<figure class="m-fig"><div class="m-quarter"><div class="qg">{weeks}</div>
+  <p class="br-key"><span class="kd">Daily: Slack help and release channels</span><span class="kw">Weekly: office hours</span><span class="kq">Quarterly: system audit</span></p></div>
+  <figcaption>One quarter of listening: every day, every week, every quarter.</figcaption></figure>'''
 
-shift_items = [("Teams worked in silos", "A shared language and shared habits"), ("Forked styles and duplicate work", "Consistency through tokens and the system"),
-               ("Rules handed down from the top", "Contributions led by the community"), ("The design system was a blocker", "The design system was an enabler"),
-               ("Fear of change", "Trust and collaboration")]
-shift = '<ul class="shift">' + "".join(f'<li><span>{a}</span>{ARROW_SHIFT}<span>{b}</span></li>' for a, b in shift_items) + "</ul>"
-
-sections = [
-("setting", "The setting", "The setting", "10+ products, three countries, one library",
- prose("CARS24 runs buying, selling, loans and new cars across India, the UAE and Australia, on web, iOS and Android. Every one of those products used the same design system, looked after by one small team.",
-       "As the company grew, product teams needed changes faster than that team could make them. There was no clear way to ask for something, no fair way to decide what came first, and no way for teams to help. So everything waited.")
- + cards([("Slower launches", "Product work waited on library changes that had no date."),
-          ("Paying twice", "The same card, chip or carousel got built again by different teams."),
-          ("Less trust", "People buying a car worth lakhs saw screens that didn't match.")], cols=3)),
-
-("problem", "The problem", "The problem", "Six requests a week, one answered",
- prose("Requests arrived through DMs, Slack threads, meetings and hallway chats. Nobody could see the full list, including the design system team. Whether the answer was yes depended on who asked and how loudly, so teams stopped trusting it and built their own versions.",
-       "Here's a typical week in the help channel, recreated from real requests with names removed.")
- + f'<div class="table-wrap"><table class="data"><thead><tr><th>Team</th><th>Role</th><th>Request</th></tr></thead><tbody>{req_rows}</tbody></table></div>'
- + cards([("No front door", "Requests came in everywhere, so nobody could see them all."),
-          ("No shared rules", "Answers depended on who asked, so teams couldn't predict them."),
-          ("No way to help", "Teams that had already built something had nowhere to put it.")], cols=3)),
-
-("research", "Research", "Research", "First, we listened",
- prose("Before designing any process, we looked at where things actually broke, from seven angles: interviews with designers, engineers and PMs; a workflow audit of where requests got stuck; usage data on unused and stalled requests; benchmarking against Base, Shopify Polaris and Agoda; surveys on trust in the process; shadowing to watch delays happen live; and experiments with existing frameworks.",
-       "The hardest part was deciding what to work on first. We scored a batch of real requests with RICE and MoSCoW. With RICE, people argued about the numbers, because reach and confidence are guesses for a shared component. With MoSCoW, every team's request came back as a Must.",
-       "For a shared component, it came down to four things: where it's used, who can reuse it, whether it already exists, and how hard it is to build.")),
-
-("front-door", "One front door", "Intake", "Every request takes the same path",
- prose("A bug, a new variant or a whole new component: it doesn't matter. Everything goes through the same seven steps, so anyone can tell where a request is and what happens next.")
- + flow_html
- + prose("Step seven feeds step one, so the system keeps improving without anyone having to remember to ask.")),
-
-("score", "The score", "Prioritisation", "A score instead of an argument",
- prose("Four plain questions that any product designer can answer without the design system team. Each answer is worth points, the points add up to a priority, and the priority decides what happens next. It works the same way for every team. Try it.")
- + scorer + bands
- + prose("Here's the filter request from the help channel, as it was scored in office hours.") + example
- + prose("It held up because the questions were ones requesters could answer themselves. Once requesters and the design system team kept landing on the same score, it became the default.")),
-
-("ownership", "Who owns what", "Ownership", "Not everything belongs in the core",
- prose("Components are split into three rings. The closer to the centre, the more widely a component is used and the more the design system team looks after it.")
- + rings),
-
-("contributing", "Contributing", "Contribution", "Building with us, not waiting on us",
- prose("Once people saw the system working, many of them wanted to add to it. Without a clear path that meant uneven quality, long reviews and confusion about ownership. So we wrote a four-step playbook, with a template for every step.")
- + '<ol class="flow">'
-   '<li><div><h3>Propose</h3><p>Start with context, not just a component: use cases, how often it comes up, the problem it solves, screenshots and suggested tokens.</p></div><span class="who">Requesting team</span></li>'
-   '<li><div><h3>Review and score</h3><p>Data, not debate. The proposal is scored with the same four questions as every other request.</p></div><span class="who">DS team, with the requester</span></li>'
-   '<li><div><h3>Build together</h3><p>Design system and product designers refine the spec together; engineers pair on reusable, tokenised code, checked for accessibility on web, iOS and Android.</p></div><span class="who">Both teams</span></li>'
-   '<li><div><h3>Document and release</h3><p>A component without documentation doesn\'t exist. It ships with docs, a version number and a release note.</p></div><span class="who">DS team</span></li>'
-   '</ol>'
- + prose("Around the playbook, we built listening into the routine at four speeds.")
- + cards([("Every day", "Slack channels for help, releases and changelogs. Fast answers, so nobody stays blocked."),
-          ("Every week", "Office hours where any designer brings real use cases, friction and ideas."),
-          ("Every quarter", "A system audit of live screens for token use, forked components and accessibility gaps."),
-          ("Every release", "Changelogs with migration steps, so platforms stop drifting apart.")])),
-
-("changed", "What changed", "Outcome", "From gatekeeper to partner",
- shift
- + prose("Designers trusted the tools and patterns. Engineers started suggesting improvements themselves. Product managers saw the system as a way to ship faster, and planned around releases. The design system team stopped being a bottleneck and became a facilitator.")),
-
-("learnings", "Learnings", "Learnings", "What we'd do again",
- cards([("Agree on the goal first", "Every later argument is easier when everyone signed up to the same outcome."),
-        ("Governance is what lets you scale", "Without it, more demand just means a longer queue."),
-        ("Docs and templates are lifelines", "Templates made the right thing the easy thing."),
-        ("Culture matters as much as code", "The process only worked once people trusted it.")])),
-]
-
-page("governance",
-     "How the design system team stopped being the bottleneck",
-     "As CARS24 grew, every team needed something from the design system, and one small team couldn't keep up. We changed how work came in, got decided and got built, so teams moved fast without going around the system.",
-     [("Client", "CARS24"), ("Focus", "Governance, prioritisation, contribution"), ("Platforms", "Web, iOS and Android"), ("Markets", "India, UAE, Australia")],
-     [("70 pts", "scorecard any team can apply to its own request"), ("7 steps", "one path for every bug, variant and component"),
-      ("3 tiers", "core, extended and custom ownership"), ("4 rhythms", "daily, weekly, quarterly and per-release listening")],
-     G + "cover.jpg", "Diagram of requests from six teams flowing through one front door, a score, and three ownership tiers to release", sections, "cars24-governance.html")
+spec = dict(
+    h1="How the design system team stopped being the bottleneck",
+    lede="As CARS24 grew, every team needed something from the design system, and one small team couldn't keep up. Requests piled up, nobody could see what was happening, and teams built around us. We changed how work came in, got decided and got built.",
+    meta=[("Role", "Design Systems Lead"), ("Focus", "Governance, prioritisation, contribution"), ("Platforms", "Web, iOS, Android"), ("Markets", "India, UAE, Australia")],
+    cover=(G + "cover.jpg", "Requests from six teams flowing through one front door, a score and three ownership tiers to release"),
+    tldr=[("The problem", "Every request from every team ran through one small team. No front door, no shared rules, no way to help. Most requests just waited."),
+          ("What we did", "One front door, a 70-point scorecard anyone can apply, three ownership tiers, a contribution playbook and a steady listening rhythm."),
+          ("What changed", "Every decision came with a reason. Teams planned around releases, and more people built with the system instead of around it.")],
+    kpis=[("70", " pts", "", "scorecard any team can apply"), ("7", " steps", "", "one path for every request"), ("3", " tiers", "", "core, extended and custom ownership"), ("4", "", "", "listening rhythms: daily to quarterly")],
+    chapters=[
+        ("problem", "Problem", "Six requests a week, one answered",
+         "Requests arrived by DM, Slack, meetings and hallway chats. Yes or no depended on who asked loudest, so teams stopped trusting the answer.",
+         chat + tiles([("No front door", "Requests came in everywhere, so nobody could see them all, including us."),
+                       ("No shared rules", "Answers depended on who asked, so teams couldn't predict them."),
+                       ("No way to help", "Teams that had already built something had nowhere to put it.")], cols=3)),
+        ("research", "Research", "We tried the usual frameworks first",
+         "Seven angles of research, from shadowing to surveys. Then we scored real requests with RICE and MoSCoW. With RICE, people argued about the numbers; with MoSCoW, everything was a Must.",
+         tiles([("RICE: tried", "Weighs value against effort, but reach and confidence are guesses for a shared component. The score became the argument."),
+                ("MoSCoW: tried", "Quick and familiar, but every team's request was a Must, and the label never explained why."),
+                ("Our scorecard: used", "Four questions a product designer can answer without us: where, who reuses, do we have it, how hard."),
+                ("Tested in the open", "Requesters scored their own asks next to ours. Where it felt wrong, we adjusted it.")])
+         + more("We interviewed designers, engineers and PMs; mapped where requests got stuck; looked at unused and stalled requests; benchmarked Base, Shopify Polaris and Agoda; surveyed how much teams trusted the process; ran experiments; and shadowed teams to watch delays happen live.")),
+        ("front-door", "Front door", "Every request takes the same path",
+         "A bug, a new variant or a whole new component: everything goes through the same seven steps, so anyone can tell where a request is and what happens next.",
+         stepper("flow", steps)),
+        ("score", "Scorecard", "A score instead of an argument",
+         "Four plain questions, each worth points. Any ✕ stops a request. 55+ is accepted and built first, 40–54 accepted, under 40 deferred. Try it on a request of your own.",
+         scorer + qbars),
+        ("ownership", "Ownership", "Not everything belongs in the core",
+         "Three rings. The closer to the centre, the more widely a component is used and the more the system team looks after it. Select a ring.",
+         rings),
+        ("listening", "Listening", "A system you set and forget falls apart",
+         "Listening was built into the routine at every speed, and a four-step playbook let teams contribute: propose, review and score, build together, document and release.",
+         quarter),
+        ("changed", "Outcome", "From gatekeeper to partner",
+         "Flip between before and after.",
+         shift([("Teams worked in silos", "A shared language and shared habits"), ("Forked styles and duplicate work", "Consistency through tokens and the system"),
+                ("Rules handed down from the top", "Contributions led by the community"), ("The design system was a blocker", "The design system was an enabler"),
+                ("Fear of change", "Trust and collaboration")])
+         + tiles([("Designers", "Trusted the tools and patterns."), ("Engineers", "Started suggesting improvements themselves."),
+                  ("Product managers", "Saw the system as a way to ship faster, and planned around releases."), ("The system team", "Stopped being a bottleneck and became a facilitator.")])),
+        ("learnings", "Learnings", "What we'd do again", "Agree on the goal first, and treat governance as the thing that lets you scale.",
+         tiles([("Agree on the goal first", "Every later argument is easier when everyone signed up to the same outcome."),
+                ("Governance is what lets you scale", "Without it, more demand just means a longer queue."),
+                ("Templates are lifelines", "They made the right thing the easy thing."),
+                ("Culture matters as much as code", "The process only worked once people trusted it.")])),
+    ],
+    gallery=[(G + "cover.jpg", "The new flow: one front door, a score, three tiers"),
+             ("assets/work/tokens/workshop-2.jpg", "Office hours and working sessions"),
+             ("assets/work/patterns/request-template.jpg", "The request template teams use to propose new work")],
+    credits="Led by Aniket Pandey as Design Systems Lead at CARS24, with CARS24's design, engineering and product teams. Images belong to CARS24 and are shown for portfolio purposes.",
+)
+page("governance", spec)
