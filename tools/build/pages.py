@@ -41,14 +41,56 @@ write("clients.html", head("Experience — Layer One", "Design systems built by 
       + shell("experience", [("CARS24", "#cars24"), ("IBM", "#ibm"), ("JPMorgan Chase", "#jpmc")], ex_c))
 
 # ======================= Studio (about) =======================
-STUDIO_ART = ('<svg viewBox="0 0 1000 300" role="img" aria-label="Layer One pattern">'
-              '<defs><pattern id="tile" width="100" height="100" patternUnits="userSpaceOnUse">'
-              f'<g transform="translate(14 14) scale(.72)"><path fill="currentColor" fill-rule="evenodd" d="{STAR}"/></g></pattern>'
-              '<pattern id="tile2" width="100" height="100" patternUnits="userSpaceOnUse">'
-              '<text x="50" y="66" text-anchor="middle" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="52" fill="currentColor" letter-spacing="-3">L1</text></pattern></defs>'
-              '<rect width="1000" height="300" fill="url(#tile)"/>'
-              + "".join(f'<rect x="{x}" y="0" width="100" height="300" fill="#ecece8"/><rect x="{x}" y="0" width="100" height="300" fill="url(#tile2)"/>' for x in (100, 500, 800))
-              + '</svg>')
+# Studio banner: a 10 x 3 tile grid built from the mark, the L1 monogram and the layered wordmark.
+INK, PAPER, SIG, RAISED, RULE, MUTED = "#0b0d12", "#ecece8", "#ff6b3d", "#1b1f28", "#2a2f3a", "#9aa0aa"
+
+
+def _star(x, y, size, fill, spin=None):
+    s = size / 100
+    cls = f' class="sb-turn" style="animation-delay:{spin}s"' if spin is not None else ""
+    return f'<g transform="translate({x} {y}) scale({s})"><path{cls} fill="{fill}" fill-rule="evenodd" d="{STAR}"/></g>'
+
+
+def _tile(kind, x, y, n):
+    t = f'<rect x="{x + 4}" y="{y + 4}" width="92" height="92" rx="8"'
+    if kind == "acc":
+        return t + f' fill="{SIG}"/>' + _star(x + 22, y + 22, 56, INK, spin=n * 0.7)
+    if kind == "paper":
+        return t + f' fill="{PAPER}"/><text x="{x + 50}" y="{y + 67}" text-anchor="middle" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="46" letter-spacing="-3" fill="{INK}">L1</text>'
+    if kind == "pstar":
+        return t + f' fill="{PAPER}"/>' + _star(x + 22, y + 22, 56, SIG, spin=n * 0.7)
+    if kind == "ink":
+        return (t + f' fill="{RAISED}"/>'
+                + "".join(f'<g transform="translate({x + 20 + d} {y + 20 + d}) scale(.52)" opacity="{o}"><path fill="none" stroke="{SIG}" stroke-width="3" fill-rule="evenodd" d="{STAR}"/></g>' for d, o in ((8, .3), (4, .6)))
+                + _star(x + 20, y + 20, 52, SIG))
+    # "line": an outlined tile with the mark drawn as a construction drawing
+    return (t + f' fill="none" stroke="{RULE}" stroke-width="1.5"/>'
+            f'<circle cx="{x + 50}" cy="{y + 50}" r="28" fill="none" stroke="{MUTED}" stroke-dasharray="2 4"/>'
+            f'<path d="M{x + 22} {y + 50}h56M{x + 50} {y + 22}v56" stroke="{RULE}"/>'
+            f'<g transform="translate({x + 22} {y + 22}) scale(.56)"><path fill="none" stroke="{MUTED}" stroke-width="2.4" fill-rule="evenodd" d="{STAR}"/></g>')
+
+
+_GRID = [["ink", "paper", "acc", "F", "F", "line", "pstar", "acc", "ink", "paper"],
+         ["acc", "line", "pstar", "F", "F", "paper", "ink", "line", "acc", "pstar"],
+         ["paper", "acc", "ink", "line", "paper", "acc", "W", "W", "W", "ink"]]
+_art = f'<rect width="1000" height="300" fill="{INK}"/>'
+_n = 0
+for r, row in enumerate(_GRID):
+    for c, kind in enumerate(row):
+        if kind in ("F", "W"):
+            continue
+        _art += _tile(kind, c * 100, r * 100, _n)
+        _n += 1
+# 2 x 2 feature: the mark with layered offset copies behind it
+_art += f'<rect x="304" y="4" width="192" height="192" rx="8" fill="{SIG}"/>'
+_art += "".join(f'<g transform="translate({340 + d} {40 + d}) scale(1.2)" opacity="{o}"><path fill="none" stroke="{INK}" stroke-width="1.6" fill-rule="evenodd" d="{STAR}"/></g>' for d, o in ((16, .25), (8, .5)))
+_art += _star(340, 40, 120, INK)
+# 3 x 1 wordmark plate
+_art += (f'<rect x="604" y="204" width="292" height="92" rx="8" fill="{PAPER}"/>'
+         + "".join(f'<text x="{750 + d}" y="{264 + d}" text-anchor="middle" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="42" letter-spacing="-1.5" word-spacing="10" '
+                   + (f'fill="{INK}"' if d == 0 else f'fill="none" stroke="{SIG}" stroke-width="1.4" opacity="{o}"') + '>LAYER ONE</text>'
+                   for d, o in ((6, .45), (3, .8), (0, 1))))
+STUDIO_ART = f'<svg viewBox="0 0 1000 300" role="img" aria-label="Layer One mark, monogram and wordmark tiles">{_art}</svg>'
 
 services_list = ["Design system audits", "Token architecture", "Colour systems and accessibility", "Core component libraries",
                  "Multi-brand and multi-market theming", "Pattern libraries", "Documentation", "Governance and contribution models",
@@ -60,7 +102,7 @@ st_c = f'''
 <div class="studio-banner">{STUDIO_ART}</div>
 <p class="about-p">Layer One was started by Aniket Pandey after six years inside design systems teams: first at IBM in Bangalore, then leading the CARS24 design system through a rebrand across three countries, and now on the design systems team at JPMorgan Chase.</p>
 <p class="about-p muted">The same problems came up everywhere. Teams didn't need another component kit. They needed decisions that hold across products, a way to run the system without becoming a bottleneck, and a reason for people to use it. That's the work Layer One exists to do, and it's the only work we do.</p>
-<div class="trust" style="margin-top:22px"><p>Experience from</p><ul>{"".join("<li>" + logo_tile(k) + "</li>" for k in ("cars24", "ibm", "jpmc"))}</ul></div>
+{trust("Experience from")}
 <div class="facts3">
   <div><strong>6 years</strong><span>building and running design systems</span></div>
   <div><strong>70+ / 200+</strong><span>designers and engineers on one system at CARS24</span></div>

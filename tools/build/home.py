@@ -35,13 +35,11 @@ post_html = "".join(
     for h, t, tag, img, ext in posts)
 
 content = f'''
+{HERO_ART}
 <h1 class="statement hero-statement"><span class="accent">Layer One</span> builds and scales design systems for product companies.</h1>
 <p class="sub muted">A design systems studio in Bangalore. We set up the foundations, scale them across products and markets, and put in the governance that keeps teams using them.</p>
 {reel()}
-<div class="trust">
-  <p>Built by the team behind the design systems at</p>
-  <ul>{"".join("<li>" + logo_tile(k) + "</li>" for k in ("cars24", "ibm", "jpmc"))}</ul>
-</div>
+{trust("Built by the team behind the design systems at")}
 
 <h2 class="label" id="work">select work:</h2>
 <div class="frames">{frames}</div>
