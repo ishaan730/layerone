@@ -235,6 +235,27 @@ def reel(depth=0):
       <div class="reel-progress" aria-hidden="true"><span></span></div>
     </figure>'''
 
+def trust(label, keys=("jpmc", "ibm", "cars24"), depth=0):
+    """Logo strip: a label row, then one cell per company (JPMorgan Chase first)."""
+    cells = "".join(f'<li>{logo_tile(k, depth, label=False)}<div><strong>{COMPANIES[k]["name"]}</strong><span>{COMPANIES[k]["years"]}</span></div></li>' for k in keys)
+    return f'<div class="trust"><p>{label}</p><ul>{cells}</ul></div>'
+
+
+# Hero illustration: the star mark pulled apart into three stacked plates, layer one on top.
+def _plate(dy, n, body):
+    return (f'<g transform="translate(84 {8 + dy})"><g class="ha-layer ha-{n}">'
+            f'<path transform="matrix(.693 .4 -.693 .4 0 0)" fill-rule="evenodd" d="{STAR}" {body}/></g></g>')
+
+
+HERO_ART = ('<svg class="hero-art" viewBox="0 0 440 150" role="img" aria-label="The Layer One mark drawn as three stacked layers">'
+            + _plate(52, 3, 'fill="#13161d" stroke="#2a2f3a" stroke-width="1.5"')
+            + _plate(26, 2, 'fill="#1b1f28" stroke="currentColor" stroke-opacity=".55" stroke-width="1.5"')
+            + _plate(0, 1, 'fill="currentColor"')
+            + '<g font-family="JetBrains Mono, monospace" font-size="12" fill="#9aa0aa">'
+              '<path d="M168 48h48M168 74h48M168 100h48" stroke="#2a2f3a" stroke-dasharray="3 4"/>'
+              '<text x="226" y="52" fill="currentColor">layer.one</text><text x="226" y="78">layer.two</text><text x="226" y="104">layer.three</text>'
+              '</g></svg>')
+
 ARROW_SHIFT = ARROW
 
 
