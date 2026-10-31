@@ -1,5 +1,5 @@
 """Shared shell for every Layer One page. Direction: .claude/skills/layer-one-site/SKILL.md"""
-import os
+import hashlib, os
 
 OUT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 CAL = "https://cal.com/layerone"
@@ -41,6 +41,12 @@ BANNER = ('<svg viewBox="0 0 1000 150" role="img" aria-label="Layer One">'
                     for d, o, f in ((18, 0.3, False), (9, 0.55, False), (0, 1, True)))
           + "</svg>")
 
+def ver(path):
+    """Short content hash for cache busting, so a deploy never pairs new HTML with a cached old CSS, JS or video."""
+    with open(os.path.join(OUT, path), "rb") as f:
+        return hashlib.sha1(f.read()).hexdigest()[:8]
+
+
 NAV = [("home", "Home", "index.html"), ("work", "Work", "work.html"), ("experience", "Experience", "clients.html"),
        ("studio", "Studio", "studio.html"), ("pricing", "Pricing", "pricing.html"), ("lab", "Lab", "lab.html"),
        ("writing", "Writing", "blog.html"), ("contact", "Contact", "contact.html")]
@@ -63,7 +69,7 @@ def head(title, desc, depth=0, theme="dark", og="assets/work/tokens/cover.jpg"):
 <meta name="theme-color" content="{"#0b0d12" if theme == "dark" else "#f6f6f3"}">
 <link rel="icon" href="{p}assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="{p}assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="{p}assets/site.css">
+<link rel="stylesheet" href="{p}assets/site.css?v={ver("assets/site.css")}">
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body class="theme-{theme}">
@@ -119,7 +125,7 @@ def shell(active, subnav, content, card="founding", depth=0):
 
 def close(depth=0):
     p = "../" * depth
-    return f'<script src="{p}assets/site.js" defer></script>\n</body>\n</html>\n'
+    return f'<script src="{p}assets/site.js?v={ver("assets/site.js")}" defer></script>\n</body>\n</html>\n'
 
 
 def write(path, html):
@@ -227,9 +233,9 @@ def frame(proj, depth=0, show_year=False):
 def reel(depth=0):
     p = "../" * depth
     return f'''<figure class="reel" data-reel>
-      <video autoplay muted loop playsinline preload="auto" poster="{p}assets/video/hero-poster.jpg" aria-label="A 24-second recap of our design system work at CARS24, IBM and JPMorgan Chase">
-        <source src="{p}assets/video/hero-reel.webm" type="video/webm">
-        <source src="{p}assets/video/hero-reel.mp4" type="video/mp4">
+      <video autoplay muted loop playsinline preload="auto" poster="{p}assets/video/hero-poster.jpg?v={ver("assets/video/hero-poster.jpg")}" aria-label="A 30-second showreel of our design system work at CARS24, IBM and JPMorgan Chase">
+        <source src="{p}assets/video/hero-reel.webm?v={ver("assets/video/hero-reel.webm")}" type="video/webm">
+        <source src="{p}assets/video/hero-reel.mp4?v={ver("assets/video/hero-reel.mp4")}" type="video/mp4">
       </video>
       <button class="reel-btn" type="button" aria-label="Pause the video" data-reel-toggle><svg viewBox="0 0 16 16" aria-hidden="true"><rect class="i-pause" x="3.5" y="3" width="3" height="10" rx="1"/><rect class="i-pause" x="9.5" y="3" width="3" height="10" rx="1"/><path class="i-play" d="M4.5 2.8v10.4L13 8z"/></svg></button>
       <div class="reel-progress" aria-hidden="true"><span></span></div>

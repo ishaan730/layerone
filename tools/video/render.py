@@ -15,7 +15,7 @@ def main():
         preview = [float(x) for x in sys.argv[2].split(",")]
     os.makedirs(OUT, exist_ok=True)
     with sync_playwright() as p:
-        b = p.chromium.launch()
+        b = p.chromium.launch(executable_path=os.environ.get("CHROMIUM") or None)
         pg = b.new_page(viewport={"width": W, "height": H}, device_scale_factor=1)
         pg.goto("http://localhost:8765/tools/video/hero.html", wait_until="networkidle")
         pg.evaluate("document.fonts.ready")
@@ -35,7 +35,7 @@ def main():
             ff.stdin.write(pg.screenshot(type="jpeg", quality=94))
             if i % 90 == 0: print(f"frame {i}/{n}", flush=True)
         ff.stdin.close(); ff.wait()
-        pg.evaluate("seek(22.9)")
+        pg.evaluate("seek(27.6)")
         pg.screenshot(path=os.path.join(OUT, "hero-poster.jpg"), type="jpeg", quality=82)
         b.close()
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", os.path.join(OUT, "hero-reel.mp4"), "-c:v", "libvpx-vp9", "-b:v", "0", "-crf", "38",
