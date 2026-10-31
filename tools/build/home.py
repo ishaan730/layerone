@@ -35,7 +35,6 @@ post_html = "".join(
     for h, t, tag, img, ext in posts)
 
 content = f'''
-{HERO_ART}
 <h1 class="statement hero-statement"><span class="accent">Layer One</span> builds and scales design systems for product companies.</h1>
 <p class="sub muted">A design systems studio in Bangalore. We set up the foundations, scale them across products and markets, and put in the governance that keeps teams using them.</p>
 {reel()}
