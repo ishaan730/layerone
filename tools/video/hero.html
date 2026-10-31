@@ -5,6 +5,8 @@
 <title>Layer One hero reel (render source)</title>
 <!--
   Source for assets/video/hero-reel.mp4. Not part of the site.
+  A showreel in the spirit of studio reels: one bold colour field per scene, short shots,
+  wireframes that draw on, UI that assembles, real CARS24 work, a fast montage, an end card.
   Every element is driven by seek(t) so frames render deterministically.
   Render: python3 tools/video/render.py   (needs the site served on :8765)
 -->
@@ -12,136 +14,175 @@
 @font-face { font-family: "SG"; src: url("/assets/fonts/schibsted-grotesk-latin-wght-normal.woff2") format("woff2"); font-weight: 400 900; }
 @font-face { font-family: "JB"; src: url("/assets/fonts/jetbrains-mono-latin-500-normal.woff2") format("woff2"); font-weight: 500; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { width: 1600px; height: 900px; overflow: hidden; background: #07080c; }
+html, body { width: 1600px; height: 900px; overflow: hidden; background: #0b0d12; }
 body { font-family: "SG", sans-serif; color: #ecece8; -webkit-font-smoothing: antialiased; }
-.stage { position: absolute; inset: 0; overflow: hidden; background: #07080c; }
+.stage { position: absolute; inset: 0; overflow: hidden; background: #0b0d12; }
 .abs { position: absolute; will-change: transform, opacity; transform-origin: center; }
 .full { position: absolute; inset: 0; }
 .cover { width: 100%; height: 100%; object-fit: cover; display: block; }
-.grid { background-image: linear-gradient(rgb(255 255 255 / .045) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / .045) 1px, transparent 1px); background-size: 50px 50px; }
-.vig { background: linear-gradient(180deg, rgb(7 8 12 / 0) 45%, rgb(7 8 12 / .9) 100%), linear-gradient(90deg, rgb(7 8 12 / .55), rgb(7 8 12 / 0) 55%); }
 .mono { font-family: "JB", monospace; font-weight: 500; letter-spacing: -0.01em; }
-.k { font-family: "JB", monospace; font-size: 24px; color: #ff6b3d; }
-.h { font-weight: 600; letter-spacing: -0.035em; line-height: 0.98; }
-.stat { font-weight: 600; letter-spacing: -0.05em; line-height: 0.9; }
-.chip { display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 999px; background: rgb(255 255 255 / .1); backdrop-filter: blur(8px); font-size: 20px; }
-.chip i { width: 10px; height: 10px; border-radius: 50%; background: #ff6b3d; display: inline-block; }
-.plate { position: absolute; border-radius: 22px; border: 1.5px solid rgb(255 255 255 / .22); }
-.iso { left: 90px; top: 90px; width: 420px; height: 420px; padding: 26px; transform-style: preserve-3d; }
-.pl { font-family: "JB", monospace; font-size: 20px; color: rgb(255 255 255 / .85); }
-.ramp.mini { margin-top: 30px; gap: 5px; } .ramp.mini span { width: 32px; height: 90px; border-radius: 6px; }
-.semrow { display: grid; gap: 14px; margin-top: 30px; } .semrow i { height: 46px; border-radius: 10px; background: #4736fe; display: block; }
-.miniui { display: grid; gap: 16px; margin-top: 30px; } .miniui b { height: 18px; border-radius: 6px; background: #cfd0ca; width: 80%; display: block; }
-.miniui em { font-style: normal; height: 70px; border-radius: 14px; background: #4736fe; color: #fff; display: grid; place-items: center; font-weight: 600; font-size: 26px; margin-top: 10px; }
-.swap { display: inline-grid; justify-items: end; } .swap > * { grid-area: 1 / 1; }
-.tile { width: 150px; height: 150px; border-radius: 22px; overflow: hidden; box-shadow: 0 30px 60px rgb(0 0 0 / .5); }
-.tile img { width: 100%; height: 100%; display: block; }
-.ramp { display: flex; gap: 8px; }
-.ramp span { width: 118px; height: 120px; border-radius: 12px; }
-.card { background: #f6f6f3; border-radius: 22px; overflow: hidden; box-shadow: 0 40px 80px rgb(0 0 0 / .55); }
-.phone { width: 330px; height: 690px; border-radius: 46px; background: #0b0d12; border: 10px solid #1b1f28; overflow: hidden; box-shadow: 0 50px 100px rgb(0 0 0 / .6); }
+.k { font-family: "JB", monospace; font-size: 22px; }
+.h { font-weight: 600; letter-spacing: -0.035em; line-height: 1.0; }
+.grid { background-image: linear-gradient(rgb(255 255 255 / .05) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / .05) 1px, transparent 1px); background-size: 50px 50px; }
+.grid-ink { background-image: linear-gradient(rgb(11 13 18 / .06) 1px, transparent 1px), linear-gradient(90deg, rgb(11 13 18 / .06) 1px, transparent 1px); background-size: 50px 50px; }
+/* carousel */
+.cards { display: flex; gap: 24px; }
+.ccard { width: 340px; flex: none; border-radius: 12px; background: #13161d; border: 1px solid #2a2f3a; overflow: hidden; }
+.ccard svg { display: block; width: 340px; height: 250px; border-bottom: 1px solid #2a2f3a; }
+.ccard div { padding: 18px 20px 22px; }
+.ccard b { display: block; font-size: 26px; font-weight: 500; letter-spacing: -.02em; }
+.ccard span { display: block; font-size: 16px; color: #9aa0aa; margin-top: 6px; line-height: 1.35; }
+/* tiles + phones */
+.sq { position: absolute; width: 96px; height: 96px; border-radius: 10px; }
+.phone { width: 300px; height: 630px; border-radius: 44px; background: #0b0d12; border: 9px solid #0b0d12; overflow: hidden; box-shadow: 0 40px 80px rgb(11 13 18 / .35); }
 .phone img { width: 100%; display: block; }
-.row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 16px; padding: 16px 20px; border-radius: 14px; background: #13161d; border: 1px solid #2a2f3a; font-size: 23px; }
-.row .bad, .row .ok { font-family: "JB", monospace; font-size: 19px; padding: 6px 10px; border-radius: 8px; position: relative; }
-.row .bad { background: rgb(255 107 61 / .14); color: #ff8a63; }
-.row .ok { background: rgb(126 226 168 / .14); color: #7ee2a8; }
-.bar { height: 6px; border-radius: 3px; background: #ff6b3d; }
+.frame { border-radius: 14px; overflow: hidden; box-shadow: 0 40px 90px rgb(11 13 18 / .25); background: #fff; }
+/* flow */
+.node { position: absolute; width: 440px; border-radius: 12px; background: #fff; border: 1.5px solid #d8d8d2; box-shadow: 0 10px 30px rgb(11 13 18 / .08); padding: 16px 18px; color: #0b0d12; }
+.node .t { display: flex; align-items: center; gap: 12px; font-size: 24px; font-weight: 500; letter-spacing: -.02em; }
+.node .t i { width: 34px; height: 34px; border-radius: 8px; display: grid; place-items: center; font-style: normal; font-family: "JB", monospace; font-size: 16px; color: #fff; }
+.node .t em { margin-left: auto; font-style: normal; font-family: "JB", monospace; font-size: 15px; padding: 4px 10px; border-radius: 999px; background: #f1efe9; color: #565c67; }
+.node p { margin-top: 10px; font-size: 18px; color: #565c67; }
+.node p b { color: #0b0d12; font-weight: 500; padding: 3px 10px; border-radius: 999px; background: #f1efe9; margin-right: 6px; }
+/* check panel */
+.panel { border-radius: 16px; background: #0b0d12; border: 1px solid rgb(255 255 255 / .12); padding: 22px; box-shadow: 0 40px 90px rgb(0 0 0 / .35); }
+.row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 16px; padding: 14px 18px; border-radius: 10px; background: #13161d; border: 1px solid #2a2f3a; font-size: 21px; }
+.swap { display: inline-grid; justify-items: end; } .swap > * { grid-area: 1 / 1; }
+.bad, .ok { font-family: "JB", monospace; font-size: 17px; padding: 5px 10px; border-radius: 7px; }
+.bad { background: rgb(255 107 61 / .14); color: #ff8a63; }
+.ok { background: rgb(126 226 168 / .14); color: #7ee2a8; }
+.tag { position: absolute; font-family: "JB", monospace; font-size: 16px; padding: 6px 10px; border-radius: 6px; background: rgb(11 13 18 / .55); color: #ecece8; }
+.wm { height: 36px; width: auto; opacity: .85; }
 </style>
 </head>
 <body>
 <div class="stage" id="stage">
 
-  <!-- ===== A. Intro: layers assemble ===== -->
-  <div class="full grid abs" id="gridA"></div>
-  <div class="abs" id="plates" style="left:500px;top:250px;width:600px;height:600px;perspective:2200px">
-    <div style="position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(56deg) rotateZ(-42deg)">
-      <div class="plate iso" id="p1" style="background:#4736fe;border-color:#6d5fff"><span class="pl">value · #4736FE</span></div>
-      <div class="plate iso" id="p2" style="background:rgb(255 255 255 / .06)"><span class="pl">primitive · color-blue-500</span><div class="ramp mini"><span style="background:#f1f0ff"></span><span style="background:#dcd9ff"></span><span style="background:#bdb6ff"></span><span style="background:#998eff"></span><span style="background:#7466ff"></span><span style="background:#4736fe"></span><span style="background:#3a26e0"></span><span style="background:#2e1db4"></span><span style="background:#231788"></span><span style="background:#19105e"></span></div></div>
-      <div class="plate iso" id="p3" style="background:rgb(255 255 255 / .08)"><span class="pl">semantic · color-action-primary</span><div class="semrow"><i></i><i style="opacity:.6"></i><i style="opacity:.3"></i></div></div>
-      <div class="plate iso" id="p4" style="background:#ecece8;border-color:#ecece8"><span class="pl" style="color:#0b0d12">component · button</span><div class="miniui"><b></b><b style="width:55%"></b><em>Get best price</em></div></div>
+  <!-- ===== 1. The mark draws on, 0–3.2 ===== -->
+  <div class="full grid abs" id="aGrid"></div>
+  <svg class="abs" id="aMark" viewBox="0 0 400 400" width="400" height="400" style="left:600px;top:190px;overflow:visible">
+    <rect x="10" y="10" width="380" height="380" fill="none" stroke="#2a2f3a" stroke-width="1" stroke-dasharray="4 6"/>
+    <g transform="translate(50 50) scale(3)">
+      <path id="aFill" fill="#ff6b3d" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/>
+      <path id="aStroke" pathLength="1" fill="none" stroke="#ff6b3d" stroke-width=".7" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/>
+    </g>
+    <g id="aNodes" stroke="#ff6b3d" stroke-width="1.5" fill="#0b0d12">
+      <path d="M200 50H120M200 50H280M350 200V120M350 200V280M200 350H280M200 350H120M50 200V280M50 200V120" stroke="#9aa0aa" stroke-width="1"/>
+      <circle cx="120" cy="50" r="5"/><circle cx="280" cy="50" r="5"/><circle cx="350" cy="120" r="5"/><circle cx="350" cy="280" r="5"/>
+      <circle cx="280" cy="350" r="5"/><circle cx="120" cy="350" r="5"/><circle cx="50" cy="280" r="5"/><circle cx="50" cy="120" r="5"/>
+      <rect x="193" y="43" width="14" height="14"/><rect x="343" y="193" width="14" height="14"/><rect x="193" y="343" width="14" height="14"/><rect x="43" y="193" width="14" height="14"/>
+      <rect x="194" y="194" width="12" height="12" fill="#ff6b3d"/>
+    </g>
+  </svg>
+  <div class="abs mono" id="aLabel" style="left:600px;top:150px;font-size:18px;color:#9aa0aa">layer.one / mark.svg</div>
+  <div class="abs mono" id="aCoords" style="left:600px;top:612px;width:400px;display:flex;justify-content:space-between;font-size:16px;color:#6b7280"><span>x 0 · y 0</span><span>w 400 · h 400</span></div>
+  <div class="abs h" id="aWord" style="left:0;right:0;top:660px;text-align:center;font-size:64px">Layer One</div>
+  <div class="abs mono" id="aSub" style="left:0;right:0;top:744px;text-align:center;font-size:22px;color:#9aa0aa">a design systems studio</div>
+
+  <!-- ===== 2. What we build: carousel, 3.2–6.0 ===== -->
+  <div class="full abs" id="bBg" style="background:#0b0d12"></div>
+  <div class="abs mono" id="bLabel" style="left:80px;top:220px;font-size:22px;color:#9aa0aa">what we build:</div>
+  <div class="abs cards" id="bRow" style="left:80px;top:290px">
+    <div class="ccard"><svg viewBox="0 0 340 250"><g transform="translate(30 95)">
+      <rect width="26" height="60" rx="5" fill="#fff1eb"/><rect x="29" width="26" height="60" rx="5" fill="#ffd9c9"/><rect x="58" width="26" height="60" rx="5" fill="#ffbfa6"/><rect x="87" width="26" height="60" rx="5" fill="#ffa07f"/><rect x="116" width="26" height="60" rx="5" fill="#ff8a63"/><rect x="145" width="26" height="60" rx="5" fill="#ff6b3d"/><rect x="174" width="26" height="60" rx="5" fill="#e5532a"/><rect x="203" width="26" height="60" rx="5" fill="#b83f1f"/><rect x="232" width="26" height="60" rx="5" fill="#8a2f17"/><rect x="261" width="26" height="60" rx="5" fill="#5c1f0f"/>
+      <path d="M0 90H287" stroke="#2a2f3a"/><circle cx="158" cy="90" r="5" fill="#ff6b3d"/></g></svg>
+      <div><b>Colour systems</b><span>Ramps in OKLCH, every step contrast-checked</span></div></div>
+    <div class="ccard"><svg viewBox="0 0 340 250" font-family="JB" font-size="13" fill="#9aa0aa">
+      <rect x="20" y="100" width="88" height="50" rx="8" fill="none" stroke="#2a2f3a"/><text x="30" y="130">#4736FE</text>
+      <rect x="126" y="100" width="88" height="50" rx="8" fill="none" stroke="#2a2f3a"/><text x="136" y="130">blue-500</text>
+      <rect x="232" y="100" width="88" height="50" rx="8" fill="none" stroke="#ff6b3d"/><text x="242" y="130" fill="#ff6b3d">action</text>
+      <path d="M108 125h18M214 125h18" stroke="#ff6b3d" stroke-width="2"/></svg>
+      <div><b>Token architecture</b><span>Value, primitive, semantic, component</span></div></div>
+    <div class="ccard"><svg viewBox="0 0 340 250" font-family="SG" font-weight="600" fill="#ecece8">
+      <text x="30" y="160" font-size="22">Aa</text><text x="70" y="160" font-size="34">Aa</text><text x="128" y="160" font-size="50">Aa</text><text x="210" y="160" font-size="72" fill="#ff6b3d">Aa</text>
+      <path d="M30 172H310" stroke="#2a2f3a"/></svg>
+      <div><b>Type scale</b><span>Six sizes, named so people can guess them</span></div></div>
+    <div class="ccard"><svg viewBox="0 0 340 250"><g fill="#ff6b3d">
+      <rect x="30" y="110" width="8" height="34" rx="2"/><rect x="50" y="110" width="16" height="34" rx="2"/><rect x="78" y="110" width="24" height="34" rx="2"/><rect x="114" y="110" width="32" height="34" rx="2"/><rect x="158" y="110" width="48" height="34" rx="2"/><rect x="218" y="110" width="88" height="34" rx="2"/></g>
+      <text x="30" y="180" font-family="JB" font-size="13" fill="#9aa0aa">4 · 8 · 12 · 16 · 24 · 44</text></svg>
+      <div><b>Spacing and radius</b><span>A small set of steps used everywhere</span></div></div>
+    <div class="ccard"><svg viewBox="0 0 340 250" font-family="SG">
+      <rect x="30" y="70" width="170" height="48" rx="8" fill="#ff6b3d"/><text x="58" y="100" font-size="18" font-weight="600" fill="#0b0d12">Get best price</text>
+      <rect x="30" y="134" width="280" height="48" rx="8" fill="#1b1f28" stroke="#2a2f3a"/><rect x="46" y="153" width="120" height="10" rx="5" fill="#6b7280"/>
+      <rect x="216" y="78" width="60" height="32" rx="16" fill="#ff6b3d" opacity=".25"/><circle cx="260" cy="94" r="12" fill="#ff6b3d"/></svg>
+      <div><b>Component libraries</b><span>Built on tokens, in Figma and in code</span></div></div>
+    <div class="ccard"><svg viewBox="0 0 340 250" fill="none" stroke="#2a2f3a" stroke-width="1.5">
+      <rect x="30" y="50" width="280" height="50" rx="6" stroke="#ff6b3d"/><rect x="30" y="112" width="134" height="88" rx="6"/><rect x="176" y="112" width="134" height="88" rx="6"/>
+      <path d="M44 128h60M44 142h90M190 128h60M190 142h90" stroke="#6b7280"/></svg>
+      <div><b>Pattern libraries</b><span>Page blocks wired to the CMS</span></div></div>
+    <div class="ccard"><svg viewBox="0 0 340 250" font-family="JB" font-size="13">
+      <rect x="40" y="40" width="110" height="40" rx="8" fill="none" stroke="#2a2f3a"/><text x="54" y="65" fill="#9aa0aa">request</text>
+      <rect x="40" y="105" width="110" height="40" rx="8" fill="none" stroke="#ff6b3d"/><text x="54" y="130" fill="#ff6b3d">score 52</text>
+      <rect x="40" y="170" width="110" height="40" rx="8" fill="none" stroke="#2a2f3a"/><text x="54" y="195" fill="#9aa0aa">ship</text>
+      <path d="M95 80v25M95 145v25M150 125h40" stroke="#6b7280"/><rect x="190" y="105" width="110" height="40" rx="8" fill="none" stroke="#2a2f3a"/><text x="204" y="130" fill="#9aa0aa">tier: core</text></svg>
+      <div><b>Governance</b><span>A front door, a scorecard, clear owners</span></div></div>
+    <div class="ccard"><svg viewBox="0 0 340 250" fill="none">
+      <path d="M30 200H310M30 200V40" stroke="#2a2f3a"/><path d="M30 190 80 175 130 160 180 120 230 100 280 62 310 50" stroke="#ff6b3d" stroke-width="3"/>
+      <circle cx="280" cy="62" r="6" fill="#ff6b3d"/></svg>
+      <div><b>Adoption</b><span>Measured in time saved, not usage</span></div></div>
+  </div>
+
+  <!-- ===== 3. CARS24 colour, 6.0–9.4 ===== -->
+  <div class="full abs" id="cBg" style="background:#4736fe"></div>
+  <canvas class="full abs" id="cDots" width="1600" height="900"></canvas>
+  <img class="abs" id="cWord" src="/assets/logos/wordmark-cars24.png" alt="" style="left:650px;top:405px;width:300px">
+  <div class="abs" id="cText" style="left:110px;top:150px;width:700px">
+    <p class="k" style="color:#fff;opacity:.8">CARS24 · colour and tokens</p>
+    <div class="h" style="font-size:76px;margin-top:20px;color:#fff">One colour system for 10+ products in three countries.</div>
+    <p class="mono" style="font-size:24px;color:#fff;margin-top:40px"><span id="cCount" style="font-size:72px;font-family:SG;font-weight:600;letter-spacing:-.04em">65</span><span style="font-size:72px;font-family:SG;font-weight:600">%</span> faster handoff</p>
+  </div>
+  <div class="abs" id="cSq" style="left:900px;top:170px;width:600px;height:560px">
+    <div class="sq" style="left:0;top:0;background:#f1f0ff"></div><div class="sq" style="left:112px;top:0;background:#dcd9ff"></div><div class="sq" style="left:224px;top:0;background:#bdb6ff"></div><div class="sq" style="left:336px;top:0;background:#998eff"></div><div class="sq" style="left:448px;top:0;background:#7466ff"></div>
+    <div class="sq" style="left:0;top:112px;background:#4736fe;box-shadow:inset 0 0 0 3px #fff"></div><div class="sq" style="left:112px;top:112px;background:#3a26e0"></div><div class="sq" style="left:224px;top:112px;background:#2e1db4"></div><div class="sq" style="left:336px;top:112px;background:#231788"></div><div class="sq" style="left:448px;top:112px;background:#19105e"></div>
+    <div class="sq" style="left:0;top:224px;background:#9de7c8"></div><div class="sq" style="left:112px;top:224px;background:#ff8a63"></div><div class="sq" style="left:224px;top:224px;background:#ffd166"></div><div class="sq" style="left:336px;top:224px;background:#ecece8"></div><div class="sq" style="left:448px;top:224px;background:#0b0d12"></div>
+    <div class="abs mono" id="cSqLabel" style="left:0;top:350px;font-size:20px;color:#fff;opacity:.9">color-blue-50 … 900 · brand-primary = blue-500</div>
+  </div>
+
+  <!-- ===== 4. Real work in a frame, 9.4–12.0 ===== -->
+  <div class="full abs" id="dBg" style="background:#f1efe9"></div>
+  <div class="abs frame" id="dFrame" style="left:250px;top:110px;width:1100px;height:620px">
+    <img class="cover abs" id="d1" src="/assets/work/tokens/hero.jpg" alt="">
+    <img class="cover abs" id="d2" src="/assets/work/tokens/posters.jpg" alt="">
+    <img class="cover abs" id="d3" src="/assets/work/tokens/apps.jpg" alt="">
+  </div>
+  <div class="abs mono" id="dCap" style="left:250px;top:760px;width:1100px;display:flex;justify-content:space-between;font-size:20px;color:#565c67">
+    <span>CARS24 rebrand · <span class="swap" style="justify-items:start"><span id="dc1">campaign</span><span id="dc2">posters</span><span id="dc3">apps in India, the UAE and Australia</span></span></span><span>2024–25</span>
+  </div>
+
+  <!-- ===== 5. Pattern library phones, 12.0–15.0 ===== -->
+  <div class="full abs" id="eBg" style="background:#9de7c8"></div>
+  <div class="abs" id="eText" style="left:110px;top:160px;width:560px;color:#0b0d12">
+    <p class="k" style="color:#0b0d12;opacity:.7">CARS24 · pattern library</p>
+    <div class="h" style="font-size:72px;margin-top:20px">Pages built from tested blocks.</div>
+    <p style="margin-top:44px"><span id="eCount" style="font-size:72px;font-weight:600;letter-spacing:-.04em">~43</span><span style="font-size:72px;font-weight:600">%</span><span class="mono" style="font-size:22px;margin-left:12px">less time per page</span></p>
+  </div>
+  <div class="abs phone" id="eP1" style="left:720px;top:170px"><img id="eS1" src="/assets/work/patterns/home-system.jpg" alt=""></div>
+  <div class="abs phone" id="eP2" style="left:1000px;top:120px;z-index:2"><img id="eS2" src="/assets/work/patterns/home-live.jpg" alt=""></div>
+  <div class="abs phone" id="eP3" style="left:1280px;top:170px"><img id="eS3" src="/assets/work/patterns/home-system.jpg" alt="" style="margin-top:-2600px"></div>
+
+  <!-- ===== 6. Governance flow, 15.0–18.0 ===== -->
+  <div class="full abs" id="fBg" style="background:#f6f6f3"></div>
+  <div class="full abs grid-ink" id="fGrid"></div>
+  <div class="abs" id="fCam" style="left:0;top:0;width:1600px;height:900px;transform-origin:1060px 420px">
+    <div class="abs" id="fText" style="left:110px;top:180px;width:480px;color:#0b0d12">
+      <p class="k" style="color:#565c67">CARS24 · governance</p>
+      <div class="h" style="font-size:68px;margin-top:20px">From bottleneck to partner.</div>
     </div>
-  </div>
-  <div class="abs" id="introMark" style="left:740px;top:330px;width:120px;height:120px;color:#ff6b3d">
-    <svg viewBox="0 0 100 100" width="120" height="120"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg>
-  </div>
-  <div class="abs h" id="introWord" style="left:0;right:0;top:480px;text-align:center;font-size:132px;color:#ecece8">Layer One</div>
-  <div class="abs mono" id="introSub" style="left:0;right:0;top:640px;text-align:center;font-size:24px;color:#9aa0aa">a design systems studio · Bangalore</div>
-
-  <!-- ===== B. CARS24 colour ===== -->
-  <div class="full abs" id="b0" style="background:#0059a3"></div>
-  <div class="abs mono" id="bHexOld" style="left:120px;top:640px;font-size:64px;color:#fff">#0059A3</div>
-  <div class="abs mono" id="bHexNew" style="left:120px;top:640px;font-size:64px;color:#fff">#4736FE</div>
-  <div class="abs" id="bLabel" style="left:120px;top:120px"><p class="k" style="color:#fff;opacity:.85">CARS24 · the old blue</p></div>
-  <div class="abs" id="bLabel2" style="left:120px;top:120px"><p class="k" style="color:#fff;opacity:.85">CARS24 · the new brand blue, specified in OKLCH</p></div>
-  <div class="abs h" id="bHead" style="left:120px;top:170px;font-size:96px;color:#fff;width:1100px">One colour system for 10+ products in three countries.</div>
-
-  <div class="full abs" id="bImg"><img class="cover" src="/assets/work/tokens/hero.jpg" alt=""></div>
-  <div class="full abs vig" id="bVig"></div>
-  <div class="abs" id="bStat" style="left:120px;bottom:110px">
-    <div class="stat" style="font-size:150px;color:#fff"><span data-count="0,65">65</span>%</div>
-    <p style="font-size:30px;margin-top:8px;color:#fff">faster design-to-development handoff</p>
+    <svg class="abs" id="fLines" width="1600" height="900" style="left:0;top:0;overflow:visible"><path id="fPath" pathLength="1" d="M1060 196V300M1060 380V478M1060 558V650" stroke="#9aa0aa" stroke-width="2" fill="none" stroke-dasharray="1 1"/></svg>
+    <div class="node" id="fN1" style="left:840px;top:120px"><div class="t"><i style="background:#0b0d12">01</i>Request<em>any team</em></div><p><b>Form</b>one front door for every ask</p></div>
+    <div class="node" id="fN2" style="left:840px;top:300px;border-color:#ff6b3d"><div class="t"><i style="background:#ff6b3d">02</i>Score<em><span id="fScore">52</span> / 70</em></div><p><b>Reach</b><b>Reuse</b><b>Effort</b></p></div>
+    <div class="node" id="fN3" style="left:840px;top:478px"><div class="t"><i style="background:#4736fe">03</i>Tier<em>core</em></div><p><b>Core</b><b>Shared</b><b>Local</b></p></div>
+    <div class="node" id="fN4" style="left:840px;top:650px"><div class="t"><i style="background:#174527">04</i>Ship<em>next release</em></div><p><b>Docs</b>written before it ships</p></div>
   </div>
 
-  <!-- ===== C. Montage ===== -->
-  <div class="full abs" id="c1"><img class="cover" src="/assets/work/tokens/pantone.jpg" alt=""></div>
-  <div class="full abs" id="c2"><img class="cover" src="/assets/work/tokens/colour-studies.jpg" alt=""></div>
-  <div class="full abs" id="c3"><img class="cover" src="/assets/work/tokens/posters.jpg" alt=""></div>
-  <div class="full abs" id="c4"><img class="cover" src="/assets/work/tokens/apps.jpg" alt=""></div>
-  <div class="full abs" id="cDim" style="background:rgb(7 8 12 / .45)"></div>
-  <div class="abs ramp" id="cRamp" style="left:90px;top:360px;padding:22px;border-radius:24px;background:rgb(7 8 12 / .82)">
-    <span style="background:#f1f0ff"></span><span style="background:#dcd9ff"></span><span style="background:#bdb6ff"></span><span style="background:#998eff"></span><span style="background:#7466ff"></span><span style="background:#4736fe"></span><span style="background:#3a26e0"></span><span style="background:#2e1db4"></span><span style="background:#231788"></span><span style="background:#19105e"></span>
+  <!-- ===== 7. JPMorgan Chase checks, 18.0–20.8 ===== -->
+  <div class="full abs" id="gBg" style="background:#8a5434"></div>
+  <div class="abs" id="gText" style="left:110px;top:170px;width:560px;color:#fff">
+    <p class="k" style="opacity:.8">JPMorgan Chase · tooling</p>
+    <div class="h" style="font-size:64px;margin-top:20px">Design system checks for 500+ designers and 1,000+ engineers.</div>
   </div>
-  <div class="abs mono" id="cRampLabel" style="left:112px;top:540px;font-size:24px;color:#fff;padding:10px 14px;border-radius:12px;background:rgb(7 8 12 / .82)">color-blue-50 … 900 · every step contrast-checked</div>
-
-  <!-- ===== D. Governance ===== -->
-  <div class="full grid abs" id="dGrid"></div>
-  <div class="abs" id="dText" style="left:110px;top:150px;width:520px">
-    <p class="k">CARS24 · governance</p>
-    <div class="h" style="font-size:72px;margin-top:18px">From bottleneck to partner.</div>
-    <div style="display:flex;gap:40px;margin-top:48px">
-      <div><div class="stat" style="font-size:96px"><span data-count="0,70" id="dCount">70</span></div><p style="font-size:26px;color:#9aa0aa;margin-top:6px">point request scorecard</p></div>
-      <div><div class="stat" style="font-size:96px">3</div><p style="font-size:26px;color:#9aa0aa;margin-top:6px">ownership tiers</p></div>
-    </div>
-  </div>
-  <div class="abs card" id="dCard" style="left:690px;top:150px;width:800px;height:550px">
-    <img src="/assets/work/governance/cover.jpg" alt="" style="width:100%;height:100%;object-fit:cover">
-    <div class="abs" id="dScan" style="top:0;bottom:0;width:3px;background:#ff6b3d;box-shadow:0 0 30px #ff6b3d;left:0"></div>
-  </div>
-
-  <!-- ===== E. Pattern library ===== -->
-  <div class="full abs" id="eImg"><img class="cover" src="/assets/work/patterns/hero-hand.jpg" alt=""></div>
-  <div class="full abs" id="eBg" style="background:radial-gradient(circle at 70% 50%, #2a1fd1 0%, #10123a 45%, #07080c 80%)"></div>
-  <div class="abs phone" id="ePhone" style="left:1060px;top:105px"><img id="eScroll" src="/assets/work/patterns/home-live.jpg" alt=""></div>
-  <div class="abs" id="eText" style="left:110px;top:170px;width:820px">
-    <p class="k">CARS24 · pattern library</p>
-    <div class="h" style="font-size:84px;margin-top:18px">Pages built from tested blocks, not from scratch.</div>
-    <div style="display:flex;gap:56px;margin-top:56px">
-      <div><div class="stat" style="font-size:120px">~<span data-count="0,43" id="eCount">43</span>%</div><p style="font-size:26px;color:#c9ccd2;margin-top:6px">faster to design and build a page</p></div>
-      <div><div class="stat" style="font-size:120px">3</div><p style="font-size:26px;color:#c9ccd2;margin-top:6px">countries, one library</p></div>
-    </div>
-  </div>
-
-  <!-- ===== F. Component systems ===== -->
-  <div class="full abs" id="fBg" style="background:#07080c"></div>
-  <div class="abs" id="f1" style="left:80px;top:150px;width:700px;height:525px;border-radius:22px;overflow:hidden"><img class="cover" src="/assets/work/cars24-consumer/cover.jpg" alt=""></div>
-  <div class="abs" id="f2" style="left:820px;top:150px;width:700px;height:525px;border-radius:22px;overflow:hidden"><img class="cover" src="/assets/work/cars24-internal-tools/cover.jpg" alt=""></div>
-  <div class="abs" id="fText" style="left:80px;top:720px;width:1440px;display:flex;justify-content:space-between;align-items:baseline">
-    <p style="font-size:30px">Consumer components and internal tools: <span style="color:#ff6b3d">100% token-driven</span></p>
-    <p class="mono" style="font-size:20px;color:#9aa0aa">CARS24 · 70+ designers · 200+ engineers</p>
-  </div>
-
-  <!-- ===== G. IBM + JPMorgan Chase ===== -->
-  <div class="full grid abs" id="gGrid"></div>
-  <div class="abs" id="gIbm" style="left:110px;top:150px;display:flex;gap:28px;align-items:center">
-    <div class="tile"><img src="/assets/logos/ibm.png" alt=""></div>
-    <div><p class="k">IBM · 2021–24</p><p style="font-size:40px;font-weight:600;letter-spacing:-.03em;margin-top:8px;width:520px;line-height:1.08">Design systems for products used around the world.</p></div>
-  </div>
-  <div class="abs" id="gJpm" style="left:110px;top:430px;display:flex;gap:28px;align-items:center">
-    <div class="tile"><img src="/assets/logos/jpmorgan-chase.jpg" alt=""></div>
-    <div><p class="k">JPMorgan Chase · now</p><p style="font-size:40px;font-weight:600;letter-spacing:-.03em;margin-top:8px;width:520px;line-height:1.08">Patterns and system checks for 500+ designers and 1,000+ engineers.</p></div>
-  </div>
-  <div class="abs" id="gPanel" style="left:870px;top:150px;width:630px;padding:24px;border-radius:24px;background:#0b0d12;border:1px solid #2a2f3a">
-    <p class="mono" style="font-size:21px;color:#9aa0aa;margin-bottom:16px">design system check · checkout.fig</p>
+  <div class="abs panel" id="gPanel" style="left:780px;top:170px;width:700px">
+    <p class="mono" style="font-size:19px;color:#9aa0aa;margin-bottom:14px">design system check · checkout.fig</p>
     <div style="display:grid;gap:10px">
       <div class="row"><span>Primary button fill</span><span class="swap"><span class="bad" id="r1b">#3A5BF0</span><span class="ok" id="r1o">color-action-primary</span></span></div>
       <div class="row"><span>Card padding</span><span class="swap"><span class="bad" id="r2b">18px</span><span class="ok" id="r2o">space-inset-md</span></span></div>
@@ -149,32 +190,53 @@ body { font-family: "SG", sans-serif; color: #ecece8; -webkit-font-smoothing: an
       <div class="row"><span>Error message</span><span class="swap"><span class="bad" id="r4b">#E23</span><span class="ok" id="r4o">color-feedback-error</span></span></div>
       <div class="row"><span>Table pattern</span><span class="swap"><span class="bad" id="r5b">detached</span><span class="ok" id="r5o">pattern/data-table</span></span></div>
     </div>
-    <div style="margin-top:20px;display:flex;align-items:center;gap:14px"><div style="flex:1;height:6px;border-radius:3px;background:#2a2f3a;overflow:hidden"><div class="bar" id="gBar" style="width:0"></div></div><span class="mono" style="font-size:18px" id="gPct"><span data-count="0,100" id="gCount">0</span>%</span></div>
+    <div style="margin-top:18px;display:flex;align-items:center;gap:14px"><div style="flex:1;height:6px;border-radius:3px;background:#2a2f3a;overflow:hidden"><div id="gBar" style="height:100%;width:0;background:#7ee2a8"></div></div><span class="mono" style="font-size:18px"><span id="gCount">0</span>%</span></div>
   </div>
+  <div class="tag" id="gTag" style="right:120px;top:120px">illustration</div>
 
-  <!-- ===== H. End card ===== -->
-  <div class="full abs" id="hBg" style="background:#07080c"></div>
-  <div class="abs" id="hTiles" style="left:0;right:0;top:190px;display:flex;justify-content:center;gap:26px">
-    <div class="tile" id="t1"><img src="/assets/logos/cars24.png" alt=""></div>
-    <div class="tile" id="t2"><img src="/assets/logos/ibm.png" alt=""></div>
-    <div class="tile" id="t3"><img src="/assets/logos/jpmorgan-chase.jpg" alt=""></div>
+  <!-- ===== 8. IBM, 20.8–23.2 ===== -->
+  <div class="full abs" id="hBg" style="background:#0f62fe"></div>
+  <canvas class="full abs" id="hLines" width="1600" height="900"></canvas>
+  <div class="abs" id="hText" style="left:110px;top:560px;width:1000px;color:#fff">
+    <p class="k" style="opacity:.85">IBM · design systems</p>
+    <div class="h" style="font-size:72px;margin-top:16px">Design systems for products used around the world.</div>
   </div>
-  <div class="abs h" id="hHead" style="left:0;right:0;top:420px;text-align:center;font-size:92px">We build and scale<br>design systems.</div>
-  <div class="abs" id="hFoot" style="left:0;right:0;top:660px;display:flex;justify-content:center;gap:16px;align-items:center;color:#ff6b3d">
+  <img class="abs" id="hWord" src="/assets/logos/wordmark-ibm.png" alt="" style="right:110px;top:742px;width:150px">
+
+  <!-- ===== 9. Fast montage, 23.2–26.2 ===== -->
+  <div class="full abs" id="m1"><img class="cover" src="/assets/work/tokens/colour-studies.jpg" alt=""></div>
+  <div class="full abs" id="m2"><img class="cover" src="/assets/work/patterns/rollout-uae.jpg" alt=""></div>
+  <div class="full abs" id="m3"><img class="cover" src="/assets/work/cars24-consumer/cover.jpg" alt=""></div>
+  <div class="full abs" id="m4"><img class="cover" src="/assets/work/tokens/workshop-2.jpg" alt=""></div>
+  <div class="full abs" id="m5"><img class="cover" src="/assets/work/patterns/rollout-dark.jpg" alt=""></div>
+  <div class="full abs" id="m6"><img class="cover" src="/assets/work/cars24-internal-tools/cover.jpg" alt=""></div>
+  <div class="abs tag" id="mTag" style="left:60px;top:60px;font-size:20px"><span id="mN">01</span> / 06</div>
+
+  <!-- ===== 10. End card, 26.2–30 ===== -->
+  <div class="full abs" id="zBg" style="background:#0b0d12"></div>
+  <div class="full abs grid" id="zGrid"></div>
+  <div class="abs" id="zLogos" style="left:0;right:0;top:250px;display:flex;justify-content:center;align-items:center;gap:64px">
+    <img class="wm" id="z1" src="/assets/logos/wordmark-jpmc.png" alt="" style="height:30px">
+    <img class="wm" id="z2" src="/assets/logos/wordmark-ibm.png" alt="" style="height:42px">
+    <img class="wm" id="z3" src="/assets/logos/wordmark-cars24.png" alt="" style="height:36px">
+  </div>
+  <div class="abs h" id="zHead" style="left:0;right:0;top:380px;text-align:center;font-size:96px">We build and scale<br>design systems.</div>
+  <div class="abs" id="zFoot" style="left:0;right:0;top:640px;display:flex;justify-content:center;gap:16px;align-items:center;color:#ff6b3d">
     <svg viewBox="0 0 100 100" width="40" height="40"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg>
     <span style="font-size:32px;font-weight:600;letter-spacing:-.02em">Layer One</span>
     <span class="mono" style="font-size:22px;color:#9aa0aa;margin-left:10px">layerone.co.in</span>
   </div>
 
   <!-- global fade for a seamless loop -->
-  <div class="full abs" id="fade" style="background:#07080c"></div>
+  <div class="full abs" id="fade" style="background:#0b0d12"></div>
 </div>
 
 <script>
-const DUR = 24;
+const DUR = 30;
 const E = {
   lin: t => t,
   out: t => 1 - Math.pow(1 - t, 3),
+  out5: t => 1 - Math.pow(1 - t, 5),
   in: t => t * t * t,
   io: t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2,
   step: t => (t < 1 ? 0 : 1)
@@ -187,103 +249,156 @@ function v(keys, t, ease) {
   }
   return keys[keys.length - 1][1];
 }
-// show element between [in, out] with fade length f
-const vis = (a, b, f = 0.35) => [[a - f, 0], [a, 1, "lin"], [b, 1], [b + f, 0]];
+const vis = (a, b, f = 0.3) => [[a - f, 0], [a, 1, "lin"], [b, 1], [b + f, 0]];
 const cut = (a, b) => [[a - 0.001, 0], [a, 1, "step"], [b, 1], [b + 0.001, 0]];
+const rise = (a, d = 40, len = 0.5) => [[a, d], [a + len, 0, "out5"]];
 
-// track list: [selector, {prop: keys}]
+// Scene windows (hard cuts between scenes, like a reel)
+const S = { a: [0, 3.2], b: [3.2, 6.0], c: [6.0, 9.4], d: [9.4, 12.0], e: [12.0, 15.0], f: [15.0, 18.0], g: [18.0, 20.8], h: [20.8, 23.2], m: [23.2, 26.2], z: [26.2, 30] };
+const on = k => cut(S[k][0], S[k][1]);
+
 const T = [
-  // A intro 0–3.2
-  ["#gridA", { o: vis(0.2, 3.0, 0.5) }],
-  ["#p1", { o: vis(0.3, 2.6, 0.3), z: [[0.3, -60], [0.9, 0, "out"], [2.2, 0], [2.6, 0]] }],
-  ["#p2", { o: vis(0.6, 2.6, 0.3), z: [[0.6, 0], [1.2, 90, "out"], [2.2, 90], [2.6, 0, "in"]] }],
-  ["#p3", { o: vis(0.9, 2.6, 0.3), z: [[0.9, 60], [1.5, 180, "out"], [2.2, 180], [2.6, 0, "in"]] }],
-  ["#p4", { o: vis(1.2, 2.6, 0.3), z: [[1.2, 150], [1.8, 270, "out"], [2.2, 270], [2.6, 0, "in"]] }],
-  ["#plates", { s: [[0.3, 1.05], [2.3, 1.18, "lin"], [2.7, 0.6, "in"]], y: [[0, 0]] }],
-  ["#introMark", { o: [[2.45, 0], [2.65, 1], [3.0, 1], [3.2, 0]], s: [[2.45, 0.5], [2.8, 1, "out"]], y: [[2.45, 0], [2.8, -40, "out"]] }],
-  ["#introWord", { o: [[2.55, 0], [2.8, 1], [3.05, 1], [3.25, 0]], y: [[2.55, 30], [2.9, 0, "out"]], blur: [[2.55, 12], [2.9, 0]] }],
-  ["#introSub", { o: [[2.7, 0], [2.9, 1], [3.05, 1], [3.25, 0]] }],
+  // 1. mark draws on
+  ["#aGrid", { o: [[0, 0], [0.4, 1], [3.2, 1], [3.2001, 0]] }],
+  ["#aStroke", { dash: [[0.3, 1], [1.7, 0, "io"]], o: [[1.9, 1], [2.2, 0]] }],
+  ["#aFill", { o: [[1.6, 0], [2.1, 1]] }],
+  ["#aNodes", { o: [[0.4, 0], [0.7, 1], [1.8, 1], [2.1, 0]] }],
+  ["#aMark", { o: on("a"), s: [[0, 0.92], [2.2, 1.0, "out"], [2.85, 1.0], [3.2, 3.2, "in"]] }],
+  ["#aLabel", { o: [[0.3, 0], [0.6, 1], [2.0, 1], [2.3, 0]] }],
+  ["#aCoords", { o: [[0.5, 0], [0.8, 1], [2.0, 1], [2.3, 0]] }],
+  ["#aWord", { o: [[2.1, 0], [2.4, 1], [2.85, 1], [3.0, 0]], y: rise(2.1, 30) }],
+  ["#aSub", { o: [[2.25, 0], [2.5, 1], [2.85, 1], [3.0, 0]] }],
 
-  // B colour 3.2–7.2
-  ["#b0", { o: [[3.15, 0], [3.3, 1], [6.9, 1], [7.0, 0]], hue: [[4.2, 0], [5.0, 1, "io"]] }],
-  ["#bLabel", { o: [[3.4, 0], [3.7, 1], [4.1, 1], [4.3, 0]] }],
-  ["#bLabel2", { o: [[4.6, 0], [4.9, 1], [5.6, 1], [5.8, 0]] }],
-  ["#bHexOld", { o: [[3.4, 0], [3.7, 1], [4.3, 1], [4.6, 0]], y: [[4.3, 0], [4.6, -30]] }],
-  ["#bHexNew", { o: [[4.5, 0], [4.8, 1], [5.6, 1], [5.8, 0]], y: [[4.5, 30], [4.8, 0, "out"]] }],
-  ["#bHead", { o: [[4.9, 0], [5.2, 1], [5.6, 1], [5.8, 0]], y: [[4.9, 30], [5.3, 0, "out"]], clip: [[4.9, 100], [5.4, 0, "out"]] }],
-  ["#bImg", { o: [[5.7, 0], [5.95, 1], [7.0, 1], [7.05, 0]], s: [[5.7, 1.14], [7.2, 1.0, "lin"]] }],
-  ["#bVig", { o: [[5.8, 0], [6.1, 1], [7.0, 1], [7.05, 0]] }],
-  ["#bStat", { o: [[6.0, 0], [6.2, 1], [7.0, 1], [7.05, 0]], y: [[6.0, 30], [6.35, 0, "out"]] }],
-  ["[data-count='0,65']", { n: [[6.0, 0], [6.8, 65, "out"]] }],
+  // 2. carousel
+  ["#bBg", { o: on("b") }],
+  ["#bLabel", { o: on("b") }],
+  ["#bRow", { o: on("b"), x: [[3.2, 1400], [3.9, 0, "out5"], [6.0, -1500, "in"]] }],
 
-  // C montage 7.05–9.8
-  ["#c1", { o: cut(7.05, 7.7), s: [[7.05, 1.12], [7.7, 1.04, "lin"]] }],
-  ["#c2", { o: cut(7.7, 8.35), s: [[7.7, 1.04], [8.35, 1.12, "lin"]] }],
-  ["#c3", { o: cut(8.35, 9.0), x: [[8.35, 40], [9.0, -40, "lin"]], s: [[8.35, 1.1]] }],
-  ["#c4", { o: [[9.0 - 0.001, 0], [9.0, 1, "step"], [9.75, 1], [9.95, 0]], s: [[9.0, 1.12], [9.9, 1.02, "lin"]] }],
-  ["#cDim", { o: [[7.05 - 0.001, 0], [7.05, 1, "step"], [9.75, 1], [9.95, 0]] }],
-  ["#cRamp", { o: [[7.2, 0], [7.4, 1], [9.7, 1], [9.9, 0]], clip: [[7.2, 100], [8.2, 0, "out"]] }],
-  ["#cRampLabel", { o: [[7.8, 0], [8.1, 1], [9.7, 1], [9.9, 0]] }],
+  // 3. CARS24
+  ["#cBg", { o: on("c") }],
+  ["#cDots", { o: [[6.0 - 0.001, 0], [6.0, 1, "step"], [7.3, 1], [7.6, 0.35], [9.4, 0.35], [9.4001, 0]], fn: dots }],
+  ["#cWord", { o: [[6.5, 0], [6.8, 1], [7.25, 1], [7.4, 0]], s: [[6.5, 0.9], [7.3, 1.05, "lin"]] }],
+  ["#cText", { o: [[7.4, 0], [7.6, 1], [9.4, 1], [9.4001, 0]], y: rise(7.4) }],
+  ["#cCount", { n: [[7.9, 0], [8.8, 65, "out"]] }],
+  ["#cSq", { o: on("c") }],
+  ...[...Array(15)].map((_, i) => [`#cSq .sq:nth-child(${i + 1})`, { o: [[7.5 + i * 0.05, 0], [7.6 + i * 0.05, 1]], s: [[7.5 + i * 0.05, 0.3], [7.85 + i * 0.05, 1, "out5"]] }]),
+  ["#cSqLabel", { o: [[8.4, 0], [8.7, 1]] }],
 
-  // D governance 9.9–12.8
-  ["#dGrid", { o: vis(10.0, 12.6, 0.3) }],
-  ["#dText", { o: vis(10.1, 12.6, 0.3), x: [[10.1, -40], [10.6, 0, "out"]] }],
-  ["#dCard", { o: vis(10.2, 12.6, 0.3), y: [[10.2, 60], [10.8, 0, "out"]], s: [[10.2, 0.96], [12.8, 1.02, "lin"]] }],
-  ["#dScan", { x: [[10.8, 0], [12.5, 797, "io"]] }],
-  ["#dCount", { n: [[10.4, 0], [11.3, 70, "out"]] }],
+  // 4. framed work
+  ["#dBg", { o: on("d") }],
+  ["#dFrame", { o: on("d"), y: [[9.4, 120], [10.0, 0, "out5"]], s: [[9.4, 0.94], [10.0, 1, "out5"], [12.0, 1.03, "lin"]] }],
+  ["#d1", { o: [[9.4, 1], [10.3, 1], [10.3001, 0]], s: [[9.4, 1.1], [10.3, 1.0, "lin"]] }],
+  ["#d2", { o: cut(10.3, 11.15), s: [[10.3, 1.0], [11.15, 1.08, "lin"]] }],
+  ["#d3", { o: cut(11.15, 12.0), s: [[11.15, 1.08], [12.0, 1.0, "lin"]] }],
+  ["#dCap", { o: on("d") }],
+  ["#dc1", { o: [[10.3, 1], [10.3001, 0]] }], ["#dc2", { o: cut(10.3, 11.15) }], ["#dc3", { o: cut(11.15, 12.0) }],
 
-  // E patterns 12.9–17.0
-  ["#eImg", { o: [[12.8, 0], [13.05, 1], [14.3, 1], [14.6, 0]], s: [[12.8, 1.0], [14.6, 1.12, "lin"]] }],
-  ["#eBg", { o: [[14.3, 0], [14.6, 1], [16.8, 1], [17.0, 0]] }],
-  ["#ePhone", { o: [[14.4, 0], [14.7, 1], [16.8, 1], [17.0, 0]], y: [[14.4, 120], [14.9, 0, "out"]], r: [[14.4, 6], [15.0, -3, "out"]] }],
-  ["#eScroll", { y: [[14.8, 0], [16.9, -3600, "io"]] }],
-  ["#eText", { o: [[14.6, 0], [14.9, 1], [16.8, 1], [17.0, 0]], y: [[14.6, 30], [15.0, 0, "out"]] }],
-  ["#eCount", { n: [[14.9, 0], [15.8, 43, "out"]] }],
+  // 5. phones
+  ["#eBg", { o: on("e") }],
+  ["#eText", { o: on("e"), y: rise(12.0, 30) }],
+  ["#eCount", { n: [[12.3, 0], [13.2, 43, "out"]], pre: "~" }],
+  ["#eP1", { o: on("e"), y: [[12.0, 700], [12.6, 0, "out5"], [15.0, -30, "lin"]] }],
+  ["#eP2", { o: on("e"), y: [[12.1, 800], [12.75, 0, "out5"], [15.0, -50, "lin"]] }],
+  ["#eP3", { o: on("e"), y: [[12.2, 700], [12.85, 0, "out5"], [15.0, -20, "lin"]] }],
+  ["#eS1", { y: [[12.6, 0], [15.0, -1800, "io"]] }],
+  ["#eS2", { y: [[12.8, 0], [15.0, -3200, "io"]] }],
+  ["#eS3", { y: [[12.8, 0], [15.0, 1200, "io"]] }],
 
-  // F components 17.0–19.2
-  ["#fBg", { o: [[16.95, 0], [17.1, 1], [19.0, 1], [19.2, 0]] }],
-  ["#f1", { o: vis(17.1, 19.0, 0.25), x: [[17.1, -120], [17.6, 0, "out"]], s: [[17.1, 1], [19.2, 1.03, "lin"]] }],
-  ["#f2", { o: vis(17.3, 19.0, 0.25), x: [[17.3, 120], [17.8, 0, "out"]], s: [[17.3, 1], [19.2, 1.03, "lin"]] }],
-  ["#fText", { o: vis(17.6, 19.0, 0.25) }],
+  // 6. governance flow, then the camera pushes in on the score
+  ["#fBg", { o: on("f") }], ["#fGrid", { o: on("f") }],
+  ["#fCam", { o: on("f"), s: [[15.0, 1], [16.4, 1], [17.6, 1.7, "io"]] }],
+  ["#fText", { o: [[15.0, 1], [16.4, 1], [16.9, 0]], y: rise(15.0, 30) }],
+  ["#fPath", { dash: [[15.2, 1], [16.0, 0, "io"]] }],
+  ["#fN1", { o: [[15.05, 0], [15.25, 1]], y: rise(15.05, 30) }],
+  ["#fN2", { o: [[15.3, 0], [15.5, 1]], y: rise(15.3, 30) }],
+  ["#fN3", { o: [[15.55, 0], [15.75, 1]], y: rise(15.55, 30) }],
+  ["#fN4", { o: [[15.8, 0], [16.0, 1]], y: rise(15.8, 30) }],
+  ["#fScore", { n: [[15.6, 0], [16.8, 52, "out"]] }],
 
-  // G IBM + JPMC 19.2–22.0
-  ["#gGrid", { o: vis(19.3, 21.8, 0.25) }],
-  ["#gIbm", { o: vis(19.35, 21.8, 0.25), x: [[19.35, -40], [19.8, 0, "out"]] }],
-  ["#gJpm", { o: vis(19.6, 21.8, 0.25), x: [[19.6, -40], [20.05, 0, "out"]] }],
-  ["#gPanel", { o: vis(19.5, 21.8, 0.25), y: [[19.5, 50], [20.0, 0, "out"]] }],
-  ["#r1b", { o: [[20.2, 1], [20.35, 0]] }], ["#r1o", { o: [[20.2, 0], [20.35, 1]] }],
-  ["#r2b", { o: [[20.45, 1], [20.6, 0]] }], ["#r2o", { o: [[20.45, 0], [20.6, 1]] }],
-  ["#r3b", { o: [[20.7, 1], [20.85, 0]] }], ["#r3o", { o: [[20.7, 0], [20.85, 1]] }],
-  ["#r4b", { o: [[20.95, 1], [21.1, 0]] }], ["#r4o", { o: [[20.95, 0], [21.1, 1]] }],
-  ["#r5b", { o: [[21.2, 1], [21.35, 0]] }], ["#r5o", { o: [[21.2, 0], [21.35, 1]] }],
-  ["#gBar", { w: [[20.1, 0], [21.4, 100, "io"]] }],
-  ["#gCount", { n: [[20.1, 0], [21.4, 100, "io"]] }],
+  // 7. JPMC
+  ["#gBg", { o: on("g") }], ["#gTag", { o: on("g") }],
+  ["#gText", { o: on("g"), y: rise(18.0, 30) }],
+  ["#gPanel", { o: on("g"), y: [[18.0, 80], [18.6, 0, "out5"]], s: [[18.0, 0.96], [20.8, 1.02, "lin"]] }],
+  ["#r1b", { o: [[18.9, 1], [19.0, 0]] }], ["#r1o", { o: [[18.9, 0], [19.0, 1]] }],
+  ["#r2b", { o: [[19.15, 1], [19.25, 0]] }], ["#r2o", { o: [[19.15, 0], [19.25, 1]] }],
+  ["#r3b", { o: [[19.4, 1], [19.5, 0]] }], ["#r3o", { o: [[19.4, 0], [19.5, 1]] }],
+  ["#r4b", { o: [[19.65, 1], [19.75, 0]] }], ["#r4o", { o: [[19.65, 0], [19.75, 1]] }],
+  ["#r5b", { o: [[19.9, 1], [20.0, 0]] }], ["#r5o", { o: [[19.9, 0], [20.0, 1]] }],
+  ["#gBar", { w: [[18.8, 0], [20.1, 100, "io"]] }],
+  ["#gCount", { n: [[18.8, 0], [20.1, 100, "io"]] }],
 
-  // H end 21.9–24
-  ["#hBg", { o: [[21.85, 0], [22.0, 1]] }],
-  ["#t1", { o: [[22.0, 0], [22.3, 1]], y: [[22.0, 40], [22.4, 0, "out"]] }],
-  ["#t2", { o: [[22.1, 0], [22.4, 1]], y: [[22.1, 40], [22.5, 0, "out"]] }],
-  ["#t3", { o: [[22.2, 0], [22.5, 1]], y: [[22.2, 40], [22.6, 0, "out"]] }],
-  ["#hHead", { o: [[22.3, 0], [22.6, 1]], y: [[22.3, 30], [22.7, 0, "out"]], blur: [[22.3, 10], [22.7, 0]] }],
-  ["#hFoot", { o: [[22.6, 0], [22.9, 1]] }],
-  ["#fade", { o: [[0, 1], [0.35, 0], [23.5, 0], [24.0, 1]] }],
+  // 8. IBM
+  ["#hBg", { o: on("h") }],
+  ["#hLines", { o: on("h"), fn: stripes }],
+  ["#hText", { o: on("h"), y: rise(21.1, 40) }],
+  ["#hWord", { o: [[21.0, 0], [21.3, 1], [23.2, 1], [23.2001, 0]] }],
+
+  // 9. montage: half-second hard cuts with a slow push
+  ...["m1", "m2", "m3", "m4", "m5", "m6"].map((id, i) => {
+    const a = 23.2 + i * 0.5, b = a + 0.5;
+    return ["#" + id, { o: cut(a, b), s: [[a, 1.1], [b, 1.0, "lin"]] }];
+  }),
+  ["#mTag", { o: on("m") }],
+  ["#mN", { fn: (t, el) => { el.textContent = "0" + Math.min(6, Math.max(1, Math.floor((t - 23.2) / 0.5) + 1)); } }],
+
+  // 10. end card
+  ["#zBg", { o: [[26.2 - 0.001, 0], [26.2, 1, "step"]] }],
+  ["#zGrid", { o: [[26.2, 0], [26.8, 1]] }],
+  ["#z1", { o: [[26.4, 0], [26.7, .85]], y: rise(26.4, 20) }],
+  ["#z2", { o: [[26.5, 0], [26.8, .85]], y: rise(26.5, 20) }],
+  ["#z3", { o: [[26.6, 0], [26.9, .85]], y: rise(26.6, 20) }],
+  ["#zHead", { o: [[26.7, 0], [27.0, 1]], y: rise(26.7, 30), blur: [[26.7, 10], [27.1, 0]] }],
+  ["#zFoot", { o: [[27.1, 0], [27.4, 1]] }],
+  ["#fade", { o: [[0, 1], [0.3, 0], [29.4, 0], [30.0, 1]] }],
 ];
+
+// Dot field: a grid of dots with a ripple from the centre, like a signal spreading through a system.
+function dots(t, el) {
+  const c = el.getContext("2d"), w = 1600, h = 900, p = t - 6.0;
+  c.clearRect(0, 0, w, h);
+  c.fillStyle = "#ffffff";
+  for (let y = 25; y < h; y += 34) for (let x = 25; x < w; x += 34) {
+    const d = Math.hypot(x - 800, y - 450);
+    const wave = Math.max(0, 1 - Math.abs(d - p * 700) / 160);
+    const r = 1.6 + wave * 4;
+    c.globalAlpha = 0.18 + wave * 0.8;
+    c.beginPath(); c.arc(x, y, r, 0, Math.PI * 2); c.fill();
+  }
+  c.globalAlpha = 1;
+}
+// Horizontal stripe field that bends, a nod to IBM's striped mark.
+function stripes(t, el) {
+  const c = el.getContext("2d"), w = 1600, h = 900, p = t - 20.8;
+  c.clearRect(0, 0, w, h);
+  c.strokeStyle = "rgba(255,255,255,.55)";
+  c.lineWidth = 6; c.lineCap = "round";
+  for (let i = 0; i < 26; i++) {
+    const y = 40 + i * 18;
+    const k = Math.min(1, Math.max(0, (p - i * 0.02) / 0.6));
+    c.beginPath();
+    for (let x = 0; x <= w; x += 20) {
+      const yy = y + Math.sin(x / 180 + p * 2.2 + i * 0.3) * 14 * (1 - Math.abs(x - 800) / 1100);
+      if (x === 0) c.moveTo(x, yy); else c.lineTo(x, yy);
+      if (x > w * E.out(k)) break;
+    }
+    c.stroke();
+  }
+}
 
 const els = T.map(([sel, props]) => [document.querySelectorAll(sel), props]);
 function seek(t) {
   for (const [nodes, p] of els) {
     nodes.forEach(el => {
       if (p.o) el.style.opacity = v(p.o, t);
-      if (p.z) el.style.transform = `translateZ(${v(p.z, t)}px)`;
-      else if (p.x || p.y || p.s || p.r) {
+      if (p.x || p.y || p.s || p.r) {
         const x = p.x ? v(p.x, t) : 0, y = p.y ? v(p.y, t) : 0, s = p.s ? v(p.s, t) : 1, r = p.r ? v(p.r, t) : 0;
         el.style.transform = `translate(${x}px, ${y}px) scale(${s}) rotate(${r}deg)`;
       }
       if (p.blur) el.style.filter = `blur(${v(p.blur, t)}px)`;
-      if (p.clip) el.style.clipPath = `inset(0 ${v(p.clip, t)}% 0 0)`;
+      if (p.dash) { el.style.strokeDasharray = "1 1"; el.style.strokeDashoffset = v(p.dash, t); }
       if (p.w) el.style.width = v(p.w, t) + "%";
-      if (p.n) el.textContent = Math.round(v(p.n, t));
-      if (p.hue) { const k = v(p.hue, t); el.style.background = `color-mix(in oklch, #0059a3 ${(100 - k * 100).toFixed(1)}%, #4736fe)`; }
+      if (p.n) el.textContent = (p.pre || "") + Math.round(v(p.n, t));
+      if (p.fn && (!p.o || v(p.o, t) > 0)) p.fn(t, el);
     });
   }
 }
