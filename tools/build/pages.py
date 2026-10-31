@@ -208,10 +208,10 @@ write("lab.html", head("Lab — Layer One", "Free design system tools from Layer
 
 # ======================= Writing =======================
 posts = [
-    ("blog-librarian-vs-leader.html", "Most design system leads are just librarians", "Leadership · 12 min", "assets/images/blog/librarian-vs-leader.png", False),
-    ("https://medium.com/@layerone_11803/design-systems-as-operational-backbones-95b782c17f71", "Design systems as operational backbones", "Operations · 5 min · Medium", "assets/images/blog/operational-backbone.png", True),
-    ("https://medium.com/@layerone_11803/most-design-systems-are-just-expensive-ui-libraries-e0cc8b146f2d", "Most design systems are just expensive UI libraries", "Strategy · 8 min · Medium", "assets/images/blog/scaling.png", True),
-    ("https://medium.com/@layerone/foundations-of-modern-design-systems", "Foundations of modern design systems", "Architecture · 5 min · Medium", "assets/images/blog/foundations.png", True),
+    ("blog-librarian-vs-leader.html", "Most design system leads are just librarians", "Leadership · 12 min", "assets/images/blog/librarian-vs-leader.jpg", False),
+    ("https://medium.com/@layerone_11803/design-systems-as-operational-backbones-95b782c17f71", "Design systems as operational backbones", "Operations · 5 min · Medium", "assets/images/blog/operational-backbone.jpg", True),
+    ("https://medium.com/@layerone_11803/most-design-systems-are-just-expensive-ui-libraries-e0cc8b146f2d", "Most design systems are just expensive UI libraries", "Strategy · 8 min · Medium", "assets/images/blog/ui-libraries.jpg", True),
+    ("https://medium.com/@layerone/foundations-of-modern-design-systems", "Foundations of modern design systems", "Architecture · 5 min · Medium", "assets/images/blog/foundations.jpg", True),
 ]
 pc = "".join(f'<a class="wcard" href="{h}"{" target=" + chr(34) + "_blank" + chr(34) + " rel=" + chr(34) + "noopener" + chr(34) if e else ""}><div class="m"><img src="{i}" alt="" loading="lazy"></div><h3>{t}</h3><span>{g}</span></a>' for h, t, g, i, e in posts)
 bl_c = f'''

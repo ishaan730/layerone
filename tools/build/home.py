@@ -27,8 +27,8 @@ rules = ["A design system is an agreement, not a library", "Audit before you bui
 rules_html = "".join(f"<li>{r}<span>RULE #{i + 1}</span></li>" for i, r in enumerate(rules))
 
 posts = [
-    ("blog-librarian-vs-leader.html", "Most design system leads are just librarians", "Leadership", "assets/images/blog/librarian-vs-leader.png", False),
-    ("https://medium.com/@layerone_11803/design-systems-as-operational-backbones-95b782c17f71", "Design systems as operational backbones", "Operations", "assets/images/blog/operational-backbone.png", True),
+    ("blog-librarian-vs-leader.html", "Most design system leads are just librarians", "Leadership", "assets/images/blog/librarian-vs-leader.jpg", False),
+    ("https://medium.com/@layerone_11803/design-systems-as-operational-backbones-95b782c17f71", "Design systems as operational backbones", "Operations", "assets/images/blog/operational-backbone.jpg", True),
 ]
 post_html = "".join(
     f'<a class="wcard" href="{h}"{" target=" + chr(34) + "_blank" + chr(34) + " rel=" + chr(34) + "noopener" + chr(34) if ext else ""}><div class="m"><img src="{img}" alt="" loading="lazy"></div><h3>{t}</h3><span>{tag}</span></a>'

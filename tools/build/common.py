@@ -236,8 +236,8 @@ def reel(depth=0):
     </figure>'''
 
 def trust(label, keys=("jpmc", "ibm", "cars24"), depth=0):
-    """Logo strip: a label row, then one cell per company (JPMorgan Chase first)."""
-    cells = "".join(f'<li>{logo_tile(k, depth, label=False)}<div><strong>{COMPANIES[k]["name"]}</strong><span>{COMPANIES[k]["years"]}</span></div></li>' for k in keys)
+    """Logo strip: a label row, then one wide brand panel per company (JPMorgan Chase first). Logos only, no dates."""
+    cells = "".join(f'<li><img src="{"../" * depth}{COMPANIES[k]["logo"]}" alt="{COMPANIES[k]["name"]}" width="400" height="400" loading="lazy"></li>' for k in keys)
     return f'<div class="trust"><p>{label}</p><ul>{cells}</ul></div>'
 
 

@@ -62,6 +62,7 @@ With the site served on port 8765 (`python3 -m http.server 8765`):
 ```bash
 python3 tools/video/render.py      # assets/video/hero-reel.mp4, .webm and poster (needs ffmpeg + playwright)
 python3 tools/covers/render.py     # illustrated covers for IBM and JPMorgan Chase projects
+python3 tools/covers/blog_art.py   # writing covers in assets/images/blog (set CHROMIUM=/path/to/chrome to use a specific browser)
 ```
 
 ## Run it locally
