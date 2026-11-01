@@ -59,6 +59,7 @@ Studied in a live browser across home, /work, /work/grafana, /clients, /info and
 ## Founder's decisions (24 October 2026)
 
 - **Only three companies appear anywhere:** CARS24, IBM, JPMorgan Chase. Use the logo tiles in `assets/logos/` wherever a company is named (`logo_tile()` in `tools/build/common.py`). Riyadh Air, District/Zomato, HDFC and the pharma project were removed: that work was done by other designers and can't be claimed.
+- **Update, 1 November 2026: IBM client projects.** Cardinal Health (Jarvis) and Riyadh Air (design system, and design operations) are back as three full case studies, copied from the founder's portfolio: `work/ibm-cardinal-health.html`, `work/ibm-riyadh-air.html`, `work/ibm-riyadh-air-ops.html` (`cs_cardinal.py`, `cs_riyadh.py`, `cs_riyadh_ops.py`). They are IBM client work: always shown under the IBM logo, client written as "IBM × Cardinal Health" / "IBM × Riyadh Air", credited as employee work. Frame colours: Cardinal red `#E41F35`, Riyadh Air indigo `#240852`, lavender `#DAD8FC`. The employers are still only CARS24, IBM and JPMorgan Chase.
 - **Hero is a video**, not a static or random visual: `assets/video/hero-reel.{webm,mp4}`, a 30-second showreel in the style of studio reels (one bold colour field per scene, short shots, wireframes that draw on, UI that assembles, real work, a fast montage): mark draws on → "what we build" carousel → CARS24 blue with dot ripple and ramp → framed rebrand work → pattern library phones on mint → governance flow with camera push → JPMorgan Chase checks on brown (labelled illustration) → IBM on blue with stripe field → six-shot montage → end card with the three wordmarks. It autoplays muted, loops, pauses off-screen and for reduced motion, and has a pause button. Source: `tools/video/hero.html`; render with `tools/video/render.py`.
 - **Case studies must be interactive and scannable**, not long scrolls copied from Hex: sticky chapter bar with progress, a 30-second summary, count-up KPIs, one interactive or visual module per chapter (before/after slider, animated bars, stepper, calculator, live demo), long text folded into "Read the detail", gallery with lightbox. Engine: `tools/build/cs.py`.
 - **Pricing stays affordable**, around $5–6k for the main build. The pricing page is the most important conversion page.
@@ -70,7 +71,7 @@ Studied in a live browser across home, /work, /work/grafana, /clients, /info and
 |---|---|
 | `index.html` | Statement, hero reel, logo row, select work frames, three experience cards, how to start, rules, writing, reach out |
 | `work.html` | Featured case studies and more projects |
-| `work/cars24-*.html` | Three interactive case studies (dark, chaptered) |
+| `work/cars24-*.html`, `work/ibm-cardinal-health.html`, `work/ibm-riyadh-air*.html` | Six interactive case studies (dark, chaptered) |
 | `work/jpmc-*.html`, `work/ibm-*.html`, `work/cars24-consumer.html`, `work/cars24-internal-tools.html` | Short project pages |
 | `clients.html` (nav: Experience) | CARS24, IBM, JPMorgan Chase with logos, facts and linked projects |
 | `studio.html` | About: story (Bangalore), founder, what we do, how we work, founding partners invitation |

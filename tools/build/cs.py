@@ -9,7 +9,8 @@ from common import *
 from PIL import Image
 import html as _h
 
-KEY = {"tokens": "cars24-tokens", "governance": "cars24-governance", "patterns": "cars24-pattern-library"}
+KEY = {"tokens": "cars24-tokens", "governance": "cars24-governance", "patterns": "cars24-pattern-library",
+       "cardinal": "ibm-cardinal-health", "riyadh": "ibm-riyadh-air", "riyadh-ops": "ibm-riyadh-air-ops"}
 
 
 def dims(src):
@@ -113,7 +114,9 @@ def page(key, spec):
       <header class="ch-head"><span class="ch-n">{n + 1:02d}</span><div><h2 id="{cid}-h">{title}</h2><p>{ledetext}</p></div></header>
       <div class="ch-body">{body}</div></section>'''
     gal = "".join(f'<figure>{img(s, c, cap=c)}<figcaption>{c}</figcaption></figure>' for s, c in spec["gallery"])
-    others = [p for p in PROJECTS if p["case"] and p["slug"] != proj["slug"]]
+    cases = [p for p in PROJECTS if p["case"]]
+    i = cases.index(proj)
+    others = [cases[(i + 1) % len(cases)], cases[(i + 2) % len(cases)]]  # the next two, like Hex's "More Work"
     nxt = "".join(f'''<a class="nx" href="{p["slug"]}.html" style="--f:{p["f"]};--ft:{p["ft"]}"><img src="../{p["cover"]}" alt="" loading="lazy"><span>{p["kind"]}</span><h3>{p["title"].split(": ", 1)[1][0].upper() + p["title"].split(": ", 1)[1][1:]}</h3></a>''' for p in others)
     html = (head(f"{proj['title']} — Layer One", proj["blurb"], depth=1, og=proj["cover"])
             + topbar("work", depth=1) + f'''<main id="main" class="cs" style="--f:{proj["f"]}">
