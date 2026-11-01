@@ -6,8 +6,8 @@ exp = ""
 for key, stat, what in [
     ("cars24", ("10+", "products on one token system, in 3 countries"),
      "Led the design system for 70+ designers and 200+ engineers: a new palette and token architecture for the rebrand, governance, and a pattern library."),
-    ("ibm", ("Several", "product design systems built and launched"),
-     "Built design systems for products used around the world, with a contribution process, regular releases and training."),
+    ("ibm", ("71", "components for an airline, 40+ for a pharmacy storefront"),
+     "Built design systems for IBM clients Cardinal Health and Riyadh Air, from foundations and tokens to governance, contribution and releases."),
     ("jpmc", ("500+", "designers and 1,000+ engineers using the checks"),
      "Company-wide design patterns, an AI workflow that drafts them, and tools that check design files and code against the system."),
 ]:

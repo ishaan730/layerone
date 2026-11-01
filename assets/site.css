@@ -832,8 +832,8 @@ figure { margin: 0; }
 /* Shift */
 .m-shift { padding: 18px; border-radius: var(--r); background: var(--bg-raised); border: 1px solid var(--rule); display: grid; gap: 14px; }
 .m-shift ul { display: grid; gap: 6px; }
-.m-shift li { position: relative; height: 46px; border-radius: 6px; background: var(--bg-sunken); overflow: hidden; font-size: 17px; }
-.m-shift li span { position: absolute; inset: 0; display: flex; align-items: center; padding: 0 14px; transition: transform .45s cubic-bezier(.2,.8,.2,1), opacity .3s; }
+.m-shift li { position: relative; display: grid; min-height: 46px; border-radius: 6px; background: var(--bg-sunken); overflow: hidden; font-size: 17px; }
+.m-shift li span { grid-area: 1 / 1; display: flex; align-items: center; padding: 10px 14px; line-height: 1.35; transition: transform .45s cubic-bezier(.2,.8,.2,1), opacity .3s; }
 .m-shift li .s1 { transform: translateY(100%); opacity: 0; color: var(--text); }
 .m-shift li .s0 { color: var(--text-muted); }
 .m-shift.is-after li .s0 { transform: translateY(-100%); opacity: 0; }

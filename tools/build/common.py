@@ -137,13 +137,14 @@ def write(path, html):
 
 
 # ---------------------------------------------------------------------------
-# Companies and projects. Only CARS24, IBM and JPMorgan Chase appear on the site.
+# Companies and projects. Employers: CARS24, IBM and JPMorgan Chase. Cardinal Health and Riyadh Air appear
+# only as IBM client projects, always shown under the IBM logo.
 # ---------------------------------------------------------------------------
 COMPANIES = {
     "cars24": dict(name="CARS24", logo="assets/logos/cars24.png", years="2024–25", role="Design Systems Lead",
                    line="One of India's largest platforms for buying and selling used cars, with loans, insurance and servicing, in India, the UAE and Australia."),
     "ibm": dict(name="IBM", logo="assets/logos/ibm.png", years="2021–24", role="UX Designer, design systems",
-                line="Enterprise software and infrastructure used by businesses around the world."),
+                line="Enterprise software and consulting. Design systems for IBM clients including Cardinal Health and Riyadh Air."),
     "jpmc": dict(name="JPMorgan Chase", logo="assets/logos/jpmorgan-chase.jpg", years="2025–now", role="Senior Designer, Design Systems",
                  line="One of the world's largest financial services companies."),
 }
@@ -172,6 +173,21 @@ PROJECTS = [
          kind="Patterns, CMS, Adoption", f="#9de7c8", ft="#0b0d12", cover="assets/work/patterns/cover.jpg",
          blurb="Six families of page blocks wired to the CMS and the tokens, so a super app with new services every month ships pages in days.",
          stat=("~43%", "less time to design and build a page")),
+    dict(slug="ibm-cardinal-health", case=True, co="ibm", client="IBM × Cardinal Health", year="2022–23",
+         title="Cardinal Health: Jarvis, the design system behind a new pharmacy storefront",
+         kind="Foundations, Tokens, Components, Operations", f="#e41f35", ft="#ffffff", cover="assets/work/ibm-cardinal-health/cover.jpg",
+         blurb="Built at IBM from scratch in Figma: 110 colours in 11 ramps, purpose-named tokens and 40+ components every squad built Vantus HQ from, then run as a product as requests grew five times over in a year.",
+         stat=("5×", "more design system tickets handled in a year")),
+    dict(slug="ibm-riyadh-air", case=True, co="ibm", client="IBM × Riyadh Air", year="2023–24",
+         title="Riyadh Air: a design system for an airline that started from zero",
+         kind="Foundations, Components, Localisation", f="#240852", ft="#ffffff", cover="assets/work/ibm-riyadh-air/cover.jpg",
+         blurb="A pilot first, then 71 components in 13 families, each drawn in English and Arabic, light and dark, for eight or more web and mobile apps built at once.",
+         stat=("71", "components, each in four versions")),
+    dict(slug="ibm-riyadh-air-ops", case=True, co="ibm", client="IBM × Riyadh Air", year="2023–24",
+         title="Riyadh Air: three companies, one design system, and who decides what ships",
+         kind="Governance, Contribution, Rituals", f="#dad8fc", ft="#0b0d12", cover="assets/work/ibm-riyadh-air-ops/cover.jpg",
+         blurb="The operating model behind the Riyadh Air system: six named roles, one front door, a contribution model, four quality gates and seven routines shared by IBM, Riyadh Air and Publicis Sapient.",
+         stat=("4", "quality gates between a request and a release")),
     dict(slug="jpmc-system-checks", case=False, co="jpmc", client="JPMorgan Chase", year="2026",
          title="JPMorgan Chase: design system checks for 500+ designers and 1,000+ engineers",
          kind="Tooling, Governance", f="#8a5434", ft="#ffffff", cover="assets/work/jpmc-checks/cover.jpg", illus=True,

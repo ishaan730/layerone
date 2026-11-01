@@ -10,7 +10,7 @@ work_c = f'''
 <h2 class="label" id="projects">more projects</h2>
 <p class="sub muted" style="margin:-8px 0 20px">Systems the team has shipped at CARS24, IBM and JPMorgan Chase. Walkthroughs on request.</p>
 <div class="frames frames--2">{"".join(frame(p, show_year=True) for p in others)}</div>
-<p class="small muted" style="margin-top:28px;max-width:72ch">This work was led by Aniket Pandey while employed at CARS24, IBM and JPMorgan Chase. Images marked "Illustration" are drawn by us to describe the work, because the real screens can't be shared.</p>
+<p class="small muted" style="margin-top:28px;max-width:72ch">This work was led by Aniket Pandey while employed at CARS24, IBM and JPMorgan Chase. Cardinal Health and Riyadh Air were IBM clients. Images marked "Illustration" are drawn by us to describe the work, because the real screens can't be shared.</p>
 '''
 write("work.html", head("Work — Layer One", "Design system case studies and projects from CARS24, IBM and JPMorgan Chase.")
       + shell("work", [("Featured", "#case-studies"), ("More projects", "#projects")], work_c, card="bar"))
@@ -19,7 +19,7 @@ write("work.html", head("Work — Layer One", "Design system case studies and pr
 xp = ""
 for key, facts in [
     ("cars24", [("70+ / 200+", "designers and engineers on one system"), ("10+", "product lines, 3 countries"), ("65%", "faster handoff after the token rebuild")]),
-    ("ibm", [("3.5 yrs", "building and running design systems"), ("Several", "product systems built and launched"), ("Worldwide", "products used around the world")]),
+    ("ibm", [("3.5 yrs", "building and running design systems"), ("40+ / 71", "components for Cardinal Health and Riyadh Air"), ("1 → 7", "people on the Cardinal Health system in a year")]),
     ("jpmc", [("500+", "designers using the design checks"), ("1,000+", "engineers using the code checks"), ("AI", "workflow that drafts new patterns")]),
 ]:
     c = COMPANIES[key]
