@@ -69,15 +69,33 @@ stress = '''<div class="sc-stress" data-stress>
 </div>'''
 
 S = [
-    section("brief", "Brief", "<b>01</b> the brief:", "An airline with no apps, no legacy and one launch date",
-            "Riyadh Air is Saudi Arabia's new national carrier. IBM was its lead digital partner.",
+    section("client", "Client", "<b>01</b> the client:", "An airline with no past to inherit",
+            "Riyadh Air is Saudi Arabia's new national carrier, founded by the Public Investment Fund and built digital-first.",
+            wrap(facts([("2023", "founded, with IBM named lead digital partner"), ("100+", "destinations planned by 2030"), ("787-9", "a new Boeing Dreamliner fleet"), ("Oct 2025", "first flight, Riyadh to London Heathrow")])
+                 + gap(48)
+                 + story(prose(
+                     "Most airlines carry decades of booking engines, loyalty platforms and check-in kiosks. Riyadh Air started with none of it. Every screen a guest would touch, from booking to boarding, had to be designed and built for the first time, while the airline itself was being stood up.",
+                     "IBM was the lead digital partner. Its design team proposed the design system and built it with Publicis Sapient, and IBM engineers turned it into code. Riyadh Air's product owners, brand and engineering teams reviewed and signed off. Aniket worked on the system as a design system designer at IBM."),
+                     "The engagement", [("2023–24", "IBM for Riyadh Air"), ("3 companies", "IBM, Publicis Sapient, Riyadh Air"), ("Role", "Design system designer, IBM")])
+                 + gap(32)
+                 + room([("Client", "Riyadh Air", "Product owners, brand and engineering, standing up an airline and its digital estate together."),
+                         ("Lead digital partner", "IBM", "The design team proposed the system and built it. IBM engineers built the components in code."),
+                         ("Agency", "Publicis Sapient", "Our partner on the design system, shaping and reviewing the library with us.")]))),
+    section("problem", "Problem", "<b>02</b> the problem:", "Many apps, many teams, one launch date",
+            "Booking, check-in, loyalty and the trip itself, across web, phone and watch, all designed at once.",
             wrap(nums([("", "8", "+", "web and mobile apps, designed at once", "Scale"), ("", "2", "", "scripts, reading in opposite directions", "Language"),
                        ("", "6", "", "breakpoints, from a watch to a wide desktop", "Devices"), ("", "1", "", "launch date that couldn't move", "Deadline")])
-                 + '<div style="height:16px"></div>'
+                 + gap(48)
+                 + story(prose(
+                     "Five to six web apps and two to three mobile apps were being designed in parallel, each with its own team. Left alone, every app would drift into its own version of the brand, and every team would rebuild the same button under a deadline set by the first flights.",
+                     "Two things made it harder. Every screen had to work in English and Arabic, which read in opposite directions and need different line heights. And the brand was brand new: a lavender identity made for liveries and billboards, with nothing yet that could carry a seat map, a price or an error message.",
+                     "> How might we give every team, on every device and in both languages, one way to build Riyadh Air, before there was a Riyadh Air to copy?"),
+                     "What made it hard", [("8+ apps", "In parallel, one deadline"), ("EN + AR", "Left to right and right to left"), ("New brand", "Not yet a UI language")])
+                 + gap(32)
                  + brief([("squads", "Every app team designing its own interface", "One library every team builds from"),
                           ("script", "Arabic as a translation pass at the end", "Every component drawn in English and Arabic"),
                           ("plane", "A lavender brand made for liveries and billboards", "A brand that can carry a seat map and an error")]))),
-    section("work", "The work", "<b>02</b> the work, in twelve frames:", "Swipe through it", "Foundations, components and brand, as the library shows them. Select any frame to see it full size.",
+    section("work", "The work", "<b>03</b> the work, in twelve frames:", "Swipe through it", "Foundations, components and brand, as the library shows them. Select any frame to see it full size.",
             carousel("The Riyadh Air design system, in twelve frames", [
                 (R + "f-colour.jpg", "Colour", "From a lavender brand to product UI.", {"bg": "#f6f7fc"}),
                 (R + "btn-rex.jpg", "REX button", "The AI assist, in English and Arabic, light and dark.", {"bg": "#240852"}),
@@ -92,17 +110,18 @@ S = [
                 (R + "f-effects.jpg", "Effects", "Four shadows and two blurs, each with a job.", {"bg": "#f6f7fc"}),
                 (R + "canopy-dynamic.jpg", "Canopy Twist", "The brand's line art, as a component.", {"bg": "#240852"}),
             ])),
-    section("pilot", "Pilot", "<b>03</b> the pilot:", "Prove it on one project, then scale", "Rather than pitch a system on a slide, the team ran a small one on real work and let the results make the case.",
-            wrap(rail([("Propose", "A shared system to speed up delivery"), ("Pilot", "One IBM team builds with an early library"),
+    section("pilot", "Pilot", "<b>04</b> the pilot:", "Prove it on one project, then scale", "Rather than pitch a system on a slide, the team ran a small one on real work and let the results make the case.",
+            wrap(story(prose("A design system is a big ask of a client building everything else at the same time. So the team didn't pitch it on a slide. It ran a small system on one IBM project, watched whether it helped, and let the results make the case. The teams outside the pilot asked for it, and it delivered a clear efficiency gain on real work. That was enough to build the full system."))
+                 + gap(32) + rail([("Propose", "A shared system to speed up delivery"), ("Pilot", "One IBM team builds with an early library"),
                        ("Measure", "Faster? Consistent? Do teams want it?"), ("Scale", "The full system, with Publicis Sapient")])
                  + '<div style="height:24px"></div>' + outcomes([("Result", "Faster", "A clear efficiency gain on real work."), ("Result", "Wanted", "Teams outside the pilot asked for it."),
                                                                ("Result", "Approved", "The go-ahead to build the full system."), ("Partner", "Publicis Sapient", "Shaped and reviewed the library with IBM.")])), mode="stage"),
-    section("brand", "Brand to UI", "<b>04</b> brand to UI:", "A lavender brand, made usable", "Indigo and mist carry every screen. Violet does the work. Lavender and peach stay for brand moments.",
+    section("brand", "Brand to UI", "<b>05</b> brand to UI:", "A lavender brand, made usable", "Indigo and mist carry every screen. Violet does the work. Lavender and peach stay for brand moments.",
             wrap(palette + '<div style="height:16px"></div>' + canopy + '<div style="height:16px"></div>' + bento([
                 (R + "canopy-uniform.jpg", "Canopy Twist uniform pattern", 6, 3, {"fit": "contain", "bg": "#240852"}),
                 (R + "logo.jpg", "Logo lockups, chosen by page language", 6, 3, {"fit": "contain", "bg": "#240852"}),
             ])), mode="stage"),
-    section("foundations", "Foundations", "<b>05</b> foundations:", "Styles that travel through all 71 components", "Pick a breakpoint, switch the script. The grids and the type are drawn from the library's own values.",
+    section("foundations", "Foundations", "<b>06</b> foundations:", "Styles that travel through all 71 components", "Pick a breakpoint, switch the script. The grids and the type are drawn from the library's own values.",
             wrap(bp + '<div style="height:24px"></div>' + scripts + '<div style="height:16px"></div>' + bento([
                 (R + "f-space.jpg", "Increments: 1 to 64px", 6, 3, {"fit": "contain", "bg": "#f6f7fc"}),
                 (R + "f-effects.jpg", "Effects: depth, used sparingly", 6, 3, {"fit": "contain", "bg": "#f6f7fc"}),
@@ -113,9 +132,9 @@ S = [
                 (R + "src-effects.jpg", "Library: Effects page", 3, 4, {"bg": "#fff"}),
                 (R + "src-grids.jpg", "Library: Grids page", 3, 4, {"bg": "#fff"}),
             ])), mode="paper"),
-    section("components", "Components", "<b>06</b> components, live:", "Switch the theme. Switch the language.", "Everything flips: direction, arrows, numbers and currency formatting.",
+    section("components", "Components", "<b>07</b> components, live:", "Switch the theme. Switch the language.", "Everything flips: direction, arrows, numbers and currency formatting.",
             wrap(specimen)),
-    section("library", "Library", "<b>07</b> the library:", "71 components in 13 numbered families", "Read the families and you can read the product: an assistant, selling nudges, and the trip itself.",
+    section("library", "Library", "<b>08</b> the library:", "71 components in 13 numbered families", "Read the families and you can read the product: an assistant, selling nudges, and the trip itself.",
             wrap(inventory("71", "components, each in English and Arabic, light and dark", fams) + '<div style="height:20px"></div>' + bento([
                 (R + "btn-rex.jpg", "REX button · G03/B09", 5, 5, {"fit": "contain", "bg": "#240852"}),
                 (R + "btn-counter.jpg", "Counter · G03/B07", 7, 3, {"fit": "contain", "bg": "#240852"}),
@@ -130,11 +149,22 @@ S = [
                 (R + "btn-double.jpg", "Double button · G03/B08", 4, 3, {"fit": "contain", "bg": "#240852"}),
                 (R + "badge-round.jpg", "Round badge · G01/B03", 4, 3, {"fit": "contain", "bg": "#240852"}),
             ])), mode="stage"),
-    section("done", "Definition of done", "<b>08</b> definition of done:", "Tested in four languages before it shipped", "Arabic for direction, German for long words, Japanese for a third script, and currencies with very long numbers.",
+    section("done", "Definition of done", "<b>09</b> definition of done:", "Tested in four languages before it shipped", "Arabic for direction, German for long words, Japanese for a third script, and currencies with very long numbers.",
             wrap(stress + '<div style="height:24px"></div>' + rail([("Build", "Fewest frames; every text on a style, every colour on a variable"),
                                                                    ("Structure", "Named to convention, every useful variant, placed and described"),
                                                                    ("Test", "EN and AR, light and dark, long words, long numbers, in a real layout")]))),
-    section("impact", "Impact", "<b>09</b> what changed:", "From Figma to code to launch", "",
+    section("working", "How we worked", "<b>10</b> how we worked:", "Three companies, one way from idea to code",
+            "The system sat between three organisations and many teams. It worked because the path from an idea to a component in code was the same every time.",
+            wrap(timeline([("Phase 1", "The pilot", "An early library on one IBM project, to test whether a shared system would speed the teams up.", "IBM"),
+                           ("Phase 2", "The system", "Styles, structure and components built from scratch in Figma, reviewed with Publicis Sapient and Riyadh Air's product team.", "IBM · Publicis Sapient"),
+                           ("Phase 3", "Into code", "IBM engineers built the components in code, so every app used the same ones.", "IBM design · IBM engineering"),
+                           ("Oct 2025", "Launch", "The apps launched with the airline. The first flight left Riyadh for London Heathrow.", "Riyadh Air")])
+                 + gap(32)
+                 + room([("Rules", "One page of rules", "The library opened with its own guide: what ready means, how it's structured, how to name things."),
+                         ("Language", "Bilingual from day one", "Arabic wasn't a translation pass at the end. Every component shipped with its right-to-left version."),
+                         ("Handoff", "Design and code in step", "Variant names matched the props engineers built, so handoff was a lookup, not a translation.")])
+                 + '<p class="sc-note">How the three companies decided what shipped is its own case study: <a href="ibm-riyadh-air-ops.html">who decides what ships</a>.</p>')),
+    section("impact", "Impact", "<b>11</b> what changed:", "From Figma to code to launch", "",
             wrap(outcomes([("Speed", "Proven first", "A pilot showed a clear efficiency gain before the full build."),
                            ("Consistency", "One airline", "71 components and six breakpoints, used by every team."),
                            ("Reach", "EN + AR", "Every component in both directions, light and dark."),
@@ -142,8 +172,8 @@ S = [
                  + '<div style="height:16px"></div>' + lessons(["Prove it small. A pilot on real work persuades faster than any deck.",
                                                                "Design the second language first. Arabic and German break what English never will.",
                                                                "Start at the smallest screen. A 184px watch made every larger layout simpler."])
-                 + '<p class="sc-note">How three companies ran this system together is its own case study: <a href="ibm-riyadh-air-ops.html">who decides what ships</a>.</p>')),
-    section("playbook", "For your team", "<b>10</b> for your team:", "The same playbook, as a studio engagement", "Each step of this case study maps to how we work with clients now.",
+                 )),
+    section("playbook", "For your team", "<b>12</b> for your team:", "The same playbook, as a studio engagement", "Each step of this case study maps to how we work with clients now.",
             wrap(playbook({"audit": "The pilot: one team, real work, and a clear answer on whether a system will pay off.",
                            "foundations": "Styles, a naming grammar and core components, tested in your languages and themes.",
                            "partner": "Grow the library with your teams, with a shared definition of done."}))),
@@ -152,7 +182,7 @@ S = [
 page("ibm-riyadh-air", dict(
     h1="A design system for an airline that started from zero",
     lede="A pilot first, then 71 components that every Riyadh Air team built from, in English and Arabic, light and dark.",
-    tags=["Foundations", "Localisation", "71 components", "Web, mobile, watch"],
+    meta=[("Role", "Design system designer, IBM"), ("Client", "Riyadh Air"), ("Partners", "Publicis Sapient, IBM engineering"), ("Timeline", "2023–24")],
     proof=[("", "71", "", "components in 13 families"), ("2 × ", "2", "", "EN and AR, light and dark"), ("", "6", "", "breakpoints, watch to desktop"), ("", "8", "+", "apps from one library")],
     cover_alt="The Riyadh Air design system: Canopy Twist line art, a booking card and component sheets on indigo",
     client_logo=R + "logo-lockup.png",

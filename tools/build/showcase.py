@@ -8,6 +8,7 @@ Section modes: "" (dark), "stage" (the project's brand colour), "paper" (light).
 Visual blocks below return HTML strings. Styles: "Showcase case study (v4)" in assets/site.css.
 """
 from common import *
+from cs import tiles
 from PIL import Image
 import html as _h
 
@@ -133,6 +134,68 @@ def playbook(rows):
       <div class="btn-row"><a class="pill pill--accent" href="../contact.html">Start a project</a><a class="pill" href="{CAL}" target="_blank" rel="noopener">Book a call</a></div></div>'''
 
 
+# ---------------------------------------------------------------- story blocks
+def prose(*paras):
+    """Paragraphs; a string starting with '### ' becomes a subheading, one starting with '> ' a pull quote."""
+    out = ""
+    for p in paras:
+        if p.startswith("### "):
+            out += f"<h3>{p[4:]}</h3>"
+        elif p.startswith("> "):
+            out += f'<blockquote class="sc-quote"><p>{p[2:]}</p></blockquote>'
+        else:
+            out += f"<p>{p}</p>"
+    return f'<div class="sc-prose">{out}</div>'
+
+
+def story(body, aside_title=None, aside=None):
+    """Long-form text: a short side note (facts or 'in short') and a readable prose column."""
+    side = ""
+    if aside:
+        items = "".join(f"<li><b>{a}</b><span>{b}</span></li>" if b else f"<li><span>{a}</span></li>" for a, b in aside)
+        side = f'<aside class="sc-side"><p>{aside_title or "In short"}</p><ul>{items}</ul></aside>'
+    return f'<div class="sc-story">{side or "<div></div>"}<div>{body}</div></div>'
+
+
+def quote(text, by=None):
+    return f'<blockquote class="sc-quote sc-quote--big"><p>{text}</p>{f"<cite>{by}</cite>" if by else ""}</blockquote>'
+
+
+def facts(items):
+    """Client facts. items = [(big, label)]"""
+    return '<dl class="sc-facts">' + "".join(f"<div><dt>{a}</dt><dd>{b}</dd></div>" for a, b in items) + "</dl>"
+
+
+def room(items):
+    """Who was in the room. items = [(org, team, text)]"""
+    return '<div class="sc-room">' + "".join(f'<div><span>{o}</span><h3>{t}</h3><p>{x}</p></div>' for o, t, x in items) + "</div>"
+
+
+def timeline(items):
+    """Dated milestones. items = [(date, title, text, tag)]"""
+    lis = "".join(f'<li style="--i:{n}"><time>{d}</time><div><h3>{t}</h3><p>{x}</p>{f"<span>{g}</span>" if g else ""}</div></li>' for n, (d, t, x, g) in enumerate(items))
+    return f'<ol class="sc-time" data-inview>{lis}</ol>'
+
+
+def ticket(key, status, title, fields, note):
+    rows = "".join(f"<div><dt>{a}</dt><dd>{b}</dd></div>" for a, b in fields)
+    return f'<div class="sc-ticket"><header><code>{key}</code><span>{status}</span></header><h3>{title}</h3><dl>{rows}</dl><p class="small" style="color:#6c6789">{note}</p></div>'
+
+
+def changelog(version, date, items, note):
+    lis = "".join(f'<li><b class="t-{k.lower()}">{k}</b>{t}</li>' for k, t in items)
+    return f'<div class="sc-log"><header><code>{version}</code><span>{date}</span></header><ul>{lis}</ul><p>{note}</p></div>'
+
+
+def flowline(states, active):
+    """A ticket's statuses, with the current one highlighted."""
+    return '<ol class="sc-states">' + "".join(f'<li class="{"is-done" if i < active else "is-on" if i == active else ""}">{t}</li>' for i, t in enumerate(states)) + "</ol>"
+
+
+def gap(px=24):
+    return f'<div style="height:{px}px"></div>'
+
+
 # ---------------------------------------------------------------- page
 def section(sid, nav, k, h2, lede, body, mode=""):
     cls = "sc-sec" + (f" sc-sec--{mode}" if mode else "")
@@ -152,7 +215,7 @@ def page(slug, spec):
     proof = "".join(
         f'<div><dt>{pre}<span data-countup="{val}">{val}</span>{suf}</dt><dd>{lab}</dd></div>' if str(val).isdigit()
         else f'<div><dt>{pre}{val}{suf}</dt><dd>{lab}</dd></div>' for pre, val, suf, lab in spec["proof"])
-    tags = "".join(f"<span>{t}</span>" for t in spec["tags"])
+    meta = "".join(f"<div><dt>{a}</dt><dd>{b}</dd></div>" for a, b in spec["meta"])
     secs = spec["sections"]
     chips = "".join(f'<a href="#{sid}">{nav}</a>' for nav, sid, _ in secs)
     body = "".join(h for *_r, h in secs)
@@ -165,16 +228,12 @@ def page(slug, spec):
     html = (head(f"{proj['title']} — Layer One", proj["blurb"], depth=1, og=proj["cover"])
             + topbar("work", depth=1) + f'''<main id="main" class="sc" style="--f:{proj["f"]};--ft:{proj["ft"]}">
   <header class="sc-hero"><div class="sc-in">
-    <p class="sc-crumb"><a href="../work.html">Work</a> / {proj["client"]} · {proj["year"]}</p>
+    <div class="sc-hero-bar"><p class="sc-crumb"><a href="../work.html">Work</a> / {proj["client"]}</p><div class="sc-id">{logo_tile("ibm", depth=1, size=36, label=False)}<span class="x">×</span>{cl}</div></div>
     <div class="sc-top">
-      <div>
-        <div class="sc-id">{logo_tile("ibm", depth=1, size=40, label=False)}<span class="x">×</span>{cl}</div>
-        <h1>{spec["h1"]}</h1>
-        <p class="sc-lede">{spec["lede"]}</p>
-        <div class="sc-tags">{tags}</div>
-      </div>
+      <div><h1>{spec["h1"]}</h1><p class="sc-lede">{spec["lede"]}</p></div>
       <dl class="sc-proof" data-inview>{proof}</dl>
     </div>
+    <dl class="sc-meta">{meta}</dl>
     <figure class="sc-hero-media">{simg(proj["cover"], spec["cover_alt"], eager=True)}</figure>
   </div></header>
   <nav class="chapters" aria-label="Chapters" data-chapters style="margin-top:0"><div class="ch-chips">{chips}</div><div class="ch-prog"><span></span></div></nav>
