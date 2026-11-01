@@ -9,8 +9,7 @@ from common import *
 from PIL import Image
 import html as _h
 
-KEY = {"tokens": "cars24-tokens", "governance": "cars24-governance", "patterns": "cars24-pattern-library",
-       "cardinal": "ibm-cardinal-health", "riyadh": "ibm-riyadh-air", "riyadh-ops": "ibm-riyadh-air-ops"}
+KEY = {"tokens": "cars24-tokens", "governance": "cars24-governance", "patterns": "cars24-pattern-library"}
 
 
 def dims(src):

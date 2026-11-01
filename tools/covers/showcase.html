@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Showcase covers</title>
+<!-- Render-time only. Covers for the IBM client case studies, 1920 × 1080 (the frame's 16:9).
+     Render: serve the repo root on :8765, then python3 tools/covers/render_showcase.py -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;600;700&family=Roboto:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+@font-face { font-family: "Schibsted Grotesk"; src: url("../../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2") format("woff2"); font-weight: 400 900; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1920px; height: 1080px; overflow: hidden; }
+body { font-family: "Schibsted Grotesk", sans-serif; }
+.scene { position: absolute; inset: 0; overflow: hidden; display: none; }
+.scene.on { display: block; }
+.abs { position: absolute; }
+img { display: block; }
+
+/* ---------------- Cardinal Health ---------------- */
+#cardinal { background: #e41f35; color: #fff; }
+#cardinal .arcs { left: -260px; bottom: -520px; width: 1300px; height: 1300px; }
+#cardinal .logo { left: 104px; top: 96px; height: 70px; }
+#cardinal h1 { left: 96px; top: 262px; font-size: 196px; font-weight: 800; letter-spacing: -.06em; line-height: .9; }
+#cardinal .sub { left: 104px; top: 476px; font-size: 40px; line-height: 1.15; width: 600px; opacity: .92; letter-spacing: -.01em; }
+#cardinal .stats { left: 104px; bottom: 96px; display: flex; gap: 14px; }
+#cardinal .stats div { width: 196px; padding: 18px 20px; border-radius: 16px; background: rgb(255 255 255 / .14); border: 1px solid rgb(255 255 255 / .24); }
+#cardinal .stats b { display: block; font-size: 64px; font-weight: 600; letter-spacing: -.05em; line-height: 1; }
+#cardinal .stats span { font-size: 22px; opacity: .9; }
+.browser { border-radius: 18px; overflow: hidden; background: #fff; box-shadow: 0 30px 80px rgb(60 0 8 / .35); }
+.browser .bar { height: 44px; background: #f1f1ee; display: flex; align-items: center; gap: 8px; padding: 0 18px; font: 500 15px Inter, sans-serif; color: #6b7070; }
+.browser .bar i { width: 12px; height: 12px; border-radius: 50%; background: #d6d6d5; }
+.browser .bar span { margin-left: 16px; padding: 5px 16px; background: #fff; border-radius: 8px; width: 320px; }
+.browser .view { overflow: hidden; }
+.browser .view img { width: 100%; }
+.phone { border-radius: 52px; padding: 14px; background: #121212; box-shadow: 0 30px 80px rgb(0 0 0 / .4); }
+.phone .view { border-radius: 40px; overflow: hidden; background: #fff; height: 100%; }
+.phone .view img { width: 100%; }
+#cardinal .browser { left: 760px; top: 96px; width: 1000px; height: 660px; }
+#cardinal .browser .view { height: 616px; }
+#cardinal .phone { left: 1560px; top: 330px; width: 300px; height: 640px; }
+.jcard { border-radius: 20px; background: #fff; color: #27251f; padding: 26px 28px; box-shadow: 0 30px 80px rgb(60 0 8 / .3); font-family: Roboto, sans-serif; display: grid; gap: 16px; }
+.jcard .k { font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: #6b7070; font-weight: 500; }
+.jcard .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.jb { height: 52px; padding: 0 24px; border-radius: 5px; font: 500 20px Roboto, sans-serif; display: inline-flex; align-items: center; border: 2px solid transparent; }
+.jb.p { background: #e41f35; color: #fff; } .jb.h { background: #b22233; color: #fff; } .jb.x { background: #6d151f; color: #fff; }
+.jb.s { border-color: #27251f; } .jb.t { color: #20728b; text-decoration: underline; padding: 0 6px; }
+.jbd { font: 500 16px Roboto, sans-serif; padding: 5px 11px; border-radius: 4px; color: #fff; }
+.ja { font: 400 18px Roboto, sans-serif; padding: 12px 16px; border-left: 5px solid #00a85a; background: #f4faf7; border-radius: 4px; }
+#cardinal .jcard { left: 640px; top: 640px; width: 640px; }
+.tok { border-radius: 14px; background: #27251f; color: #fff; padding: 16px 20px; font: 500 19px "JetBrains Mono", monospace; display: flex; align-items: center; gap: 14px; box-shadow: 0 20px 50px rgb(0 0 0 / .3); }
+.tok i { width: 22px; height: 22px; border-radius: 5px; background: #e41f35; border: 2px solid #fff; }
+.tok span { opacity: .6; }
+#cardinal .tok { left: 1150px; top: 950px; }
+
+/* ---------------- Riyadh Air ---------------- */
+#riyadh { background: #240852; color: #fff; }
+#riyadh svg.canopy { position: absolute; left: -40px; top: 560px; width: 1180px; height: 590px; opacity: .9; }
+#riyadh .logo { left: 100px; top: 96px; height: 92px; }
+#riyadh h1 { left: 96px; top: 300px; font-size: 128px; font-weight: 700; letter-spacing: -.05em; line-height: .92; }
+#riyadh .sub { left: 100px; top: 560px; font-size: 36px; line-height: 1.25; color: #dad8fc; width: 560px; }
+#riyadh .chips { left: 100px; bottom: 96px; display: flex; gap: 12px; flex-wrap: wrap; width: 640px; }
+#riyadh .chips span { font-size: 24px; padding: 12px 22px; border-radius: 999px; border: 1.5px solid rgb(218 216 252 / .45); color: #dad8fc; }
+.rphone { width: 400px; height: 840px; border-radius: 60px; padding: 14px; background: #0d0420; box-shadow: 0 40px 90px rgb(5 0 20 / .55); }
+.rphone .scr { height: 100%; border-radius: 48px; overflow: hidden; padding: 64px 22px 22px; display: grid; gap: 16px; align-content: start; font-family: Inter, sans-serif; position: relative; }
+.rphone .scr::before { content: ""; position: absolute; top: 16px; left: 50%; width: 120px; height: 34px; margin-left: -60px; border-radius: 20px; background: #0d0420; }
+.rphone.light .scr { background: #f6f7fc; color: #1a1033; }
+.rphone.dark .scr { background: #240852; color: #fff; }
+.rphone[dir="rtl"] .scr { font-family: "Noto Sans Arabic", sans-serif; }
+.rhd { display: flex; justify-content: space-between; align-items: center; font-size: 15px; }
+.rhd b { font-size: 22px; font-weight: 700; }
+.rc { border-radius: 26px; padding: 22px; display: grid; gap: 14px; }
+.light .rc { background: #fff; border: 1px solid #e4e2f3; } .dark .rc { background: #341a66; border: 1px solid #4a3484; }
+.rk { font-size: 13px; letter-spacing: .03em; opacity: .65; }
+.rroute { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; }
+.rroute b { display: block; font-size: 40px; font-weight: 700; letter-spacing: -.02em; line-height: 1; font-family: Inter, sans-serif; }
+.rroute small { font-size: 15px; opacity: .7; }
+.rroute .ln { height: 2px; background: repeating-linear-gradient(90deg, #6a67e1 0 7px, transparent 7px 12px); position: relative; }
+.rroute .ln::after { content: "✈"; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -56%); color: #6a67e1; font-size: 20px; padding: 0 6px; }
+.light .rroute .ln::after { background: #fff; } .dark .rroute .ln::after { background: #341a66; }
+[dir="rtl"] .rroute .ln::after { transform: translate(-50%, -56%) scaleX(-1); }
+.rseg { display: flex; padding: 5px; border-radius: 999px; gap: 2px; }
+.light .rseg { background: #ecebfb; } .dark .rseg { background: #4a3484; }
+.rseg span { flex: 1; text-align: center; font-size: 15px; padding: 9px 0; border-radius: 999px; }
+.light .rseg span.on { background: #240852; color: #fff; font-weight: 600; } .dark .rseg span.on { background: #dad8fc; color: #240852; font-weight: 600; }
+.rbadges { display: flex; gap: 8px; flex-wrap: wrap; }
+.rbadges span { font-size: 14px; padding: 6px 12px; border-radius: 999px; }
+.light .rbadges .f { background: #fde4e5; color: #c8232a; } .dark .rbadges .f { background: #5a2050; color: #ffb3b6; }
+.light .rbadges .s { background: #ecebfb; } .dark .rbadges .s { background: #4a3484; }
+.rbadges .s::before { content: "★ "; color: #ffcd36; }
+.rprice { display: flex; justify-content: space-between; align-items: end; }
+.rprice b { font-size: 34px; font-weight: 700; letter-spacing: -.02em; display: block; }
+.rbtn { height: 58px; border-radius: 999px; display: grid; place-items: center; font-size: 19px; font-weight: 600; }
+.light .rbtn { background: #240852; color: #fff; } .dark .rbtn { background: #dad8fc; color: #240852; }
+.rseats { display: flex; gap: 8px; justify-content: center; }
+.rseats i { width: 40px; height: 40px; border-radius: 10px 10px 5px 5px; border: 2px solid #6a67e1; display: grid; place-items: center; font-style: normal; font-size: 13px; font-family: Inter, sans-serif; }
+.rseats i.on { background: #6a67e1; color: #fff; } .rseats i.x { border-color: transparent; background: repeating-linear-gradient(45deg, transparent 0 4px, rgb(106 103 225 / .35) 4px 6px); }
+.rseats u { width: 14px; }
+.rctr { display: flex; justify-content: space-between; align-items: center; font-size: 17px; }
+.rctr span { display: flex; gap: 14px; align-items: center; font-size: 20px; font-weight: 600; }
+.rctr i { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #6a67e1; display: grid; place-items: center; font-style: normal; font-weight: 400; }
+#riyadh .p1 { left: 860px; top: 140px; }
+#riyadh .p2 { left: 1330px; top: 200px; }
+.watch { width: 250px; height: 300px; border-radius: 74px; padding: 16px; background: #0d0420; box-shadow: 0 30px 70px rgb(5 0 20 / .55); }
+.watch .scr { height: 100%; border-radius: 58px; background: #000; color: #fff; padding: 34px 26px; font-family: Inter, sans-serif; display: grid; align-content: center; gap: 6px; text-align: center; }
+.watch .g { font-size: 16px; color: #dad8fc; } .watch b { font-size: 46px; font-weight: 700; letter-spacing: -.02em; line-height: 1; } .watch .t { font-size: 18px; }
+.watch .pill { margin-top: 10px; height: 40px; border-radius: 999px; background: #6a67e1; display: grid; place-items: center; font-size: 16px; font-weight: 600; }
+#riyadh .watch { left: 1680px; top: 720px; }
+#riyadh .tagl { left: 860px; top: 1000px; font: 500 18px "JetBrains Mono", monospace; color: #dad8fc; opacity: .8; }
+
+/* ---------------- Riyadh Air design ops ---------------- */
+#ops { background: #dad8fc; color: #240852; }
+#ops .logo { left: 100px; top: 96px; height: 84px; filter: brightness(0) saturate(100%) invert(9%) sepia(62%) saturate(5000%) hue-rotate(258deg) brightness(70%); }
+#ops h1 { left: 96px; top: 270px; font-size: 120px; font-weight: 700; letter-spacing: -.05em; line-height: .92; width: 760px; }
+#ops .sub { left: 100px; top: 520px; font-size: 34px; line-height: 1.25; width: 640px; opacity: .85; }
+#ops .cos { left: 100px; bottom: 96px; display: flex; gap: 12px; }
+#ops .cos span { font-size: 24px; padding: 12px 22px; border-radius: 999px; background: #240852; color: #fff; }
+#ops .cos span + span { background: transparent; color: #240852; border: 1.5px solid #240852; }
+#ops .roles { left: 100px; top: 660px; display: flex; gap: 10px; }
+#ops .roles img { width: 112px; height: 112px; object-fit: contain; background: #fff; border-radius: 24px; padding: 10px; }
+.flow { left: 940px; top: 76px; width: 880px; border-radius: 36px; background: #fff; padding: 34px 38px; box-shadow: 0 30px 80px rgb(36 8 82 / .18); }
+.flow .hd { display: flex; justify-content: space-between; font: 500 17px "JetBrains Mono", monospace; color: #6c6789; margin-bottom: 18px; }
+.step { display: grid; grid-template-columns: 64px 1fr 92px; gap: 20px; align-items: center; padding: 12px 18px; border-radius: 20px; background: #f6f7fc; }
+.step .n { width: 56px; height: 56px; border-radius: 50%; background: #6a67e1; color: #fff; display: grid; place-items: center; font: 600 22px Inter, sans-serif; }
+.step b { font-size: 34px; font-weight: 600; letter-spacing: -.02em; display: block; line-height: 1.05; }
+.step small { font-size: 19px; color: #6c6789; }
+.step img { width: 84px; height: 84px; object-fit: contain; justify-self: end; }
+.step.last { background: #328936; color: #fff; } .step.last .n { background: #fff; color: #328936; } .step.last small { color: #d9f0da; }
+.gate { display: flex; align-items: center; gap: 14px; padding: 7px 0 7px 38px; font: 500 16px "JetBrains Mono", monospace; color: #6a67e1; }
+.gate i { width: 18px; height: 18px; background: #6a67e1; transform: rotate(45deg); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<!-- ======================= Cardinal Health ======================= -->
+<section class="scene" id="cardinal">
+  <svg class="abs arcs" viewBox="0 0 1300 1300" fill="none" aria-hidden="true">
+    <g stroke="#fff" stroke-opacity=".10" stroke-width="34"><circle cx="650" cy="650" r="620"/><circle cx="650" cy="650" r="520"/><circle cx="650" cy="650" r="420"/></g>
+  </svg>
+  <img class="abs logo" src="../../assets/work/ibm-cardinal-health/logo-white.png" alt="">
+  <h1 class="abs">Jarvis</h1>
+  <p class="abs sub">The design system behind Cardinal Health's Vantus HQ</p>
+  <div class="abs stats"><div><b>40+</b><span>components</span></div><div><b>110</b><span>colours</span></div><div><b>5×</b><span>tickets a year</span></div></div>
+  <div class="abs browser"><div class="bar"><i></i><i></i><i></i><span>Vantus HQ · Home</span></div><div class="view"><img src="../../assets/work/ibm-cardinal-health/screen-home.jpg" alt=""></div></div>
+  <div class="abs phone"><div class="view"><img src="../../assets/work/ibm-cardinal-health/mobile-pdp.jpg" alt=""></div></div>
+  <div class="abs jcard">
+    <p class="k">Jarvis · Buttons, badges, alerts</p>
+    <div class="row"><span class="jb p">Add to cart</span><span class="jb h">Hover</span><span class="jb x">Pressed</span><span class="jb s">Quick view</span></div>
+    <div class="row"><span class="jbd" style="background:#067f47">In stock</span><span class="jbd" style="background:#1274bf">Recommended</span><span class="jbd" style="background:#6f4977">Contract</span><span class="jbd" style="background:#fccc4d;color:#27251f">Delayed</span></div>
+    <p class="ja"><b>Success.</b> Order 162620413 was placed.</p>
+  </div>
+  <div class="abs tok"><i></i>color-action-primary-surface <span>→</span> red-500</div>
+</section>
+
+<!-- ======================= Riyadh Air ======================= -->
+<section class="scene" id="riyadh">
+  <svg class="canopy" viewBox="0 0 600 300" aria-hidden="true"><defs><linearGradient id="cg" x1="0" x2="1"><stop offset="0" stop-color="#FBD8D6"/><stop offset=".5" stop-color="#DAD8FC"/><stop offset="1" stop-color="#6A67E1"/></linearGradient></defs><g id="lines"></g></svg>
+  <img class="abs logo" src="../../assets/work/ibm-riyadh-air/logo-lockup.png" alt="">
+  <h1 class="abs">Design<br>system</h1>
+  <p class="abs sub">71 components, each in English and Arabic, light and dark</p>
+  <div class="abs chips"><span>Web</span><span>Mobile</span><span>Watch</span><span>EN · عربي</span></div>
+
+  <div class="abs rphone light p1" dir="ltr"><div class="scr">
+    <div class="rhd"><b>Your trip</b><span>1 of 3</span></div>
+    <div class="rc">
+      <p class="rk">Route headline</p>
+      <div class="rroute"><div><b>RUH</b><small>Riyadh</small></div><span class="ln"></span><div style="text-align:right"><b>LHR</b><small>London</small></div></div>
+      <div class="rseg"><span class="on">Economy</span><span>Premium</span><span>Business</span></div>
+      <div class="rbadges"><span class="f">Only 5 left</span><span class="s">5.0</span></div>
+      <div class="rprice"><div><small class="rk">From</small><b>SAR 2,445</b></div></div>
+      <div class="rbtn">Book now</div>
+    </div>
+    <div class="rc">
+      <div class="rctr">Guests<span><i>−</i>2<i>+</i></span></div>
+      <div class="rseats"><i class="on">A</i><i>B</i><i class="x"></i><u></u><i>D</i><i class="x"></i><i>F</i></div>
+    </div>
+  </div></div>
+
+  <div class="abs rphone dark p2" dir="rtl" lang="ar"><div class="scr">
+    <div class="rhd"><b>رحلتك</b><span>١ من ٣</span></div>
+    <div class="rc">
+      <p class="rk">عنوان المسار</p>
+      <div class="rroute"><div><b>RUH</b><small>الرياض</small></div><span class="ln"></span><div style="text-align:left"><b>LHR</b><small>لندن</small></div></div>
+      <div class="rseg"><span class="on">الاقتصادية</span><span>المميزة</span><span>الأعمال</span></div>
+      <div class="rbadges"><span class="f">تبقّى 5 فقط</span><span class="s">5.0</span></div>
+      <div class="rprice"><div><small class="rk">ابتداءً من</small><b>٢٬٤٤٥ ر.س.</b></div></div>
+      <div class="rbtn">احجز الآن</div>
+    </div>
+    <div class="rc">
+      <div class="rctr">الضيوف<span><i>−</i>٢<i>+</i></span></div>
+      <div class="rseats"><i class="on">A</i><i>B</i><i class="x"></i><u></u><i>D</i><i class="x"></i><i>F</i></div>
+    </div>
+  </div></div>
+
+  <div class="abs watch"><div class="scr"><span class="g">Gate B12</span><b>07:40</b><span class="t">RUH → LHR</span><span class="pill">Boarding pass</span></div></div>
+</section>
+
+<!-- ======================= Riyadh Air design ops ======================= -->
+<section class="scene" id="ops">
+  <img class="abs logo" src="../../assets/work/ibm-riyadh-air/logo-lockup.png" alt="">
+  <h1 class="abs">Who decides what ships?</h1>
+  <p class="abs sub">Six roles, one front door, four gates and a sprint rhythm</p>
+  <div class="abs roles"><img src="../../assets/work/ibm-riyadh-air-ops/role-dls-custodian.png" alt=""><img src="../../assets/work/ibm-riyadh-air-ops/role-dls-design-team.png" alt=""><img src="../../assets/work/ibm-riyadh-air-ops/role-design-director.png" alt=""><img src="../../assets/work/ibm-riyadh-air-ops/role-dx-director.png" alt=""><img src="../../assets/work/ibm-riyadh-air-ops/role-fe-team.png" alt=""><img src="../../assets/work/ibm-riyadh-air-ops/role-product-dev-team.png" alt=""></div>
+  <div class="abs cos"><span>IBM</span><span>Riyadh Air</span><span>Publicis Sapient</span></div>
+  <div class="abs flow">
+    <div class="hd"><span>Request → release</span><span>4 gates</span></div>
+    <div class="step"><span class="n">1</span><div><b>Propose</b><small>Does it already exist?</small></div><img src="../../assets/work/ibm-riyadh-air-ops/role-dls-custodian.png" alt=""></div>
+    <div class="gate"><i></i>Gate 1 · Definition of ready</div>
+    <div class="step"><span class="n">2</span><div><b>Design</b><small>Every state, EN and AR</small></div><img src="../../assets/work/ibm-riyadh-air-ops/role-dls-design-team.png" alt=""></div>
+    <div class="gate"><i></i>Gate 2 · Proposal criteria</div>
+    <div class="step"><span class="n">3</span><div><b>Code</b><small>Built and in Storybook</small></div><img src="../../assets/work/ibm-riyadh-air-ops/role-fe-team.png" alt=""></div>
+    <div class="gate"><i></i>Gate 3 · Dev handoff</div>
+    <div class="step"><span class="n">4</span><div><b>Doc</b><small>Usage, do and don't</small></div><img src="../../assets/work/ibm-riyadh-air-ops/role-design-director.png" alt=""></div>
+    <div class="gate"><i></i>Gate 4 · Component handoff</div>
+    <div class="step last"><span class="n">5</span><div><b>Release</b><small>Published and announced</small></div></div>
+  </div>
+</section>
+
+<script>
+// Canopy Twist line art, the same construction as the live one on the case study
+(function () {
+  var g = document.getElementById("lines"), N = 90, tw = 0.62;
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function quad(p0, p1, p2, t) { return [lerp(lerp(p0[0], p1[0], t), lerp(p1[0], p2[0], t), t), lerp(lerp(p0[1], p1[1], t), lerp(p1[1], p2[1], t), t)]; }
+  var apex = [lerp(150, 290, tw), lerp(20, 60, tw)], tail = [lerp(560, 520, tw), lerp(70, 40, tw)], ctrl = [lerp(260, 360, 1 - tw), lerp(160, 90, tw)], s = "";
+  for (var i = 0; i <= N; i++) {
+    var t = i / N, a = t < 0.42 ? [lerp(30, apex[0], t / 0.42), lerp(210, apex[1], t / 0.42)] : [lerp(apex[0], tail[0], (t - 0.42) / 0.58), lerp(apex[1], tail[1], (t - 0.42) / 0.58)], b = quad([30, 210], ctrl, [575, 280], t);
+    s += '<line x1="' + a[0].toFixed(1) + '" y1="' + a[1].toFixed(1) + '" x2="' + b[0].toFixed(1) + '" y2="' + b[1].toFixed(1) + '" stroke="url(#cg)" stroke-width=".8" opacity="' + (0.3 + 0.7 * Math.sin(Math.PI * t)).toFixed(2) + '"/>';
+  }
+  g.innerHTML = s;
+})();
+function show(id) { document.querySelectorAll(".scene").forEach(function (s) { s.classList.toggle("on", s.id === id); }); }
+show(location.hash.slice(1) || "cardinal");
+</script>
+</body>
+</html>
