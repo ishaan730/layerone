@@ -96,13 +96,48 @@ devices = f'''<div data-screens><div class="sc-screen-tabs" role="group" aria-la
   <p class="sc-scroll-hint">Pick a screen, then scroll inside the frames. Screens use sample data.</p></div>'''
 
 # ---------------------------------------------------------------- sections
+JIRA = ["Backlog", "Audit", "Design", "Design review", "Tech review", "Ready for dev", "In Storybook", "QA", "Owner check", "Released"]
+
 S = [
-    section("brief", "Brief", "<b>01</b> the brief:", "A new brand, many squads, nothing holding them together",
-            "Cardinal Health was retiring ordering tools from the 90s for one storefront, Vantus HQ. IBM built it.",
-            wrap(brief([("squads", "Every squad designed its own buttons, tables and forms", "One system every squad builds from"),
-                        ("broken", "Adobe XD libraries broke so often that updates were frozen", "A Figma library with colour variables"),
-                        ("drift", "What design approved didn't reach production", "Versioned Storybook, checked against Figma")]))),
-    section("work", "The work", "<b>02</b> the work, in twelve frames:", "Swipe through it", "From the colour ramps to the screens squads shipped. Select any frame to see it full size.",
+    section("client", "Client", "<b>01</b> the client:", "The company behind the pharmacy shelf",
+            "Cardinal Health distributes pharmaceuticals and medical products, and gives healthcare providers the data to run better. Its customers order through its platforms every day.",
+            wrap(facts([("~90%", "of U.S. hospitals"), ("60,000+", "U.S. pharmacies"), ("10,000+", "specialty offices and clinics"), ("23M+", "patients reached by its adherence tools")])
+                 + gap(48)
+                 + story(prose(
+                     "In 2022 Cardinal Health was in the middle of a rebrand, and retiring the ordering tools its customers had used since the 90s. IBM was brought in to build the replacement: <b>Vantus HQ</b>, one personalised storefront where pharmacies and hospitals order products, track shipments, manage contracts and see their rebates.",
+                     "The work was split across squads, each owning part of the product: home, catalogue, orders, insights. IBM's Columbus studio led strategy, research and the day-to-day partnership with the client. The design team in India, five to six designers, designed the product. Aniket owned the design system, with two designers beside him."),
+                     "The engagement", [("2022–23", "IBM for Cardinal Health"), ("Vantus HQ", "A storefront for pharmacies and hospitals"), ("Owner", "Aniket Pandey, design system")])
+                 + gap(32)
+                 + room([("Client", "Cardinal Health", "Product owners, brand, engineering squads and QA, all moving to the new brand."),
+                         ("IBM, U.S.", "Columbus studio", "Strategy, research and the day-to-day partnership with the client."),
+                         ("IBM, India", "Design team", "Five to six designers across squads, and the design system: one owner and two designers.")]))),
+    section("problem", "Problem", "<b>02</b> the problem:", "A new brand, with nothing to hold it together",
+            "The rebrand changed how Cardinal looked. It didn't change how its screens were made.",
+            wrap(story(prose(
+                "Each squad designed its own buttons, tables and forms, so the same element looked different from page to page, and screens from the 90s sat right beside new ones. A customer moving from the home page to their orders could feel the seams.",
+                "The tools made it worse. The Adobe XD libraries broke so often that updates were frozen to spare designers the rework. Changes made in Storybook didn't always reach production. Decimal font sizes and a custom grid had QA flagging work that was built exactly as specified, and the same bugs kept coming back.",
+                "> How might we give every squad one source of truth, in design and in code, that can grow without breaking what's already built?"),
+                "What was breaking", [("Many squads", "Each with its own UI"), ("Frozen", "XD libraries, to avoid rework"), ("Drift", "Approved design ≠ production")])
+                 + gap(32)
+                 + brief([("squads", "Every squad designed its own buttons, tables and forms", "One system every squad builds from"),
+                          ("broken", "Adobe XD libraries broke so often that updates were frozen", "A Figma library with colour variables"),
+                          ("drift", "What design approved didn't reach production", "Versioned Storybook, checked against Figma")])
+                 + gap(32) + '<p class="sc-sub">Four questions every request had to answer</p>'
+                 + tiles([("Is it versatile enough?", "Will it meet the needs of every squad, not just the one asking?"),
+                          ("Who uses this today?", "Which screens and squads would a change reach?"),
+                          ("Can it improve without breaking?", "Is there room to change it without undoing work already shipped?"),
+                          ("Is the benefit real?", "Does it help the team and the project, or is it just nice to have?")]))),
+    section("process", "Process", "<b>03</b> how it unfolded:", "From one problem to a team of seven",
+            "The system began with one complaint, inconsistent screens, and grew into a product with its own backlog and team.",
+            wrap(rail([("Audit", "What every squad had built, and where it broke"), ("Foundations", "Colour, type, spacing and icons"), ("Tokens", "Colours named for what they do"),
+                       ("Components", "40+, every state drawn"), ("Run it", "Intake, versions, changelog, training")])
+                 + gap(48)
+                 + timeline([("Early 2022", "A problem, then a first release", "The first months went into choosing tools, defining the first components and agreeing what the system would support.", "Team: shared"),
+                             ("Sep 2022", "A dedicated owner", "Aniket took Jarvis on full time, to manage and maintain it, with the wider design team helping where it could. About 120 tickets.", "Team: 1"),
+                             ("Nov 2022", "Squads adopt Jarvis", "Every squad now built from the library, and every new screen turned into requests: a variant, a fix, a question.", "Requests jump"),
+                             ("Jan 2023", "A central team of seven", "The system became a dedicated group, still welcoming help from squads as bandwidth allowed.", "Team: 7"),
+                             ("Oct 2023", "Close to 900 tickets", "Five times more work handled than a year before, most of it done.", "5× throughput")]))),
+    section("work", "The work", "<b>04</b> the work, in twelve frames:", "Swipe through it", "From the colour ramps to the screens squads shipped. Select any frame to see it full size.",
             carousel("The Jarvis work, in twelve frames", [
                 (C + "screen-home.jpg", "Pharmacy home", "Every part of the page comes from Jarvis.", {"cover": True}),
                 (C + "component-board.jpg", "The component library", "40+ components, each with every state.", {"bg": "#f3f3f1", "pad": "20px"}),
@@ -117,23 +152,25 @@ S = [
                 (C + "jira-chart.jpg", "~900 tickets", "Requests grew five times over in a year.", {"bg": "#fff"}),
                 (C + "sprint-board.jpg", "One board", "Shared with every squad, one sprint per column.", {"bg": "#fff", "pad": "18px"}),
             ])),
-    section("colour", "Colour", "<b>03</b> colour:", "One brand red became 110 colours", "Hover any swatch. Every value is the real one from the Jarvis library.",
-            wrap(explorer + '<div style="height:16px"></div>' + bento([
+    section("colour", "Colour", "<b>05</b> colour:", "One brand red became 110 colours",
+            "The rebrand handed over Cardinal Red and a few brand colours. Product UI needs far more: hover and pressed states, quiet backgrounds, status colours that work on white. Hover any swatch; every value is the real one.",
+            wrap(explorer + gap(16) + bento([
                 (C + "ramps.jpg", "The ramps in Figma, with a contrast check on every swatch", 8, 4, {"fit": "contain", "bg": "#fff", "pad": "16px"}),
                 (C + "anatomy-red.jpg", "The annotated red ramp", 4, 4, {"fit": "contain", "bg": "#fff", "pad": "12px"}),
             ])), mode="paper"),
-    section("type", "Type and space", "<b>04</b> type and space:", "A calm scale for dense ordering screens", "Roboto on a 1.125 scale, rounded to whole pixels so QA could match the build.",
+    section("type", "Type and space", "<b>06</b> type and space:", "A calm scale for dense ordering screens", "Roboto on a 1.125 scale from a 16px base, rounded to whole pixels so QA could match the build.",
             wrap(bento([
                 (C + "f-type.jpg", "Major Second type scale, 16px base", 7, 4, {"fit": "contain", "bg": "#fff", "pad": "14px"}),
                 ("html", '<div style="height:100%;display:grid;align-content:space-between;padding:20px;background:var(--f);color:#fff;border-radius:12px"><span class="small" style="opacity:.8">The fix QA asked for</span><div><p style="font-size:clamp(28px,3.4vw,48px);letter-spacing:-.04em;line-height:1"><s style="opacity:.55">51.96px</s><br>52px</p><p class="small" style="margin-top:10px;opacity:.85">A pure scale rendered blurry. Whole pixels ended the rework.</p></div></div>', 5, 4, {}),
                 (C + "f-spacing.jpg", "Spacing in steps of 4 and 8", 6, 3, {"fit": "contain", "bg": "#fff", "pad": "12px"}),
                 (C + "f-icons.jpg", "Icon sizes, 8 to 48px", 6, 3, {"fit": "contain", "bg": "#fff", "pad": "12px"}),
             ]))),
-    section("tokens", "Tokens", "<b>05</b> tokens:", "Colours named for what they do", "Squads use the semantic name. Change the mapping once and every component follows.",
-            wrap(chain + '<div style="height:16px"></div>' + bigfig(C + "colour-method.jpg", "The colour method: five layers, ten roles, and stackable states like --pressedFocused.", bg="#fff", pad="16px"))),
-    section("components", "Components", "<b>06</b> components, live:", "Try the real thing", "Rebuilt in code from the Jarvis specs. Hover and press Add to cart to see its tokens change.",
-            wrap(specimen + '<div style="height:28px"></div>' + inventory("46", "components across six families, from buttons to the global header", fams)), mode="stage"),
-    section("sheets", "Spec sheets", "<b>07</b> every state, drawn:", "One layout for every component page", "Variants in a grid, states across the top, sizes down the side.",
+    section("tokens", "Tokens", "<b>07</b> tokens:", "Colours named for what they do",
+            "Components used a mix of classes and hard-coded values; changing one badge meant editing every badge by hand. Now squads use a name that says what a colour is for, and the name points at a ramp step.",
+            wrap(chain + gap(16) + bigfig(C + "colour-method.jpg", "The colour method: five layers, ten roles, and stackable states like --pressedFocused.", bg="#fff", pad="16px"))),
+    section("components", "Components", "<b>08</b> components, live:", "Try the real thing", "Rebuilt in code from the Jarvis specs. Hover and press Add to cart to see its tokens change.",
+            wrap(specimen + gap(28) + inventory("46", "components across six families, from buttons to the global header", fams)), mode="stage"),
+    section("sheets", "Spec sheets", "<b>09</b> every state, drawn:", "One layout for every component page", "Variants in a grid, states across the top, sizes down the side, then links to Storybook and Zeplin.",
             wrap(bento([
                 (C + "c-buttons.jpg", "Buttons · 3 types, 5 states, 2 sizes", 4, 6, {"fit": "contain", "bg": "#fff", "pad": "10px"}),
                 (C + "c-header.jpg", "Global header", 8, 3, {"fit": "contain", "bg": "#fff", "pad": "10px"}),
@@ -145,26 +182,53 @@ S = [
                 (C + "c-toggles.jpg", "Toggle", 4, 3, {"fit": "contain", "bg": "#fff", "pad": "10px"}),
                 (C + "c-footer.jpg", "Footer", 4, 3, {"fit": "contain", "bg": "#27251f", "pad": "10px"}),
             ])), mode="paper"),
-    section("product", "In the product", "<b>08</b> in the product:", "Five squads, one storefront", "Home, catalogue, orders and insights were owned by different squads. It reads as one product.",
+    section("product", "In the product", "<b>10</b> in the product:", "Five squads, one storefront", "Home, catalogue, orders and insights were owned by different squads. Because they all built from Jarvis, Vantus HQ reads as one product.",
             wrap(devices)),
-    section("running", "Running it", "<b>09</b> running it:", "When adoption became the bottleneck", "Every new screen turned into requests. So the system was run like a product.",
+    section("bottleneck", "The bottleneck", "<b>11</b> the bottleneck:", "When adoption made the system the slowest step",
+            "Shipping Jarvis was the start. Every screen squads built turned into requests, and the system went from a side project to a product with customers.",
             wrap(nums([("~", "120", "", "tickets when Jarvis got a full-time owner, Sep 2022", "Before"), ("~", "900", "", "tickets by Oct 2023, most of them done", "After"),
                        ("", "5", "×", "more work handled in a single year", "Throughput"), ("1 → ", "7", "", "people on the system in four months", "Team")])
-                 + '<div style="height:16px"></div>' + bento([
+                 + gap(48)
+                 + story(prose(
+                     "### What went wrong first",
+                     "<b>Squads waited on us.</b> As a team of one, Aniket prioritised with what he knew at the time. More squads meant more work that couldn't move until the system did.",
+                     "<b>Maintenance mode.</b> Rushed fixes for urgent requests, broken XD libraries and too few people left design and technical debt, and little time for anything new.",
+                     "<b>Answers lived in one head.</b> Much of the day went into answering the same questions and chasing updates. The designers needed it written down.",
+                     "### What we put in place",
+                     "A defined workflow for design, development and QA, with a definition of done for every step. Clear rules for what goes into Jarvis, who decides and how squads contribute. Backlog refinement every sprint with the project manager and team lead, so work landed in the order squads needed it. One place for questions, so answers could be reused. And a design system site in Confluence, with playbacks and reviews built from designers' feedback.",
+                     "> A system is a product. It needs planning, a backlog and a roadmap, not just a library."),
+                     "In short", [("Sep 2022", "One owner, ~120 tickets"), ("Jan 2023", "A team of seven"), ("Oct 2023", "~900 tickets, most done")])
+                 + gap(16) + bento([
                      (C + "jira-chart.jpg", "Cumulative tickets in Jira, Feb 2022 to Oct 2023", 7, 4, {"fit": "contain", "bg": "#fff", "pad": "14px"}),
-                     (C + "sprint-board.jpg", "One board shared with every squad", 5, 4, {"fit": "contain", "bg": "#fff", "pad": "14px"}),
-                 ])
-                 + '<div style="height:32px"></div>' + rail([("Request", "A Jira ticket with the squad's need"), ("Audit", "Who uses it, what could break"), ("Design", "Every state and breakpoint"),
-                                                         ("Review", "Design and copy, then tech"), ("Build", "In Storybook, from annotations"), ("QA", "QA, then the owner's own check"), ("Release", "A version and a changelog")]))),
-    section("impact", "Impact", "<b>10</b> what changed:", "Consistent, faster, and in step with code", "",
+                     (C + "sprint-board.jpg", "One board shared with every squad, one sprint per column", 5, 4, {"fit": "contain", "bg": "#fff", "pad": "14px"}),
+                 ]))),
+    section("journey", "A request's journey", "<b>12</b> a request's journey:", "From a Jira ticket to a versioned release",
+            "Every change, big or small, took the same path. Here is what one looked like, with the statuses it moved through and the release note at the end.",
+            wrap(flowline(JIRA, 7) + gap(8)
+                 + '<div class="sc-pair2">'
+                 + ticket("JARVIS-412", "In QA", "Quantity stepper: add an error state", [
+                     ("Requested by", "Orders squad"), ("Need", "Customers can enter more than a contract allows; the field gives no warning"),
+                     ("Audit", "Used on product, cart and quick order: 3 squads, 11 screens"), ("Design", "Error border red-500, helper text, desktop and mobile"),
+                     ("Handoff", "Annotated in Figma, linked to Zeplin"), ("Build", "Storybook, next release")],
+                     "Illustrative. The fields follow the Jarvis workflow; the ticket itself is an example.")
+                 + "<div>" + changelog("Jarvis · Storybook release", "Changelog for developers", [
+                     ("Added", "Quantity stepper: error state with helper text"),
+                     ("Changed", "Type scale rounded to whole pixels (51.96px → 52px)"),
+                     ("Fixed", "Tabs: active underline uses red-500 on grey backgrounds"),
+                     ("Breaking", "Grid: custom grid replaced by the agreed 12-column grid")],
+                     "Illustrative entries in the format of the automated changelog. Every structural change got a new Storybook version, so dev and QA could match a build to its handoff date.")
+                 + gap(16) + prose("Months in, it turned out that structural changes in Storybook weren't reaching production, so QA kept flagging work. With engineering, every structural change got its own version. A changelog just for developers recorded every update, and was later automated.") + "</div></div>"
+                 + gap(32) + rail([("Request", "A Jira ticket with the squad's need"), ("Audit", "Who uses it, what could break"), ("Design", "Every state and breakpoint"),
+                                   ("Review", "Design and copy, then tech"), ("Build", "In Storybook, from annotations"), ("QA", "QA, then the owner's own check"), ("Release", "A version and a changelog")])), mode="paper"),
+    section("impact", "Impact", "<b>13</b> what changed:", "Consistent, faster, and in step with code", "",
             wrap(outcomes([("Consistency", "One look", "Home, catalogue, orders and insights from the same 40+ components."),
                            ("Throughput", "5× tickets", "Close to 900 by October 2023, planned with squads every sprint."),
                            ("Quality", "Design = code", "Storybook versions and a changelog cut the work QA flagged."),
                            ("Team", "1 → 7", "From one owner to a central team, with docs on Confluence.")])
-                 + '<div style="height:16px"></div>' + lessons(["A system is a product: it needs a backlog and a roadmap, not just a library.",
-                                                               "A component isn't done when Figma approves it. It's done when the build matches.",
-                                                               "People adopt what they help shape. Share the ownership."]))),
-    section("playbook", "For your team", "<b>11</b> for your team:", "The same playbook, as a studio engagement", "Each step of this case study maps to how we work with clients now.",
+                 + gap(16) + lessons(["A system is a product: it needs a backlog and a roadmap, not just a library.",
+                                      "A component isn't done when Figma approves it. It's done when the build matches.",
+                                      "People adopt what they help shape. Share the ownership."]))),
+    section("playbook", "For your team", "<b>14</b> for your team:", "The same playbook, as a studio engagement", "Each step of this case study maps to how we work with clients now.",
             wrap(playbook({"audit": "The four questions every Jarvis request had to answer, run across your library.",
                            "foundations": "Ramps with contrast built in, purpose-named tokens and your core components, like Jarvis.",
                            "partner": "Run it as a product: intake, versions, a changelog and planning with your squads."}))),
@@ -173,10 +237,10 @@ S = [
 page("ibm-cardinal-health", dict(
     h1="Jarvis: the design system behind a pharmacy storefront",
     lede="Built from scratch at IBM for Cardinal Health's Vantus HQ, then run as a product while requests grew five times over.",
-    tags=["Foundations", "Tokens", "40+ components", "Design operations"],
+    meta=[("Role", "Design system owner, IBM"), ("Client", "Cardinal Health"), ("Team", "IBM India and Columbus, with Cardinal's squads"), ("Timeline", "2022–23")],
     proof=[("", "40", "+", "components, every state drawn"), ("", "110", "", "colours in 11 ramps"), ("", "5", "×", "more tickets handled in a year"), ("1 → ", "7", "", "people on the system")],
     cover_alt="Jarvis for Cardinal Health: the pharmacy home page, a mobile product page and Jarvis components on Cardinal red",
     client_logo=C + "logo-white.png",
     sections=S,
-    credits="Led by Aniket Pandey as design system owner at IBM (2022–23), with two IBM India designers, the IBM Columbus studio, and Cardinal Health's product, engineering and QA teams. This is IBM client work done as an employee, not Layer One client work. Images belong to Cardinal Health and IBM and are shown for portfolio purposes; screens use sample data.",
+    credits="Led by Aniket Pandey as design system owner at IBM (2022–23), with two IBM India designers, the IBM Columbus studio, and Cardinal Health's product, engineering and QA teams. This is IBM client work done as an employee, not Layer One client work. Images belong to Cardinal Health and IBM and are shown for portfolio purposes; screens use sample data. Tickets and changelog entries marked illustrative are examples in the format the team used.",
 ))
