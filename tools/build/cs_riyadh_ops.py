@@ -1,102 +1,104 @@
-from cs import *
+from showcase import *
 
 O = "assets/work/ibm-riyadh-air-ops/"
 
-roles = '<div class="m-tiles m-tiles--3">' + "".join(
-    f'<div><p class="small muted">{area} · {name}</p><h3>“{q}”</h3><p>{d}</p></div>' for area, name, q, d in [
-        ("Design system", "DLS Custodian", "Do we need this, or does it exist?", "Owns the front door: triage, the backlog and the announcement when something ships."),
-        ("Design system", "DLS Design Team", "What should it be?", "Designs and updates components, with every state, both languages and both themes."),
-        ("Design", "Design Director", "Is it good enough?", "Holds the quality bar in design reviews and in the final review before release."),
-        ("Business", "Digital Experience Director", "Is it right for Riyadh Air?", "The business owner's approval. Nothing goes to development without it."),
-        ("Engineering", "Front-end Team", "Can we build it well?", "Joins technical review early, builds the component and publishes it to Storybook."),
-        ("Product", "Product Development Teams", "What do our users need?", "The squads. They raise requests, contribute components and use what ships.")]) + "</div>"
+roles = '<div class="sc-roles">' + "".join(
+    f'<article><img src="../{O}{img}" alt="" width="120" height="120" loading="lazy"><span class="r">{area}</span><h3>{name}</h3><q>{q}</q></article>'
+    for img, area, name, q in [
+        ("role-dls-custodian.png", "Design system", "DLS Custodian", "Do we need this, or does it exist?"),
+        ("role-dls-design-team.png", "Design system", "DLS Design Team", "What should it be?"),
+        ("role-design-director.png", "Design", "Design Director", "Is it good enough?"),
+        ("role-dx-director.png", "Business", "Digital Experience Director", "Is it right for Riyadh Air?"),
+        ("role-fe-team.png", "Engineering", "Front-end Team", "Can we build it well?"),
+        ("role-product-dev-team.png", "Product", "Product Development Teams", "What do our users need?")]) + "</div>"
 
-models = shift([("Solitary: one team builds for itself. Fine until the second product arrives.", "Hybrid: a small central team owns and curates the system."),
-                ("Centralised: one team builds for all. Consistent, and everyone waits in one queue.", "Every squad has a designer, an engineer and a product owner who feed it."),
-                ("Federated: everyone contributes. Fast, until nobody can say no.", "Squads propose and contribute through one front door.")],
-               "Before: the three classic models. After: the middle path most mature systems end up on.")
 
-flow = [("Propose", "DLS Custodian, with the squad", "Gate 1 · Definition of ready", "Is it needed, and where? A use case, where it's used, and a Figma playground link. Many requests end here, pointed to an existing component, often the same day.", "A ticket in the backlog, or a link to what exists"),
-        ("Design", "DLS Design Team", "Gate 2 · Proposal criteria", "Used in more than one place? Can't be solved by an existing component? New, or a variant? Then every state, English and Arabic, light and dark.", "A design reviewed by the Design Director"),
-        ("Code", "Front-end Team", "Gate 3 · Dev handoff criteria", "Every state, both languages, both themes, tokens only, annotated. The Digital Experience Director signs off before development starts.", "A component built in Storybook"),
-        ("Doc", "DLS Design Team and engineering", "Gate 4 · Component handoff", "QA passed, Figma and Storybook match, usage and do's and don'ts written.", "A documented, matching component"),
-        ("Release", "DLS Custodian", "Every release", "Published to the library and Storybook, and announced to every stakeholder by mail.", "Changes announced, not discovered")]
+def _model(nodes, edges, hub=None):
+    """A tiny node diagram. nodes = [(x, y)], edges = [(i, j)]"""
+    e = "".join(f'<line x1="{nodes[a][0]}" y1="{nodes[a][1]}" x2="{nodes[b][0]}" y2="{nodes[b][1]}" stroke="currentColor" stroke-opacity=".45" stroke-width="1.5"/>' for a, b in edges)
+    n = "".join(f'<circle cx="{x}" cy="{y}" r="{11 if i == hub else 7}" fill="{"currentColor" if i == hub else "none"}" stroke="currentColor" stroke-width="1.5"/>' for i, (x, y) in enumerate(nodes))
+    return f'<svg viewBox="0 0 160 100" aria-hidden="true">{e}{n}</svg>'
 
-intake = '<ol class="m-tiles m-tiles--3" style="list-style:none;padding:0">' + "".join(
-    f'<li><div><h3><span class="muted">{i + 1:02d}</span> {t}</h3></div></li>' for i, t in enumerate(
-        ["New component", "Change an existing one", "Contribution from a squad", "Changelog from Figma", "Design to dev handoff",
-         "Audit an existing component", "Documentation", "Library publish", "File distribution", "Approval checklist"])) + "</ol>"
 
-contribute = [("Identify", "Anyone who hits the problem", "Any day", "Copy the Figma playground file: a checklist, a space for the use case and a space for research.", "A playground file"),
-              ("Submit", "The person who raised it", "Any day", "Raise a ticket or post in the design system channel, answering five questions: new or existing, where it's used, the use case, why it's needed, and a playground link.", "A ticket like DS-214: “Seat selector: add a blocked state”"),
-              ("Proposal review", "Open forum, any discipline", "Each sprint", "Anyone can join. The checklist decides: will it be used more than once, is it a new problem, and is it a new component or a variant?", "Accept, or point to what exists"),
-              ("Define requirements", "Design Owner and at least one developer", "Before the sprint", "A consolidation review to agree variants, states and props.", "A backlog ticket, ready to plan")]
+ring = [(80, 20), (128, 42), (118, 84), (42, 84), (32, 42)]
+models = f'''<div class="sc-models">
+  <figure>{_model([(80, 50)], [], hub=0)}<b>Solitary</b><p>One team builds for itself. Fine until the second product.</p></figure>
+  <figure>{_model([(80, 50)] + ring, [(0, i) for i in range(1, 6)], hub=0)}<b>Centralised</b><p>One team builds for all. Consistent, and everyone queues.</p></figure>
+  <figure>{_model(ring, [(i, j) for i in range(5) for j in range(i + 1, 5)])}<b>Federated</b><p>Everyone contributes. Fast, until nobody can say no.</p></figure>
+  <figure class="is-ours">{_model([(80, 50)] + ring, [(0, i) for i in range(1, 6)] + [(1, 2), (3, 4), (2, 3)], hub=0)}<b>Hybrid: ours</b><p>A central team curates. Squads contribute through one front door.</p></figure>
+</div>'''
 
-rituals = tiles([("Definition and prioritisation", "Start of sprint. Agree states, behaviour and priority before anyone opens Figma."),
-                 ("Component design reviews", "Mid-sprint critique from designers and stakeholders."),
-                 ("Engineering handoffs", "Walk through the details, answer questions, agree requirements."),
-                 ("Engineering QA", "Asynchronous. Designers and engineers review the build together."),
-                 ("Design approvals", "End of sprint. Does it meet the definition of done?"),
-                 ("Demos and release", "Package the release, demo it, and update every stakeholder.")], cols=3)
+gates = '<div class="sc-gates">' + "".join(
+    f'<div><span class="g">Gate {i + 1}</span><h3>{t}</h3><ul>{"".join(f"<li>{x}</li>" for x in items)}</ul></div>' for i, (t, items) in enumerate([
+        ("Definition of ready", ["A use case", "Where it's used", "A Figma playground link"]),
+        ("Proposal criteria", ["Used in more than one place", "No existing component solves it", "New, or a variant?"]),
+        ("Dev handoff", ["Every state", "EN and AR, light and dark", "Tokens only, annotated"]),
+        ("Component handoff", ["QA passed", "Figma matches Storybook", "Documented, ready to announce"])])) + "</div>"
 
-spec = dict(
+ticket = '''<div class="sc-ticket"><header><code>DS-214</code><span>In review</span></header><h3>Seat selector: add a “blocked” state</h3>
+  <dl><div><dt>New or existing?</dt><dd>Existing · G06/B05</dd></div><div><dt>Where will it be used?</dt><dd>Booking, check-in, manage trip</dd></div>
+  <div><dt>Use case</dt><dd>Seats held for crew or exit rows</dd></div><div><dt>Why do we need it?</dt><dd>Today squads grey it out by hand</dd></div>
+  <div><dt>Playground</dt><dd>Figma file linked</dd></div></dl><p class="small" style="color:#6c6789">An illustrative ticket, following the five questions every submission answered.</p></div>'''
+
+playbook_cases = ["New component", "Change an existing one", "Contribution from a squad", "Changelog from Figma", "Design to dev handoff",
+                  "Audit a component", "Documentation", "Library publish", "File distribution", "Approval checklist"]
+door = ('<ol class="sc-cases">' + "".join(f"<li><b>{i + 1:02d}</b><span>{t}</span></li>" for i, t in enumerate(playbook_cases)) + "</ol>"
+        + '<div style="height:20px"></div>'
+        + brief([("door", "Requests arrived in chats, reviews and corridors", "One ticket in Azure DevOps, triaged by the DLS Custodian"),
+                 ("copy", "Three squads built three date pickers", "“Does it exist?” first. Many requests ended with a link, the same day")]))
+
+R1 = [("Contribution", "Proposals welcome", 1, 11, "var(--f)", "var(--ft)"), ("Definition", "Prioritise", 1, 3, "#6a67e1", "#fff"),
+      ("Design reviews", "Critique", 4, 7, "#6a67e1", "#fff"), ("Eng handoffs", "Walk-through", 5, 8, "#6a67e1", "#fff"),
+      ("Eng QA", "Build reviewed together", 6, 10, "#9c9fff", "#0b0d12"), ("Approvals", "Done?", 9, 10, "#fbd8d6", "#0b0d12"),
+      ("Demo, release", "Announce", 10, 11, "#fbd8d6", "#0b0d12")]
+sprint = ('<div class="sc-sprint" data-inview><div class="sc-sprint-h"><span>Two-week sprint</span>' + "".join(f"<span>D{d}</span>" for d in range(1, 11)) + "</div>"
+          + "".join(f'<div class="sc-sprint-r"><span>{n}</span><i style="--a:{a + 1};--b:{b + 1};--c:{c};--ct:{ct};--d:{k}">{t}</i></div>' for k, (n, t, a, b, c, ct) in enumerate(R1))
+          + '</div><p class="sc-note">An illustrative sprint. The routines are the ones the teams ran; their exact days moved with each calendar.</p>')
+
+S = [
+    section("brief", "Brief", "<b>01</b> the brief:", "Everyone could change it. Nobody owned it.",
+            "IBM, Riyadh Air's design team and Publicis Sapient shared one library, with requirements changing weekly.",
+            wrap(nums([("", "3", "", "companies on one design system", "Who"), ("", "6", "", "named roles, each with one decision", "Roles"),
+                       ("", "4", "", "quality gates from request to release", "Gates"), ("", "10", "", "playbook cases, so nobody guessed", "Playbook")])
+                 + '<div style="height:16px"></div>'
+                 + brief([("copy", "Snowflakes: three squads, three date pickers", "One front door that checks the library first"),
+                          ("drift", "Figma said one thing, Storybook another", "Four gates, the last one: Figma matches code"),
+                          ("owner", "Disagreements settled by whoever spoke last", "One named owner for every decision")]))),
+    section("roles", "Roles", "<b>02</b> roles:", "Six roles, six clear calls", "Not job titles: the one question each role answers. Once the names were on a page, half the arguments stopped.",
+            wrap(roles), mode="stage"),
+    section("model", "Operating model", "<b>03</b> operating model:", "Central owners, federated contributors", "The middle path most mature systems end up on.",
+            wrap(models)),
+    section("door", "Front door", "<b>04</b> one front door:", "Ten kinds of work, one way in", "The cheapest component is the one you don't have to build.",
+            wrap(door)),
+    section("flow", "The flow", "<b>05</b> request to release:", "A gate with an owner at every handoff", "Fail a gate and the work goes back one step, not back to the start.",
+            wrap(rail([("Propose", "Is it needed, and where?"), ("Design", "Every state, EN and AR"), ("Code", "Built and in Storybook"), ("Doc", "Usage, do and don't"), ("Release", "Published and announced")])
+                 + '<div style="height:24px"></div>' + gates + '<div style="height:16px"></div>'
+                 + bigfig(O + "flow-component.jpg", "The working lifecycle diagram, shared with all three companies.", bg="#fff", pad="16px")), mode="paper"),
+    section("reviews", "Squad reviews", "<b>06</b> squad reviews:", "Four pairs of eyes before a developer", "Peer, design lead, Riyadh Air, then a walk-through with engineering. Every “no” came back with comments.",
+            wrap(bigfig(O + "flow-design.jpg", "The squad design flow from a user story to done. Green is yes, red sends the work back.", bg="#fff", pad="16px"))),
+    section("contribute", "Contribution", "<b>07</b> contribution:", "Anyone could challenge the library", "A designer, a developer, even a copywriter. The person who hit the problem started the change.",
+            wrap('<div class="sc-split">' + ticket + "<div>" + rail([("Identify", "Copy the Figma playground file"), ("Submit", "A ticket with five answers"),
+                                                                 ("Review", "An open forum; the checklist decides"), ("Define", "Variants, states and props, with a developer")]).replace("sc-rail", "sc-rail sc-rail--v")
+                 + "</div></div>"), mode="stage"),
+    section("rituals", "Rituals", "<b>08</b> rituals:", "A heartbeat every sprint", "People knew when to bring a proposal, when it would be decided, and when they'd see it ship.",
+            wrap(sprint)),
+    section("impact", "Impact", "<b>09</b> what changed:", "Fast and consistent, at the same time", "",
+            wrap(outcomes([("Clarity", "One owner", "Every decision had a named person to settle it."), ("Speed", "No queue", "Squads contributed through one front door."),
+                           ("Quality", "Figma = code", "Checked at four gates before release."), ("Adoption", "3 companies", "One rhythm, held from zero to launch.")])
+                 + '<div style="height:16px"></div>' + lessons(["Write down who decides before you write down how.", "Put criteria on every gate. A review without a checklist is an opinion.",
+                                                               "Let anyone contribute, but curate centrally."]))),
+    section("playbook", "For your team", "<b>10</b> for your team:", "The same operating model, set up for you", "Each part of this case study maps to how we work with clients now.",
+            wrap(playbook({"audit": "Map who decides what today, where requests come from, and where design and code drift.",
+                           "foundations": "Set up the front door, the gates and the roles alongside your core system.",
+                           "partner": "Run the rituals with your teams until they run themselves."}))),
+]
+
+page("ibm-riyadh-air-ops", dict(
     h1="Three companies, one design system: who decides what ships?",
-    lede="A design system is easy to start and hard to run. At Riyadh Air, IBM, Riyadh Air's own design team and Publicis Sapient were building one airline's apps at the same time, with product owners and analysts changing requirements every week. This is the operating model behind the system: who owns what, how a request gets in, how it gets checked, and the routines that kept dozens of people moving in one direction.",
-    meta=[("Role", "Design system designer, IBM"), ("Client", "Riyadh Air"), ("Partners", "Riyadh Air design, Publicis Sapient"), ("Focus", "Governance, contribution, rituals")],
-    cover=(O + "cover.jpg", "Riyadh Air design operations: the squad design flow, the six roles and the five-step delivery process"),
-    tldr=[("The problem", "Three companies and many squads could all change one library, and nobody owned it: duplicate components, Figma drifting from code, and decisions made by whoever spoke last."),
-          ("What we did", "An operating model, not a rulebook: named roles, one front door, a contribution model, four quality gates and a rhythm of rituals."),
-          ("What changed", "Squads contributed instead of waiting, and what was approved in Figma was what shipped in code.")],
-    kpis=[("3", "", "", "companies designing and building on one system"), ("6", "", "", "named roles, each with one decision to make"),
-          ("4", "", "", "quality gates between a request and a release"), ("10", "", "", "playbook cases, so nobody had to guess")],
-    chapters=[
-        ("context", "Context", "Picture the room",
-         "Riyadh Air was building an airline from zero, so everything was new at once: the brand, the apps, the teams. Three companies shared one design system, and none of them had worked together before.",
-         tiles([("Riyadh Air", "The airline's own design team, the Digital Experience Director and the business owners who signed off."),
-                ("IBM", "Product squads, the design system team, and the front-end engineers who built it in code."),
-                ("Publicis Sapient", "Designers building their own product areas on the same library, and contributing back to it.")], cols=3)
-         + '<p class="small muted">Product owners and business analysts on every squad brought new requirements, redesigns and quick iterations every week.</p>'),
-        ("problem", "Problem", "The same six problems every growing system hits",
-         "None of these were unique. What made Riyadh Air different was that all six showed up in the first few months, because the system and the product were being born together.",
-         tiles([("Snowflakes", "Three squads built three date pickers, because nobody knew the other two existed."),
-                ("Drift", "Figma said one thing and Storybook another, and QA couldn't tell which was right."),
-                ("Bottleneck", "Every change waited on the central team, so squads detached components to keep moving."),
-                ("No owner", "When two companies disagreed about a component, there was no one whose call it was."),
-                ("Moving target", "A component approved on Monday could be redesigned by Friday."),
-                ("Silent changes", "Library updates landed without notice and broke screens already signed off.")], cols=3)
-         + more("The design question: how might three companies move fast on one design system, without it falling apart every time the product changes?",
-                "The belief behind the answer: a solid design system begins with people and sound processes. Treat it as a product, give every decision an owner, and make everyone a contributor.")),
-        ("roles", "Roles", "Six roles, six clear calls",
-         "The first step was writing down who decides what. Not job titles, but the one question each role answers. Once the names were on a page, half the arguments stopped.",
-         roles),
-        ("model", "Operating model", "Central owners, federated contributors",
-         "There are three classic ways to run a system. We took the middle path: a small central team owns the system, and every squad has a designer, an engineer and a product owner who feed it, each with a counterpart in the system team.",
-         models),
-        ("intake", "Front door", "Ten kinds of work, one way in",
-         "Requests used to arrive in chats, in reviews and in corridors. The system got one front door, a ticket in Azure DevOps, and a playbook for the ten kinds of work that came through it.",
-         intake
-         + lead("The first question at the door: is a component required? The DLS Custodian checks the library first. Many requests ended at “no”, with a link to Figma and Storybook. The cheapest component is the one you don't have to build.")),
-        ("flow", "The flow", "From request to release, with a gate at every handoff",
-         "Every component went through the same five steps, with a gate between them that had a named owner and a written list of criteria. Fail a gate and the work goes back one step, not back to the start. Step through it.",
-         stepper("Component lifecycle", flow)
-         + fig(O + "flow-component.jpg", "The working lifecycle diagram shared with all three companies: who is in each step, and which tool it happens in.")),
-        ("squads", "Squad reviews", "Four reviews before a screen reaches a developer",
-         "The same thinking applied to product screens. Each screen passed four reviews, each by a different pair of eyes: a peer, the design lead, Riyadh Air's design team, then a walkthrough with engineers. Every “no” went back with comments, so feedback was a loop, not a wall.",
-         fig(O + "flow-design.jpg", "The squad design flow from a user story to done. Green is yes, red sends the work back, and the icons show where each step happens.")),
-        ("contribute", "Contribution", "Anyone can be the one to make things change",
-         "The library was the status quo, and anyone was allowed to challenge it: a designer, a developer, even a copywriter. The person who hit the problem started the contribution.",
-         stepper("Contribution model", contribute)),
-        ("rituals", "Rituals", "Routines that kept everyone in step",
-         "Process on paper only works if it has a heartbeat. These ran every sprint, so people knew when to bring a proposal, when a decision would be made, and when they'd see what had shipped. Contributions were welcome any day.",
-         rituals
-         + more("Tools, one per job and the same for all three companies: Azure DevOps for requests and the backlog, Figma for the library and playground files, Storybook as the source for developers, Teams, Slack and Webex for reviews, and mail for release announcements.")),
-        ("learnings", "Learnings", "If you're setting up design ops tomorrow", "Write down who decides before you write down how.",
-         tiles([("Write down who decides first", "Most process arguments are really ownership arguments."),
-                ("Build one front door, and make “no” fast", "Pointing someone to an existing component in a day beats building a new one in a sprint."),
-                ("Put criteria on every gate", "A review without a checklist is an opinion. A review with one is a decision."),
-                ("Let anyone contribute, curate centrally", "Federation gives you speed; ownership keeps it coherent.")])),
-    ],
-    gallery=[(O + "flow-component.jpg", "The component lifecycle"), (O + "flow-design.jpg", "The squad design flow"), (O + "cover.jpg", "The operating model at a glance")],
-    credits="Aniket Pandey worked on this as a design system designer at IBM, with IBM design and engineering, Riyadh Air's design team and business owners, and Publicis Sapient. This is IBM client work done as an employee, not Layer One client work. Diagrams belong to Riyadh Air and IBM and are shown for portfolio purposes.",
-)
-page("riyadh-ops", spec)
+    lede="The operating model behind the Riyadh Air system: roles, one front door, four gates and a sprint rhythm.",
+    tags=["Governance", "Contribution", "Rituals", "Design operations"],
+    proof=[("", "3", "", "companies, one system"), ("", "6", "", "named roles"), ("", "4", "", "quality gates"), ("", "10", "", "playbook cases")],
+    cover_alt="Riyadh Air design operations: the five-step flow with its gates and the six roles, on lavender",
+    sections=S,
+    credits="Aniket Pandey worked on this as a design system designer at IBM (2023–24), with IBM design and engineering, Riyadh Air's design team and business owners, and Publicis Sapient. This is IBM client work done as an employee, not Layer One client work. Diagrams belong to Riyadh Air and IBM and are shown for portfolio purposes.",
+))

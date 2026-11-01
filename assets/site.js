@@ -384,5 +384,200 @@
     window.addEventListener("scroll", onScroll, { passive: true }); onScroll();
   }
 
+  /* =================== Showcase case study (v4) =================== */
+  function hexLum2(h) { var c = [1, 3, 5].map(function (i) { var v = parseInt(h.substr(i, 2), 16) / 255; return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }); return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2]; }
+  function cr(a, b) { var x = hexLum2(a), y = hexLum2(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); }
+  function segPress(group, btn) { $$("button", group).forEach(function (b) { b.setAttribute("aria-pressed", b === btn ? "true" : "false"); }); }
+
+  /* Carousel: scroll-snap track, buttons, counter, progress, mouse drag, arrow keys */
+  $$("[data-carousel]").forEach(function (car) {
+    var track = $(".sc-car-track", car), slides = $$(".sc-slide", track);
+    var prev = $("[data-prev]", car), next = $("[data-next]", car), cur = $("[data-cur]", car), bar = $(".sc-car-bar i", car), idx = 0;
+    function centreOf(s) { return s.offsetLeft + s.offsetWidth / 2 - track.clientWidth / 2; }
+    function go(i) { i = Math.max(0, Math.min(slides.length - 1, i)); track.scrollTo({ left: centreOf(slides[i]), behavior: reduce ? "auto" : "smooth" }); }
+    function upd() {
+      var mid = track.scrollLeft + track.clientWidth / 2, best = 0, bd = 1e9;
+      slides.forEach(function (s, i) { var d = Math.abs(s.offsetLeft + s.offsetWidth / 2 - mid); if (d < bd) { bd = d; best = i; } });
+      idx = best;
+      cur.textContent = String(idx + 1).padStart(2, "0");
+      bar.style.width = ((idx + 1) / slides.length * 100) + "%";
+      prev.disabled = idx === 0; next.disabled = idx === slides.length - 1;
+      slides.forEach(function (s, i) { s.setAttribute("aria-hidden", i === idx ? "false" : "true"); });
+    }
+    prev.addEventListener("click", function () { go(idx - 1); });
+    next.addEventListener("click", function () { go(idx + 1); });
+    track.addEventListener("keydown", function (e) { if (e.key === "ArrowRight") { e.preventDefault(); go(idx + 1); } if (e.key === "ArrowLeft") { e.preventDefault(); go(idx - 1); } });
+    var t; track.addEventListener("scroll", function () { cancelAnimationFrame(t); t = requestAnimationFrame(upd); }, { passive: true });
+    // Mouse drag (touch uses native scrolling)
+    var down = false, sx = 0, sl = 0, moved = 0;
+    track.addEventListener("pointerdown", function (e) { if (e.pointerType !== "mouse") return; down = true; moved = 0; sx = e.clientX; sl = track.scrollLeft; });
+    window.addEventListener("pointermove", function (e) { if (!down) return; var dx = e.clientX - sx; moved = Math.max(moved, Math.abs(dx)); if (moved > 4) { track.classList.add("is-drag"); track.scrollLeft = sl - dx; } });
+    window.addEventListener("pointerup", function () { if (!down) return; down = false; if (track.classList.contains("is-drag")) { track.classList.remove("is-drag"); upd(); go(idx); } });
+    track.addEventListener("click", function (e) { if (moved > 4) { e.stopPropagation(); e.preventDefault(); moved = 0; } }, true);
+    upd();
+  });
+
+  /* Colour explorer: every ramp step, with live contrast */
+  $$("[data-rampgrid]").forEach(function (box) {
+    var btns = $$(".sc-ramp-row button", box), rd = $(".sc-ramp-read", box);
+    function pick(b) {
+      btns.forEach(function (o) { o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
+      var h = b.getAttribute("data-hex"), w = cr(h, "#ffffff"), k = cr(h, "#27251f");
+      rd.style.setProperty("--c", h);
+      var sw = $(".sw", rd); sw.style.color = w >= k ? "#fff" : "#27251f";
+      $("[data-n]", rd).textContent = b.getAttribute("data-name"); $("[data-h]", rd).textContent = h.toUpperCase();
+      function badge(r) { var p = r >= 4.5 ? "AA" : r >= 3 ? "AA large" : "Fails"; return r.toFixed(2) + ':1<span class="pass' + (r >= 3 ? "" : " no") + '">' + p + "</span>"; }
+      $("[data-w]", rd).innerHTML = badge(w); $("[data-k]", rd).innerHTML = badge(k);
+      $("[data-u]", rd).textContent = b.getAttribute("data-use") || "";
+    }
+    btns.forEach(function (b) { b.addEventListener("click", function () { pick(b); }); b.addEventListener("mouseenter", function () { pick(b); }); });
+    var d = $('[data-default]', box) || btns[0]; pick(d);
+  });
+
+  /* Jarvis: live specimen behaviour and token read-out */
+  $$("[data-jv]").forEach(function (jv) {
+    var out = $("[data-tokout]", jv);
+    var map = { rest: ["color-action-primary-surface", "red-500", "#e41f35"], hover: ["color-action-primary-surface--hover", "red-700", "#b22233"], pressed: ["color-action-primary-surface--pressed", "red-900", "#6d151f"] };
+    function show(s) { var m = map[s]; out.innerHTML = '<span>Add to cart</span> → <b>' + m[0] + '</b> → <span><i style="--c:' + m[2] + '"></i>' + m[1] + "</span>"; }
+    var main = $("[data-tokbtn]", jv);
+    if (main && out) {
+      main.addEventListener("pointerenter", function () { show("hover"); }); main.addEventListener("pointerleave", function () { show("rest"); });
+      main.addEventListener("pointerdown", function () { show("pressed"); }); main.addEventListener("pointerup", function () { show("hover"); });
+      main.addEventListener("focus", function () { if (main.matches(":focus-visible")) show("hover"); }); main.addEventListener("blur", function () { show("rest"); });
+      show("rest");
+    }
+    $$(".jq", jv).forEach(function (q) { var o = $("output", q), n = 1; $$("button", q).forEach(function (b) { b.addEventListener("click", function () { n = Math.max(0, Math.min(99, n + (+b.getAttribute("data-d")))); o.textContent = n; }); }); });
+    $$(".jt", jv).forEach(function (t) { t.addEventListener("click", function () { t.setAttribute("aria-checked", t.getAttribute("aria-checked") === "true" ? "false" : "true"); }); });
+    $$(".jtabs", jv).forEach(function (g) { $$("button", g).forEach(function (b) { b.addEventListener("click", function () { $$("button", g).forEach(function (x) { x.setAttribute("aria-selected", x === b ? "true" : "false"); }); }); }); });
+    $$(".jpg", jv).forEach(function (p) { var s = $("span", p), n = 1; $$("button", p).forEach(function (b) { b.addEventListener("click", function () { n = Math.max(1, Math.min(5, n + (+b.getAttribute("data-d")))); s.textContent = n + " of 5"; }); }); });
+  });
+
+  /* Riyadh Air: live specimen with theme and language */
+  var RX = {
+    en: { ruh: "Riyadh", lhr: "London", meta: "Non-stop · 6h 50m · Boeing 787-9", eco: "Economy", prem: "Premium", bus: "Business", from: "From", book: "Book now", booked: "Booked", left: "Only 5 left", liked: "345 people liked this", dist: "2km · 45 min", guests: "Guests", seat: "Choose a seat in row 10", seatP: "Seat 10{s} selected", rex: "Seat 10A has extra legroom and a window, two rows from the exit.", rexK: "REX · AI assist", loc: "en-GB" },
+    ar: { ruh: "الرياض", lhr: "لندن", meta: "رحلة مباشرة · 6 س 50 د · بوينغ 787-9", eco: "الاقتصادية", prem: "المميزة", bus: "الأعمال", from: "ابتداءً من", book: "احجز الآن", booked: "تم الحجز", left: "تبقّى 5 فقط", liked: "أعجب 345 شخصًا بهذا", dist: "2 كم · 45 د", guests: "الضيوف", seat: "اختر مقعدًا في الصف 10", seatP: "تم اختيار المقعد 10{s}", rex: "المقعد 10A فيه مساحة إضافية للساقين ونافذة، على بعد صفين من المخرج.", rexK: "ريكس · مساعد ذكي", loc: "ar-SA" }
+  };
+  $$("[data-rx]").forEach(function (rx) {
+    var st = { lang: "en", cabin: "eco", n: 1, seat: "A", booked: false };
+    var fares = { eco: 2445, prem: 4890, bus: 9780 };
+    function render() {
+      var L = RX[st.lang];
+      rx.dir = st.lang === "ar" ? "rtl" : "ltr"; rx.lang = st.lang;
+      $$("[data-t]", rx).forEach(function (el) { el.textContent = L[el.getAttribute("data-t")]; });
+      var amt; try { amt = new Intl.NumberFormat(L.loc, { style: "currency", currency: "SAR", maximumFractionDigits: 0 }).format(fares[st.cabin] * st.n); } catch (e) { amt = "SAR " + fares[st.cabin] * st.n; }
+      $("[data-price]", rx).textContent = amt;
+      $("[data-n]", rx).textContent = st.n.toLocaleString(L.loc);
+      $("[data-dec]", rx).disabled = st.n <= 1; $("[data-inc]", rx).disabled = st.n >= 9;
+      $("[data-seatout]", rx).textContent = st.seat ? L.seatP.replace("{s}", st.seat) : L.seat;
+      var bk = $("[data-book]", rx); bk.classList.toggle("is-done", st.booked); $("span", bk).textContent = st.booked ? L.booked : L.book;
+    }
+    var host = rx.closest(".sc-sec") || document;
+    $$("[data-rx-theme] button", host).forEach(function (b) { b.addEventListener("click", function () { segPress(b.parentNode, b); rx.setAttribute("data-theme", b.getAttribute("data-v")); }); });
+    $$("[data-rx-lang] button", host).forEach(function (b) { b.addEventListener("click", function () { segPress(b.parentNode, b); st.lang = b.getAttribute("data-v"); render(); }); });
+    $$("[data-cabin] button", rx).forEach(function (b) { b.addEventListener("click", function () { segPress(b.parentNode, b); st.cabin = b.getAttribute("data-v"); st.booked = false; render(); }); });
+    $("[data-dec]", rx).addEventListener("click", function () { st.n--; st.booked = false; render(); });
+    $("[data-inc]", rx).addEventListener("click", function () { st.n++; st.booked = false; render(); });
+    $$(".rx-seats button", rx).forEach(function (b) { b.addEventListener("click", function () { segPress(b.parentNode, b); st.seat = b.getAttribute("data-s"); render(); }); });
+    $("[data-book]", rx).addEventListener("click", function () { st.booked = !st.booked; render(); });
+    render();
+  });
+
+  /* Breakpoints: draw the real grid of each */
+  var BPS = [
+    { n: "Smart watch", w: 184, h: 224, cols: 2, m: 16, g: 16, mode: "Stretch", dw: "150px", dr: "40px" },
+    { n: "Mobile", w: 393, h: 852, cols: 4, m: 16, g: 16, mode: "Stretch", dw: "160px", dr: "24px" },
+    { n: "Tablet portrait", w: 834, h: 1194, cols: 8, m: 32, g: 16, mode: "Stretch", dw: "240px", dr: "18px" },
+    { n: "Tablet landscape", w: 1194, h: 834, cols: 12, m: 40, g: 24, mode: "Stretch", dw: "460px", dr: "18px" },
+    { n: "Desktop", w: 1440, h: 900, cols: 12, m: 56, g: 24, mode: "Stretch", dw: "540px", dr: "10px" },
+    { n: "Desktop large", w: 1920, h: 1080, cols: 12, col: 88, g: 24, mode: "Centred", dw: "600px", dr: "10px" }
+  ];
+  $$("[data-bp]").forEach(function (box) {
+    var list = $(".sc-bp-list", box), dev = $(".sc-bp-dev", box), cols = $(".sc-bp-cols", box), spec = $(".sc-bp-spec", box);
+    list.innerHTML = BPS.map(function (b, i) { return '<button type="button" role="tab" aria-selected="false"><span>0' + (i + 1) + "</span><b>" + b.n + "</b><em>" + b.w + "px</em></button>"; }).join("");
+    var btns = $$("button", list);
+    function pick(i) {
+      var b = BPS[i]; btns.forEach(function (x, j) { x.setAttribute("aria-selected", j === i ? "true" : "false"); });
+      dev.style.setProperty("--ar", b.w + " / " + b.h); dev.style.setProperty("--dw", b.dw); dev.style.setProperty("--dr", b.dr);
+      var content = b.col ? b.cols * b.col + (b.cols - 1) * b.g : b.w - 2 * b.m;
+      cols.style.setProperty("--side", ((b.w - content) / 2 / b.w * 100) + "%");
+      cols.style.setProperty("--gap", (b.g / b.w * 100) + "cqw"); cols.style.setProperty("--n", b.cols);
+      cols.innerHTML = new Array(b.cols + 1).join("<i></i>");
+      spec.innerHTML = [["Width", b.w + "px"], ["Columns", b.cols], [b.col ? "Column" : "Margin", (b.col || b.m) + "px"], ["Gutter", b.g + "px"], ["Layout", b.mode]].map(function (r) { return "<div><dt>" + r[0] + "</dt><dd>" + r[1] + "</dd></div>"; }).join("");
+    }
+    btns.forEach(function (x, i) { x.addEventListener("click", function () { pick(i); }); });
+    pick(1);
+  });
+
+  /* Four scripts, one scale */
+  var SCRIPTS = {
+    en: { dir: "ltr", h: "Welcome aboard", l: "A brand-new chapter in the sky", b: "Riyadh to London, non-stop. Choose your seat and add extra baggage.", s: "SF Pro Display · SF Pro Text" },
+    ar: { dir: "rtl", h: "مرحبًا بكم على متن الطائرة", l: "فصل جديد تمامًا في السماء", b: "من الرياض إلى لندن، رحلة مباشرة. اختر مقعدك وأضف أمتعة إضافية.", s: "SF Arabic" },
+    ja: { dir: "ltr", h: "ご搭乗ありがとうございます", l: "空の新たな章", b: "リヤドからロンドンへ直行便。座席を選んで手荷物を追加できます。", s: "Third language · Japanese" },
+    th: { dir: "ltr", h: "ยินดีต้อนรับบนเครื่อง", l: "บทใหม่บนท้องฟ้า", b: "ริยาดสู่ลอนดอน บินตรง เลือกที่นั่งและเพิ่มสัมภาระ", s: "Third language · Thai" }
+  };
+  $$("[data-scripts]").forEach(function (box) {
+    var sp = $(".sc-type", box);
+    function set(k) { var d = SCRIPTS[k]; sp.dir = d.dir; sp.lang = k; ["h", "l", "b", "s"].forEach(function (f) { $("[data-f=" + f + "]", sp).textContent = d[f]; }); }
+    $$(".sc-seg button", box).forEach(function (b) { b.addEventListener("click", function () { segPress(b.parentNode, b); set(b.getAttribute("data-v")); }); });
+    set("en");
+  });
+
+  /* Stress test: language × currency */
+  var SX = {
+    en: { loc: "en-GB", dir: "ltr", h: "Riyadh to London", sub: "Non-stop · 6h 50m · 2 guests", pk: "Total", cta: "Continue to payment", why: "The baseline every layout is drawn in." },
+    ar: { loc: "ar-SA", dir: "rtl", h: "الرياض إلى لندن", sub: "رحلة مباشرة · 6 س 50 د · ضيفان", pk: "الإجمالي", cta: "المتابعة إلى الدفع", why: "Right to left: icons, arrows and alignment flip." },
+    de: { loc: "de-DE", dir: "ltr", h: "Riad nach London", sub: "Nonstop · 6 Std. 50 Min. · 2 Fluggäste", pk: "Gesamtbetrag", cta: "Weiter zur Zahlungsabwicklung", why: "Long compound words test every button width." },
+    ja: { loc: "ja-JP", dir: "ltr", h: "リヤドからロンドンへ", sub: "直行便 · 6時間50分 · 2名", pk: "合計", cta: "お支払いへ進む", why: "A third script, with no spaces between words." }
+  };
+  var CUR = { SAR: 4890, INR: 109450.5, IDR: 21245000, JPY: 195600, KWD: 401.375 };
+  var CURWHY = { SAR: "", INR: "Rupees group digits differently in some locales.", IDR: "Rupiah runs to eight digits.", JPY: "Yen has no decimals at all.", KWD: "Dinars use three decimals." };
+  $$("[data-stress]").forEach(function (box) {
+    var st = { l: "en", c: "SAR" }, card = $(".sx-card", box), why = $(".why", box);
+    function render() {
+      var L = SX[st.l]; card.dir = L.dir; card.lang = st.l;
+      $(".h", card).textContent = L.h; $(".sub", card).textContent = L.sub; $(".pk", card).textContent = L.pk; $(".cta", card).textContent = L.cta;
+      var a; try { a = new Intl.NumberFormat(L.loc, { style: "currency", currency: st.c }).format(CUR[st.c]); } catch (e) { a = st.c + " " + CUR[st.c]; }
+      $(".amt", card).textContent = a; why.textContent = [L.why, CURWHY[st.c]].filter(Boolean).join(" ");
+      card.classList.remove("is-swap"); void card.offsetWidth; card.classList.add("is-swap");
+    }
+    $$("[data-sl] button", box).forEach(function (b) { b.addEventListener("click", function () { segPress(b.parentNode, b); st.l = b.getAttribute("data-v"); render(); }); });
+    $$("[data-sc] button", box).forEach(function (b) { b.addEventListener("click", function () { segPress(b.parentNode, b); st.c = b.getAttribute("data-v"); render(); }); });
+    render();
+  });
+
+  /* Canopy Twist, drawn live: move across it to twist */
+  $$("[data-canopy]").forEach(function (box) {
+    var svg = $("svg", box), N = 72, NS = "http://www.w3.org/2000/svg", lines = [], twist = 0.5, target = 0.5, raf = 0;
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    function quad(p0, p1, p2, t) { return [lerp(lerp(p0[0], p1[0], t), lerp(p1[0], p2[0], t), t), lerp(lerp(p0[1], p1[1], t), lerp(p1[1], p2[1], t), t)]; }
+    for (var i = 0; i <= N; i++) { var l = document.createElementNS(NS, "line"); l.setAttribute("stroke", "url(#cnG)"); l.setAttribute("stroke-width", "1"); svg.appendChild(l); lines.push(l); }
+    function draw() {
+      var apex = [lerp(150, 290, twist), lerp(20, 60, twist)], tail = [lerp(560, 520, twist), lerp(70, 40, twist)], ctrl = [lerp(260, 360, 1 - twist), lerp(160, 90, twist)];
+      lines.forEach(function (l, i) {
+        var t = i / N, a = t < 0.42 ? [lerp(30, apex[0], t / 0.42), lerp(210, apex[1], t / 0.42)] : [lerp(apex[0], tail[0], (t - 0.42) / 0.58), lerp(apex[1], tail[1], (t - 0.42) / 0.58)], b = quad([30, 210], ctrl, [575, 280], t);
+        l.setAttribute("x1", a[0].toFixed(1)); l.setAttribute("y1", a[1].toFixed(1)); l.setAttribute("x2", b[0].toFixed(1)); l.setAttribute("y2", b[1].toFixed(1));
+        l.setAttribute("opacity", (0.3 + 0.7 * Math.sin(Math.PI * t)).toFixed(2));
+      });
+    }
+    function tick() { twist += (target - twist) * 0.12; draw(); raf = Math.abs(target - twist) > 0.002 ? requestAnimationFrame(tick) : 0; }
+    function go() { if (!raf) raf = requestAnimationFrame(tick); }
+    box.addEventListener("pointermove", function (e) { var r = box.getBoundingClientRect(); target = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)); go(); });
+    box.addEventListener("pointerleave", function () { target = 0.5; go(); });
+    draw();
+    if (!reduce && io) {
+      var on = false, t0 = 0, touching = false;
+      function breathe(ts) { if (!on || touching) return; if (!t0) t0 = ts; if (!raf) { twist = 0.5 + 0.2 * Math.sin((ts - t0) / 1400); target = twist; draw(); } requestAnimationFrame(breathe); }
+      new IntersectionObserver(function (es) { on = es[0].isIntersecting; if (on) requestAnimationFrame(breathe); }).observe(box);
+      box.addEventListener("pointerenter", function () { touching = true; });
+      box.addEventListener("pointerleave", function () { setTimeout(function () { touching = false; t0 = 0; if (on) requestAnimationFrame(breathe); }, 600); });
+    }
+  });
+
+  /* Screen tabs (browser and phone frames) */
+  $$("[data-screens]").forEach(function (box) {
+    var tabs = $$(".sc-screen-tabs button", box), img = $(".sc-browser .sc-view img", box), view = $(".sc-browser .sc-view", box);
+    tabs.forEach(function (b) { b.addEventListener("click", function () { tabs.forEach(function (x) { x.setAttribute("aria-selected", x === b ? "true" : "false"); }); img.src = b.getAttribute("data-src"); img.alt = b.getAttribute("data-alt"); img.setAttribute("data-cap", b.getAttribute("data-alt")); view.scrollTop = 0; }); });
+  });
+
   $$("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
 })();

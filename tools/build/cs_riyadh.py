@@ -1,102 +1,161 @@
-from cs import *
+from showcase import *
 
 R = "assets/work/ibm-riyadh-air/"
 
-pilot = [("Propose", "IBM design team", "Before the system", "A shared system to speed up delivery across a large estate, pitched as a small experiment rather than a slide.", "A pilot agreed"),
-         ("Pilot", "One IBM project team", "A few sprints", "One project team builds real screens with an early library.", "Real work, built on the library"),
-         ("Measure", "IBM design and the other teams", "End of the pilot", "Is it faster? Is it consistent? Do the teams want it?", "A clear efficiency gain, and teams asking for it"),
-         ("Scale", "IBM with Publicis Sapient", "2023–24", "A full design system for Riyadh Air's web and mobile apps.", "71 components every team builds from")]
+# ---------------------------------------------------------------- live specimen (light/dark × EN/AR)
+specimen = '''<div class="sc-ctls">''' + seg("data-rx-theme", [("light", "Light"), ("dark", "Dark")], "Theme") + seg("data-rx-lang", [("en", "English"), ("ar", "العربية")], "Language") + '''<span>Every component shipped in all four versions.</span></div>
+<div class="rx" data-rx data-theme="light">
+  <div class="rx-grid">
+    <div class="rx-card">
+      <p class="rx-k">Route headline · Segmented button</p>
+      <div class="rx-route"><div><b>RUH</b><small data-t="ruh">Riyadh</small></div><span class="ln" aria-hidden="true"></span><div style="text-align:end"><b>LHR</b><small data-t="lhr">London</small></div></div>
+      <p class="rx-meta" data-t="meta"></p>
+      <div class="rx-seg" data-cabin role="group" aria-label="Cabin"><button type="button" data-v="eco" aria-pressed="true" data-t="eco"></button><button type="button" data-v="prem" aria-pressed="false" data-t="prem"></button><button type="button" data-v="bus" aria-pressed="false" data-t="bus"></button></div>
+      <div class="rx-badges"><span class="rx-b fomo" data-t="left"></span><span class="rx-b star">5.0</span><span class="rx-b" data-t="liked"></span></div>
+      <div class="rx-row"><div><p class="rx-meta" data-t="from"></p><p class="rx-price" data-price></p></div><button type="button" class="rx-btn" data-book><span></span></button></div>
+    </div>
+    <div class="rx-card">
+      <p class="rx-k">Counter · Seat selector · REX</p>
+      <div class="rx-row"><span data-t="guests"></span><div class="rx-ctr"><button type="button" data-dec aria-label="Fewer guests">−</button><output data-n>1</output><button type="button" data-inc aria-label="More guests">+</button></div></div>
+      <div class="rx-seats" role="group" aria-label="Row 10"><button type="button" data-s="A" aria-pressed="true">A</button><button type="button" data-s="B" aria-pressed="false">B</button><button type="button" data-s="C" disabled aria-label="C, taken">C</button><span></span><button type="button" data-s="D" aria-pressed="false">D</button><button type="button" data-s="E" disabled aria-label="E, taken">E</button><button type="button" data-s="F" aria-pressed="false">F</button></div>
+      <p class="rx-meta" data-seatout aria-live="polite"></p>
+      <div class="rx-rex"><span class="sp" aria-hidden="true">✦</span><div><p class="rx-k" data-t="rexK"></p><p data-t="rex"></p></div></div>
+      <div class="rx-badges"><span class="rx-b" data-t="dist"></span></div>
+    </div>
+  </div>
+</div>
+<p class="sc-note">Rebuilt in HTML from the library sheets, with its colours, shapes and states. Fares are illustrative.</p>'''
 
-foundations = [("Colour", R + "f-colour.jpg", "Colour", "Indigo for the dark theme and mist for the light carry every screen. Violet does the work of actions and badges, lavender and peach stay for brand moments, and a small set of status colours works in both themes."),
-               ("Type", R + "f-type.jpg", "Typography: two scripts, one scale", "SF Pro Display and SF Pro Text, paired with SF Arabic at every level. Each style was drawn twice, with Arabic at its own size and a taller line height. Japanese and Thai were set as third languages for routes to come."),
-               ("Space", R + "f-space.jpg", "Increments: thirteen steps of space", "1, 2, 4, 6 and 8 for the inside of a component, then 12 up to 64 between them. Designers stopped nudging by eye, and developers mapped the list straight to spacing tokens."),
-               ("Effects", R + "f-effects.jpg", "Effects: depth, used sparingly", "Four shadows, each with a job, and two background blurs so glass surfaces can sit over the Canopy Twist and photography."),
-               ("Icons", R + "f-icons.jpg", "Iconography: one set, everywhere", "Linked to Material Symbols rather than drawn from scratch. Seats, baggage, a smoke-free cabin and a boarding pass were already there."),
-               ("Grids", R + "f-grid.jpg", "Grids: six breakpoints, wrist to wide screen", "From a 184px smartwatch with two columns to a centred 1920px desktop with twelve. A boarding pass on a watch shaped every larger layout.")]
+fams = [("Badges", ["Avatar", "Main badge", "Round badge", "Rating badge", "FOMO social badge", "Location badge"]),
+        ("Branding", ["Brand logo", "Canopy Twist uniform", "Canopy Twist dynamic"]),
+        ("Buttons", ["Main button", "Segmented button", "Loader button", "Modal button set", "Menu item button", "Zoom button", "Counter", "Double button", "REX button", "Sticky button", "Swipe button"]),
+        ("Chat", ["Speech bubble", "Message input bar", "Live voice input"]),
+        ("Editorial", ["Accordion", "Tooltip", "Table line", "Bullet point list", "Price", "Route headline"]),
+        ("Controls", ["Slider", "Level controller", "Player controller", "Chip", "Seat selector", "Rating stars", "Toggle"]),
+        ("Forms", ["Checkbox", "Date selector", "Phone number field", "Radio button", "Security input code", "Price range indicator", "Text area", "Text field", "Destination search", "Prefilled selectors"]),
+        ("Lists", ["List item", "Avatar list item", "List", "Dropdown"]),
+        ("Loaders", ["Progress bar", "Loader circle", "Loader dots"]),
+        ("Nudges", ["Live update", "Nudge message", "Live message bar", "General message"]),
+        ("Navigation", ["Breadcrumbs", "Top bar", "Tab item", "Banner carousel", "Tab selector"]),
+        ("Tiles", ["Main tile", "Image and text tile", "Progress tile", "Action tile"]),
+        ("Structural", ["Progress segment", "Progress indicator", "Divider", "Carousel dots", "QR code"])]
+fams = [(f"G{i + 1:02d} · {n}", c) for i, (n, c) in enumerate(fams)]
 
-sheets = [("REX", R + "btn-rex.jpg", "REX button · G03/B09", "The AI assist button, opening a tooltip card with seat, amenities and price, in English and Arabic, light and indigo."),
-          ("Counter", R + "btn-counter.jpg", "Counter · G03/B07", "Add, confirm, increase, decrease and delete, in two sizes, mirrored for right to left."),
-          ("Swipe", R + "btn-swipe.jpg", "Swipe button · G03/B11", "Idle, confirmed and loading, in English and Arabic."),
-          ("Avatar", R + "avatar.jpg", "Avatar · G01/B01", "Initials, photo, placeholder and aircraft avatars in five sizes, with four statuses."),
-          ("Loader", R + "btn-loader.jpg", "Loader button · G03/B03", "Circular buttons that fill as they load, then confirm."),
-          ("Badges", R + "badge-fomo.jpg", "FOMO badge · G01/B05", "Social proof for selling: people who liked it, seats left, time left at this price.")]
+palette = '''<div class="sc-pal">
+  <div style="--c:#240852"><span>Dark theme surface</span><div><b>Indigo</b><br><code>#240852</code></div></div>
+  <div style="--c:#6a67e1"><span>Actions, badges</span><div><b>Violet</b><br><code>#6A67E1</code></div></div>
+  <div style="--c:#dad8fc;--t:#240852"><span>Brand moments</span><div><b>Lavender</b><br><code>#DAD8FC</code></div></div>
+  <div style="--c:#fbd8d6;--t:#240852"><span>Brand moments</span><div><b>Sunset peach</b><br><code>#FBD8D6</code></div></div>
+  <div style="--c:#f6f7fc;--t:#240852"><span>Light theme surface</span><div><b>Mist</b><br><code>#F6F7FC</code></div></div>
+</div>
+<div class="sc-pal-status"><div style="--c:#328936"><i></i>Success</div><div style="--c:#ffcd36"><i></i>Warning</div><div style="--c:#f63b42"><i></i>Error</div><div style="--c:#9c9fff"><i></i>Highlight</div><div style="--c:#9747ff"><i></i>Social proof</div></div>'''
 
-spec = dict(
+canopy = '''<div class="sc-canopy" data-canopy><svg viewBox="0 0 600 300" role="img" aria-label="The Canopy Twist line art, redrawn live"><defs><linearGradient id="cnG" x1="0" x2="1"><stop offset="0" stop-color="#FBD8D6"/><stop offset=".5" stop-color="#DAD8FC"/><stop offset="1" stop-color="#6A67E1"/></linearGradient></defs></svg><span>Canopy Twist · G02/B03 · move across it to twist</span></div>'''
+
+bp = '''<div class="sc-bp" data-bp><div class="sc-bp-list" role="tablist" aria-label="Breakpoints"></div>
+  <div><div class="sc-bp-stage"><div class="sc-bp-dev"><div class="sc-bp-cols"></div></div></div><dl class="sc-bp-spec"></dl></div></div>'''
+
+scripts = '''<div data-scripts><div class="sc-ctls">''' + seg("", [("en", "English"), ("ar", "العربية"), ("ja", "日本語"), ("th", "ไทย")], "Script") + '''</div>
+  <div class="sc-type"><div class="row"><span>XX Large</span><p class="xxl" data-f="h"></p></div><div class="row"><span>Large</span><p class="l" data-f="l"></p></div>
+  <div class="row"><span>Body</span><p class="b" data-f="b"></p></div><div class="row"><span>Family</span><p class="s" data-f="s"></p></div></div></div>'''
+
+stress = '''<div class="sc-stress" data-stress>
+  <div class="sc-stress-ctl">
+    <div><p class="small" style="opacity:.7;margin-bottom:8px">Language</p>''' + seg("data-sl", [("en", "English"), ("ar", "العربية"), ("de", "Deutsch"), ("ja", "日本語")], "Language") + '''</div>
+    <div><p class="small" style="opacity:.7;margin-bottom:8px">Currency</p>''' + seg("data-sc", [("SAR", "SAR"), ("INR", "INR"), ("IDR", "IDR"), ("JPY", "JPY"), ("KWD", "KWD")], "Currency") + '''</div>
+    <p class="why" aria-live="polite"></p>
+  </div>
+  <div class="sx-card"><p class="h"></p><p class="sub"></p><div class="tot"><span class="pk"></span><span class="amt"></span></div><div class="cta"></div></div>
+</div>'''
+
+S = [
+    section("brief", "Brief", "<b>01</b> the brief:", "An airline with no apps, no legacy and one launch date",
+            "Riyadh Air is Saudi Arabia's new national carrier. IBM was its lead digital partner.",
+            wrap(nums([("", "8", "+", "web and mobile apps, designed at once", "Scale"), ("", "2", "", "scripts, reading in opposite directions", "Language"),
+                       ("", "6", "", "breakpoints, from a watch to a wide desktop", "Devices"), ("", "1", "", "launch date that couldn't move", "Deadline")])
+                 + '<div style="height:16px"></div>'
+                 + brief([("squads", "Every app team designing its own interface", "One library every team builds from"),
+                          ("script", "Arabic as a translation pass at the end", "Every component drawn in English and Arabic"),
+                          ("plane", "A lavender brand made for liveries and billboards", "A brand that can carry a seat map and an error")]))),
+    section("work", "The work", "<b>02</b> the work, in twelve frames:", "Swipe through it", "Foundations, components and brand, as the library shows them. Select any frame to see it full size.",
+            carousel("The Riyadh Air design system, in twelve frames", [
+                (R + "f-colour.jpg", "Colour", "From a lavender brand to product UI.", {"bg": "#f6f7fc"}),
+                (R + "btn-rex.jpg", "REX button", "The AI assist, in English and Arabic, light and dark.", {"bg": "#240852"}),
+                (R + "f-type.jpg", "Typography", "Two scripts, one scale.", {"bg": "#f6f7fc"}),
+                (R + "btn-counter.jpg", "Counter", "Mirrored for right to left.", {"bg": "#240852"}),
+                (R + "f-grid.jpg", "Grids", "Six breakpoints, from wrist to wide screen.", {"bg": "#f6f7fc"}),
+                (R + "avatar.jpg", "Avatar", "Five sizes, four statuses, aircraft included.", {"bg": "#240852"}),
+                (R + "f-icons.jpg", "Iconography", "Material Symbols, used everywhere.", {"bg": "#f6f7fc"}),
+                (R + "btn-swipe.jpg", "Swipe button", "Idle, confirmed and loading.", {"bg": "#240852"}),
+                (R + "f-space.jpg", "Increments", "Thirteen steps of space, 1 to 64px.", {"bg": "#f6f7fc"}),
+                (R + "logo.jpg", "Brand logo", "English-first and Arabic-first lockups.", {"bg": "#240852"}),
+                (R + "f-effects.jpg", "Effects", "Four shadows and two blurs, each with a job.", {"bg": "#f6f7fc"}),
+                (R + "canopy-dynamic.jpg", "Canopy Twist", "The brand's line art, as a component.", {"bg": "#240852"}),
+            ])),
+    section("pilot", "Pilot", "<b>03</b> the pilot:", "Prove it on one project, then scale", "Rather than pitch a system on a slide, the team ran a small one on real work and let the results make the case.",
+            wrap(rail([("Propose", "A shared system to speed up delivery"), ("Pilot", "One IBM team builds with an early library"),
+                       ("Measure", "Faster? Consistent? Do teams want it?"), ("Scale", "The full system, with Publicis Sapient")])
+                 + '<div style="height:24px"></div>' + outcomes([("Result", "Faster", "A clear efficiency gain on real work."), ("Result", "Wanted", "Teams outside the pilot asked for it."),
+                                                               ("Result", "Approved", "The go-ahead to build the full system."), ("Partner", "Publicis Sapient", "Shaped and reviewed the library with IBM.")])), mode="stage"),
+    section("brand", "Brand to UI", "<b>04</b> brand to UI:", "A lavender brand, made usable", "Indigo and mist carry every screen. Violet does the work. Lavender and peach stay for brand moments.",
+            wrap(palette + '<div style="height:16px"></div>' + canopy + '<div style="height:16px"></div>' + bento([
+                (R + "canopy-uniform.jpg", "Canopy Twist uniform pattern", 6, 3, {"fit": "contain", "bg": "#240852"}),
+                (R + "logo.jpg", "Logo lockups, chosen by page language", 6, 3, {"fit": "contain", "bg": "#240852"}),
+            ])), mode="stage"),
+    section("foundations", "Foundations", "<b>05</b> foundations:", "Styles that travel through all 71 components", "Pick a breakpoint, switch the script. The grids and the type are drawn from the library's own values.",
+            wrap(bp + '<div style="height:24px"></div>' + scripts + '<div style="height:16px"></div>' + bento([
+                (R + "f-space.jpg", "Increments: 1 to 64px", 6, 3, {"fit": "contain", "bg": "#f6f7fc"}),
+                (R + "f-effects.jpg", "Effects: depth, used sparingly", 6, 3, {"fit": "contain", "bg": "#f6f7fc"}),
+                (R + "f-icons.jpg", "Iconography: Material Symbols", 6, 3, {"fit": "contain", "bg": "#f6f7fc"}),
+                (R + "f-grid.jpg", "Grids: six breakpoints", 6, 3, {"fit": "contain", "bg": "#f6f7fc"}),
+                (R + "src-type.jpg", "Library: Typography page", 3, 4, {"bg": "#fff"}),
+                (R + "src-increments.jpg", "Library: Increments page", 3, 4, {"bg": "#fff"}),
+                (R + "src-effects.jpg", "Library: Effects page", 3, 4, {"bg": "#fff"}),
+                (R + "src-grids.jpg", "Library: Grids page", 3, 4, {"bg": "#fff"}),
+            ])), mode="paper"),
+    section("components", "Components", "<b>06</b> components, live:", "Switch the theme. Switch the language.", "Everything flips: direction, arrows, numbers and currency formatting.",
+            wrap(specimen)),
+    section("library", "Library", "<b>07</b> the library:", "71 components in 13 numbered families", "Read the families and you can read the product: an assistant, selling nudges, and the trip itself.",
+            wrap(inventory("71", "components, each in English and Arabic, light and dark", fams) + '<div style="height:20px"></div>' + bento([
+                (R + "btn-rex.jpg", "REX button · G03/B09", 5, 5, {"fit": "contain", "bg": "#240852"}),
+                (R + "btn-counter.jpg", "Counter · G03/B07", 7, 3, {"fit": "contain", "bg": "#240852"}),
+                (R + "badge-fomo.jpg", "FOMO badge · G01/B05", 7, 2, {"fit": "contain", "bg": "#240852"}),
+                (R + "btn-loader.jpg", "Loader button · G03/B03", 4, 3, {"fit": "contain", "bg": "#240852"}),
+                (R + "btn-modal.jpg", "Modal button set · G03/B04", 4, 3, {"fit": "contain", "bg": "#240852"}),
+                (R + "avatar.jpg", "Avatar · G01/B01", 4, 3, {"fit": "contain", "bg": "#240852"}),
+                (R + "btn-zoom.jpg", "Zoom · G03/B06", 4, 2, {"fit": "contain", "bg": "#240852"}),
+                (R + "badge-location.jpg", "Location badge · G01/B06", 4, 2, {"fit": "contain", "bg": "#240852"}),
+                (R + "badge-rating.jpg", "Rating badge · G01/B04", 4, 2, {"fit": "contain", "bg": "#240852"}),
+                (R + "btn-menu.jpg", "Menu item · G03/B05", 4, 3, {"fit": "contain", "bg": "#240852"}),
+                (R + "btn-double.jpg", "Double button · G03/B08", 4, 3, {"fit": "contain", "bg": "#240852"}),
+                (R + "badge-round.jpg", "Round badge · G01/B03", 4, 3, {"fit": "contain", "bg": "#240852"}),
+            ])), mode="stage"),
+    section("done", "Definition of done", "<b>08</b> definition of done:", "Tested in four languages before it shipped", "Arabic for direction, German for long words, Japanese for a third script, and currencies with very long numbers.",
+            wrap(stress + '<div style="height:24px"></div>' + rail([("Build", "Fewest frames; every text on a style, every colour on a variable"),
+                                                                   ("Structure", "Named to convention, every useful variant, placed and described"),
+                                                                   ("Test", "EN and AR, light and dark, long words, long numbers, in a real layout")]))),
+    section("impact", "Impact", "<b>09</b> what changed:", "From Figma to code to launch", "",
+            wrap(outcomes([("Speed", "Proven first", "A pilot showed a clear efficiency gain before the full build."),
+                           ("Consistency", "One airline", "71 components and six breakpoints, used by every team."),
+                           ("Reach", "EN + AR", "Every component in both directions, light and dark."),
+                           ("Adoption", "Shipped", "Built in code by IBM engineering. The apps launched with the airline in October 2025.")])
+                 + '<div style="height:16px"></div>' + lessons(["Prove it small. A pilot on real work persuades faster than any deck.",
+                                                               "Design the second language first. Arabic and German break what English never will.",
+                                                               "Start at the smallest screen. A 184px watch made every larger layout simpler."])
+                 + '<p class="sc-note">How three companies ran this system together is its own case study: <a href="ibm-riyadh-air-ops.html">who decides what ships</a>.</p>')),
+    section("playbook", "For your team", "<b>10</b> for your team:", "The same playbook, as a studio engagement", "Each step of this case study maps to how we work with clients now.",
+            wrap(playbook({"audit": "The pilot: one team, real work, and a clear answer on whether a system will pay off.",
+                           "foundations": "Styles, a naming grammar and core components, tested in your languages and themes.",
+                           "partner": "Grow the library with your teams, with a shared definition of done."}))),
+]
+
+page("ibm-riyadh-air", dict(
     h1="A design system for an airline that started from zero",
-    lede="Riyadh Air is Saudi Arabia's new national carrier, built digital-first with no legacy systems behind it. It needed five to six web apps and two to three mobile apps at once, in English and Arabic. At IBM, the team first ran a pilot to prove a shared system would speed teams up. Then, with Publicis Sapient, built that system from scratch in Figma: the styles, a naming grammar and 71 components every team built from.",
-    meta=[("Role", "Design system designer, IBM"), ("Client", "Riyadh Air"), ("Partners", "Publicis Sapient, IBM engineering"), ("Timeline", "2023–24")],
-    cover=(R + "cover.jpg", "Riyadh Air design system: the logo and Canopy Twist on indigo, button sheets from the library, colour and type foundations, icons and badges"),
-    tldr=[("The problem", "A new airline with a brand and a launch date, but no apps. Eight or more apps designed at once, by large teams, in two scripts that read in opposite directions."),
-          ("What we did", "A pilot on one IBM project first. It sped the team up, so the full library followed: styles, structure, a shared vocabulary and 71 components."),
-          ("What changed", "Product, design and engineering adopted it, IBM engineers built it in code, and the apps launched with the airline in October 2025.")],
-    kpis=[("71", "", "", "components in 13 families"), ("4", "", "", "versions of each: EN and AR, light and dark"),
-          ("6", "", "", "breakpoints, from a 184px watch to 1920px"), ("8", "+", "", "web and mobile apps from one library")],
-    chapters=[
-        ("context", "Context", "An airline with no past to inherit",
-         "Most airlines carry decades of booking engines, loyalty platforms and check-in kiosks. Riyadh Air started with none of it. Every screen a guest would touch, from booking to boarding, had to be designed and built for the first time.",
-         tiles([("Riyadh Air", "Product owners, brand and engineering, standing up an airline and its digital estate together."),
-                ("IBM", "The lead digital partner. The design team proposed the system and built it; IBM engineers turned it into code."),
-                ("Publicis Sapient", "The partner on the design system, shaping and reviewing the library with us.")], cols=3)
-         + '<p class="small muted">Founded in 2023 by the Public Investment Fund, with 100+ destinations planned by 2030. First flight: Riyadh to London Heathrow, October 2025.</p>'),
-        ("problem", "Problem", "Many apps, many teams, one launch date",
-         "Booking, check-in, loyalty and the trip itself, across web, phone and watch, all at once. With large teams working in parallel, each app would drift into its own version of the brand unless something held them together.",
-         tiles([("Scale", "Five to six web apps and two to three mobile apps, each with its own team, all designed at the same time."),
-                ("Speed", "The first flights set the date. Rebuilding the same button in every app was time no team could spare."),
-                ("Language", "English and Arabic: left to right and right to left, with different line heights."),
-                ("Brand", "The lavender identity was brand new. Product UI needs far more than a logo, a palette and a pattern.")])
-         + more("The design question: how might we give every team, on every device and in both languages, one way to build Riyadh Air, before there was a Riyadh Air to copy?")),
-        ("pilot", "Pilot", "Prove it on one project first",
-         "A design system is a big ask of a client building everything else at the same time. So rather than pitch it on a slide, the team ran a small system on one IBM project and let the results make the case. Step through it.",
-         stepper("The pilot", pilot)),
-        ("brand", "Brand to UI", "Turning a lavender brand into product UI",
-         "The identity is built on lavender, a nod to the lavender that covers the Kingdom in spring, with deep indigo and a sunset peach beside it. A brand like this is made for liveries and billboards; the job was to turn it into something a seat map, a price and an error message could be built from.",
-         fig(R + "canopy-dynamic.jpg",
-              "The Canopy Twist, the brand's signature line art, made into a component in a static pattern and a dynamic shape, so teams placed the real thing instead of redrawing it.")
-         + fig(R + "logo.jpg", "English-first and Arabic-first lockups and the R mark, at every size, on light and dark. Teams picked a lockup by the page language.")),
-        ("foundations", "Foundations", "The styles every component is built from",
-         "Before a single button, the library opened with its styles. Every component uses only these, so a change here travels through all 71 of them.",
-         tabs("Foundations", foundations)
-         + more("The boards above are redrawn from the library's own Styles page. The originals for typography, increments, effects and grids are in the gallery at the end.")),
-        ("structure", "Structure", "A library anyone could find their way around",
-         "With many designers joining at once, the library had to explain itself. It runs from the smallest piece to the largest, every family and block is numbered, and one vocabulary covers every variant.",
-         '''<div class="chainrow"><div><span>Foundations</span><h3>Styles</h3><code>colour · type · grid</code><p>Plus Material icons and Apple's iOS kit.</p></div>
-            <div><span>The atoms</span><h3>Base elements</h3><code>G03/B01 Main Button</code><p>The smallest pieces: a button, a badge, an input.</p></div>
-            <div><span>The molecules</span><h3>Components</h3><code>search · date selector</code><p>Two or more atoms with a job.</p></div>
-            <div><span>The organisms</span><h3>Patterns → templates</h3><code>top bar · booking module</code><p>Whole sections, then whole pages.</p></div></div>'''
-         + more("Every variant property came from one shared list, so a \"Hover\" state or a \"Glass\" fill meant the same thing in every component, and developers could map them straight to code.",
-                "Families run G01 to G13, blocks B01 onwards. Anyone could point at a component by its number, in Figma, in a ticket or in a review.")),
-        ("done", "Definition of done", "Built, structured, and tested in four languages",
-         "A component wasn't ready when it looked right in English. It had to pass three checks, and the test step did the most work.",
-         shift([("Looks right in English", "Works in English and Arabic, both directions"),
-                ("One script", "Japanese as a third script for main components"),
-                ("Short labels", "German for long words and phrases"),
-                ("Short prices", "Long-number currencies: rupees, rupiah, yen, dinars"),
-                ("Checked on its own", "Checked inside a complete layout")],
-               "Toggle to see what \"done\" meant before and after the definition.")
-         + tiles([("Build", "The fewest frames and auto-layouts possible. Every text on a style, every colour on a variable."),
-                  ("Structure", "Follows the naming convention, contains every useful variant, placed on its page with a description."),
-                  ("Test", "English and Arabic, light and dark, long words and long numbers, inside a real layout.")], cols=3)),
-        ("components", "Components", "71 components, each in four versions",
-         "Each component was drawn in light and dark, in English and Arabic, before it was called done. Read the families and you can read the product: chat and live voice for an assistant, nudges and FOMO badges for selling, a seat selector and a QR code for the trip itself.",
-         tabs("Component sheets", sheets)),
-        ("working", "How we worked", "Three companies, one library",
-         "The system sat between three organisations and many teams. It worked because the path from an idea to a component in code was the same every time.",
-         tiles([("Bilingual from day one", "Arabic wasn't a translation pass at the end. Every component shipped with its right-to-left version."),
-                ("A shared definition of done", "Build, structure and test, checked the same way for every component, whoever made it."),
-                ("Design and code in step", "Variant names matched the props engineers built, so handoff was a lookup, not a translation."),
-                ("Platform kits attached", "Material icons and Apple's iOS kit linked to the foundations.")])
-         + '<p class="small muted">The operating model behind this is its own case study: <a href="ibm-riyadh-air-ops.html">who decides what ships</a>.</p>'),
-        ("learnings", "Learnings", "What we'd take to the next system", "Prove it small, design the second language first, and start at the smallest screen.",
-         tiles([("Prove it small", "A pilot on real work persuaded people faster than any deck could."),
-                ("Design the second language first", "Arabic and long German words broke layouts English never would."),
-                ("Name things before you need them", "A shared list of states, sizes and fills let three companies talk about the same component."),
-                ("Start at the smallest screen", "Designing for a 184px watch made every larger layout simpler.")])),
-    ],
-    gallery=[(R + "canopy-uniform.jpg", "The Canopy Twist uniform pattern"), (R + "src-type.jpg", "The Typography page of the library"), (R + "src-increments.jpg", "The Increments page"),
-             (R + "src-effects.jpg", "The Effects page"), (R + "src-grids.jpg", "The Grids page"),
-             (R + "btn-modal.jpg", "Modal button set"), (R + "btn-zoom.jpg", "Zoom button"), (R + "btn-double.jpg", "Double button"),
-             (R + "btn-menu.jpg", "Menu item button"), (R + "badge-round.jpg", "Round badge"), (R + "badge-location.jpg", "Location badge"),
-             (R + "badge-rating.jpg", "Rating badge")],
-    credits="Aniket Pandey worked on this as a design system designer at IBM, alongside the IBM design team, IBM engineering, Publicis Sapient and Riyadh Air's product, design and engineering teams. This is IBM client work done as an employee, not Layer One client work. Images belong to Riyadh Air and IBM and are shown for portfolio purposes.",
-)
-page("riyadh", spec)
+    lede="A pilot first, then 71 components that every Riyadh Air team built from, in English and Arabic, light and dark.",
+    tags=["Foundations", "Localisation", "71 components", "Web, mobile, watch"],
+    proof=[("", "71", "", "components in 13 families"), ("2 × ", "2", "", "EN and AR, light and dark"), ("", "6", "", "breakpoints, watch to desktop"), ("", "8", "+", "apps from one library")],
+    cover_alt="The Riyadh Air design system: Canopy Twist line art, a booking card and component sheets on indigo",
+    client_logo=R + "logo-lockup.png",
+    sections=S,
+    credits="Aniket Pandey worked on this as a design system designer at IBM (2023–24), with the IBM design team, IBM engineering, Publicis Sapient and Riyadh Air's product, design and engineering teams. This is IBM client work done as an employee, not Layer One client work. Images belong to Riyadh Air and IBM and are shown for portfolio purposes.",
+))
