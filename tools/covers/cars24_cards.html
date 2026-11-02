@@ -121,6 +121,17 @@ img { display: block; }
 .pp .blk2 { margin: 0 14px; position: relative; }
 .pp .blk2.wf { height: auto; padding: 10px; background: #fff; border: 1.5px dashed transparent; }
 .tagl { font: 500 15px "JetBrains Mono"; padding: 7px 12px; border-radius: 8px; background: #0b0d12; color: #9de7c8; white-space: nowrap; z-index: 4; }
+
+.lay { display: grid; grid-template-columns: repeat(4, auto); gap: 0; align-items: end; z-index: 3; }
+.lay > div { display: grid; gap: 8px; }
+.lay span { font: 500 13px "JetBrains Mono"; letter-spacing: .08em; text-transform: uppercase; opacity: .7; }
+.lay code { font: 500 19px "JetBrains Mono"; padding: 12px 14px; border-radius: 12px; background: #fff; color: #2e1db4; white-space: nowrap; box-shadow: 0 14px 30px rgb(10 0 60 / .22); display: flex; align-items: center; gap: 10px; }
+.lay code i { width: 22px; height: 22px; border-radius: 6px; background: #4736fe; }
+.lay .ar { align-self: end; padding: 0 10px 14px; font: 500 22px Inter; opacity: .8; }
+.kpi { border-radius: 18px; background: #fff; color: #101828; padding: 16px 20px; box-shadow: 0 20px 44px rgb(10 0 60 / .3); z-index: 4; }
+.kpi b { display: block; font: 700 40px/1 Inter; letter-spacing: -.04em; color: #4736fe; }
+.kpi span { display: block; font: 500 15px Inter; color: #475467; margin-top: 6px; }
+.tagk { font: 500 13px "JetBrains Mono"; padding: 5px 9px; border-radius: 6px; background: #0b0d12; color: #5dfda6; white-space: nowrap; z-index: 4; }
 </style>
 </head>
 <body>
@@ -138,8 +149,8 @@ img { display: block; }
   <svg class="pat" aria-hidden="true" id="tlines" style="z-index:1"></svg>
   <div class="col">
     <img class="logo" src="../../assets/logos/wordmark-cars24.png" alt="">
-    <div class="mid"><p class="eyebrow">CARS24 · Colour and tokens · 2024–25</p><h1>One colour system</h1><p class="sub">Five blues in five codebases became one token, used by every product in three countries</p></div>
-    <div class="row"><span class="chip" style="border-color:rgb(255 255 255 / .45)">10+ products</span><span class="chip" style="border-color:rgb(255 255 255 / .45)">4 token layers</span><span class="chip solid" style="background:#5dfda6;border-color:#5dfda6;color:#1a1060">65% faster handoff</span></div>
+    <div class="mid"><p class="eyebrow">CARS24 · Colour and tokens · 2024–25</p><h1>One colour system</h1><p class="sub">One blue lived in the code as five values. Four token layers made it one, with a theme for every market</p></div>
+    <div class="row"><span class="chip" style="border-color:rgb(255 255 255 / .45)">10+ products</span><span class="chip" style="border-color:rgb(255 255 255 / .45)">3 countries</span><span class="chip solid" style="background:#5dfda6;border-color:#5dfda6;color:#1a1060">4 token layers</span></div>
   </div>
   <div class="mkt" style="left:930px;top:96px;opacity:.75"><i style="background:#ffb4a1"></i>Before · one blue, five codes</div>
   <div class="hex" style="left:930px;top:140px"><i style="background:#0059A3"></i><div><b>#0059A3</b><small>seller/colors.ts</small></div></div>
@@ -147,14 +158,30 @@ img { display: block; }
   <div class="hex" style="left:1290px;top:140px"><i style="background:#0058A1"></i><div><b>#0058A1</b><small>buyer/_vars.scss</small></div></div>
   <div class="hex" style="left:1470px;top:150px"><i style="background:#0A5BA4"></i><div><b>#0A5BA4</b><small>uae/styles.css</small></div></div>
   <div class="hex" style="left:1650px;top:140px;padding-right:12px"><i style="background:#0059A4"></i><div><b>#0059A4</b><small>new-cars.json</small></div></div>
-  <div class="tokpill" style="left:1140px;top:290px"><i></i><div><b>color-brand-primary</b><small>one token · OKLCH · every product</small></div></div>
-  <div class="mramp" id="mramp" style="left:1196px;top:392px"></div>
-  <div class="mkt" style="left:960px;top:470px"><i></i>India · ₹</div>
-  <div class="mkt" style="left:1268px;top:470px"><i></i>UAE · AED</div>
-  <div class="mkt" style="left:1576px;top:470px"><i></i>Australia · $</div>
-  <div class="mp" style="left:950px;top:510px"><div class="sc"><div class="hd"><div class="loc"></div><div class="srch"></div><div class="tabs"><i></i><i></i><i></i><i></i></div></div><div class="bd"><div class="h"></div><div class="tiles"><i></i><i></i><i></i></div><div class="lc"><div class="im"><b>Assured</b></div><div class="t"></div><div class="pr">₹9.85 lakh<span>EMI ₹15,640</span></div></div><div class="cta">Get best price</div></div></div></div>
-  <div class="mp" style="left:1258px;top:510px"><div class="sc"><div class="hd"><div class="loc" style="margin-left:auto"></div><div class="srch"></div><div class="tabs"><i></i><i></i><i></i><i></i></div></div><div class="bd"><div class="h" style="margin-left:auto"></div><div class="tiles"><i></i><i></i><i></i></div><div class="lc" dir="rtl"><div class="im"><b style="left:auto;right:6px">مضمونة</b></div><div class="t"></div><div class="pr" style="font-family:Inter">AED 54,900</div></div><div class="cta">احصل على أفضل سعر</div></div></div></div>
-  <div class="mp" style="left:1566px;top:510px"><div class="sc"><div class="hd"><div class="loc"></div><div class="srch"></div><div class="tabs"><i></i><i></i><i></i><i></i></div></div><div class="bd"><div class="h"></div><div class="tiles"><i></i><i></i><i></i></div><div class="lc"><div class="im"><b>Certified</b></div><div class="t"></div><div class="pr">$24,990<span>drive away</span></div></div><div class="cta">View car</div></div></div></div>
+  <div class="lay" style="left:930px;top:290px;color:#fff">
+    <div><span>Value</span><code><i></i>#4736FE</code></div><div class="ar">→</div>
+    <div><span>Primitive</span><code>color-blue-500</code></div><div class="ar">→</div>
+  </div>
+  <div class="lay" style="left:1300px;top:290px;color:#fff">
+    <div style="visibility:hidden"><span>x</span><code>x</code></div>
+  </div>
+  <div class="lay" style="left:1347px;top:290px;color:#fff">
+    <div><span>Semantic</span><code>color-action-primary</code></div>
+  </div>
+  <div class="mkt" style="left:1462px;top:372px;font-size:22px;opacity:.85">↓</div>
+  <div class="lay" style="left:1347px;top:400px;color:#fff">
+    <div><code style="color:#fff;background:#0b0d12">button-background-primary</code></div>
+  </div>
+  <div class="mkt" style="left:930px;top:398px;font-size:13px;opacity:.75">OKLCH ramp + mint partner</div>
+  <div class="mramp" id="mramp" style="left:930px;top:428px"></div>
+  <div class="mkt" style="left:960px;top:500px"><i></i>India · base</div>
+  <div class="mkt" style="left:1268px;top:500px"><i></i>UAE · uae-</div>
+  <div class="mkt" style="left:1576px;top:500px"><i></i>Australia · au-</div>
+  <div class="mp" style="left:950px;top:540px"><div class="sc"><div class="hd"><div class="loc"></div><div class="srch"></div><div class="tabs"><i></i><i></i><i></i><i></i></div></div><div class="bd"><div class="h"></div><div class="tiles"><i></i><i></i><i></i></div><div class="lc"><div class="im"><b>Assured</b></div><div class="t"></div><div class="pr">₹9.85 lakh<span>EMI ₹15,640</span></div></div><div class="cta">Get best price</div></div></div></div>
+  <div class="mp" style="left:1258px;top:540px"><div class="sc"><div class="hd"><div class="loc" style="margin-left:auto"></div><div class="srch"></div><div class="tabs"><i></i><i></i><i></i><i></i></div></div><div class="bd"><div class="h" style="margin-left:auto"></div><div class="tiles"><i></i><i></i><i></i></div><div class="lc" dir="rtl"><div class="im"><b style="left:auto;right:6px">مضمونة</b></div><div class="t"></div><div class="pr" style="font-family:Inter">AED 54,900</div></div><div class="cta">احصل على أفضل سعر</div></div></div></div>
+  <div class="mp" style="left:1566px;top:540px"><div class="sc"><div class="hd"><div class="loc"></div><div class="srch"></div><div class="tabs"><i></i><i></i><i></i><i></i></div></div><div class="bd"><div class="h"></div><div class="tiles"><i></i><i></i><i></i></div><div class="lc"><div class="im"><b>Certified</b></div><div class="t"></div><div class="pr">$24,990<span>drive away</span></div></div><div class="cta">View car</div></div></div></div>
+  <div class="kpi" style="left:1110px;top:930px;transform:rotate(-2deg)"><b>5 → 1</b><span>button builds</span></div>
+  <div class="kpi" style="left:1420px;top:930px;transform:rotate(2deg)"><b>65%</b><span>faster handoff</span></div>
 </section>
 
 <!-- ======================= Governance ======================= -->
@@ -254,11 +281,11 @@ function el(svg, tag, a) { var e = document.createElementNS(NS, tag); for (var k
 /* token story: five codes → one token → three markets */
 (function () {
   var r = document.getElementById("mramp");
-  if (r) r.innerHTML = steps.map(function (st) { return '<i style="background:' + st[1] + '"></i>'; }).join("");
+  if (r) r.innerHTML = steps.map(function (st) { return '<i style="background:' + st[1] + '"></i>'; }).join("") + '<i style="background:#5dfda6;width:44px;margin-left:8px"></i>';
   var s = document.getElementById("tlines"), g = el(s, "g", { fill: "none", stroke: "#fff", "stroke-width": "2", "stroke-opacity": ".45", "stroke-dasharray": "3 7" });
-  [1010, 1190, 1370, 1550, 1730].forEach(function (x) { el(g, "path", { d: "M" + x + " 214 C" + x + " 260 1330 250 1330 288" }); });
+  [1010, 1190, 1370, 1550, 1730].forEach(function (x) { el(g, "path", { d: "M" + x + " 214 C" + x + " 250 1010 250 1010 284" }); });
   var g2 = el(s, "g", { fill: "none", stroke: "#5dfda6", "stroke-width": "2.5", "stroke-opacity": ".8" });
-  [1068, 1376, 1684].forEach(function (x) { el(g2, "path", { d: "M1330 418 C1330 450 " + x + " 440 " + x + " 466" }); });
+  [1068, 1376, 1684].forEach(function (x) { el(g2, "path", { d: "M1530 452 C1530 480 " + x + " 470 " + x + " 494" }); });
 })();
 /* pattern library: link families to the page */
 (function () {
