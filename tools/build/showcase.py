@@ -119,7 +119,7 @@ def seg(attr, opts, label):
     return f'<div class="sc-seg" {attr} role="group" aria-label="{label}">{b}</div>'
 
 
-def playbook(rows):
+def playbook(rows, employer="IBM"):
     """The offer, mapped to what this project did. rows = {"audit": text, "foundations": text, "partner": text}"""
     plans = [("audit", "Audit", "2 weeks, fixed", "$1,500", "pricing.html#plan-audit", False),
              ("foundations", "Foundations", "6 weeks, fixed", "$5,900", "pricing.html#plan-foundations", True),
@@ -129,8 +129,9 @@ def playbook(rows):
         <h3>{n}</h3><p class="price"><b>{p}</b></p>
         <p class="from"><em>In this case study</em>{rows[k]}</p>
         <span class="go">See what's included {ARROW}</span></a>''' for k, n, d, p, h, rec in plans)
+    employer = ("an " if employer[0] in "AEIOU" else "a ") + employer
     return f'''<div class="sc-play">{cards}</div>
-    <div class="sc-cta-row"><p>The work above was done by our founder as an IBM employee. Layer One now runs the same method as a studio, for product teams of any size.</p>
+    <div class="sc-cta-row"><p>The work above was done by our founder as {employer} employee. Layer One now runs the same method as a studio, for product teams of any size.</p>
       <div class="btn-row"><a class="pill pill--accent" href="../contact.html">Start a project</a><a class="pill" href="{CAL}" target="_blank" rel="noopener">Book a call</a></div></div>'''
 
 
@@ -225,10 +226,13 @@ def page(slug, spec):
     nxt = "".join(f'''<a class="nx" href="{p["slug"]}.html" style="--f:{p["f"]};--ft:{p["ft"]}"><img src="../{p["cover"]}" alt="" loading="lazy"><span>{p["kind"]}</span><h3>{short(p)}</h3></a>''' for p in others)
     logo = spec.get("client_logo")
     cl = f'<img class="cl" src="../{logo}" alt="{proj["client"].split(" × ")[-1]}">' if logo else f'<span class="cl">{proj["client"].split(" × ")[-1]}</span>'
+    # IBM client work shows "IBM × client"; work for the employer itself shows just the employer's logo.
+    ident = (f'{logo_tile("ibm", depth=1, size=36, label=False)}<span class="x">×</span>{cl}' if " × " in proj["client"]
+             else f'{logo_tile(proj["co"], depth=1, size=36, label=False)}<span class="cl">{COMPANIES[proj["co"]]["name"]}</span>')
     html = (head(f"{proj['title']} — Layer One", proj["blurb"], depth=1, og=proj["cover"])
             + topbar("work", depth=1) + f'''<main id="main" class="sc" style="--f:{proj["f"]};--ft:{proj["ft"]}">
   <header class="sc-hero"><div class="sc-in">
-    <div class="sc-hero-bar"><p class="sc-crumb"><a href="../work.html">Work</a> / {proj["client"]}</p><div class="sc-id">{logo_tile("ibm", depth=1, size=36, label=False)}<span class="x">×</span>{cl}</div></div>
+    <div class="sc-hero-bar"><p class="sc-crumb"><a href="../work.html">Work</a> / {proj["client"]}</p><div class="sc-id">{ident}</div></div>
     <div class="sc-top">
       <div><h1>{spec["h1"]}</h1><p class="sc-lede">{spec["lede"]}</p></div>
       <dl class="sc-proof" data-inview>{proof}</dl>
