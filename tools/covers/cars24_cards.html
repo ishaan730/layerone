@@ -59,6 +59,68 @@ img { display: block; }
 /* ---------- pattern library ---------- */
 #pat { background: #9de7c8; color: #0b0d12; }
 .blk { font: 500 18px "JetBrains Mono"; padding: 10px 16px; border-radius: 10px; background: #0b0d12; color: #9de7c8; z-index: 3; white-space: nowrap; }
+
+/* ---------- shared illustration bits ---------- */
+.mp { width: 236px; height: 486px; border-radius: 38px; padding: 9px; background: #0e0f14; box-shadow: 0 30px 60px rgb(10 0 60 / .28); z-index: 2; }
+.mp .sc { height: 100%; border-radius: 30px; overflow: hidden; background: #f7f7fb; display: flex; flex-direction: column; font-family: Inter, sans-serif; }
+.mp .hd { background: var(--b, #4736fe); padding: 26px 14px 14px; display: grid; gap: 10px; }
+.mp .loc { height: 9px; width: 70px; border-radius: 5px; background: rgb(255 255 255 / .75); }
+.mp .srch { height: 26px; border-radius: 8px; background: rgb(255 255 255 / .22); border: 1px solid rgb(255 255 255 / .35); }
+.mp .tabs { display: flex; justify-content: space-between; padding: 2px 4px 0; }
+.mp .tabs i { width: 30px; height: 20px; border-radius: 6px; background: rgb(255 255 255 / .3); }
+.mp .tabs i:first-child { background: #fff; }
+.mp .bd { padding: 14px 12px; display: grid; gap: 10px; }
+.mp .h { height: 10px; width: 96px; border-radius: 5px; background: #1d2433; }
+.mp .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+.mp .tiles i { height: 54px; border-radius: 10px; background: var(--b, #4736fe); opacity: .9; }
+.mp .tiles i:nth-child(2) { opacity: .7; } .mp .tiles i:nth-child(3) { opacity: .5; }
+.mp .lc { background: #fff; border-radius: 12px; padding: 10px; display: grid; gap: 7px; border: 1px solid #ececf3; }
+.mp .lc .im { height: 58px; border-radius: 8px; background: linear-gradient(135deg, #e6e3ff, #f4f3ff); position: relative; }
+.mp .lc .im b { position: absolute; left: 6px; top: 6px; font: 600 8px Inter; padding: 2px 6px; border-radius: 4px; background: #5dfda6; color: #10322a; }
+.mp .lc .t { height: 7px; width: 80%; border-radius: 4px; background: #c9ccd6; }
+.mp .lc .pr { font: 700 13px Inter; color: #101828; }
+.mp .lc .pr span { font: 500 9px Inter; color: #b54708; margin-left: 6px; }
+.mp .cta { margin-top: 2px; height: 30px; border-radius: 9px; background: var(--b, #4736fe); color: #fff; font: 600 11px Inter; display: grid; place-items: center; }
+.mkt { font: 500 17px "JetBrains Mono"; letter-spacing: .06em; text-transform: uppercase; z-index: 3; display: flex; gap: 10px; align-items: center; }
+.mkt i { width: 10px; height: 10px; border-radius: 50%; background: #5dfda6; }
+.hex { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 14px; background: rgb(255 255 255 / .10); border: 1px solid rgb(255 255 255 / .16); z-index: 3; }
+.hex i { width: 30px; height: 30px; border-radius: 8px; flex: none; }
+.hex b { display: block; font: 500 18px "JetBrains Mono"; }
+.hex small { display: block; font: 400 13px "JetBrains Mono"; opacity: .7; margin-top: 2px; }
+.tokpill { display: flex; align-items: center; gap: 16px; padding: 16px 22px 16px 16px; border-radius: 18px; background: #fff; color: #101828; box-shadow: 0 24px 60px rgb(10 0 60 / .3); z-index: 3; }
+.tokpill i { width: 48px; height: 48px; border-radius: 12px; background: #4736fe; }
+.tokpill b { display: block; font: 500 26px "JetBrains Mono"; }
+.tokpill small { display: block; font: 400 15px "JetBrains Mono"; color: #667085; margin-top: 2px; }
+.mramp { display: flex; gap: 4px; z-index: 3; }
+.mramp i { width: 30px; height: 14px; border-radius: 4px; }
+
+/* pattern library illustration */
+.fam { width: 196px; background: #fff; border-radius: 16px; padding: 12px 12px 14px; box-shadow: 0 14px 34px rgb(0 60 40 / .12); z-index: 3; display: grid; gap: 10px; }
+.fam .lab { font: 500 13px "JetBrains Mono"; letter-spacing: .05em; text-transform: uppercase; color: #344054; display: flex; justify-content: space-between; }
+.fam .lab em { font-style: normal; color: #98a2b3; }
+.wf { border-radius: 10px; background: #f4f6f5; padding: 8px; display: grid; gap: 6px; height: 92px; align-content: center; }
+.wf .bn { height: 64px; border-radius: 8px; background: linear-gradient(120deg, #6c5cff, #4736fe); position: relative; }
+.wf .bn::after { content: ""; position: absolute; left: 10px; top: 14px; width: 60px; height: 8px; border-radius: 4px; background: rgb(255 255 255 / .85); box-shadow: 0 14px 0 -1px rgb(255 255 255 / .5); }
+.wf .row3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+.wf .row3 i { height: 52px; border-radius: 7px; background: #fff; border: 1px solid #e3e8e6; }
+.wf .row3 i::before { content: ""; display: block; height: 24px; margin: 4px; border-radius: 5px; background: #d9f5e9; }
+.wf .sl { display: flex; gap: 5px; overflow: hidden; }
+.wf .sl i { flex: none; width: 46px; height: 46px; border-radius: 8px; background: #ffe2cc; }
+.wf .sl i:nth-child(2n) { background: #ffd0b0; }
+.wf .dots { display: flex; gap: 4px; justify-content: center; } .wf .dots i { width: 6px; height: 6px; border-radius: 50%; background: #c2c9c6; } .wf .dots i:first-child { background: #344054; width: 14px; border-radius: 3px; }
+.wf .ls { height: 18px; border-radius: 6px; background: #fff; border: 1px solid #e3e8e6; position: relative; }
+.wf .ls::before { content: ""; position: absolute; left: 6px; top: 4px; width: 10px; height: 10px; border-radius: 3px; background: #c9c2ff; }
+.wf .ls::after { content: ""; position: absolute; left: 22px; top: 7px; width: 60%; height: 4px; border-radius: 2px; background: #c2c9c6; }
+.wf .st { display: flex; gap: 7px; justify-content: center; } .wf .st i { width: 33px; height: 33px; border-radius: 50%; border: 2.5px solid #4736fe; background: #ece9ff; } .wf .st i:nth-child(2n) { border-color: #ff8a63; background: #ffe9e1; }
+.wf .fq { height: 14px; border-radius: 5px; background: #fff; border: 1px solid #e3e8e6; position: relative; } .wf .fq::after { content: "+"; position: absolute; right: 6px; top: -3px; font: 600 13px Inter; color: #667085; }
+.pp { width: 380px; height: 860px; border-radius: 54px; padding: 12px; background: #0e0f14; box-shadow: 0 40px 90px rgb(0 60 40 / .3); z-index: 2; }
+.pp .sc { height: 100%; border-radius: 42px; overflow: hidden; background: #f7f8f8; display: flex; flex-direction: column; gap: 12px; }
+.pp .hd { background: #4736fe; padding: 40px 18px 16px; display: grid; gap: 12px; }
+.pp .hd .loc { height: 11px; width: 96px; border-radius: 6px; background: rgb(255 255 255 / .75); }
+.pp .hd .srch { height: 34px; border-radius: 10px; background: rgb(255 255 255 / .22); border: 1px solid rgb(255 255 255 / .35); }
+.pp .blk2 { margin: 0 14px; position: relative; }
+.pp .blk2.wf { height: auto; padding: 10px; background: #fff; border: 1.5px dashed transparent; }
+.tagl { font: 500 15px "JetBrains Mono"; padding: 7px 12px; border-radius: 8px; background: #0b0d12; color: #9de7c8; white-space: nowrap; z-index: 4; }
 </style>
 </head>
 <body>
@@ -66,30 +128,33 @@ img { display: block; }
 <!-- ======================= Colour system ======================= -->
 <section class="scene" id="tokens">
   <svg class="pat" aria-hidden="true"><defs>
-    <radialGradient id="tf" cx="78%" cy="45%" r="70%"><stop offset="0" stop-color="#fff" stop-opacity="1"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <radialGradient id="tg" cx="80%" cy="20%" r="75%"><stop offset="0" stop-color="#7c6dff"/><stop offset="1" stop-color="#4736fe" stop-opacity="0"/></radialGradient>
+    <radialGradient id="tf" cx="70%" cy="55%" r="60%"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
     <mask id="tm"><rect width="1920" height="1080" fill="url(#tf)"/></mask>
-    <pattern id="tp" width="40" height="40" patternUnits="userSpaceOnUse"><rect x="4" y="4" width="32" height="32" rx="8" fill="#fff" fill-opacity=".09"/></pattern></defs>
+    <pattern id="tp" width="32" height="32" patternUnits="userSpaceOnUse"><circle cx="16" cy="16" r="1.6" fill="#fff" fill-opacity=".22"/></pattern></defs>
+    <rect width="1920" height="1080" fill="url(#tg)"/>
     <rect width="1920" height="1080" fill="url(#tp)" mask="url(#tm)"/>
-    <g fill="none" stroke="#9de7c8" stroke-opacity=".35" stroke-width="2"><circle cx="1500" cy="540" r="470"/><circle cx="1500" cy="540" r="390" stroke-dasharray="4 12"/></g>
   </svg>
+  <svg class="pat" aria-hidden="true" id="tlines" style="z-index:1"></svg>
   <div class="col">
     <img class="logo" src="../../assets/logos/wordmark-cars24.png" alt="">
-    <div class="mid"><p class="eyebrow">CARS24 · Colour and tokens · 2024–25</p><h1>One colour system</h1><p class="sub">A new palette in OKLCH and four token layers, for 10+ products in three countries</p></div>
-    <div class="row"><span class="chip">10+ products</span><span class="chip">4 token layers</span><span class="chip solid" style="background:#5dfda6;border-color:#5dfda6;color:#1a1060">65% faster handoff</span></div>
+    <div class="mid"><p class="eyebrow">CARS24 · Colour and tokens · 2024–25</p><h1>One colour system</h1><p class="sub">Five blues in five codebases became one token, used by every product in three countries</p></div>
+    <div class="row"><span class="chip" style="border-color:rgb(255 255 255 / .45)">10+ products</span><span class="chip" style="border-color:rgb(255 255 255 / .45)">4 token layers</span><span class="chip solid" style="background:#5dfda6;border-color:#5dfda6;color:#1a1060">65% faster handoff</span></div>
   </div>
-  <div class="card" style="left:930px;top:150px;width:860px;transform:rotate(-2deg)">
-    <div style="padding:22px 26px 14px;display:flex;justify-content:space-between"><span class="k">color-blue · OKLCH ramp</span><span class="k" style="color:#4736fe">500 = brand</span></div>
-    <div class="ramp" id="ramp"></div>
-  </div>
-  <div class="card" style="left:1010px;top:470px;width:760px;transform:rotate(1.5deg)">
-    <div class="chain">
-      <div class="lvl"><span>Primitive</span><code><i class="sw"></i>color-blue-500</code></div>
-      <div class="lvl"><span>Semantic</span><code>color-action-primary</code></div>
-      <div class="lvl"><span>Component</span><code>button-background-primary</code></div>
-      <div class="lvl"><span>Theme</span><code style="background:#e9fbf3;color:#0a6b47">india · uae · au · nbfc</code></div>
-    </div>
-  </div>
-  <div class="card" style="left:1460px;top:770px;width:360px;height:220px;transform:rotate(-3deg);z-index:3"><img src="../../assets/work/tokens/hero.jpg" style="width:200%;margin-left:-100%;margin-top:-30px"></div>
+  <div class="mkt" style="left:930px;top:96px;opacity:.75"><i style="background:#ffb4a1"></i>Before · one blue, five codes</div>
+  <div class="hex" style="left:930px;top:140px"><i style="background:#0059A3"></i><div><b>#0059A3</b><small>seller/colors.ts</small></div></div>
+  <div class="hex" style="left:1110px;top:150px"><i style="background:#005AA5"></i><div><b>#005AA5</b><small>loans/theme.js</small></div></div>
+  <div class="hex" style="left:1290px;top:140px"><i style="background:#0058A1"></i><div><b>#0058A1</b><small>buyer/_vars.scss</small></div></div>
+  <div class="hex" style="left:1470px;top:150px"><i style="background:#0A5BA4"></i><div><b>#0A5BA4</b><small>uae/styles.css</small></div></div>
+  <div class="hex" style="left:1650px;top:140px;padding-right:12px"><i style="background:#0059A4"></i><div><b>#0059A4</b><small>new-cars.json</small></div></div>
+  <div class="tokpill" style="left:1140px;top:290px"><i></i><div><b>color-brand-primary</b><small>one token · OKLCH · every product</small></div></div>
+  <div class="mramp" id="mramp" style="left:1196px;top:392px"></div>
+  <div class="mkt" style="left:960px;top:470px"><i></i>India · ₹</div>
+  <div class="mkt" style="left:1268px;top:470px"><i></i>UAE · AED</div>
+  <div class="mkt" style="left:1576px;top:470px"><i></i>Australia · $</div>
+  <div class="mp" style="left:950px;top:510px"><div class="sc"><div class="hd"><div class="loc"></div><div class="srch"></div><div class="tabs"><i></i><i></i><i></i><i></i></div></div><div class="bd"><div class="h"></div><div class="tiles"><i></i><i></i><i></i></div><div class="lc"><div class="im"><b>Assured</b></div><div class="t"></div><div class="pr">₹9.85 lakh<span>EMI ₹15,640</span></div></div><div class="cta">Get best price</div></div></div></div>
+  <div class="mp" style="left:1258px;top:510px"><div class="sc"><div class="hd"><div class="loc" style="margin-left:auto"></div><div class="srch"></div><div class="tabs"><i></i><i></i><i></i><i></i></div></div><div class="bd"><div class="h" style="margin-left:auto"></div><div class="tiles"><i></i><i></i><i></i></div><div class="lc" dir="rtl"><div class="im"><b style="left:auto;right:6px">مضمونة</b></div><div class="t"></div><div class="pr" style="font-family:Inter">AED 54,900</div></div><div class="cta">احصل على أفضل سعر</div></div></div></div>
+  <div class="mp" style="left:1566px;top:510px"><div class="sc"><div class="hd"><div class="loc"></div><div class="srch"></div><div class="tabs"><i></i><i></i><i></i><i></i></div></div><div class="bd"><div class="h"></div><div class="tiles"><i></i><i></i><i></i></div><div class="lc"><div class="im"><b>Certified</b></div><div class="t"></div><div class="pr">$24,990<span>drive away</span></div></div><div class="cta">View car</div></div></div></div>
 </section>
 
 <!-- ======================= Governance ======================= -->
@@ -124,23 +189,37 @@ img { display: block; }
 <!-- ======================= Pattern library ======================= -->
 <section class="scene" id="pat">
   <svg class="pat" aria-hidden="true" id="blocks"></svg>
+  <svg class="pat" aria-hidden="true" id="plines" style="z-index:1"></svg>
   <div class="col">
     <img class="logo dark" src="../../assets/logos/wordmark-cars24.png" alt="">
-    <div class="mid"><p class="eyebrow">CARS24 · Pattern library · 2025</p><h1>Pages from tested blocks</h1><p class="sub">Six families of page blocks, wired to the CMS and the tokens</p></div>
-    <div class="row"><span class="chip">6 block families</span><span class="chip">CMS-ready</span><span class="chip solid" style="background:#0b0d12;border-color:#0b0d12;color:#9de7c8">~43% faster pages</span></div>
+    <div class="mid"><p class="eyebrow">CARS24 · Pattern library · 2025</p><h1>Pages from tested blocks</h1><p class="sub">Six families of page blocks. Teams pick, fill from the CMS and publish</p></div>
+    <div class="row"><span class="chip" style="border-color:rgb(11 13 18 / .35)">6 block families</span><span class="chip" style="border-color:rgb(11 13 18 / .35)">CMS-ready</span><span class="chip solid" style="background:#0b0d12;border-color:#0b0d12;color:#9de7c8">~43% faster pages</span></div>
   </div>
-  <div class="ph" style="left:1010px;top:130px;width:400px;height:980px;transform:rotate(-4deg)"><div class="s"><img src="../../assets/work/patterns/home-system.jpg"></div></div>
-  <div class="ph" style="left:1400px;top:100px;width:400px;height:1000px;transform:rotate(3deg)"><div class="s"><img src="../../assets/work/patterns/home-live.jpg"></div></div>
-  <div class="blk" style="left:900px;top:330px;transform:rotate(-3deg)">Top banner</div>
-  <div class="blk" style="left:940px;top:560px;transform:rotate(2deg)">Dynamic cards</div>
-  <div class="blk" style="left:880px;top:790px;transform:rotate(-2deg)">Slider grid</div>
-  <div class="pill" style="left:1240px;top:960px;background:#fff;color:#0b0d12;box-shadow:0 10px 30px rgb(0 40 20 / .2)">empty block → live page</div>
+  <div class="mkt" style="left:930px;top:100px;color:#0b0d12;opacity:.7"><i style="background:#0b0d12"></i>The library</div>
+  <div class="fam" style="left:930px;top:140px"><div class="lab">Banner<em>01</em></div><div class="wf"><div class="bn"></div></div></div>
+  <div class="fam" style="left:1146px;top:140px"><div class="lab">Dynamic cards<em>02</em></div><div class="wf"><div class="row3"><i></i><i></i><i></i></div></div></div>
+  <div class="fam" style="left:930px;top:330px"><div class="lab">Slider grid<em>03</em></div><div class="wf"><div class="sl"><i></i><i></i><i></i><i></i></div><div class="dots"><i></i><i></i><i></i></div></div></div>
+  <div class="fam" style="left:1146px;top:330px"><div class="lab">Stories<em>04</em></div><div class="wf"><div class="st"><i></i><i></i><i></i><i></i></div></div></div>
+  <div class="fam" style="left:930px;top:520px"><div class="lab">List<em>05</em></div><div class="wf"><div class="ls"></div><div class="ls"></div><div class="ls"></div></div></div>
+  <div class="fam" style="left:1146px;top:520px"><div class="lab">FAQ<em>06</em></div><div class="wf"><div class="fq"></div><div class="fq"></div><div class="fq"></div></div></div>
+  <div class="mkt" style="left:1452px;top:60px;color:#0b0d12;opacity:.7"><i style="background:#4736fe"></i>A page, composed</div>
+  <div class="pp" style="left:1440px;top:100px"><div class="sc">
+    <div class="hd"><div class="loc"></div><div class="srch"></div></div>
+    <div class="blk2 wf" id="pb1"><div class="bn" style="height:120px"></div></div>
+    <div class="blk2 wf" id="pb2"><div class="row3"><i style="height:92px"></i><i style="height:92px"></i><i style="height:92px"></i></div></div>
+    <div class="blk2 wf" id="pb3"><div class="sl"><i style="width:84px;height:84px"></i><i style="width:84px;height:84px"></i><i style="width:84px;height:84px"></i><i style="width:84px;height:84px"></i></div><div class="dots"><i></i><i></i><i></i></div></div>
+    <div class="blk2 wf" id="pb4"><div class="st"><i style="width:56px;height:56px"></i><i style="width:56px;height:56px"></i><i style="width:56px;height:56px"></i><i style="width:56px;height:56px"></i></div></div>
+    <div class="blk2 wf" id="pb5"><div class="ls"></div><div class="ls"></div><div class="ls"></div></div>
+    <div class="blk2 wf" id="pb6"><div class="fq" style="height:22px"></div></div>
+    <div class="blk2" style="height:42px;border-radius:12px;background:#4736fe;color:#fff;font:600 15px Inter;display:grid;place-items:center">Get best price</div>
+  </div></div>
+  <div class="pill" style="left:1150px;top:760px;background:#fff;color:#0b0d12;box-shadow:0 10px 30px rgb(0 40 20 / .16);display:flex;gap:10px;align-items:center"><span style="width:10px;height:10px;border-radius:50%;background:#12b76a;display:inline-block"></span>Content from the CMS</div>
+  <div class="pill" style="left:1060px;top:840px;background:#0b0d12;color:#9de7c8">tokens → every block</div>
 </section>
 
 <script>
 /* ramp */
 var steps = [["50","#f1f0ff"],["100","#dcd9ff"],["200","#bdb6ff"],["300","#998eff"],["400","#7466ff"],["500","#4736fe"],["600","#3a26e0"],["700","#2e1db4"],["800","#231788"],["900","#19105e"]];
-document.getElementById("ramp").innerHTML = steps.map(function (s, i) { return '<div style="background:' + s[1] + ';color:' + (i < 4 ? "#2e1db4" : "#fff") + '">' + s[0] + '</div>'; }).join("");
 var NS = "http://www.w3.org/2000/svg";
 function el(svg, tag, a) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); svg.appendChild(e); return e; }
 /* governance: many request lines converging on one front door */
@@ -161,7 +240,7 @@ function el(svg, tag, a) { var e = document.createElementNS(NS, tag); for (var k
 /* pattern library: a modular block grid, like an empty page layout */
 (function () {
   var s = document.getElementById("blocks"); el(s, "rect", { width: 1920, height: 1080, fill: "#9de7c8" });
-  var g = el(s, "g", { fill: "none", stroke: "#0b0d12", "stroke-opacity": ".10", "stroke-width": "2" });
+  var g = el(s, "g", { fill: "none", stroke: "#0b0d12", "stroke-opacity": ".06", "stroke-width": "2" });
   var seed = 7; function r() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
   var U = 60, cols = 32, rows = 18, used = {};
   for (var y = 0; y < rows; y++) for (var x = 0; x < cols; x++) {
@@ -170,6 +249,23 @@ function el(svg, tag, a) { var e = document.createElementNS(NS, tag); for (var k
     for (var a = 0; a < w; a++) for (var b = 0; b < h; b++) used[(x + a) + "," + (y + b)] = 1;
     el(g, "rect", { x: x * U + 6, y: y * U + 6, width: w * U - 12, height: h * U - 12, rx: 10, "stroke-dasharray": r() > .6 ? "6 8" : "none" });
   }
+})();
+
+/* token story: five codes → one token → three markets */
+(function () {
+  var r = document.getElementById("mramp");
+  if (r) r.innerHTML = steps.map(function (st) { return '<i style="background:' + st[1] + '"></i>'; }).join("");
+  var s = document.getElementById("tlines"), g = el(s, "g", { fill: "none", stroke: "#fff", "stroke-width": "2", "stroke-opacity": ".45", "stroke-dasharray": "3 7" });
+  [1010, 1190, 1370, 1550, 1730].forEach(function (x) { el(g, "path", { d: "M" + x + " 214 C" + x + " 260 1330 250 1330 288" }); });
+  var g2 = el(s, "g", { fill: "none", stroke: "#5dfda6", "stroke-width": "2.5", "stroke-opacity": ".8" });
+  [1068, 1376, 1684].forEach(function (x) { el(g2, "path", { d: "M1330 418 C1330 450 " + x + " 440 " + x + " 466" }); });
+})();
+/* pattern library: link families to the page */
+(function () {
+  var s = document.getElementById("plines"), g = el(s, "g", { fill: "none", stroke: "#0b0d12", "stroke-width": "2", "stroke-opacity": ".28", "stroke-dasharray": "4 8" });
+  [[1342, 200, 1466, 225], [1342, 390, 1466, 370], [1342, 395, 1466, 505], [1342, 580, 1466, 640], [1342, 590, 1466, 760], [1342, 600, 1466, 850]].forEach(function (p) {
+    el(g, "path", { d: "M" + p[0] + " " + p[1] + " C" + (p[0] + 70) + " " + p[1] + " " + (p[2] - 70) + " " + p[3] + " " + p[2] + " " + p[3] });
+  });
 })();
 function show(id) { document.querySelectorAll(".scene").forEach(function (s) { s.classList.toggle("on", s.id === id); }); }
 show("tokens");
