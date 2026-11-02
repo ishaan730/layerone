@@ -238,7 +238,7 @@ def page(slug, spec):
       <dl class="sc-proof" data-inview>{proof}</dl>
     </div>
     <dl class="sc-meta">{meta}</dl>
-    <figure class="sc-hero-media">{simg(proj["cover"], spec["cover_alt"], eager=True)}</figure>
+    <figure class="sc-hero-media">{simg(spec.get("hero", proj["cover"]), spec["cover_alt"], eager=True)}</figure>
   </div></header>
   <nav class="chapters" aria-label="Chapters" data-chapters style="margin-top:0"><div class="ch-chips">{chips}</div><div class="ch-prog"><span></span></div></nav>
   {body}
