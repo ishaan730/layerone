@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>CARS24 case study cards</title>
+<!-- Render-time only. Preview cards (1920 × 1080) for the three CARS24 case studies built with cs.py:
+     colour system, governance and pattern library. Same layout as the showcase covers (tools/covers/showcase.html)
+     and the LEGO cover: text column left, product visual right, a pattern behind both.
+     Render: serve the repo root on :8765, then node tools/covers/render_cars24_cards.js -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+@font-face { font-family: "Schibsted Grotesk"; src: url("../../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2") format("woff2"); font-weight: 400 900; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1920px; height: 1080px; overflow: hidden; }
+body { font-family: "Schibsted Grotesk", sans-serif; }
+img { display: block; }
+.scene { position: absolute; inset: 0; overflow: hidden; display: none; }
+.scene.on { display: block; }
+.scene > * { position: absolute; }
+.pat { inset: 0; width: 1920px; height: 1080px; }
+.col { left: 112px; top: 104px; bottom: 104px; width: 720px; display: flex; flex-direction: column; z-index: 3; }
+.col .mid { margin: auto 0; }
+.eyebrow { font: 500 20px "JetBrains Mono", monospace; letter-spacing: .08em; text-transform: uppercase; opacity: .78; }
+.col h1 { font: 700 128px/.92 "Schibsted Grotesk"; letter-spacing: -.055em; margin-top: 22px; }
+.col .sub { font-size: 34px; line-height: 1.22; margin-top: 30px; max-width: 660px; opacity: .9; letter-spacing: -.01em; }
+.logo { height: 52px; width: auto; align-self: flex-start; }
+.logo.dark { filter: brightness(0); }
+.row { display: flex; gap: 12px; flex-wrap: wrap; }
+.chip { font: 500 24px Inter; padding: 12px 22px; border-radius: 999px; border: 2px solid currentColor; opacity: .9; }
+.chip.solid { opacity: 1; }
+.card { border-radius: 22px; background: #fff; color: #101828; box-shadow: 0 30px 70px rgb(10 0 60 / .25); overflow: hidden; z-index: 2; }
+.k { font: 500 15px "JetBrains Mono"; letter-spacing: .06em; text-transform: uppercase; color: #667085; }
+.ph { border-radius: 52px; padding: 13px; background: #0e0f14; box-shadow: 0 40px 90px rgb(10 0 60 / .35); z-index: 2; }
+.ph .s { border-radius: 40px; overflow: hidden; height: 100%; background: #fff; }
+.ph .s img { width: 100%; }
+.pill { font: 500 19px "JetBrains Mono"; padding: 10px 16px; border-radius: 10px; white-space: nowrap; z-index: 3; }
+
+/* ---------- colour system ---------- */
+#tokens { background: #4736fe; color: #fff; }
+.ramp { display: grid; grid-template-columns: repeat(10, 1fr); height: 210px; }
+.ramp div { display: flex; flex-direction: column; justify-content: flex-end; padding: 10px 8px; font: 500 15px "JetBrains Mono"; }
+.chain { display: grid; gap: 14px; padding: 26px 28px 30px; }
+.chain .lvl { display: grid; grid-template-columns: 150px 1fr; gap: 16px; align-items: center; }
+.chain .lvl span { font: 500 15px "JetBrains Mono"; letter-spacing: .05em; text-transform: uppercase; color: #667085; }
+.chain code { font: 500 20px "JetBrains Mono"; padding: 8px 14px; border-radius: 9px; background: #f1f0ff; color: #2e1db4; justify-self: start; }
+.chain .sw { width: 30px; height: 30px; border-radius: 8px; background: #4736fe; display: inline-block; vertical-align: middle; margin-right: 10px; }
+
+/* ---------- governance ---------- */
+#gov { background: #f1efff; color: #0b0d12; }
+.req { font: 500 22px Inter; padding: 14px 20px; border-radius: 14px; background: #fff; box-shadow: 0 10px 26px rgb(40 20 120 / .12); display: flex; gap: 12px; align-items: center; z-index: 3; }
+.req i { width: 34px; height: 34px; border-radius: 50%; background: #e4e0ff; color: #3a26c9; font: 600 13px Inter; font-style: normal; display: grid; place-items: center; }
+.node { border-radius: 20px; z-index: 3; padding: 22px 26px; }
+.score b { font: 600 92px/1 Inter; letter-spacing: -.05em; }
+.score small { font: 500 30px Inter; color: #667085; }
+.bar { height: 10px; border-radius: 6px; background: #ebe9fe; overflow: hidden; margin-top: 14px; }
+.bar i { display: block; height: 100%; width: 78%; background: #4736fe; border-radius: 6px; }
+.tier { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; border-radius: 12px; font: 500 22px Inter; }
+
+/* ---------- pattern library ---------- */
+#pat { background: #9de7c8; color: #0b0d12; }
+.blk { font: 500 18px "JetBrains Mono"; padding: 10px 16px; border-radius: 10px; background: #0b0d12; color: #9de7c8; z-index: 3; white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<!-- ======================= Colour system ======================= -->
+<section class="scene" id="tokens">
+  <svg class="pat" aria-hidden="true"><defs>
+    <radialGradient id="tf" cx="78%" cy="45%" r="70%"><stop offset="0" stop-color="#fff" stop-opacity="1"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <mask id="tm"><rect width="1920" height="1080" fill="url(#tf)"/></mask>
+    <pattern id="tp" width="40" height="40" patternUnits="userSpaceOnUse"><rect x="4" y="4" width="32" height="32" rx="8" fill="#fff" fill-opacity=".09"/></pattern></defs>
+    <rect width="1920" height="1080" fill="url(#tp)" mask="url(#tm)"/>
+    <g fill="none" stroke="#9de7c8" stroke-opacity=".35" stroke-width="2"><circle cx="1500" cy="540" r="470"/><circle cx="1500" cy="540" r="390" stroke-dasharray="4 12"/></g>
+  </svg>
+  <div class="col">
+    <img class="logo" src="../../assets/logos/wordmark-cars24.png" alt="">
+    <div class="mid"><p class="eyebrow">CARS24 · Colour and tokens · 2024–25</p><h1>One colour system</h1><p class="sub">A new palette in OKLCH and four token layers, for 10+ products in three countries</p></div>
+    <div class="row"><span class="chip">10+ products</span><span class="chip">4 token layers</span><span class="chip solid" style="background:#5dfda6;border-color:#5dfda6;color:#1a1060">65% faster handoff</span></div>
+  </div>
+  <div class="card" style="left:930px;top:150px;width:860px;transform:rotate(-2deg)">
+    <div style="padding:22px 26px 14px;display:flex;justify-content:space-between"><span class="k">color-blue · OKLCH ramp</span><span class="k" style="color:#4736fe">500 = brand</span></div>
+    <div class="ramp" id="ramp"></div>
+  </div>
+  <div class="card" style="left:1010px;top:470px;width:760px;transform:rotate(1.5deg)">
+    <div class="chain">
+      <div class="lvl"><span>Primitive</span><code><i class="sw"></i>color-blue-500</code></div>
+      <div class="lvl"><span>Semantic</span><code>color-action-primary</code></div>
+      <div class="lvl"><span>Component</span><code>button-background-primary</code></div>
+      <div class="lvl"><span>Theme</span><code style="background:#e9fbf3;color:#0a6b47">india · uae · au · nbfc</code></div>
+    </div>
+  </div>
+  <div class="card" style="left:1460px;top:770px;width:360px;height:220px;transform:rotate(-3deg);z-index:3"><img src="../../assets/work/tokens/hero.jpg" style="width:200%;margin-left:-100%;margin-top:-30px"></div>
+</section>
+
+<!-- ======================= Governance ======================= -->
+<section class="scene" id="gov">
+  <svg class="pat" aria-hidden="true" id="flow"></svg>
+  <div class="col">
+    <img class="logo dark" src="../../assets/logos/wordmark-cars24.png" alt="">
+    <div class="mid"><p class="eyebrow">CARS24 · Governance · 2025</p><h1>Not the bottleneck</h1><p class="sub">One front door, a 70-point scorecard any team can apply, and three ownership tiers</p></div>
+    <div class="row"><span class="chip">1 front door</span><span class="chip">70-point score</span><span class="chip solid" style="background:#4736fe;border-color:#4736fe;color:#fff">3 tiers</span></div>
+  </div>
+  <div class="req" style="left:930px;top:190px"><i>SE</i>Pricing card · Seller</div>
+  <div class="req" style="left:980px;top:300px"><i>LO</i>Heatmap chart · Loans</div>
+  <div class="req" style="left:940px;top:410px"><i>NC</i>Filter pattern · New cars</div>
+  <div class="req" style="left:990px;top:520px"><i>AE</i>Checkout · UAE</div>
+  <div class="req" style="left:950px;top:630px"><i>AU</i>Button variant · Australia</div>
+  <div class="req" style="left:1000px;top:740px"><i>BU</i>Carousel · Buyer</div>
+  <div class="node card" style="left:1400px;top:180px;width:400px">
+    <p class="k">Filter pattern · New cars</p>
+    <div class="score" style="margin-top:12px"><b>55</b> <small>/ 70</small></div>
+    <div class="bar"><i></i></div>
+    <p style="font:500 20px Inter;margin-top:14px;color:#027a48">Accepted · next release</p>
+  </div>
+  <div class="node card" style="left:1400px;top:520px;width:400px;display:grid;gap:8px">
+    <p class="k" style="margin-bottom:4px">Who builds it</p>
+    <div class="tier" style="background:#4736fe;color:#fff">Core<span style="font-size:17px;opacity:.85">system team</span></div>
+    <div class="tier" style="background:#ddd8ff;color:#2e1db4">Extended<span style="font-size:17px">together</span></div>
+    <div class="tier" style="background:#f2f4f7;color:#344054">Custom<span style="font-size:17px">product team</span></div>
+  </div>
+  <div class="pill" style="left:1500px;top:900px;background:#d1fadf;color:#05603a">● Released · changelog posted</div>
+</section>
+
+<!-- ======================= Pattern library ======================= -->
+<section class="scene" id="pat">
+  <svg class="pat" aria-hidden="true" id="blocks"></svg>
+  <div class="col">
+    <img class="logo dark" src="../../assets/logos/wordmark-cars24.png" alt="">
+    <div class="mid"><p class="eyebrow">CARS24 · Pattern library · 2025</p><h1>Pages from tested blocks</h1><p class="sub">Six families of page blocks, wired to the CMS and the tokens</p></div>
+    <div class="row"><span class="chip">6 block families</span><span class="chip">CMS-ready</span><span class="chip solid" style="background:#0b0d12;border-color:#0b0d12;color:#9de7c8">~43% faster pages</span></div>
+  </div>
+  <div class="ph" style="left:1010px;top:130px;width:400px;height:980px;transform:rotate(-4deg)"><div class="s"><img src="../../assets/work/patterns/home-system.jpg"></div></div>
+  <div class="ph" style="left:1400px;top:100px;width:400px;height:1000px;transform:rotate(3deg)"><div class="s"><img src="../../assets/work/patterns/home-live.jpg"></div></div>
+  <div class="blk" style="left:900px;top:330px;transform:rotate(-3deg)">Top banner</div>
+  <div class="blk" style="left:940px;top:560px;transform:rotate(2deg)">Dynamic cards</div>
+  <div class="blk" style="left:880px;top:790px;transform:rotate(-2deg)">Slider grid</div>
+  <div class="pill" style="left:1240px;top:960px;background:#fff;color:#0b0d12;box-shadow:0 10px 30px rgb(0 40 20 / .2)">empty block → live page</div>
+</section>
+
+<script>
+/* ramp */
+var steps = [["50","#f1f0ff"],["100","#dcd9ff"],["200","#bdb6ff"],["300","#998eff"],["400","#7466ff"],["500","#4736fe"],["600","#3a26e0"],["700","#2e1db4"],["800","#231788"],["900","#19105e"]];
+document.getElementById("ramp").innerHTML = steps.map(function (s, i) { return '<div style="background:' + s[1] + ';color:' + (i < 4 ? "#2e1db4" : "#fff") + '">' + s[0] + '</div>'; }).join("");
+var NS = "http://www.w3.org/2000/svg";
+function el(svg, tag, a) { var e = document.createElementNS(NS, tag); for (var k in a) e.setAttribute(k, a[k]); svg.appendChild(e); return e; }
+/* governance: many request lines converging on one front door */
+(function () {
+  var s = document.getElementById("flow"); el(s, "rect", { width: 1920, height: 1080, fill: "#f1efff" });
+  var dots = el(s, "g", { fill: "#4736fe", "fill-opacity": ".10" });
+  for (var x = 20; x < 1920; x += 40) for (var y = 20; y < 1080; y += 40) el(dots, "circle", { cx: x, cy: y, r: 2 });
+  var g = el(s, "g", { fill: "none", stroke: "#4736fe", "stroke-width": "2" });
+  var door = [1330, 540];
+  for (var i = 0; i < 26; i++) {
+    var y0 = -40 + i * 45, x0 = 820, op = (0.08 + 0.18 * Math.sin(Math.PI * i / 25)).toFixed(2);
+    el(g, "path", { d: "M" + x0 + " " + y0 + " C" + (x0 + 300) + " " + y0 + " " + (door[0] - 260) + " " + door[1] + " " + door[0] + " " + door[1], "stroke-opacity": op });
+  }
+  for (var j = 0; j < 3; j++) el(g, "path", { d: "M" + door[0] + " " + door[1] + " C1500 540 1640 " + (300 + j * 240) + " 1960 " + (300 + j * 240), "stroke-opacity": ".25", "stroke-width": "3" });
+  el(s, "circle", { cx: door[0], cy: door[1], r: 26, fill: "#4736fe" });
+  el(s, "circle", { cx: door[0], cy: door[1], r: 44, fill: "none", stroke: "#4736fe", "stroke-opacity": ".3", "stroke-width": "2" });
+})();
+/* pattern library: a modular block grid, like an empty page layout */
+(function () {
+  var s = document.getElementById("blocks"); el(s, "rect", { width: 1920, height: 1080, fill: "#9de7c8" });
+  var g = el(s, "g", { fill: "none", stroke: "#0b0d12", "stroke-opacity": ".10", "stroke-width": "2" });
+  var seed = 7; function r() { seed = (seed * 9301 + 49297) % 233280; return seed / 233280; }
+  var U = 60, cols = 32, rows = 18, used = {};
+  for (var y = 0; y < rows; y++) for (var x = 0; x < cols; x++) {
+    if (used[x + "," + y]) continue;
+    var w = 1 + Math.floor(r() * 4), h = 1 + Math.floor(r() * 3);
+    for (var a = 0; a < w; a++) for (var b = 0; b < h; b++) used[(x + a) + "," + (y + b)] = 1;
+    el(g, "rect", { x: x * U + 6, y: y * U + 6, width: w * U - 12, height: h * U - 12, rx: 10, "stroke-dasharray": r() > .6 ? "6 8" : "none" });
+  }
+})();
+function show(id) { document.querySelectorAll(".scene").forEach(function (s) { s.classList.toggle("on", s.id === id); }); }
+show("tokens");
+</script>
+</body>
+</html>
