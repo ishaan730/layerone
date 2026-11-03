@@ -5,7 +5,7 @@
 const path = require("path"), fs = require("fs"), os = require("os"), { spawn, spawnSync } = require("child_process");
 const { chromium } = require("playwright");
 const ROOT = path.resolve(__dirname, "..", ".."), OUT = path.join(ROOT, "assets", "video");
-const FPS = 30, W = 1600, H = 900, POSTER_T = 40.2;
+const FPS = 30, W = 1600, H = 900, POSTER_T = 45.0;
 (async () => {
   const args = process.argv.slice(2);
   const preview = args[0] === "--preview" ? args[1].split(",").map(Number) : null;
@@ -26,7 +26,7 @@ const FPS = 30, W = 1600, H = 900, POSTER_T = 40.2;
   fs.mkdirSync(OUT, { recursive: true });
   const mp4 = path.join(OUT, "hero-reel.mp4");
   const ff = spawn("ffmpeg", ["-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", String(FPS), "-c:v", "mjpeg", "-i", "-",
-    "-c:v", "libx264", "-preset", "slow", "-crf", "24", "-pix_fmt", "yuv420p", "-movflags", "+faststart", "-an", mp4], { stdio: ["pipe", "inherit", "inherit"] });
+    "-c:v", "libx264", "-preset", "slow", "-crf", "28", "-pix_fmt", "yuv420p", "-movflags", "+faststart", "-an", mp4], { stdio: ["pipe", "inherit", "inherit"] });
   const n = Math.round(dur * FPS);
   for (let i = 0; i < n; i++) {
     await pg.evaluate(t => seek(t), i / FPS);
@@ -38,7 +38,7 @@ const FPS = 30, W = 1600, H = 900, POSTER_T = 40.2;
   await pg.evaluate(t => seek(t), POSTER_T);
   await pg.screenshot({ path: path.join(OUT, "hero-poster.jpg"), type: "jpeg", quality: 82 });
   await b.close();
-  spawnSync("ffmpeg", ["-y", "-loglevel", "error", "-i", mp4, "-c:v", "libvpx-vp9", "-b:v", "0", "-crf", "38", "-row-mt", "1",
+  spawnSync("ffmpeg", ["-y", "-loglevel", "error", "-i", mp4, "-c:v", "libvpx-vp9", "-b:v", "0", "-crf", "44", "-row-mt", "1",
     "-deadline", "good", "-cpu-used", "4", "-an", path.join(OUT, "hero-reel.webm")], { stdio: "inherit" });
   for (const f of ["hero-reel.mp4", "hero-reel.webm", "hero-poster.jpg"]) console.log(f, Math.round(fs.statSync(path.join(OUT, f)).size / 1024), "KB");
 })();

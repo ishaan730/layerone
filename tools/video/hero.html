@@ -20,6 +20,7 @@
 html, body { width: 1600px; height: 900px; overflow: hidden; background: #0b0d12; }
 body { font-family: "SG", sans-serif; color: #ecece8; -webkit-font-smoothing: antialiased; }
 .stage { position: absolute; inset: 0; overflow: hidden; background: #0b0d12; }
+.scene { position: absolute; inset: 0; overflow: hidden; transform-origin: 50% 50%; will-change: transform, clip-path, opacity, filter; }
 .abs { position: absolute; will-change: transform, opacity; transform-origin: center; }
 .full { position: absolute; inset: 0; }
 .cover { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -115,8 +116,31 @@ body { font-family: "SG", sans-serif; color: #ecece8; -webkit-font-smoothing: an
 </head>
 <body>
 <div class="stage" id="stage">
+  <div class="scene" id="scO">
+  <!-- ===== Intro: the Layer One mark draws on, then the camera dives through it ===== -->
+  <div class="full grid abs" id="oGrid"></div>
+  <svg class="abs" id="oMark" viewBox="0 0 400 400" width="400" height="400" style="left:600px;top:190px;overflow:visible;transform-origin:172px 172px">
+    <rect x="10" y="10" width="380" height="380" fill="none" stroke="#2a2f3a" stroke-width="1" stroke-dasharray="4 6"/>
+    <g transform="translate(50 50) scale(3)">
+      <path id="oFill" fill="#ff6b3d" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/>
+      <path id="oStroke" pathLength="1" fill="none" stroke="#ff6b3d" stroke-width=".7" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/>
+    </g>
+    <g id="oNodes" stroke="#ff6b3d" stroke-width="1.5" fill="#0b0d12">
+      <path d="M200 50H120M200 50H280M350 200V120M350 200V280M200 350H280M200 350H120M50 200V280M50 200V120" stroke="#9aa0aa" stroke-width="1"/>
+      <circle cx="120" cy="50" r="5"/><circle cx="280" cy="50" r="5"/><circle cx="350" cy="120" r="5"/><circle cx="350" cy="280" r="5"/>
+      <circle cx="280" cy="350" r="5"/><circle cx="120" cy="350" r="5"/><circle cx="50" cy="280" r="5"/><circle cx="50" cy="120" r="5"/>
+      <rect x="193" y="43" width="14" height="14"/><rect x="343" y="193" width="14" height="14"/><rect x="193" y="343" width="14" height="14"/><rect x="43" y="193" width="14" height="14"/>
+      <rect x="194" y="194" width="12" height="12" fill="#ff6b3d"/>
+    </g>
+  </svg>
+  <div class="abs mono" id="oLabel" style="left:600px;top:150px;font-size:18px;color:#9aa0aa">layer.one / mark.svg</div>
+  <div class="abs mono" id="oCoords" style="left:600px;top:612px;width:400px;display:flex;justify-content:space-between;font-size:16px;color:#6b7280"><span>x 0 · y 0</span><span>w 400 · h 400</span></div>
+  <div class="abs h" id="oWord" style="left:0;right:0;top:660px;text-align:center;font-size:64px">Layer One</div>
+  <div class="abs mono" id="oSub" style="left:0;right:0;top:744px;text-align:center;font-size:22px;color:#9aa0aa">a design systems studio</div>
 
-  <!-- ===== A. The problem you recognise, 0–3.6 ===== -->
+  </div>
+  <div class="scene" id="sc_a">
+<!-- ===== A. The problem you recognise, 0–3.6 ===== -->
   <div class="full grid abs" id="aGrid"></div>
   <div class="hook abs" id="a1" style="top:200px">Five blues in the code.<small>CARS24</small><i id="a1s"></i></div>
   <div class="hook abs" id="a2" style="top:330px">Three date pickers.<small>Riyadh Air</small><i id="a2s"></i></div>
@@ -125,8 +149,10 @@ body { font-family: "SG", sans-serif; color: #ecece8; -webkit-font-smoothing: an
     <svg viewBox="0 0 100 100" width="56" height="56"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg>
     <span style="font-size:56px;font-weight:600;letter-spacing:-.04em">A design system fixes all three.</span>
   </div>
+  </div>
 
-  <!-- ===== B. Where these systems were built, 3.6–6.6 ===== -->
+  <div class="scene" id="sc_b">
+<!-- ===== B. Where these systems were built, 3.6–6.6 ===== -->
   <div class="full abs" id="bBg" style="background:#0b0d12"></div>
   <div class="abs" id="bWrap" style="left:0;right:0;top:150px;text-align:center">
     <p class="k" id="b1" style="color:#9aa0aa">design systems built at</p>
@@ -144,8 +170,10 @@ body { font-family: "SG", sans-serif; color: #ecece8; -webkit-font-smoothing: an
     <div class="stat"><b class="big"><span id="bn3">71</span></b><span>components for an airline</span></div>
     <div class="stat"><b class="big"><span id="bn4">5</span>×</b><span>more requests handled a year</span></div>
   </div>
+  </div>
 
-  <!-- ===== C. CARS24 colour: five blues become one token, 6.6–10.0 ===== -->
+  <div class="scene" id="sc_c">
+<!-- ===== C. CARS24 colour: five blues become one token, 6.6–10.0 ===== -->
   <div class="full abs" id="cBg" style="background:#4736fe"></div>
   <div class="abs" id="cText" style="left:110px;top:150px;width:560px;color:#fff">
     <p class="k" style="opacity:.8">CARS24 · colour and tokens</p>
@@ -167,8 +195,10 @@ body { font-family: "SG", sans-serif; color: #ecece8; -webkit-font-smoothing: an
   </div>
   <p class="abs mono" id="cRampL" style="left:838px;top:584px;font-size:17px;color:#fff;opacity:.9">the rebrand: color-blue-50 … 900</p>
   <div class="abs frame shadow" id="cWork" style="left:838px;top:640px;width:514px;height:160px"><img class="cover" src="/assets/work/tokens/hero.jpg" alt=""></div>
+  </div>
 
-  <!-- ===== D. CARS24 LEGO: two homepages become one, 10.0–13.6 ===== -->
+  <div class="scene" id="sc_d">
+<!-- ===== D. CARS24 LEGO: two homepages become one, 10.0–13.6 ===== -->
   <div class="full abs" id="dBg" style="background:#f1efe9"></div>
   <div class="abs" id="dText" style="left:110px;top:160px;width:520px;color:#0b0d12">
     <p class="k" style="color:#565c67">CARS24 · LEGO component system</p>
@@ -185,8 +215,10 @@ body { font-family: "SG", sans-serif; color: #ecece8; -webkit-font-smoothing: an
   </div>
   <div class="abs frame shadow" id="dK1" style="left:1290px;top:520px;width:250px;height:224px;padding:10px"><img src="/assets/work/cars24-lego/k-button.webp" alt="" style="width:100%;height:100%;object-fit:contain"></div>
   <div class="abs frame shadow" id="dK2" style="left:1240px;top:150px;width:300px;height:198px;padding:10px"><img src="/assets/work/cars24-lego/k-chips.webp" alt="" style="width:100%;height:100%;object-fit:contain"></div>
+  </div>
 
-  <!-- ===== E. Pattern library phones, 13.6–16.6 ===== -->
+  <div class="scene" id="sc_e">
+<!-- ===== E. Pattern library phones, 13.6–16.6 ===== -->
   <div class="full abs" id="eBg" style="background:#9de7c8"></div>
   <div class="abs" id="eText" style="left:110px;top:160px;width:560px;color:#0b0d12">
     <p class="k" style="opacity:.7">CARS24 · pattern library</p>
@@ -197,8 +229,10 @@ body { font-family: "SG", sans-serif; color: #ecece8; -webkit-font-smoothing: an
   <div class="abs phone" id="eP1" style="left:720px;top:170px"><img id="eS1" src="/assets/work/patterns/home-system.jpg" alt=""></div>
   <div class="abs phone" id="eP2" style="left:1000px;top:120px;z-index:2"><img id="eS2" src="/assets/work/patterns/home-live.jpg" alt=""></div>
   <div class="abs phone" id="eP3" style="left:1280px;top:170px"><img id="eS3" src="/assets/work/patterns/home-system.jpg" alt="" style="margin-top:-2600px"></div>
+  </div>
 
-  <!-- ===== F. Cardinal Health: Jarvis, 16.6–20.6 ===== -->
+  <div class="scene" id="sc_f">
+<!-- ===== F. Cardinal Health: Jarvis, 16.6–20.6 ===== -->
   <div class="full abs" id="fBg" style="background:#e41f35"></div>
   <div class="abs" id="fText" style="left:110px;top:140px;width:560px;color:#fff">
     <img src="/assets/work/ibm-cardinal-health/logo-white.png" alt="" style="height:46px">
@@ -219,8 +253,10 @@ body { font-family: "SG", sans-serif; color: #ecece8; -webkit-font-smoothing: an
   <div class="abs" id="fRamp" style="left:1260px;top:560px;padding:14px;border-radius:14px;background:#fff">
     <div class="rg" id="fRg"></div>
   </div>
+  </div>
 
-  <!-- ===== G. Riyadh Air, 20.6–24.6 ===== -->
+  <div class="scene" id="sc_g">
+<!-- ===== G. Riyadh Air, 20.6–24.6 ===== -->
   <div class="full abs" id="gBg" style="background:#240852"></div>
   <canvas class="full abs" id="gLines" width="1600" height="900"></canvas>
   <div class="abs" id="gText" style="left:110px;top:140px;width:560px;color:#fff">
@@ -250,8 +286,10 @@ body { font-family: "SG", sans-serif; color: #ecece8; -webkit-font-smoothing: an
       <div class="rprice"><small class="rk">ابتداءً من</small><b>٢٬٤٤٥ ر.س.</b></div><div class="rbtn">احجز الآن</div></div>
   </div></div></div>
   <div class="abs watch" id="gWatch" style="left:1330px;top:600px"><div class="scr"><span class="g">Gate B12</span><b>07:40</b><span class="t">RUH → LHR</span><span class="pill">Boarding pass</span></div></div>
+  </div>
 
-  <!-- ===== H. Governance: from bottleneck to front door, 24.6–28.2 ===== -->
+  <div class="scene" id="sc_h">
+<!-- ===== H. Governance: from bottleneck to front door, 24.6–28.2 ===== -->
   <div class="full abs" id="hBg" style="background:#f6f6f3"></div>
   <div class="full abs grid-ink" id="hGrid"></div>
   <div class="abs" id="hText" style="left:110px;top:120px;width:1380px;color:#0b0d12">
@@ -271,8 +309,10 @@ body { font-family: "SG", sans-serif; color: #ecece8; -webkit-font-smoothing: an
     <div class="stat"><b class="big" style="font-size:58px">~<span id="hN2">900</span></b><span style="color:#565c67">tickets a year, at Cardinal Health</span></div>
     <div class="stat"><b class="big" style="font-size:58px"><span id="hN3">3</span> companies</b><span style="color:#565c67">on one rhythm, at Riyadh Air</span></div>
   </div>
+  </div>
 
-  <!-- ===== I. JPMorgan Chase checks, 28.2–30.8 (illustration) ===== -->
+  <div class="scene" id="sc_i">
+<!-- ===== I. JPMorgan Chase checks, 28.2–30.8 (illustration) ===== -->
   <div class="full abs" id="iBg" style="background:#8a5434"></div>
   <div class="abs" id="iText" style="left:110px;top:170px;width:560px;color:#fff">
     <p class="k" style="opacity:.8">JPMorgan Chase · tooling</p>
@@ -289,8 +329,10 @@ body { font-family: "SG", sans-serif; color: #ecece8; -webkit-font-smoothing: an
     <div style="margin-top:18px;display:flex;align-items:center;gap:14px"><div style="flex:1;height:6px;border-radius:3px;background:#2a2f3a;overflow:hidden"><div id="iBar" style="height:100%;width:0;background:#7ee2a8"></div></div><span class="mono" style="font-size:18px"><span id="iCount">0</span>%</span></div>
   </div>
   <div class="tag" id="iTag" style="right:120px;top:110px">illustration</div>
+  </div>
 
-  <!-- ===== J. Montage of real work, 30.8–34.0 ===== -->
+  <div class="scene" id="sc_m">
+<!-- ===== J. Montage of real work, 30.8–34.0 ===== -->
   <div class="full abs" id="m1" style="background:#fff"><img class="cover" src="/assets/work/tokens/hero.jpg" alt=""></div>
   <div class="full abs" id="m2" style="background:#4736fe"><img class="cover" src="/assets/work/cars24-lego/b-hero.webp" alt=""></div>
   <div class="full abs" id="m3" style="background:#fff"><img class="cover" src="/assets/work/ibm-cardinal-health/screen-pdp.jpg" alt="" style="object-position:top"></div>
@@ -300,8 +342,10 @@ body { font-family: "SG", sans-serif; color: #ecece8; -webkit-font-smoothing: an
   <div class="full abs" id="m7" style="background:#f6f7fc"><img class="cover" src="/assets/work/ibm-riyadh-air/f-colour.jpg" alt=""></div>
   <div class="full abs" id="m8" style="background:#ecebe6;display:grid;place-items:center"><img src="/assets/work/cars24-lego/ba-after.webp" alt="" style="height:100%"></div>
   <div class="abs tag" id="mTag" style="left:60px;bottom:60px;font-size:20px;padding:10px 14px"><span id="mN">01</span> / 08 · <span id="mL">CARS24</span></div>
+  </div>
 
-  <!-- ===== K. How to start, 34.0–38.0 ===== -->
+  <div class="scene" id="sc_k">
+<!-- ===== K. How to start, 34.0–38.0 ===== -->
   <div class="full abs" id="kBg" style="background:#0b0d12"></div>
   <div class="full abs grid" id="kGrid"></div>
   <div class="abs" id="kText" style="left:110px;top:150px;width:1380px">
@@ -312,23 +356,29 @@ body { font-family: "SG", sans-serif; color: #ecece8; -webkit-font-smoothing: an
   <div class="plan rec" id="k2" style="left:590px"><p class="d"><span>6 weeks, fixed</span><span>recommended</span></p><h3>Foundations</h3><p class="p">$5,900</p><p class="w">Colour, type, tokens and your core components, in Figma and code.</p></div>
   <div class="plan" id="k3" style="left:1070px"><p class="d"><span>monthly, pause any time</span></p><h3>Partner</h3><p class="p">$2,900<small>/mo</small></p><p class="w">Grow it and govern it with your teams.</p></div>
   <p class="abs mono" id="kNote" style="left:110px;top:700px;font-size:20px;color:#9aa0aa">Audit fee credited in full against Foundations · founding partners 2027: 20% off</p>
+  </div>
 
-  <!-- ===== L. End card, 38.0–43.0 ===== -->
+  <div class="scene" id="sc_z">
+<!-- ===== L. End card, 38.0–43.0 ===== -->
   <div class="full abs" id="zBg" style="background:#0b0d12"></div>
   <div class="full abs grid" id="zGrid"></div>
-  <div class="abs" id="zLogos" style="left:0;right:0;top:190px;display:flex;justify-content:center;align-items:center;gap:56px;opacity:.9">
-    <img class="wm" id="z1" src="/assets/logos/wordmark-jpmc.png" alt="" style="height:26px">
-    <img class="wm" id="z2" src="/assets/logos/wordmark-ibm.png" alt="" style="height:36px">
-    <img class="wm" id="z3" src="/assets/logos/wordmark-cars24.png" alt="" style="height:30px">
-    <img class="wm" id="z4" src="/assets/work/ibm-cardinal-health/logo-white.png" alt="" style="height:42px">
-    <img class="wm" id="z5" src="/assets/work/ibm-riyadh-air/logo-lockup.png" alt="" style="height:46px">
+  <svg class="abs" id="zMark" viewBox="0 0 100 100" width="104" height="104" style="left:748px;top:96px;overflow:visible">
+    <path id="zFill" fill="#ff6b3d" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/>
+    <path id="zStroke" pathLength="1" fill="none" stroke="#ff6b3d" stroke-width="1" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/>
+  </svg>
+  <div class="abs h" id="zHead" style="left:0;right:0;top:250px;text-align:center;font-size:84px">Your design system,<br>built by the team behind these.</div>
+  <div class="abs" id="zCta" style="left:0;right:0;top:494px;display:flex;justify-content:center"><span class="pillcta">Start with a two-week audit <svg viewBox="0 0 34 14" width="40" height="16" fill="none"><path d="M1 7h31M26 1l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+  <div class="abs" id="zLogos" style="left:0;right:0;top:648px;display:flex;justify-content:center;align-items:center;gap:56px;opacity:.9">
+    <img class="wm" id="z1" src="/assets/logos/wordmark-jpmc.png" alt="" style="height:24px">
+    <img class="wm" id="z2" src="/assets/logos/wordmark-ibm.png" alt="" style="height:33px">
+    <img class="wm" id="z3" src="/assets/logos/wordmark-cars24.png" alt="" style="height:28px">
+    <img class="wm" id="z4" src="/assets/work/ibm-cardinal-health/logo-white.png" alt="" style="height:38px">
+    <img class="wm" id="z5" src="/assets/work/ibm-riyadh-air/logo-lockup.png" alt="" style="height:42px">
   </div>
-  <div class="abs h" id="zHead" style="left:0;right:0;top:310px;text-align:center;font-size:86px">Your design system,<br>built by the team behind these.</div>
-  <div class="abs" id="zCta" style="left:0;right:0;top:560px;display:flex;justify-content:center"><span class="pillcta">Start with a two-week audit <svg viewBox="0 0 34 14" width="40" height="16" fill="none"><path d="M1 7h31M26 1l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
-  <div class="abs" id="zFoot" style="left:0;right:0;top:700px;display:flex;justify-content:center;gap:16px;align-items:center;color:#ff6b3d">
-    <svg viewBox="0 0 100 100" width="36" height="36"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg>
-    <span style="font-size:30px;font-weight:600;letter-spacing:-.02em">Layer One</span>
-    <span class="mono" style="font-size:21px;color:#9aa0aa;margin-left:10px">layerone.co.in</span>
+  <div class="abs" id="zFoot" style="left:0;right:0;top:760px;display:flex;justify-content:center;gap:16px;align-items:baseline">
+    <span style="font-size:30px;font-weight:600;letter-spacing:-.02em;color:#ff6b3d">Layer One</span>
+    <span class="mono" style="font-size:21px;color:#9aa0aa">a design systems studio · layerone.co.in</span>
+  </div>
   </div>
 
   <!-- global fade for a seamless loop -->
@@ -336,9 +386,15 @@ body { font-family: "SG", sans-serif; color: #ecece8; -webkit-font-smoothing: an
 </div>
 
 <script>
-const DUR = 43;
+// Two clocks: the Layer One intro runs on the global clock g, then the story runs on t = g - INTRO.
+const INTRO = 3.4;
+const TR = 0.75;               // every scene transition lasts this long; the outgoing scene stays under the incoming one
+const DUR = 43 + INTRO;
 const E = {
   lin: t => t,
+  expo: t => t <= 0 ? 0 : t >= 1 ? 1 : t < .5 ? Math.pow(2, 20 * t - 10) / 2 : (2 - Math.pow(2, -20 * t + 10)) / 2,
+  outExpo: t => t >= 1 ? 1 : 1 - Math.pow(2, -10 * t),
+  back: t => { const c1 = 1.4, c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); },
   out: t => 1 - Math.pow(1 - t, 3),
   out5: t => 1 - Math.pow(1 - t, 5),
   in: t => t * t * t,
@@ -355,13 +411,13 @@ function v(keys, t, ease) {
 }
 const cut = (a, b) => [[a - 0.001, 0], [a, 1, "step"], [b, 1], [b + 0.001, 0]];
 const rise = (a, d = 40, len = 0.5) => [[a, d], [a + len, 0, "out5"]];
-const pop = (a, len = 0.45) => [[a, 0.6], [a + len, 1, "out5"]];
+const pop = (a, len = 0.5) => [[a, 0.7], [a + len, 1, "back"]];          // overshoot, then settle
 const fadeIn = (a, len = 0.3) => [[a, 0], [a + len, 1]];
-const within = (k, keys) => { const [a, b] = S[k]; return [[a - 0.001, 0], ...keys.filter(x => x[0] >= a), [b, keys[keys.length - 1][1]], [b + 0.001, 0]]; };
+const within = (k, keys) => { const [a, b] = S[k]; return [[a - 0.001, 0], ...keys.filter(x => x[0] >= a), [b + TR, keys[keys.length - 1][1]], [b + TR + 0.001, 0]]; };
 
-// Scene windows: hard cuts between scenes, like a reel
+// Scene windows on the story clock. A scene stays visible for TR after its end, under the next scene's entrance.
 const S = { a: [0, 3.6], b: [3.6, 6.6], c: [6.6, 10.0], d: [10.0, 13.6], e: [13.6, 16.6], f: [16.6, 20.6], g: [20.6, 24.6], h: [24.6, 28.2], i: [28.2, 30.8], m: [30.8, 34.0], k: [34.0, 38.0], z: [38.0, 43.0] };
-const on = k => cut(S[k][0], S[k][1]);
+const on = k => cut(S[k][0], S[k][1] + TR);
 const inScene = (k, a, len = 0.3) => within(k, [[a, 0], [a + len, 1]]);
 
 // Jarvis ramps (real values): 11 ramps × 10 steps
@@ -492,7 +548,7 @@ const T = [
 
   // J. montage: 0.4s hard cuts with a slow push
   ...["m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8"].map((id, i) => {
-    const a = 30.8 + i * 0.4, b = a + 0.4;
+    const a = 30.8 + i * 0.4, b = a + 0.4 + (i === 7 ? TR : 0);
     return ["#" + id, { o: cut(a, b), s: [[a, 1.08], [b, 1.0, "lin"]] }];
   }),
   ["#mTag", { o: on("m") }],
@@ -507,14 +563,16 @@ const T = [
   ["#k3", { o: inScene("k", 34.8, 0.25), y: rise(34.8, 60) }],
   ["#kNote", { o: inScene("k", 35.6) }],
 
-  // L. end card
+  // L. end card: the mark draws again (a bookend to the intro), then the message settles in beneath it
   ["#zBg", { o: [[38.0 - 0.001, 0], [38.0, 1, "step"]] }],
-  ["#zGrid", { o: [[38.0, 0], [38.6, 1]] }],
-  ...[1, 2, 3, 4, 5].map(i => [`#z${i}`, { o: [[38.1 + i * 0.08, 0], [38.4 + i * 0.08, 1]], y: rise(38.1 + i * 0.08, 20) }]),
-  ["#zHead", { o: [[38.5, 0], [38.8, 1]], y: rise(38.5, 30), blur: [[38.5, 10], [38.9, 0]] }],
-  ["#zCta", { o: [[39.1, 0], [39.4, 1]], s: [[39.1, 0.9], [39.5, 1, "out5"]] }],
-  ["#zFoot", { o: [[39.5, 0], [39.8, 1]] }],
-  ["#fade", { o: [[0, 1], [0.3, 0], [42.4, 0], [43.0, 1]] }],
+  ["#zGrid", { o: [[38.0, 0], [38.8, 1]] }],
+  ["#zStroke", { dash: [[38.25, 1], [39.2, 0, "io"]], o: [[39.25, 1], [39.6, 0]] }],
+  ["#zFill", { o: [[39.0, 0], [39.45, 1]] }],
+  ["#zMark", { s: [[38.25, 0.82], [39.4, 1, "outExpo"]], r: [[38.25, -30], [39.4, 0, "outExpo"]] }],
+  ["#zHead", { o: [[38.85, 0], [39.25, 1]], y: rise(38.85, 36, 0.7), blur: [[38.85, 12], [39.3, 0]] }],
+  ["#zCta", { o: [[39.35, 0], [39.6, 1]], s: pop(39.35, 0.6) }],
+  ...[1, 2, 3, 4, 5].map(i => [`#z${i}`, { o: [[39.7 + i * 0.07, 0], [39.95 + i * 0.07, 1]], y: rise(39.7 + i * 0.07, 18) }]),
+  ["#zFoot", { o: [[40.2, 0], [40.5, 1]] }],
 ];
 
 // Canopy Twist line art, drawing on from left to right (the Riyadh Air brand line)
@@ -536,9 +594,57 @@ function canopy(t, el) {
 
 function mix(a, b, k) { const h = x => [1, 3, 5].map(i => parseInt(x.substr(i, 2), 16)); const A = h(a), B = h(b); return "rgb(" + A.map((x, i) => Math.round(x + (B[i] - x) * k)).join(",") + ")"; }
 
-const els = T.map(([sel, props]) => [document.querySelectorAll(sel), props]);
-function seek(t) {
-  for (const [nodes, p] of els) {
+// ---------------- Intro on the global clock: the mark draws on its construction grid, then the camera dives through it
+const TI = [
+  ["#oGrid", { o: [[0, 0], [0.4, 1], [2.9, 1], [3.4, 0]] }],
+  ["#oStroke", { dash: [[0.3, 1], [1.7, 0, "io"]], o: [[1.9, 1], [2.2, 0]] }],
+  ["#oFill", { o: [[1.6, 0], [2.1, 1]] }],
+  ["#oNodes", { o: [[0.4, 0], [0.7, 1], [1.8, 1], [2.1, 0]] }],
+  // settle, a small anticipation (pull back), then an accelerating dive into the centre of the mark
+  ["#oMark", { s: [[0, 0.9], [2.2, 1.0, "outExpo"], [2.7, 1.0], [2.95, 0.93, "io"], [3.6, 22, "in"]], o: [[3.35, 1], [3.6, 0]] }],
+  ["#oLabel", { o: [[0.3, 0], [0.6, 1], [2.0, 1], [2.3, 0]] }],
+  ["#oCoords", { o: [[0.5, 0], [0.8, 1], [2.0, 1], [2.3, 0]] }],
+  ["#oWord", { o: [[2.05, 0], [2.35, 1], [2.75, 1], [2.95, 0]], y: rise(2.05, 30, 0.6), blur: [[2.05, 8], [2.4, 0]] }],
+  ["#oSub", { o: [[2.2, 0], [2.45, 1], [2.75, 1], [2.95, 0]], y: rise(2.2, 20, 0.6) }],
+];
+
+// ---------------- Scene transitions. Each scene enters one way; the scene underneath recedes in a matching way.
+// Pushes carry direction (left = next, up = deeper), irises open from where the eye already is, wipes reveal a new
+// surface, a curtain draws across, a zoom passes through. Expo easing; a short motion blur at peak speed.
+const IN = { a: "dive", b: "pushU", c: ["iris", 800, 450], d: "pushL", e: "wipeU", f: ["iris", 1150, 470], g: "pushU", h: "curtain", i: "pushL", m: "zoom", k: "wipeU", z: "fade" };
+const ORDER = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "m", "k", "z"];
+const clamp = x => Math.max(0, Math.min(1, x));
+function sceneState(k, t) {
+  const [a, b] = S[k], i = ORDER.indexOf(k), next = ORDER[i + 1], inT = [].concat(IN[k]), outT = next ? [].concat(IN[next])[0] : null;
+  const from = k === "a" ? -0.35 : a, to = next ? b + TR : DUR - INTRO + 1;
+  if (t < from || t > to) return null;
+  const pi = clamp((t - a) / TR), po = next ? clamp((t - b) / TR) : 0, ei = E.expo(pi), eo = E.expo(po);
+  let tx = 0, ty = 0, sc = 1 + 0.03 * clamp((t - a) / (to - a)), o = 1, br = 1, bl = 0, clip = "none";
+  switch (inT[0]) {
+    case "dive": { const p = clamp((t + 0.35) / 0.8); sc *= 1.5 - 0.5 * E.outExpo(p); o = clamp(p * 1.6); bl = 10 * (1 - E.outExpo(p)); break; }
+    case "pushL": tx += 1600 * (1 - ei); bl += 6 * Math.sin(Math.PI * pi); break;
+    case "pushU": ty += 900 * (1 - ei); bl += 6 * Math.sin(Math.PI * pi); break;
+    case "iris": clip = `circle(${(1900 * ei).toFixed(1)}px at ${inT[1]}px ${inT[2]}px)`; sc *= 1.06 - 0.06 * ei; break;
+    case "wipeU": clip = `inset(${((1 - ei) * 100).toFixed(2)}% 0 0 0)`; ty += 140 * (1 - ei); break;
+    case "curtain": clip = `inset(0 ${((1 - ei) * 100).toFixed(2)}% 0 0)`; tx -= 220 * (1 - ei); break;
+    case "zoom": sc *= 1.35 - 0.35 * ei; o = clamp(pi * 1.4); break;
+    case "fade": o = clamp((t - a) / 0.6); break;
+  }
+  switch (outT) {
+    case "pushL": tx -= 560 * eo; sc *= 1 - 0.07 * eo; br -= 0.45 * eo; bl += 6 * Math.sin(Math.PI * po); break;
+    case "pushU": ty -= 280 * eo; sc *= 1 - 0.06 * eo; br -= 0.45 * eo; bl += 6 * Math.sin(Math.PI * po); break;
+    case "iris": sc *= 1 + 0.08 * eo; br -= 0.35 * eo; break;
+    case "wipeU": ty -= 180 * eo; sc *= 1 - 0.05 * eo; br -= 0.5 * eo; break;
+    case "curtain": tx += 240 * eo; br -= 0.45 * eo; break;
+    case "zoom": sc *= 1 + 1.2 * E.in(po); o *= 1 - po; bl += 16 * po; break;
+    case "fade": br -= 0.6 * po; break;
+  }
+  return { tx, ty, sc, o, br, bl, clip };
+}
+const SC = ORDER.map(k => [k, document.getElementById("sc_" + k)]);
+
+function apply(list, t) {
+  for (const [nodes, p] of list) {
     nodes.forEach(el => {
       if (p.o) el.style.opacity = v(p.o, t);
       if (p.x || p.y || p.s || p.r) {
@@ -557,6 +663,25 @@ function seek(t) {
       if (p.fn && (!p.o || v(p.o, t) > 0)) p.fn(t, el);
     });
   }
+}
+const els = T.map(([sel, props]) => [document.querySelectorAll(sel), props]);
+const intro = TI.map(([sel, props]) => [document.querySelectorAll(sel), props]);
+const scO = document.getElementById("scO"), fadeEl = document.getElementById("fade");
+function seek(g) {
+  const t = g - INTRO;
+  scO.style.display = g <= INTRO + 0.3 ? "block" : "none";
+  apply(intro, g);
+  apply(els, t);
+  for (const [k, el] of SC) {
+    const st = sceneState(k, t);
+    if (!st) { el.style.display = "none"; continue; }
+    el.style.display = "block";
+    el.style.transform = `translate(${st.tx.toFixed(2)}px, ${st.ty.toFixed(2)}px) scale(${st.sc.toFixed(4)})`;
+    el.style.opacity = st.o;
+    el.style.clipPath = st.clip;
+    el.style.filter = (st.br < 0.999 || st.bl > 0.05) ? `brightness(${st.br.toFixed(3)}) blur(${st.bl.toFixed(2)}px)` : "none";
+  }
+  fadeEl.style.opacity = v([[0, 1], [0.35, 0], [DUR - 0.7, 0], [DUR, 1]], g);
 }
 window.seek = seek;
 window.DUR = DUR;
