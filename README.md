@@ -15,7 +15,7 @@ Direction for every page lives in `.claude/skills/layer-one-site/SKILL.md` (Hex 
 | `clients.html` | Experience: CARS24, IBM, JPMorgan Chase |
 | `studio.html` | About the studio and founder |
 | `pricing.html` | Pricing (`services.html` redirects here) |
-| `lab.html` | Free tools: OKLCH ramp builder, token chain, request scorecard |
+| `lab.html` | Free tools: palette, contrast, type scale, spacing, token name linter, request backlog, export kit |
 | `blog.html`, `blog-librarian-vs-leader.html` | Writing |
 | `contact.html` | Project enquiry (validated form that opens an email draft) |
 
