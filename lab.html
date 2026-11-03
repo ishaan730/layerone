@@ -4,16 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Lab — Layer One</title>
-<meta name="description" content="Free design system tools from Layer One: an OKLCH ramp builder, a token chain explorer and a request scorecard.">
+<meta name="description" content="Free design system tools: an OKLCH palette builder, a WCAG and APCA contrast checker, type and spacing scales, a token name linter, a request backlog and a token export kit.">
 <meta property="og:title" content="Lab — Layer One">
-<meta property="og:description" content="Free design system tools from Layer One: an OKLCH ramp builder, a token chain explorer and a request scorecard.">
+<meta property="og:description" content="Free design system tools: an OKLCH palette builder, a WCAG and APCA contrast checker, type and spacing scales, a token name linter, a request backlog and a token export kit.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://www.layerone.co.in/assets/work/tokens/cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0b0d12">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/site.css?v=24e7279e">
+<link rel="stylesheet" href="assets/site.css?v=8910adab">
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body class="theme-dark">
@@ -24,45 +24,222 @@
   <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
   <a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
 </div></header>
-<div class="shell"><aside class="side" aria-label="Studio">
-    <nav class="side-nav" aria-label="On this page"><a href="#ramp">Ramp builder</a><a href="#chain">Token chain</a><a href="#scorecard">Scorecard</a></nav>
-    <a class="side-card side-card--bar" href="contact.html"><span>Start a project</span><svg viewBox="0 0 34 14" fill="none" aria-hidden="true"><path d="M1 7h31M26 1l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <p class="side-blurb">Layer One is a design systems studio in Bangalore, India.<br>Led by Aniket Pandey.</p>
-    <div class="wordmark"><svg viewBox="0 0 300 182" role="img" aria-label="Layer One"><g transform="translate(10 10)" opacity="0.35" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="none" stroke="currentColor" stroke-width="1.4">LAYER</text><text x="4" y="164" fill="none" stroke="currentColor" stroke-width="1.4">ONE</text></g><g transform="translate(5 5)" opacity="0.6" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="none" stroke="currentColor" stroke-width="1.4">LAYER</text><text x="4" y="164" fill="none" stroke="currentColor" stroke-width="1.4">ONE</text></g><g transform="translate(0 0)" opacity="1" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="currentColor">LAYER</text><text x="4" y="164" fill="currentColor">ONE</text></g><g transform="translate(222 100) scale(.62)"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></g></svg></div>
-    <div class="side-foot">
-      <ul><li><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">linkedin</a></li><li><a href="https://x.com/LayeroneStudios" target="_blank" rel="noopener">x</a></li><li><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">medium</a></li></ul>
-      <a href="mailto:layerone@proton.me">layerone@proton.me</a>
+<main id="main" class="lx">
+  <header class="lx-hero"><div class="lx-in">
+    <p class="lx-eyebrow">lab:</p>
+    <div class="lx-hero-row"><div><h1>Free tools for building a design system</h1>
+      <p class="lx-lede">Seven tools from the method we use on client systems: palette, contrast, type, spacing, token names and request triage. They run in your browser, save as you go, and export tokens you can paste.</p></div>
+      <div class="lx-hero-act"><button type="button" class="lx-btn" data-share>Copy share link</button><button type="button" class="lx-btn" data-reset>Start over</button><span class="lx-status" data-status role="status" aria-live="polite"></span></div></div>
+  </div></header>
+  <nav class="lx-tabs" aria-label="Tools"><div class="lx-in"><div class="lx-tablist" role="tablist" aria-label="Lab tools"><button type="button" role="tab" id="tab-palette" aria-controls="p-palette" aria-selected="true" data-tab="palette"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="8" cy="10" r="1.6" fill="currentColor"/><circle cx="12" cy="7.5" r="1.6" fill="currentColor"/><circle cx="16" cy="10" r="1.6" fill="currentColor"/><path d="M12 21a3 3 0 0 1 0-6h1.5a2 2 0 0 0 0-4"/></svg><span><b>Palette</b><small>From one colour</small></span></button><button type="button" role="tab" id="tab-contrast" aria-controls="p-contrast" aria-selected="false" data-tab="contrast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18a9 9 0 0 0 0-18Z" fill="currentColor"/></svg><span><b>Contrast</b><small>WCAG and APCA</small></span></button><button type="button" role="tab" id="tab-type" aria-controls="p-type" aria-selected="false" data-tab="type"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V5h11v2M9.5 5v14M7 19h5"/><path d="M14 12v-1.5h7V12M17.5 10.5V19M16 19h3"/></svg><span><b>Type scale</b><small>Sizes and lines</small></span></button><button type="button" role="tab" id="tab-space" aria-controls="p-space" aria-selected="false" data-tab="space"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v16M20 4v16"/><path d="M8 12h8M8 12l2.5-2.5M8 12l2.5 2.5M16 12l-2.5-2.5M16 12l-2.5 2.5"/></svg><span><b>Spacing</b><small>Space and radius</small></span></button><button type="button" role="tab" id="tab-names" aria-controls="p-names" aria-selected="false" data-tab="names"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7h10M5 12h14M5 17h7"/><path d="m16 16 2 2 4-4"/></svg><span><b>Token names</b><small>Lint and fix</small></span></button><button type="button" role="tab" id="tab-backlog" aria-controls="p-backlog" aria-selected="false" data-tab="backlog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="4" rx="1"/><rect x="4" y="10" width="12" height="4" rx="1"/><rect x="4" y="16" width="8" height="4" rx="1"/></svg><span><b>Backlog</b><small>Rank requests</small></span></button><button type="button" role="tab" id="tab-kit" aria-controls="p-kit" aria-selected="false" data-tab="kit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v3h16v-3"/></svg><span><b>Export kit</b><small>One file</small></span></button></div></div></nav>
+  <div class="lx-in"><section class="lx-panel" role="tabpanel" id="p-palette" aria-labelledby="tab-palette" data-panel="palette">
+  <header class="lx-ph"><h2>Palette</h2><p>Start from your brand colour. Get even, accessible ramps in OKLCH, a live UI preview in light and dark, and tokens you can paste.</p></header>
+<div class="lx-ws">
+  <aside class="lx-ctl" aria-label="Palette settings">
+    <div class="lx-card">
+      <div class="lx-card-h"><b>Ramps</b><div class="lx-add"><button type="button" class="lx-btn lx-btn--sm" data-add-ramp aria-expanded="false">+ Add ramp</button>
+        <div class="lx-menu" data-add-menu hidden><button type="button" data-preset="neutral">Neutral, tinted from brand</button><button type="button" data-preset="success">Success</button><button type="button" data-preset="warning">Warning</button><button type="button" data-preset="danger">Danger</button><button type="button" data-preset="info">Info</button><button type="button" data-preset="custom">Custom colour</button></div></div></div>
+      <ul class="lx-ramps" data-ramp-list></ul>
     </div>
-  </aside><main id="main" class="content">
-<h1 class="statement">Lab</h1>
-<p class="sub muted">Small tools we built to think with. They're the same methods we use on client systems, and they're free to use.</p>
-<section class="tool" id="ramp" data-ramp aria-labelledby="ramp-t">
-  <div class="tool-head"><div><h3 id="ramp-t">OKLCH ramp builder</h3><p>Pick a hue and a chroma. You get ten perceptually even steps, fitted to the sRGB gamut, with a contrast check on every step and tokens ready to paste.</p></div></div>
-  <div class="ctrl">
-    <label>Hue <span data-hv></span><input type="range" name="hue" min="0" max="360" value="275"></label>
-    <label>Chroma <span data-cv></span><input type="range" name="chroma" min="0.02" max="0.32" step="0.01" value="0.24"></label>
-    <label>Name<input class="btn-line" name="rname" value="brand" style="height:32px"></label>
+    <div class="lx-card" data-ramp-editor>
+      <div class="lx-card-h"><b>Edit <span data-edit-name>brand</span></b><button type="button" class="lx-icon" data-del-ramp aria-label="Delete this ramp">✕</button></div>
+      <label class="lx-f"><span class="lx-l">Name</span><input type="text" name="rname" maxlength="20" spellcheck="false"></label>
+      <div class="lx-f"><span class="lx-l">Colour <em>paste a hex</em></span><div class="lx-hex"><input type="color" name="rcolor" aria-label="Pick a colour"><input type="text" name="rhex" maxlength="7" spellcheck="false" aria-label="Hex value"></div></div>
+      <label class="lx-f"><span class="lx-l">Hue<output data-out="hue"></output><i>°</i></span><input type="range" name="hue" min="0" max="360" step="1" value="275"></label>
+      <label class="lx-f"><span class="lx-l">Chroma<output data-out="chroma"></output></span><input type="range" name="chroma" min="0" max="0.37" step="0.005" value="0.2"></label>
+      <label class="lx-check"><input type="checkbox" name="pin" checked><span>Keep my exact colour at the closest step</span></label>
+    </div>
+    <div class="lx-card">
+      <div class="lx-card-h"><b>Scale</b></div>
+      <div class="lx-f"><span class="lx-l">Steps</span><div class="lx-seg" data-name="steps" role="group" aria-label="Steps"><button type="button" data-v="10" aria-pressed="false">50–900</button><button type="button" data-v="11" aria-pressed="false">50–950</button><button type="button" data-v="12" aria-pressed="false">25–950</button></div></div>
+      <label class="lx-f"><span class="lx-l">Lightest<output data-out="lmax"></output></span><input type="range" name="lmax" min="0.9" max="0.995" step="0.005" value="0.975"></label>
+      <label class="lx-f"><span class="lx-l">Darkest<output data-out="lmin"></output></span><input type="range" name="lmin" min="0.12" max="0.4" step="0.01" value="0.24"></label>
+      <div class="lx-f"><span class="lx-l">Fit to</span><div class="lx-seg" data-name="gamut" role="group" aria-label="Fit to"><button type="button" data-v="srgb" aria-pressed="false">sRGB</button><button type="button" data-v="p3" aria-pressed="false">Display P3</button></div></div>
+    </div>
+  </aside>
+  <div class="lx-out">
+    <div class="lx-sheet" data-sheet aria-live="polite"></div>
+    <p class="lx-hint">Select a swatch to copy its value. Badges show WCAG 2 contrast with white and black text.</p>
+    <div class="lx-prev" data-prev>
+      <div class="lx-prev-h"><b>Preview</b><div class="lx-seg" data-prev-mode role="group" aria-label="Preview theme"><button type="button" data-v="both" aria-pressed="true">Light and dark</button><button type="button" data-v="light" aria-pressed="false">Light</button><button type="button" data-v="dark" aria-pressed="false">Dark</button></div></div>
+      <div class="lx-prev-grid" data-prev-grid></div>
+    </div>
+    <div class="lx-exp" data-exp="palette">
+      <div class="lx-exp-bar"><div class="lx-seg" role="group" aria-label="Export format"><button type="button" data-fmt="css" aria-pressed="true">CSS</button><button type="button" data-fmt="tailwind" aria-pressed="false">Tailwind</button><button type="button" data-fmt="json" aria-pressed="false">JSON (DTCG)</button><button type="button" data-fmt="scss" aria-pressed="false">SCSS</button></div>
+        <div class="lx-exp-act"><button type="button" class="lx-btn" data-copy>Copy</button><button type="button" class="lx-btn" data-dl>Download</button></div></div>
+      <pre class="lx-code" tabindex="0" aria-label="Exported code"><code></code></pre>
+    </div>
   </div>
-  <div class="ramp-out"></div>
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:12px;flex-wrap:wrap"><span class="small muted">Contrast is measured against white and black text.</span><button class="btn-line" type="button" data-copy>Copy tokens</button></div>
-  <pre class="code-out"></pre>
-</section>
-<section class="tool" id="chain" data-chain style="--brand:#4736fe" aria-labelledby="chain-t">
-  <div class="tool-head"><div><h3 id="chain-t">Token chain</h3><p>The four layers between a hex code and a button, from the CARS24 architecture. Switch the theme: components never change, only the mapping underneath.</p></div></div>
-  <div class="ctrl" style="gap:8px"><button type="button" class="btn-line" data-theme-pick data-hex="#4736fe" data-prim="color-blue-500" data-sem="color-action-primary" aria-pressed="true">New brand</button><button type="button" class="btn-line" data-theme-pick data-hex="#0059a3" data-prim="color-blue-700" data-sem="color-action-primary" aria-pressed="false">Old brand</button><button type="button" class="btn-line" data-theme-pick data-hex="#1f3a8a" data-prim="nbfc-color-navy-500" data-sem="nbfc-color-action-primary" aria-pressed="false">Loans theme</button><button type="button" class="btn-line" data-theme-pick data-hex="#2bb58a" data-prim="color-mint-500" data-sem="color-action-accent" aria-pressed="false">Mint accent</button></div>
-  <div class="chain">
-    <div><span>Value</span><div class="sw"></div><code data-v>#4736FE</code></div>
-    <div><span>Primitive</span><code data-p>color-blue-500</code></div>
-    <div><span>Semantic</span><code data-s>color-action-primary</code></div>
-    <div><span>Component</span><code>button-background-primary</code><div class="sw" style="height:34px;border-radius:8px;display:grid;place-items:center;color:#fff;font-size:13px;font-weight:600">Get best price</div></div>
+</div>
+</section><section class="lx-panel" role="tabpanel" id="p-contrast" aria-labelledby="tab-contrast" hidden data-panel="contrast">
+  <header class="lx-ph"><h2>Contrast</h2><p>Check any text and background against WCAG 2 and APCA. If it fails, get the closest colour that passes, in the same hue.</p></header>
+<div class="lx-ws">
+  <aside class="lx-ctl" aria-label="Contrast settings">
+    <div class="lx-card">
+      <div class="lx-card-h"><b>Colours</b><button type="button" class="lx-btn lx-btn--sm" data-swap>⇅ Swap</button></div>
+      <div class="lx-f"><span class="lx-l">Text</span><div class="lx-hex"><input type="color" name="fgc" aria-label="Pick the text colour"><input type="text" name="fg" maxlength="7" spellcheck="false" aria-label="Text hex"></div></div>
+      <div class="lx-f"><span class="lx-l">Background</span><div class="lx-hex"><input type="color" name="bgc" aria-label="Pick the background colour"><input type="text" name="bg" maxlength="7" spellcheck="false" aria-label="Background hex"></div></div>
+      <div class="lx-f"><span class="lx-l">From your palette <em>click for text, shift-click for background</em></span><div class="lx-mini" data-mini></div></div>
+    </div>
+    <div class="lx-card"><div class="lx-card-h"><b>Pair matrix</b></div>
+      <label class="lx-f"><span class="lx-l">Ramp</span><select name="mramp"></select></label>
+      <div class="lx-f"><span class="lx-l">Show pairs that pass</span><div class="lx-seg" data-name="mmin" role="group" aria-label="Show pairs that pass"><button type="button" data-v="3" aria-pressed="false">3:1</button><button type="button" data-v="4.5" aria-pressed="false">4.5:1</button><button type="button" data-v="7" aria-pressed="false">7:1</button></div></div>
+    </div>
+  </aside>
+  <div class="lx-out">
+    <div class="lx-cview" data-cview>
+      <div class="lx-cpreview" data-cpreview>
+        <p class="t-l">Design systems ship faster</p>
+        <p class="t-b">Body text at 16px. Your team reads this all day, so it needs to pass comfortably, not just barely.</p>
+        <p class="t-s">Small print at 13px · Last updated 2 hours ago</p>
+        <div class="t-ui"><span class="t-btn">Button</span><span class="t-out">Outlined</span><span class="t-ic" aria-hidden="true">★</span></div>
+      </div>
+      <div class="lx-cres">
+        <div class="lx-ratio"><strong data-ratio>—</strong><span>WCAG 2 ratio</span></div>
+        <div class="lx-apca"><strong data-apca>—</strong><span>APCA Lc</span></div>
+        <ul class="lx-pass" data-pass></ul>
+        <p class="lx-apca-note" data-apca-note></p>
+      </div>
+    </div>
+    <div class="lx-fix" data-fix></div>
+    <div class="lx-matrix-wrap"><div class="lx-matrix" data-matrix></div></div>
+    <p class="lx-hint">Rows are text, columns are backgrounds. Select a cell to load the pair above.</p>
   </div>
-</section>
-<section class="tool" id="scorecard" aria-labelledby="sc-t">
-  <div class="tool-head"><div><h3 id="sc-t">Request scorecard</h3><p>The 70-point model that ended the loudest-voice backlog at CARS24. Score any component request in four questions.</p></div><a class="btn-line" href="work/cars24-governance.html">Read the case study</a></div>
-  <form class="scorer" data-scorer onsubmit="return false"><div class="scorer-q"><fieldset><legend>Where is it needed?</legend><p class="help">Work in main products helps the most people.</p><div class="seg"><label><input type="radio" name="where" value="20"><span><b>20</b> Main products</span></label><label><input type="radio" name="where" value="15"><span><b>15</b> Smaller products</span></label><label><input type="radio" name="where" value="5"><span><b>5</b> One small team</span></label><label><input type="radio" name="where" value="x"><span>✕ Nowhere</span></label></div></fieldset></div><div class="scorer-q"><fieldset><legend>How many can reuse it?</legend><p class="help">A design system is for shared things.</p><div class="seg"><label><input type="radio" name="reuse" value="20"><span><b>20</b> Many teams</span></label><label><input type="radio" name="reuse" value="15"><span><b>15</b> A few teams</span></label><label><input type="radio" name="reuse" value="5"><span><b>5</b> One team</span></label><label><input type="radio" name="reuse" value="x"><span>✕ Only one product</span></label></div></fieldset></div><div class="scorer-q"><fieldset><legend>Do we already have it?</legend><p class="help">Filling a real gap beats rebuilding what works.</p><div class="seg"><label><input type="radio" name="exists" value="15"><span><b>15</b> No</span></label><label><input type="radio" name="exists" value="10"><span><b>10</b> Partly</span></label><label><input type="radio" name="exists" value="5"><span><b>5</b> Mostly</span></label><label><input type="radio" name="exists" value="x"><span>✕ Fully solved</span></label></div></fieldset></div><div class="scorer-q"><fieldset><legend>How hard is it to build?</legend><p class="help">Quick wins go first.</p><div class="seg"><label><input type="radio" name="effort" value="15"><span><b>15</b> Under a week</span></label><label><input type="radio" name="effort" value="10"><span><b>10</b> 1–3 weeks</span></label><label><input type="radio" name="effort" value="5"><span><b>5</b> 3+ weeks</span></label><label><input type="radio" name="effort" value="x"><span>✕ Not worth it</span></label></div></fieldset></div>
-    <div class="scorer-out" aria-live="polite"><div class="scorer-total"><span data-total>0</span> <small>/ 70</small></div><div class="scorer-verdict"><strong data-verdict></strong><span data-detail></span></div></div>
-  </form>
-</section>
-</main></div><script src="assets/site.js?v=d554db62" defer></script>
+</div>
+</section><section class="lx-panel" role="tabpanel" id="p-type" aria-labelledby="tab-type" hidden data-panel="type">
+  <header class="lx-ph"><h2>Type scale</h2><p>Pick a base size and a ratio. Sizes are rounded the way engineers will build them, with line heights that tighten as text grows.</p></header>
+<div class="lx-ws">
+  <aside class="lx-ctl" aria-label="Type scale settings">
+    <div class="lx-card"><div class="lx-card-h"><b>Scale</b></div>
+      <label class="lx-f"><span class="lx-l">Base size<output data-out="tbase"></output><i>px</i></span><input type="range" name="tbase" min="12" max="20" step="1" value="16"></label>
+      <label class="lx-f"><span class="lx-l">Ratio</span><select name="tratio"><option value="1.067">1.067 · Minor second</option><option value="1.125">1.125 · Major second</option><option value="1.2">1.2 · Minor third</option><option value="1.25">1.25 · Major third</option><option value="1.333">1.333 · Perfect fourth</option><option value="1.414">1.414 · Augmented fourth</option><option value="1.5">1.5 · Perfect fifth</option><option value="1.618">1.618 · Golden ratio</option></select></label>
+      <label class="lx-f"><span class="lx-l">Steps above base<output data-out="tup"></output></span><input type="range" name="tup" min="3" max="9" step="1" value="6"></label>
+      <label class="lx-f"><span class="lx-l">Steps below base<output data-out="tdown"></output></span><input type="range" name="tdown" min="0" max="3" step="1" value="2"></label>
+      <div class="lx-f"><span class="lx-l">Rounding</span><div class="lx-seg" data-name="tround" role="group" aria-label="Rounding"><button type="button" data-v="1" aria-pressed="false">Whole px</button><button type="button" data-v="2" aria-pressed="false">Even px</button><button type="button" data-v="4" aria-pressed="false">4px grid</button><button type="button" data-v="0" aria-pressed="false">Exact</button></div></div>
+    </div>
+    <div class="lx-card"><div class="lx-card-h"><b>Lines and names</b></div>
+      <label class="lx-f"><span class="lx-l">Body line height<output data-out="tlh"></output></span><input type="range" name="tlh" min="1.3" max="1.7" step="0.05" value="1.5"></label>
+      <label class="lx-f"><span class="lx-l">Display line height<output data-out="tlhd"></output></span><input type="range" name="tlhd" min="1.0" max="1.3" step="0.05" value="1.1"></label>
+      <div class="lx-f"><span class="lx-l">Token names</span><div class="lx-seg" data-name="tname" role="group" aria-label="Token names"><button type="button" data-v="shirt" aria-pressed="false">xs · md · 2xl</button><button type="button" data-v="num" aria-pressed="false">100 · 400 · 900</button><button type="button" data-v="role" aria-pressed="false">body · heading</button></div></div>
+      <label class="lx-f"><span class="lx-l">Preview font</span><select name="tfont"><option value="Schibsted Grotesk, sans-serif">Schibsted Grotesk</option><option value="ui-sans-serif, system-ui, sans-serif">System sans</option><option value="Georgia, ui-serif, serif">Serif</option><option value="ui-monospace, Menlo, monospace">Monospace</option></select></label>
+      <label class="lx-f"><span class="lx-l">Sample text</span><input type="text" name="ttext" maxlength="60" value="Ship the system, not the screenshots"></label>
+    </div>
+  </aside>
+  <div class="lx-out">
+    <div class="lx-tscale" data-tscale></div>
+    <div class="lx-exp" data-exp="type">
+      <div class="lx-exp-bar"><div class="lx-seg" role="group" aria-label="Export format"><button type="button" data-fmt="css" aria-pressed="true">CSS</button><button type="button" data-fmt="tailwind" aria-pressed="false">Tailwind</button><button type="button" data-fmt="json" aria-pressed="false">JSON (DTCG)</button><button type="button" data-fmt="scss" aria-pressed="false">SCSS</button></div>
+        <div class="lx-exp-act"><button type="button" class="lx-btn" data-copy>Copy</button><button type="button" class="lx-btn" data-dl>Download</button></div></div>
+      <pre class="lx-code" tabindex="0" aria-label="Exported code"><code></code></pre>
+    </div>
+  </div>
+</div>
+</section><section class="lx-panel" role="tabpanel" id="p-space" aria-labelledby="tab-space" hidden data-panel="space">
+  <header class="lx-ph"><h2>Spacing and radius</h2><p>A spacing scale on a base unit, tried on a real card, and a short radius scale.</p></header>
+<div class="lx-ws">
+  <aside class="lx-ctl" aria-label="Spacing settings">
+    <div class="lx-card"><div class="lx-card-h"><b>Spacing</b></div>
+      <div class="lx-f"><span class="lx-l">Base unit</span><div class="lx-seg" data-name="sbase" role="group" aria-label="Base unit"><button type="button" data-v="2" aria-pressed="false">2px</button><button type="button" data-v="4" aria-pressed="false">4px</button><button type="button" data-v="8" aria-pressed="false">8px</button></div></div>
+      <label class="lx-f"><span class="lx-l">Method</span><select name="smethod"><option value="common">Common: 1, 2, 3, 4, 6, 8, 12, 16…</option><option value="linear">Linear: every multiple</option><option value="double">Doubling: 1, 2, 4, 8, 16…</option><option value="fib">Fibonacci: 1, 2, 3, 5, 8, 13…</option></select></label>
+      <label class="lx-f"><span class="lx-l">Steps<output data-out="scount"></output></span><input type="range" name="scount" min="6" max="16" step="1" value="12"></label>
+      <div class="lx-f"><span class="lx-l">Token names</span><div class="lx-seg" data-name="sname" role="group" aria-label="Token names"><button type="button" data-v="shirt" aria-pressed="false">xs · md · xl</button><button type="button" data-v="mult" aria-pressed="false">space-1 · space-4</button><button type="button" data-v="px" aria-pressed="false">space-8 · space-16</button></div></div>
+    </div>
+    <div class="lx-card"><div class="lx-card-h"><b>Radius</b></div>
+      <label class="lx-f"><span class="lx-l">Base radius<output data-out="rbase"></output><i>px</i></span><input type="range" name="rbase" min="2" max="12" step="1" value="6"></label>
+      <label class="lx-f"><span class="lx-l">Steps<output data-out="rcount"></output></span><input type="range" name="rcount" min="3" max="7" step="1" value="5"></label>
+      <label class="lx-check"><input type="checkbox" name="rfull" checked><span>Add radius-full for pills</span></label>
+    </div>
+  </aside>
+  <div class="lx-out">
+    <div class="lx-spacebox">
+      <div class="lx-sbars" data-sbars></div>
+      <div class="lx-sdemo" data-sdemo>
+        <p class="lx-k">Applied to a card</p>
+        <div class="lx-demo-card"><div class="lx-demo-top"><i></i><div><b>Loan application</b><span>Updated 2h ago</span></div></div><p>Spacing tokens set every gap here: padding, the gap between rows, and the space around the buttons.</p><div class="lx-demo-btns"><span>Approve</span><span>Review</span></div></div>
+        <label class="lx-f"><span class="lx-l">Card padding</span><select data-pad></select></label>
+        <label class="lx-f"><span class="lx-l">Gap</span><select data-gap></select></label>
+      </div>
+    </div>
+    <div class="lx-radii" data-radii></div>
+    <div class="lx-exp" data-exp="space">
+      <div class="lx-exp-bar"><div class="lx-seg" role="group" aria-label="Export format"><button type="button" data-fmt="css" aria-pressed="true">CSS</button><button type="button" data-fmt="tailwind" aria-pressed="false">Tailwind</button><button type="button" data-fmt="json" aria-pressed="false">JSON (DTCG)</button><button type="button" data-fmt="scss" aria-pressed="false">SCSS</button></div>
+        <div class="lx-exp-act"><button type="button" class="lx-btn" data-copy>Copy</button><button type="button" class="lx-btn" data-dl>Download</button></div></div>
+      <pre class="lx-code" tabindex="0" aria-label="Exported code"><code></code></pre>
+    </div>
+  </div>
+</div>
+</section><section class="lx-panel" role="tabpanel" id="p-names" aria-labelledby="tab-names" hidden data-panel="names">
+  <header class="lx-ph"><h2>Token names</h2><p>Paste a token list. The linter checks it against a naming convention, explains every problem and suggests a fix.</p></header>
+<div class="lx-ws">
+  <aside class="lx-ctl" aria-label="Linter settings">
+    <div class="lx-card"><div class="lx-card-h"><b>Convention</b></div>
+      <div class="lx-f"><span class="lx-l">Separator</span><div class="lx-seg" data-name="nsep" role="group" aria-label="Separator"><button type="button" data-v="-" aria-pressed="false">kebab-case</button><button type="button" data-v="." aria-pressed="false">dot.case</button><button type="button" data-v="/" aria-pressed="false">slash/case</button></div></div>
+      <label class="lx-f"><span class="lx-l">Categories<em>first word</em></span><input type="text" name="ncats" spellcheck="false" value="color, space, size, radius, font, line-height, shadow, border, opacity, motion, z"></label>
+      <label class="lx-f"><span class="lx-l">States<em>always last</em></span><input type="text" name="nstates" spellcheck="false" value="hover, active, pressed, focus, focused, disabled, selected"></label>
+      <label class="lx-f"><span class="lx-l">Most parts allowed<output data-out="ndepth"></output></span><input type="range" name="ndepth" min="3" max="8" step="1" value="6"></label>
+      <label class="lx-check"><input type="checkbox" name="nraw" checked><span>Flag raw colour names in semantic tokens</span></label>
+    </div>
+  </aside>
+  <div class="lx-out">
+    <div class="lx-names">
+      <div class="lx-card lx-names-in"><div class="lx-card-h"><b>Your tokens</b><div style="display:flex;gap:6px"><button type="button" class="lx-btn lx-btn--sm" data-nexample>Load a messy example</button><button type="button" class="lx-btn lx-btn--sm" data-nclear>Clear</button></div></div>
+        <textarea name="nlist" rows="14" spellcheck="false" aria-label="Token names, one per line" placeholder="Paste token names, CSS variables or a JSON token file&#10;--color-action-primary&#10;color.text.muted"></textarea>
+        <p class="lx-hint" data-nparse></p></div>
+      <div class="lx-card lx-names-out"><div class="lx-card-h"><b>Report</b><span class="lx-score" data-nscore></span></div>
+        <div class="lx-nsum" data-nsum></div><ul class="lx-nlist" data-nresult></ul></div>
+    </div>
+    <div class="lx-exp" data-exp="names">
+      <div class="lx-exp-bar"><div class="lx-seg" role="group" aria-label="Export format"><button type="button" data-fmt="txt" aria-pressed="true">Fixed list</button><button type="button" data-fmt="json" aria-pressed="false">JSON</button></div>
+        <div class="lx-exp-act"><button type="button" class="lx-btn" data-copy>Copy</button><button type="button" class="lx-btn" data-dl>Download</button></div></div>
+      <pre class="lx-code" tabindex="0" aria-label="Exported code"><code></code></pre>
+    </div>
+  </div>
+</div>
+</section><section class="lx-panel" role="tabpanel" id="p-backlog" aria-labelledby="tab-backlog" hidden data-panel="backlog">
+  <header class="lx-ph"><h2>Request backlog</h2><p>Score every component request with the same four questions, and get a ranked backlog you can share.</p></header>
+<div class="lx-ws">
+  <aside class="lx-ctl" aria-label="New request">
+    <form class="lx-card" data-bform onsubmit="return false">
+      <div class="lx-card-h"><b data-bform-title>New request</b></div>
+      <label class="lx-f"><span class="lx-l">Component or change</span><input type="text" name="bname" maxlength="60" placeholder="Date range picker" required></label>
+      <label class="lx-f"><span class="lx-l">Asked by</span><input type="text" name="bteam" maxlength="40" placeholder="Loans team"></label>
+      <div class="lx-f"><span class="lx-l">Where is it needed?</span><div class="lx-seg" data-name="where" role="group" aria-label="Where is it needed?"><button type="button" data-v="20" aria-pressed="false">Main products</button><button type="button" data-v="15" aria-pressed="false">Smaller products</button><button type="button" data-v="5" aria-pressed="false">One team</button><button type="button" data-v="x" aria-pressed="false">Nowhere</button></div></div>
+      <div class="lx-f"><span class="lx-l">How many can reuse it?</span><div class="lx-seg" data-name="reuse" role="group" aria-label="How many can reuse it?"><button type="button" data-v="20" aria-pressed="false">Many teams</button><button type="button" data-v="15" aria-pressed="false">A few teams</button><button type="button" data-v="5" aria-pressed="false">One team</button><button type="button" data-v="x" aria-pressed="false">One product</button></div></div>
+      <div class="lx-f"><span class="lx-l">Do we already have it?</span><div class="lx-seg" data-name="exists" role="group" aria-label="Do we already have it?"><button type="button" data-v="15" aria-pressed="false">No</button><button type="button" data-v="10" aria-pressed="false">Partly</button><button type="button" data-v="5" aria-pressed="false">Mostly</button><button type="button" data-v="x" aria-pressed="false">Fully solved</button></div></div>
+      <div class="lx-f"><span class="lx-l">How hard is it to build?</span><div class="lx-seg" data-name="effort" role="group" aria-label="How hard is it to build?"><button type="button" data-v="15" aria-pressed="false">Under a week</button><button type="button" data-v="10" aria-pressed="false">1–3 weeks</button><button type="button" data-v="5" aria-pressed="false">3+ weeks</button><button type="button" data-v="x" aria-pressed="false">Not worth it</button></div></div>
+      <div class="lx-bscore"><strong data-blive>0</strong><small>/ 70</small><span data-bverdict>Answer all four</span></div>
+      <div class="lx-bact"><button type="submit" class="lx-btn lx-btn--accent" data-bsave>Add to backlog</button><button type="button" class="lx-btn" data-bcancel hidden>Cancel</button></div>
+    </form>
+  </aside>
+  <div class="lx-out">
+    <div class="lx-card"><div class="lx-card-h"><b>Backlog, ranked</b><div style="display:flex;gap:6px"><button type="button" class="lx-btn lx-btn--sm" data-bexample>Load examples</button><button type="button" class="lx-btn lx-btn--sm" data-bclear>Clear all</button></div></div>
+      <div class="lx-bstats" data-bstats></div>
+      <ol class="lx-blist" data-blist></ol>
+      <p class="lx-hint">The 70-point model from the <a href="work/cars24-governance.html">CARS24 governance case study</a>. Any “✕” answer rules a request out. 55+ is high, 40–54 medium, below 40 deferred.</p>
+    </div>
+    <div class="lx-exp" data-exp="backlog">
+      <div class="lx-exp-bar"><div class="lx-seg" role="group" aria-label="Export format"><button type="button" data-fmt="md" aria-pressed="true">Markdown</button><button type="button" data-fmt="csv" aria-pressed="false">CSV</button><button type="button" data-fmt="json" aria-pressed="false">JSON</button></div>
+        <div class="lx-exp-act"><button type="button" class="lx-btn" data-copy>Copy</button><button type="button" class="lx-btn" data-dl>Download</button></div></div>
+      <pre class="lx-code" tabindex="0" aria-label="Exported code"><code></code></pre>
+    </div>
+  </div>
+</div>
+</section><section class="lx-panel" role="tabpanel" id="p-kit" aria-labelledby="tab-kit" hidden data-panel="kit">
+  <header class="lx-ph"><h2>Export kit</h2><p>Palette, type, spacing and radius from the other tools, in one file.</p></header>
+<div class="lx-ws lx-ws--one">
+  <div class="lx-out">
+    <div class="lx-kit" data-kit></div>
+    <div class="lx-f" style="max-width:420px"><span class="lx-l">Prefix <em>optional, e.g. acme</em></span><input type="text" name="kprefix" maxlength="16" spellcheck="false"></div>
+    <div class="lx-exp" data-exp="kit">
+      <div class="lx-exp-bar"><div class="lx-seg" role="group" aria-label="Export format"><button type="button" data-fmt="css" aria-pressed="true">CSS</button><button type="button" data-fmt="tailwind" aria-pressed="false">Tailwind</button><button type="button" data-fmt="json" aria-pressed="false">JSON (DTCG)</button><button type="button" data-fmt="scss" aria-pressed="false">SCSS</button></div>
+        <div class="lx-exp-act"><button type="button" class="lx-btn" data-copy>Copy</button><button type="button" class="lx-btn" data-dl>Download</button></div></div>
+      <pre class="lx-code" tabindex="0" aria-label="Exported code"><code></code></pre>
+    </div>
+    <div class="lx-cta"><div><b>Want this done properly, for your product?</b><p>Our two-week audit turns your real screens into a token plan, a first-components list and a rollout plan.</p></div><a class="pill pill--accent" href="pricing.html#plan-audit">See the audit</a></div>
+  </div>
+</div>
+</section></div>
+</main><script src="assets/lab.js?v=024e475f" defer></script>
+<script src="assets/site.js?v=330227e6" defer></script>
 </body>
 </html>

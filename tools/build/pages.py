@@ -158,53 +158,7 @@ st_c = f'''
 write("studio.html", head("Studio — Layer One", "Layer One is a design systems studio in Bangalore, India, founded by Aniket Pandey.")
       + shell("studio", [("Overview", "#overview"), ("Founder", "#founder"), ("What we do", "#services"), ("How we work", "#how"), ("Invitation", "#invitation"), ("Our work", "#our-work")], st_c, card="bar"))
 
-# ======================= Lab =======================
-questions = [
-    ("where", "Where is it needed?", "Work in main products helps the most people.", [("20", "Main products"), ("15", "Smaller products"), ("5", "One small team"), ("x", "Nowhere")]),
-    ("reuse", "How many can reuse it?", "A design system is for shared things.", [("20", "Many teams"), ("15", "A few teams"), ("5", "One team"), ("x", "Only one product")]),
-    ("exists", "Do we already have it?", "Filling a real gap beats rebuilding what works.", [("15", "No"), ("10", "Partly"), ("5", "Mostly"), ("x", "Fully solved")]),
-    ("effort", "How hard is it to build?", "Quick wins go first.", [("15", "Under a week"), ("10", "1–3 weeks"), ("5", "3+ weeks"), ("x", "Not worth it")]),
-]
-qs = "".join(
-    f'<div class="scorer-q"><fieldset><legend>{q}</legend><p class="help">{h}</p><div class="seg">'
-    + "".join(f'<label><input type="radio" name="{n}" value="{v}"><span>{"✕ " if v == "x" else "<b>" + v + "</b> "}{t}</span></label>' for v, t in o)
-    + "</div></fieldset></div>" for n, q, h, o in questions)
-themes = [("New brand", "#4736fe", "color-blue-500", "color-action-primary"), ("Old brand", "#0059a3", "color-blue-700", "color-action-primary"),
-          ("Loans theme", "#1f3a8a", "nbfc-color-navy-500", "nbfc-color-action-primary"), ("Mint accent", "#2bb58a", "color-mint-500", "color-action-accent")]
-tbtns = "".join(f'<button type="button" class="btn-line" data-theme-pick data-hex="{h}" data-prim="{p}" data-sem="{s}" aria-pressed="{"true" if i == 0 else "false"}">{n}</button>' for i, (n, h, p, s) in enumerate(themes))
-lab_c = f'''
-<h1 class="statement">Lab</h1>
-<p class="sub muted">Small tools we built to think with. They're the same methods we use on client systems, and they're free to use.</p>
-<section class="tool" id="ramp" data-ramp aria-labelledby="ramp-t">
-  <div class="tool-head"><div><h3 id="ramp-t">OKLCH ramp builder</h3><p>Pick a hue and a chroma. You get ten perceptually even steps, fitted to the sRGB gamut, with a contrast check on every step and tokens ready to paste.</p></div></div>
-  <div class="ctrl">
-    <label>Hue <span data-hv></span><input type="range" name="hue" min="0" max="360" value="275"></label>
-    <label>Chroma <span data-cv></span><input type="range" name="chroma" min="0.02" max="0.32" step="0.01" value="0.24"></label>
-    <label>Name<input class="btn-line" name="rname" value="brand" style="height:32px"></label>
-  </div>
-  <div class="ramp-out"></div>
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:12px;flex-wrap:wrap"><span class="small muted">Contrast is measured against white and black text.</span><button class="btn-line" type="button" data-copy>Copy tokens</button></div>
-  <pre class="code-out"></pre>
-</section>
-<section class="tool" id="chain" data-chain style="--brand:#4736fe" aria-labelledby="chain-t">
-  <div class="tool-head"><div><h3 id="chain-t">Token chain</h3><p>The four layers between a hex code and a button, from the CARS24 architecture. Switch the theme: components never change, only the mapping underneath.</p></div></div>
-  <div class="ctrl" style="gap:8px">{tbtns}</div>
-  <div class="chain">
-    <div><span>Value</span><div class="sw"></div><code data-v>#4736FE</code></div>
-    <div><span>Primitive</span><code data-p>color-blue-500</code></div>
-    <div><span>Semantic</span><code data-s>color-action-primary</code></div>
-    <div><span>Component</span><code>button-background-primary</code><div class="sw" style="height:34px;border-radius:8px;display:grid;place-items:center;color:#fff;font-size:13px;font-weight:600">Get best price</div></div>
-  </div>
-</section>
-<section class="tool" id="scorecard" aria-labelledby="sc-t">
-  <div class="tool-head"><div><h3 id="sc-t">Request scorecard</h3><p>The 70-point model that ended the loudest-voice backlog at CARS24. Score any component request in four questions.</p></div><a class="btn-line" href="work/cars24-governance.html">Read the case study</a></div>
-  <form class="scorer" data-scorer onsubmit="return false">{qs}
-    <div class="scorer-out" aria-live="polite"><div class="scorer-total"><span data-total>0</span> <small>/ 70</small></div><div class="scorer-verdict"><strong data-verdict></strong><span data-detail></span></div></div>
-  </form>
-</section>
-'''
-write("lab.html", head("Lab — Layer One", "Free design system tools from Layer One: an OKLCH ramp builder, a token chain explorer and a request scorecard.")
-      + shell("lab", [("Ramp builder", "#ramp"), ("Token chain", "#chain"), ("Scorecard", "#scorecard")], lab_c, card="bar"))
+# Lab: see lab.py
 
 # ======================= Writing =======================
 posts = [
