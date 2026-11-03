@@ -254,7 +254,7 @@ def frame(proj, depth=0, show_year=False):
 def reel(depth=0):
     p = "../" * depth
     return f'''<figure class="reel" data-reel>
-      <video autoplay muted loop playsinline preload="auto" poster="{p}assets/video/hero-poster.jpg?v={ver("assets/video/hero-poster.jpg")}" aria-label="A 30-second showreel of our design system work at CARS24, IBM and JPMorgan Chase">
+      <video autoplay muted loop playsinline preload="auto" poster="{p}assets/video/hero-poster.jpg?v={ver("assets/video/hero-poster.jpg")}" aria-label="A 46-second reel: the Layer One mark draws on, then real design system work: CARS24 colour, LEGO and pattern library, Cardinal Health and Riyadh Air at IBM, governance, and JPMorgan Chase checks (illustrated), ending with how to start, prices and the mark again">
         <source src="{p}assets/video/hero-reel.webm?v={ver("assets/video/hero-reel.webm")}" type="video/webm">
         <source src="{p}assets/video/hero-reel.mp4?v={ver("assets/video/hero-reel.mp4")}" type="video/mp4">
       </video>
