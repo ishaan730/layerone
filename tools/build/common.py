@@ -217,22 +217,6 @@ PROJECTS = [
                  "Set up a clear process for other teams to contribute and keep the systems consistent.",
                  "Ran research and usability tests, managed regular releases and ran training to help teams adopt the systems."],
          scope=[("Design systems", "Several product systems, built and launched"), ("Contribution", "A process other teams could follow"), ("Releases", "Regular releases with training")]),
-    dict(slug="cars24-consumer", case=False, co="cars24", client="CARS24", year="2024–25",
-         title="CARS24: a token-driven component library for consumer products",
-         kind="Components, Tokens", f="#cfcbff", ft="#0b0d12", cover="assets/work/cars24-consumer/cover.jpg",
-         blurb="The consumer design system and component library behind the CARS24 apps, with every component built on tokens rather than hard-coded values.",
-         points=["Buttons, chips, toasts, inline alerts, inputs and more, each built on the token architecture.",
-                 "100% token-driven, so the rebrand and every theme flowed through without redesigning components.",
-                 "Shared by app and mobile web teams across the CARS24 businesses."],
-         scope=[("Component library", "Buttons, chips, toasts, inline alerts and more"), ("Token architecture", "100% token-driven components"), ("Platforms", "App and mobile web")]),
-    dict(slug="cars24-internal-tools", case=False, co="cars24", client="CARS24", year="2024–25",
-         title="CARS24: a design system for internal tools at enterprise scale",
-         kind="Design system, Documentation", f="#174527", ft="#ffffff", cover="assets/work/cars24-internal-tools/cover.jpg",
-         blurb="A separate system for the dashboards and operations tools CARS24 teams use every day: enterprise-ready, localised, with spec-first documentation.",
-         points=["Foundations tuned for dense, data-heavy screens: type weights, spacing and radius tokens.",
-                 "Components for forms, tables, navigation and account flows.",
-                 "Spec-first documentation so engineering could build without waiting on design."],
-         scope=[("Foundations", "Type weights, spacing and radius tokens"), ("Components", "Forms, tables, navigation, account flows"), ("Documentation", "Spec-first docs for engineering")]),
 ]
 
 

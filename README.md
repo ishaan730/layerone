@@ -11,7 +11,7 @@ Direction for every page lives in `.claude/skills/layer-one-site/SKILL.md` (Hex 
 | `index.html` | Home: statement, hero reel video, logos, work, experience, offer, rules, writing |
 | `work.html` | All work |
 | `work/cars24-*.html` | Three interactive case studies |
-| `work/jpmc-*.html`, `work/ibm-*.html`, `work/cars24-consumer.html`, `work/cars24-internal-tools.html` | Short project pages |
+| `work/jpmc-*.html`, `work/ibm-design-systems.html` | Short project pages |
 | `clients.html` | Experience: CARS24, IBM, JPMorgan Chase |
 | `studio.html` | About the studio and founder |
 | `pricing.html` | Pricing (`services.html` redirects here) |
