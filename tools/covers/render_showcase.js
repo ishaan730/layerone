@@ -1,9 +1,9 @@
-// Render the IBM client case study covers in tools/covers/showcase.html to assets/work/<slug>/cover.jpg (1920 × 1080).
+// Render the showcase case study covers (IBM client work and CARS24 internal tools) in tools/covers/showcase.html to assets/work/<slug>/cover.jpg (1920 × 1080).
 // Serve the repo root on :8765 first (python3 -m http.server 8765), then: node tools/covers/render_showcase.js
 const path = require("path"), fs = require("fs");
 const { chromium } = require("playwright");
 const ROOT = path.resolve(__dirname, "..", "..");
-const SCENES = { cardinal: "ibm-cardinal-health", riyadh: "ibm-riyadh-air", ops: "ibm-riyadh-air-ops" };
+const SCENES = { cardinal: "ibm-cardinal-health", riyadh: "ibm-riyadh-air", ops: "ibm-riyadh-air-ops", internal: "cars24-internal-tools" };
 (async () => {
   const b = await chromium.launch();
   const pg = await b.newPage({ viewport: { width: 1920, height: 1080 } });
