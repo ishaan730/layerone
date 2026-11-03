@@ -73,7 +73,7 @@ Studied in a live browser across home, /work, /work/grafana, /clients, /info and
 | `index.html` | Statement, hero reel, logo row, select work frames, three experience cards, how to start, rules, writing, reach out |
 | `work.html` | Featured case studies and more projects |
 | `work/cars24-*.html`, `work/ibm-cardinal-health.html`, `work/ibm-riyadh-air*.html` | Six interactive case studies (dark, chaptered) |
-| `work/jpmc-*.html`, `work/ibm-*.html`, `work/cars24-consumer.html`, `work/cars24-internal-tools.html` | Short project pages |
+| `work/jpmc-*.html`, `work/ibm-design-systems.html` | Short project pages |
 | `clients.html` (nav: Experience) | CARS24, IBM, JPMorgan Chase with logos, facts and linked projects |
 | `studio.html` | About: story (Bangalore), founder, what we do, how we work, founding partners invitation |
 | `pricing.html` | Pricing (services.html redirects here) |
