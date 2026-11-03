@@ -4,12 +4,15 @@
 <meta charset="utf-8">
 <title>Layer One hero reel (render source)</title>
 <!--
-  Source for assets/video/hero-reel.mp4. Not part of the site.
-  A showreel in the spirit of studio reels: one bold colour field per scene, short shots,
-  wireframes that draw on, UI that assembles, real CARS24 work, a fast montage, an end card.
-  Every element is driven by seek(t) so frames render deterministically.
-  Render: python3 tools/video/render.py   (needs the site served on :8765)
+  Source for assets/video/hero-reel.{mp4,webm}. Not part of the site.
+  A 43-second reel told from a buyer's side: the problem you recognise → where this team has
+  built systems → five real projects, each with one number → a montage of the work → how to
+  start, with prices → the end card. Real assets from the case studies; the JPMorgan Chase
+  scene is a labelled illustration. Every element is driven by seek(t), so frames render
+  deterministically.
+  Render: serve the repo root on :8765, then  node tools/video/render.js
 -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap">
 <style>
 @font-face { font-family: "SG"; src: url("/assets/fonts/schibsted-grotesk-latin-wght-normal.woff2") format("woff2"); font-weight: 400 900; }
 @font-face { font-family: "JB"; src: url("/assets/fonts/jetbrains-mono-latin-500-normal.woff2") format("woff2"); font-weight: 500; }
@@ -21,210 +24,311 @@ body { font-family: "SG", sans-serif; color: #ecece8; -webkit-font-smoothing: an
 .full { position: absolute; inset: 0; }
 .cover { width: 100%; height: 100%; object-fit: cover; display: block; }
 .mono { font-family: "JB", monospace; font-weight: 500; letter-spacing: -0.01em; }
-.k { font-family: "JB", monospace; font-size: 22px; }
-.h { font-weight: 600; letter-spacing: -0.035em; line-height: 1.0; }
+.k { font-family: "JB", monospace; font-size: 21px; letter-spacing: .02em; }
+.h { font-weight: 600; letter-spacing: -0.04em; line-height: 1.0; }
 .grid { background-image: linear-gradient(rgb(255 255 255 / .05) 1px, transparent 1px), linear-gradient(90deg, rgb(255 255 255 / .05) 1px, transparent 1px); background-size: 50px 50px; }
 .grid-ink { background-image: linear-gradient(rgb(11 13 18 / .06) 1px, transparent 1px), linear-gradient(90deg, rgb(11 13 18 / .06) 1px, transparent 1px); background-size: 50px 50px; }
-/* carousel */
-.cards { display: flex; gap: 24px; }
-.ccard { width: 340px; flex: none; border-radius: 12px; background: #13161d; border: 1px solid #2a2f3a; overflow: hidden; }
-.ccard svg { display: block; width: 340px; height: 250px; border-bottom: 1px solid #2a2f3a; }
-.ccard div { padding: 18px 20px 22px; }
-.ccard b { display: block; font-size: 26px; font-weight: 500; letter-spacing: -.02em; }
-.ccard span { display: block; font-size: 16px; color: #9aa0aa; margin-top: 6px; line-height: 1.35; }
-/* tiles + phones */
-.sq { position: absolute; width: 96px; height: 96px; border-radius: 10px; }
+.big { font-size: 64px; font-weight: 600; letter-spacing: -.05em; line-height: 1; font-variant-numeric: tabular-nums; }
+.stat { display: grid; gap: 8px; }
+.stat > span { font-family: "JB", monospace; font-size: 17px; opacity: .8; line-height: 1.3; }
+.tag { position: absolute; font-family: "JB", monospace; font-size: 16px; padding: 6px 10px; border-radius: 6px; background: rgb(11 13 18 / .6); color: #ecece8; }
+.shadow { box-shadow: 0 40px 90px rgb(11 13 18 / .28); }
+/* hook */
+.hook { position: absolute; left: 140px; font-size: 84px; font-weight: 600; letter-spacing: -.045em; line-height: 1; white-space: nowrap; }
+.hook i { position: absolute; left: -8px; right: -8px; top: 52%; height: 6px; border-radius: 3px; background: #ff6b3d; transform-origin: left; font-style: normal; }
+.hook small { font-family: "JB", monospace; font-size: 18px; font-weight: 500; letter-spacing: 0; color: #6b7280; margin-left: 22px; vertical-align: middle; }
+/* swatches */
+.sw { position: absolute; width: 150px; height: 190px; border-radius: 14px; overflow: hidden; background: #fff; box-shadow: 0 20px 50px rgb(11 13 18 / .25); }
+.sw b { display: block; height: 130px; }
+.sw span { display: block; padding: 12px 14px; font-family: "JB", monospace; font-size: 16px; color: #0b0d12; }
+.sw em { display: block; padding: 0 14px; font-style: normal; font-family: "JB", monospace; font-size: 12px; color: #6b7280; margin-top: -8px; }
+.ramp { display: flex; gap: 6px; }
+.ramp i { width: 46px; height: 46px; border-radius: 8px; }
+/* frames */
+.frame { border-radius: 16px; overflow: hidden; background: #fff; }
 .phone { width: 300px; height: 630px; border-radius: 44px; background: #0b0d12; border: 9px solid #0b0d12; overflow: hidden; box-shadow: 0 40px 80px rgb(11 13 18 / .35); }
 .phone img { width: 100%; display: block; }
-.frame { border-radius: 14px; overflow: hidden; box-shadow: 0 40px 90px rgb(11 13 18 / .25); background: #fff; }
+.browser { border-radius: 14px; overflow: hidden; background: #fff; box-shadow: 0 30px 80px rgb(60 0 8 / .35); }
+.browser .bar { height: 34px; background: #f1f1ee; display: flex; align-items: center; gap: 7px; padding: 0 14px; font-family: "JB", monospace; font-size: 13px; color: #6b7070; }
+.browser .bar i { width: 10px; height: 10px; border-radius: 50%; background: #d6d6d5; }
+.browser .bar span { margin-left: 10px; }
+.browser .view { overflow: hidden; height: calc(100% - 34px); }
+.browser .view img { width: 100%; display: block; }
+.card { border-radius: 14px; background: #fff; color: #27251f; padding: 20px 22px; display: grid; gap: 14px; font-family: Roboto, Arial, sans-serif; box-shadow: 0 30px 70px rgb(60 0 8 / .3); }
+.card .kk { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #6b7070; font-weight: 600; }
+.jb { height: 46px; padding: 0 20px; border-radius: 5px; font-weight: 600; font-size: 18px; display: inline-flex; align-items: center; color: #fff; }
+.jbd { font-size: 14px; font-weight: 600; padding: 4px 10px; border-radius: 4px; color: #fff; }
+.tokline { font-family: "JB", monospace; font-size: 15px; color: #6b7070; }
+.tokline b { color: #27251f; font-weight: 500; }
+.rg { display: grid; grid-template-columns: repeat(10, 18px); gap: 3px; }
+.rg i { width: 18px; height: 18px; border-radius: 3px; }
+/* riyadh phones */
+.rphone { width: 404px; height: 872px; border-radius: 60px; padding: 14px; background: #0d0420; box-shadow: 0 40px 90px rgb(5 0 20 / .55); transform-origin: top left; }
+.rphone .scr { height: 100%; border-radius: 48px; overflow: hidden; padding: 64px 22px 22px; display: grid; gap: 16px; align-content: start; font-family: -apple-system, "Inter", "Segoe UI", sans-serif; position: relative; }
+.rphone .scr::before { content: ""; position: absolute; top: 16px; left: 50%; width: 120px; height: 34px; margin-left: -60px; border-radius: 20px; background: #0d0420; }
+.rphone.light .scr { background: #f6f7fc; color: #1a1033; } .rphone.dark .scr { background: #240852; color: #fff; }
+.rhd { display: flex; justify-content: space-between; align-items: center; font-size: 15px; } .rhd b { font-size: 22px; font-weight: 700; }
+.rc { border-radius: 26px; padding: 22px; display: grid; gap: 14px; }
+.light .rc { background: #fff; border: 1px solid #e4e2f3; } .dark .rc { background: #341a66; border: 1px solid #4a3484; }
+.rk { font-size: 13px; opacity: .65; }
+.rroute { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; }
+.rroute b { display: block; font-size: 40px; font-weight: 700; letter-spacing: -.02em; line-height: 1; }
+.rroute small { font-size: 15px; opacity: .7; }
+.rroute .ln { height: 2px; background: repeating-linear-gradient(90deg, #6a67e1 0 7px, transparent 7px 12px); }
+.rseg { display: flex; padding: 5px; border-radius: 999px; gap: 2px; } .light .rseg { background: #ecebfb; } .dark .rseg { background: #4a3484; }
+.rseg span { flex: 1; text-align: center; font-size: 15px; padding: 9px 0; border-radius: 999px; }
+.light .rseg span.on { background: #240852; color: #fff; font-weight: 600; } .dark .rseg span.on { background: #dad8fc; color: #240852; font-weight: 600; }
+.rbadges { display: flex; gap: 8px; } .rbadges span { font-size: 14px; padding: 6px 12px; border-radius: 999px; }
+.light .rbadges .f { background: #fde4e5; color: #c8232a; } .dark .rbadges .f { background: #5a2050; color: #ffb3b6; }
+.light .rbadges .s { background: #ecebfb; } .dark .rbadges .s { background: #4a3484; }
+.rprice b { font-size: 34px; font-weight: 700; letter-spacing: -.02em; display: block; }
+.rbtn { height: 58px; border-radius: 999px; display: grid; place-items: center; font-size: 19px; font-weight: 600; }
+.light .rbtn { background: #240852; color: #fff; } .dark .rbtn { background: #dad8fc; color: #240852; }
+.watch { width: 220px; height: 264px; border-radius: 64px; padding: 14px; background: #0d0420; box-shadow: 0 30px 70px rgb(5 0 20 / .55); }
+.watch .scr { height: 100%; border-radius: 50px; background: #000; color: #fff; display: grid; align-content: center; gap: 4px; text-align: center; font-family: -apple-system, "Inter", sans-serif; }
+.watch .g { font-size: 15px; color: #dad8fc; } .watch b { font-size: 42px; font-weight: 700; } .watch .t { font-size: 16px; }
+.watch .pill { margin: 8px auto 0; padding: 8px 14px; border-radius: 999px; background: #6a67e1; font-size: 14px; font-weight: 600; }
 /* flow */
-.node { position: absolute; width: 440px; border-radius: 12px; background: #fff; border: 1.5px solid #d8d8d2; box-shadow: 0 10px 30px rgb(11 13 18 / .08); padding: 16px 18px; color: #0b0d12; }
-.node .t { display: flex; align-items: center; gap: 12px; font-size: 24px; font-weight: 500; letter-spacing: -.02em; }
-.node .t i { width: 34px; height: 34px; border-radius: 8px; display: grid; place-items: center; font-style: normal; font-family: "JB", monospace; font-size: 16px; color: #fff; }
-.node .t em { margin-left: auto; font-style: normal; font-family: "JB", monospace; font-size: 15px; padding: 4px 10px; border-radius: 999px; background: #f1efe9; color: #565c67; }
-.node p { margin-top: 10px; font-size: 18px; color: #565c67; }
-.node p b { color: #0b0d12; font-weight: 500; padding: 3px 10px; border-radius: 999px; background: #f1efe9; margin-right: 6px; }
+.step { position: absolute; width: 196px; height: 92px; border-radius: 14px; background: #fff; border: 1.5px solid #d8d8d2; padding: 14px 16px; color: #0b0d12; }
+.step b { display: block; font-size: 24px; font-weight: 600; letter-spacing: -.02em; }
+.step span { font-family: "JB", monospace; font-size: 14px; color: #6b7280; }
+.gate { position: absolute; width: 30px; height: 30px; border-radius: 6px; transform: rotate(45deg); background: #d8d8d2; }
+.gate.on { background: #ff6b3d; }
+.glabel { position: absolute; font-family: "JB", monospace; font-size: 14px; color: #565c67; text-align: center; width: 120px; }
 /* check panel */
 .panel { border-radius: 16px; background: #0b0d12; border: 1px solid rgb(255 255 255 / .12); padding: 22px; box-shadow: 0 40px 90px rgb(0 0 0 / .35); }
 .row { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 16px; padding: 14px 18px; border-radius: 10px; background: #13161d; border: 1px solid #2a2f3a; font-size: 21px; }
 .swap { display: inline-grid; justify-items: end; } .swap > * { grid-area: 1 / 1; }
 .bad, .ok { font-family: "JB", monospace; font-size: 17px; padding: 5px 10px; border-radius: 7px; }
-.bad { background: rgb(255 107 61 / .14); color: #ff8a63; }
-.ok { background: rgb(126 226 168 / .14); color: #7ee2a8; }
-.tag { position: absolute; font-family: "JB", monospace; font-size: 16px; padding: 6px 10px; border-radius: 6px; background: rgb(11 13 18 / .55); color: #ecece8; }
-.wm { height: 36px; width: auto; opacity: .85; }
+.bad { background: rgb(255 107 61 / .14); color: #ff8a63; } .ok { background: rgb(126 226 168 / .14); color: #7ee2a8; }
+/* offer */
+.plan { position: absolute; top: 330px; width: 420px; height: 330px; border-radius: 18px; padding: 28px; background: #13161d; border: 1px solid #2a2f3a; display: flex; flex-direction: column; gap: 12px; }
+.plan.rec { background: #ff6b3d; color: #0b0d12; border-color: #ff6b3d; }
+.plan .d { font-family: "JB", monospace; font-size: 17px; opacity: .75; display: flex; justify-content: space-between; gap: 16px; }
+.plan h3 { font-size: 46px; font-weight: 600; letter-spacing: -.04em; }
+.plan .p { font-size: 36px; font-weight: 600; letter-spacing: -.03em; }
+.plan .p small { font-size: 20px; }
+.plan p.w { font-size: 21px; line-height: 1.3; opacity: .85; margin-top: auto; padding-top: 16px; border-top: 1px solid rgb(127 127 127 / .3); }
+.wm { height: 36px; width: auto; }
+.pillcta { display: inline-flex; align-items: center; gap: 14px; padding: 18px 30px; border-radius: 999px; background: #ff6b3d; color: #0b0d12; font-size: 30px; font-weight: 600; letter-spacing: -.02em; }
 </style>
 </head>
 <body>
 <div class="stage" id="stage">
 
-  <!-- ===== 1. The mark draws on, 0–3.2 ===== -->
+  <!-- ===== A. The problem you recognise, 0–3.6 ===== -->
   <div class="full grid abs" id="aGrid"></div>
-  <svg class="abs" id="aMark" viewBox="0 0 400 400" width="400" height="400" style="left:600px;top:190px;overflow:visible">
-    <rect x="10" y="10" width="380" height="380" fill="none" stroke="#2a2f3a" stroke-width="1" stroke-dasharray="4 6"/>
-    <g transform="translate(50 50) scale(3)">
-      <path id="aFill" fill="#ff6b3d" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/>
-      <path id="aStroke" pathLength="1" fill="none" stroke="#ff6b3d" stroke-width=".7" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/>
-    </g>
-    <g id="aNodes" stroke="#ff6b3d" stroke-width="1.5" fill="#0b0d12">
-      <path d="M200 50H120M200 50H280M350 200V120M350 200V280M200 350H280M200 350H120M50 200V280M50 200V120" stroke="#9aa0aa" stroke-width="1"/>
-      <circle cx="120" cy="50" r="5"/><circle cx="280" cy="50" r="5"/><circle cx="350" cy="120" r="5"/><circle cx="350" cy="280" r="5"/>
-      <circle cx="280" cy="350" r="5"/><circle cx="120" cy="350" r="5"/><circle cx="50" cy="280" r="5"/><circle cx="50" cy="120" r="5"/>
-      <rect x="193" y="43" width="14" height="14"/><rect x="343" y="193" width="14" height="14"/><rect x="193" y="343" width="14" height="14"/><rect x="43" y="193" width="14" height="14"/>
-      <rect x="194" y="194" width="12" height="12" fill="#ff6b3d"/>
-    </g>
-  </svg>
-  <div class="abs mono" id="aLabel" style="left:600px;top:150px;font-size:18px;color:#9aa0aa">layer.one / mark.svg</div>
-  <div class="abs mono" id="aCoords" style="left:600px;top:612px;width:400px;display:flex;justify-content:space-between;font-size:16px;color:#6b7280"><span>x 0 · y 0</span><span>w 400 · h 400</span></div>
-  <div class="abs h" id="aWord" style="left:0;right:0;top:660px;text-align:center;font-size:64px">Layer One</div>
-  <div class="abs mono" id="aSub" style="left:0;right:0;top:744px;text-align:center;font-size:22px;color:#9aa0aa">a design systems studio</div>
+  <div class="hook abs" id="a1" style="top:200px">Five blues in the code.<small>CARS24</small><i id="a1s"></i></div>
+  <div class="hook abs" id="a2" style="top:330px">Three date pickers.<small>Riyadh Air</small><i id="a2s"></i></div>
+  <div class="hook abs" id="a3" style="top:460px">One team, every request.<small>Cardinal Health</small><i id="a3s"></i></div>
+  <div class="abs" id="a4" style="left:140px;top:640px;display:flex;align-items:center;gap:18px;color:#ff6b3d">
+    <svg viewBox="0 0 100 100" width="56" height="56"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg>
+    <span style="font-size:56px;font-weight:600;letter-spacing:-.04em">A design system fixes all three.</span>
+  </div>
 
-  <!-- ===== 2. What we build: carousel, 3.2–6.0 ===== -->
+  <!-- ===== B. Where these systems were built, 3.6–6.6 ===== -->
   <div class="full abs" id="bBg" style="background:#0b0d12"></div>
-  <div class="abs mono" id="bLabel" style="left:80px;top:220px;font-size:22px;color:#9aa0aa">what we build:</div>
-  <div class="abs cards" id="bRow" style="left:80px;top:290px">
-    <div class="ccard"><svg viewBox="0 0 340 250"><g transform="translate(30 95)">
-      <rect width="26" height="60" rx="5" fill="#fff1eb"/><rect x="29" width="26" height="60" rx="5" fill="#ffd9c9"/><rect x="58" width="26" height="60" rx="5" fill="#ffbfa6"/><rect x="87" width="26" height="60" rx="5" fill="#ffa07f"/><rect x="116" width="26" height="60" rx="5" fill="#ff8a63"/><rect x="145" width="26" height="60" rx="5" fill="#ff6b3d"/><rect x="174" width="26" height="60" rx="5" fill="#e5532a"/><rect x="203" width="26" height="60" rx="5" fill="#b83f1f"/><rect x="232" width="26" height="60" rx="5" fill="#8a2f17"/><rect x="261" width="26" height="60" rx="5" fill="#5c1f0f"/>
-      <path d="M0 90H287" stroke="#2a2f3a"/><circle cx="158" cy="90" r="5" fill="#ff6b3d"/></g></svg>
-      <div><b>Colour systems</b><span>Ramps in OKLCH, every step contrast-checked</span></div></div>
-    <div class="ccard"><svg viewBox="0 0 340 250" font-family="JB" font-size="13" fill="#9aa0aa">
-      <rect x="20" y="100" width="88" height="50" rx="8" fill="none" stroke="#2a2f3a"/><text x="30" y="130">#4736FE</text>
-      <rect x="126" y="100" width="88" height="50" rx="8" fill="none" stroke="#2a2f3a"/><text x="136" y="130">blue-500</text>
-      <rect x="232" y="100" width="88" height="50" rx="8" fill="none" stroke="#ff6b3d"/><text x="242" y="130" fill="#ff6b3d">action</text>
-      <path d="M108 125h18M214 125h18" stroke="#ff6b3d" stroke-width="2"/></svg>
-      <div><b>Token architecture</b><span>Value, primitive, semantic, component</span></div></div>
-    <div class="ccard"><svg viewBox="0 0 340 250" font-family="SG" font-weight="600" fill="#ecece8">
-      <text x="30" y="160" font-size="22">Aa</text><text x="70" y="160" font-size="34">Aa</text><text x="128" y="160" font-size="50">Aa</text><text x="210" y="160" font-size="72" fill="#ff6b3d">Aa</text>
-      <path d="M30 172H310" stroke="#2a2f3a"/></svg>
-      <div><b>Type scale</b><span>Six sizes, named so people can guess them</span></div></div>
-    <div class="ccard"><svg viewBox="0 0 340 250"><g fill="#ff6b3d">
-      <rect x="30" y="110" width="8" height="34" rx="2"/><rect x="50" y="110" width="16" height="34" rx="2"/><rect x="78" y="110" width="24" height="34" rx="2"/><rect x="114" y="110" width="32" height="34" rx="2"/><rect x="158" y="110" width="48" height="34" rx="2"/><rect x="218" y="110" width="88" height="34" rx="2"/></g>
-      <text x="30" y="180" font-family="JB" font-size="13" fill="#9aa0aa">4 · 8 · 12 · 16 · 24 · 44</text></svg>
-      <div><b>Spacing and radius</b><span>A small set of steps used everywhere</span></div></div>
-    <div class="ccard"><svg viewBox="0 0 340 250" font-family="SG">
-      <rect x="30" y="70" width="170" height="48" rx="8" fill="#ff6b3d"/><text x="58" y="100" font-size="18" font-weight="600" fill="#0b0d12">Get best price</text>
-      <rect x="30" y="134" width="280" height="48" rx="8" fill="#1b1f28" stroke="#2a2f3a"/><rect x="46" y="153" width="120" height="10" rx="5" fill="#6b7280"/>
-      <rect x="216" y="78" width="60" height="32" rx="16" fill="#ff6b3d" opacity=".25"/><circle cx="260" cy="94" r="12" fill="#ff6b3d"/></svg>
-      <div><b>Component libraries</b><span>Built on tokens, in Figma and in code</span></div></div>
-    <div class="ccard"><svg viewBox="0 0 340 250" fill="none" stroke="#2a2f3a" stroke-width="1.5">
-      <rect x="30" y="50" width="280" height="50" rx="6" stroke="#ff6b3d"/><rect x="30" y="112" width="134" height="88" rx="6"/><rect x="176" y="112" width="134" height="88" rx="6"/>
-      <path d="M44 128h60M44 142h90M190 128h60M190 142h90" stroke="#6b7280"/></svg>
-      <div><b>Pattern libraries</b><span>Page blocks wired to the CMS</span></div></div>
-    <div class="ccard"><svg viewBox="0 0 340 250" font-family="JB" font-size="13">
-      <rect x="40" y="40" width="110" height="40" rx="8" fill="none" stroke="#2a2f3a"/><text x="54" y="65" fill="#9aa0aa">request</text>
-      <rect x="40" y="105" width="110" height="40" rx="8" fill="none" stroke="#ff6b3d"/><text x="54" y="130" fill="#ff6b3d">score 52</text>
-      <rect x="40" y="170" width="110" height="40" rx="8" fill="none" stroke="#2a2f3a"/><text x="54" y="195" fill="#9aa0aa">ship</text>
-      <path d="M95 80v25M95 145v25M150 125h40" stroke="#6b7280"/><rect x="190" y="105" width="110" height="40" rx="8" fill="none" stroke="#2a2f3a"/><text x="204" y="130" fill="#9aa0aa">tier: core</text></svg>
-      <div><b>Governance</b><span>A front door, a scorecard, clear owners</span></div></div>
-    <div class="ccard"><svg viewBox="0 0 340 250" fill="none">
-      <path d="M30 200H310M30 200V40" stroke="#2a2f3a"/><path d="M30 190 80 175 130 160 180 120 230 100 280 62 310 50" stroke="#ff6b3d" stroke-width="3"/>
-      <circle cx="280" cy="62" r="6" fill="#ff6b3d"/></svg>
-      <div><b>Adoption</b><span>Measured in time saved, not usage</span></div></div>
+  <div class="abs" id="bWrap" style="left:0;right:0;top:150px;text-align:center">
+    <p class="k" id="b1" style="color:#9aa0aa">design systems built at</p>
+    <div id="b2" style="display:flex;justify-content:center;align-items:center;gap:72px;margin-top:30px">
+      <img src="/assets/logos/wordmark-jpmc.png" alt="" style="height:34px"><img src="/assets/logos/wordmark-ibm.png" alt="" style="height:48px"><img src="/assets/logos/wordmark-cars24.png" alt="" style="height:40px">
+    </div>
+    <p class="k" id="b3" style="color:#9aa0aa;margin-top:58px">and, at IBM, for</p>
+    <div id="b4" style="display:flex;justify-content:center;align-items:center;gap:72px;margin-top:26px">
+      <img src="/assets/work/ibm-cardinal-health/logo-white.png" alt="" style="height:58px"><img src="/assets/work/ibm-riyadh-air/logo-lockup.png" alt="" style="height:64px">
+    </div>
+  </div>
+  <div class="abs" id="bStats" style="left:140px;right:140px;top:620px;display:grid;grid-template-columns:repeat(4,1fr);gap:40px;border-top:1px solid #2a2f3a;padding-top:28px">
+    <div class="stat"><b class="big"><span id="bn1">1,000</span>+</b><span>engineers using the checks</span></div>
+    <div class="stat"><b class="big"><span id="bn2">10</span>+</b><span>products on one token system</span></div>
+    <div class="stat"><b class="big"><span id="bn3">71</span></b><span>components for an airline</span></div>
+    <div class="stat"><b class="big"><span id="bn4">5</span>×</b><span>more requests handled a year</span></div>
   </div>
 
-  <!-- ===== 3. CARS24 colour, 6.0–9.4 ===== -->
+  <!-- ===== C. CARS24 colour: five blues become one token, 6.6–10.0 ===== -->
   <div class="full abs" id="cBg" style="background:#4736fe"></div>
-  <canvas class="full abs" id="cDots" width="1600" height="900"></canvas>
-  <img class="abs" id="cWord" src="/assets/logos/wordmark-cars24.png" alt="" style="left:650px;top:405px;width:300px">
-  <div class="abs" id="cText" style="left:110px;top:150px;width:700px">
-    <p class="k" style="color:#fff;opacity:.8">CARS24 · colour and tokens</p>
-    <div class="h" style="font-size:76px;margin-top:20px;color:#fff">One colour system for 10+ products in three countries.</div>
-    <p class="mono" style="font-size:24px;color:#fff;margin-top:40px"><span id="cCount" style="font-size:72px;font-family:SG;font-weight:600;letter-spacing:-.04em">65</span><span style="font-size:72px;font-family:SG;font-weight:600">%</span> faster handoff</p>
+  <div class="abs" id="cText" style="left:110px;top:150px;width:560px;color:#fff">
+    <p class="k" style="opacity:.8">CARS24 · colour and tokens</p>
+    <div class="h" style="font-size:72px;margin-top:22px">Five blues became one token.</div>
+    <p style="margin-top:46px"><span class="big" style="font-size:96px"><span id="cCount">65</span>%</span></p>
+    <p class="mono" style="font-size:22px;margin-top:10px;opacity:.9">faster design-to-development handoff<br>10+ products · 3 countries</p>
   </div>
-  <div class="abs" id="cSq" style="left:900px;top:170px;width:600px;height:560px">
-    <div class="sq" style="left:0;top:0;background:#f1f0ff"></div><div class="sq" style="left:112px;top:0;background:#dcd9ff"></div><div class="sq" style="left:224px;top:0;background:#bdb6ff"></div><div class="sq" style="left:336px;top:0;background:#998eff"></div><div class="sq" style="left:448px;top:0;background:#7466ff"></div>
-    <div class="sq" style="left:0;top:112px;background:#4736fe;box-shadow:inset 0 0 0 3px #fff"></div><div class="sq" style="left:112px;top:112px;background:#3a26e0"></div><div class="sq" style="left:224px;top:112px;background:#2e1db4"></div><div class="sq" style="left:336px;top:112px;background:#231788"></div><div class="sq" style="left:448px;top:112px;background:#19105e"></div>
-    <div class="sq" style="left:0;top:224px;background:#9de7c8"></div><div class="sq" style="left:112px;top:224px;background:#ff8a63"></div><div class="sq" style="left:224px;top:224px;background:#ffd166"></div><div class="sq" style="left:336px;top:224px;background:#ecece8"></div><div class="sq" style="left:448px;top:224px;background:#0b0d12"></div>
-    <div class="abs mono" id="cSqLabel" style="left:0;top:350px;font-size:20px;color:#fff;opacity:.9">color-blue-50 … 900 · brand-primary = blue-500</div>
+  <div class="sw abs" id="c1" style="left:760px;top:190px"><b style="background:#0059a3"></b><span>#0059A3</span><em>seller-app</em></div>
+  <div class="sw abs" id="c2" style="left:925px;top:190px"><b style="background:#005aa5"></b><span>#005AA5</span><em>loans</em></div>
+  <div class="sw abs" id="c3" style="left:1090px;top:190px"><b style="background:#0058a1"></b><span>#0058A1</span><em>buyer-web</em></div>
+  <div class="sw abs" id="c4" style="left:1255px;top:190px"><b style="background:#0a5ba4"></b><span>#0A5BA4</span><em>uae</em></div>
+  <div class="sw abs" id="c5" style="left:1090px;top:190px"><b style="background:#0059a4"></b><span>#0059A4</span><em>new-cars</em></div>
+  <div class="abs" id="cOne" style="left:860px;top:180px;width:470px;border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 30px 70px rgb(11 13 18 / .3)">
+    <div id="cOneSw" style="height:200px;background:#0059a3"></div>
+    <div style="padding:18px 22px;color:#0b0d12"><p class="mono" style="font-size:22px">color-brand-primary</p><p class="mono" style="font-size:16px;color:#6b7280;margin-top:4px">One token. Every product reads it. → <span id="cHex">#0059A3</span></p></div>
   </div>
+  <div class="abs ramp" id="cRamp" style="left:838px;top:520px">
+    <i style="background:#f1f0ff"></i><i style="background:#dcd9ff"></i><i style="background:#bdb6ff"></i><i style="background:#998eff"></i><i style="background:#7466ff"></i><i style="background:#4736fe;box-shadow:inset 0 0 0 3px #fff"></i><i style="background:#3a26e0"></i><i style="background:#2e1db4"></i><i style="background:#231788"></i><i style="background:#19105e"></i>
+  </div>
+  <p class="abs mono" id="cRampL" style="left:838px;top:584px;font-size:17px;color:#fff;opacity:.9">the rebrand: color-blue-50 … 900</p>
+  <div class="abs frame shadow" id="cWork" style="left:838px;top:640px;width:514px;height:160px"><img class="cover" src="/assets/work/tokens/hero.jpg" alt=""></div>
 
-  <!-- ===== 4. Real work in a frame, 9.4–12.0 ===== -->
+  <!-- ===== D. CARS24 LEGO: two homepages become one, 10.0–13.6 ===== -->
   <div class="full abs" id="dBg" style="background:#f1efe9"></div>
-  <div class="abs frame" id="dFrame" style="left:250px;top:110px;width:1100px;height:620px">
-    <img class="cover abs" id="d1" src="/assets/work/tokens/hero.jpg" alt="">
-    <img class="cover abs" id="d2" src="/assets/work/tokens/posters.jpg" alt="">
-    <img class="cover abs" id="d3" src="/assets/work/tokens/apps.jpg" alt="">
+  <div class="abs" id="dText" style="left:110px;top:160px;width:520px;color:#0b0d12">
+    <p class="k" style="color:#565c67">CARS24 · LEGO component system</p>
+    <div class="h" style="font-size:66px;margin-top:22px">Two homepages became one.</div>
+    <p style="margin-top:46px"><span class="big" style="font-size:96px;color:#4736fe" id="dCount">44</span></p>
+    <p class="mono" style="font-size:21px;margin-top:10px;color:#565c67">composable components,<br>adopted in India, the UAE and Australia</p>
   </div>
-  <div class="abs mono" id="dCap" style="left:250px;top:760px;width:1100px;display:flex;justify-content:space-between;font-size:20px;color:#565c67">
-    <span>CARS24 rebrand · <span class="swap" style="justify-items:start"><span id="dc1">campaign</span><span id="dc2">posters</span><span id="dc3">apps in India, the UAE and Australia</span></span></span><span>2024–25</span>
+  <div class="abs frame shadow" id="dFrame" style="left:700px;top:110px;width:720px;height:686px;background:#ecebe6">
+    <img class="cover abs" id="dAfter" src="/assets/work/cars24-lego/ba-after.webp" alt="">
+    <img class="cover abs" id="dBefore" src="/assets/work/cars24-lego/ba-before.webp" alt="">
+    <div class="abs" id="dLine" style="top:0;bottom:0;width:4px;margin-left:-2px;background:#4736fe"></div>
+    <span class="tag" id="dTagB" style="left:16px;top:16px">before: app and web</span>
+    <span class="tag" id="dTagA" style="right:16px;top:16px;background:#4736fe">after: LEGO</span>
   </div>
+  <div class="abs frame shadow" id="dK1" style="left:1290px;top:520px;width:250px;height:224px;padding:10px"><img src="/assets/work/cars24-lego/k-button.webp" alt="" style="width:100%;height:100%;object-fit:contain"></div>
+  <div class="abs frame shadow" id="dK2" style="left:1240px;top:150px;width:300px;height:198px;padding:10px"><img src="/assets/work/cars24-lego/k-chips.webp" alt="" style="width:100%;height:100%;object-fit:contain"></div>
 
-  <!-- ===== 5. Pattern library phones, 12.0–15.0 ===== -->
+  <!-- ===== E. Pattern library phones, 13.6–16.6 ===== -->
   <div class="full abs" id="eBg" style="background:#9de7c8"></div>
   <div class="abs" id="eText" style="left:110px;top:160px;width:560px;color:#0b0d12">
-    <p class="k" style="color:#0b0d12;opacity:.7">CARS24 · pattern library</p>
-    <div class="h" style="font-size:72px;margin-top:20px">Pages built from tested blocks.</div>
-    <p style="margin-top:44px"><span id="eCount" style="font-size:72px;font-weight:600;letter-spacing:-.04em">~43</span><span style="font-size:72px;font-weight:600">%</span><span class="mono" style="font-size:22px;margin-left:12px">less time per page</span></p>
+    <p class="k" style="opacity:.7">CARS24 · pattern library</p>
+    <div class="h" style="font-size:70px;margin-top:22px">Pages built from tested blocks.</div>
+    <p style="margin-top:46px"><span class="big" style="font-size:96px"><span id="eCount">~43</span>%</span></p>
+    <p class="mono" style="font-size:21px;margin-top:10px">less time to design and build a page</p>
   </div>
   <div class="abs phone" id="eP1" style="left:720px;top:170px"><img id="eS1" src="/assets/work/patterns/home-system.jpg" alt=""></div>
   <div class="abs phone" id="eP2" style="left:1000px;top:120px;z-index:2"><img id="eS2" src="/assets/work/patterns/home-live.jpg" alt=""></div>
   <div class="abs phone" id="eP3" style="left:1280px;top:170px"><img id="eS3" src="/assets/work/patterns/home-system.jpg" alt="" style="margin-top:-2600px"></div>
 
-  <!-- ===== 6. Governance flow, 15.0–18.0 ===== -->
-  <div class="full abs" id="fBg" style="background:#f6f6f3"></div>
-  <div class="full abs grid-ink" id="fGrid"></div>
-  <div class="abs" id="fCam" style="left:0;top:0;width:1600px;height:900px;transform-origin:1060px 420px">
-    <div class="abs" id="fText" style="left:110px;top:180px;width:480px;color:#0b0d12">
-      <p class="k" style="color:#565c67">CARS24 · governance</p>
-      <div class="h" style="font-size:68px;margin-top:20px">From bottleneck to partner.</div>
+  <!-- ===== F. Cardinal Health: Jarvis, 16.6–20.6 ===== -->
+  <div class="full abs" id="fBg" style="background:#e41f35"></div>
+  <div class="abs" id="fText" style="left:110px;top:140px;width:560px;color:#fff">
+    <img src="/assets/work/ibm-cardinal-health/logo-white.png" alt="" style="height:46px">
+    <p class="k" style="opacity:.85;margin-top:30px">IBM × Cardinal Health · Jarvis</p>
+    <div class="h" style="font-size:62px;margin-top:20px">One system behind a pharmacy storefront.</div>
+    <div style="display:flex;gap:40px;margin-top:44px">
+      <div class="stat"><b class="big"><span id="fN1">110</span></b><span>colours</span></div>
+      <div class="stat"><b class="big"><span id="fN2">40</span>+</b><span>components</span></div>
+      <div class="stat"><b class="big"><span id="fN3">5</span>×</b><span>tickets a year</span></div>
     </div>
-    <svg class="abs" id="fLines" width="1600" height="900" style="left:0;top:0;overflow:visible"><path id="fPath" pathLength="1" d="M1060 196V300M1060 380V478M1060 558V650" stroke="#9aa0aa" stroke-width="2" fill="none" stroke-dasharray="1 1"/></svg>
-    <div class="node" id="fN1" style="left:840px;top:120px"><div class="t"><i style="background:#0b0d12">01</i>Request<em>any team</em></div><p><b>Form</b>one front door for every ask</p></div>
-    <div class="node" id="fN2" style="left:840px;top:300px;border-color:#ff6b3d"><div class="t"><i style="background:#ff6b3d">02</i>Score<em><span id="fScore">52</span> / 70</em></div><p><b>Reach</b><b>Reuse</b><b>Effort</b></p></div>
-    <div class="node" id="fN3" style="left:840px;top:478px"><div class="t"><i style="background:#4736fe">03</i>Tier<em>core</em></div><p><b>Core</b><b>Shared</b><b>Local</b></p></div>
-    <div class="node" id="fN4" style="left:840px;top:650px"><div class="t"><i style="background:#174527">04</i>Ship<em>next release</em></div><p><b>Docs</b>written before it ships</p></div>
+  </div>
+  <div class="abs browser" id="fBrowser" style="left:760px;top:100px;width:740px;height:470px"><div class="bar"><i></i><i></i><i></i><span>Vantus HQ · Home</span></div><div class="view"><img id="fScreen" src="/assets/work/ibm-cardinal-health/screen-home.jpg" alt=""></div></div>
+  <div class="abs card" id="fCard" style="left:720px;top:520px;width:500px">
+    <p class="kk">Jarvis · button, primary</p>
+    <div style="display:flex;gap:12px;align-items:center"><span class="jb" id="fBtn" style="background:#e41f35">Add to cart</span><span class="jbd" style="background:#067f47">In stock</span><span class="jbd" style="background:#6f4977">Contract</span></div>
+    <p class="tokline">color-action-primary-surface<span id="fState"></span> → <b id="fTok">red-500</b></p>
+  </div>
+  <div class="abs" id="fRamp" style="left:1260px;top:560px;padding:14px;border-radius:14px;background:#fff">
+    <div class="rg" id="fRg"></div>
   </div>
 
-  <!-- ===== 7. JPMorgan Chase checks, 18.0–20.8 ===== -->
-  <div class="full abs" id="gBg" style="background:#8a5434"></div>
-  <div class="abs" id="gText" style="left:110px;top:170px;width:560px;color:#fff">
-    <p class="k" style="opacity:.8">JPMorgan Chase · tooling</p>
-    <div class="h" style="font-size:64px;margin-top:20px">Design system checks for 500+ designers and 1,000+ engineers.</div>
+  <!-- ===== G. Riyadh Air, 20.6–24.6 ===== -->
+  <div class="full abs" id="gBg" style="background:#240852"></div>
+  <canvas class="full abs" id="gLines" width="1600" height="900"></canvas>
+  <div class="abs" id="gText" style="left:110px;top:140px;width:560px;color:#fff">
+    <img src="/assets/work/ibm-riyadh-air/logo-lockup.png" alt="" style="height:56px">
+    <p class="k" style="opacity:.85;margin-top:30px;color:#dad8fc">IBM × Riyadh Air</p>
+    <div class="h" style="font-size:62px;margin-top:20px">Every component in English and Arabic, light and dark.</div>
+    <div style="display:flex;gap:40px;margin-top:44px">
+      <div class="stat"><b class="big"><span id="gN1">71</span></b><span>components</span></div>
+      <div class="stat"><b class="big"><span id="gN2">6</span></b><span>breakpoints</span></div>
+      <div class="stat"><b class="big"><span id="gN3">8</span>+</b><span>apps</span></div>
+    </div>
   </div>
-  <div class="abs panel" id="gPanel" style="left:780px;top:170px;width:700px">
+  <div class="abs" id="gP1" style="left:790px;top:110px"><div class="rphone light" style="transform:scale(.78)" dir="ltr"><div class="scr">
+    <div class="rhd"><b>Your trip</b><span>1 of 3</span></div>
+    <div class="rc"><p class="rk">Route headline</p>
+      <div class="rroute"><div><b>RUH</b><small>Riyadh</small></div><span class="ln"></span><div style="text-align:right"><b>LHR</b><small>London</small></div></div>
+      <div class="rseg"><span class="on">Economy</span><span>Premium</span><span>Business</span></div>
+      <div class="rbadges"><span class="f">Only 5 left</span><span class="s">★ 5.0</span></div>
+      <div class="rprice"><small class="rk">From</small><b>SAR 2,445</b></div><div class="rbtn">Book now</div></div>
+  </div></div></div>
+  <div class="abs" id="gP2" style="left:1135px;top:150px"><div class="rphone dark" style="transform:scale(.78)" dir="rtl" lang="ar"><div class="scr" style="font-family:'Noto Sans Arabic','Geeza Pro',sans-serif">
+    <div class="rhd"><b>رحلتك</b><span>١ من ٣</span></div>
+    <div class="rc"><p class="rk">عنوان المسار</p>
+      <div class="rroute"><div><b>RUH</b><small>الرياض</small></div><span class="ln"></span><div style="text-align:left"><b>LHR</b><small>لندن</small></div></div>
+      <div class="rseg"><span class="on">الاقتصادية</span><span>المميزة</span><span>الأعمال</span></div>
+      <div class="rbadges"><span class="f">تبقّى 5 فقط</span><span class="s">★ 5.0</span></div>
+      <div class="rprice"><small class="rk">ابتداءً من</small><b>٢٬٤٤٥ ر.س.</b></div><div class="rbtn">احجز الآن</div></div>
+  </div></div></div>
+  <div class="abs watch" id="gWatch" style="left:1330px;top:600px"><div class="scr"><span class="g">Gate B12</span><b>07:40</b><span class="t">RUH → LHR</span><span class="pill">Boarding pass</span></div></div>
+
+  <!-- ===== H. Governance: from bottleneck to front door, 24.6–28.2 ===== -->
+  <div class="full abs" id="hBg" style="background:#f6f6f3"></div>
+  <div class="full abs grid-ink" id="hGrid"></div>
+  <div class="abs" id="hText" style="left:110px;top:120px;width:1380px;color:#0b0d12">
+    <p class="k" style="color:#565c67">CARS24 governance · Riyadh Air design operations</p>
+    <div class="h" style="font-size:70px;margin-top:20px">From bottleneck to one front door.</div>
+  </div>
+  <svg class="abs" id="hLine" width="1600" height="900" style="left:0;top:0"><path id="hPath" pathLength="1" d="M306 456H1294" stroke="#9aa0aa" stroke-width="2" fill="none"/></svg>
+  <div class="step" id="h1" style="left:110px;top:410px"><b>Request</b><span>any team</span></div>
+  <div class="step" id="h2" style="left:383px;top:410px"><b>Exists?</b><span>link, same day</span></div>
+  <div class="step" id="h3" style="left:656px;top:410px"><b>Design</b><span>every state</span></div>
+  <div class="step" id="h4" style="left:929px;top:410px"><b>Code</b><span>in Storybook</span></div>
+  <div class="step" id="h5" style="left:1202px;top:410px;background:#174527;border-color:#174527;color:#fff"><b>Release</b><span style="color:#b9e6c9">announced</span></div>
+  <div class="gate" id="hg1" style="left:330px;top:441px"></div><div class="gate" id="hg2" style="left:603px;top:441px"></div><div class="gate" id="hg3" style="left:876px;top:441px"></div><div class="gate" id="hg4" style="left:1149px;top:441px"></div>
+  <div class="glabel" id="hl1" style="left:285px;top:520px">gate 1<br>ready</div><div class="glabel" id="hl2" style="left:558px;top:520px">gate 2<br>proposal</div><div class="glabel" id="hl3" style="left:831px;top:520px">gate 3<br>dev handoff</div><div class="glabel" id="hl4" style="left:1104px;top:520px">gate 4<br>Figma = code</div>
+  <div class="abs" id="hStats" style="left:110px;right:110px;top:650px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px;color:#0b0d12;border-top:1px solid #d8d8d2;padding-top:26px">
+    <div class="stat"><b class="big" style="font-size:58px"><span id="hN1">70</span> pts</b><span style="color:#565c67">a scorecard any team can apply</span></div>
+    <div class="stat"><b class="big" style="font-size:58px">~<span id="hN2">900</span></b><span style="color:#565c67">tickets a year, at Cardinal Health</span></div>
+    <div class="stat"><b class="big" style="font-size:58px"><span id="hN3">3</span> companies</b><span style="color:#565c67">on one rhythm, at Riyadh Air</span></div>
+  </div>
+
+  <!-- ===== I. JPMorgan Chase checks, 28.2–30.8 (illustration) ===== -->
+  <div class="full abs" id="iBg" style="background:#8a5434"></div>
+  <div class="abs" id="iText" style="left:110px;top:170px;width:560px;color:#fff">
+    <p class="k" style="opacity:.8">JPMorgan Chase · tooling</p>
+    <div class="h" style="font-size:62px;margin-top:22px">Checks for 500+ designers and 1,000+ engineers.</div>
+  </div>
+  <div class="abs panel" id="iPanel" style="left:780px;top:170px;width:700px">
     <p class="mono" style="font-size:19px;color:#9aa0aa;margin-bottom:14px">design system check · checkout.fig</p>
     <div style="display:grid;gap:10px">
       <div class="row"><span>Primary button fill</span><span class="swap"><span class="bad" id="r1b">#3A5BF0</span><span class="ok" id="r1o">color-action-primary</span></span></div>
       <div class="row"><span>Card padding</span><span class="swap"><span class="bad" id="r2b">18px</span><span class="ok" id="r2o">space-inset-md</span></span></div>
       <div class="row"><span>Body text</span><span class="swap"><span class="bad" id="r3b">Inter 15</span><span class="ok" id="r3o">text-body-md</span></span></div>
-      <div class="row"><span>Error message</span><span class="swap"><span class="bad" id="r4b">#E23</span><span class="ok" id="r4o">color-feedback-error</span></span></div>
-      <div class="row"><span>Table pattern</span><span class="swap"><span class="bad" id="r5b">detached</span><span class="ok" id="r5o">pattern/data-table</span></span></div>
+      <div class="row"><span>Table pattern</span><span class="swap"><span class="bad" id="r4b">detached</span><span class="ok" id="r4o">pattern/data-table</span></span></div>
     </div>
-    <div style="margin-top:18px;display:flex;align-items:center;gap:14px"><div style="flex:1;height:6px;border-radius:3px;background:#2a2f3a;overflow:hidden"><div id="gBar" style="height:100%;width:0;background:#7ee2a8"></div></div><span class="mono" style="font-size:18px"><span id="gCount">0</span>%</span></div>
+    <div style="margin-top:18px;display:flex;align-items:center;gap:14px"><div style="flex:1;height:6px;border-radius:3px;background:#2a2f3a;overflow:hidden"><div id="iBar" style="height:100%;width:0;background:#7ee2a8"></div></div><span class="mono" style="font-size:18px"><span id="iCount">0</span>%</span></div>
   </div>
-  <div class="tag" id="gTag" style="right:120px;top:120px">illustration</div>
+  <div class="tag" id="iTag" style="right:120px;top:110px">illustration</div>
 
-  <!-- ===== 8. IBM, 20.8–23.2 ===== -->
-  <div class="full abs" id="hBg" style="background:#0f62fe"></div>
-  <canvas class="full abs" id="hLines" width="1600" height="900"></canvas>
-  <div class="abs" id="hText" style="left:110px;top:560px;width:1000px;color:#fff">
-    <p class="k" style="opacity:.85">IBM · design systems</p>
-    <div class="h" style="font-size:72px;margin-top:16px">Design systems for products used around the world.</div>
+  <!-- ===== J. Montage of real work, 30.8–34.0 ===== -->
+  <div class="full abs" id="m1" style="background:#fff"><img class="cover" src="/assets/work/tokens/hero.jpg" alt=""></div>
+  <div class="full abs" id="m2" style="background:#4736fe"><img class="cover" src="/assets/work/cars24-lego/b-hero.webp" alt=""></div>
+  <div class="full abs" id="m3" style="background:#fff"><img class="cover" src="/assets/work/ibm-cardinal-health/screen-pdp.jpg" alt="" style="object-position:top"></div>
+  <div class="full abs" id="m4" style="background:#240852;display:grid;place-items:center"><img src="/assets/work/ibm-riyadh-air/btn-rex.jpg" alt="" style="height:100%"></div>
+  <div class="full abs" id="m5" style="background:#fff"><img class="cover" src="/assets/work/patterns/rollout-uae.jpg" alt=""></div>
+  <div class="full abs" id="m6" style="background:#f3f3f1"><img class="cover" src="/assets/work/ibm-cardinal-health/component-board.jpg" alt=""></div>
+  <div class="full abs" id="m7" style="background:#f6f7fc"><img class="cover" src="/assets/work/ibm-riyadh-air/f-colour.jpg" alt=""></div>
+  <div class="full abs" id="m8" style="background:#ecebe6;display:grid;place-items:center"><img src="/assets/work/cars24-lego/ba-after.webp" alt="" style="height:100%"></div>
+  <div class="abs tag" id="mTag" style="left:60px;bottom:60px;font-size:20px;padding:10px 14px"><span id="mN">01</span> / 08 · <span id="mL">CARS24</span></div>
+
+  <!-- ===== K. How to start, 34.0–38.0 ===== -->
+  <div class="full abs" id="kBg" style="background:#0b0d12"></div>
+  <div class="full abs grid" id="kGrid"></div>
+  <div class="abs" id="kText" style="left:110px;top:150px;width:1380px">
+    <p class="k" style="color:#9aa0aa">how to start:</p>
+    <div class="h" style="font-size:76px;margin-top:20px">Start small. Scale when it works.</div>
   </div>
-  <img class="abs" id="hWord" src="/assets/logos/wordmark-ibm.png" alt="" style="right:110px;top:742px;width:150px">
+  <div class="plan" id="k1" style="left:110px"><p class="d"><span>2 weeks, fixed</span></p><h3>Audit</h3><p class="p">$1,500</p><p class="w">Every style, token and component mapped, with a ranked plan.</p></div>
+  <div class="plan rec" id="k2" style="left:590px"><p class="d"><span>6 weeks, fixed</span><span>recommended</span></p><h3>Foundations</h3><p class="p">$5,900</p><p class="w">Colour, type, tokens and your core components, in Figma and code.</p></div>
+  <div class="plan" id="k3" style="left:1070px"><p class="d"><span>monthly, pause any time</span></p><h3>Partner</h3><p class="p">$2,900<small>/mo</small></p><p class="w">Grow it and govern it with your teams.</p></div>
+  <p class="abs mono" id="kNote" style="left:110px;top:700px;font-size:20px;color:#9aa0aa">Audit fee credited in full against Foundations · founding partners 2027: 20% off</p>
 
-  <!-- ===== 9. Fast montage, 23.2–26.2 ===== -->
-  <div class="full abs" id="m1"><img class="cover" src="/assets/work/tokens/colour-studies.jpg" alt=""></div>
-  <div class="full abs" id="m2"><img class="cover" src="/assets/work/patterns/rollout-uae.jpg" alt=""></div>
-  <div class="full abs" id="m3"><img class="cover" src="/assets/work/cars24-consumer/cover.jpg" alt=""></div>
-  <div class="full abs" id="m4"><img class="cover" src="/assets/work/tokens/workshop-2.jpg" alt=""></div>
-  <div class="full abs" id="m5"><img class="cover" src="/assets/work/patterns/rollout-dark.jpg" alt=""></div>
-  <div class="full abs" id="m6"><img class="cover" src="/assets/work/cars24-internal-tools/cover.jpg" alt=""></div>
-  <div class="abs tag" id="mTag" style="left:60px;top:60px;font-size:20px"><span id="mN">01</span> / 06</div>
-
-  <!-- ===== 10. End card, 26.2–30 ===== -->
+  <!-- ===== L. End card, 38.0–43.0 ===== -->
   <div class="full abs" id="zBg" style="background:#0b0d12"></div>
   <div class="full abs grid" id="zGrid"></div>
-  <div class="abs" id="zLogos" style="left:0;right:0;top:250px;display:flex;justify-content:center;align-items:center;gap:64px">
-    <img class="wm" id="z1" src="/assets/logos/wordmark-jpmc.png" alt="" style="height:30px">
-    <img class="wm" id="z2" src="/assets/logos/wordmark-ibm.png" alt="" style="height:42px">
-    <img class="wm" id="z3" src="/assets/logos/wordmark-cars24.png" alt="" style="height:36px">
+  <div class="abs" id="zLogos" style="left:0;right:0;top:190px;display:flex;justify-content:center;align-items:center;gap:56px;opacity:.9">
+    <img class="wm" id="z1" src="/assets/logos/wordmark-jpmc.png" alt="" style="height:26px">
+    <img class="wm" id="z2" src="/assets/logos/wordmark-ibm.png" alt="" style="height:36px">
+    <img class="wm" id="z3" src="/assets/logos/wordmark-cars24.png" alt="" style="height:30px">
+    <img class="wm" id="z4" src="/assets/work/ibm-cardinal-health/logo-white.png" alt="" style="height:42px">
+    <img class="wm" id="z5" src="/assets/work/ibm-riyadh-air/logo-lockup.png" alt="" style="height:46px">
   </div>
-  <div class="abs h" id="zHead" style="left:0;right:0;top:380px;text-align:center;font-size:96px">We build and scale<br>design systems.</div>
-  <div class="abs" id="zFoot" style="left:0;right:0;top:640px;display:flex;justify-content:center;gap:16px;align-items:center;color:#ff6b3d">
-    <svg viewBox="0 0 100 100" width="40" height="40"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg>
-    <span style="font-size:32px;font-weight:600;letter-spacing:-.02em">Layer One</span>
-    <span class="mono" style="font-size:22px;color:#9aa0aa;margin-left:10px">layerone.co.in</span>
+  <div class="abs h" id="zHead" style="left:0;right:0;top:310px;text-align:center;font-size:86px">Your design system,<br>built by the team behind these.</div>
+  <div class="abs" id="zCta" style="left:0;right:0;top:560px;display:flex;justify-content:center"><span class="pillcta">Start with a two-week audit <svg viewBox="0 0 34 14" width="40" height="16" fill="none"><path d="M1 7h31M26 1l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+  <div class="abs" id="zFoot" style="left:0;right:0;top:700px;display:flex;justify-content:center;gap:16px;align-items:center;color:#ff6b3d">
+    <svg viewBox="0 0 100 100" width="36" height="36"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg>
+    <span style="font-size:30px;font-weight:600;letter-spacing:-.02em">Layer One</span>
+    <span class="mono" style="font-size:21px;color:#9aa0aa;margin-left:10px">layerone.co.in</span>
   </div>
 
   <!-- global fade for a seamless loop -->
@@ -232,7 +336,7 @@ body { font-family: "SG", sans-serif; color: #ecece8; -webkit-font-smoothing: an
 </div>
 
 <script>
-const DUR = 30;
+const DUR = 43;
 const E = {
   lin: t => t,
   out: t => 1 - Math.pow(1 - t, 3),
@@ -249,141 +353,188 @@ function v(keys, t, ease) {
   }
   return keys[keys.length - 1][1];
 }
-const vis = (a, b, f = 0.3) => [[a - f, 0], [a, 1, "lin"], [b, 1], [b + f, 0]];
 const cut = (a, b) => [[a - 0.001, 0], [a, 1, "step"], [b, 1], [b + 0.001, 0]];
 const rise = (a, d = 40, len = 0.5) => [[a, d], [a + len, 0, "out5"]];
+const pop = (a, len = 0.45) => [[a, 0.6], [a + len, 1, "out5"]];
+const fadeIn = (a, len = 0.3) => [[a, 0], [a + len, 1]];
+const within = (k, keys) => { const [a, b] = S[k]; return [[a - 0.001, 0], ...keys.filter(x => x[0] >= a), [b, keys[keys.length - 1][1]], [b + 0.001, 0]]; };
 
-// Scene windows (hard cuts between scenes, like a reel)
-const S = { a: [0, 3.2], b: [3.2, 6.0], c: [6.0, 9.4], d: [9.4, 12.0], e: [12.0, 15.0], f: [15.0, 18.0], g: [18.0, 20.8], h: [20.8, 23.2], m: [23.2, 26.2], z: [26.2, 30] };
+// Scene windows: hard cuts between scenes, like a reel
+const S = { a: [0, 3.6], b: [3.6, 6.6], c: [6.6, 10.0], d: [10.0, 13.6], e: [13.6, 16.6], f: [16.6, 20.6], g: [20.6, 24.6], h: [24.6, 28.2], i: [28.2, 30.8], m: [30.8, 34.0], k: [34.0, 38.0], z: [38.0, 43.0] };
 const on = k => cut(S[k][0], S[k][1]);
+const inScene = (k, a, len = 0.3) => within(k, [[a, 0], [a + len, 1]]);
+
+// Jarvis ramps (real values): 11 ramps × 10 steps
+const RAMPS = [
+  ["#ffeded","#facfcd","#f8817e","#f1635e","#f14146","#e41f35","#ca2035","#b22233","#7d111d","#6d151f"],
+  ["#f4faf7","#b8e8cf","#99deb8","#73d29f","#55b97b","#00a85a","#269952","#067f47","#175c32","#124726"],
+  ["#fefaf2","#ffedc4","#fee8ad","#ffd98a","#fcc954","#fccc4d","#f9ba1e","#b18415","#896611","#694e0d"],
+  ["#e7f5f7","#ceebf0","#bfe5e8","#90d4d9","#64c8ce","#5bb6bb","#2e92a1","#20728b","#164f61","#0c2d37"],
+  ["#f8fbfe","#e0eff4","#bbdde6","#b6d9e8","#a6cfe8","#80b8db","#549ed1","#1274bf","#0d5288","#0a4069"],
+  ["#fcf7fb","#e8bdd9","#de9cc7","#cf70ad","#cb52ab","#b13590","#a13083","#7e2666","#611d4f","#4a163c"],
+  ["#f7f6fa","#e5e2f0","#d1cce3","#c4bddb","#bcb4d9","#aba1cf","#9c93bc","#797293","#5e5972","#484457"],
+  ["#f5f0f6","#ded1e2","#c4abc7","#b99cc0","#b08fb8","#966ba1","#896193","#6f4977","#533b59","#3f2d44"],
+  ["#fef5ee","#fcd1b2","#fab07d","#f79c59","#e18e51","#be7f5f","#9e5f49","#77544b","#634136","#492c26"],
+  ["#ffffff","#f4f6f6","#efefef","#e2e9ea","#d6d6d5","#b8bbba","#6b7070","#58595b","#404041","#27251f"],
+  ["#f7f5f2","#f1ede9","#eee9e3","#cbc7c0","#a9a19d","#948a85","#7b6d68","#675647","#493d32","#392f27"]];
+document.getElementById("fRg").innerHTML = RAMPS.map(r => r.map(c => `<i style="background:${c}"></i>`).join("")).join("");
+
+const MONTAGE = ["CARS24 · rebrand", "CARS24 · LEGO", "Cardinal Health · product page", "Riyadh Air · REX button", "CARS24 · UAE rollout", "Cardinal Health · component library", "Riyadh Air · colour", "CARS24 · LEGO, after"];
 
 const T = [
-  // 1. mark draws on
-  ["#aGrid", { o: [[0, 0], [0.4, 1], [3.2, 1], [3.2001, 0]] }],
-  ["#aStroke", { dash: [[0.3, 1], [1.7, 0, "io"]], o: [[1.9, 1], [2.2, 0]] }],
-  ["#aFill", { o: [[1.6, 0], [2.1, 1]] }],
-  ["#aNodes", { o: [[0.4, 0], [0.7, 1], [1.8, 1], [2.1, 0]] }],
-  ["#aMark", { o: on("a"), s: [[0, 0.92], [2.2, 1.0, "out"], [2.85, 1.0], [3.2, 3.2, "in"]] }],
-  ["#aLabel", { o: [[0.3, 0], [0.6, 1], [2.0, 1], [2.3, 0]] }],
-  ["#aCoords", { o: [[0.5, 0], [0.8, 1], [2.0, 1], [2.3, 0]] }],
-  ["#aWord", { o: [[2.1, 0], [2.4, 1], [2.85, 1], [3.0, 0]], y: rise(2.1, 30) }],
-  ["#aSub", { o: [[2.25, 0], [2.5, 1], [2.85, 1], [3.0, 0]] }],
+  // A. the problem you recognise: three lines, struck through, then the answer
+  ["#aGrid", { o: within("a", [[0, 0], [0.4, 1]]) }],
+  ["#a1", { o: within("a", [[0.15, 0], [0.4, 1], [2.3, 1], [2.6, 0.35]]), y: rise(0.15, 30) }],
+  ["#a2", { o: within("a", [[0.55, 0], [0.8, 1], [2.3, 1], [2.6, 0.35]]), y: rise(0.55, 30) }],
+  ["#a3", { o: within("a", [[0.95, 0], [1.2, 1], [2.3, 1], [2.6, 0.35]]), y: rise(0.95, 30) }],
+  ["#a1s", { sx: [[1.75, 0], [2.0, 1, "out"]] }], ["#a2s", { sx: [[1.9, 0], [2.15, 1, "out"]] }], ["#a3s", { sx: [[2.05, 0], [2.3, 1, "out"]] }],
+  ["#a4", { o: within("a", [[2.4, 0], [2.65, 1]]), y: rise(2.4, 30) }],
 
-  // 2. carousel
+  // B. where these systems were built, with the numbers
   ["#bBg", { o: on("b") }],
-  ["#bLabel", { o: on("b") }],
-  ["#bRow", { o: on("b"), x: [[3.2, 1400], [3.9, 0, "out5"], [6.0, -1500, "in"]] }],
+  ["#b1", { o: inScene("b", 3.7) }],
+  ["#b2", { o: inScene("b", 3.8), y: rise(3.8, 24) }],
+  ["#b3", { o: inScene("b", 4.3) }],
+  ["#b4", { o: inScene("b", 4.4), y: rise(4.4, 24) }],
+  ["#bStats", { o: inScene("b", 4.9), y: rise(4.9, 24) }],
+  ["#bn1", { n: [[5.0, 0], [5.9, 1000, "out"]], fmt: true }],
+  ["#bn2", { n: [[5.0, 0], [5.8, 10, "out"]] }],
+  ["#bn3", { n: [[5.0, 0], [5.9, 71, "out"]] }],
+  ["#bn4", { n: [[5.0, 0], [5.7, 5, "out"]] }],
 
-  // 3. CARS24
+  // C. CARS24: five blues slide together into one token, which takes the new brand colour
   ["#cBg", { o: on("c") }],
-  ["#cDots", { o: [[6.0 - 0.001, 0], [6.0, 1, "step"], [7.3, 1], [7.6, 0.35], [9.4, 0.35], [9.4001, 0]], fn: dots }],
-  ["#cWord", { o: [[6.5, 0], [6.8, 1], [7.25, 1], [7.4, 0]], s: [[6.5, 0.9], [7.3, 1.05, "lin"]] }],
-  ["#cText", { o: [[7.4, 0], [7.6, 1], [9.4, 1], [9.4001, 0]], y: rise(7.4) }],
-  ["#cCount", { n: [[7.9, 0], [8.8, 65, "out"]] }],
-  ["#cSq", { o: on("c") }],
-  ...[...Array(15)].map((_, i) => [`#cSq .sq:nth-child(${i + 1})`, { o: [[7.5 + i * 0.05, 0], [7.6 + i * 0.05, 1]], s: [[7.5 + i * 0.05, 0.3], [7.85 + i * 0.05, 1, "out5"]] }]),
-  ["#cSqLabel", { o: [[8.4, 0], [8.7, 1]] }],
+  ["#cText", { o: on("c"), y: rise(6.6, 30) }],
+  ["#cCount", { n: [[7.2, 0], [8.4, 65, "out"]] }],
+  ["#c1", { o: within("c", [[6.7, 0], [6.85, 1], [7.9, 1], [8.1, 0]]), x: [[6.7, 0], [7.6, 0], [8.05, 260, "io"]], s: pop(6.7) }],
+  ["#c2", { o: within("c", [[6.8, 0], [6.95, 1], [7.9, 1], [8.1, 0]]), x: [[6.8, 0], [7.6, 0], [8.05, 95, "io"]], s: pop(6.8) }],
+  ["#c3", { o: within("c", [[6.9, 0], [7.05, 1], [7.9, 1], [8.1, 0]]), x: [[6.9, 0], [7.6, 0], [8.05, -70, "io"]], s: pop(6.9) }],
+  ["#c4", { o: within("c", [[7.0, 0], [7.15, 1], [7.9, 1], [8.1, 0]]), x: [[7.0, 0], [7.6, 0], [8.05, -235, "io"]], s: pop(7.0) }],
+  ["#c5", { o: within("c", [[7.1, 0], [7.25, 1], [7.9, 1], [8.1, 0]]), y: [[7.1, 240], [7.45, 220, "out5"], [8.05, 0, "io"]], x: [[7.1, 0], [8.05, -70, "io"]], s: pop(7.1) }],
+  ["#cOne", { o: inScene("c", 7.95, 0.2), s: pop(7.95, 0.4) }],
+  ["#cOneSw", { bg: [[8.5, 0], [8.9, 1]], bgFrom: "#0059a3", bgTo: "#4736fe" }],
+  ["#cHex", { fn: (t, el) => { el.textContent = t < 8.7 ? "#0059A3" : "#4736FE"; } }],
+  ["#cRamp", { o: inScene("c", 8.7), y: rise(8.7, 20) }],
+  ["#cRampL", { o: inScene("c", 8.85) }],
+  ["#cWork", { o: inScene("c", 9.0), y: rise(9.0, 30) }],
 
-  // 4. framed work
+  // D. LEGO: before wipes into after
   ["#dBg", { o: on("d") }],
-  ["#dFrame", { o: on("d"), y: [[9.4, 120], [10.0, 0, "out5"]], s: [[9.4, 0.94], [10.0, 1, "out5"], [12.0, 1.03, "lin"]] }],
-  ["#d1", { o: [[9.4, 1], [10.3, 1], [10.3001, 0]], s: [[9.4, 1.1], [10.3, 1.0, "lin"]] }],
-  ["#d2", { o: cut(10.3, 11.15), s: [[10.3, 1.0], [11.15, 1.08, "lin"]] }],
-  ["#d3", { o: cut(11.15, 12.0), s: [[11.15, 1.08], [12.0, 1.0, "lin"]] }],
-  ["#dCap", { o: on("d") }],
-  ["#dc1", { o: [[10.3, 1], [10.3001, 0]] }], ["#dc2", { o: cut(10.3, 11.15) }], ["#dc3", { o: cut(11.15, 12.0) }],
+  ["#dText", { o: on("d"), y: rise(10.0, 30) }],
+  ["#dCount", { n: [[10.5, 0], [11.6, 44, "out"]] }],
+  ["#dFrame", { o: on("d"), y: [[10.0, 90], [10.55, 0, "out5"]] }],
+  ["#dBefore", { clip: [[10.9, 0], [12.3, 100, "io"]] }],
+  ["#dLine", { left: [[10.9, 0], [12.3, 100, "io"]], o: [[10.85, 0], [10.95, 1], [12.3, 1], [12.45, 0]] }],
+  ["#dTagB", { o: [[10.4, 0], [10.6, 1], [11.4, 1], [11.6, 0]] }],
+  ["#dTagA", { o: [[11.5, 0], [11.7, 1]] }],
+  ["#dK1", { o: inScene("d", 12.4, 0.2), y: rise(12.4, 60), r: [[12.4, 6], [12.9, -3, "out5"]] }],
+  ["#dK2", { o: inScene("d", 12.6, 0.2), y: rise(12.6, 60), r: [[12.6, -6], [13.1, 3, "out5"]] }],
 
-  // 5. phones
+  // E. pattern library phones
   ["#eBg", { o: on("e") }],
-  ["#eText", { o: on("e"), y: rise(12.0, 30) }],
-  ["#eCount", { n: [[12.3, 0], [13.2, 43, "out"]], pre: "~" }],
-  ["#eP1", { o: on("e"), y: [[12.0, 700], [12.6, 0, "out5"], [15.0, -30, "lin"]] }],
-  ["#eP2", { o: on("e"), y: [[12.1, 800], [12.75, 0, "out5"], [15.0, -50, "lin"]] }],
-  ["#eP3", { o: on("e"), y: [[12.2, 700], [12.85, 0, "out5"], [15.0, -20, "lin"]] }],
-  ["#eS1", { y: [[12.6, 0], [15.0, -1800, "io"]] }],
-  ["#eS2", { y: [[12.8, 0], [15.0, -3200, "io"]] }],
-  ["#eS3", { y: [[12.8, 0], [15.0, 1200, "io"]] }],
+  ["#eText", { o: on("e"), y: rise(13.6, 30) }],
+  ["#eCount", { n: [[13.9, 0], [14.8, 43, "out"]], pre: "~" }],
+  ["#eP1", { o: on("e"), y: [[13.6, 700], [14.2, 0, "out5"], [16.6, -30, "lin"]] }],
+  ["#eP2", { o: on("e"), y: [[13.7, 800], [14.35, 0, "out5"], [16.6, -50, "lin"]] }],
+  ["#eP3", { o: on("e"), y: [[13.8, 700], [14.45, 0, "out5"], [16.6, -20, "lin"]] }],
+  ["#eS1", { y: [[14.2, 0], [16.6, -1800, "io"]] }],
+  ["#eS2", { y: [[14.4, 0], [16.6, -3200, "io"]] }],
+  ["#eS3", { y: [[14.4, 0], [16.6, 1200, "io"]] }],
 
-  // 6. governance flow, then the camera pushes in on the score
-  ["#fBg", { o: on("f") }], ["#fGrid", { o: on("f") }],
-  ["#fCam", { o: on("f"), s: [[15.0, 1], [16.4, 1], [17.6, 1.7, "io"]] }],
-  ["#fText", { o: [[15.0, 1], [16.4, 1], [16.9, 0]], y: rise(15.0, 30) }],
-  ["#fPath", { dash: [[15.2, 1], [16.0, 0, "io"]] }],
-  ["#fN1", { o: [[15.05, 0], [15.25, 1]], y: rise(15.05, 30) }],
-  ["#fN2", { o: [[15.3, 0], [15.5, 1]], y: rise(15.3, 30) }],
-  ["#fN3", { o: [[15.55, 0], [15.75, 1]], y: rise(15.55, 30) }],
-  ["#fN4", { o: [[15.8, 0], [16.0, 1]], y: rise(15.8, 30) }],
-  ["#fScore", { n: [[15.6, 0], [16.8, 52, "out"]] }],
+  // F. Cardinal Health: the storefront scrolls, a button is pressed, the ramps cascade in
+  ["#fBg", { o: on("f") }],
+  ["#fText", { o: on("f"), y: rise(16.6, 30) }],
+  ["#fN1", { n: [[17.0, 0], [18.0, 110, "out"]] }],
+  ["#fN2", { n: [[17.1, 0], [18.0, 40, "out"]] }],
+  ["#fN3", { n: [[17.2, 0], [18.0, 5, "out"]] }],
+  ["#fBrowser", { o: on("f"), y: [[16.6, 80], [17.15, 0, "out5"]] }],
+  ["#fScreen", { y: [[17.3, 0], [20.4, -300, "io"]] }],
+  ["#fCard", { o: inScene("f", 17.6, 0.2), y: rise(17.6, 50) }],
+  ["#fBtn", { fn: (t, el) => { const s = t < 18.6 ? 0 : t < 19.2 ? 1 : t < 19.6 ? 2 : 0; el.style.background = ["#e41f35", "#b22233", "#6d151f"][s]; el.style.transform = s === 2 ? "scale(.96)" : "none"; } }],
+  ["#fTok", { fn: (t, el) => { el.textContent = t < 18.6 ? "red-500" : t < 19.2 ? "red-700" : t < 19.6 ? "red-900" : "red-500"; } }],
+  ["#fState", { fn: (t, el) => { el.textContent = t < 18.6 ? "" : t < 19.2 ? "--hover" : t < 19.6 ? "--pressed" : ""; } }],
+  ["#fRamp", { o: inScene("f", 18.0, 0.2), y: rise(18.0, 40) }],
+  ...[...Array(11)].map((_, i) => [`#fRg i:nth-child(n+${i * 10 + 1}):nth-child(-n+${i * 10 + 10})`, { o: [[18.1 + i * 0.06, 0], [18.25 + i * 0.06, 1]] }]),
 
-  // 7. JPMC
-  ["#gBg", { o: on("g") }], ["#gTag", { o: on("g") }],
-  ["#gText", { o: on("g"), y: rise(18.0, 30) }],
-  ["#gPanel", { o: on("g"), y: [[18.0, 80], [18.6, 0, "out5"]], s: [[18.0, 0.96], [20.8, 1.02, "lin"]] }],
-  ["#r1b", { o: [[18.9, 1], [19.0, 0]] }], ["#r1o", { o: [[18.9, 0], [19.0, 1]] }],
-  ["#r2b", { o: [[19.15, 1], [19.25, 0]] }], ["#r2o", { o: [[19.15, 0], [19.25, 1]] }],
-  ["#r3b", { o: [[19.4, 1], [19.5, 0]] }], ["#r3o", { o: [[19.4, 0], [19.5, 1]] }],
-  ["#r4b", { o: [[19.65, 1], [19.75, 0]] }], ["#r4o", { o: [[19.65, 0], [19.75, 1]] }],
-  ["#r5b", { o: [[19.9, 1], [20.0, 0]] }], ["#r5o", { o: [[19.9, 0], [20.0, 1]] }],
-  ["#gBar", { w: [[18.8, 0], [20.1, 100, "io"]] }],
-  ["#gCount", { n: [[18.8, 0], [20.1, 100, "io"]] }],
+  // G. Riyadh Air: line art draws, two phones (EN light, AR dark) and a watch
+  ["#gBg", { o: on("g") }],
+  ["#gLines", { o: on("g"), fn: canopy }],
+  ["#gText", { o: on("g"), y: rise(20.6, 30) }],
+  ["#gN1", { n: [[21.0, 0], [22.0, 71, "out"]] }],
+  ["#gN2", { n: [[21.1, 0], [21.9, 6, "out"]] }],
+  ["#gN3", { n: [[21.2, 0], [21.9, 8, "out"]] }],
+  ["#gP1", { o: on("g"), y: [[20.6, 760], [21.2, 0, "out5"], [24.6, -20, "lin"]] }],
+  ["#gP2", { o: within("g", [[21.3, 0], [21.35, 1]]), y: [[21.3, 760], [21.9, 0, "out5"], [24.6, -40, "lin"]] }],
+  ["#gWatch", { o: inScene("g", 22.4, 0.2), s: pop(22.4, 0.5) }],
 
-  // 8. IBM
-  ["#hBg", { o: on("h") }],
-  ["#hLines", { o: on("h"), fn: stripes }],
-  ["#hText", { o: on("h"), y: rise(21.1, 40) }],
-  ["#hWord", { o: [[21.0, 0], [21.3, 1], [23.2, 1], [23.2001, 0]] }],
+  // H. governance: the line draws, gates light up in turn, numbers count
+  ["#hBg", { o: on("h") }], ["#hGrid", { o: on("h") }],
+  ["#hText", { o: on("h"), y: rise(24.6, 30) }],
+  ["#hPath", { dash: [[24.9, 1], [26.4, 0, "io"]], o: on("h") }],
+  ...[1, 2, 3, 4, 5].map(i => [`#h${i}`, { o: inScene("h", 24.8 + i * 0.22, 0.2), y: rise(24.8 + i * 0.22, 26) }]),
+  ...[1, 2, 3, 4].map(i => [`#hg${i}`, { o: inScene("h", 25.0 + i * 0.22, 0.2), cls: [[25.6 + i * 0.3, "on"]] }]),
+  ...[1, 2, 3, 4].map(i => [`#hl${i}`, { o: inScene("h", 25.6 + i * 0.3, 0.2) }]),
+  ["#hStats", { o: inScene("h", 26.4), y: rise(26.4, 24) }],
+  ["#hN1", { n: [[26.5, 0], [27.4, 70, "out"]] }],
+  ["#hN2", { n: [[26.5, 0], [27.5, 900, "out"]] }],
+  ["#hN3", { n: [[26.5, 0], [27.2, 3, "out"]] }],
 
-  // 9. montage: half-second hard cuts with a slow push
-  ...["m1", "m2", "m3", "m4", "m5", "m6"].map((id, i) => {
-    const a = 23.2 + i * 0.5, b = a + 0.5;
-    return ["#" + id, { o: cut(a, b), s: [[a, 1.1], [b, 1.0, "lin"]] }];
+  // I. JPMorgan Chase (illustration)
+  ["#iBg", { o: on("i") }], ["#iTag", { o: on("i") }],
+  ["#iText", { o: on("i"), y: rise(28.2, 30) }],
+  ["#iPanel", { o: on("i"), y: [[28.2, 80], [28.75, 0, "out5"]], s: [[28.2, 0.96], [30.8, 1.02, "lin"]] }],
+  ["#r1b", { o: [[29.0, 1], [29.1, 0]] }], ["#r1o", { o: [[29.0, 0], [29.1, 1]] }],
+  ["#r2b", { o: [[29.25, 1], [29.35, 0]] }], ["#r2o", { o: [[29.25, 0], [29.35, 1]] }],
+  ["#r3b", { o: [[29.5, 1], [29.6, 0]] }], ["#r3o", { o: [[29.5, 0], [29.6, 1]] }],
+  ["#r4b", { o: [[29.75, 1], [29.85, 0]] }], ["#r4o", { o: [[29.75, 0], [29.85, 1]] }],
+  ["#iBar", { w: [[28.9, 0], [30.0, 100, "io"]] }],
+  ["#iCount", { n: [[28.9, 0], [30.0, 100, "io"]] }],
+
+  // J. montage: 0.4s hard cuts with a slow push
+  ...["m1", "m2", "m3", "m4", "m5", "m6", "m7", "m8"].map((id, i) => {
+    const a = 30.8 + i * 0.4, b = a + 0.4;
+    return ["#" + id, { o: cut(a, b), s: [[a, 1.08], [b, 1.0, "lin"]] }];
   }),
   ["#mTag", { o: on("m") }],
-  ["#mN", { fn: (t, el) => { el.textContent = "0" + Math.min(6, Math.max(1, Math.floor((t - 23.2) / 0.5) + 1)); } }],
+  ["#mN", { fn: (t, el) => { el.textContent = "0" + Math.min(8, Math.max(1, Math.floor((t - 30.8) / 0.4 + 1e-6) + 1)); } }],
+  ["#mL", { fn: (t, el) => { el.textContent = MONTAGE[Math.min(7, Math.max(0, Math.floor((t - 30.8) / 0.4 + 1e-6)))]; } }],
 
-  // 10. end card
-  ["#zBg", { o: [[26.2 - 0.001, 0], [26.2, 1, "step"]] }],
-  ["#zGrid", { o: [[26.2, 0], [26.8, 1]] }],
-  ["#z1", { o: [[26.4, 0], [26.7, .85]], y: rise(26.4, 20) }],
-  ["#z2", { o: [[26.5, 0], [26.8, .85]], y: rise(26.5, 20) }],
-  ["#z3", { o: [[26.6, 0], [26.9, .85]], y: rise(26.6, 20) }],
-  ["#zHead", { o: [[26.7, 0], [27.0, 1]], y: rise(26.7, 30), blur: [[26.7, 10], [27.1, 0]] }],
-  ["#zFoot", { o: [[27.1, 0], [27.4, 1]] }],
-  ["#fade", { o: [[0, 1], [0.3, 0], [29.4, 0], [30.0, 1]] }],
+  // K. how to start: the three plans rise, Foundations lifts
+  ["#kBg", { o: on("k") }], ["#kGrid", { o: on("k") }],
+  ["#kText", { o: on("k"), y: rise(34.0, 30) }],
+  ["#k1", { o: inScene("k", 34.4, 0.25), y: rise(34.4, 60) }],
+  ["#k2", { o: inScene("k", 34.6, 0.25), y: [[34.6, 60], [35.1, 0, "out5"], [35.8, 0], [36.2, -22, "out5"]] }],
+  ["#k3", { o: inScene("k", 34.8, 0.25), y: rise(34.8, 60) }],
+  ["#kNote", { o: inScene("k", 35.6) }],
+
+  // L. end card
+  ["#zBg", { o: [[38.0 - 0.001, 0], [38.0, 1, "step"]] }],
+  ["#zGrid", { o: [[38.0, 0], [38.6, 1]] }],
+  ...[1, 2, 3, 4, 5].map(i => [`#z${i}`, { o: [[38.1 + i * 0.08, 0], [38.4 + i * 0.08, 1]], y: rise(38.1 + i * 0.08, 20) }]),
+  ["#zHead", { o: [[38.5, 0], [38.8, 1]], y: rise(38.5, 30), blur: [[38.5, 10], [38.9, 0]] }],
+  ["#zCta", { o: [[39.1, 0], [39.4, 1]], s: [[39.1, 0.9], [39.5, 1, "out5"]] }],
+  ["#zFoot", { o: [[39.5, 0], [39.8, 1]] }],
+  ["#fade", { o: [[0, 1], [0.3, 0], [42.4, 0], [43.0, 1]] }],
 ];
 
-// Dot field: a grid of dots with a ripple from the centre, like a signal spreading through a system.
-function dots(t, el) {
-  const c = el.getContext("2d"), w = 1600, h = 900, p = t - 6.0;
-  c.clearRect(0, 0, w, h);
-  c.fillStyle = "#ffffff";
-  for (let y = 25; y < h; y += 34) for (let x = 25; x < w; x += 34) {
-    const d = Math.hypot(x - 800, y - 450);
-    const wave = Math.max(0, 1 - Math.abs(d - p * 700) / 160);
-    const r = 1.6 + wave * 4;
-    c.globalAlpha = 0.18 + wave * 0.8;
-    c.beginPath(); c.arc(x, y, r, 0, Math.PI * 2); c.fill();
+// Canopy Twist line art, drawing on from left to right (the Riyadh Air brand line)
+function canopy(t, el) {
+  const c = el.getContext("2d"), p = Math.min(1, Math.max(0, (t - 20.7) / 1.4)), N = 90, tw = 0.55 + 0.1 * Math.sin((t - 20.6) * 1.2);
+  const lerp = (a, b, k) => a + (b - a) * k, quad = (p0, p1, p2, k) => [lerp(lerp(p0[0], p1[0], k), lerp(p1[0], p2[0], k), k), lerp(lerp(p0[1], p1[1], k), lerp(p1[1], p2[1], k), k)];
+  c.clearRect(0, 0, 1600, 900);
+  const apex = [lerp(150, 290, tw), lerp(20, 60, tw)], tail = [lerp(560, 520, tw), lerp(70, 40, tw)], ctrl = [lerp(260, 360, 1 - tw), lerp(160, 90, tw)];
+  const S = 1.9, ox = -40, oy = 330;
+  const g = c.createLinearGradient(ox, 0, ox + 600 * S, 0); g.addColorStop(0, "#FBD8D6"); g.addColorStop(.5, "#DAD8FC"); g.addColorStop(1, "#6A67E1");
+  c.strokeStyle = g; c.lineWidth = 1.4;
+  for (let i = 0; i <= N * E.out(p); i++) {
+    const k = i / N, a = k < 0.42 ? [lerp(30, apex[0], k / 0.42), lerp(210, apex[1], k / 0.42)] : [lerp(apex[0], tail[0], (k - 0.42) / 0.58), lerp(apex[1], tail[1], (k - 0.42) / 0.58)], b = quad([30, 210], ctrl, [575, 280], k);
+    c.globalAlpha = (0.15 + 0.45 * Math.sin(Math.PI * k));
+    c.beginPath(); c.moveTo(ox + a[0] * S, oy + a[1] * S); c.lineTo(ox + b[0] * S, oy + b[1] * S); c.stroke();
   }
   c.globalAlpha = 1;
 }
-// Horizontal stripe field that bends, a nod to IBM's striped mark.
-function stripes(t, el) {
-  const c = el.getContext("2d"), w = 1600, h = 900, p = t - 20.8;
-  c.clearRect(0, 0, w, h);
-  c.strokeStyle = "rgba(255,255,255,.55)";
-  c.lineWidth = 6; c.lineCap = "round";
-  for (let i = 0; i < 26; i++) {
-    const y = 40 + i * 18;
-    const k = Math.min(1, Math.max(0, (p - i * 0.02) / 0.6));
-    c.beginPath();
-    for (let x = 0; x <= w; x += 20) {
-      const yy = y + Math.sin(x / 180 + p * 2.2 + i * 0.3) * 14 * (1 - Math.abs(x - 800) / 1100);
-      if (x === 0) c.moveTo(x, yy); else c.lineTo(x, yy);
-      if (x > w * E.out(k)) break;
-    }
-    c.stroke();
-  }
-}
+
+function mix(a, b, k) { const h = x => [1, 3, 5].map(i => parseInt(x.substr(i, 2), 16)); const A = h(a), B = h(b); return "rgb(" + A.map((x, i) => Math.round(x + (B[i] - x) * k)).join(",") + ")"; }
 
 const els = T.map(([sel, props]) => [document.querySelectorAll(sel), props]);
 function seek(t) {
@@ -394,10 +545,15 @@ function seek(t) {
         const x = p.x ? v(p.x, t) : 0, y = p.y ? v(p.y, t) : 0, s = p.s ? v(p.s, t) : 1, r = p.r ? v(p.r, t) : 0;
         el.style.transform = `translate(${x}px, ${y}px) scale(${s}) rotate(${r}deg)`;
       }
+      if (p.sx) el.style.transform = `scaleX(${v(p.sx, t)})`;
       if (p.blur) el.style.filter = `blur(${v(p.blur, t)}px)`;
       if (p.dash) { el.style.strokeDasharray = "1 1"; el.style.strokeDashoffset = v(p.dash, t); }
       if (p.w) el.style.width = v(p.w, t) + "%";
-      if (p.n) el.textContent = (p.pre || "") + Math.round(v(p.n, t));
+      if (p.clip) el.style.clipPath = `inset(0 0 0 ${v(p.clip, t)}%)`;
+      if (p.left) el.style.left = v(p.left, t) + "%";
+      if (p.bg) el.style.background = mix(p.bgFrom, p.bgTo, v(p.bg, t));
+      if (p.cls) el.classList.toggle(p.cls[0][1], t >= p.cls[0][0]);
+      if (p.n) { const n = Math.round(v(p.n, t)); el.textContent = (p.pre || "") + (p.fmt ? n.toLocaleString("en-US") : n); }
       if (p.fn && (!p.o || v(p.o, t) > 0)) p.fn(t, el);
     });
   }
