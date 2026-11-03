@@ -579,5 +579,83 @@
     tabs.forEach(function (b) { b.addEventListener("click", function () { tabs.forEach(function (x) { x.setAttribute("aria-selected", x === b ? "true" : "false"); }); img.src = b.getAttribute("data-src"); img.alt = b.getAttribute("data-alt"); img.setAttribute("data-cap", b.getAttribute("data-alt")); view.scrollTop = 0; }); });
   });
 
+  /* CARS24 internal tools: one pressed chip in a group */
+  function chips(group, fn) {
+    var bs = $$("button", group);
+    bs.forEach(function (b) { b.addEventListener("click", function () { bs.forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); }); fn(b.getAttribute("data-v")); }); });
+  }
+
+  /* Surface roles × states: semantic token → primitive → value */
+  var STATES = ["default", "hover", "active", "pressed", "focused", "disabled"];
+  $$("[data-surf]").forEach(function (box) {
+    var roles = box.getAttribute("data-roles").split("|").map(function (r) {
+      var p = r.split(";"); return { id: p[0], label: p[1], text: p[2], v: p[3].split(",").map(function (x) { return x.split(":"); }) };
+    });
+    var role = 2, st = 0, cells = $$(".it-surf-grid > div", box), sw = $("[data-sw]", box);
+    function show() {
+      var r = roles[role], v = r.v[st];
+      sw.style.setProperty("--c", v[1]); sw.style.setProperty("--t", st === 5 && r.id === "brand" ? "#a5a3f5" : r.text);
+      $("[data-sl]", box).textContent = r.label + " · " + STATES[st];
+      $("[data-sem]", box).textContent = "color-surface-" + r.id + "-" + STATES[st];
+      $("[data-pri]", box).textContent = v[0]; $("[data-hex]", box).textContent = v[1].toUpperCase();
+      cells.forEach(function (row, i) { $$("i", row).forEach(function (c, j) { c.classList.toggle("on", i === role && j === st); }); });
+    }
+    chips($("[data-role]", box), function (v) { role = +v; show(); });
+    chips($("[data-state]", box), function (v) { st = +v; show(); });
+    show();
+  });
+
+  /* Storybook recreation: controls drive the button and the code line */
+  $$("[data-sb]").forEach(function (sb) {
+    var btn = $("[data-ib]", sb), code = $("[data-code]", sb), lbl = $("[data-lbl]", btn), input = $("[data-ctl-label]", sb);
+    var TOK = { primary: "color-surface-brand", secondary: "color-surface-secondary", minimal: "color-surface-subtle", destructive: "color-border-error" };
+    function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+    function render() {
+      var v = btn.getAttribute("data-variant"), s = btn.getAttribute("data-size"), st = btn.getAttribute("data-state");
+      btn.disabled = st === "disabled";
+      var tokState = { default: "default", hover: "hover", focus: "focused", loading: "default", disabled: "disabled" }[st];
+      code.innerHTML = "<u>&lt;</u><b>Button</b> <i>variant</i>=\"" + v + "\" <i>size</i>=\"" + s + "\"" + (st === "loading" ? " <i>loading</i>" : st === "disabled" ? " <i>disabled</i>" : "") + "<u>&gt;</u>" + esc(lbl.textContent) + "<u>&lt;/</u><b>Button</b><u>&gt;</u>\n<u>// surface</u> " + TOK[v] + "-" + tokState + "   <u>// radius</u> radius-sm   <u>// height</u> " + (s === "md" ? "36" : "30") + "px";
+    }
+    $$("[data-ctl]", sb).forEach(function (g) { var k = g.getAttribute("data-ctl"); chips(g, function (val) { btn.setAttribute("data-" + k, val); render(); }); });
+    if (input) input.addEventListener("input", function () { lbl.textContent = input.value.trim() || "Button"; render(); });
+    render();
+  });
+
+  /* Live data table: search, city filter, sort, density, selection */
+  $$("[data-dt]").forEach(function (dt) {
+    var tbody = $("tbody", dt), rows = $$("tbody tr", dt), q = $("[data-dt-q]", dt), menu = $("[data-dt-menu]", dt), open = $("[data-dt-open]", dt), count = $("[data-dt-count]", dt);
+    var cities = [], sortCol = -1, dir = 1;
+    function apply() {
+      var term = (q.value || "").toLowerCase().replace(/\s/g, ""), shown = 0;
+      rows.forEach(function (r) {
+        var ok = (!cities.length || cities.indexOf(r.getAttribute("data-city")) > -1) && (!term || r.textContent.toLowerCase().replace(/\s/g, "").indexOf(term) > -1);
+        r.hidden = !ok; if (ok) shown++;
+      });
+      $("[data-dt-sum]", dt).textContent = shown + " of " + rows.length + " leads";
+      var sel = rows.filter(function (r) { return !r.hidden && $("input", r).checked; }).length;
+      $("[data-dt-sel]", dt).textContent = sel ? sel + " selected" : "";
+      count.hidden = !cities.length; count.textContent = cities.length;
+    }
+    q.addEventListener("input", apply);
+    open.addEventListener("click", function () { var o = menu.hidden; menu.hidden = !o; open.setAttribute("aria-expanded", o ? "true" : "false"); });
+    $("[data-dt-apply]", dt).addEventListener("click", function () { cities = $$("input:checked", menu).map(function (i) { return i.value; }); menu.hidden = true; open.setAttribute("aria-expanded", "false"); apply(); });
+    $("[data-dt-clear]", dt).addEventListener("click", function () { $$("input", menu).forEach(function (i) { i.checked = false; }); cities = []; apply(); });
+    document.addEventListener("click", function (e) { if (!menu.hidden && !e.target.closest(".it-dt-pop")) { menu.hidden = true; open.setAttribute("aria-expanded", "false"); } });
+    $$("[data-sort]", dt).forEach(function (b) {
+      b.addEventListener("click", function () {
+        var c = +b.getAttribute("data-sort"); dir = sortCol === c ? -dir : -1; sortCol = c;
+        $$("[data-sort]", dt).forEach(function (x) { x.removeAttribute("data-dir"); $("span", x).textContent = "↕"; });
+        b.setAttribute("data-dir", dir); $("span", b).textContent = dir > 0 ? "↑" : "↓";
+        rows.slice().sort(function (a, z) { return (+a.children[c].getAttribute("data-n") - +z.children[c].getAttribute("data-n")) * dir; }).forEach(function (r) { tbody.appendChild(r); });
+      });
+    });
+    var dens = $$(".it-dt-dens button", dt);
+    dens.forEach(function (b) { b.addEventListener("click", function () { dens.forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); }); dt.setAttribute("data-density", b.getAttribute("data-d")); }); });
+    var all = $("[data-dt-all]", dt);
+    all.addEventListener("change", function () { rows.forEach(function (r) { if (!r.hidden) { $("input", r).checked = all.checked; r.classList.toggle("sel", all.checked); } }); apply(); });
+    rows.forEach(function (r) { $("input", r).addEventListener("change", function (e) { r.classList.toggle("sel", e.target.checked); apply(); }); });
+    apply();
+  });
+
   $$("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
 })();

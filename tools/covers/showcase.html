@@ -5,7 +5,7 @@
 <title>Showcase covers</title>
 <!-- Render-time only. Covers for the IBM client case studies, 1920 × 1080 (the frame's 16:9).
      Render: serve the repo root on :8765, then python3 tools/covers/render_showcase.py -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;600;700&family=Roboto:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;600;700&family=Roboto:wght@400;500;700&family=JetBrains+Mono:wght@400;500&family=Silkscreen&display=swap">
 <style>
 @font-face { font-family: "Schibsted Grotesk"; src: url("../../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2") format("woff2"); font-weight: 400 900; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -129,6 +129,22 @@ img { display: block; }
 #ops .roles img { width: 100px; height: 100px; object-fit: contain; background: #fff; border-radius: 22px; padding: 9px; }
 #ops .chip.solid { background: #240852; color: #fff; border-color: #240852; opacity: 1; }
 #ops .flow { left: 0; top: 0; right: 0; bottom: 0; width: auto; display: flex; flex-direction: column; justify-content: space-between; }
+/* ---------------- CARS24 internal tools ---------------- */
+#internal { background: #63ffb1; color: #0b0d12; }
+#internal .col .logo { height: 54px; filter: brightness(0); }
+#internal .col h1 { font-size: 122px; }
+#internal .px { font-family: "Silkscreen", monospace; font-size: 30px; letter-spacing: .02em; color: #4736fe; margin-top: 26px; }
+#internal .stat { background: rgb(11 13 18 / .06); border-color: rgb(11 13 18 / .18); }
+#internal .dash { left: 0; top: 0; width: 896px; height: 560px; box-shadow: 0 30px 80px rgb(20 60 40 / .28); }
+#internal .dash .view { height: 516px; }
+#internal .pop { left: -40px; bottom: 0; width: 330px; border-radius: 16px; overflow: hidden; box-shadow: 0 30px 70px rgb(20 40 60 / .3); background: #fff; }
+#internal .pop img { width: 100%; }
+#internal .itok { right: 0; bottom: 120px; border-radius: 14px; background: #0b0d12; color: #fff; padding: 16px 20px; font: 500 19px "JetBrains Mono", monospace; display: grid; gap: 10px; box-shadow: 0 20px 50px rgb(0 0 0 / .25); }
+#internal .itok div { display: flex; align-items: center; gap: 12px; }
+#internal .itok i { width: 22px; height: 22px; border-radius: 5px; border: 2px solid #fff; }
+#internal .itok span { opacity: .55; }
+#internal .ibtn { right: 0; bottom: 0; display: flex; gap: 12px; padding: 22px 24px; border-radius: 16px; background: #fff; box-shadow: 0 20px 50px rgb(0 0 0 / .18); font-family: Inter, sans-serif; }
+#internal .ibtn b { height: 48px; padding: 0 22px; border-radius: 8px; display: inline-flex; align-items: center; font-size: 19px; font-weight: 500; border: 1.5px solid #d1d5db; }
 </style>
 </head>
 <body>
@@ -214,6 +230,20 @@ img { display: block; }
   </div>
 </section>
 
+<!-- ======================= CARS24 internal tools ======================= -->
+<section class="scene" id="internal">
+  <div class="col">
+    <img class="logo" src="../../assets/logos/wordmark-cars24.png" alt="">
+    <div class="mid"><p class="eyebrow">CARS24 · Internal tools · 2025</p><h1>One system, 30+ tools</h1><p class="px">design systems</p><p class="sub">Tokens, Storybook and a contribution model, built with the engineers</p></div>
+    <div class="row"><div class="stat"><b>93</b><span>component sets</span></div><div class="stat"><b>1,205</b><span>variants</span></div><div class="stat"><b>20+</b><span>tools audited</span></div></div>
+  </div>
+  <div class="vis">
+    <div class="browser dash"><div class="bar"><i></i><i></i><i></i><span>Leads · Dashboard</span></div><div class="view"><img src="../../assets/work/cars24-internal-tools/screen-dashboard.webp" alt=""></div></div>
+    <div class="pop"><img src="internal-src/filter.png" alt=""></div>
+    <div class="itok"><div><i style="background:#5546ff"></i>color-surface-brand-default</div><div><span>→</span> denim-600 <span>#5546FF</span></div></div>
+    <div class="ibtn"><b style="background:#5546ff;color:#fff;border-color:#5546ff">Continue</b><b>Clear</b><b style="color:#dc2626;border-color:#fca5a5">Delete</b></div>
+  </div>
+</section>
 <script>
 // Canopy Twist line art, the same construction as the live one on the case study
 (function () {
