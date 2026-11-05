@@ -12,11 +12,12 @@ Direction for every page lives in `.claude/skills/layer-one-site/SKILL.md` (Hex 
 | `work.html` | All work |
 | `work/cars24-*.html` | Four interactive case studies (including internal tools) |
 | `work/jpmc-*.html`, `work/ibm-design-systems.html` | Short project pages |
-| `clients.html` | Experience: CARS24, IBM, JPMorgan Chase |
+| `experience.html` (`/experience`) | Experience: CARS24, IBM, JPMorgan Chase |
 | `studio.html` | About the studio and founder |
 | `pricing.html` | Pricing (`services.html` redirects here) |
 | `lab.html` | Free tools: palette, contrast, type scale, spacing, token name linter, request backlog, export kit |
-| `blog.html`, `blog-librarian-vs-leader.html` | Writing |
+| `writing.html` (`/writing`), `blog-librarian-vs-leader.html` | Writing |
+| `404.html`, `sitemap.xml`, `robots.txt` | Not-found page with the best work, sitemap, robots (built by `extras.py`) |
 | `contact.html` | Project enquiry (validated form that opens an email draft) |
 
 ## Assets
@@ -57,7 +58,7 @@ The article text lives in `tools/build/content/`.
 
 ## Re-rendering the hero video and covers
 
-With the site served on port 8765 (`python3 -m http.server 8765`):
+With the site served on port 8765 (`python3 tools/serve.py`):
 
 ```bash
 python3 tools/video/render.py      # assets/video/hero-reel.mp4, .webm and poster (needs ffmpeg + playwright)
@@ -68,8 +69,24 @@ python3 tools/covers/blog_art.py   # writing covers in assets/images/blog (set C
 ## Run it locally
 
 ```bash
-python3 -m http.server 8000
-# open http://localhost:8000
+python3 tools/serve.py
+# open http://localhost:8765
 ```
+
+`tools/serve.py` serves the same clean URLs as production (`/work/cars24-lego`, `/experience`), redirects old `.html` links and shows `404.html` for unknown paths.
+
+## Speed and URLs
+
+- **Clean URLs:** `vercel.json` turns on `cleanUrls`, redirects the old addresses (`/clients`, `/blog`, `/services`, any `.html`) and sets long cache headers for versioned CSS, JS, fonts and video.
+- **Build-time optimisation (`tools/build/optimize.py`, run by `write()` on every page):**
+  - links are rewritten to root-relative clean paths;
+  - every image wider than 700px gets WebP copies (`name.w480/800/1200/1800.webp`) and a `srcset`;
+  - each page gets a canonical URL, Open Graph and Twitter tags, and speculation rules (Chromium prerenders a page when you hover a link to it).
+- **Runtime (`assets/site.js`):**
+  - images inside carousels, tabs, galleries and phone strips are preloaded when the component comes near the screen;
+  - browsers without speculation rules prefetch a page on hover;
+  - the hero video starts after the page has loaded.
+- **Page transitions:** a short cross-fade between pages via `@view-transition` in `assets/site.css`.
+- **Share card:** `assets/og/layer-one.jpg` (1200 × 630), drawn in `tools/covers/og.html` and rendered with `node tools/covers/render_og.js`.
 
 `tools/` and this README are excluded from the deployment by `.vercelignore`.

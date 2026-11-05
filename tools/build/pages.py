@@ -208,8 +208,4 @@ for p in others:
     write(f"work/{p['slug']}.html", head(f"{p['title']} — Layer One", p["blurb"], depth=1, og=p["cover"])
           + topbar("work", depth=1) + body + close(depth=1))
 
-# services.html now lives at pricing.html
-write("services.html", '''<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Pricing — Layer One</title>
-<meta http-equiv="refresh" content="0; url=pricing.html"><link rel="canonical" href="https://www.layerone.co.in/pricing.html"></head>
-<body><p>This page has moved to <a href="pricing.html">pricing</a>.</p></body></html>
-''')
+# /services redirects to /pricing in vercel.json

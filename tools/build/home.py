@@ -73,5 +73,5 @@ content = f'''
 sub = [("Work", "#work"), ("Experience", "#experience"), ("How to start", "#offer"), ("Rules", "#rules"), ("Writing", "#writing")]
 html = head("Layer One — Design systems studio",
             "Layer One is a design systems studio in Bangalore. We build, scale and govern design systems for product companies.",
-            og="assets/video/hero-poster.jpg") + shell("home", sub, content)
+            ) + shell("home", sub, content)
 write("index.html", html)

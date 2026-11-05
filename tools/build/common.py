@@ -52,7 +52,7 @@ NAV = [("home", "Home", "index.html"), ("work", "Work", "work.html"), ("experien
        ("writing", "Writing", "blog.html"), ("contact", "Contact", "contact.html")]
 
 
-def head(title, desc, depth=0, theme="dark", og="assets/work/tokens/cover.jpg"):
+def head(title, desc, depth=0, theme="dark", og="assets/og/layer-one.jpg"):
     p = "../" * depth
     return f'''<!doctype html>
 <html lang="en">
@@ -66,6 +66,7 @@ def head(title, desc, depth=0, theme="dark", og="assets/work/tokens/cover.jpg"):
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://www.layerone.co.in/{og}">
 <meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="{title}">
 <meta name="theme-color" content="{"#0b0d12" if theme == "dark" else "#f6f6f3"}">
 <link rel="icon" href="{p}assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="{p}assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -128,7 +129,16 @@ def close(depth=0):
     return f'<script src="{p}assets/site.js?v={ver("assets/site.js")}" defer></script>\n</body>\n</html>\n'
 
 
+WRITTEN = []
+
+
 def write(path, html):
+    """Write a page: renames (clients -> experience, blog -> writing), responsive images, clean links, head extras."""
+    from optimize import process, RENAME
+    path = RENAME.get(path, path)
+    html = process(html, path, OUT)
+    if path not in WRITTEN:
+        WRITTEN.append(path)
     full = os.path.join(OUT, path)
     os.makedirs(os.path.dirname(full), exist_ok=True)
     with open(full, "w") as f:
@@ -243,7 +253,7 @@ def frame(proj, depth=0, show_year=False):
 def reel(depth=0):
     p = "../" * depth
     return f'''<figure class="reel" data-reel>
-      <video autoplay muted loop playsinline preload="auto" poster="{p}assets/video/hero-poster.jpg?v={ver("assets/video/hero-poster.jpg")}" aria-label="A 46-second reel: the Layer One mark draws on, then real design system work: CARS24 colour, LEGO and pattern library, Cardinal Health and Riyadh Air at IBM, governance, and JPMorgan Chase checks (illustrated), ending with how to start, prices and the mark again">
+      <video muted loop playsinline preload="metadata" poster="{p}assets/video/hero-poster.jpg?v={ver("assets/video/hero-poster.jpg")}" aria-label="A 46-second reel: the Layer One mark draws on, then real design system work: CARS24 colour, LEGO and pattern library, Cardinal Health and Riyadh Air at IBM, governance, and JPMorgan Chase checks (illustrated), ending with how to start, prices and the mark again">
         <source src="{p}assets/video/hero-reel.webm?v={ver("assets/video/hero-reel.webm")}" type="video/webm">
         <source src="{p}assets/video/hero-reel.mp4?v={ver("assets/video/hero-reel.mp4")}" type="video/mp4">
       </video>
