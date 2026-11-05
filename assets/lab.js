@@ -120,7 +120,7 @@
     tabs.forEach(function (t) { var on = t.getAttribute("data-tab") === k; t.setAttribute("aria-selected", on ? "true" : "false"); t.tabIndex = on ? 0 : -1; if (on && focus) t.focus(); });
     panels.forEach(function (p) { p.hidden = p.getAttribute("data-panel") !== k; });
     if (renders[k]) renders[k]();
-    try { history.replaceState(null, "", "#" + k); } catch (e) {}
+    try { if (location.hash || k !== "palette") history.replaceState(null, "", "#" + k); } catch (e) {}
     var on = $('[data-tab="' + k + '"]'); if (on && on.scrollIntoView) on.scrollIntoView({ block: "nearest", inline: "nearest" });
   }
   tabs.forEach(function (t, i) {

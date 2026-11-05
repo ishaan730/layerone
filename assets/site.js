@@ -45,8 +45,9 @@
     var v = $("video", fig), btn = $("[data-reel-toggle]", fig), bar = $(".reel-progress span", fig), userPaused = false;
     function setState() { fig.classList.toggle("is-paused", v.paused); btn.setAttribute("aria-label", v.paused ? "Play the video" : "Pause the video"); }
     function play() { var p = v.play(); if (p && p.catch) p.catch(function () { setState(); }); }
-    if (reduce) { v.removeAttribute("autoplay"); v.pause(); userPaused = true; }
-    else play();
+    if (reduce) { v.pause(); userPaused = true; }
+    else if (document.readyState === "complete") play();
+    else window.addEventListener("load", function () { if (!userPaused) play(); }, { once: true });
     btn.addEventListener("click", function () { if (v.paused) { userPaused = false; play(); } else { userPaused = true; v.pause(); } });
     v.addEventListener("play", setState); v.addEventListener("pause", setState);
     v.addEventListener("timeupdate", function () { if (v.duration) bar.style.width = (v.currentTime / v.duration * 100) + "%"; });
@@ -296,7 +297,7 @@
     var lbImg = $("img", lb), lbCap = $("p", lb);
     $$("[data-lightbox]").forEach(function (im) {
       im.tabIndex = 0;
-      function open() { lbImg.src = im.currentSrc || im.src; lbImg.alt = im.alt; lbCap.textContent = im.getAttribute("data-cap") || ""; lb.showModal(); }
+      function open() { lbImg.src = im.getAttribute("data-full") || im.currentSrc || im.src; lbImg.alt = im.alt; lbCap.textContent = im.getAttribute("data-cap") || ""; lb.showModal(); }
       im.addEventListener("click", open);
       im.addEventListener("keydown", function (e) { if (e.key === "Enter") open(); });
     });
@@ -511,7 +512,7 @@
   /* Screen tabs (browser and phone frames) */
   $$("[data-screens]").forEach(function (box) {
     var tabs = $$(".sc-screen-tabs button", box), img = $(".sc-browser .sc-view img", box), view = $(".sc-browser .sc-view", box);
-    tabs.forEach(function (b) { b.addEventListener("click", function () { tabs.forEach(function (x) { x.setAttribute("aria-selected", x === b ? "true" : "false"); }); img.src = b.getAttribute("data-src"); img.alt = b.getAttribute("data-alt"); img.setAttribute("data-cap", b.getAttribute("data-alt")); view.scrollTop = 0; }); });
+    tabs.forEach(function (b) { b.addEventListener("click", function () { tabs.forEach(function (x) { x.setAttribute("aria-selected", x === b ? "true" : "false"); }); img.removeAttribute("srcset"); img.src = b.getAttribute("data-src"); img.setAttribute("data-full", b.getAttribute("data-full") || b.getAttribute("data-src")); img.alt = b.getAttribute("data-alt"); img.setAttribute("data-cap", b.getAttribute("data-alt")); view.scrollTop = 0; }); });
   });
 
   /* CARS24 internal tools: one pressed chip in a group */
@@ -591,6 +592,31 @@
     rows.forEach(function (r) { $("input", r).addEventListener("change", function (e) { r.classList.toggle("sel", e.target.checked); apply(); }); });
     apply();
   });
+
+  /* ---------- Speed: preload hidden and off-screen media before it's needed ---------- */
+  // Images inside carousels, tabs and screen viewers are lazy and often off-screen sideways or hidden, so the browser
+  // only fetches them on swipe or click. Warm them as soon as the component comes near the viewport.
+  function warm(box) {
+    $$("img[loading=lazy]", box).forEach(function (im) { im.loading = "eager"; });
+    $$("[data-src]", box).forEach(function (b) { var i = new Image(); i.decoding = "async"; i.src = b.getAttribute("data-src"); });
+  }
+  var warmSel = "[data-carousel], [data-tabs], [data-screens], [data-compare], .lg-phones, .lg-pair, .cs-gallery";
+  if ("IntersectionObserver" in window) {
+    var warmIO = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { warm(e.target); warmIO.unobserve(e.target); } }); }, { rootMargin: "900px 0px" });
+    $$(warmSel).forEach(function (el) { warmIO.observe(el); });
+  } else $$(warmSel).forEach(warm);
+
+  /* ---------- Speed: prefetch pages on hover or touch, for browsers without speculation rules ---------- */
+  if (!(window.HTMLScriptElement && HTMLScriptElement.supports && HTMLScriptElement.supports("speculationrules"))) {
+    var seen = {};
+    var pre = function (e) {
+      var a = e.target.closest && e.target.closest("a[href]"); if (!a) return;
+      var u = new URL(a.href, location.href);
+      if (u.origin !== location.origin || u.pathname === location.pathname || /\.[a-z0-9]{2,4}$/i.test(u.pathname) || seen[u.pathname]) return;
+      seen[u.pathname] = 1; var l = document.createElement("link"); l.rel = "prefetch"; l.href = u.pathname; document.head.appendChild(l);
+    };
+    document.addEventListener("pointerover", pre, { passive: true }); document.addEventListener("touchstart", pre, { passive: true });
+  }
 
   $$("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
 })();
