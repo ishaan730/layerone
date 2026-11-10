@@ -12,6 +12,15 @@
 <p>Building accessible behaviour for complex components is genuinely hard. A combobox needs the right ARIA roles, focus management, keyboard support for arrow keys, Home and End, typing to search, and announcements for screen readers. The W3C's ARIA Authoring Practices Guide documents these patterns, and it runs to dozens of pages. Getting them right from scratch takes months; getting them wrong ships accessibility bugs to every product that uses the system.</p>
 <p>At the same time, your design system has to look and feel like your product, and its API has to suit your teams. The decision is how to get both.</p>
 <div class="callout callout--term"><span class="callout-k">New word</span><p>A <b>headless component</b> handles behaviour (keyboard use, focus, accessibility, state) but comes with no visual styling, so you apply your own with your tokens. Radix Primitives and React Aria are well-known examples. It's like buying a well-engineered chassis and designing your own body for it.</p></div>
+<figure class="w-fig">
+  <div class="stack">
+    <div class="lt"><b>Your API</b><span>Component names, props, defaults and documentation. Product teams only ever see this layer.</span></div>
+    <div><b>Your styles</b><span>Every colour, size, radius and motion value comes from your semantic tokens.</span></div>
+    <div class="hi"><b>Behaviour</b><span>Keyboard support, focus management, ARIA roles, open and close state, typeahead. Borrowed from the headless library.</span></div>
+    <div><b>Platform</b><span>The browser and your framework (React, Vue, web components).</span></div>
+  </div>
+  <figcaption>What a headless library gives you, and what stays yours. You borrow the hardest, least visible layer and own everything people see and type.</figcaption>
+</figure>
 
 <h2>The three approaches</h2>
 <figure class="w-fig"><div class="w-tbl"><table>

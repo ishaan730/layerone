@@ -353,7 +353,8 @@ THEME_JS = "<script>try{if(localStorage.getItem('l1-read')==='light')document.do
 
 # Card images: one size rule for every card, so the browser always picks a sensible file.
 CARD_SIZES = "(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px"
-LEAD_SIZES = "(max-width: 760px) calc(100vw - 32px), 780px"
+LEAD_SIZES = "(max-width: 760px) calc(100vw - 32px), 720px"
+ROW_SIZES = "(max-width: 760px) calc(100vw - 32px), 300px"
 
 
 def reader_head(title, desc, depth, og="assets/og/layer-one.jpg", extra=""):
@@ -389,8 +390,8 @@ def meta_line(a):
 
 def ecard(a, p, size="", ext=None, eager=False):
     """The one article card used everywhere: cover, topic, title, summary, reading time."""
-    load = ' loading="eager" fetchpriority="high"' if eager else ' loading="lazy"'
-    sizes = LEAD_SIZES if size == "ec--lead" else CARD_SIZES
+    load = (' fetchpriority="high"' if size == "ec--lead" else "") if eager else ' loading="lazy"'
+    sizes = {"ec--lead": LEAD_SIZES, "ec--row": ROW_SIZES}.get(size, CARD_SIZES)
     if ext:
         u, t, k, m, img = ext
         return (f'<a class="ec {size}" href="{u}" target="_blank" rel="noopener" data-topic="{k}">'
@@ -398,10 +399,13 @@ def ecard(a, p, size="", ext=None, eager=False):
                 f'<span class="ec-k">{TOPIC[k][0]}</span><b class="ec-t">{t}</b>'
                 f'<span class="ec-f">{m} min read · on Medium ↗</span></a>')
     topic, mins = meta_line(a)
+    title = a["h1"] if size == "ec--lead" else short_title(a)
+    desc = a["dek"] if size == "ec--lead" else a["desc"]
+    go = f'<span class="ec-go">Read the guide {ARROW}</span>' if size == "ec--lead" else ""
     return (f'<a class="ec {size}" href="{p}writing/{a["slug"]}.html" data-topic="{a["topic"]}">'
             f'<span class="ec-m"><img src="{p}{a["cover"]}" alt="" width="1600" height="900" sizes="{sizes}" decoding="async"{load}></span>'
-            f'<span class="ec-k">{topic}</span><b class="ec-t">{short_title(a)}</b>'
-            f'<span class="ec-d">{a["desc"]}</span><span class="ec-f">{mins}</span></a>')
+            f'<span class="ec-k">{topic}</span><b class="ec-t">{title}</b>'
+            f'<span class="ec-d">{desc}</span><span class="ec-f">{mins}</span>{go}</a>')
 
 
 SHORT_TOPIC = {"building": "Building", "foundations-and-tokens": "Foundations & tokens", "operations": "Operations & teams", "business-case": "Value & metrics"}
@@ -453,21 +457,34 @@ def build_article(a):
     upd = f' · Updated {nice_date(a["updated"])}' if a.get("updated") else ""
     mtoc = (f'<details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>{a["toc"][0][0] if a["toc"] else ""}</b></summary>'
             f'<ol>{toc}</ol></details>')
+    steps = ""
+    if s:
+        steps = "".join(f'<li{" aria-current=" + chr(34) + "step" + chr(34) if x == a["slug"] else ""}><a href="{x}.html">{path_title(BY[x])}</a></li>' for x in s[3])
+        steps = f'<div class="ed-meta-sec"><p class="ed-meta-h">{s[1]}</p><ol class="ed-steps">{steps}</ol></div>'
+    url = f"https://www.layerone.co.in/writing/{a['slug']}"
+    share = (f'<div class="ed-meta-sec"><p class="ed-meta-h">Share</p><p class="ed-share">'
+             f'<button type="button" data-copy="{url}">Copy link</button>'
+             f'<a href="https://www.linkedin.com/sharing/share-offsite/?url={url}" target="_blank" rel="noopener">LinkedIn</a>'
+             f'<a href="https://x.com/intent/post?url={url}" target="_blank" rel="noopener">X</a></p></div>')
     content = f'''<article class="ed-article">
-  <p class="ed-crumb"><a href="{p}writing.html">Writing</a><span aria-hidden="true">/</span><a href="{p}writing/topics/{a["topic"]}.html">{topic}</a>{series_line}</p>
   <div class="ed-layout">
+    <aside class="ed-meta" aria-label="About this article"><div class="ed-meta-in">
+      <div class="ed-meta-who"><img src="{p}assets/studio/aniket.jpg" alt="" width="40" height="40"><p><b>{AUTHOR}</b><span>Founder, Layer One</span></p></div>
+      <dl class="ed-meta-dl"><div><dt>Published</dt><dd>{nice_date(a["date"])}{upd}</dd></div><div><dt>Reading time</dt><dd>{a["minutes"]} minutes</dd></div><div><dt>Topic</dt><dd><a href="{p}writing/topics/{a["topic"]}.html">{topic}</a></dd></div></dl>
+      {steps}{share}
+    </div></aside>
     <header class="ed-head">
+      <p class="ed-crumb"><a href="{p}writing.html">Writing</a><span aria-hidden="true">/</span><a href="{p}writing/topics/{a["topic"]}.html">{topic}</a>{series_line}</p>
       <h1 class="ed-title">{a["h1"]}</h1>
       <p class="ed-dek">{a["dek"]}</p>
       <p class="ed-byline"><img src="{p}assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>{AUTHOR}</b><span>{a["minutes"]} min read · {nice_date(a["date"])}{upd}</span></span></p>
     </header>
-    <figure class="ed-cover"><img src="{p}{a["cover"]}" alt="" width="1600" height="900" sizes="(max-width: 1100px) calc(100vw - 32px), 960px" fetchpriority="high"></figure>
+    <figure class="ed-cover"><img src="{p}{a["cover"]}" alt="" width="1600" height="900" sizes="(max-width: 1024px) calc(100vw - 32px), 760px" fetchpriority="high"></figure>
     {mtoc}
     <div class="ed-body post-body">{a["body"]}</div>
     <aside class="ed-aside" aria-label="On this page"><nav class="ed-toc"><p>On this page</p><ol>{toc}</ol><a class="ed-top" href="#main">Back to top ↑</a></nav></aside>
   </div>
   <footer class="ed-end">
-    <div class="ed-author"><img src="{p}assets/studio/aniket.jpg" alt="" width="56" height="56" loading="lazy"><p><b>{AUTHOR}</b> is the founder of Layer One. He has built and run design systems as an employee at <a href="{p}experience.html">CARS24, IBM and JPMorgan Chase</a>.</p></div>
     <section class="ed-more" aria-labelledby="more-h"><h2 class="ed-sec-h" id="more-h">{lead.lower()}:</h2><div class="ec-grid">{cards}</div></section>
     <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>{nh}</h2><p>{nt}</p></div><a href="{nhref}"{nattr}>{nl} {ARROW}</a></aside>
   </footer>
@@ -502,7 +519,7 @@ def build_hub():
     second = [BY["design-system-operating-model"], BY["design-tokens"]]
     shown = {lead["slug"]} | {x["slug"] for x in second}
     rest = sorted([a for a in NEW if a["slug"] not in shown], key=lambda a: a["date"], reverse=True) + [BY["librarian-vs-leader"]]
-    cards = "".join(ecard(a, p, eager=i < 3) for i, a in enumerate(rest)) + "".join(ecard(None, p, ext=m) for m in MEDIUM_POSTS)
+    cards = "".join(ecard(a, p) for a in rest) + "".join(ecard(None, p, ext=m) for m in MEDIUM_POSTS)
     topics = "".join(f'<a class="et" href="writing/topics/{k}.html"><b>{n}</b><span>{d}</span><em>{topic_count(k)} articles</em></a>' for k, n, d in TOPICS)
     content = f'''<header class="ed-intro">
   <div>
@@ -519,7 +536,7 @@ def build_hub():
   <h2 class="ed-sec-h" id="featured-h">featured:</h2>
   <div class="ed-featured">
     {ecard(lead, p, "ec--lead", eager=True)}
-    <div class="ed-featured-side">{"".join(ecard(x, p, "ec--side", eager=True) for x in second)}</div>
+    <div class="ed-featured-row">{"".join(ecard(x, p, "ec--row") for x in second)}</div>
   </div>
 </section>
 
@@ -591,3 +608,13 @@ if __name__ == "__main__":
         build_article(a)
     build_hub()
     build_topics()
+    # Writing pages load a stylesheet with only the rules they use (about a quarter of site.css).
+    from purge_css import purge
+    pages = [os.path.join(OUT, f) for f in WRITTEN if f == "writing.html" or f.startswith("writing/")]
+    full, lean = purge(pages, "assets/writing.css")
+    v = ver("assets/writing.css")
+    for f in pages:
+        h = open(f).read()
+        h = re.sub(r'(href="(?:\.\./)*)assets/site\.css\?v=\w+"', lambda m: f'{m.group(1)}assets/writing.css?v={v}"', h)
+        open(f, "w").write(h)
+    print(f"writing.css: {lean // 1024} KB (site.css {full // 1024} KB without comments), used by {len(pages)} pages")
