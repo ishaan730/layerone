@@ -241,7 +241,7 @@ def ld(a):
 
 
 def article_head(a, depth):
-    h = head(f'{a["title"]} | Layer One', H.escape(a["desc"], quote=True), depth=depth, og=a["cover"])
+    h = reader_head(f'{a["title"]} | Layer One', H.escape(a["desc"], quote=True), depth, og=a["cover"])
     h = h.replace('<meta property="og:type" content="website">',
                   f'<meta property="og:type" content="article">\n<meta property="article:published_time" content="{a["date"]}">'
                   f'\n<meta property="article:modified_time" content="{a.get("updated", a["date"])}">\n<meta property="article:author" content="{AUTHOR}">'
@@ -249,135 +249,187 @@ def article_head(a, depth):
     return h.replace("</head>", ld(a) + "\n</head>", 1)
 
 
+SUN = '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>'
+MOON = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>'
+THEME_JS = ("<script>try{var t=localStorage.getItem('l1-read');if(t==='dark'||t==='light')document.documentElement.dataset.read=t;"
+            "else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.read='dark';}catch(e){}</script>")
+
+
+def reader_head(title, desc, depth, og="assets/og/layer-one.jpg", extra=""):
+    """The site's <head>, switched to the reading theme: light by default, dark if the reader chose it or their system is dark."""
+    h = head(title, desc, depth=depth, theme="light", og=og)
+    h = h.replace('<body class="theme-light">', '<body class="reader">')
+    return h.replace("</head>", THEME_JS + extra + "\n</head>", 1)
+
+
+def reader_bar(p, toc=None):
+    """A quiet bar: the studio's mark, a way back to the library, contents (articles only) and the theme switch."""
+    toc_btn = toc_panel = ""
+    if toc:
+        items = "".join(f'<li><a href="#{i}">{t}</a></li>' for t, i in toc)
+        toc_btn = '<button class="rd-btn" type="button" aria-expanded="false" aria-controls="rd-toc" data-rd-toc>Contents</button>'
+        toc_panel = f'<nav class="rd-toc" id="rd-toc" aria-label="Contents" hidden><p>In this article</p><ol>{items}</ol></nav>'
+    return f'''<header class="rd-bar"><div class="rd-bar-in">
+  <a class="rd-mark" href="{p}index.html" aria-label="Layer One, home">{LOGO}<span>LAYER ONE</span></a>
+  <a class="rd-lib" href="{p}writing.html">Writing</a>
+  <div class="rd-tools">{toc_btn}<button class="rd-btn rd-theme" type="button" data-rd-theme aria-label="Switch between light and dark reading">{SUN}{MOON}</button></div>
+</div>{toc_panel}<div class="rd-progress" aria-hidden="true"><span></span></div></header>
+'''
+
+
+def reader_foot(p):
+    return f'''<footer class="rd-foot"><div class="rd-foot-in">
+  <a class="rd-mark" href="{p}index.html">{LOGO}<span>LAYER ONE</span></a>
+  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
+  <nav aria-label="Studio"><a href="{p}work.html">Work</a><a href="{p}pricing.html">Pricing</a><a href="{p}lab.html">Lab</a><a href="{p}contact.html">Contact</a><a href="{MEDIUM}" target="_blank" rel="noopener">Medium</a></nav>
+</div></footer>
+<script src="{p}assets/site.js?v={ver("assets/site.js")}" defer></script>
+</body>
+</html>
+'''
+
+
+NUDGE = {
+    "audit": ("Working on this in your own product?", "Layer One helps product teams build and run design systems. Most teams start with a two-week audit: every style, component and token you have, checked and ranked. $1,500, fixed.", "See how an audit works", "pricing.html"),
+    "lab": ("Want to try this on your own values?", "The Lab is a set of free tools we use ourselves: OKLCH palettes, contrast checks, type and spacing scales, a token name linter and an export kit.", "Open the Lab", "lab.html"),
+    "call": ("Thinking about how your system is run?", "Layer One helps teams set up the people and process side of design systems. A thirty-minute call is a good place to start, with no pitch.", "Book a call", CAL),
+    "next": ("When you're ready to look at your own product", "Layer One helps product teams build and run design systems. Most start with a two-week audit that ends in a ranked plan. $1,500, fixed.", "See how an audit works", "pricing.html"),
+}
+
+
 def build_article(a):
     p = "../"
     s = series_of(a["slug"])
-    series_pill = ""
-    series_nav = ""
+    kicker = f'<a href="{p}writing/topics/{a["topic"]}.html">{TOPIC[a["topic"]][0]}</a>'
+    nxt_html = ""
     if s:
         i = s[3].index(a["slug"])
-        series_pill = f'<a class="post-series" href="{p}writing.html#{s[0]}"><b>{s[1]}</b>&nbsp;· Part {i + 1} of {len(s[3])}</a>'
-        prv = BY[s[3][i - 1]] if i > 0 else None
+        kicker += f'<span>Part {i + 1} of {len(s[3])} in <a href="{p}writing.html#{s[0]}">{s[1]}</a></span>'
         nxt = BY[s[3][i + 1]] if i + 1 < len(s[3]) else None
-        cells = ""
-        cells += (f'<a class="sn-prev" href="{prv["slug"]}.html"><span>Previous in {s[1]}</span><b>{short_title(prv)}</b></a>' if prv else "<span></span>")
-        cells += (f'<a class="sn-next" href="{nxt["slug"]}.html"><span>Next in {s[1]}</span><b>{short_title(nxt)}</b></a>' if nxt else
-                  f'<a class="sn-next" href="{p}writing.html#series"><span>You finished {s[1]}</span><b>Pick another series</b></a>')
-        series_nav = f'<nav class="series-nav" aria-label="{s[1]} series">{cells}</nav>'
-    head_t, text, btns = CTAS[a["cta"]]
-    btn_html = "".join(f'<a class="pill{" pill--accent" if acc else ""}" href="{h if h.startswith("http") else p + h}"{" target=" + chr(34) + "_blank" + chr(34) + " rel=" + chr(34) + "noopener" + chr(34) if h.startswith("http") else ""}>{t}</a>' for t, h, acc in btns)
-    rel = "".join(card(BY[r], p) for r in a["related"][:2])
-    toc_inline = "".join(f'<li><a href="#{i}">{t}</a></li>' for t, i in a["toc"])
+        if nxt:
+            nxt_html = (f'<a class="rd-next" href="{nxt["slug"]}.html"><span>Next in {s[1]}</span><b>{short_title(nxt)}</b>'
+                        f'<em>{nxt["minutes"]} min read</em></a>')
+    if not nxt_html:
+        r = BY[a["related"][0]]
+        nxt_html = (f'<a class="rd-next" href="{r["slug"]}.html"><span>Read next</span><b>{short_title(r)}</b>'
+                    f'<em>{r["minutes"]} min read</em></a>')
+    more = "".join(f'<li><a href="{BY[r]["slug"]}.html"><b>{short_title(BY[r])}</b><span>{TOPIC[BY[r]["topic"]][0]} · {BY[r]["minutes"]} min</span></a></li>'
+                   for r in a["related"][1:3])
+    nh, nt, nl, nu = NUDGE[a["cta"]]
+    ext = nu.startswith("http")
+    nhref = nu if ext else p + nu
+    nattr = ' target="_blank" rel="noopener"' if ext else ""
     upd = f' · Updated {nice_date(a["updated"])}' if a.get("updated") else ""
-    content = f'''
-<article class="post">
-  <header class="post-head">
-    <p class="crumb small muted"><a href="{p}writing.html">Writing</a> / <a href="{p}writing/topics/{a["topic"]}.html">{TOPIC[a["topic"]][0]}</a></p>
-    {series_pill}
-    <h1 class="post-title">{a["h1"]}</h1>
-    <p class="post-dek">{a["dek"]}</p>
-    <div class="post-meta"><img src="{p}assets/studio/aniket.jpg" alt="" width="40" height="40" loading="lazy"><div><b>By {AUTHOR}</b><span>{a["minutes"]} min read · Published {nice_date(a["date"])}{upd}</span></div></div>
-    <div class="post-cover"><img src="{p}{a["cover"]}" alt="" width="1600" height="900"></div>
+    content = f'''<main id="main" class="rd">
+<article class="rd-article">
+  <header class="rd-head rd-grid">
+    <p class="rd-kicker">{kicker}</p>
+    <h1 class="rd-title">{a["h1"]}</h1>
+    <p class="rd-dek">{a["dek"]}</p>
+    <p class="rd-meta"><img src="{p}assets/studio/aniket.jpg" alt="" width="32" height="32"><span>{AUTHOR}</span><span>{a["minutes"]} min read</span><span>{nice_date(a["date"])}{upd}</span></p>
+    <figure class="rd-cover"><img src="{p}{a["cover"]}" alt="" width="1600" height="900"></figure>
   </header>
-  <details class="post-toc"><summary>In this article</summary><ol>{toc_inline}</ol></details>
-  <div class="post-body">{a["body"]}</div>
-  <aside class="post-author" aria-label="About the author">
-    <img src="{p}assets/studio/aniket.jpg" alt="Aniket Pandey" width="72" height="72" loading="lazy">
-    <div><b>{AUTHOR}</b><p>Founder of Layer One, a design systems studio in Bangalore. Built and ran design systems as an employee at <a href="{p}experience.html">CARS24, IBM and JPMorgan Chase</a>: tokens, components, governance and the teams behind them. <a href="{p}studio.html">More about the studio</a>.</p></div>
-  </aside>
-  <aside class="post-cta"><div><h2>{head_t}</h2><p>{text}</p></div><div class="btn-row">{btn_html}</div></aside>
-  {series_nav}
-  <h2 class="label">keep reading:</h2>
-  <div class="cards2">{rel}</div>
-</article>'''
-    sub = [(t, "#" + i) for t, i in a["toc"]]
-    write(f"writing/{a['slug']}.html", article_head(a, 1) + shell("writing", [("← All writing", p + "writing.html")] + sub, content, card="bar", depth=1))
+  <div class="rd-body rd-grid post-body">{a["body"]}</div>
+  <footer class="rd-end rd-grid">
+    <p class="rd-fin" aria-hidden="true">{LOGO}</p>
+    <div class="rd-author"><img src="{p}assets/studio/aniket.jpg" alt="" width="48" height="48" loading="lazy"><p>Written by <b>{AUTHOR}</b>, founder of Layer One. He has built and run design systems as an employee at <a href="{p}experience.html">CARS24, IBM and JPMorgan Chase</a>.</p></div>
+    {nxt_html}
+    <ul class="rd-more">{more}</ul>
+    <aside class="rd-nudge" aria-label="About Layer One"><p class="rd-nudge-k">From Layer One</p><h2>{nh}</h2><p>{nt}</p><a href="{nhref}"{nattr}>{nl} {ARROW}</a></aside>
+  </footer>
+</article>
+</main>'''
+    write(f"writing/{a['slug']}.html", article_head(a, 1) + content.join([reader_bar(p, a["toc"]), reader_foot(p)]))
 
 
-def archive_rows(items, p):
-    rows = ""
-    for n, a in enumerate(items, 1):
-        rows += (f'<tr><td class="n">{n:02d}</td><td><a href="{p}writing/{a["slug"]}.html">{short_title(a)}</a>{" <span class=" + chr(34) + "tag" + chr(34) + ">Guide</span>" if a.get("pillar") else ""}</td>'
-                 f'<td class="t">{TOPIC[a["topic"]][0]}</td><td class="r">{a["minutes"]} min</td></tr>')
-    return f'<div class="w-archive"><table><thead><tr><th>No.</th><th>Title</th><th class="t">Topic</th><th class="r">Length</th></tr></thead><tbody>{rows}</tbody></table></div>'
+def row(a, p, ext=None):
+    """One entry in the article list: a small cover, the title, one line of summary, topic and length."""
+    if ext:
+        u, t, k, m, img = ext
+        return (f'<li data-topic="{k}"><a href="{u}" target="_blank" rel="noopener"><span class="rd-thumb"><img src="{p}{img}" alt="" loading="lazy"></span>'
+                f'<span class="rd-row-t"><b>{t}</b><span class="rd-row-m">{TOPIC[k][0]} · {m} min · on Medium ↗</span></span></a></li>')
+    return (f'<li data-topic="{a["topic"]}"><a href="{p}writing/{a["slug"]}.html"><span class="rd-thumb"><img src="{p}{a["cover"]}" alt="" loading="lazy" width="1600" height="900"></span>'
+            f'<span class="rd-row-t"><b>{short_title(a)}</b><span class="rd-row-d">{a["desc"]}</span>'
+            f'<span class="rd-row-m">{TOPIC[a["topic"]][0]} · {a["minutes"]} min{" · Guide" if a.get("pillar") else ""}</span></span></a></li>')
 
 
-def topic_chips(p, active=None):
-    counts = {k: sum(1 for a in A if a["topic"] == k) + sum(1 for m in MEDIUM_POSTS if m[2] == k) for k, _, _ in TOPICS}
-    return '<ul class="w-topics">' + "".join(
-        f'<li><a href="{p}writing/topics/{k}.html"{" aria-current=" + chr(34) + "page" + chr(34) if k == active else ""}>{n} <span>{counts[k]}</span></a></li>' for k, n, _ in TOPICS) + "</ul>"
+def path_title(a):
+    """The shortest honest name for an article, for compact lists: the H1 up to its first colon or question mark."""
+    t = a["h1"]
+    for sep in ("? ", ": ", " ("):
+        if sep in t:
+            t = t.split(sep)[0] + ("?" if sep == "? " else "")
+    return t
 
 
-def medium_cards(p, topic=None):
-    return "".join(f'<a class="wcard" href="{u}" target="_blank" rel="noopener"><div class="m"><img src="{p}{img}" alt="" loading="lazy"></div><h3>{t}</h3><span>{TOPIC[k][0]} · {m} min · Medium</span></a>'
-                   for u, t, k, m, img in MEDIUM_POSTS if topic in (None, k))
+def topic_links(p, active=None):
+    allc = len(A) + len(MEDIUM_POSTS)
+    out = f'<a href="{p}writing.html#articles"{" aria-current=" + chr(34) + "page" + chr(34) if active is None else ""}>All <span>{allc}</span></a>'
+    for k, n, _ in TOPICS:
+        c = sum(1 for a in A if a["topic"] == k) + sum(1 for m in MEDIUM_POSTS if m[2] == k)
+        cur = ' aria-current="page"' if k == active else ""
+        out += f'<a href="{p}writing/topics/{k}.html"{cur}>{n} <span>{c}</span></a>'
+    return f'<nav class="rd-topics" aria-label="Topics">{out}</nav>'
 
 
 def build_hub():
     p = ""
     start = BY["what-is-a-design-system"]
-    series = ""
+    paths = ""
     for i, (k, n, d, items) in enumerate(SERIES, 1):
-        lis = "".join(f'<li><a href="writing/{s}.html"><span class="n">{j:02d}</span><b>{short_title(BY[s])}</b><span class="m">{BY[s]["minutes"]} min</span></a></li>' for j, s in enumerate(items, 1))
-        series += f'<section class="w-series" id="{k}"><header><span class="w-sno">{i:02d}</span><div><h3>{n}</h3><p>{d}</p></div><span class="w-count">{len(items)} parts</span></header><ol>{lis}</ol></section>'
-    pillars = "".join(card(a, p, " · Guide") for a in NEW if a.get("pillar") and a["slug"] != start["slug"])
-    latest = "".join(card(a, p) for a in NEW if not a.get("pillar")) + card(BY["librarian-vs-leader"], p) + medium_cards(p)
-    content = f'''
-<h1 class="statement">Writing</h1>
-<p class="sub muted">A practical library on building and running design systems: foundations, components, governance and the teams behind them. Written from systems built at CARS24, IBM and JPMorgan Chase, and from <a href="https://github.com/smishra280199-oss/Design-System-Handbook" target="_blank" rel="noopener">our design systems playbook</a>.</p>
-
-<h2 class="label" id="start">start here:</h2>
-<a class="w-feature" href="writing/{start["slug"]}.html">
-  <div class="m"><img src="{start["cover"]}" alt="" width="1600" height="900"></div>
-  <div class="w-feature-t"><span class="w-kicker">Guide · {start["minutes"]} min</span><h3>{start["h1"]}</h3><p>{start["dek"]}</p><span class="w-go">Read the guide {LONG_ARROW}</span></div>
-</a>
-
-<h2 class="label" id="topics">topics:</h2>
-{topic_chips(p)}
-
-<h2 class="label" id="series">reading series:</h2>
-<p class="sub muted" style="margin-top:-6px;margin-bottom:16px">Short, ordered paths through the library. Each article stands on its own; together they build a full picture.</p>
-<div class="w-series-list">{series}</div>
-
-<h2 class="label" id="guides">the big guides:</h2>
-<div class="cards2">{pillars}</div>
-
-<h2 class="label" id="all">all articles:</h2>
-<div class="cards2">{latest}</div>
-
-<h2 class="label" id="archive">archive:</h2>
-{archive_rows(NEW + [BY["librarian-vs-leader"]], p)}
-'''
-    sub = [("Start here", "#start"), ("Topics", "#topics"), ("Series", "#series"), ("Guides", "#guides"), ("All articles", "#all"), ("Archive", "#archive"), ("Medium", MEDIUM)]
+        lis = "".join(f'<li><a href="writing/{s}.html">{path_title(BY[s])}</a></li>' for s in items)
+        paths += f'<section class="rd-path" id="{k}"><p class="rd-path-n">{i:02d}</p><h3>{n}</h3><p>{d}</p><ol>{lis}</ol></section>'
+    order = [a for a in NEW if a is not start] + [BY["librarian-vs-leader"]]
+    rows = "".join(row(a, p) for a in order) + "".join(row(None, p, m) for m in MEDIUM_POSTS)
+    content = f'''<main id="main" class="rd rd-hub">
+  <header class="rd-hub-head">
+    <p class="rd-kicker">Writing</p>
+    <h1>Notes on building and running design systems</h1>
+    <p class="rd-hub-dek">Practical, plain-English guides to design systems: what they are, tokens and colour, components, governance, the teams behind them and how to tell whether it's working. From systems built at CARS24, IBM and JPMorgan Chase.</p>
+  </header>
+  <a class="rd-feature" href="writing/{start["slug"]}.html">
+    <span class="rd-feature-m"><img src="{start["cover"]}" alt="" width="1600" height="900"></span>
+    <span class="rd-feature-t"><span class="rd-kicker">Start here · {start["minutes"]} min read</span><b>{start["h1"]}</b><span>{start["dek"]}</span></span>
+  </a>
+  <section class="rd-sec" id="series" aria-labelledby="paths-h">
+    <h2 id="paths-h">Reading paths</h2>
+    <p class="rd-sec-d">Short, ordered paths through the library. Every article stands on its own.</p>
+    <div class="rd-paths">{paths}</div>
+  </section>
+  <section class="rd-sec" id="articles" aria-labelledby="all-h">
+    <h2 id="all-h">All articles</h2>
+    {topic_links(p)}
+    <ul class="rd-list">{rows}</ul>
+  </section>
+</main>'''
     items = [{"@type": "ListItem", "position": i, "url": f"https://www.layerone.co.in/writing/{a['slug']}", "name": short_title(a)} for i, a in enumerate(NEW + [BY["librarian-vs-leader"]], 1)]
     ldj = json.dumps({"@context": "https://schema.org", "@type": "Blog", "name": "Layer One: Writing", "url": "https://www.layerone.co.in/writing",
                       "description": "A practical library on building and running design systems.", "publisher": {"@type": "Organization", "name": "Layer One"},
                       "mainEntity": {"@type": "ItemList", "itemListElement": items}}, ensure_ascii=False)
-    h = head("Writing: design systems guides | Layer One",
-             "Practical guides on design systems: what they are, tokens and colour, governance, team structure, operating models, metrics and ROI. From Layer One.")
-    write("blog.html", h.replace("</head>", f'<script type="application/ld+json">{ldj}</script>\n</head>', 1)
-          + shell("writing", sub, content, card="bar"))
+    h = reader_head("Writing: design systems guides | Layer One",
+                    "Practical guides on design systems: what they are, tokens and colour, governance, team structure, operating models, metrics and ROI. From Layer One.",
+                    0, extra=f'<script type="application/ld+json">{ldj}</script>')
+    write("blog.html", h + reader_bar(p) + content + reader_foot(p))
 
 
 def build_topics():
     p = "../../"
     for k, n, d in TOPICS:
         arts = [a for a in A if a["topic"] == k]
-        cards = "".join(card(a, p, " · Guide" if a.get("pillar") else "") for a in arts) + medium_cards(p, k)
-        guide = next((a for a in arts if a.get("pillar")), None)
-        lead = (f'<p class="sub muted">Start with the guide: <a href="{p}writing/{guide["slug"]}.html">{short_title(guide)}</a>.</p>' if guide else "")
-        content = f'''
-<p class="crumb small muted"><a href="{p}writing.html">Writing</a> / Topics</p>
-<h1 class="statement" style="margin-top:12px">{n}</h1>
-<p class="sub muted">{d}</p>
-{lead}
-<div style="margin-top:24px">{topic_chips(p, k)}</div>
-<h2 class="label">{len(arts) + sum(1 for m in MEDIUM_POSTS if m[2] == k)} articles:</h2>
-<div class="cards2">{cards}</div>
-{archive_rows(arts, p) if len(arts) > 2 else ""}
-'''
-        write(f"writing/topics/{k}.html", head(f"{n}: design systems articles | Layer One", d, depth=2)
-              + shell("writing", [("← All writing", p + "writing.html")] + [(t, f"{p}writing/topics/{kk}.html") for kk, t, _ in TOPICS], content, card="bar", depth=2))
+        arts.sort(key=lambda a: not a.get("pillar"))
+        rows = "".join(row(a, p) for a in arts) + "".join(row(None, p, m) for m in MEDIUM_POSTS if m[2] == k)
+        content = f'''<main id="main" class="rd rd-hub">
+  <header class="rd-hub-head">
+    <p class="rd-kicker"><a href="{p}writing.html">Writing</a> · Topic</p>
+    <h1>{n}</h1>
+    <p class="rd-hub-dek">{d}</p>
+  </header>
+  <section class="rd-sec" aria-label="Articles">
+    {topic_links(p, k)}
+    <ul class="rd-list">{rows}</ul>
+  </section>
+</main>'''
+        write(f"writing/topics/{k}.html", reader_head(f"{n}: design systems articles | Layer One", d, 2) + reader_bar(p) + content + reader_foot(p))
 
 
 def _exists(a):

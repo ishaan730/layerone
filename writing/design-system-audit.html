@@ -15,11 +15,12 @@
 <meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/design-system-audit.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image:alt" content="Design System Audit: How to Run an Interface Inventory | Layer One">
-<meta name="theme-color" content="#0b0d12">
+<meta name="theme-color" content="#f6f6f3">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/site.css?v=394ba543">
+<link rel="stylesheet" href="../assets/site.css?v=f7cf0964">
 <script defer src="/_vercel/insights/script.js"></script>
+<script>try{var t=localStorage.getItem('l1-read');if(t==='dark'||t==='light')document.documentElement.dataset.read=t;else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.read='dark';}catch(e){}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Design System Audit: How to Run an Interface Inventory", "description": "Screenshot, group, count and prioritise every button, field and colour in your product. A step-by-step UI audit that ends in a ranked plan, not a slide.", "image": "https://www.layerone.co.in/assets/images/writing/design-system-audit.jpg", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "mainEntityOfPage": "https://www.layerone.co.in/writing/design-system-audit", "wordCount": 1744, "articleSection": "Building a system", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "Building a system", "item": "https://www.layerone.co.in/writing/topics/building"}, {"@type": "ListItem", "position": 3, "name": "How to run a design system audit (with an interface inventory method)", "item": "https://www.layerone.co.in/writing/design-system-audit"}]}</script>
 <link rel="canonical" href="https://www.layerone.co.in/writing/design-system-audit">
 <meta property="og:url" content="https://www.layerone.co.in/writing/design-system-audit">
@@ -29,35 +30,23 @@
 <meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/design-system-audit.jpg">
 <script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
 </head>
-<body class="theme-dark">
+<body class="reader">
 <a class="skip" href="#main">Skip to content</a>
-<header class="topbar"><div class="topbar-in">
-  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
-  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
-  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
-  <a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
-</div></header>
-<div class="shell"><aside class="side" aria-label="Studio">
-    <nav class="side-nav" aria-label="On this page"><a href="/writing">← All writing</a><a href="#what-is-a-design-system-audit">What is a design system audit?</a><a href="#what-you-ll-need">What you'll need</a><a href="#the-audit-step-by-step">The audit, step by step</a><a href="#what-a-good-audit-report-contains">What a good audit report contains</a><a href="#turning-the-audit-into-a-business-case">Turning the audit into a business case</a><a href="#common-audit-mistakes">Common audit mistakes</a><a href="#the-short-version">The short version</a><a href="#frequently-asked-questions">Frequently asked questions</a><a href="#further-reading">Further reading</a></nav>
-    <a class="side-card side-card--bar" href="/contact"><span>Start a project</span><svg viewBox="0 0 34 14" fill="none" aria-hidden="true"><path d="M1 7h31M26 1l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    <p class="side-blurb">Layer One is a design systems studio in Bangalore, India.<br>Led by Aniket Pandey.</p>
-    <div class="wordmark"><svg viewBox="0 0 300 182" role="img" aria-label="Layer One"><g transform="translate(10 10)" opacity="0.35" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="none" stroke="currentColor" stroke-width="1.4">LAYER</text><text x="4" y="164" fill="none" stroke="currentColor" stroke-width="1.4">ONE</text></g><g transform="translate(5 5)" opacity="0.6" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="none" stroke="currentColor" stroke-width="1.4">LAYER</text><text x="4" y="164" fill="none" stroke="currentColor" stroke-width="1.4">ONE</text></g><g transform="translate(0 0)" opacity="1" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="currentColor">LAYER</text><text x="4" y="164" fill="currentColor">ONE</text></g><g transform="translate(222 100) scale(.62)"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></g></svg></div>
-    <div class="side-foot">
-      <ul><li><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">linkedin</a></li><li><a href="https://x.com/LayeroneStudios" target="_blank" rel="noopener">x</a></li><li><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">medium</a></li></ul>
-      <a href="mailto:layerone@proton.me">layerone@proton.me</a>
-    </div>
-  </aside><main id="main" class="content">
-<article class="post">
-  <header class="post-head">
-    <p class="crumb small muted"><a href="/writing">Writing</a> / <a href="/writing/topics/building">Building a system</a></p>
-    <a class="post-series" href="/writing#building-one"><b>Building one</b>&nbsp;· Part 2 of 3</a>
-    <h1 class="post-title">How to run a design system audit (with an interface inventory method)</h1>
-    <p class="post-dek">An audit shows you what you really have: how many buttons, how many blues, which screens drift. Done well, it ends in a ranked plan and a number leadership understands. Here's the method, step by step.</p>
-    <div class="post-meta"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40" loading="lazy"><div><b>By Aniket Pandey</b><span>8 min read · Published 9 November 2026</span></div></div>
-    <div class="post-cover"><img src="../assets/images/writing/design-system-audit.w1200.webp" alt="" width="1600" height="900" srcset="../assets/images/writing/design-system-audit.w480.webp 480w, ../assets/images/writing/design-system-audit.w800.webp 800w, ../assets/images/writing/design-system-audit.w1200.webp 1200w, ../assets/images/writing/design-system-audit.jpg 1600w" sizes="(max-width: 1280px) 100vw, 1240px" decoding="async"></div>
+<header class="rd-bar"><div class="rd-bar-in">
+  <a class="rd-mark" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <a class="rd-lib" href="/writing">Writing</a>
+  <div class="rd-tools"><button class="rd-btn" type="button" aria-expanded="false" aria-controls="rd-toc" data-rd-toc>Contents</button><button class="rd-btn rd-theme" type="button" data-rd-theme aria-label="Switch between light and dark reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button></div>
+</div><nav class="rd-toc" id="rd-toc" aria-label="Contents" hidden><p>In this article</p><ol><li><a href="#what-is-a-design-system-audit">What is a design system audit?</a></li><li><a href="#what-you-ll-need">What you'll need</a></li><li><a href="#the-audit-step-by-step">The audit, step by step</a></li><li><a href="#what-a-good-audit-report-contains">What a good audit report contains</a></li><li><a href="#turning-the-audit-into-a-business-case">Turning the audit into a business case</a></li><li><a href="#common-audit-mistakes">Common audit mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></nav><div class="rd-progress" aria-hidden="true"><span></span></div></header>
+<main id="main" class="rd">
+<article class="rd-article">
+  <header class="rd-head rd-grid">
+    <p class="rd-kicker"><a href="/writing/topics/building">Building a system</a><span>Part 2 of 3 in <a href="/writing#building-one">Building one</a></span></p>
+    <h1 class="rd-title">How to run a design system audit (with an interface inventory method)</h1>
+    <p class="rd-dek">An audit shows you what you really have: how many buttons, how many blues, which screens drift. Done well, it ends in a ranked plan and a number leadership understands. Here's the method, step by step.</p>
+    <p class="rd-meta"><img src="../assets/studio/aniket.jpg" alt="" width="32" height="32"><span>Aniket Pandey</span><span>8 min read</span><span>9 November 2026</span></p>
+    <figure class="rd-cover"><img src="../assets/images/writing/design-system-audit.w1200.webp" alt="" width="1600" height="900" srcset="../assets/images/writing/design-system-audit.w480.webp 480w, ../assets/images/writing/design-system-audit.w800.webp 800w, ../assets/images/writing/design-system-audit.w1200.webp 1200w, ../assets/images/writing/design-system-audit.jpg 1600w" sizes="(max-width: 1280px) 100vw, 1240px" decoding="async"></figure>
   </header>
-  <details class="post-toc"><summary>In this article</summary><ol><li><a href="#what-is-a-design-system-audit">What is a design system audit?</a></li><li><a href="#what-you-ll-need">What you'll need</a></li><li><a href="#the-audit-step-by-step">The audit, step by step</a></li><li><a href="#what-a-good-audit-report-contains">What a good audit report contains</a></li><li><a href="#turning-the-audit-into-a-business-case">Turning the audit into a business case</a></li><li><a href="#common-audit-mistakes">Common audit mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
-  <div class="post-body"><div class="answer">
+  <div class="rd-body rd-grid post-body"><div class="answer">
   <p class="k">The short answer</p>
   <p>A <b>design system audit</b> (or interface inventory) is a structured look at everything your product's interface is made of: every button, input, message, colour, text style and spacing value, in design files and in code. You screenshot it, group near-duplicates, count the variations, check accessibility, and rank what to fix first. Done well, it takes about two weeks and ends in a ranked plan and a handful of "before" numbers leadership understands.</p>
   <ul>
@@ -208,14 +197,19 @@ grep -rlE <span class="s">'(export (default )?function|const) \w*Button\b'</span
   <li><a href="/work/cars24-internal-tools">CARS24: one design system for 30+ internal tools</a><span>A system that started with an audit of 20+ tools.</span></li>
 </ul>
 </div>
-  <aside class="post-author" aria-label="About the author">
-    <img src="../assets/studio/aniket.jpg" alt="Aniket Pandey" width="72" height="72" loading="lazy">
-    <div><b>Aniket Pandey</b><p>Founder of Layer One, a design systems studio in Bangalore. Built and ran design systems as an employee at <a href="/experience">CARS24, IBM and JPMorgan Chase</a>: tokens, components, governance and the teams behind them. <a href="/studio">More about the studio</a>.</p></div>
-  </aside>
-  <aside class="post-cta"><div><h2>Not sure where your system stands?</h2><p>A two-week audit maps every style, component and token you have in Figma and code, checks accessibility, and gives you a ranked plan. $1,500, fixed.</p></div><div class="btn-row"><a class="pill pill--accent" href="/pricing">See pricing</a><a class="pill" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a></div></aside>
-  <nav class="series-nav" aria-label="Building one series"><a class="sn-prev" href="/writing/how-to-build-a-design-system"><span>Previous in Building one</span><b>How to build a design system</b></a><a class="sn-next" href="/writing/design-system-documentation"><span>Next in Building one</span><b>Design system documentation</b></a></nav>
-  <h2 class="label">keep reading:</h2>
-  <div class="cards2"><a class="wcard" href="/writing/how-to-build-a-design-system"><div class="m"><img src="../assets/images/writing/how-to-build-a-design-system.w1200.webp" alt="" loading="lazy" width="1600" height="900" srcset="../assets/images/writing/how-to-build-a-design-system.w480.webp 480w, ../assets/images/writing/how-to-build-a-design-system.w800.webp 800w, ../assets/images/writing/how-to-build-a-design-system.w1200.webp 1200w, ../assets/images/writing/how-to-build-a-design-system.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></div><h3>How to build a design system</h3><span>Building a system · 11 min</span></a><a class="wcard" href="/writing/do-you-need-a-design-system"><div class="m"><img src="../assets/images/writing/do-you-need-a-design-system.w1200.webp" alt="" loading="lazy" width="1600" height="900" srcset="../assets/images/writing/do-you-need-a-design-system.w480.webp 480w, ../assets/images/writing/do-you-need-a-design-system.w800.webp 800w, ../assets/images/writing/do-you-need-a-design-system.w1200.webp 1200w, ../assets/images/writing/do-you-need-a-design-system.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></div><h3>Do you need a design system? A decision guide for startups and growing teams</h3><span>Fundamentals · 11 min</span></a></div>
-</article></main></div><script src="../assets/site.js?v=ba3edd5c" defer></script>
+  <footer class="rd-end rd-grid">
+    <p class="rd-fin" aria-hidden="true"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg></p>
+    <div class="rd-author"><img src="../assets/studio/aniket.jpg" alt="" width="48" height="48" loading="lazy"><p>Written by <b>Aniket Pandey</b>, founder of Layer One. He has built and run design systems as an employee at <a href="/experience">CARS24, IBM and JPMorgan Chase</a>.</p></div>
+    <a class="rd-next" href="/writing/design-system-documentation"><span>Next in Building one</span><b>Design system documentation</b><em>8 min read</em></a>
+    <ul class="rd-more"><li><a href="/writing/do-you-need-a-design-system"><b>Do you need a design system? A decision guide for startups and growing teams</b><span>Fundamentals · 11 min</span></a></li><li><a href="/writing/design-system-roi"><b>Design system ROI</b><span>Business case & measurement · 9 min</span></a></li></ul>
+    <aside class="rd-nudge" aria-label="About Layer One"><p class="rd-nudge-k">From Layer One</p><h2>Working on this in your own product?</h2><p>Layer One helps product teams build and run design systems. Most teams start with a two-week audit: every style, component and token you have, checked and ranked. $1,500, fixed.</p><a href="/pricing">See how an audit works <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+</main><footer class="rd-foot"><div class="rd-foot-in">
+  <a class="rd-mark" href="/"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
+  <nav aria-label="Studio"><a href="/work">Work</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/contact">Contact</a><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></nav>
+</div></footer>
+<script src="../assets/site.js?v=65aba097" defer></script>
 </body>
 </html>
