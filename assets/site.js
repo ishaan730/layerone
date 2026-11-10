@@ -621,61 +621,67 @@
   $$("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
 })();
 
-/* Writing: highlight the section you're reading in the sidebar's "On this page" list. */
+/* Writing: reading theme, contents highlighting, reading progress, compact contents on phones, topic filter. */
 (function () {
-  var post = document.querySelector(".post-body");
-  if (!post || !("IntersectionObserver" in window)) return;
-  var links = {};
-  document.querySelectorAll('.side-nav a[href^="#"]').forEach(function (a) { links[a.getAttribute("href").slice(1)] = a; });
-  var heads = post.querySelectorAll("h2[id]");
-  var io = new IntersectionObserver(function (es) {
-    es.forEach(function (e) {
-      if (!e.isIntersecting) return;
-      Object.keys(links).forEach(function (k) { links[k].classList.toggle("is-on", k === e.target.id); });
-    });
-  }, { rootMargin: "-80px 0px -70% 0px" });
-  heads.forEach(function (h) { io.observe(h); });
-})();
-
-/* Reader: theme switch, contents panel, reading progress, and a bar that steps aside while you read. */
-(function () {
-  var bar = document.querySelector(".rd-bar");
-  if (!bar) return;
+  if (!document.querySelector(".ed-main")) return;
   var root = document.documentElement;
-  var themeBtn = bar.querySelector("[data-rd-theme]");
-  if (themeBtn) themeBtn.addEventListener("click", function () {
-    var next = root.dataset.read === "dark" ? "light" : "dark";
-    root.dataset.read = next;
-    try { localStorage.setItem("l1-read", next); } catch (e) {}
+  document.querySelectorAll("[data-rd-theme]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var light = root.dataset.read !== "light";
+      if (light) root.dataset.read = "light"; else delete root.dataset.read;
+      try { localStorage.setItem("l1-read", light ? "light" : "dark"); } catch (e) {}
+    });
   });
-  var tocBtn = bar.querySelector("[data-rd-toc]"), toc = document.getElementById("rd-toc");
-  function setToc(open) { if (!toc) return; toc.hidden = !open; tocBtn.setAttribute("aria-expanded", open ? "true" : "false"); }
-  if (tocBtn && toc) {
-    tocBtn.addEventListener("click", function (e) { e.stopPropagation(); setToc(toc.hidden); });
-    toc.addEventListener("click", function (e) { if (e.target.closest("a")) setToc(false); });
-    document.addEventListener("click", function (e) { if (!toc.hidden && !toc.contains(e.target)) setToc(false); });
-    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !toc.hidden) { setToc(false); tocBtn.focus(); } });
+
+  var body = document.querySelector(".ed-body");
+  var prog = document.querySelector(".ed-progress span");
+  var mtoc = document.querySelector(".ed-mtoc"), mcur = document.querySelector("[data-mtoc-current]");
+  if (body && prog) {
+    var ticking = false;
+    var upd = function () {
+      ticking = false;
+      var r = body.getBoundingClientRect(), h = r.height - window.innerHeight * 0.5;
+      prog.style.width = Math.max(0, Math.min(1, -r.top / Math.max(h, 1))) * 100 + "%";
+    };
+    window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(upd); } }, { passive: true });
+    upd();
   }
-  var body = document.querySelector(".rd-body"), prog = bar.querySelector(".rd-progress span"), last = 0, ticking = false;
-  function update() {
-    ticking = false;
-    var y = window.scrollY;
-    if (body && prog) {
-      var top = body.getBoundingClientRect().top + y, h = body.offsetHeight - window.innerHeight * 0.6;
-      prog.style.width = Math.max(0, Math.min(1, (y - top + window.innerHeight * 0.3) / Math.max(h, 1))) * 100 + "%";
-    }
-    var hide = y > 240 && y > last && (!toc || toc.hidden);
-    bar.classList.toggle("is-hidden", hide);
-    last = y;
-  }
-  window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-  update();
-  if (toc && body && "IntersectionObserver" in window) {
+  if (body && "IntersectionObserver" in window) {
     var links = {};
-    toc.querySelectorAll("a").forEach(function (a) { links[a.getAttribute("href").slice(1)] = a; });
+    document.querySelectorAll('.ed-toc a[href^="#"]').forEach(function (a) { links[a.getAttribute("href").slice(1)] = a; });
+    var heads = body.querySelectorAll("h2[id]");
     var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) Object.keys(links).forEach(function (k) { links[k].classList.toggle("is-on", k === e.target.id); }); });
-    }, { rootMargin: "-80px 0px -70% 0px" });
-    body.querySelectorAll("h2[id]").forEach(function (h) { io.observe(h); });
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        Object.keys(links).forEach(function (k) { links[k].classList.toggle("is-on", k === e.target.id); });
+        if (links[e.target.id]) links[e.target.id].setAttribute("aria-current", "location");
+        Object.keys(links).forEach(function (k) { if (k !== e.target.id) links[k].removeAttribute("aria-current"); });
+        if (mcur) mcur.textContent = e.target.textContent;
+      });
+    }, { rootMargin: "-90px 0px -70% 0px" });
+    heads.forEach(function (h) { io.observe(h); });
+  }
+  if (mtoc) mtoc.addEventListener("click", function (e) { if (e.target.closest("ol a")) mtoc.open = false; });
+
+  var list = document.querySelector("[data-filter-list]"), state = document.querySelector("[data-filter-state]");
+  var filters = document.querySelectorAll("[data-filter]");
+  if (list && filters.length) {
+    var apply = function (key, label) {
+      var n = 0;
+      list.querySelectorAll(".ec").forEach(function (c) { var on = key === "all" || c.dataset.topic === key; c.hidden = !on; if (on) n++; });
+      filters.forEach(function (f) { if (f.dataset.filter === key) f.setAttribute("aria-current", "page"); else f.removeAttribute("aria-current"); });
+      if (state) {
+        state.textContent = key === "all" ? "" : n + " in " + label;
+        if (key !== "all") { var b = document.createElement("button"); b.type = "button"; b.textContent = "Show all"; b.addEventListener("click", function () { apply("all"); }); state.appendChild(b); }
+      }
+    };
+    filters.forEach(function (f) {
+      f.addEventListener("click", function (e) {
+        e.preventDefault();
+        apply(f.dataset.filter, f.querySelector("span").textContent);
+        var t = document.getElementById("articles");
+        if (t && t.getBoundingClientRect().top > window.innerHeight * 0.6 || t.getBoundingClientRect().top < 0) t.scrollIntoView();
+      });
+    });
   }
 })();
