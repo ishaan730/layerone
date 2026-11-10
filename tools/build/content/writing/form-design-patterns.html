@@ -1,0 +1,123 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>Good form design comes down to seven decisions a design system should make once for the whole product: <b>one column with labels above fields</b>; <b>mark optional fields</b> rather than starring required ones (when most are required); <b>check for errors when people leave a field and when they submit</b>, never while they're still typing; show <b>a message next to each problem field plus a summary at the top</b> on submit; write errors that say <b>what's wrong and how to fix it</b>; split long forms into <b>steps or sections</b>; and end with <b>one primary button named for what it does</b>.</p>
+  <ul>
+    <li>WCAG requires errors to be identified and described in text, not by colour alone.</li>
+    <li>The goal isn't that these answers are the only right ones; it's that your product has one answer for each question.</li>
+    <li>Forms are usually the first pattern worth writing down: they're where products make money and where people get most frustrated.</li>
+  </ul>
+</div>
+
+<h2>Why forms deserve a pattern</h2>
+<p>Sign-up, checkout, invoice creation, settings: most of the value a business product creates passes through a form. Forms are also where small inconsistencies cost the most. If one form validates as you type, another only on submit and a third in a pop-up, people learn none of them, and every team spends design reviews re-debating the same choices.</p>
+<p>A design system can't design every form. It can make the seven decisions every form shares, so product teams only spend time on what's specific to their form.</p>
+
+<h2>The seven decisions</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Question</th><th>Our default answer</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td>Layout</td><td>One column, labels above fields</td><td>Easiest to scan; works on every screen size; labels stay close to their fields</td></tr>
+    <tr><td>Required fields</td><td>Mark the optional ones ("optional") when most fields are required</td><td>Fewer marks, less noise; clear words beat a symbol</td></tr>
+    <tr><td>When to check</td><td>When the person leaves a field (for format problems) and on submit (for everything)</td><td>Checking while someone is typing shows errors before they've finished</td></tr>
+    <tr><td>Where errors appear</td><td>Next to each problem field, plus a summary at the top on submit that links to each error</td><td>People and screen readers can find every problem</td></tr>
+    <tr><td>What errors say</td><td>What's wrong and how to fix it: "Enter a date after 1 January 2026"</td><td>Errors must be identified and described in text (WCAG 3.3.1)</td></tr>
+    <tr><td>Long forms</td><td>Split into steps with a progress indicator, or sections with headings</td><td>Smaller chunks feel achievable and reduce mistakes</td></tr>
+    <tr><td>Buttons</td><td>One primary action at the end, named for what it does: "Send invoice"</td><td>The main action should be obvious and specific</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Default answers for a form pattern. <span class="ev ev--prac">Practitioner view</span> Some products have good reasons to differ. Write down the exceptions too.</figcaption></figure>
+
+<h2>What a well-behaved form looks like</h2>
+<figure class="w-fig">
+  <div class="w-form" aria-hidden="true">
+    <div class="w-form-sum"><b>There are 2 problems with this invoice</b><span>Enter the customer's email address</span><span>Enter a due date after the invoice date</span></div>
+    <div class="w-form-f"><b>Customer name</b><i>Acme Ltd</i></div>
+    <div class="w-form-f err"><b>Customer email</b><span class="msg">Enter the customer's email address</span><i>&nbsp;</i></div>
+    <div class="w-form-f err"><b>Due date</b><span class="hint">For example, 30 11 2026</span><span class="msg">Enter a due date after the invoice date</span><i>01 11 2026</i></div>
+    <div class="w-form-f"><b>Purchase order number <em>(optional)</em></b><i>&nbsp;</i></div>
+    <span class="w-form-btn">Send invoice</span>
+  </div>
+  <figcaption>The form pattern after a failed submit. One column; the optional field is marked, not the required ones; an error summary at the top links to each problem; each field repeats its error in text, with a hint where the format matters; one button that says what it does. The layout follows the GOV.UK error summary, a well-tested public model.</figcaption>
+</figure>
+
+<h2>When to show errors</h2>
+<p>Timing is the most argued-about form decision, and the one most worth settling. Showing an error while someone is still typing their email address tells them they're wrong before they've had a chance to be right. Waiting until submit for everything makes people scroll back up through a long form to find what failed.</p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Typing</b><span>No errors. If a value becomes valid, clear its error.</span></div><i>→</i>
+    <div><b>Leaving a field</b><span>Check the format: "Enter a full email address".</span></div><i>→</i>
+    <div class="hi"><b>Submitting</b><span>Check everything. Show the summary, move focus to it, keep each field's message.</span></div><i>→</i>
+    <div><b>Fixing</b><span>Clear each message as it's resolved; keep the summary until the next submit.</span></div>
+  </div>
+  <figcaption>The validation timeline we start from. Format checks on leaving a field; everything on submit; never while typing.</figcaption>
+</figure>
+<div class="callout callout--warn"><span class="callout-k">Watch out</span><p>Disabling the submit button until the form is valid looks tidy but hides the reason. People can't tell what's missing, and screen reader users may not find the button at all. Keep the button enabled and explain the problems on submit.</p></div>
+
+<h2>Writing error messages</h2>
+<p>Error messages are the most read words in a form, because people only read them when something has gone wrong. A simple formula makes them easy to write well:</p>
+<div class="cols2">
+  <div class="cell"><span class="k">FIELD ERROR</span><h4>What to enter, specifically</h4><p>"Enter an amount between ₹1 and ₹10,00,000", not "Invalid amount". Use the field's own label in the message, so it makes sense in the summary too.</p></div>
+  <div class="cell"><span class="k">SYSTEM ERROR</span><h4>What happened, why, what to do</h4><p>"Payment failed. The card has expired. Update the card details." Calm, specific, and never blaming the person.</p></div>
+</div>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Instead of</th><th>Write</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td>"Invalid input"</td><td>"Enter a phone number, like 98765 43210"</td><td>Says what to do and shows the format</td></tr>
+    <tr><td>"This field is required"</td><td>"Enter the customer's email address"</td><td>Makes sense out of context, in the summary</td></tr>
+    <tr><td>"Oops! Something went wrong"</td><td>"We couldn't save the invoice. Check your connection and try again."</td><td>Calm and specific; jokes feel dismissive when something has failed</td></tr>
+    <tr><td>"Date must be valid"</td><td>"Due date must be after the invoice date"</td><td>Names the actual rule that was broken</td></tr>
+  </tbody>
+</table></div></figure>
+<p>More on message formulas in <a href="/writing/ux-writing-design-system">content design in a design system</a>.</p>
+
+<h2>Accessibility, built into the pattern</h2>
+<p>Most form accessibility can be handled once, in the components and the pattern, so product teams get it for free.</p>
+<ul class="checklist">
+  <li><b>Every field has a visible label</b>, connected to the input in code. Placeholders aren't labels; they disappear when people type.</li>
+  <li><b>Errors are in text</b>, not only a red border. WCAG 3.3.1 requires errors to be identified and described in text; 3.3.3 asks for suggestions where they're known.</li>
+  <li><b>Each error message is connected</b> to its field so screen readers announce it with the field.</li>
+  <li><b>Focus moves to the summary</b> on a failed submit, and each summary link moves focus to its field.</li>
+  <li><b>Hints sit above the field</b>, so they're read before people start typing.</li>
+  <li><b>Group related fields</b> (a date in three parts, a set of radio buttons) with a legend that names the question.</li>
+  <li><b>Don't ask for information twice</b> in the same process; WCAG 2.2 added this as "redundant entry" (3.3.7).</li>
+</ul>
+
+<h2>Long forms</h2>
+<p>A form with thirty fields on one page feels like a wall. Two approaches help, and the pattern should say when to use each:</p>
+<div class="cols2">
+  <div class="cell"><span class="k">STEPS</span><h3>One thing per page</h3><p>For flows people do rarely, or on phones: applications, onboarding, checkout. Show progress ("Step 2 of 4") and a summary page to check answers before submitting.</p></div>
+  <div class="cell"><span class="k">SECTIONS</span><h3>One page, headed sections</h3><p>For forms people return to and edit: settings, profiles, records. Headings let people jump to the part they need; saving can be per section.</p></div>
+</div>
+
+<h2>Making it part of the system</h2>
+<ol class="w-steps">
+  <li><h3>Collect the forms you have</h3><p>Screenshot five or six real forms, including their error states. Note every difference in layout, timing and wording.</p></li>
+  <li><h3>Agree the seven answers</h3><p>With a small working group from the teams that build the most forms. Use the table above as a starting point, and write down the reasons.</p></li>
+  <li><h3>Build the behaviour into components</h3><p>Field components that show hints and errors in the right place, connected for screen readers; an error summary component that manages focus.</p></li>
+  <li><h3>Document the pattern</h3><p>Problem, solution, examples, variations (short form, long form, steps), when not to use it, evidence, accessibility and writing. See <a href="/writing/design-system-patterns">design system patterns</a>.</p></li>
+  <li><h3>Migrate the busiest forms first</h3><p>Sign-up and checkout before an admin settings page. Measure completion and error rates before and after if you can.</p></li>
+</ol>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Make seven decisions once: layout, required fields, timing, error placement, error wording, long forms and buttons.</li>
+  <li>Check on leaving a field and on submit, never while typing.</li>
+  <li>Show each error next to its field and in a linked summary at the top.</li>
+  <li>Errors say what's wrong and how to fix it, in text.</li>
+  <li>Build the behaviour into components so every form gets it for free.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Should form labels go above or beside fields?</summary><div><p>Above, by default. Labels above fields are easiest to scan, keep labels close to their fields and work on every screen size. Side-by-side labels can suit dense desktop admin forms, but they break on phones.</p></div></details>
+  <details><summary>Should I mark required or optional fields?</summary><div><p>When most fields are required, mark the optional ones with the word "optional". When most are optional, mark the required ones. Use words rather than a symbol alone.</p></div></details>
+  <details><summary>Is inline validation good or bad?</summary><div><p>Checking a field when someone leaves it is helpful for format problems. Checking while they're still typing usually isn't, because it shows errors before they've finished.</p></div></details>
+  <details><summary>Should the submit button be disabled until the form is valid?</summary><div><p>Usually not. A disabled button doesn't explain what's missing. Keep it enabled and show clear errors on submit.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://design-system.service.gov.uk/components/error-summary/" target="_blank" rel="noopener">Error summary</a><span>GOV.UK Design System.</span></li>
+  <li><a href="https://www.w3.org/WAI/WCAG22/Understanding/error-identification.html" target="_blank" rel="noopener">Understanding Error Identification (3.3.1)</a><span>W3C, WCAG 2.2.</span></li>
+  <li><a href="/writing/design-system-patterns">Design system patterns</a><span>How forms fit into the wider pattern library.</span></li>
+</ul>

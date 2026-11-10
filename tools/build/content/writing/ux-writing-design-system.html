@@ -1,0 +1,119 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>Words are part of the interface, so they belong in the design system. Content guidance in a design system covers four things: <b>voice and tone</b> (how the product sounds, and how that adapts to the moment), a <b>shared vocabulary</b> (which words mean what, and which to avoid), <b>message formulas</b> (reusable shapes for buttons, errors, confirmations, empty states and success messages) and <b>rules for other languages</b>. None of it needs to be long: a few well-kept pages do more than a 40-page style guide nobody opens.</p>
+  <ul>
+    <li>Voice is personality and stays the same; tone is mood and changes with the moment.</li>
+    <li>A vocabulary list is the single most useful content artefact: it helps designers, engineers, support and translators at once.</li>
+    <li>Confirmation buttons should repeat the action ("Delete invoices"), not say "Yes".</li>
+  </ul>
+</div>
+
+<h2>Why words belong in the system</h2>
+<p>People read interfaces in fragments: a button label, a heading, an error. When those fragments use different words for the same thing, people hesitate. Is "Archive" the same as "Remove"? Will "Discard" lose my work? Every hesitation is a small cost, and in a large product they add up.</p>
+<p class="scenario-t">An illustration: five words for "make it go away"</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>Across one product, removing something uses "Delete", "Remove", "Archive", "Discard" and "Clear", chosen by whoever built each screen.</p></div>
+  <div><span class="k">What goes wrong</span><p>Customers can't tell which actions are permanent. Support tickets ask how to recover "archived" invoices that were actually deleted. Translators get five words to translate.</p></div>
+  <div><span class="k">What the system adds</span><p>A vocabulary entry: "Delete = permanent, always confirmed. Archive = hidden, recoverable. Remove = taken out of a list, not deleted." Three words, three meanings, used everywhere.</p></div>
+</div>
+<div class="callout callout--term"><span class="callout-k">New word</span><p><b>Content design</b> (often called UX writing) is designing the words in an interface: labels, messages, instructions and help, chosen for clarity and consistency, not decoration. In a design system, it's the content guidance every component and pattern shares.</p></div>
+
+<h2>The four parts of content guidance</h2>
+<div class="cols4">
+  <div class="cell"><span class="k">1 · VOICE AND TONE</span><h4>How it sounds</h4><p>A few adjectives for the voice, and how the tone shifts for success, errors, warnings and destructive actions.</p></div>
+  <div class="cell cell--accent"><span class="k">2 · VOCABULARY</span><h4>What words mean</h4><p>The product's words, their meanings, and the words to avoid. Plus a handful of formatting rules.</p></div>
+  <div class="cell"><span class="k">3 · FORMULAS</span><h4>Reusable shapes</h4><p>A simple structure for each common message type, so anyone can write a good one quickly.</p></div>
+  <div class="cell"><span class="k">4 · LANGUAGES</span><h4>Ready to translate</h4><p>Room for longer text, whole sentences with placeholders, plurals and locale formats. See <a href="/writing/design-system-localization-rtl">localisation and RTL</a>.</p></div>
+</div>
+
+<h2>Voice and tone</h2>
+<p>Think of the difference between personality and mood. Your <b>voice</b> is your product's personality: it stays the same everywhere. Your <b>tone</b> is the mood: it adapts, the way a good colleague speaks differently when celebrating a win and when delivering bad news. A voice of "clear, calm and helpful" might adjust like this:</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Moment</th><th>Tone</th><th>Example</th></tr></thead>
+  <tbody>
+    <tr><td>Success</td><td>Brief and warm. Don't over-celebrate routine tasks.</td><td>"Invoice sent to Acme Ltd."</td></tr>
+    <tr><td>Error</td><td>Calm and specific. Never blame the person.</td><td>"We couldn't process this payment. The bank declined it. Try another card."</td></tr>
+    <tr><td>Warning</td><td>Clear about the consequence, and what to do.</td><td>"This invoice is 14 days overdue. Send a reminder?"</td></tr>
+    <tr><td>Destructive action</td><td>Serious and explicit. Name exactly what will happen.</td><td>"Delete this customer? Their 12 invoices will also be deleted. This can't be undone."</td></tr>
+    <tr><td>First use</td><td>Encouraging and practical. Point to the next step.</td><td>"No invoices yet. Create your first one to get paid faster."</td></tr>
+  </tbody>
+</table></div>
+<figcaption>One voice, five tones. <span class="ev ev--ill">Illustration</span> Your voice adjectives will differ; the idea that tone shifts with the stakes won't.</figcaption></figure>
+<div class="callout callout--warn"><span class="callout-k">A mistake we see often</span><p>Jokes in error messages. "Oops! Something went wonky!" might feel friendly in a design review. To someone whose payroll just failed, it feels dismissive. Keep personality for calm moments; in stressful ones, be clear and kind.</p></div>
+
+<h2>A shared vocabulary</h2>
+<p>The single most useful content artefact is a simple list: the words your product uses, what they mean, and the words to avoid. Keep it next to the components in the documentation, not in a separate document.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Use</th><th>Meaning</th><th>Don't use</th></tr></thead>
+  <tbody>
+    <tr><td>Delete</td><td>Permanently remove. Always confirmed.</td><td>Destroy, erase, discard</td></tr>
+    <tr><td>Archive</td><td>Hide from the main list; can be restored.</td><td>Hide, store</td></tr>
+    <tr><td>Customer</td><td>A business you invoice.</td><td>Client, account, buyer</td></tr>
+    <tr><td>Workspace</td><td>Your company's area in the product, shared by its team.</td><td>Organisation, tenant, account</td></tr>
+    <tr><td>Sign in / sign out</td><td>Start or end a session.</td><td>Log in, login, log out</td></tr>
+    <tr><td>Due date</td><td>The date an invoice must be paid by.</td><td>Deadline, payment date</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Part of a vocabulary list. <span class="ev ev--ill">Illustration</span> Six rows already prevent a surprising number of support tickets.</figcaption></figure>
+<h3>Small rules that add up</h3>
+<p>Decide a handful of formatting rules once and put them on one page next to the vocabulary: sentence case or title case for headings and buttons (we recommend sentence case: "Send invoice", not "Send Invoice"); how dates are written; whether numbers use words or digits; how currencies are shown; and whether you address people as "you" (we recommend it).</p>
+
+<h2>Formulas for common messages</h2>
+<p>Most interface text falls into a few types. Giving each type a formula means anyone can write a good message in the product's voice, quickly. Put each formula on the documentation page of the component that carries it.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Message</th><th>Formula</th><th>Example</th></tr></thead>
+  <tbody>
+    <tr><td>Button</td><td>Verb + object</td><td>"Send invoice", "Add customer"</td></tr>
+    <tr><td>Error</td><td>What happened + why (if known) + what to do</td><td>"Payment failed. The card has expired. Update the card details."</td></tr>
+    <tr><td>Field error</td><td>What to enter, specifically</td><td>"Enter an amount between ₹1 and ₹10,00,000"</td></tr>
+    <tr><td>Confirmation dialog</td><td>Question naming the action + consequence; buttons repeat the action</td><td>"Delete 3 invoices? This can't be undone." [Delete invoices] [Cancel]</td></tr>
+    <tr><td>Empty state</td><td>What will appear here + how to start</td><td>"Your payments will appear here. Connect a bank account to get started."</td></tr>
+    <tr><td>Success</td><td>What happened, briefly</td><td>"Customer added."</td></tr>
+  </tbody>
+</table></div></figure>
+<figure class="w-fig">
+  <div class="cols2">
+    <div class="cell"><span class="k">BEFORE</span><h4>Delete?</h4><p>Are you sure you want to continue?</p><p><b>[Yes]</b> &nbsp; <b>[No]</b></p></div>
+    <div class="cell cell--accent"><span class="k">AFTER</span><h4>Delete 3 invoices?</h4><p>This can't be undone. The customers won't be notified.</p><p><b>[Delete invoices]</b> &nbsp; <b>[Cancel]</b></p></div>
+  </div>
+  <figcaption>The confirmation formula at work. People often read only the buttons, so "Delete invoices" and "Cancel" are far clearer than "Yes" and "No". This one habit prevents a lot of accidental deletions.</figcaption>
+</figure>
+
+<h2>Writing for everyone</h2>
+<p>Good interface writing is accessible writing. Plain words, short sentences and clear structure help everyone, and matter most for people reading in a second language, people with cognitive or learning disabilities, and anyone tired, stressed or in a hurry.</p>
+<ul class="checklist">
+  <li><b>Plain words:</b> "use", not "utilise"; "start", not "initiate". Explain jargon or avoid it.</li>
+  <li><b>Front-load meaning:</b> "Invoice sent", not "We have successfully sent your invoice".</li>
+  <li><b>Descriptive links:</b> "View payment history", not "Click here". Screen reader users often navigate by a list of links.</li>
+  <li><b>Meaningful image text:</b> describe what an image tells people; mark decorative images so screen readers skip them.</li>
+  <li><b>Inclusive language:</b> avoid assumptions about gender, ability or culture; use "they" when you don't know; avoid idioms that don't translate.</li>
+  <li><b>Don't rely on direction or colour:</b> "click the button on the right" fails for many people, and in right-to-left languages. Name the thing.</li>
+</ul>
+
+<h2>Who owns the words?</h2>
+<p>In larger companies, content designers own the voice, vocabulary and formulas, just as system designers own the visual foundations. In smaller ones, it's often a senior designer or product manager with a little protected time. Either way, treat content guidance like any other part of the system: it has an owner, it's versioned, changes are announced in the <a href="/writing/design-system-release-notes">release notes</a>, and teams can propose improvements through the normal <a href="/writing/design-system-contribution-model">contribution model</a>.</p>
+<div class="callout callout--tip"><span class="callout-k">Practitioner view</span><p>Put the words where the work happens. A writing section on each component's documentation page ("what the label should say, with examples") gets read; a separate content style guide usually doesn't. Some teams also add realistic default text to Figma components, so designers start from good copy instead of "Lorem ipsum".</p></div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Words are part of the interface; inconsistent words confuse people as much as inconsistent buttons.</li>
+  <li>One voice, with the tone adjusted to the moment. Calm and specific when things go wrong.</li>
+  <li>A short vocabulary list and six message formulas do more than a long style guide.</li>
+  <li>Confirmation buttons repeat the action.</li>
+  <li>Give content an owner, a version and a place on every component page.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Should content guidelines be part of the design system?</summary><div><p>Yes. Words are part of every component and pattern. Keeping content guidance in the system, next to the components, means it's maintained, versioned and actually read.</p></div></details>
+  <details><summary>What's the difference between voice and tone?</summary><div><p>Voice is the product's consistent personality. Tone is how that personality adapts to the moment: brief for success, calm and specific for errors, explicit for destructive actions.</p></div></details>
+  <details><summary>Sentence case or title case for buttons?</summary><div><p>We recommend sentence case ("Send invoice"). It's easier to read and simpler to apply consistently. Whichever you choose, choose it once for the whole product.</p></div></details>
+  <details><summary>Do we need a content designer for this?</summary><div><p>It helps at scale. In smaller companies, a senior designer or product manager with protected time can own a vocabulary list and message formulas well.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://design-system.service.gov.uk/patterns/" target="_blank" rel="noopener">GOV.UK Design System patterns</a><span>Patterns that include the words to use.</span></li>
+  <li><a href="/writing/form-design-patterns">Form design patterns</a><span>Error messages in context.</span></li>
+  <li><a href="/writing/design-system-localization-rtl">Localisation and right-to-left in a design system</a><span>Getting the words ready for other languages.</span></li>
+</ul>

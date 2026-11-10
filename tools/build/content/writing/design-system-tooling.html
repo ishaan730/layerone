@@ -1,0 +1,114 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>A design system uses tools in six areas: <b>design</b> (Figma libraries and variables), <b>tokens</b> (files in the DTCG format plus a build tool such as Style Dictionary), <b>code</b> (your package and a workshop such as Storybook), <b>documentation</b>, <b>quality</b> (lint, visual regression and accessibility tests) and <b>insight</b> (usage data). Match the tool set to your stage: a startup needs one Figma library and a shared file of values; a platform needs multi-brand tokens, a docs site with search and a health dashboard. If you automate only two things, automate the <b>token pipeline</b> and <b>lint rules for raw values</b>: they're cheap and prevent the most common problems.</p>
+  <ul>
+    <li>Decide how the system works first, then pick tools that make that easier.</li>
+    <li>Keep tokens in a vendor-neutral format and components in your own repository, so tools stay replaceable.</li>
+    <li>Every tool needs an owner. An unowned tool becomes an out-of-date mirror.</li>
+  </ul>
+</div>
+
+<h2>Tools serve the process</h2>
+<p>It's tempting to start a design system by choosing tools: a documentation platform, a token manager, a component workshop. Tools feel like progress. But a tool without an owner and a process quickly becomes an expensive, out-of-date mirror of what's really happening.</p>
+<p class="scenario-t">An illustration: the documentation site nobody updated</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>A company buys a polished documentation platform and spends a month filling it with beautiful pages for every component.</p></div>
+  <div><span class="k">What goes wrong</span><p>Nobody's job includes keeping it current. Within six months half the pages describe old versions. Teams stop trusting it and ask in chat instead.</p></div>
+  <div><span class="k">What would have worked</span><p>Docs in the definition of done, with props tables and examples generated from code, so updating them is part of shipping rather than a separate chore.</p></div>
+</div>
+<p>So the order matters: decide <a href="/writing/design-system-operating-model">how the system will work</a>, then pick tools that make that way of working easier. And build where the system lives: put it into the files, repositories and tools teams already use every day, rather than asking them to visit somewhere new.</p>
+
+<h2>The toolchain, mapped</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Area</th><th>What it does</th><th>Typical tools</th><th>Connects to</th></tr></thead>
+  <tbody>
+    <tr><td>Design</td><td>Shared components and variables for designers</td><td>Figma libraries and variables</td><td>Tokens (variables), docs (links)</td></tr>
+    <tr><td>Tokens</td><td>One source of decisions, translated for every platform</td><td>Token files in the DTCG format; a build tool such as Style Dictionary</td><td>Design variables, code packages</td></tr>
+    <tr><td>Code</td><td>The components, packaged and versioned</td><td>Your framework, a package registry, a workshop such as Storybook</td><td>Tokens, tests, docs</td></tr>
+    <tr><td>Documentation</td><td>How and when to use everything</td><td>A docs platform, or a docs site generated from the code</td><td>Code (live examples), design (links)</td></tr>
+    <tr><td>Quality</td><td>Catch problems before they ship</td><td>Lint rules, visual regression tests, automated accessibility checks</td><td>Code, pull requests</td></tr>
+    <tr><td>Insight</td><td>Know what's used and where</td><td>Figma library analytics; scripts that scan product code</td><td>The health scorecard</td></tr>
+  </tbody>
+</table></div></figure>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div class="hi"><b>Tokens</b><span>One source of decisions</span></div><i>→</i>
+    <div><b>Design + code</b><span>Figma variables and coded components, generated from the same values</span></div><i>→</i>
+    <div><b>Quality</b><span>Lint, visual and accessibility tests on every change</span></div><i>→</i>
+    <div><b>Docs</b><span>Generated from code, linked to Figma</span></div><i>→</i>
+    <div><b>Insight</b><span>Usage data feeds the roadmap</span></div>
+  </div>
+  <figcaption>How the areas connect. The connection that matters most runs from the token source into both design and code; that one link keeps the <a href="/writing/figma-code-sync">twins</a> in step.</figcaption>
+</figure>
+
+<h2>The right tools for your stage</h2>
+<p>A startup doesn't need an enterprise toolchain, and an enterprise can't run on a shared spreadsheet. Here's the minimum tool set we'd suggest at each stage of the <a href="/writing/design-system-maturity-model">maturity model</a>. Add more only when a real problem calls for it. <span class="ev ev--prac">Practitioner view</span></p>
+<figure class="w-fig"><div class="w-tbl w-tbl--dense"><table>
+  <thead><tr><th>Stage</th><th>Design</th><th>Tokens</th><th>Code</th><th>Docs</th><th>Quality and insight</th></tr></thead>
+  <tbody>
+    <tr><td>1 · Shared styles</td><td>One Figma library</td><td>A shared file of values</td><td>A themed off-the-shelf library</td><td>A single page</td><td>Design reviews</td></tr>
+    <tr><td>2 · Basics in code</td><td>Library + variables</td><td>Token files + build tool</td><td>Your package + workshop</td><td>Workshop pages</td><td>Lint for raw values</td></tr>
+    <tr><td>3 · Looked after</td><td>Libraries split by purpose</td><td>Light and dark modes</td><td>Versioned releases</td><td>A docs site</td><td>Visual and accessibility tests; usage scripts</td></tr>
+    <tr><td>4 · Platform</td><td>Brand and platform libraries</td><td>Multi-brand, multi-platform</td><td>Several packages and platforms</td><td>Docs platform with search</td><td>Health dashboard; automated migrations</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Minimum tools by stage. Each row adds to the one before it rather than replacing it.</figcaption></figure>
+
+<h2>Automation that pays for itself</h2>
+<p>Every hour the system team spends on repetitive upkeep is an hour not spent helping product teams. These automations, roughly in the order we'd build them, give the best return.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th class="r">#</th><th>Automation</th><th>What it saves</th><th>Effort</th></tr></thead>
+  <tbody>
+    <tr><td class="r">1</td><td><b>Token pipeline</b></td><td>Hand-copying values into code and design, and the mismatches that follow</td><td>Days</td></tr>
+    <tr><td class="r">2</td><td><b>Lint rules for raw values</b></td><td>Hard-coded colours and spacing slipping in; reviewers policing by hand</td><td>Days</td></tr>
+    <tr><td class="r">3</td><td>Visual regression tests</td><td>Accidental visual changes; nervousness about every release</td><td>1–2 weeks</td></tr>
+    <tr><td class="r">4</td><td>Automated accessibility checks</td><td>Common accessibility mistakes reaching products (a person still tests keyboard and screen reader use)</td><td>Days</td></tr>
+    <tr><td class="r">5</td><td>Release notes from changes</td><td>Writing release notes from memory at the last minute</td><td>Days</td></tr>
+    <tr><td class="r">6</td><td>Usage dashboard</td><td>Guessing which components and versions are used where</td><td>1–2 weeks</td></tr>
+    <tr><td class="r">7</td><td>Codemods for migrations</td><td>Teams rewriting code by hand for breaking changes</td><td>Per change</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Seven automations in build order, with rough effort. <span class="ev ev--prac">Practitioner view</span> The first two are cheap and prevent the most common problems: values drifting between design and code, and hard-coded values bypassing the foundations.</figcaption></figure>
+<p>A lint rule for raw values can be as simple as this, in a stylesheet linter:</p>
+<pre><code><span class="c">/* stylelint: colours must come from tokens */</span>
+<span class="s">"declaration-property-value-disallowed-list"</span>: {
+  <span class="s">"/color|background|border/"</span>: [<span class="s">"/#[0-9a-f]{3,8}/i"</span>, <span class="s">"/rgb\\(/"</span>]
+}</code></pre>
+
+<h2>Where AI fits</h2>
+<p>AI tools are good at drafting and checking, and only as good as the information they're given: drafting documentation from props and examples, summarising changes into release notes, flagging off-system colours in designs and code, answering "which component?" questions from your docs, and helping write codemods. A well-structured system (named tokens, consistent props, documented components) turns out to be excellent input for them. We cover this in detail, with the cautions that matter, in <a href="/writing/ai-in-design-systems">AI in design systems</a>.</p>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>At JPMorgan Chase, two tools point out where a design file or a piece of code doesn't match the design system, so problems are fixed before review. <a href="/work/jpmc-system-checks">See the project</a>.</p></div>
+
+<h2>Questions to ask before adopting any tool</h2>
+<ul class="checklist">
+  <li><b>What problem does it solve</b> that we actually have today?</li>
+  <li><b>Who will own it</b> and keep it current?</li>
+  <li><b>Does it work with our files, repositories and formats,</b> or does it lock our decisions in?</li>
+  <li><b>How will we know in three months</b> whether it was worth it?</li>
+  <li><b>What happens to our work if we stop using it?</b> If the answer is "we lose it", keep looking.</li>
+</ul>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Six areas: design, tokens, code, docs, quality, insight.</li>
+  <li>Decide how the system works first; tools make that easier.</li>
+  <li>Match the tool set to your stage. More tools aren't better.</li>
+  <li>Automate the token pipeline and lint rules first.</li>
+  <li>Keep decisions portable: tokens in DTCG, components in your repository.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>What tools do you need for a design system?</summary><div><p>At minimum, a shared Figma library and a place for shared values. As the system grows: token files with a build tool, a coded component package with a workshop such as Storybook, a documentation site, automated tests and usage data.</p></div></details>
+  <details><summary>Do we need a dedicated documentation platform?</summary><div><p>Not at first. Workshop pages or a simple docs site generated from the code are enough for most teams until stage 3 or 4. What matters most is that updating docs is part of shipping.</p></div></details>
+  <details><summary>What should we automate first?</summary><div><p>The token pipeline and lint rules for raw values. Both take days and prevent the most common design system problems.</p></div></details>
+  <details><summary>How do we avoid tool lock-in?</summary><div><p>Keep tokens in the vendor-neutral DTCG format and components in your own repository, and check before adopting a tool what happens to your work if you stop using it.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://styledictionary.com/" target="_blank" rel="noopener">Style Dictionary</a><span>An open-source token build tool.</span></li>
+  <li><a href="https://storybook.js.org/" target="_blank" rel="noopener">Storybook</a><span>A widely used component workshop.</span></li>
+  <li><a href="https://www.designtokens.org/" target="_blank" rel="noopener">Design Tokens Community Group</a><span>The vendor-neutral token format.</span></li>
+  <li><a href="/writing/figma-code-sync">Keeping Figma and code in sync</a><span>The habits the tools support.</span></li>
+</ul>
