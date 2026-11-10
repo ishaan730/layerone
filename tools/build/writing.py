@@ -351,6 +351,10 @@ MOON = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 
 # The site is dark. Readers can switch the writing pages to a light reading theme; the choice is remembered.
 THEME_JS = "<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>"
 
+# Card images: one size rule for every card, so the browser always picks a sensible file.
+CARD_SIZES = "(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px"
+LEAD_SIZES = "(max-width: 760px) calc(100vw - 32px), 780px"
+
 
 def reader_head(title, desc, depth, og="assets/og/layer-one.jpg", extra=""):
     """The site's own <head> and body, plus the reading-theme switch."""
@@ -360,56 +364,63 @@ def reader_head(title, desc, depth, og="assets/og/layer-one.jpg", extra=""):
 
 
 def theme_toggle():
-    return (f'<button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading">'
-            f'{SUN}{MOON}<span class="ed-theme-l">Light reading</span><span class="ed-theme-d">Dark reading</span></button>')
+    return (f'<button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading" title="Light or dark reading">'
+            f'{SUN}{MOON}</button>')
 
 
-def page(p, depth, rail, content, active="writing"):
-    """Every writing page uses the site's top navigation and its shell grid: a 300px rail on the left
-    (where the home page has its sidebar) and the content column starting on the same grid line."""
-    return (topbar(active, depth)
-            + f'<div class="shell ed-shell"><aside class="ed-rail" aria-label="Writing">{rail}</aside>'
-            + f'<main id="main" class="content ed-main">{content}</main></div>'
-            + close(depth))
+def ed_foot(p):
+    return f'''<footer class="ed-foot"><div class="ed-foot-in">
+  <a class="logo" href="{p}index.html" aria-label="Layer One, home">{LOGO}<span>LAYER ONE</span></a>
+  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
+  <nav aria-label="Studio"><a href="{p}work.html">Work</a><a href="{p}pricing.html">Pricing</a><a href="{p}lab.html">Lab</a><a href="{p}contact.html">Contact</a><a href="{LINKEDIN}" target="_blank" rel="noopener">LinkedIn</a><a href="{MEDIUM}" target="_blank" rel="noopener">Medium</a></nav>
+</div></footer>'''
+
+
+def page(p, depth, content, active="writing"):
+    """Writing pages use the site's top bar and its outer grid: the same container, edges and gutters
+    as the navigation, so every section lines up with the logo on the left and the button on the right."""
+    bar = topbar(active, depth).replace('<a class="pill book"', theme_toggle() + '<a class="pill book"', 1)
+    return bar + f'<main id="main" class="ed-wrap">{content}</main>' + ed_foot(p) + close(depth)
 
 
 def meta_line(a):
-    s = series_of(a["slug"])
     return f'{TOPIC[a["topic"]][0]}', f'{a["minutes"]} min read' + (" · Guide" if a.get("pillar") else "")
 
 
 def ecard(a, p, size="", ext=None, eager=False):
     """The one article card used everywhere: cover, topic, title, summary, reading time."""
-    lazy = "" if eager else ' loading="lazy"'
+    load = ' loading="eager" fetchpriority="high"' if eager else ' loading="lazy"'
+    sizes = LEAD_SIZES if size == "ec--lead" else CARD_SIZES
     if ext:
         u, t, k, m, img = ext
         return (f'<a class="ec {size}" href="{u}" target="_blank" rel="noopener" data-topic="{k}">'
-                f'<span class="ec-m"><img src="{p}{img}" alt=""{lazy}></span>'
+                f'<span class="ec-m"><img src="{p}{img}" alt="" width="1600" height="900" sizes="{sizes}" decoding="async"{load}></span>'
                 f'<span class="ec-k">{TOPIC[k][0]}</span><b class="ec-t">{t}</b>'
                 f'<span class="ec-f">{m} min read · on Medium ↗</span></a>')
     topic, mins = meta_line(a)
     return (f'<a class="ec {size}" href="{p}writing/{a["slug"]}.html" data-topic="{a["topic"]}">'
-            f'<span class="ec-m"><img src="{p}{a["cover"]}" alt="" width="1600" height="900"{lazy}></span>'
+            f'<span class="ec-m"><img src="{p}{a["cover"]}" alt="" width="1600" height="900" sizes="{sizes}" decoding="async"{load}></span>'
             f'<span class="ec-k">{topic}</span><b class="ec-t">{short_title(a)}</b>'
             f'<span class="ec-d">{a["desc"]}</span><span class="ec-f">{mins}</span></a>')
 
 
-def topic_nav(p, active=None, filt=False):
-    """Topics in the rail. On the library page they filter the list in place; elsewhere they are links."""
-    allc = len(A) + len(MEDIUM_POSTS)
-    def link(href, label, count, key, cur):
+SHORT_TOPIC = {"building": "Building", "foundations-and-tokens": "Foundations & tokens", "operations": "Operations & teams", "business-case": "Value & metrics"}
+
+
+def topic_count(k):
+    return sum(1 for a in A if a["topic"] == k) + sum(1 for m in MEDIUM_POSTS if m[2] == k)
+
+
+def filter_bar(p, active=None, filt=False):
+    """Topic chips that sit with the article list they control. On the library page they filter in place;
+    on topic pages they link between topics."""
+    def chip(href, label, count, key, cur):
         attrs = ' aria-current="page"' if cur else ""
         f = f' data-filter="{key}"' if filt else ""
         return f'<a href="{href}"{attrs}{f}><span>{label}</span><em>{count}</em></a>'
-    out = link(f"{p}writing.html#articles", "All writing", allc, "all", active is None)
-    for k, n, _ in TOPICS:
-        c = sum(1 for a in A if a["topic"] == k) + sum(1 for m in MEDIUM_POSTS if m[2] == k)
-        out += link(f"{p}writing/topics/{k}.html", n, c, k, k == active)
-    return f'<p class="ed-rail-h">Topics</p><nav class="ed-topics" aria-label="Topics">{out}</nav>'
-
-
-def rail_foot():
-    return f'<div class="ed-rail-foot">{theme_toggle()}</div>'
+    out = chip(f"{p}writing.html#articles", "All", len(A) + len(MEDIUM_POSTS), "all", active is None)
+    out += "".join(chip(f"{p}writing/topics/{k}.html", SHORT_TOPIC.get(k, n), topic_count(k), k, k == active) for k, n, _ in TOPICS)
+    return f'<nav class="ed-chips" aria-label="Filter by topic">{out}</nav>'
 
 
 NUDGE = {
@@ -424,49 +435,45 @@ def build_article(a):
     p = "../"
     s = series_of(a["slug"])
     topic = TOPIC[a["topic"]][0]
-    series_line = series_steps = ""
+    series_line = ""
     nxt = None
     if s:
         i = s[3].index(a["slug"])
-        series_line = f'<span>Part {i + 1} of {len(s[3])} · <a href="{p}writing.html#{s[0]}">{s[1]}</a></span>'
+        series_line = f'<span class="ed-crumb-s">Part {i + 1} of {len(s[3])} in <a href="{p}writing.html#{s[0]}">{s[1]}</a></span>'
         nxt = BY[s[3][i + 1]] if i + 1 < len(s[3]) else None
-        steps = "".join(
-            f'<li{" aria-current=" + chr(34) + "step" + chr(34) if x == a["slug"] else ""}><a href="{x}.html">{path_title(BY[x])}</a></li>' for x in s[3])
-        series_steps = f'<div class="ed-rail-sec"><p class="ed-rail-h">{s[1]}</p><ol class="ed-steps">{steps}</ol></div>'
     toc = "".join(f'<li><a href="#{i}">{t}</a></li>' for t, i in a["toc"])
-    rail = (f'<a class="ed-back" href="{p}writing.html">← All writing</a>'
-            f'<div class="ed-rail-sec"><p class="ed-rail-h">On this page</p><nav class="ed-toc" aria-label="On this page"><ol>{toc}</ol></nav></div>'
-            f'{series_steps}{rail_foot()}')
     nh, nt, nl, nu = NUDGE[a["cta"]]
     ext = nu.startswith("http")
     nattr = ' target="_blank" rel="noopener"' if ext else ""
     nhref = nu if ext else p + nu
     nexts = ([nxt] if nxt else []) + [BY[r] for r in a["related"] if not nxt or r != nxt["slug"]]
     nexts = nexts[:3]
-    lead = (f'<p class="ed-end-k">{"Next in " + s[1] if nxt else "Read next"}</p>')
+    lead = "Next in " + s[1] if nxt else "Keep reading"
     cards = "".join(ecard(x, p) for x in nexts)
     upd = f' · Updated {nice_date(a["updated"])}' if a.get("updated") else ""
     mtoc = (f'<details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>{a["toc"][0][0] if a["toc"] else ""}</b></summary>'
-            f'<ol>{toc}</ol>{theme_toggle()}</details>')
+            f'<ol>{toc}</ol></details>')
     content = f'''<article class="ed-article">
-  <header class="ed-head">
-    <p class="ed-kicker"><a href="{p}writing/topics/{a["topic"]}.html">{topic}</a>{series_line}</p>
-    <h1 class="ed-title">{a["h1"]}</h1>
-    <p class="ed-dek">{a["dek"]}</p>
-    <p class="ed-byline"><img src="{p}assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>{AUTHOR}</b><span>{a["minutes"]} min read · {nice_date(a["date"])}{upd}</span></span></p>
-  </header>
-  {mtoc}
-  <figure class="ed-cover"><img src="{p}{a["cover"]}" alt="" width="1600" height="900"></figure>
-  <div class="ed-body post-body">{a["body"]}</div>
+  <p class="ed-crumb"><a href="{p}writing.html">Writing</a><span aria-hidden="true">/</span><a href="{p}writing/topics/{a["topic"]}.html">{topic}</a>{series_line}</p>
+  <div class="ed-layout">
+    <header class="ed-head">
+      <h1 class="ed-title">{a["h1"]}</h1>
+      <p class="ed-dek">{a["dek"]}</p>
+      <p class="ed-byline"><img src="{p}assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>{AUTHOR}</b><span>{a["minutes"]} min read · {nice_date(a["date"])}{upd}</span></span></p>
+    </header>
+    <figure class="ed-cover"><img src="{p}{a["cover"]}" alt="" width="1600" height="900" sizes="(max-width: 1100px) calc(100vw - 32px), 960px" fetchpriority="high"></figure>
+    {mtoc}
+    <div class="ed-body post-body">{a["body"]}</div>
+    <aside class="ed-aside" aria-label="On this page"><nav class="ed-toc"><p>On this page</p><ol>{toc}</ol><a class="ed-top" href="#main">Back to top ↑</a></nav></aside>
+  </div>
   <footer class="ed-end">
     <div class="ed-author"><img src="{p}assets/studio/aniket.jpg" alt="" width="56" height="56" loading="lazy"><p><b>{AUTHOR}</b> is the founder of Layer One. He has built and run design systems as an employee at <a href="{p}experience.html">CARS24, IBM and JPMorgan Chase</a>.</p></div>
-    {lead}
-    <div class="ec-grid ec-grid--3">{cards}</div>
+    <section class="ed-more" aria-labelledby="more-h"><h2 class="ed-sec-h" id="more-h">{lead.lower()}:</h2><div class="ec-grid">{cards}</div></section>
     <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>{nh}</h2><p>{nt}</p></div><a href="{nhref}"{nattr}>{nl} {ARROW}</a></aside>
   </footer>
 </article>
 <div class="ed-progress" aria-hidden="true"><span></span></div>'''
-    write(f"writing/{a['slug']}.html", article_head(a, 1) + page(p, 1, rail, content))
+    write(f"writing/{a['slug']}.html", article_head(a, 1) + page(p, 1, content))
 
 
 def path_title(a):
@@ -484,9 +491,8 @@ def paths_html(p):
         mins = sum(BY[s]["minutes"] for s in items)
         steps = "".join(f'<li><a href="{p}writing/{s}.html"><span class="ep-n">{j}</span><b>{path_title(BY[s])}</b><em>{BY[s]["minutes"]} min</em></a></li>'
                         for j, s in enumerate(items, 1))
-        out += (f'<section class="ep" id="{k}"><header class="ep-h"><span class="ep-no">Path {i:02d}</span><h3>{n}</h3><p>{d}</p>'
-                f'<span class="ep-meta">{len(items)} articles · {mins} min</span>'
-                f'<a class="ep-start" href="{p}writing/{items[0]}.html">Start the path {ARROW}</a></header><ol class="ep-steps">{steps}</ol></section>')
+        out += (f'<section class="ep" id="{k}"><header class="ep-h"><span class="ep-no">Path {i:02d} · {len(items)} articles · {mins} min</span><h3>{n}</h3><p>{d}</p></header>'
+                f'<ol class="ep-steps">{steps}</ol><a class="ep-start" href="{p}writing/{items[0]}.html">Start the path {ARROW}</a></section>')
     return out
 
 
@@ -496,15 +502,17 @@ def build_hub():
     second = [BY["design-system-operating-model"], BY["design-tokens"]]
     shown = {lead["slug"]} | {x["slug"] for x in second}
     rest = sorted([a for a in NEW if a["slug"] not in shown], key=lambda a: a["date"], reverse=True) + [BY["librarian-vs-leader"]]
-    cards = "".join(ecard(a, p) for a in rest) + "".join(ecard(None, p, ext=m) for m in MEDIUM_POSTS)
-    topics = "".join(
-        f'<a class="et" href="writing/topics/{k}.html"><b>{n}</b><span>{d}</span><em>{sum(1 for a in A if a["topic"] == k) + sum(1 for m in MEDIUM_POSTS if m[2] == k)} articles</em></a>'
-        for k, n, d in TOPICS)
+    cards = "".join(ecard(a, p, eager=i < 3) for i, a in enumerate(rest)) + "".join(ecard(None, p, ext=m) for m in MEDIUM_POSTS)
+    topics = "".join(f'<a class="et" href="writing/topics/{k}.html"><b>{n}</b><span>{d}</span><em>{topic_count(k)} articles</em></a>' for k, n, d in TOPICS)
     content = f'''<header class="ed-intro">
-  <p class="ed-kicker"><span>Writing</span></p>
-  <h1>Field notes on design systems</h1>
-  <p>How design systems are built, run and measured: tokens and components, governance and teams, and what actually changes once a system is in use. From work at CARS24, IBM and JPMorgan Chase.</p>
-  <p class="ed-intro-n"><span>{len(A) + len(MEDIUM_POSTS)} articles</span><span>{len(SERIES)} reading paths</span><span>{len(TOPICS)} topics</span></p>
+  <div>
+    <p class="ed-crumb"><span>Writing</span></p>
+    <h1>Field notes on design systems</h1>
+  </div>
+  <div class="ed-intro-r">
+    <p>How design systems are built, run and measured: tokens and components, governance and teams, and what actually changes once a system is in use. From work at CARS24, IBM and JPMorgan Chase.</p>
+    <p class="ed-intro-n"><span>{len(A) + len(MEDIUM_POSTS)} articles</span><span>{len(SERIES)} reading paths</span><span>{len(TOPICS)} topics</span></p>
+  </div>
 </header>
 
 <section class="ed-sec ed-sec--first" aria-labelledby="featured-h">
@@ -516,21 +524,23 @@ def build_hub():
 </section>
 
 <section class="ed-sec" id="articles" aria-labelledby="latest-h">
-  <div class="ed-sec-row"><h2 class="ed-sec-h" id="latest-h">latest articles:</h2><p class="ed-filter-state" data-filter-state aria-live="polite"></p></div>
-  <div class="ec-grid ec-grid--latest" data-filter-list>{cards}</div>
+  <div class="ed-sec-bar">
+    <h2 class="ed-sec-h" id="latest-h">latest articles:</h2>
+    {filter_bar(p, filt=True)}
+  </div>
+  <p class="ed-filter-state" data-filter-state aria-live="polite"></p>
+  <div class="ec-grid" data-filter-list>{cards}</div>
 </section>
 
 <section class="ed-sec" id="series" aria-labelledby="paths-h">
-  <div class="ed-sec-intro"><h2 class="ed-sec-h" id="paths-h">reading paths:</h2><p>Curated sequences for learning a subject from the start. Read them in order; each article still stands on its own.</p></div>
+  <div class="ed-sec-bar"><h2 class="ed-sec-h" id="paths-h">reading paths:</h2><p class="ed-sec-d">Curated sequences for learning a subject from the start. Each article still stands on its own.</p></div>
   <div class="ep-list">{paths_html(p)}</div>
 </section>
 
 <section class="ed-sec" id="topics" aria-labelledby="topics-h">
-  <h2 class="ed-sec-h" id="topics-h">explore by topic:</h2>
+  <div class="ed-sec-bar"><h2 class="ed-sec-h" id="topics-h">explore by topic:</h2><p class="ed-sec-d">Older essays are on <a href="{MEDIUM}" target="_blank" rel="noopener">Medium</a>.</p></div>
   <div class="et-grid">{topics}</div>
-  <p class="ed-also">Older essays are on <a href="{MEDIUM}" target="_blank" rel="noopener">Medium</a>.</p>
 </section>'''
-    rail = topic_nav(p, filt=True) + '<div class="ed-rail-sec"><p class="ed-rail-h">On this page</p><nav class="ed-toc ed-toc--static"><ol><li><a href="#featured-h">Featured</a></li><li><a href="#articles">Latest articles</a></li><li><a href="#series">Reading paths</a></li><li><a href="#topics">Explore by topic</a></li></ol></nav></div>' + rail_foot()
     items = [{"@type": "ListItem", "position": i, "url": f"https://www.layerone.co.in/writing/{a['slug']}", "name": short_title(a)} for i, a in enumerate(NEW + [BY["librarian-vs-leader"]], 1)]
     ldj = json.dumps({"@context": "https://schema.org", "@type": "Blog", "name": "Layer One: Writing", "url": "https://www.layerone.co.in/writing",
                       "description": "A practical library on building and running design systems.", "publisher": {"@type": "Organization", "name": "Layer One"},
@@ -538,7 +548,7 @@ def build_hub():
     h = reader_head("Writing: design systems guides | Layer One",
                     "Practical guides on design systems: what they are, tokens and colour, governance, team structure, operating models, metrics and ROI. From Layer One.",
                     0, extra=f'<script type="application/ld+json">{ldj}</script>')
-    write("blog.html", h + page(p, 0, rail, content))
+    write("blog.html", h + page(p, 0, content))
 
 
 def build_topics():
@@ -546,15 +556,19 @@ def build_topics():
     for k, n, d in TOPICS:
         arts = [a for a in A if a["topic"] == k]
         arts.sort(key=lambda a: not a.get("pillar"))
-        cards = "".join(ecard(a, p) for a in arts) + "".join(ecard(None, p, ext=m) for m in MEDIUM_POSTS if m[2] == k)
-        content = f'''<header class="ed-intro ed-intro--topic">
-  <p class="ed-kicker"><a href="{p}writing.html">Writing</a><span>Topic</span></p>
-  <h1>{n}</h1>
-  <p>{d}</p>
+        cards = "".join(ecard(a, p, eager=i < 3) for i, a in enumerate(arts)) + "".join(ecard(None, p, ext=m) for m in MEDIUM_POSTS if m[2] == k)
+        content = f'''<header class="ed-intro">
+  <div>
+    <p class="ed-crumb"><a href="{p}writing.html">Writing</a><span aria-hidden="true">/</span><span>Topic</span></p>
+    <h1>{n}</h1>
+  </div>
+  <div class="ed-intro-r"><p>{d}</p><p class="ed-intro-n"><span>{topic_count(k)} articles</span></p></div>
 </header>
-<section class="ed-sec ed-sec--first" aria-label="Articles"><div class="ec-grid">{cards}</div></section>'''
-        rail = f'<a class="ed-back" href="{p}writing.html">← All writing</a>' + topic_nav(p, k) + rail_foot()
-        write(f"writing/topics/{k}.html", reader_head(f"{n}: design systems articles | Layer One", d, 2) + page(p, 2, rail, content))
+<section class="ed-sec ed-sec--first" aria-labelledby="t-h">
+  <div class="ed-sec-bar"><h2 class="ed-sec-h" id="t-h">articles:</h2>{filter_bar(p, k)}</div>
+  <div class="ec-grid">{cards}</div>
+</section>'''
+        write(f"writing/topics/{k}.html", reader_head(f"{n}: design systems articles | Layer One", d, 2) + page(p, 2, content))
 
 
 def _exists(a):

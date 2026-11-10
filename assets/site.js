@@ -621,9 +621,10 @@
   $$("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
 })();
 
-/* Writing: reading theme, contents highlighting, reading progress, compact contents on phones, topic filter. */
+/* Writing: reading theme, contents highlighting, reading progress, compact contents on small screens,
+   topic filter, and a loaded flag on card images so their placeholder stops. */
 (function () {
-  if (!document.querySelector(".ed-main")) return;
+  if (!document.querySelector(".ed-wrap")) return;
   var root = document.documentElement;
   document.querySelectorAll("[data-rd-theme]").forEach(function (b) {
     b.addEventListener("click", function () {
@@ -631,6 +632,11 @@
       if (light) root.dataset.read = "light"; else delete root.dataset.read;
       try { localStorage.setItem("l1-read", light ? "light" : "dark"); } catch (e) {}
     });
+  });
+
+  document.querySelectorAll(".ec-m img").forEach(function (im) {
+    var done = function () { im.setAttribute("data-loaded", ""); };
+    if (im.complete && im.naturalWidth) done(); else { im.addEventListener("load", done); im.addEventListener("error", done); }
   });
 
   var body = document.querySelector(".ed-body");
@@ -648,18 +654,19 @@
   }
   if (body && "IntersectionObserver" in window) {
     var links = {};
-    document.querySelectorAll('.ed-toc a[href^="#"]').forEach(function (a) { links[a.getAttribute("href").slice(1)] = a; });
-    var heads = body.querySelectorAll("h2[id]");
+    document.querySelectorAll('.ed-toc a[href^="#"]').forEach(function (a) { var id = a.getAttribute("href").slice(1); if (id !== "main") links[id] = a; });
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
         if (!e.isIntersecting) return;
-        Object.keys(links).forEach(function (k) { links[k].classList.toggle("is-on", k === e.target.id); });
-        if (links[e.target.id]) links[e.target.id].setAttribute("aria-current", "location");
-        Object.keys(links).forEach(function (k) { if (k !== e.target.id) links[k].removeAttribute("aria-current"); });
+        Object.keys(links).forEach(function (k) {
+          var on = k === e.target.id;
+          links[k].classList.toggle("is-on", on);
+          if (on) links[k].setAttribute("aria-current", "location"); else links[k].removeAttribute("aria-current");
+        });
         if (mcur) mcur.textContent = e.target.textContent;
       });
     }, { rootMargin: "-90px 0px -70% 0px" });
-    heads.forEach(function (h) { io.observe(h); });
+    body.querySelectorAll("h2[id]").forEach(function (h) { io.observe(h); });
   }
   if (mtoc) mtoc.addEventListener("click", function (e) { if (e.target.closest("ol a")) mtoc.open = false; });
 
@@ -671,7 +678,7 @@
       list.querySelectorAll(".ec").forEach(function (c) { var on = key === "all" || c.dataset.topic === key; c.hidden = !on; if (on) n++; });
       filters.forEach(function (f) { if (f.dataset.filter === key) f.setAttribute("aria-current", "page"); else f.removeAttribute("aria-current"); });
       if (state) {
-        state.textContent = key === "all" ? "" : n + " in " + label;
+        state.textContent = key === "all" ? "" : n + (n === 1 ? " article" : " articles") + " in " + label + ".";
         if (key !== "all") { var b = document.createElement("button"); b.type = "button"; b.textContent = "Show all"; b.addEventListener("click", function () { apply("all"); }); state.appendChild(b); }
       }
     };
@@ -679,8 +686,6 @@
       f.addEventListener("click", function (e) {
         e.preventDefault();
         apply(f.dataset.filter, f.querySelector("span").textContent);
-        var t = document.getElementById("articles");
-        if (t && t.getBoundingClientRect().top > window.innerHeight * 0.6 || t.getBoundingClientRect().top < 0) t.scrollIntoView();
       });
     });
   }
