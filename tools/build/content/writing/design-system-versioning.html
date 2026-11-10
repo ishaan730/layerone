@@ -1,0 +1,120 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>Version a design system with <b>semantic versioning</b> (major.minor.patch): <b>patch</b> for fixes that are safe to take, <b>minor</b> for new things that change nothing existing, and <b>major</b> for anything that could make a product look wrong or stop working. In a design system, that includes <b>visual</b> changes, like padding that no longer fits a table row, not just renamed props. Retire old parts by <b>deprecating</b> them first, with a replacement, a migration guide and a notice period, and remove them only in the next major release.</p>
+  <ul>
+    <li>Decide in advance which visual changes count as breaking, and write it down.</li>
+    <li>Announce breaking changes at least one release cycle ahead, ideally four to eight weeks.</li>
+    <li>Track who still uses deprecated parts, and offer a codemod where the change is mechanical.</li>
+  </ul>
+</div>
+
+<h2>Why design systems break products</h2>
+<p class="scenario-t">An illustration: the Friday padding change</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>The system team gives buttons slightly more rounded corners and a little more padding. It's a small visual tweak, shipped on a Friday as a minor release.</p></div>
+  <div><span class="k">What goes wrong</span><p>On Monday three teams report broken screens: buttons no longer fit in table rows, a toolbar wraps onto two lines, and a checkout button pushes the price off small phones.</p></div>
+  <div><span class="k">What should have happened</span><p>A layout-affecting size change is a major release: announced ahead, with before-and-after screenshots, a beta period and a checklist for teams.</p></div>
+</div>
+<p>Nothing in the code "broke". But the products did. Nathan Curtis wrote a whole article about exactly this: changes to colour, size and spacing can break a product as surely as a change to an API.</p>
+
+<h2>Semantic versioning, in plain words</h2>
+<p>Most design systems label releases with a three-part number like <code>4.2.1</code>, following the Semantic Versioning convention. Each number tells teams how careful they need to be when updating.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Which number changes</th><th>What it means for teams</th><th>Design system examples</th></tr></thead>
+  <tbody>
+    <tr><td>Major · 4 → 5</td><td>"Careful: check or change your work."</td><td>A component renamed or removed; a token removed; button sizes changed in a way that affects layouts; a prop renamed.</td></tr>
+    <tr><td>Minor · 4.2 → 4.3</td><td>"New things added; nothing you use should change."</td><td>A new component, a new variant, a new icon, a new optional prop.</td></tr>
+    <tr><td>Patch · 4.2.1 → 4.2.2</td><td>"Fixes only. Safe to update."</td><td>A bug fix; an accessibility fix that doesn't change size or layout; a docs correction.</td></tr>
+  </tbody>
+</table></div></figure>
+
+<h2>What counts as a breaking change</h2>
+<p>Code-level breaking changes are well understood: removing a component, renaming or removing a prop, changing a default. Design systems add a second category, which is where most surprises come from.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">CODE BREAKING CHANGES</span><ul>
+    <li>A component, prop or token removed or renamed</li>
+    <li>A prop's default value changed</li>
+    <li>An event or callback changed shape</li>
+    <li>A dependency's major version raised (framework, peer libraries)</li>
+  </ul></div>
+  <div class="cell"><span class="k">VISUAL BREAKING CHANGES</span><ul>
+    <li>Size, padding or height changed in a way that affects layout</li>
+    <li>Typography metrics changed (line height, font, size)</li>
+    <li>A colour change that alters meaning, not just shade</li>
+    <li>A component's outside margin added or removed</li>
+  </ul></div>
+</div>
+<p>Write your own rule list and publish it. A common, workable rule: <b>if a change can move anything around it, it's major</b>. A colour that gets slightly darker inside a fixed space is a minor change, announced. A button that gets 4px taller is major.</p>
+<div class="callout callout--term"><span class="callout-k">New word</span><p>A <b>breaking change</b> is any update that could make something stop working or look wrong in a product, so teams need to check or change their own work before taking it.</p></div>
+
+<h2>Release cadence</h2>
+<p>Predictable timing is itself a form of communication. When teams know releases come every other Tuesday and breaking changes are announced at least a release cycle ahead, they can plan.</p>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>What</th><th>When</th></tr></thead>
+  <tbody>
+    <tr><td>Minor and patch releases</td><td>On a regular release day, early in the working week, never late on a Friday</td></tr>
+    <tr><td>Breaking change: first notice</td><td>At least one full release cycle before, ideally 4–8 weeks, with the migration guide ready</td></tr>
+    <tr><td>Breaking change: reminders</td><td>One week before, and on release day</td></tr>
+    <tr><td>Major releases</td><td>Rarely, and bundled: two or three a year beats one a month</td></tr>
+    <tr><td>Critical fixes</td><td>Immediately, as a patch</td></tr>
+  </tbody>
+</table></div></div>
+<p>Bundling matters. Every major release asks every team to stop and check their screens. Group breaking changes into a few planned majors a year, and use the time between them to deprecate.</p>
+
+<h2>Deprecation: retiring things gracefully</h2>
+<p>Sooner or later you'll replace a component. Doing it suddenly breaks things; never doing it leaves two ways to do the same job forever. The healthy middle path:</p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Mark it deprecated</b><span>It still works; docs, Figma and a code warning say "use the new one"</span></div><i>→</i>
+    <div><b>Give a way to switch</b><span>A migration guide; a codemod where the change is mechanical</span></div><i>→</i>
+    <div><b>Track remaining use</b><span>A live count of uses per product, shared with champions</span></div><i>→</i>
+    <div class="hi"><b>Remove in a major</b><span>After the notice period everyone knew about</span></div>
+  </div>
+  <figcaption>Four steps from "please stop using this" to removal. The notice period is announced when the part is deprecated, not when it's removed.</figcaption>
+</figure>
+<p>Use the DTCG format's <code>$deprecated</code> property for tokens, a lifecycle label on documentation pages, and a console warning in development builds for components. Make sure the deprecation shows up wherever people meet the old part.</p>
+
+<h2>Migrations: make switching cheap</h2>
+<ul class="checklist">
+  <li><b>A migration guide</b> with before-and-after code and screenshots for every breaking change.</li>
+  <li><b>A codemod</b>: a script that rewrites code automatically for mechanical changes like renamed props.</li>
+  <li><b>A visual diff</b> of affected components, so teams know what to check.</li>
+  <li><b>Extra office hours</b> in the weeks around a major release.</li>
+  <li><b>A beta</b> of the major version, so a couple of pilot teams can try it first.</li>
+</ul>
+<p class="scenario-t">An illustration: renaming a prop across 600 uses</p>
+<div class="scenario">
+  <div><span class="k">The change</span><p>Button's <code>kind</code> prop is renamed to <code>variant</code>, so every component in the library uses the same word.</p></div>
+  <div><span class="k">The risk</span><p>About 600 uses across seven products. A rename posted once in a busy channel will be missed.</p></div>
+  <div><span class="k">How it ships</span><p><code>variant</code> is added in a minor release alongside <code>kind</code>; <code>kind</code> is deprecated with a codemod; it's removed in the next major, with reminders and extra office hours.</p></div>
+</div>
+<p>That pattern, <b>add the new thing in a minor, deprecate the old, remove in a major</b>, turns most breaking changes into routine maintenance.</p>
+
+<h2>Supporting old versions</h2>
+<p>Decide how long a major version is supported after the next one ships. A common policy: the previous major gets critical fixes and security updates for six to twelve months; older versions get nothing. Publish the policy and track version spread: how many products are on each major. If many products are stuck on old versions, your majors are too frequent or too expensive to adopt.</p>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Use semantic versioning: patch for fixes, minor for additions, major for anything that can break a product.</li>
+  <li>Visual changes that move layouts are breaking. Write your rules down.</li>
+  <li>Bundle breaking changes into a few planned majors; announce them four to eight weeks ahead.</li>
+  <li>Add the new in a minor, deprecate the old, remove in a major, with guides and codemods.</li>
+  <li>Publish a support policy for old versions and track version spread.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Should design and code share one version number?</summary><div><p>It helps if they release together. Many teams version the code package and tag the Figma library release with the same number, so "4.6" means the same thing in both.</p></div></details>
+  <details><summary>Is a colour change a breaking change?</summary><div><p>Usually not, if it keeps the same meaning and passes contrast. It becomes breaking if it changes meaning (a warning becoming red) or affects layouts or images that depend on it. Announce it either way.</p></div></details>
+  <details><summary>How long should a deprecation period be?</summary><div><p>At least one major release cycle, typically two to six months, depending on how many uses there are and whether a codemod exists.</p></div></details>
+  <details><summary>How often should a design system ship a major version?</summary><div><p>Rarely: one to three times a year is common. Each major asks every team to check their work, so bundle breaking changes.</p></div></details>
+  <details><summary>What's a codemod?</summary><div><p>A script that rewrites code automatically, for example changing every <code>kind=</code> to <code>variant=</code>. It turns a migration from hours of manual work into one command.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://semver.org/" target="_blank" rel="noopener">Semantic Versioning 2.0.0</a><span>The convention behind major.minor.patch.</span></li>
+  <li><a href="https://eightshapes.com/articles/visual-breaking-change-in-design-systems/" target="_blank" rel="noopener">Visual Breaking Change in Design Systems</a><span>Nathan Curtis, EightShapes.</span></li>
+  <li><a href="https://eightshapes.com/articles/versioning-design-systems" target="_blank" rel="noopener">Versioning Design Systems</a><span>Nathan Curtis, part of his series on releasing design systems.</span></li>
+  <li><a href="/writing/design-system-release-notes">Design system release notes: templates</a><span>How to announce each kind of change.</span></li>
+</ul>

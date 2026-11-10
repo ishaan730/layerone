@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Headless UI Libraries vs Building Your Own Components | Layer One</title>
+<meta name="description" content="Should you build design system components, use a headless library or theme a styled one? Trade-offs, a decision table and what we usually recommend.">
+<meta property="og:title" content="Headless UI Libraries vs Building Your Own Components | Layer One">
+<meta property="og:description" content="Should you build design system components, use a headless library or theme a styled one? Trade-offs, a decision table and what we usually recommend.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-11">
+<meta property="article:modified_time" content="2026-11-11">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="Building a system">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/headless-component-library-build-vs-buy.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Headless UI Libraries vs Building Your Own Components | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css?v=35a137d5">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Headless UI Libraries vs Building Your Own Components", "description": "Should you build design system components, use a headless library or theme a styled one? Trade-offs, a decision table and what we usually recommend.", "image": "https://www.layerone.co.in/assets/images/writing/headless-component-library-build-vs-buy.jpg", "datePublished": "2026-11-11", "dateModified": "2026-11-11", "mainEntityOfPage": "https://www.layerone.co.in/writing/headless-component-library-build-vs-buy", "wordCount": 1075, "articleSection": "Building a system", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "Building a system", "item": "https://www.layerone.co.in/writing/topics/building"}, {"@type": "ListItem", "position": 3, "name": "Build, borrow or buy", "item": "https://www.layerone.co.in/writing/headless-component-library-build-vs-buy"}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/headless-component-library-build-vs-buy">
+<meta property="og:url" content="https://www.layerone.co.in/writing/headless-component-library-build-vs-buy">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Headless UI Libraries vs Building Your Own Components | Layer One">
+<meta name="twitter:description" content="Should you build design system components, use a headless library or theme a styled one? Trade-offs, a decision table and what we usually recommend.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/headless-component-library-build-vs-buy.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<div class="shell ed-shell"><aside class="ed-rail" aria-label="Writing"><a class="ed-back" href="/writing">← All writing</a><div class="ed-rail-sec"><p class="ed-rail-h">On this page</p><nav class="ed-toc" aria-label="On this page"><ol><li><a href="#why-this-decision-matters">Why this decision matters</a></li><li><a href="#the-three-approaches">The three approaches</a></li><li><a href="#what-we-usually-recommend">What we usually recommend</a></li><li><a href="#wrap-what-you-borrow">Wrap what you borrow</a></li><li><a href="#how-to-evaluate-a-library">How to evaluate a library</a></li><li><a href="#when-to-theme-a-fully-styled-library">When to theme a fully styled library</a></li><li><a href="#keep-the-decision-reversible">Keep the decision reversible</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></nav></div><div class="ed-rail-sec"><p class="ed-rail-h">Components in depth</p><ol class="ed-steps"><li><a href="/writing/which-components-to-build-first">Which components to build first</a></li><li aria-current="step"><a href="/writing/headless-component-library-build-vs-buy">Build, borrow or buy</a></li><li><a href="/writing/component-complexity">Component complexity</a></li><li><a href="/writing/component-props-best-practices">Component props best practices</a></li></ol></div><div class="ed-rail-foot"><button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="ed-theme-l">Light reading</span><span class="ed-theme-d">Dark reading</span></button></div></aside><main id="main" class="content ed-main"><article class="ed-article">
+  <header class="ed-head">
+    <p class="ed-kicker"><a href="/writing/topics/building">Building a system</a><span>Part 2 of 4 · <a href="/writing#components-in-depth">Components in depth</a></span></p>
+    <h1 class="ed-title">Build, borrow or buy: headless component libraries vs building your own</h1>
+    <p class="ed-dek">You don't have to build every component from scratch. Headless libraries handle the hard part, behaviour and accessibility, and leave the look to you. When to build, when to borrow, when to buy, and how to keep the choice reversible.</p>
+    <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>5 min read · 11 November 2026</span></span></p>
+  </header>
+  <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>Why this decision matters</b></summary><ol><li><a href="#why-this-decision-matters">Why this decision matters</a></li><li><a href="#the-three-approaches">The three approaches</a></li><li><a href="#what-we-usually-recommend">What we usually recommend</a></li><li><a href="#wrap-what-you-borrow">Wrap what you borrow</a></li><li><a href="#how-to-evaluate-a-library">How to evaluate a library</a></li><li><a href="#when-to-theme-a-fully-styled-library">When to theme a fully styled library</a></li><li><a href="#keep-the-decision-reversible">Keep the decision reversible</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="ed-theme-l">Light reading</span><span class="ed-theme-d">Dark reading</span></button></details>
+  <figure class="ed-cover"><img src="../assets/images/writing/headless-component-library-build-vs-buy.w1200.webp" alt="" width="1600" height="900" srcset="../assets/images/writing/headless-component-library-build-vs-buy.w480.webp 480w, ../assets/images/writing/headless-component-library-build-vs-buy.w800.webp 800w, ../assets/images/writing/headless-component-library-build-vs-buy.w1200.webp 1200w, ../assets/images/writing/headless-component-library-build-vs-buy.jpg 1600w" sizes="(max-width: 1280px) 100vw, 1240px" decoding="async"></figure>
+  <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>There are three ways to get components: <b>build your own</b> (full control, slowest), use a <b>headless library</b> (tested behaviour and accessibility, your own look) or <b>theme a fully styled library</b> (fastest start, hardest to make yours). For most product companies we recommend a mix: <b>build simple components yourself</b> (buttons, badges, cards) and <b>use a headless library for complex interactive ones</b> (menus, dialogs, comboboxes, date pickers), because the behaviour is the hard part. Either way, keep your tokens and your component API your own, so the choice stays reversible.</p>
+  <ul>
+    <li>A headless component handles keyboard, focus and screen reader support but has no visual style.</li>
+    <li>Wrap whatever you borrow in your own components, with your own prop names.</li>
+    <li>A fully styled library suits early-stage products and internal tools.</li>
+  </ul>
+</div>
+
+<h2 id="why-this-decision-matters">Why this decision matters</h2>
+<p>Building accessible behaviour for complex components is genuinely hard. A combobox needs the right ARIA roles, focus management, keyboard support for arrow keys, Home and End, typing to search, and announcements for screen readers. The W3C's ARIA Authoring Practices Guide documents these patterns, and it runs to dozens of pages. Getting them right from scratch takes months; getting them wrong ships accessibility bugs to every product that uses the system.</p>
+<p>At the same time, your design system has to look and feel like your product, and its API has to suit your teams. The decision is how to get both.</p>
+<div class="callout callout--term"><span class="callout-k">New word</span><p>A <b>headless component</b> handles behaviour (keyboard use, focus, accessibility, state) but comes with no visual styling, so you apply your own with your tokens. Radix Primitives and React Aria are well-known examples. It's like buying a well-engineered chassis and designing your own body for it.</p></div>
+
+<h2 id="the-three-approaches">The three approaches</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Approach</th><th>Good for</th><th>Watch out for</th><th>Speed</th></tr></thead>
+  <tbody>
+    <tr><td>Build your own</td><td>Full control; exactly your needs; no outside dependency</td><td>Slowest; accessible behaviour for complex components is hard to get right</td><td>Slow</td></tr>
+    <tr><td>Headless library + your tokens</td><td>Correct, accessible behaviour out of the box; your own look</td><td>You depend on the library's updates and conventions</td><td>Fast</td></tr>
+    <tr><td>Fully styled library, themed</td><td>Fastest start; early-stage products; internal tools</td><td>Hard to make it truly yours; heavy theming can be harder than building</td><td>Fastest</td></tr>
+  </tbody>
+</table></div></figure>
+
+<h2 id="what-we-usually-recommend">What we usually recommend</h2>
+<p>Match the approach to the component's <a href="/writing/component-complexity">complexity level</a>:</p>
+<div class="cols4">
+  <div class="cell"><span class="k">LEVEL 1 · ELEMENTS</span><h4>Build</h4><p>Badge, avatar, divider, icon, tag. Mostly visual; quick to build; you'll want full control.</p></div>
+  <div class="cell"><span class="k">LEVEL 2 · CONTROLS</span><h4>Build, carefully</h4><p>Button, text field, checkbox, radio, switch. Native HTML elements do most of the accessibility work if you use them.</p></div>
+  <div class="cell cell--accent"><span class="k">LEVEL 3 · COMPOSITES</span><h4>Borrow behaviour</h4><p>Select, menu, tabs, dialog, combobox, date picker. Use a headless library; style it with your tokens.</p></div>
+  <div class="cell"><span class="k">LEVEL 4 · SYSTEMS</span><h4>Evaluate case by case</h4><p>Data tables, rich text, charts. Often a specialised library (headless table, editor framework) wrapped in your API.</p></div>
+</div>
+
+<h2 id="wrap-what-you-borrow">Wrap what you borrow</h2>
+<p>Whatever you use underneath, product teams should import <b>your</b> components with <b>your</b> props, never the library directly. That gives you three things: a consistent API across built and borrowed components, the freedom to swap the underlying library later, and one place to enforce your tokens and accessibility rules.</p>
+<pre><code><span class="c">// Product teams use the system's Dialog…</span>
+<span class="k">import</span> { Dialog } <span class="k">from</span> <span class="s">"@acme/ui"</span>;
+
+&lt;Dialog open={open} onOpenChange={setOpen} title=<span class="s">"Delete invoice?"</span>&gt;…&lt;/Dialog&gt;
+
+<span class="c">// …which wraps a headless primitive, styled with semantic tokens.
+// Swapping the primitive later doesn't change a single product screen.</span></code></pre>
+<p>Keep your prop names consistent with the rest of your library (<code>variant</code>, <code>size</code>, <code>open</code>, <code>onOpenChange</code>) even where the underlying library uses different ones. See <a href="/writing/component-props-best-practices">component props best practices</a>.</p>
+
+<h2 id="how-to-evaluate-a-library">How to evaluate a library</h2>
+<ul class="checklist">
+  <li><b>Accessibility:</b> does it follow the ARIA Authoring Practices patterns? Test with a keyboard and a screen reader, not just the docs.</li>
+  <li><b>Styling model:</b> can you apply your own tokens cleanly, without fighting built-in styles?</li>
+  <li><b>Framework fit:</b> does it match your framework and rendering approach (server rendering, React Native, web components)?</li>
+  <li><b>Maintenance:</b> release cadence, open issues, who maintains it and how it's funded.</li>
+  <li><b>Breaking changes:</b> how often has it had major releases, and how painful were they?</li>
+  <li><b>Escape hatches:</b> can you control state yourself (controlled props) and compose parts (slots), or is it all-or-nothing?</li>
+  <li><b>Bundle size and licence</b> fit your product's constraints.</li>
+</ul>
+
+<h2 id="when-to-theme-a-fully-styled-library">When to theme a fully styled library</h2>
+<p>A fully styled library, themed with your tokens, is often the right answer for an early-stage product still finding its shape, or for internal tools where speed matters more than distinctiveness. The cost comes later: when you need your product to look truly like yours, heavy overrides can be harder than building. Plan to re-evaluate when the product settles or a brand refresh is coming.</p>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>At CARS24 the internal tools system set up tokens and Storybook with engineers new to design systems, and reached 93 component sets in a 3–4 month runway to a beta for leadership. <a href="/work/cars24-internal-tools">Read the case study</a>.</p></div>
+
+<h2 id="keep-the-decision-reversible">Keep the decision reversible</h2>
+<p>Libraries come and go. Two habits keep you free to change your mind:</p>
+<div class="cols2">
+  <div class="cell"><h3>Own your tokens</h3><p>Store them in the vendor-neutral DTCG format in your own repository. Styles come from your tokens, not the library's theme object.</p></div>
+  <div class="cell"><h3>Own your API</h3><p>Product teams only ever import your components. The library is an implementation detail behind them.</p></div>
+</div>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Build simple components; borrow behaviour for complex interactive ones.</li>
+  <li>Headless libraries give you tested accessibility with your own look.</li>
+  <li>Fully styled libraries suit early-stage products and internal tools.</li>
+  <li>Wrap everything in your own components and props.</li>
+  <li>Own your tokens and API so you can swap libraries later.</li>
+</ul></div>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>What is a headless UI library?</summary><div><p>A library of components that provide behaviour and accessibility (keyboard, focus, ARIA, state) without visual styles, so you can style them with your own design tokens.</p></div></details>
+  <details><summary>Is it cheating to use a headless library in a design system?</summary><div><p>No. Behaviour is the hardest and least visible part of complex components. Borrowing well-tested behaviour lets your team spend its time on what's specific to your product.</p></div></details>
+  <details><summary>Should product teams import the library directly?</summary><div><p>No. Wrap it in your own components with your own props, so you can enforce tokens and accessibility and change the library later.</p></div></details>
+  <details><summary>What about web components?</summary><div><p>Web components work across frameworks, which suits organisations with several front-end stacks. The same rule applies: own the API and style with your tokens.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://www.w3.org/WAI/ARIA/apg/" target="_blank" rel="noopener">ARIA Authoring Practices Guide</a><span>W3C. The behaviour patterns to test against.</span></li>
+  <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components" target="_blank" rel="noopener">Web Components</a><span>MDN.</span></li>
+  <li><a href="/writing/which-components-to-build-first">Which components to build first</a><span>The prioritisation method.</span></li>
+</ul>
+</div>
+  <footer class="ed-end">
+    <div class="ed-author"><img src="../assets/studio/aniket.jpg" alt="" width="56" height="56" loading="lazy"><p><b>Aniket Pandey</b> is the founder of Layer One. He has built and run design systems as an employee at <a href="/experience">CARS24, IBM and JPMorgan Chase</a>.</p></div>
+    <p class="ed-end-k">Next in Components in depth</p>
+    <div class="ec-grid ec-grid--3"><a class="ec " href="/writing/component-complexity" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/component-complexity.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/component-complexity.w480.webp 480w, ../assets/images/writing/component-complexity.w800.webp 800w, ../assets/images/writing/component-complexity.w1200.webp 1200w, ../assets/images/writing/component-complexity.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Building a system</span><b class="ec-t">Component complexity: how to estimate design system work</b><span class="ec-d">A scoring method for design system components: four levels of complexity, an eight-question rubric, and how complexity changes process and effort.</span><span class="ec-f">6 min read</span></a><a class="ec " href="/writing/which-components-to-build-first" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/which-components-to-build-first.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/which-components-to-build-first.w480.webp 480w, ../assets/images/writing/which-components-to-build-first.w800.webp 800w, ../assets/images/writing/which-components-to-build-first.w1200.webp 1200w, ../assets/images/writing/which-components-to-build-first.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Building a system</span><b class="ec-t">Which components to build first: a prioritisation method</b><span class="ec-d">How to choose your first design system components: count frequency and trouble, plot a 2×2, pick a pilot, and the eight components most teams start with.</span><span class="ec-f">5 min read</span></a><a class="ec " href="/writing/component-props-best-practices" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/component-props-best-practices.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/component-props-best-practices.w480.webp 480w, ../assets/images/writing/component-props-best-practices.w800.webp 800w, ../assets/images/writing/component-props-best-practices.w1200.webp 1200w, ../assets/images/writing/component-props-best-practices.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Building a system</span><b class="ec-t">Component props best practices: designing APIs people can use</b><span class="ec-d">How to design component props: the eight kinds of props, rules for good APIs, controlled vs uncontrolled, and keeping props in step between Figma and code.</span><span class="ec-f">6 min read</span></a></div>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Working on this in your own product?</h2><p>Most teams we work with start with a two-week audit: every style, component and token, checked and ranked.</p></div><a href="/pricing">How the audit works <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main></div><script src="../assets/site.js?v=da289b98" defer></script>
+</body>
+</html>

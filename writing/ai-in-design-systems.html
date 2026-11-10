@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI in Design Systems: Practical Uses and Cautions | Layer One</title>
+<meta name="description" content="Where AI genuinely helps design system teams today (docs, release notes, checks, migrations) and the cautions that matter when mistakes spread to every product.">
+<meta property="og:title" content="AI in Design Systems: Practical Uses and Cautions | Layer One">
+<meta property="og:description" content="Where AI genuinely helps design system teams today (docs, release notes, checks, migrations) and the cautions that matter when mistakes spread to every product.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-11">
+<meta property="article:modified_time" content="2026-11-11">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="Building a system">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/ai-in-design-systems.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="AI in Design Systems: Practical Uses and Cautions | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css?v=35a137d5">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "AI in Design Systems: Practical Uses and Cautions", "description": "Where AI genuinely helps design system teams today (docs, release notes, checks, migrations) and the cautions that matter when mistakes spread to every product.", "image": "https://www.layerone.co.in/assets/images/writing/ai-in-design-systems.jpg", "datePublished": "2026-11-11", "dateModified": "2026-11-11", "mainEntityOfPage": "https://www.layerone.co.in/writing/ai-in-design-systems", "wordCount": 1130, "articleSection": "Building a system", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "Building a system", "item": "https://www.layerone.co.in/writing/topics/building"}, {"@type": "ListItem", "position": 3, "name": "AI in design systems", "item": "https://www.layerone.co.in/writing/ai-in-design-systems"}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/ai-in-design-systems">
+<meta property="og:url" content="https://www.layerone.co.in/writing/ai-in-design-systems">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="AI in Design Systems: Practical Uses and Cautions | Layer One">
+<meta name="twitter:description" content="Where AI genuinely helps design system teams today (docs, release notes, checks, migrations) and the cautions that matter when mistakes spread to every product.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/ai-in-design-systems.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<div class="shell ed-shell"><aside class="ed-rail" aria-label="Writing"><a class="ed-back" href="/writing">← All writing</a><div class="ed-rail-sec"><p class="ed-rail-h">On this page</p><nav class="ed-toc" aria-label="On this page"><ol><li><a href="#a-grounded-view">A grounded view</a></li><li><a href="#where-ai-helps-today">Where AI helps today</a></li><li><a href="#structure-is-the-best-preparation">Structure is the best preparation</a></li><li><a href="#a-workflow-that-works-draft-review-publish">A workflow that works: draft, review, publish</a></li><li><a href="#cautions-that-matter">Cautions that matter</a></li><li><a href="#before-adopting-any-tool">Before adopting any tool</a></li><li><a href="#where-to-start">Where to start</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></nav></div><div class="ed-rail-sec"><p class="ed-rail-h">Running it day to day</p><ol class="ed-steps"><li><a href="/writing/design-system-office-hours">How to run design system office hours people actually use</a></li><li><a href="/writing/design-system-release-notes">Design system release notes and announcements</a></li><li><a href="/writing/design-system-versioning">Design system versioning</a></li><li><a href="/writing/design-system-champions">Design system champions</a></li><li aria-current="step"><a href="/writing/ai-in-design-systems">AI in design systems</a></li></ol></div><div class="ed-rail-foot"><button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="ed-theme-l">Light reading</span><span class="ed-theme-d">Dark reading</span></button></div></aside><main id="main" class="content ed-main"><article class="ed-article">
+  <header class="ed-head">
+    <p class="ed-kicker"><a href="/writing/topics/building">Building a system</a><span>Part 5 of 5 · <a href="/writing#running-it-day-to-day">Running it day to day</a></span></p>
+    <h1 class="ed-title">AI in design systems: where it helps, and where to keep a human</h1>
+    <p class="ed-dek">AI tools are changing design system work quickly, and it's easy to overhype or dismiss them. A grounded view: where they help today, where a human must stay in the loop, and why a well-structured system is the best preparation for using AI well.</p>
+    <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>5 min read · 11 November 2026</span></span></p>
+  </header>
+  <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>A grounded view</b></summary><ol><li><a href="#a-grounded-view">A grounded view</a></li><li><a href="#where-ai-helps-today">Where AI helps today</a></li><li><a href="#structure-is-the-best-preparation">Structure is the best preparation</a></li><li><a href="#a-workflow-that-works-draft-review-publish">A workflow that works: draft, review, publish</a></li><li><a href="#cautions-that-matter">Cautions that matter</a></li><li><a href="#before-adopting-any-tool">Before adopting any tool</a></li><li><a href="#where-to-start">Where to start</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="ed-theme-l">Light reading</span><span class="ed-theme-d">Dark reading</span></button></details>
+  <figure class="ed-cover"><img src="../assets/images/writing/ai-in-design-systems.w1200.webp" alt="" width="1600" height="900" srcset="../assets/images/writing/ai-in-design-systems.w480.webp 480w, ../assets/images/writing/ai-in-design-systems.w800.webp 800w, ../assets/images/writing/ai-in-design-systems.w1200.webp 1200w, ../assets/images/writing/ai-in-design-systems.jpg 1600w" sizes="(max-width: 1280px) 100vw, 1240px" decoding="async"></figure>
+  <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>AI is useful in design system work today for <b>drafting</b> and <b>checking</b>: first drafts of documentation and release notes, flagging off-system colours, spacing and components in designs and code, answering "which component should I use?" from your docs, and helping with migrations. It needs a person for <b>judgement</b>: accuracy, what counts as breaking, when a deviation is deliberate, and accessibility. And it's only as good as what it's given: a well-structured system with named tokens, consistent props and current docs is the best preparation for using AI well.</p>
+  <ul>
+    <li>Review everything AI produces. A wrong statement in a design system spreads to every product.</li>
+    <li>Generated components often look right but miss keyboard behaviour. Test them like any other.</li>
+    <li>Use tools your company has approved for unreleased designs and internal code.</li>
+  </ul>
+</div>
+
+<h2 id="a-grounded-view">A grounded view</h2>
+<p>AI tools are changing design system work quickly, and it's easy to either overhype them or dismiss them. The useful question isn't "will AI build our design system?" but "which repetitive parts of running one can it take on, and where must a person stay in the loop?"</p>
+<p>This is partly first-hand. At JPMorgan Chase, Layer One's founder works on exactly this kind of tooling: an AI agent that does early research and drafts company-wide design patterns for designers to review, and checkers that compare design files and code against the design system for 500+ designers and 1,000+ engineers. <a href="/work/jpmc-patterns">See the patterns project</a> and <a href="/work/jpmc-system-checks">the system checks</a>.</p>
+
+<h2 id="where-ai-helps-today">Where AI helps today</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Use</th><th>How it helps</th><th>Keep a human…</th></tr></thead>
+  <tbody>
+    <tr><td>Drafting documentation</td><td>Turns a component's code, props and examples into a first draft of its page</td><td>…to check accuracy and add the "when not to use" judgement</td></tr>
+    <tr><td>Writing release notes</td><td>Summarises merged changes into plain-language notes</td><td>…to judge what's breaking and what teams must do</td></tr>
+    <tr><td>Checking against the system</td><td>Flags off-system colours, spacing or components, and suggests the system equivalent</td><td>…to decide when a deviation is deliberate and fine</td></tr>
+    <tr><td>Answering "which component?"</td><td>An assistant that has read your docs answers everyday questions in chat</td><td>…to keep the docs it reads accurate</td></tr>
+    <tr><td>Migrations</td><td>Helps write and apply codemods for renames and replacements</td><td>…to review every change before it merges</td></tr>
+    <tr><td>Drafting patterns</td><td>Proposes a first pattern write-up from examples across products</td><td>…to bring research, evidence and taste</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Where AI is genuinely useful in design system work, and where people stay responsible. <span class="ev ev--prac">Practitioner view</span></figcaption></figure>
+<p>There's a pattern in that table: AI is good at <b>drafting</b> and <b>checking</b>, and the judgement stays with people.</p>
+
+<h2 id="structure-is-the-best-preparation">Structure is the best preparation</h2>
+<p>A well-structured system turns out to be excellent input for AI tools. A messy one gives messy results.</p>
+<div class="cols2">
+  <div class="cell"><span class="k" style="color:var(--good)">GOOD INPUT</span><ul>
+    <li><a href="/writing/design-token-naming-conventions">Tokens named by job</a>, in one source file</li>
+    <li><a href="/writing/component-props-best-practices">Consistent props</a> across components</li>
+    <li>Documentation with "when to use" and "when not to use"</li>
+    <li>Written rules: what's breaking, what's allowed</li>
+  </ul></div>
+  <div class="cell"><span class="k" style="color:var(--warn)">POOR INPUT</span><ul>
+    <li>Hundreds of hard-coded colours with no names</li>
+    <li>Three different prop names for the same idea</li>
+    <li>Out-of-date docs that contradict the code</li>
+    <li>Rules that live only in people's heads</li>
+  </ul></div>
+</div>
+<p>Ask an AI to "build a settings page" with poor input and it will invent its own components and colours. Point it at a well-structured system and it can assemble screens from your parts, which you can then check against the system automatically.</p>
+
+<h2 id="a-workflow-that-works-draft-review-publish">A workflow that works: draft, review, publish</h2>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Context</b><span>Give the tool your tokens, components, docs and rules</span></div><i>→</i>
+    <div><b>Draft</b><span>The tool researches examples and writes a first version</span></div><i>→</i>
+    <div class="hi"><b>Review</b><span>A designer or engineer checks accuracy, accessibility and judgement</span></div><i>→</i>
+    <div><b>Publish</b><span>Through the normal release and docs process</span></div><i>→</i>
+    <div><b>Check</b><span>Automated checks compare products against the system</span></div>
+  </div>
+  <figcaption>AI fits into the existing process; it doesn't replace review. Everything it produces goes through the same gates as human work.</figcaption>
+</figure>
+
+<h2 id="cautions-that-matter">Cautions that matter</h2>
+<p>The cost of a design system mistake is multiplied across every product that uses it. Four risks deserve real attention:</p>
+<div class="cols2">
+  <div class="cell"><span class="k" style="color:var(--warn)">WATCH OUT</span><h3>Confident mistakes</h3><p>AI tools can produce plausible but wrong documentation or code. In a system used by hundreds of people, a wrong statement spreads quickly. Review everything.</p></div>
+  <div class="cell"><span class="k" style="color:var(--warn)">WATCH OUT</span><h3>Accessibility by assumption</h3><p>Generated components often look right but miss keyboard behaviour, focus management or announcements. Test them like any other component.</p></div>
+  <div class="cell"><span class="k" style="color:var(--warn)">WATCH OUT</span><h3>Inventing new things</h3><p>Without your system as context, AI invents components and colours. Point it at your system and check the result against it.</p></div>
+  <div class="cell"><span class="k" style="color:var(--warn)">WATCH OUT</span><h3>Confidentiality</h3><p>Unreleased designs and internal code are sensitive. Use tools your company has approved, with appropriate data protections.</p></div>
+</div>
+
+<h2 id="before-adopting-any-tool">Before adopting any tool</h2>
+<ul class="checklist">
+  <li>What problem does it solve that we actually have today?</li>
+  <li>Who will own it and keep it current?</li>
+  <li>Does it work with our existing files, repositories and formats, or lock our decisions in?</li>
+  <li>How will we know, in three months, whether it was worth it?</li>
+  <li>What happens to our work if we stop using it?</li>
+</ul>
+<p>Keep your decisions portable either way: tokens in the vendor-neutral DTCG format, components in your own repository. Tools come and go; your decisions shouldn't be locked inside any one product.</p>
+
+<h2 id="where-to-start">Where to start</h2>
+<p>If you're new to this, start with the automations that pay back first, with or without AI: a token pipeline and lint rules for hard-coded values. Then try AI on release note drafts and documentation drafts, where a human edit is already part of the process. Checking designs and code against the system comes next, once your rules are written down clearly enough for a tool to apply them.</p>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>AI helps with drafting and checking; people keep the judgement.</li>
+  <li>A well-structured system is the best input; a messy one gives messy results.</li>
+  <li>Review everything, test generated components for accessibility, protect confidential work.</li>
+  <li>Fit AI into the existing process: draft, review, publish, check.</li>
+  <li>Keep tokens and components portable, whatever tools you use.</li>
+</ul></div>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Can AI build a design system?</summary><div><p>It can draft parts of one: documentation, release notes, pattern write-ups, code. Deciding what the system should be, and checking the quality and accessibility of what's produced, still needs people.</p></div></details>
+  <details><summary>Can AI check designs against the design system?</summary><div><p>Yes, and it's one of the most useful applications: flagging off-system colours, spacing and components and suggesting the system equivalent. A person decides when a deviation is deliberate.</p></div></details>
+  <details><summary>Will AI replace design system teams?</summary><div><p>It changes the work more than it replaces it: less writing from scratch and policing by hand, more reviewing, deciding and helping teams.</p></div></details>
+  <details><summary>What's the first AI use case to try?</summary><div><p>Drafting release notes from merged changes. The input is structured, a human edit is already part of the process, and the time saved is immediate.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://www.designtokens.org/tr/2025.10/format/" target="_blank" rel="noopener">Design Tokens Format Module 2025.10</a><span>Portable tokens any tool can read.</span></li>
+  <li><a href="https://www.w3.org/WAI/ARIA/apg/" target="_blank" rel="noopener">ARIA Authoring Practices Guide</a><span>What to test generated components against.</span></li>
+  <li><a href="/writing/design-system-documentation">Design system documentation</a><span>The structure that makes AI answers accurate.</span></li>
+</ul>
+</div>
+  <footer class="ed-end">
+    <div class="ed-author"><img src="../assets/studio/aniket.jpg" alt="" width="56" height="56" loading="lazy"><p><b>Aniket Pandey</b> is the founder of Layer One. He has built and run design systems as an employee at <a href="/experience">CARS24, IBM and JPMorgan Chase</a>.</p></div>
+    <p class="ed-end-k">Read next</p>
+    <div class="ec-grid ec-grid--3"><a class="ec " href="/writing/design-system-documentation" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/design-system-documentation.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/design-system-documentation.w480.webp 480w, ../assets/images/writing/design-system-documentation.w800.webp 800w, ../assets/images/writing/design-system-documentation.w1200.webp 1200w, ../assets/images/writing/design-system-documentation.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Building a system</span><b class="ec-t">Design system documentation</b><span class="ec-d">What people actually read in design system docs, the sections every component page needs and how to structure the portal. A page template to copy.</span><span class="ec-f">8 min read</span></a><a class="ec " href="/writing/design-system-release-notes" data-topic="operations"><span class="ec-m"><img src="../assets/images/writing/design-system-release-notes.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/design-system-release-notes.w480.webp 480w, ../assets/images/writing/design-system-release-notes.w800.webp 800w, ../assets/images/writing/design-system-release-notes.w1200.webp 1200w, ../assets/images/writing/design-system-release-notes.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Operating model & teams</span><b class="ec-t">Design system release notes and announcements</b><span class="ec-d">How to announce design system changes: channels, timing, and copyable templates for releases, breaking changes, deprecations, token updates and digests.</span><span class="ec-f">6 min read</span></a><a class="ec " href="/writing/design-token-naming-conventions" data-topic="foundations-and-tokens"><span class="ec-m"><img src="../assets/images/writing/design-token-naming-conventions.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/design-token-naming-conventions.w480.webp 480w, ../assets/images/writing/design-token-naming-conventions.w800.webp 800w, ../assets/images/writing/design-token-naming-conventions.w1200.webp 1200w, ../assets/images/writing/design-token-naming-conventions.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Foundations & tokens</span><b class="ec-t">Design token naming conventions: a structure people can guess</b><span class="ec-d">How to name design tokens so people can guess them: the parts of a name, primitive, semantic and component patterns, common mistakes and a checklist.</span><span class="ec-f">5 min read</span></a></div>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Thinking about how your system is run?</h2><p>If you'd like a second opinion on your team or process, a thirty-minute call is a good place to start.</p></div><a href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main></div><script src="../assets/site.js?v=da289b98" defer></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>Build contrast into a design system once, at the token level, and every product inherits it. Use the <b>WCAG 2.2</b> minimums: <b>4.5:1</b> for body text, <b>3:1</b> for large text and for meaningful non-text elements like input borders, icons and focus rings. Check <b>pairs, not colours</b> (a colour is only accessible against what it sits on), in every theme. With a palette built on a shared lightness curve, simple rules emerge: in ours, any two steps <b>six apart</b> pass for body text, with one exception at the very light end.</p>
+  <ul>
+    <li>Low-contrast text is the most common accessibility failure on the web.</li>
+    <li>Publish the approved pairs and test them automatically on every token change.</li>
+    <li>Give the accessibility owner a real veto over token value changes.</li>
+  </ul>
+</div>
+
+<h2>Why contrast belongs in the design system</h2>
+<p>WebAIM's 2025 scan of the world's top million home pages found low-contrast text on <b>79.1%</b> of them. <span class="ev ev--std">Measured</span> It's the most common accessibility failure on the web, and almost always the result of colours chosen one screen at a time.</p>
+<p>A design system changes the economics. Decide the text and background pairs once, as tokens, check them once, and every component and product built on them inherits the result. Fix a failing pair in the system and the fix reaches every screen in a release. That's why contrast is the cheapest place in the whole product to get accessibility right.</p>
+
+<h2>The WCAG ratios that matter</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>What</th><th class="r">Minimum (AA)</th><th>WCAG 2.2</th><th>Examples</th></tr></thead>
+  <tbody>
+    <tr><td>Body text</td><td class="r">4.5:1</td><td>1.4.3</td><td>Paragraphs, labels, table cells, helper text, button labels</td></tr>
+    <tr><td>Large text</td><td class="r">3:1</td><td>1.4.3</td><td>24px and above, or about 18.66px and above in bold</td></tr>
+    <tr><td>Non-text elements</td><td class="r">3:1</td><td>1.4.11</td><td>Input borders, checkbox outlines, icons that carry meaning, focus indicators, chart lines</td></tr>
+    <tr><td>Enhanced (AAA)</td><td class="r">7:1</td><td>1.4.6</td><td>Optional; worth it for long-form reading and data-dense views</td></tr>
+    <tr><td>Disabled controls, decoration</td><td class="r">none</td><td>exempt</td><td>Disabled buttons, purely decorative dividers and illustrations</td></tr>
+  </tbody>
+</table></div>
+<figcaption>WCAG 2.2 contrast requirements. Many laws and procurement rules, including the European Accessibility Act, point to level AA.</figcaption></figure>
+<div class="callout callout--warn"><span class="callout-k">Watch out</span><p>"Exempt" isn't the same as "fine". Disabled text that nobody can read still confuses people. Keep disabled states legible, and explain nearby why an action isn't available.</p></div>
+
+<h2>Check pairs, not colours</h2>
+<p>A colour has no contrast on its own. <code>neutral.600</code> is 4.57:1 on white but only 4.25:1 on <code>neutral.50</code>, our light canvas: it passes on one background and fails on the other. So the unit you check, document and test is the <b>pair</b>: a foreground token on a background token, in a specific theme.</p>
+<p>That's another reason for <a href="/writing/dark-mode-design-tokens">semantic tokens</a>. When colours are named by job (<code>text.secondary</code> on <code>bg.canvas</code>), the pairs that matter are finite and nameable, and you can check every one in every theme:</p>
+<!--fig:pairs-->
+
+<h2>A contrast matrix for your palette</h2>
+<p>If your palette is built on one shared lightness curve, as an <a href="/writing/oklch-color-palette">OKLCH palette</a> can be, contrast becomes predictable. Here's every pairing of the eleven neutral steps:</p>
+<!--fig:contrast-matrix-->
+<p>From a matrix like this you can write pairing rules anyone can apply without a checker:</p>
+<ol class="w-steps">
+  <li><h3>Body text: six steps apart</h3><p>Steps six or more apart pass 4.5:1, except next to the lightest step: on <code>50</code>, text needs <code>700</code> or darker.</p></li>
+  <li><h3>Large text and borders: five steps apart</h3><p>Steps five or more apart always pass 3:1, which covers large headings, input borders, icons and focus rings.</p></li>
+  <li><h3>Same rule, every hue</h3><p>Because every ramp shares the lightness curve, step 700 is between 5.8:1 and 7.1:1 on white in every colour family we built. Brand, blue, red and green follow the same rule.</p></li>
+</ol>
+
+<h2>How to build contrast into the system</h2>
+<ul class="checklist">
+  <li><b>Pick text tokens that pass</b> on every background they're allowed on, in every theme.</li>
+  <li><b>Publish the approved pairs</b> on the token documentation page, with their ratios.</li>
+  <li><b>Test automatically:</b> a script that computes every documented pair and fails the build if one drops below its minimum.</li>
+  <li><b>Check states:</b> hover, pressed, focus and selected colours are pairs too.</li>
+  <li><b>Lint for raw colours</b> in product code, so nobody bypasses the checked tokens.</li>
+  <li><b>Give accessibility a veto</b> over token value changes in your <a href="/writing/design-system-governance">decision-rights matrix</a>.</li>
+</ul>
+<p class="scenario-t">An illustration: fixing secondary text everywhere at once</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>An audit finds secondary text (captions, helper text, timestamps) at 4.25:1 on the default background: just below 4.5:1, in every product.</p></div>
+  <div><span class="k">Without a system</span><p>Hundreds of hard-coded greys across several codebases, fixed screen by screen over months.</p></div>
+  <div><span class="k">With a system</span><p><code>color.text.secondary</code> moves from <code>neutral.600</code> to <code>neutral.700</code>, raising it to 5.99:1. One token change, announced in the release notes, reaches every screen.</p></div>
+</div>
+
+<h2>Beyond the ratio: colour and meaning</h2>
+<p>Contrast is necessary but not sufficient. WCAG also asks that colour isn't the <b>only</b> way information is shown (1.4.1). An error field needs an icon or message as well as a red border; a chart needs labels or patterns as well as colours. Build those patterns into components, so teams get them by default.</p>
+<h3>WCAG 2 vs APCA</h3>
+<p>APCA, the Accessible Perceptual Contrast Algorithm, is a newer method that accounts for font size, weight and whether text is light-on-dark or dark-on-light. It often gives better answers in dark mode and for thin fonts. It's a useful second opinion, but WCAG 2.2's ratios are what laws and audits measure today, so use WCAG as the gate.</p>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>4.5:1 for body text; 3:1 for large text, borders, icons and focus rings.</li>
+  <li>Check pairs, not colours, in every theme and every state.</li>
+  <li>A shared lightness curve turns contrast into simple step rules.</li>
+  <li>Publish approved pairs, test them automatically, and lint for raw colours.</li>
+  <li>Don't rely on colour alone to carry meaning.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>What contrast ratio does WCAG require?</summary><div><p>At level AA: 4.5:1 for normal text, 3:1 for large text, and 3:1 for meaningful non-text elements such as borders, icons and focus indicators.</p></div></details>
+  <details><summary>Does the primary brand colour have to pass contrast?</summary><div><p>Only where it's used for text or meaningful UI. Many brands use a lighter brand colour for decoration and a darker step of the same hue for text and buttons.</p></div></details>
+  <details><summary>Should we use APCA instead of WCAG 2?</summary><div><p>Use WCAG 2.2 as the requirement, and APCA as a second opinion, especially for dark mode and thin type.</p></div></details>
+  <details><summary>How do we test contrast automatically?</summary><div><p>List every allowed foreground–background pair in your token docs, compute their ratios in a script during the token build, and fail the build if any drop below their minimum.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html" target="_blank" rel="noopener">Understanding 1.4.3 Contrast (Minimum)</a><span>W3C.</span></li>
+  <li><a href="https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" target="_blank" rel="noopener">Understanding 1.4.11 Non-text Contrast</a><span>W3C.</span></li>
+  <li><a href="https://webaim.org/projects/million/2025" target="_blank" rel="noopener">The WebAIM Million, 2025</a><span>The most common accessibility failures.</span></li>
+  <li><a href="https://git.apcacontrast.com/documentation/APCA_in_a_Nutshell" target="_blank" rel="noopener">APCA in a nutshell</a><span>Myndex Research.</span></li>
+</ul>

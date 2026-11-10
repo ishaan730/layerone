@@ -155,6 +155,54 @@ def scoring():
                "Priority = (Reach + Impact + Reuse + Business value) ÷ Effort, each scored 1–3. An accessibility bug used everywhere scores 12; a complex grid for one team scores 2.3.")
 
 
+def type_ratios():
+    t = _j("type-scales")
+    rows = ""
+    for sc in t["scales"]:
+        sizes = [z for z in sc["sizes"] if z["step"] >= -1][:6]
+        cells = "".join(f'<span class="tr-s" style="font-size:{min(z["rounded"], 56)}px">Aa<em>{z["rounded"]}</em></span>' for z in sizes)
+        rows += f'<div class="tr-row"><p><b>{sc["name"]}</b><span>× {sc["ratio"]}</span></p><div class="tr-sizes">{cells}</div></div>'
+    return fig(f'<div class="tr">{rows}</div>',
+               "Four type scales from the same 16px base. A small ratio (1.125) gives many sizes close together, which suits dense product screens; "
+               "the golden ratio (1.618) jumps so fast it leaves few useful sizes for an app. Sizes are rounded to whole pixels.", "w-fig--wide")
+
+
+def type_styles():
+    t = _j("type-scales")
+    rows = "".join(
+        f'<tr><td><code>{x["token"]}</code></td><td class="r">{x["px"]}px</td><td class="r">{x["lineHeight"]}px</td><td class="r">{x["ratio"]:.2f}</td>'
+        f'<td class="r">{x["weight"]}</td><td class="r">{x["tracking"]:+.3f}em</td></tr>' for x in t["productScale"])
+    return fig(f'<div class="w-tbl"><table><thead><tr><th>Text style</th><th class="r">Size</th><th class="r">Line height</th><th class="r">Ratio</th><th class="r">Weight</th><th class="r">Tracking</th></tr></thead><tbody>{rows}</tbody></table></div>',
+               "Twelve text styles in five families, from the Layer One playbook. Every line height is a multiple of 4px, and the line-height ratio tightens as text gets bigger: "
+               "1.5 for body text, about 1.2 for display sizes. Large sizes get slightly tighter letter spacing; small labels slightly looser.")
+
+
+def contrast_matrix():
+    c = _j("contrast-matrix")
+    steps = c["steps"]
+    head = "".join(f'<th class="r">{x}</th>' for x in steps)
+    body = ""
+    for i, row in enumerate(c["neutral"]):
+        cells = ""
+        for j, v in enumerate(row):
+            cls = "aa" if v >= 4.5 else ("lg" if v >= 3 else "no")
+            cells += f'<td class="cm-{cls}">{v:.1f}</td>' if i != j else '<td class="cm-x">–</td>'
+        body += f"<tr><th>{steps[i]}</th>{cells}</tr>"
+    return fig(f'<div class="w-tbl cm"><table><thead><tr><th>Text ↓ · Bg →</th>{head}</tr></thead><tbody>{body}</tbody></table></div>'
+               '<p class="cm-key"><span class="cm-aa">4.5:1 or more · any text</span><span class="cm-lg">3:1 to 4.5:1 · large text, borders, icons</span><span class="cm-no">below 3:1 · decoration only</span></p>',
+               "Every pairing of the eleven neutral steps, computed. Read across from a text colour to a background. Because the lightness curve is shared, "
+               "the pattern carries over to every hue: steps six or more apart pass 4.5:1 for body text (except next to step 50, which needs 700), and steps five or more apart always pass 3:1 for large text and borders.", "w-fig--wide")
+
+
+def spacing_scale():
+    vals = [(0.5, 2), (1, 4), (2, 8), (3, 12), (4, 16), (5, 20), (6, 24), (8, 32), (10, 40), (12, 48), (16, 64), (20, 80), (24, 96)]
+    rows = "".join(f'<div class="ss-r"><code>space-{n:g}</code><i style="width:{px}px"></i><span>{px}px</span></div>' for n, px in vals)
+    return fig(f'<div class="ss">{rows}</div>',
+               "A spacing scale on a 4px base: thirteen values from 2 to 96px, drawn at actual size. Each name is the number of 4px units it contains, "
+               "so space-6 is 24px. Plenty of choice at the small end, where 4px is visible; only a few steps at the large end.")
+
+
 FIGS = {"palette": palette, "lightness": lightness, "hsl-vs-oklch": hsl_vs_oklch, "semantic": semantic, "pairs": pairs,
         "theme-preview": preview, "roi-years": roi_years, "break-even": break_even, "sensitivity": sensitivity,
-        "budgets": budgets, "scoring": scoring}
+        "budgets": budgets, "scoring": scoring, "type-ratios": type_ratios, "type-styles": type_styles,
+        "contrast-matrix": contrast_matrix, "spacing-scale": spacing_scale}

@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design System Maturity Model: 5 Stages and How to Progress | Layer One</title>
+<meta name="description" content="Five stages of design system maturity, how to tell which one you&#x27;re at, what the next step takes, and why aiming for the top too early backfires.">
+<meta property="og:title" content="Design System Maturity Model: 5 Stages and How to Progress | Layer One">
+<meta property="og:description" content="Five stages of design system maturity, how to tell which one you&#x27;re at, what the next step takes, and why aiming for the top too early backfires.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-11">
+<meta property="article:modified_time" content="2026-11-11">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="Fundamentals">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/design-system-maturity-model.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Design System Maturity Model: 5 Stages and How to Progress | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css?v=35a137d5">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Design System Maturity Model: 5 Stages and How to Progress", "description": "Five stages of design system maturity, how to tell which one you're at, what the next step takes, and why aiming for the top too early backfires.", "image": "https://www.layerone.co.in/assets/images/writing/design-system-maturity-model.jpg", "datePublished": "2026-11-11", "dateModified": "2026-11-11", "mainEntityOfPage": "https://www.layerone.co.in/writing/design-system-maturity-model", "wordCount": 1625, "articleSection": "Fundamentals", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "Fundamentals", "item": "https://www.layerone.co.in/writing/topics/fundamentals"}, {"@type": "ListItem", "position": 3, "name": "The design system maturity model", "item": "https://www.layerone.co.in/writing/design-system-maturity-model"}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/design-system-maturity-model">
+<meta property="og:url" content="https://www.layerone.co.in/writing/design-system-maturity-model">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Design System Maturity Model: 5 Stages and How to Progress | Layer One">
+<meta name="twitter:description" content="Five stages of design system maturity, how to tell which one you&#x27;re at, what the next step takes, and why aiming for the top too early backfires.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/design-system-maturity-model.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<div class="shell ed-shell"><aside class="ed-rail" aria-label="Writing"><a class="ed-back" href="/writing">← All writing</a><div class="ed-rail-sec"><p class="ed-rail-h">On this page</p><nav class="ed-toc" aria-label="On this page"><ol><li><a href="#why-a-maturity-model-is-useful">Why a maturity model is useful</a></li><li><a href="#the-five-stages">The five stages</a></li><li><a href="#how-to-tell-which-stage-you-re-at">How to tell which stage you're at</a></li><li><a href="#the-system-has-its-own-maturity-curve-too">The system has its own maturity curve too</a></li><li><a href="#how-to-move-up-one-stage">How to move up one stage</a></li><li><a href="#signs-you-re-aiming-too-high">Signs you're aiming too high</a></li><li><a href="#measuring-progress-between-stages">Measuring progress between stages</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></nav></div><div class="ed-rail-sec"><p class="ed-rail-h">Design Systems 101</p><ol class="ed-steps"><li><a href="/writing/what-is-a-design-system">What is a design system?</a></li><li><a href="/writing/design-system-vs-style-guide-vs-component-library">Design system vs style guide vs component library vs UI kit</a></li><li><a href="/writing/do-you-need-a-design-system">Do you need a design system?</a></li><li aria-current="step"><a href="/writing/design-system-maturity-model">The design system maturity model</a></li></ol></div><div class="ed-rail-foot"><button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="ed-theme-l">Light reading</span><span class="ed-theme-d">Dark reading</span></button></div></aside><main id="main" class="content ed-main"><article class="ed-article">
+  <header class="ed-head">
+    <p class="ed-kicker"><a href="/writing/topics/fundamentals">Fundamentals</a><span>Part 4 of 4 · <a href="/writing#design-systems-101">Design Systems 101</a></span></p>
+    <h1 class="ed-title">The design system maturity model: five stages, and how to move up one</h1>
+    <p class="ed-dek">Design systems grow in stages, like a staircase. The most useful thing you can do is work out which step you're on and aim for the next one, not the top. Five stages, the signs of each, and what it takes to move up.</p>
+    <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>7 min read · 11 November 2026</span></span></p>
+  </header>
+  <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>Why a maturity model is useful</b></summary><ol><li><a href="#why-a-maturity-model-is-useful">Why a maturity model is useful</a></li><li><a href="#the-five-stages">The five stages</a></li><li><a href="#how-to-tell-which-stage-you-re-at">How to tell which stage you're at</a></li><li><a href="#the-system-has-its-own-maturity-curve-too">The system has its own maturity curve too</a></li><li><a href="#how-to-move-up-one-stage">How to move up one stage</a></li><li><a href="#signs-you-re-aiming-too-high">Signs you're aiming too high</a></li><li><a href="#measuring-progress-between-stages">Measuring progress between stages</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="ed-theme-l">Light reading</span><span class="ed-theme-d">Dark reading</span></button></details>
+  <figure class="ed-cover"><img src="../assets/images/writing/design-system-maturity-model.w1200.webp" alt="" width="1600" height="900" srcset="../assets/images/writing/design-system-maturity-model.w480.webp 480w, ../assets/images/writing/design-system-maturity-model.w800.webp 800w, ../assets/images/writing/design-system-maturity-model.w1200.webp 1200w, ../assets/images/writing/design-system-maturity-model.jpg 1600w" sizes="(max-width: 1280px) 100vw, 1240px" decoding="async"></figure>
+  <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>A <b>design system maturity model</b> describes the stages a company's design system usually moves through. Ours has five: <b>0 · Unwritten</b>, <b>1 · Shared styles</b>, <b>2 · Basics in code</b>, <b>3 · Looked after</b> and <b>4 · Company platform</b>. Each stage solves the problems of the one before and costs more to run. The useful question isn't "how mature are we?" but "what's the next step, and is it worth it now?"</p>
+  <ul>
+    <li>Aim for the next stage, not the top. Jumping ahead means building process for components nobody uses yet.</li>
+    <li>Stage 2, named values shared by design and code plus 10–25 core components, is where most growing product companies get the best return.</li>
+    <li>Stages describe your company's relationship with the system, not the quality of its buttons.</li>
+  </ul>
+</div>
+
+<h2 id="why-a-maturity-model-is-useful">Why a maturity model is useful</h2>
+<p>Every product already has a design system. It's usually just unwritten: decisions live in old screens and in a few people's heads. The question teams actually face is how much of it to write down, share and look after, and when.</p>
+<p>A maturity model turns that vague question into a concrete one. Instead of debating whether you "have a design system", you can agree where you are, what's holding you back, and what the next stage would take in people and months. It's also a good antidote to copying a tech giant: their stage 4 setup would suffocate a team at stage 1.</p>
+
+<h2 id="the-five-stages">The five stages</h2>
+<figure class="w-fig">
+  <div class="stairs">
+    <div><span class="n">0</span><b>Unwritten</b><span>Decisions live in old screens and people's heads. Values copied by eye.</span></div>
+    <div><span class="n">1</span><b>Shared styles</b><span>A UI kit in Figma. Maybe a few shared colours in code.</span></div>
+    <div class="on"><span class="n">2</span><b>Basics in code</b><span>Named values shared by design and code. 10–25 core components engineers import.</span></div>
+    <div><span class="n">3</span><b>Looked after</b><span>Docs, releases, a way to contribute, named owners, usage measured.</span></div>
+    <div><span class="n">4</span><b>Company platform</b><span>Several brands and platforms, clear rules across departments, health tracked like a product.</span></div>
+  </div>
+  <figcaption>Five stages of design system maturity. <span class="ev ev--prac">Practitioner view</span> From the Layer One playbook.</figcaption>
+</figure>
+
+<h3>Stage 0: Unwritten</h3>
+<p>Designers ask each other for hex codes. Engineers measure screenshots. Nothing is wrong yet, because one or two people make every decision and can keep them consistent by talking. It stops working the moment decisions are made by people who don't talk every day.</p>
+<h3>Stage 1: Shared styles</h3>
+<p>A Figma library or UI kit exists, and maybe a handful of colours are shared in code. Designs look consistent, but the code is full of values that "look about right". This stage stops designers drifting apart. It does nothing to stop code drifting away from design.</p>
+<h3>Stage 2: Basics in code</h3>
+<p>Colours, type and spacing are named as <a href="/writing/design-tokens">design tokens</a> that design and code both read, and engineers import 10–25 core components from a shared package. New screens use the system; older ones don't yet. The typical gap: nobody owns incoming requests.</p>
+<h3>Stage 3: Looked after</h3>
+<p>The system has named owners, documentation, versioned releases and a way for teams to contribute. Usage is measured. Several teams use it and some contribute back. This is where a design system starts to behave like a product rather than a project.</p>
+<h3>Stage 4: Company platform</h3>
+<p>Several brands and platforms run on one source of decisions. There are clear rules across departments, and the system's health is tracked like any other product, with its own roadmap and budget. Most companies never need this stage, and that's fine.</p>
+
+<h2 id="how-to-tell-which-stage-you-re-at">How to tell which stage you're at</h2>
+<p>Each stage has tell-tale signs. Read down the second column and stop at the first row that sounds like your team.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Stage</th><th>You'll recognise it when…</th><th>The next step</th><th>What it takes</th></tr></thead>
+  <tbody>
+    <tr><td>0 · Unwritten</td><td>Designers ask each other for hex codes; engineers measure screenshots.</td><td>Write down the basics; publish a UI kit.</td><td>1–3 weeks of one designer</td></tr>
+    <tr><td>1 · Shared styles</td><td>Designs look consistent, but the code is full of colours that "look about right".</td><td>Name the values once and share them with code; build the most-used components.</td><td>1–3 months, a designer and an engineer, part-time</td></tr>
+    <tr><td>2 · Basics in code</td><td>New screens use the package, older ones don't, and nobody owns incoming requests.</td><td>Give it owners, documentation, releases and a way to contribute.</td><td>A small dedicated team (1.5–3 people)</td></tr>
+    <tr><td>3 · Looked after</td><td>Several teams contribute; updates ship on a rhythm; usage is tracked.</td><td>Themes, multiple platforms, decision-making across the company.</td><td>A dedicated team plus contributors in product teams</td></tr>
+    <tr><td>4 · Platform</td><td>The system is treated like infrastructure, with its own roadmap and targets.</td><td>Keep it healthy; make change cheaper; automate checks.</td><td>An ongoing product budget</td></tr>
+  </tbody>
+</table></div></figure>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>Company size is a poor guide. A 30-person company selling a white-labelled product to banks might need stage 3, because every client is a new brand. A 300-person company with one simple product may be perfectly served by stage 2.</p></div>
+
+<h2 id="the-system-has-its-own-maturity-curve-too">The system has its own maturity curve too</h2>
+<p>The stages above describe your company's relationship with its design system. Ben Callahan at Sparkbox describes a complementary model for the system itself: it starts with <b>building version one</b>, then <b>growing adoption</b>, before settling into a long-lived product. The two views fit together. Whatever stage your company is at, a new system goes through a hard early phase where it has to prove it's worth using.</p>
+<p>That early phase is where many systems stall. They reach stage 2 technically, with tokens and components in a package, but adoption stays flat because nobody is helping teams switch. Moving up a stage is as much about adoption work (pilots, documentation, office hours, champions) as about building.</p>
+
+<h2 id="how-to-move-up-one-stage">How to move up one stage</h2>
+<ol class="w-steps">
+  <li><h3>0 → 1: write the basics down</h3><p>Collect the colours, text styles and spacing values actually in use, pick the ones to keep, and publish them as a small UI kit. One designer, a few weeks.</p></li>
+  <li><h3>1 → 2: connect design to code</h3><p>Name foundations as tokens in one source that feeds Figma variables and code. Build the 8–10 most-used components in both, inside a real product project. Start with an <a href="/writing/design-system-audit">audit</a> so you build the right ones.</p></li>
+  <li><h3>2 → 3: give it an operating model</h3><p>Named owners with protected time, a docs site, versioned releases, one front door for requests and a contribution process. See <a href="/writing/design-system-operating-model">the operating model</a>.</p></li>
+  <li><h3>3 → 4: scale on purpose</h3><p>Only when a real change needs it: a second brand, native apps, several business units. Add brand layers, platform outputs and cross-department governance. See <a href="/writing/multi-brand-design-system">multi-brand design systems</a>.</p></li>
+</ol>
+
+<h2 id="signs-you-re-aiming-too-high">Signs you're aiming too high</h2>
+<div class="cols2">
+  <div class="cell"><h3>Process before users</h3><p>An approval council exists before more than two teams use the system. Every change waits for a meeting that has nothing to decide.</p></div>
+  <div class="cell"><h3>A roadmap of components nobody asked for</h3><p>The backlog is driven by what the system team finds interesting, not by what product teams are building next.</p></div>
+  <div class="cell"><h3>Multi-brand architecture for one brand</h3><p>Three tiers of tokens and a theming engine for a single product with one theme. It's flexibility you pay for every day and never use.</p></div>
+  <div class="cell"><h3>A docs platform with nothing to document</h3><p>A polished portal launched before the components it describes are stable. It goes out of date in months.</p></div>
+</div>
+<p>The rule we use: <b>use the lightest setup that keeps the system trusted and moving.</b> Add the next piece of structure when a real problem appears, such as requests waiting too long, decisions stalling or quality slipping.</p>
+
+<h2 id="measuring-progress-between-stages">Measuring progress between stages</h2>
+<p>Each step up should show up in a few numbers. Baseline them before you start:</p>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Moving to…</th><th>Watch</th></tr></thead>
+  <tbody>
+    <tr><td>Stage 1</td><td>Number of distinct colours and text styles in design files</td></tr>
+    <tr><td>Stage 2</td><td>Hard-coded values in code (falling); share of new screens built with the package</td></tr>
+    <tr><td>Stage 3</td><td>Adoption per team; time to first response on requests; contributions per quarter; satisfaction</td></tr>
+    <tr><td>Stage 4</td><td>Adoption per brand and business unit; version spread; cost of a cross-brand change</td></tr>
+  </tbody>
+</table></div></div>
+<p>The full set of metrics, and how to measure each, is in <a href="/writing/design-system-metrics">how to measure design system success</a>.</p>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Five stages: unwritten, shared styles, basics in code, looked after, company platform.</li>
+  <li>Find your stage by its symptoms, then aim one step up, not for the top.</li>
+  <li>Stage 2 is where most growing product companies get the best return.</li>
+  <li>Moving up is as much about adoption and operating model as about building.</li>
+  <li>Add structure only when a real problem calls for it.</li>
+</ul></div>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>What is a design system maturity model?</summary><div><p>A description of the stages a design system typically moves through, from unwritten decisions to a company-wide platform, with the signs of each stage and what it takes to move to the next.</p></div></details>
+  <details><summary>Which stage should a startup aim for?</summary><div><p>Usually stage 1, moving to stage 2 as the team grows: named foundations in code and a themed open-source component library. Owners and process come with more teams.</p></div></details>
+  <details><summary>Can you skip a stage?</summary><div><p>You can build the parts of a later stage, but you can't skip the adoption that each stage depends on. A stage 3 operating model around components nobody uses yet is just overhead.</p></div></details>
+  <details><summary>How long does it take to move up a stage?</summary><div><p>Roughly: weeks for stage 0 to 1, a few months for 1 to 2, and six to twelve months for 2 to 3, depending on team size and how many products need to adopt.</p></div></details>
+  <details><summary>Is stage 4 the goal?</summary><div><p>No. Stage 4 is right for organisations with several brands, platforms or business units. For most product companies, a healthy stage 3 is the goal.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://sparkbox.com/foundry/design_system_maturity_model" target="_blank" rel="noopener">The Design System Maturity Model</a><span>Ben Callahan, Sparkbox. Maturity from the system's point of view.</span></li>
+  <li><a href="https://rosenfeldmedia.com/books/design-that-scales/" target="_blank" rel="noopener">Design That Scales</a><span>Dan Mall. Pilots and adoption in the early stages.</span></li>
+  <li><a href="/writing/do-you-need-a-design-system">Do you need a design system?</a><span>A decision tree for whether to start at all.</span></li>
+</ul>
+</div>
+  <footer class="ed-end">
+    <div class="ed-author"><img src="../assets/studio/aniket.jpg" alt="" width="56" height="56" loading="lazy"><p><b>Aniket Pandey</b> is the founder of Layer One. He has built and run design systems as an employee at <a href="/experience">CARS24, IBM and JPMorgan Chase</a>.</p></div>
+    <p class="ed-end-k">Read next</p>
+    <div class="ec-grid ec-grid--3"><a class="ec " href="/writing/do-you-need-a-design-system" data-topic="fundamentals"><span class="ec-m"><img src="../assets/images/writing/do-you-need-a-design-system.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/do-you-need-a-design-system.w480.webp 480w, ../assets/images/writing/do-you-need-a-design-system.w800.webp 800w, ../assets/images/writing/do-you-need-a-design-system.w1200.webp 1200w, ../assets/images/writing/do-you-need-a-design-system.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Fundamentals</span><b class="ec-t">Do you need a design system? A decision guide for startups and growing teams</b><span class="ec-d">Seven questions, five maturity stages and the signs you've outgrown a UI kit. A practical way to decide whether your team needs a design system yet.</span><span class="ec-f">11 min read</span></a><a class="ec " href="/writing/how-to-build-a-design-system" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/how-to-build-a-design-system.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/how-to-build-a-design-system.w480.webp 480w, ../assets/images/writing/how-to-build-a-design-system.w800.webp 800w, ../assets/images/writing/how-to-build-a-design-system.w1200.webp 1200w, ../assets/images/writing/how-to-build-a-design-system.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Building a system</span><b class="ec-t">How to build a design system</b><span class="ec-d">Audit, foundations, tokens, first components, docs and governance, in order. A staged 12-month plan with gates, so you invest only as fast as it pays off.</span><span class="ec-f">11 min read · Guide</span></a><a class="ec " href="/writing/design-system-metrics" data-topic="business-case"><span class="ec-m"><img src="../assets/images/writing/design-system-metrics.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/design-system-metrics.w480.webp 480w, ../assets/images/writing/design-system-metrics.w800.webp 800w, ../assets/images/writing/design-system-metrics.w1200.webp 1200w, ../assets/images/writing/design-system-metrics.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Business case & measurement</span><b class="ec-t">How to measure design system success</b><span class="ec-d">Which design system metrics to track at each stage: adoption, coverage, detach rate, satisfaction, time saved. With a dashboard layout and survey questions.</span><span class="ec-f">7 min read</span></a></div>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Working on this in your own product?</h2><p>Most teams we work with start with a two-week audit: every style, component and token, checked and ranked.</p></div><a href="/pricing">How the audit works <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main></div><script src="../assets/site.js?v=da289b98" defer></script>
+</body>
+</html>

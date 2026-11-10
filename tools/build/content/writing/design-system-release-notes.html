@@ -1,0 +1,138 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>Write design system release notes for the people who <b>use</b> the system, not the people who built the change. Every note answers three questions: <b>what changed</b>, <b>why</b>, and <b>do I need to do anything?</b> Put breaking changes first, label items <b>New</b>, <b>Improved</b>, <b>Fixed</b> and <b>Breaking</b>, add before-and-after images for anything visual, and link to the full record on your documentation site. Use separate templates for releases, breaking changes, deprecations, token updates and a monthly digest.</p>
+  <ul>
+    <li>Chat is for attention; the documentation site is for record.</li>
+    <li>Announce breaking changes at least one release cycle ahead, ideally four to eight weeks.</li>
+    <li>Bundle small changes into the regular release post. Announcing everything trains people to mute you.</li>
+  </ul>
+</div>
+
+<h2>Why release notes matter</h2>
+<p>Release notes are a design system's most-read documentation. They're how most product teams find out what changed, whether it affects them, and what they need to do. Badly written ones are worse than none: they get skimmed, the one breaking change in them gets missed, and teams learn that the system "breaks things without warning".</p>
+<p class="scenario-t">An illustration: the rename nobody saw</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>The system team renames a prop in a major release. It's mentioned in the release notes, posted once in a busy channel on a Friday evening.</p></div>
+  <div><span class="k">What goes wrong</span><p>Seven teams upgrade the following week and their builds break. Each team thinks it's alone; the support channel floods.</p></div>
+  <div><span class="k">What works</span><p>A breaking-change notice four weeks ahead, direct messages to affected teams, a codemod, reminders, and extra office hours. Same change, no surprise.</p></div>
+</div>
+
+<h2>Write for the reader, not the change</h2>
+<div class="cols2">
+  <div class="cell"><span class="k" style="color:var(--warn)">WRITTEN FOR THE BUILDERS</span><p><code>Refactored Button padding tokens</code></p><p>Accurate, and useless to anyone deciding whether to upgrade.</p></div>
+  <div class="cell"><span class="k" style="color:var(--good)">WRITTEN FOR THE USERS</span><p>"Buttons are now 4px taller. If you've placed buttons inside table rows, check they still fit."</p><p>Says what changed, what it affects and what to check.</p></div>
+</div>
+<ul class="checklist">
+  <li>Lead with what people will <b>see</b> or <b>need to do</b>, not with the implementation.</li>
+  <li>Put <b>breaking changes first</b>, then new things, then improvements, then fixes.</li>
+  <li>Add <b>before-and-after</b> images for anything visual.</li>
+  <li>Link every item to its documentation, migration guide or pull request.</li>
+  <li>Thank contributors by name. Recognition builds contribution.</li>
+</ul>
+
+<h2>Channels: chat for attention, docs for record</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Channel</th><th>Purpose</th><th>Rules</th></tr></thead>
+  <tbody>
+    <tr><td>#ds-announcements</td><td>Releases, breaking changes, deprecations, roadmap updates</td><td>Only the system team posts; questions go to threads or #ds-help</td></tr>
+    <tr><td>#ds-help</td><td>Questions and support</td><td>Anyone posts; answered within a working day</td></tr>
+    <tr><td>Monthly email digest</td><td>A summary for people who don't live in chat, especially leaders</td><td>One email a month, short</td></tr>
+    <tr><td>Docs site: Updates</td><td>The permanent record of every change</td><td>Every announcement links here</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Separate channels by purpose. One channel for everything means important news scrolls away in minutes.</figcaption></figure>
+
+<h2>When to announce what</h2>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>What</th><th>When</th></tr></thead>
+  <tbody>
+    <tr><td>Minor and patch releases</td><td>On the regular release day, early in the week, never late on a Friday</td></tr>
+    <tr><td>Breaking change: first notice</td><td>At least one release cycle ahead, ideally 4–8 weeks, with the migration guide ready</td></tr>
+    <tr><td>Breaking change: reminders</td><td>One week before, and on release day</td></tr>
+    <tr><td>Deprecation</td><td>When marked deprecated; again at the halfway point; one week before removal</td></tr>
+    <tr><td>Monthly digest</td><td>First week of each month</td></tr>
+    <tr><td>Critical fixes</td><td>Immediately</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2>Five templates you can copy</h2>
+<p>Templates make announcements faster to write and easier to read, because readers learn where to look. Here are ours, filled in with examples. <span class="ev ev--ill">Illustration</span></p>
+<h3>1. Release announcement</h3>
+<figure class="w-fig"><div class="cell cell--light" style="font-size:15px">
+  <span class="k" style="color:var(--accent-strong)">#DS-ANNOUNCEMENTS · EVERY RELEASE</span>
+  <h3>Design system 4.6.0 is out · 14 October · Full notes →</h3>
+  <p><b style="color:var(--card-text)">New.</b> Tag component, with status colours and an optional remove button. Figma and code.</p>
+  <p><b style="color:var(--card-text)">Improved.</b> Select now supports grouped options. Date picker can show week numbers.</p>
+  <p><b style="color:var(--card-text)">Fixed.</b> Dialog returns focus to the button that opened it. Toast no longer overlaps the side menu on small screens.</p>
+  <p><b style="color:var(--card-text)">Do I need to do anything?</b> No. Safe to update. Thanks to Arjun (Payments) and Meera (Reports) for their contributions.</p>
+</div></figure>
+<h3>2. Breaking change notice</h3>
+<figure class="w-fig"><div class="cell cell--light" style="font-size:15px">
+  <span class="k" style="color:var(--accent-strong)">FIRST NOTICE · 4–8 WEEKS AHEAD</span>
+  <h3>BREAKING in 5.0 (planned 18 November): Button "kind" is renamed to "variant"</h3>
+  <p><b style="color:var(--card-text)">What's changing.</b> The <code>kind</code> prop will be removed. Use <code>variant</code>, which works the same way and is available now in 4.6.</p>
+  <p><b style="color:var(--card-text)">Why.</b> Every other component uses <code>variant</code>. One name across the library is easier to learn.</p>
+  <p><b style="color:var(--card-text)">Who's affected.</b> Around 600 uses in 7 products. Champions in those teams have the list.</p>
+  <p><b style="color:var(--card-text)">What to do.</b> Run the codemod (one command, about 2 minutes), or change <code>kind=</code> to <code>variant=</code>. Migration guide →</p>
+  <p><b style="color:var(--card-text)">Help.</b> Extra office hours on 4 and 11 November. Questions in #ds-help.</p>
+</div></figure>
+<h3>3. Deprecation notice</h3>
+<figure class="w-fig"><div class="cell cell--light" style="font-size:15px">
+  <span class="k" style="color:var(--accent-strong)">WHEN MARKED DEPRECATED</span>
+  <h3>Deprecated: Modal. Use Dialog instead. Removal in 6.0 (planned March)</h3>
+  <p><b style="color:var(--card-text)">What this means.</b> Modal still works and gets critical fixes until March. Please don't use it in new work.</p>
+  <p><b style="color:var(--card-text)">How to switch.</b> Most uses can be switched automatically with the codemod. Guide with before-and-after examples →</p>
+  <p><b style="color:var(--card-text)">Progress.</b> 142 uses remaining across 5 products. Live count on the docs site →</p>
+</div></figure>
+<h3>4. Token update</h3>
+<figure class="w-fig"><div class="cell cell--light" style="font-size:15px">
+  <span class="k" style="color:var(--accent-strong)">WHEN TOKEN VALUES OR NAMES CHANGE</span>
+  <h3>Token update in 4.7: secondary text is slightly darker</h3>
+  <p><b style="color:var(--card-text)">What's changing.</b> <code>color.text.secondary</code> now points to neutral 700 instead of neutral 600, raising contrast from 4.25:1 (below the 4.5:1 minimum) to 5.99:1 on the default background.</p>
+  <p><b style="color:var(--card-text)">What you'll see.</b> Captions, helper text and timestamps look slightly darker everywhere. Before and after →</p>
+  <p><b style="color:var(--card-text)">Do I need to do anything?</b> No code changes. If you've hard-coded the old grey anywhere, the lint rule will now flag it.</p>
+</div></figure>
+<h3>5. Monthly digest</h3>
+<figure class="w-fig"><div class="cell cell--light" style="font-size:15px">
+  <span class="k" style="color:var(--accent-strong)">EMAIL · FIRST WEEK OF THE MONTH</span>
+  <h3>Design system: October in 60 seconds</h3>
+  <p><b style="color:var(--card-text)">Shipped.</b> Tag component; grouped Select; 9 fixes. Two contributions from product teams.</p>
+  <p><b style="color:var(--card-text)">Coming up.</b> 5.0 on 18 November (one breaking change, codemod ready).</p>
+  <p><b style="color:var(--card-text)">Adoption.</b> 68% of UI built with the system, up 4 points this quarter.</p>
+  <p><b style="color:var(--card-text)">Help.</b> Office hours every Tuesday, 11:00 and 17:00.</p>
+</div></figure>
+
+<h2>Automate the boring part</h2>
+<p>Generating a draft of the release notes from merged changes saves hours each release. Label pull requests (<code>new</code>, <code>fix</code>, <code>breaking</code>), let a script or an AI assistant group them into a draft, then have a person rewrite each line for the reader and decide what's breaking. Never publish the draft unedited; the judgement is the valuable part. See <a href="/writing/ai-in-design-systems">AI in design systems</a>.</p>
+
+<h2>Common mistakes</h2>
+<div class="cols2">
+  <div class="cell"><h3>Announcing too much</h3><p>Posting every small change creates noise, people mute the channel, then miss the one breaking change. Bundle small changes into the release post.</p></div>
+  <div class="cell"><h3>Notes in one place only</h3><p>A message in chat scrolls away. Every announcement links to a permanent page on the docs site.</p></div>
+  <div class="cell"><h3>No "do I need to do anything?"</h3><p>The question every reader is asking. Answer it explicitly, even when the answer is "no".</p></div>
+  <div class="cell"><h3>Friday releases</h3><p>Release early in the week, so the team is around to help when things go wrong.</p></div>
+</div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Write for users: what changed, why, and what to do.</li>
+  <li>Breaking first; clear labels; before-and-after images; links to the record.</li>
+  <li>Chat for attention, docs for record, a monthly digest for leaders.</li>
+  <li>Announce breaking changes 4–8 weeks ahead, with reminders.</li>
+  <li>Automate the draft; keep a human for the judgement.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>How often should a design system release?</summary><div><p>Every two weeks is a common rhythm for minor and patch releases. Bundle breaking changes into a few major releases a year.</p></div></details>
+  <details><summary>Should design and code releases be announced together?</summary><div><p>Yes, ideally with the same version number, so "4.6" means the same thing in Figma and in code.</p></div></details>
+  <details><summary>Who should write release notes?</summary><div><p>The engineer on the release rota drafts them; a system designer or lead edits for clarity and decides what counts as breaking.</p></div></details>
+  <details><summary>Where should release notes live?</summary><div><p>On an Updates page in your documentation site, newest first, with each chat announcement linking to it.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://eightshapes.com/articles/versioning-design-systems" target="_blank" rel="noopener">Versioning Design Systems</a><span>Nathan Curtis, EightShapes.</span></li>
+  <li><a href="/writing/design-system-versioning">Design system versioning</a><span>What counts as breaking, and deprecation.</span></li>
+  <li><a href="/writing/design-system-documentation">Design system documentation</a><span>Where the permanent record lives.</span></li>
+</ul>

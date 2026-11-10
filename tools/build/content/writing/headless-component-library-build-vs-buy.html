@@ -1,0 +1,90 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>There are three ways to get components: <b>build your own</b> (full control, slowest), use a <b>headless library</b> (tested behaviour and accessibility, your own look) or <b>theme a fully styled library</b> (fastest start, hardest to make yours). For most product companies we recommend a mix: <b>build simple components yourself</b> (buttons, badges, cards) and <b>use a headless library for complex interactive ones</b> (menus, dialogs, comboboxes, date pickers), because the behaviour is the hard part. Either way, keep your tokens and your component API your own, so the choice stays reversible.</p>
+  <ul>
+    <li>A headless component handles keyboard, focus and screen reader support but has no visual style.</li>
+    <li>Wrap whatever you borrow in your own components, with your own prop names.</li>
+    <li>A fully styled library suits early-stage products and internal tools.</li>
+  </ul>
+</div>
+
+<h2>Why this decision matters</h2>
+<p>Building accessible behaviour for complex components is genuinely hard. A combobox needs the right ARIA roles, focus management, keyboard support for arrow keys, Home and End, typing to search, and announcements for screen readers. The W3C's ARIA Authoring Practices Guide documents these patterns, and it runs to dozens of pages. Getting them right from scratch takes months; getting them wrong ships accessibility bugs to every product that uses the system.</p>
+<p>At the same time, your design system has to look and feel like your product, and its API has to suit your teams. The decision is how to get both.</p>
+<div class="callout callout--term"><span class="callout-k">New word</span><p>A <b>headless component</b> handles behaviour (keyboard use, focus, accessibility, state) but comes with no visual styling, so you apply your own with your tokens. Radix Primitives and React Aria are well-known examples. It's like buying a well-engineered chassis and designing your own body for it.</p></div>
+
+<h2>The three approaches</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Approach</th><th>Good for</th><th>Watch out for</th><th>Speed</th></tr></thead>
+  <tbody>
+    <tr><td>Build your own</td><td>Full control; exactly your needs; no outside dependency</td><td>Slowest; accessible behaviour for complex components is hard to get right</td><td>Slow</td></tr>
+    <tr><td>Headless library + your tokens</td><td>Correct, accessible behaviour out of the box; your own look</td><td>You depend on the library's updates and conventions</td><td>Fast</td></tr>
+    <tr><td>Fully styled library, themed</td><td>Fastest start; early-stage products; internal tools</td><td>Hard to make it truly yours; heavy theming can be harder than building</td><td>Fastest</td></tr>
+  </tbody>
+</table></div></figure>
+
+<h2>What we usually recommend</h2>
+<p>Match the approach to the component's <a href="/writing/component-complexity">complexity level</a>:</p>
+<div class="cols4">
+  <div class="cell"><span class="k">LEVEL 1 · ELEMENTS</span><h4>Build</h4><p>Badge, avatar, divider, icon, tag. Mostly visual; quick to build; you'll want full control.</p></div>
+  <div class="cell"><span class="k">LEVEL 2 · CONTROLS</span><h4>Build, carefully</h4><p>Button, text field, checkbox, radio, switch. Native HTML elements do most of the accessibility work if you use them.</p></div>
+  <div class="cell cell--accent"><span class="k">LEVEL 3 · COMPOSITES</span><h4>Borrow behaviour</h4><p>Select, menu, tabs, dialog, combobox, date picker. Use a headless library; style it with your tokens.</p></div>
+  <div class="cell"><span class="k">LEVEL 4 · SYSTEMS</span><h4>Evaluate case by case</h4><p>Data tables, rich text, charts. Often a specialised library (headless table, editor framework) wrapped in your API.</p></div>
+</div>
+
+<h2>Wrap what you borrow</h2>
+<p>Whatever you use underneath, product teams should import <b>your</b> components with <b>your</b> props, never the library directly. That gives you three things: a consistent API across built and borrowed components, the freedom to swap the underlying library later, and one place to enforce your tokens and accessibility rules.</p>
+<pre><code><span class="c">// Product teams use the system's Dialog…</span>
+<span class="k">import</span> { Dialog } <span class="k">from</span> <span class="s">"@acme/ui"</span>;
+
+&lt;Dialog open={open} onOpenChange={setOpen} title=<span class="s">"Delete invoice?"</span>&gt;…&lt;/Dialog&gt;
+
+<span class="c">// …which wraps a headless primitive, styled with semantic tokens.
+// Swapping the primitive later doesn't change a single product screen.</span></code></pre>
+<p>Keep your prop names consistent with the rest of your library (<code>variant</code>, <code>size</code>, <code>open</code>, <code>onOpenChange</code>) even where the underlying library uses different ones. See <a href="/writing/component-props-best-practices">component props best practices</a>.</p>
+
+<h2>How to evaluate a library</h2>
+<ul class="checklist">
+  <li><b>Accessibility:</b> does it follow the ARIA Authoring Practices patterns? Test with a keyboard and a screen reader, not just the docs.</li>
+  <li><b>Styling model:</b> can you apply your own tokens cleanly, without fighting built-in styles?</li>
+  <li><b>Framework fit:</b> does it match your framework and rendering approach (server rendering, React Native, web components)?</li>
+  <li><b>Maintenance:</b> release cadence, open issues, who maintains it and how it's funded.</li>
+  <li><b>Breaking changes:</b> how often has it had major releases, and how painful were they?</li>
+  <li><b>Escape hatches:</b> can you control state yourself (controlled props) and compose parts (slots), or is it all-or-nothing?</li>
+  <li><b>Bundle size and licence</b> fit your product's constraints.</li>
+</ul>
+
+<h2>When to theme a fully styled library</h2>
+<p>A fully styled library, themed with your tokens, is often the right answer for an early-stage product still finding its shape, or for internal tools where speed matters more than distinctiveness. The cost comes later: when you need your product to look truly like yours, heavy overrides can be harder than building. Plan to re-evaluate when the product settles or a brand refresh is coming.</p>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>At CARS24 the internal tools system set up tokens and Storybook with engineers new to design systems, and reached 93 component sets in a 3–4 month runway to a beta for leadership. <a href="/work/cars24-internal-tools">Read the case study</a>.</p></div>
+
+<h2>Keep the decision reversible</h2>
+<p>Libraries come and go. Two habits keep you free to change your mind:</p>
+<div class="cols2">
+  <div class="cell"><h3>Own your tokens</h3><p>Store them in the vendor-neutral DTCG format in your own repository. Styles come from your tokens, not the library's theme object.</p></div>
+  <div class="cell"><h3>Own your API</h3><p>Product teams only ever import your components. The library is an implementation detail behind them.</p></div>
+</div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Build simple components; borrow behaviour for complex interactive ones.</li>
+  <li>Headless libraries give you tested accessibility with your own look.</li>
+  <li>Fully styled libraries suit early-stage products and internal tools.</li>
+  <li>Wrap everything in your own components and props.</li>
+  <li>Own your tokens and API so you can swap libraries later.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>What is a headless UI library?</summary><div><p>A library of components that provide behaviour and accessibility (keyboard, focus, ARIA, state) without visual styles, so you can style them with your own design tokens.</p></div></details>
+  <details><summary>Is it cheating to use a headless library in a design system?</summary><div><p>No. Behaviour is the hardest and least visible part of complex components. Borrowing well-tested behaviour lets your team spend its time on what's specific to your product.</p></div></details>
+  <details><summary>Should product teams import the library directly?</summary><div><p>No. Wrap it in your own components with your own props, so you can enforce tokens and accessibility and change the library later.</p></div></details>
+  <details><summary>What about web components?</summary><div><p>Web components work across frameworks, which suits organisations with several front-end stacks. The same rule applies: own the API and style with your tokens.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://www.w3.org/WAI/ARIA/apg/" target="_blank" rel="noopener">ARIA Authoring Practices Guide</a><span>W3C. The behaviour patterns to test against.</span></li>
+  <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_components" target="_blank" rel="noopener">Web Components</a><span>MDN.</span></li>
+  <li><a href="/writing/which-components-to-build-first">Which components to build first</a><span>The prioritisation method.</span></li>
+</ul>

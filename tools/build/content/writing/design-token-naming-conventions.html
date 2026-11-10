@@ -1,0 +1,123 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>Good design token names follow one structure that people can guess: <b>category → concept → variant → state</b>, from general to specific, using the same words everywhere. Primitives are named by <b>what they are</b> (<code>color.blue.600</code>, <code>space.4</code>); semantic tokens by <b>the job they do</b> (<code>color.text.secondary</code>, <code>color.action.primary.bg-hover</code>); component tokens by <b>where they're used</b> (<code>button.primary.container.background</code>).</p>
+  <ul>
+    <li>Name by job, not by appearance. Appearance changes; jobs don't.</li>
+    <li>One word per idea across the whole system: never <code>bg</code> in one place and <code>background</code> in another.</li>
+    <li>Test names on a newcomer: if they can guess a token without looking, the structure works.</li>
+  </ul>
+</div>
+
+<h2>Why naming matters more than it looks</h2>
+<p>Token names are an interface. Designers pick them from a variable list in Figma; engineers type them hundreds of times a day. Every inconsistency costs a lookup, and every lookup is a chance to pick the wrong one. A good naming structure means people can <b>guess</b> the right token from what they're trying to do.</p>
+<p>Names also carry the logic of the system. If a token is called <code>grey-600</code>, nobody knows whether it's for text, borders or icons, so nobody can change it safely. If it's called <code>color.text.secondary</code>, its job is clear, and dark mode can point it somewhere else without anyone checking every use. See <a href="/writing/design-tokens">design tokens: the complete guide</a> for the tiers behind this.</p>
+
+<h2>The parts of a token name</h2>
+<p>Most naming structures are built from the same handful of parts, read from general to specific. Not every token uses every part.</p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Namespace</b><span>Optional system prefix: <code>l1</code></span></div><i>·</i>
+    <div class="hi"><b>Category</b><span>What kind of value: <code style="background:rgb(0 0 0 / .15)">color</code>, <code style="background:rgb(0 0 0 / .15)">space</code>, <code style="background:rgb(0 0 0 / .15)">radius</code></span></div><i>·</i>
+    <div><b>Concept</b><span>The job or family: <code>text</code>, <code>action</code>, <code>blue</code></span></div><i>·</i>
+    <div><b>Variant</b><span>Which one: <code>primary</code>, <code>secondary</code>, <code>danger</code></span></div><i>·</i>
+    <div><b>Property</b><span>Which part: <code>bg</code>, <code>border</code>, <code>text</code></span></div><i>·</i>
+    <div><b>State</b><span>When: <code>hover</code>, <code>pressed</code>, <code>disabled</code></span></div>
+  </div>
+  <figcaption>The parts of a token name, general to specific. <code>color.action.primary.bg.hover</code> uses five of them.</figcaption>
+</figure>
+<p>Two decisions shape everything else. First, <b>the separator</b>: dots in the token source (<code>color.text.primary</code>) map naturally to nested JSON groups in the DTCG format and to slashes in Figma (<code>color/text/primary</code>) and hyphens in CSS (<code>--color-text-primary</code>). Pick one source form and let the build translate it. Second, <b>the order</b>: general first, so related tokens sort together in every list.</p>
+
+<h2>Naming primitives: what they are</h2>
+<p>Primitives hold raw values. Name them by what they are, with numeric steps for scales so new steps can slot in without renaming.</p>
+<pre><code>color.blue.50 … color.blue.950      <span class="c">// 11 steps on one lightness curve</span>
+color.neutral.50 … color.neutral.950
+space.0.5  space.1  space.2 … space.24   <span class="c">// count of 4px units: space.6 = 24px</span>
+radius.0  radius.1  radius.2  radius.full
+font.size.100 … font.size.900
+duration.fast  duration.base  duration.slow</code></pre>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Scale style</th><th>Example</th><th>Good</th><th>Watch out</th></tr></thead>
+  <tbody>
+    <tr><td>Numeric steps</td><td><code>blue.600</code>, <code>space.6</code></td><td>Sortable; room to add steps; maths in the name</td><td>Changing the base unit renames everything</td></tr>
+    <tr><td>Multiplier × 100</td><td><code>space.300</code> (Atlassian)</td><td>Room for in-between steps</td><td>Less obvious at a glance</td></tr>
+    <tr><td>T-shirt sizes</td><td><code>space.md</code></td><td>Friendly</td><td>Runs out (xxxl?); hard to add a size in between</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2>Naming semantic tokens: the job they do</h2>
+<p>This is the tier that needs the most care, because it's the one components and product teams actually use. Name every token by the job it does in the interface.</p>
+<pre><code>color.bg.canvas            color.bg.surface          color.bg.subtle
+color.text.primary         color.text.secondary      color.text.disabled     color.text.link
+color.border.default       color.border.strong       color.focus.ring
+color.action.primary.bg    color.action.primary.bg-hover    color.action.primary.text
+color.feedback.danger.bg   color.feedback.danger.text       color.feedback.success.bg
+space.inset.md   space.stack.lg   space.inline.sm   <span class="c">// inset, stack and inline space</span></code></pre>
+<div class="cols2">
+  <div class="cell"><span class="k">GOOD</span><h3>Named by job</h3><p><code>color.text.secondary</code> survives a rebrand, a dark theme and a palette change. Its meaning never moves.</p></div>
+  <div class="cell"><span class="k" style="color:var(--warn)">AVOID</span><h3>Named by appearance</h3><p><code>color.grey-dark</code>, <code>color.brand-orange</code>. The first dark-mode or rebrand change makes the name a lie.</p></div>
+</div>
+
+<h2>Naming component tokens: where they're used</h2>
+<p>If you use a component tier, follow the component's anatomy so token names, documentation and Figma layers all match:</p>
+<pre><code><span class="c">// {component}.{variant}.{part}.{property}.{state}</span>
+button.primary.container.background          <span class="c">// default state left out</span>
+button.primary.container.background.hover
+button.primary.label.color
+input.container.border.error                 <span class="c">// no variant needed</span>
+table.row.background.selected</code></pre>
+<p>Leave out levels that don't apply rather than inventing filler like <code>default</code> or <code>base</code>. And use the same property words everywhere: if one component says <code>background</code>, none should say <code>bg</code> or <code>fill</code>.</p>
+
+<h2>A naming vocabulary</h2>
+<p>Write down the allowed words for each part and stick to them. This short list prevents most naming drift:</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Part</th><th>Use</th><th>Don't mix in</th></tr></thead>
+  <tbody>
+    <tr><td>Emphasis</td><td><code>primary</code>, <code>secondary</code>, <code>tertiary</code></td><td><code>main</code>, <code>alt</code>, <code>default</code></td></tr>
+    <tr><td>Tone</td><td><code>info</code>, <code>success</code>, <code>warning</code>, <code>danger</code></td><td><code>error</code> in one place and <code>critical</code> in another</td></tr>
+    <tr><td>Property</td><td><code>bg</code>, <code>text</code>, <code>border</code>, <code>icon</code></td><td><code>background</code>, <code>fg</code>, <code>stroke</code>, <code>fill</code></td></tr>
+    <tr><td>State</td><td><code>hover</code>, <code>pressed</code>, <code>focus</code>, <code>disabled</code>, <code>selected</code></td><td><code>active</code> (it means different things on different platforms)</td></tr>
+    <tr><td>Size</td><td><code>sm</code>, <code>md</code>, <code>lg</code></td><td><code>small</code>, <code>s</code>, <code>regular</code></td></tr>
+  </tbody>
+</table></div>
+<figcaption>An example vocabulary. The specific words matter less than using the same ones everywhere.</figcaption></figure>
+
+<h2>Common naming mistakes</h2>
+<div class="cols2">
+  <div class="cell"><h3>Values in semantic names</h3><p><code>color.text.grey-700</code> mixes tiers. If the value changes, the name lies.</p></div>
+  <div class="cell"><h3>Screen-specific semantic tokens</h3><p><code>color.checkout.header.bg</code> is a one-off, not a shared job. It belongs in a component or product layer, if anywhere.</p></div>
+  <div class="cell"><h3>Brand names in shared tokens</h3><p><code>color.acme.primary</code> in a multi-brand system defeats theming. Brands change values, not names.</p></div>
+  <div class="cell"><h3>Abbreviation drift</h3><p><code>btn</code>, <code>button</code> and <code>b</code> in the same system. Pick full words or one fixed abbreviation list.</p></div>
+</div>
+
+<h2>Test and enforce your names</h2>
+<ul class="checklist">
+  <li><b>The newcomer test:</b> show a new designer or engineer a component's anatomy and ask them to guess a token. If most guess right, the structure works.</li>
+  <li><b>A lint rule</b> that checks token names against your vocabulary and structure in every pull request.</li>
+  <li><b>Names in the decision log:</b> renaming a token is a breaking change, so new names deserve a short review. See <a href="/writing/design-system-versioning">versioning</a>.</li>
+</ul>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>The <a href="/lab">Lab</a> has a free token name linter that checks a list of names against rules like these and suggests fixes. At CARS24, a four-layer token structure carried one palette across 10+ products in three countries. <a href="/work/cars24-tokens">Read the case study</a>.</p></div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>One structure, general to specific: category, concept, variant, property, state.</li>
+  <li>Primitives by what they are; semantic tokens by job; component tokens by anatomy.</li>
+  <li>A written vocabulary, one word per idea, enforced by a lint rule.</li>
+  <li>Never put values, screens or brand names in shared semantic tokens.</li>
+  <li>Test names on newcomers; treat renames as breaking changes.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Should token names use dots, slashes or hyphens?</summary><div><p>Store them with dots (or nested groups) in the source file, which maps to DTCG JSON, and let your build output slashes for Figma variables and hyphens for CSS custom properties.</p></div></details>
+  <details><summary>Should I prefix tokens with the system name?</summary><div><p>Only if your tokens will live alongside other systems' variables, for example in CSS on a page that also loads a third-party widget. A short prefix avoids collisions.</p></div></details>
+  <details><summary>How do I name states like hover?</summary><div><p>Put the state last: <code>color.action.primary.bg-hover</code> or <code>…bg.hover</code>. Leave the default state out of the name.</p></div></details>
+  <details><summary>What about tokens for dark mode?</summary><div><p>Don't create separate dark names. The same semantic token points to a different primitive in dark mode. That's the point of semantic names.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://www.designtokens.org/tr/2025.10/format/" target="_blank" rel="noopener">Design Tokens Format Module 2025.10</a><span>The DTCG specification, including groups and aliases.</span></li>
+  <li><a href="https://atlassian.design/foundations/tokens/design-tokens" target="_blank" rel="noopener">Atlassian design tokens</a><span>A well-documented public naming structure.</span></li>
+  <li><a href="https://spectrum.adobe.com/page/design-tokens/" target="_blank" rel="noopener">Adobe Spectrum design tokens</a><span>Another mature example.</span></li>
+  <li><a href="/writing/design-tokens">Design tokens: the complete guide</a><span>The three tiers and how tokens reach code.</span></li>
+</ul>

@@ -2856,3 +2856,26 @@ figure { margin: 0; }
 .ed-sec-h { font-size: clamp(26px, 2.6vw, 32px); }
 .ed-body > h2 { grid-column: 1 / -1; }
 .ed-body > h2 { max-width: none; }
+/* Figures added with articles 16–30 */
+.tr { display: grid; gap: 14px; }
+.tr-row { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 16px; align-items: end; padding-bottom: 12px; border-bottom: 1px solid var(--rule); }
+.tr-row:last-child { border-bottom: 0; padding-bottom: 0; }
+.tr-row p { display: grid; font-size: 14px; } .tr-row p span { color: var(--text-muted); font-size: 13px; }
+.tr-sizes { display: flex; align-items: baseline; gap: 18px; overflow-x: auto; }
+.tr-s { line-height: 1; font-weight: 500; letter-spacing: -0.02em; display: inline-grid; justify-items: start; gap: 6px; }
+.tr-s em { font-style: normal; font-size: 11px; color: var(--text-muted); letter-spacing: 0; font-weight: 400; }
+@media (max-width: 600px) { .tr-row { grid-template-columns: 1fr; } }
+.cm table { font-size: 12px; min-width: 560px; }
+.cm th, .cm td { text-align: center !important; padding: 6px 4px !important; font-variant-numeric: tabular-nums; }
+.cm td { font-weight: 500 !important; border-bottom: 1px solid var(--bg-raised) !important; }
+.cm-aa { background: var(--good-bg); color: var(--good); } .cm-lg { background: var(--info-bg); color: var(--info); } .cm-no { color: var(--text-muted); } .cm-x { color: var(--rule); }
+.cm-key { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; font-size: 12px; }
+.cm-key span { padding: 3px 8px; border-radius: 999px; }
+.cm-key .cm-no { border: 1px solid var(--rule); }
+.ss { display: grid; gap: 6px; }
+.ss-r { display: grid; grid-template-columns: 90px minmax(0, 1fr) 48px; gap: 12px; align-items: center; font-size: 13px; }
+.ss-r i { display: block; height: 14px; border-radius: 2px; background: var(--accent); max-width: 100%; }
+.ss-r span { color: var(--text-muted); text-align: right; font-variant-numeric: tabular-nums; }
+.stairs--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.stairs--4 > div:nth-child(1) { min-height: 170px; } .stairs--4 > div:nth-child(2) { min-height: 220px; } .stairs--4 > div:nth-child(3) { min-height: 270px; } .stairs--4 > div:nth-child(4) { min-height: 320px; }
+@media (max-width: 760px) { .stairs--4 { grid-template-columns: 1fr; } }

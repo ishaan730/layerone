@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spacing System Design: 4px vs 8px Grid and Scale | Layer One</title>
+<meta name="description" content="How to build a spacing system: choosing a 4px or 8px base, a spacing scale, inset, stack and inline space, density modes and responsive spacing.">
+<meta property="og:title" content="Spacing System Design: 4px vs 8px Grid and Scale | Layer One">
+<meta property="og:description" content="How to build a spacing system: choosing a 4px or 8px base, a spacing scale, inset, stack and inline space, density modes and responsive spacing.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-11">
+<meta property="article:modified_time" content="2026-11-11">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="Foundations & tokens">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/spacing-system-4px-vs-8px.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Spacing System Design: 4px vs 8px Grid and Scale | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css?v=35a137d5">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Spacing System Design: 4px vs 8px Grid and Scale", "description": "How to build a spacing system: choosing a 4px or 8px base, a spacing scale, inset, stack and inline space, density modes and responsive spacing.", "image": "https://www.layerone.co.in/assets/images/writing/spacing-system-4px-vs-8px.jpg", "datePublished": "2026-11-11", "dateModified": "2026-11-11", "mainEntityOfPage": "https://www.layerone.co.in/writing/spacing-system-4px-vs-8px", "wordCount": 1541, "articleSection": "Foundations & tokens", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "Foundations & tokens", "item": "https://www.layerone.co.in/writing/topics/foundations-and-tokens"}, {"@type": "ListItem", "position": 3, "name": "Spacing systems: 4px vs 8px, the scale, and how to use it", "item": "https://www.layerone.co.in/writing/spacing-system-4px-vs-8px"}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/spacing-system-4px-vs-8px">
+<meta property="og:url" content="https://www.layerone.co.in/writing/spacing-system-4px-vs-8px">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Spacing System Design: 4px vs 8px Grid and Scale | Layer One">
+<meta name="twitter:description" content="How to build a spacing system: choosing a 4px or 8px base, a spacing scale, inset, stack and inline space, density modes and responsive spacing.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/spacing-system-4px-vs-8px.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<div class="shell ed-shell"><aside class="ed-rail" aria-label="Writing"><a class="ed-back" href="/writing">← All writing</a><div class="ed-rail-sec"><p class="ed-rail-h">On this page</p><nav class="ed-toc" aria-label="On this page"><ol><li><a href="#why-spacing-matters-so-much">Why spacing matters so much</a></li><li><a href="#4px-vs-8px-choosing-a-base-unit">4px vs 8px: choosing a base unit</a></li><li><a href="#the-spacing-scale">The spacing scale</a></li><li><a href="#inset-stack-and-inline-giving-space-a-job">Inset, stack and inline: giving space a job</a></li><li><a href="#compact-and-comfortable-density">Compact and comfortable: density</a></li><li><a href="#spacing-on-different-screen-sizes">Spacing on different screen sizes</a></li><li><a href="#common-spacing-mistakes">Common spacing mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></nav></div><div class="ed-rail-sec"><p class="ed-rail-h">Foundations in depth</p><ol class="ed-steps"><li aria-current="step"><a href="/writing/spacing-system-4px-vs-8px">Spacing systems</a></li><li><a href="/writing/type-scale-design-system">How to build a type scale for a design system</a></li><li><a href="/writing/color-contrast-design-system">Colour contrast in design systems</a></li></ol></div><div class="ed-rail-foot"><button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="ed-theme-l">Light reading</span><span class="ed-theme-d">Dark reading</span></button></div></aside><main id="main" class="content ed-main"><article class="ed-article">
+  <header class="ed-head">
+    <p class="ed-kicker"><a href="/writing/topics/foundations-and-tokens">Foundations & tokens</a><span>Part 1 of 3 · <a href="/writing#foundations-in-depth">Foundations in depth</a></span></p>
+    <h1 class="ed-title">Spacing systems: 4px vs 8px, the scale, and how to use it</h1>
+    <p class="ed-dek">Spacing is the foundation people notice least and feel most. Choose a base unit, build a short scale, and give space a few clear jobs, and screens stop feeling slightly off. How to choose between 4px and 8px, and how to use the scale.</p>
+    <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>7 min read · 11 November 2026</span></span></p>
+  </header>
+  <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>Why spacing matters so much</b></summary><ol><li><a href="#why-spacing-matters-so-much">Why spacing matters so much</a></li><li><a href="#4px-vs-8px-choosing-a-base-unit">4px vs 8px: choosing a base unit</a></li><li><a href="#the-spacing-scale">The spacing scale</a></li><li><a href="#inset-stack-and-inline-giving-space-a-job">Inset, stack and inline: giving space a job</a></li><li><a href="#compact-and-comfortable-density">Compact and comfortable: density</a></li><li><a href="#spacing-on-different-screen-sizes">Spacing on different screen sizes</a></li><li><a href="#common-spacing-mistakes">Common spacing mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="ed-theme-l">Light reading</span><span class="ed-theme-d">Dark reading</span></button></details>
+  <figure class="ed-cover"><img src="../assets/images/writing/spacing-system-4px-vs-8px.w1200.webp" alt="" width="1600" height="900" srcset="../assets/images/writing/spacing-system-4px-vs-8px.w480.webp 480w, ../assets/images/writing/spacing-system-4px-vs-8px.w800.webp 800w, ../assets/images/writing/spacing-system-4px-vs-8px.w1200.webp 1200w, ../assets/images/writing/spacing-system-4px-vs-8px.jpg 1600w" sizes="(max-width: 1280px) 100vw, 1240px" decoding="async"></figure>
+  <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>A <b>spacing system</b> is one small base unit and a short scale of multiples that everyone picks from. Use a <b>4px base with an 8px rhythm</b>: every value is a multiple of 4, and most of the values people reach for (8, 16, 24, 32) are multiples of 8. You get the precision small components need without "any number will do". Then give space clear jobs: <b>inset</b> (padding inside), <b>stack</b> (between things vertically) and <b>inline</b> (between things side by side), with space inside a group always clearly smaller than space between groups.</p>
+  <ul>
+    <li>Jump at least two steps on the scale between levels (8 → 16 → 24 or 32), so grouping stays obvious.</li>
+    <li>Component spacing changes with density; layout spacing changes with screen size.</li>
+    <li>Set line heights on the same 4px grid, so text and boxes share one rhythm.</li>
+  </ul>
+</div>
+
+<h2 id="why-spacing-matters-so-much">Why spacing matters so much</h2>
+<p>Space does three jobs on a screen. It <b>groups</b> things: we automatically read items that sit close together as belonging together. It shows <b>importance</b>: things with more room around them feel more important. And it creates <b>rhythm</b>: a repeating beat that makes a page feel calm and intentional.</p>
+<p>When spacing is chosen screen by screen, each value can be defended on its own, but together they're noise: 13 pixels here, 14 there, 22 somewhere else. People don't notice the numbers. They notice that the product feels a bit untidy, and they trust it a little less.</p>
+<figure class="w-fig">
+  <div class="cols2">
+    <div class="cell"><span class="k" style="color:var(--warn)">SPACED BY EYE · 7 VALUES</span><p style="font-size:14px;line-height:1.9">Title <b style="color:var(--text)">5</b> · Description <b style="color:var(--text)">22</b> · Label <b style="color:var(--text)">7</b> · Field <b style="color:var(--text)">13</b> · Label <b style="color:var(--text)">9</b> · Field <b style="color:var(--text)">19</b> · Button</p><p>The gap between a label and its field (7) is almost the same as the gap between fields (13), so labels seem to float.</p></div>
+    <div class="cell"><span class="k" style="color:var(--good)">SPACED FROM A SCALE · 3 VALUES</span><p style="font-size:14px;line-height:1.9">Title <b style="color:var(--text)">4</b> · Description <b style="color:var(--text)">24</b> · Label <b style="color:var(--text)">4</b> · Field <b style="color:var(--text)">16</b> · Label <b style="color:var(--text)">4</b> · Field <b style="color:var(--text)">24</b> · Button</p><p>Three relationships, three values: belongs to (4), next item (16), new section (24).</p></div>
+  </div>
+  <figcaption>The same form, spaced two ways. Fewer values, used deliberately, make the structure readable.</figcaption>
+</figure>
+
+<h2 id="4px-vs-8px-choosing-a-base-unit">4px vs 8px: choosing a base unit</h2>
+<p>A spacing system starts with one small number, the base unit, and every value is a multiple of it. Think of it like the smallest Lego stud: everything you build is a whole number of studs.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">8PX BASE</span><h3>Fewer, clearer choices</h3><p>Easy to think about, and most screen sizes divide neatly by 8. Atlassian's design system builds its spacing on an 8px base, with a few smaller steps for tight spots.</p></div>
+  <div class="cell"><span class="k">4PX BASE</span><h3>Finer control for busy screens</h3><p>Allows 12, 20 and 28, which matter for small components, icons and line spacing. Google's Material uses a 4dp grid for text and icons alongside an 8dp grid for layout.</p></div>
+</div>
+<p>Our recommendation is the combination: <b>a 4px base with an 8px rhythm.</b> Allow every multiple of 4 in the scale, but steer people to multiples of 8 for most layout decisions. In practice, the 4px steps get used inside components (an icon gap, a badge's padding, line heights) and the 8px steps everywhere else.</p>
+
+<h2 id="the-spacing-scale">The spacing scale</h2>
+<p>The scale is the fixed list of values people can choose from. Give it lots of options at the small end, where 4px is a visible difference, and only a few at the large end, where nobody can tell 64 from 68.</p>
+<figure class="w-fig "><div class="ss"><div class="ss-r"><code>space-0.5</code><i style="width:2px"></i><span>2px</span></div><div class="ss-r"><code>space-1</code><i style="width:4px"></i><span>4px</span></div><div class="ss-r"><code>space-2</code><i style="width:8px"></i><span>8px</span></div><div class="ss-r"><code>space-3</code><i style="width:12px"></i><span>12px</span></div><div class="ss-r"><code>space-4</code><i style="width:16px"></i><span>16px</span></div><div class="ss-r"><code>space-5</code><i style="width:20px"></i><span>20px</span></div><div class="ss-r"><code>space-6</code><i style="width:24px"></i><span>24px</span></div><div class="ss-r"><code>space-8</code><i style="width:32px"></i><span>32px</span></div><div class="ss-r"><code>space-10</code><i style="width:40px"></i><span>40px</span></div><div class="ss-r"><code>space-12</code><i style="width:48px"></i><span>48px</span></div><div class="ss-r"><code>space-16</code><i style="width:64px"></i><span>64px</span></div><div class="ss-r"><code>space-20</code><i style="width:80px"></i><span>80px</span></div><div class="ss-r"><code>space-24</code><i style="width:96px"></i><span>96px</span></div></div><figcaption>A spacing scale on a 4px base: thirteen values from 2 to 96px, drawn at actual size. Each name is the number of 4px units it contains, so space-6 is 24px. Plenty of choice at the small end, where 4px is visible; only a few steps at the large end.</figcaption></figure>
+<p>Naming each value by how many base units it contains (<code>space-6</code> = 6 × 4 = 24px) means anyone who knows the name knows the size. Other styles work too (Atlassian's <code>space.300</code>, Carbon's <code>spacing-06</code>, T-shirt sizes); choose the one your engineers can read without a lookup table. More on naming in <a href="/writing/design-token-naming-conventions">design token naming conventions</a>.</p>
+
+<h2 id="inset-stack-and-inline-giving-space-a-job">Inset, stack and inline: giving space a job</h2>
+<p>Nathan Curtis gave three kinds of space names that have stuck. Naming the kind of space, not just the amount, makes specs and code reviews much clearer.</p>
+<div class="cols3">
+  <div class="cell"><span class="k">INSET</span><h3>Padding inside</h3><p>The space between a box's edge and its content: inside a card, a button, an input. Usually equal on all sides, or a little less vertically.</p></div>
+  <div class="cell"><span class="k">STACK</span><h3>Top to bottom</h3><p>Space between things stacked vertically: a label and its field, one field and the next, one section and the next.</p></div>
+  <div class="cell"><span class="k">INLINE</span><h3>Side by side</h3><p>Space between things in a row: two buttons, an icon and its label, chips in a list.</p></div>
+</div>
+<p>Then use smaller values inside things and larger values between bigger groups:</p>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Where the space is</th><th>Typical values</th><th>Examples</th></tr></thead>
+  <tbody>
+    <tr><td>Inside a component</td><td>4–16px</td><td>Icon to label; padding inside a button or input</td></tr>
+    <tr><td>Between related items</td><td>8–16px</td><td>A label and its field; one field and the next; list items</td></tr>
+    <tr><td>Between groups</td><td>24–32px</td><td>Sections of a form; gaps between cards</td></tr>
+    <tr><td>Between page sections</td><td>40–64px</td><td>Major sections of a page</td></tr>
+    <tr><td>Page edges</td><td>16–80px</td><td>Grows with screen size</td></tr>
+  </tbody>
+</table></div></div>
+<div class="callout callout--tip"><span class="callout-k">The golden rule</span><p>Space within a group must always be clearly smaller than space between groups. A simple way to guarantee it: jump at least two steps on the scale between levels, 8 → 16 → 24 or 32. That keeps relationships obvious even when different designers make their own sensible choices.</p></div>
+
+<h2 id="compact-and-comfortable-density">Compact and comfortable: density</h2>
+<p>An accountant at month-end wants to see 200 rows without scrolling. A small business owner checking one invoice on a Sunday wants things roomy and easy to tap. Good systems serve both by switching a few spacing values, not by building separate components.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Setting</th><th class="r">Compact</th><th class="r">Default</th><th class="r">Comfortable</th></tr></thead>
+  <tbody>
+    <tr><td>Height of buttons and inputs</td><td class="r">32px</td><td class="r">40px</td><td class="r">48px</td></tr>
+    <tr><td>Padding inside buttons and inputs</td><td class="r">8px</td><td class="r">12px</td><td class="r">16px</td></tr>
+    <tr><td>Padding inside table rows</td><td class="r">4px</td><td class="r">8px</td><td class="r">12px</td></tr>
+    <tr><td>Space between form fields</td><td class="r">12px</td><td class="r">16px</td><td class="r">24px</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Three density modes from the same scale. The compact table fits 50% more rows in the same space as the comfortable one.</figcaption></figure>
+<p>There's a floor to how compact you can go. WCAG 2.2 requires targets of at least 24 by 24 pixels (2.5.8), with some exceptions. Apple recommends at least 44 by 44 points for touch, and Material recommends 48 by 48. So compact modes are for mouse-and-keyboard use on desktop; don't make them the default on phones.</p>
+
+<h2 id="spacing-on-different-screen-sizes">Spacing on different screen sizes</h2>
+<p>A simple principle: <b>spacing inside components shouldn't change with screen size</b> (a button has the same padding on a phone and a laptop), but <b>layout spacing should</b> (page margins and section gaps grow when there's room). Build that split into your tokens:</p>
+<pre><code><span class="c">/* The scale itself never changes */</span>
+--space-2: 8px;  --space-4: 16px;  --space-6: 24px;  --space-10: 40px;  --space-16: 64px;
+
+<span class="c">/* Layout spacing grows on bigger screens */</span>
+--space-page-margin: var(--space-4);      <span class="c">/* 16px on phones */</span>
+--space-section-gap: var(--space-10);
+<span class="k">@media (min-width: 840px)</span> {
+  --space-page-margin: var(--space-6);    <span class="c">/* 24px on larger screens */</span>
+  --space-section-gap: var(--space-16);
+}
+
+<span class="c">/* Component spacing changes with density, not screen size */</span>
+--space-control-inset-x: var(--space-3);</code></pre>
+
+<h2 id="common-spacing-mistakes">Common spacing mistakes</h2>
+<div class="cols2">
+  <div class="cell"><h3>"Just this once" values</h3><p>Each one seems harmless. Fifty of them add up to a second, invisible spacing system. Add a lint rule for values that aren't on the scale.</p></div>
+  <div class="cell"><h3>The same spacing everywhere</h3><p>Using 16px for everything removes the grouping signal, and groups disappear. Vary space on purpose.</p></div>
+  <div class="cell"><h3>Components with built-in outside margins</h3><p>A component that adds its own margin fights every layout it's placed in. Components own their inside (inset); layouts own the space between them.</p></div>
+  <div class="cell"><h3>Text that ignores the grid</h3><p>Line heights like 1.4 × 15px give 21px, off the 4px grid, and nothing lines up. Round line heights to multiples of 4.</p></div>
+</div>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Use a 4px base with an 8px rhythm, and a scale with many small steps and few large ones.</li>
+  <li>Name values so the size is obvious: <code>space-6</code> = 24px.</li>
+  <li>Think in inset, stack and inline; keep space inside groups clearly smaller than between them.</li>
+  <li>Offer density modes by changing a few values, never below accessible target sizes.</li>
+  <li>Component spacing changes with density; layout spacing changes with screen size.</li>
+</ul></div>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Is the 8px grid better than 4px?</summary><div><p>Neither is better in general. 8px gives fewer, clearer choices; 4px gives the precision small components and line heights need. A 4px base with an 8px rhythm gets the benefits of both.</p></div></details>
+  <details><summary>How many spacing values should a system have?</summary><div><p>Ten to fourteen is typical. Our scale has thirteen, from 2px to 96px.</p></div></details>
+  <details><summary>Should spacing tokens be semantic?</summary><div><p>Keep the scale as primitives (<code>space-4</code>) and add a small set of semantic tokens for layout and density (<code>space-page-margin</code>, <code>space-control-inset-x</code>) where values change by context.</p></div></details>
+  <details><summary>Should line height follow the spacing grid?</summary><div><p>Yes. Rounding line heights to multiples of 4px lets text and boxes share one rhythm. See <a href="/writing/type-scale-design-system">how to build a type scale</a>.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://atlassian.design/foundations/spacing" target="_blank" rel="noopener">Atlassian spacing</a><span>An 8px-based scale with smaller steps.</span></li>
+  <li><a href="https://www.carbondesignsystem.com/elements/spacing/overview/" target="_blank" rel="noopener">Carbon spacing</a><span>IBM's numbered spacing scale.</span></li>
+  <li><a href="https://m3.material.io/foundations/designing/structure" target="_blank" rel="noopener">Material 3: structure</a><span>The 4dp and 8dp grids.</span></li>
+  <li><a href="https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" target="_blank" rel="noopener">WCAG 2.5.8 Target Size (Minimum)</a><span>The floor for compact modes.</span></li>
+</ul>
+</div>
+  <footer class="ed-end">
+    <div class="ed-author"><img src="../assets/studio/aniket.jpg" alt="" width="56" height="56" loading="lazy"><p><b>Aniket Pandey</b> is the founder of Layer One. He has built and run design systems as an employee at <a href="/experience">CARS24, IBM and JPMorgan Chase</a>.</p></div>
+    <p class="ed-end-k">Next in Foundations in depth</p>
+    <div class="ec-grid ec-grid--3"><a class="ec " href="/writing/type-scale-design-system" data-topic="foundations-and-tokens"><span class="ec-m"><img src="../assets/images/writing/type-scale-design-system.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/type-scale-design-system.w480.webp 480w, ../assets/images/writing/type-scale-design-system.w800.webp 800w, ../assets/images/writing/type-scale-design-system.w1200.webp 1200w, ../assets/images/writing/type-scale-design-system.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Foundations & tokens</span><b class="ec-t">How to build a type scale for a design system</b><span class="ec-d">How to build a type scale: choosing a base and ratio, line height and letter spacing, naming text styles by role, fluid type and accessibility.</span><span class="ec-f">6 min read</span></a><a class="ec " href="/writing/design-tokens" data-topic="foundations-and-tokens"><span class="ec-m"><img src="../assets/images/writing/design-tokens.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/design-tokens.w480.webp 480w, ../assets/images/writing/design-tokens.w800.webp 800w, ../assets/images/writing/design-tokens.w1200.webp 1200w, ../assets/images/writing/design-tokens.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Foundations & tokens</span><b class="ec-t">Design tokens</b><span class="ec-d">What design tokens are, the three tiers, naming, the DTCG 2025.10 format and how tokens reach code. Examples and JSON you can adapt for your system.</span><span class="ec-f">10 min read · Guide</span></a><a class="ec " href="/writing/color-contrast-design-system" data-topic="foundations-and-tokens"><span class="ec-m"><img src="../assets/images/writing/color-contrast-design-system.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/color-contrast-design-system.w480.webp 480w, ../assets/images/writing/color-contrast-design-system.w800.webp 800w, ../assets/images/writing/color-contrast-design-system.w1200.webp 1200w, ../assets/images/writing/color-contrast-design-system.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Foundations & tokens</span><b class="ec-t">Colour contrast in design systems</b><span class="ec-d">How to build colour contrast into a design system: WCAG 2.2 ratios, checking pairs not colours, a contrast matrix, pairing rules by step, and APCA.</span><span class="ec-f">6 min read</span></a></div>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Try it on your own values</h2><p>The Lab has the free tools we use ourselves: OKLCH palettes, contrast checks, scales, a token name linter and an export kit.</p></div><a href="/lab">Open the Lab <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main></div><script src="../assets/site.js?v=da289b98" defer></script>
+</body>
+</html>

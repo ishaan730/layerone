@@ -1,0 +1,104 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>AI is useful in design system work today for <b>drafting</b> and <b>checking</b>: first drafts of documentation and release notes, flagging off-system colours, spacing and components in designs and code, answering "which component should I use?" from your docs, and helping with migrations. It needs a person for <b>judgement</b>: accuracy, what counts as breaking, when a deviation is deliberate, and accessibility. And it's only as good as what it's given: a well-structured system with named tokens, consistent props and current docs is the best preparation for using AI well.</p>
+  <ul>
+    <li>Review everything AI produces. A wrong statement in a design system spreads to every product.</li>
+    <li>Generated components often look right but miss keyboard behaviour. Test them like any other.</li>
+    <li>Use tools your company has approved for unreleased designs and internal code.</li>
+  </ul>
+</div>
+
+<h2>A grounded view</h2>
+<p>AI tools are changing design system work quickly, and it's easy to either overhype them or dismiss them. The useful question isn't "will AI build our design system?" but "which repetitive parts of running one can it take on, and where must a person stay in the loop?"</p>
+<p>This is partly first-hand. At JPMorgan Chase, Layer One's founder works on exactly this kind of tooling: an AI agent that does early research and drafts company-wide design patterns for designers to review, and checkers that compare design files and code against the design system for 500+ designers and 1,000+ engineers. <a href="/work/jpmc-patterns">See the patterns project</a> and <a href="/work/jpmc-system-checks">the system checks</a>.</p>
+
+<h2>Where AI helps today</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Use</th><th>How it helps</th><th>Keep a human…</th></tr></thead>
+  <tbody>
+    <tr><td>Drafting documentation</td><td>Turns a component's code, props and examples into a first draft of its page</td><td>…to check accuracy and add the "when not to use" judgement</td></tr>
+    <tr><td>Writing release notes</td><td>Summarises merged changes into plain-language notes</td><td>…to judge what's breaking and what teams must do</td></tr>
+    <tr><td>Checking against the system</td><td>Flags off-system colours, spacing or components, and suggests the system equivalent</td><td>…to decide when a deviation is deliberate and fine</td></tr>
+    <tr><td>Answering "which component?"</td><td>An assistant that has read your docs answers everyday questions in chat</td><td>…to keep the docs it reads accurate</td></tr>
+    <tr><td>Migrations</td><td>Helps write and apply codemods for renames and replacements</td><td>…to review every change before it merges</td></tr>
+    <tr><td>Drafting patterns</td><td>Proposes a first pattern write-up from examples across products</td><td>…to bring research, evidence and taste</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Where AI is genuinely useful in design system work, and where people stay responsible. <span class="ev ev--prac">Practitioner view</span></figcaption></figure>
+<p>There's a pattern in that table: AI is good at <b>drafting</b> and <b>checking</b>, and the judgement stays with people.</p>
+
+<h2>Structure is the best preparation</h2>
+<p>A well-structured system turns out to be excellent input for AI tools. A messy one gives messy results.</p>
+<div class="cols2">
+  <div class="cell"><span class="k" style="color:var(--good)">GOOD INPUT</span><ul>
+    <li><a href="/writing/design-token-naming-conventions">Tokens named by job</a>, in one source file</li>
+    <li><a href="/writing/component-props-best-practices">Consistent props</a> across components</li>
+    <li>Documentation with "when to use" and "when not to use"</li>
+    <li>Written rules: what's breaking, what's allowed</li>
+  </ul></div>
+  <div class="cell"><span class="k" style="color:var(--warn)">POOR INPUT</span><ul>
+    <li>Hundreds of hard-coded colours with no names</li>
+    <li>Three different prop names for the same idea</li>
+    <li>Out-of-date docs that contradict the code</li>
+    <li>Rules that live only in people's heads</li>
+  </ul></div>
+</div>
+<p>Ask an AI to "build a settings page" with poor input and it will invent its own components and colours. Point it at a well-structured system and it can assemble screens from your parts, which you can then check against the system automatically.</p>
+
+<h2>A workflow that works: draft, review, publish</h2>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Context</b><span>Give the tool your tokens, components, docs and rules</span></div><i>→</i>
+    <div><b>Draft</b><span>The tool researches examples and writes a first version</span></div><i>→</i>
+    <div class="hi"><b>Review</b><span>A designer or engineer checks accuracy, accessibility and judgement</span></div><i>→</i>
+    <div><b>Publish</b><span>Through the normal release and docs process</span></div><i>→</i>
+    <div><b>Check</b><span>Automated checks compare products against the system</span></div>
+  </div>
+  <figcaption>AI fits into the existing process; it doesn't replace review. Everything it produces goes through the same gates as human work.</figcaption>
+</figure>
+
+<h2>Cautions that matter</h2>
+<p>The cost of a design system mistake is multiplied across every product that uses it. Four risks deserve real attention:</p>
+<div class="cols2">
+  <div class="cell"><span class="k" style="color:var(--warn)">WATCH OUT</span><h3>Confident mistakes</h3><p>AI tools can produce plausible but wrong documentation or code. In a system used by hundreds of people, a wrong statement spreads quickly. Review everything.</p></div>
+  <div class="cell"><span class="k" style="color:var(--warn)">WATCH OUT</span><h3>Accessibility by assumption</h3><p>Generated components often look right but miss keyboard behaviour, focus management or announcements. Test them like any other component.</p></div>
+  <div class="cell"><span class="k" style="color:var(--warn)">WATCH OUT</span><h3>Inventing new things</h3><p>Without your system as context, AI invents components and colours. Point it at your system and check the result against it.</p></div>
+  <div class="cell"><span class="k" style="color:var(--warn)">WATCH OUT</span><h3>Confidentiality</h3><p>Unreleased designs and internal code are sensitive. Use tools your company has approved, with appropriate data protections.</p></div>
+</div>
+
+<h2>Before adopting any tool</h2>
+<ul class="checklist">
+  <li>What problem does it solve that we actually have today?</li>
+  <li>Who will own it and keep it current?</li>
+  <li>Does it work with our existing files, repositories and formats, or lock our decisions in?</li>
+  <li>How will we know, in three months, whether it was worth it?</li>
+  <li>What happens to our work if we stop using it?</li>
+</ul>
+<p>Keep your decisions portable either way: tokens in the vendor-neutral DTCG format, components in your own repository. Tools come and go; your decisions shouldn't be locked inside any one product.</p>
+
+<h2>Where to start</h2>
+<p>If you're new to this, start with the automations that pay back first, with or without AI: a token pipeline and lint rules for hard-coded values. Then try AI on release note drafts and documentation drafts, where a human edit is already part of the process. Checking designs and code against the system comes next, once your rules are written down clearly enough for a tool to apply them.</p>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>AI helps with drafting and checking; people keep the judgement.</li>
+  <li>A well-structured system is the best input; a messy one gives messy results.</li>
+  <li>Review everything, test generated components for accessibility, protect confidential work.</li>
+  <li>Fit AI into the existing process: draft, review, publish, check.</li>
+  <li>Keep tokens and components portable, whatever tools you use.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Can AI build a design system?</summary><div><p>It can draft parts of one: documentation, release notes, pattern write-ups, code. Deciding what the system should be, and checking the quality and accessibility of what's produced, still needs people.</p></div></details>
+  <details><summary>Can AI check designs against the design system?</summary><div><p>Yes, and it's one of the most useful applications: flagging off-system colours, spacing and components and suggesting the system equivalent. A person decides when a deviation is deliberate.</p></div></details>
+  <details><summary>Will AI replace design system teams?</summary><div><p>It changes the work more than it replaces it: less writing from scratch and policing by hand, more reviewing, deciding and helping teams.</p></div></details>
+  <details><summary>What's the first AI use case to try?</summary><div><p>Drafting release notes from merged changes. The input is structured, a human edit is already part of the process, and the time saved is immediate.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://www.designtokens.org/tr/2025.10/format/" target="_blank" rel="noopener">Design Tokens Format Module 2025.10</a><span>Portable tokens any tool can read.</span></li>
+  <li><a href="https://www.w3.org/WAI/ARIA/apg/" target="_blank" rel="noopener">ARIA Authoring Practices Guide</a><span>What to test generated components against.</span></li>
+  <li><a href="/writing/design-system-documentation">Design system documentation</a><span>The structure that makes AI answers accurate.</span></li>
+</ul>

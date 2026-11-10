@@ -1,0 +1,307 @@
+{
+  "base": 16,
+  "scales": [
+    {
+      "name": "Major second",
+      "ratio": 1.125,
+      "sizes": [
+        {
+          "step": -2,
+          "px": 12.64,
+          "rounded": 13
+        },
+        {
+          "step": -1,
+          "px": 14.22,
+          "rounded": 14
+        },
+        {
+          "step": 0,
+          "px": 16,
+          "rounded": 16
+        },
+        {
+          "step": 1,
+          "px": 18,
+          "rounded": 18
+        },
+        {
+          "step": 2,
+          "px": 20.25,
+          "rounded": 20
+        },
+        {
+          "step": 3,
+          "px": 22.78,
+          "rounded": 23
+        },
+        {
+          "step": 4,
+          "px": 25.63,
+          "rounded": 26
+        },
+        {
+          "step": 5,
+          "px": 28.83,
+          "rounded": 29
+        },
+        {
+          "step": 6,
+          "px": 32.44,
+          "rounded": 32
+        }
+      ]
+    },
+    {
+      "name": "Major third",
+      "ratio": 1.25,
+      "sizes": [
+        {
+          "step": -2,
+          "px": 10.24,
+          "rounded": 10
+        },
+        {
+          "step": -1,
+          "px": 12.8,
+          "rounded": 13
+        },
+        {
+          "step": 0,
+          "px": 16,
+          "rounded": 16
+        },
+        {
+          "step": 1,
+          "px": 20,
+          "rounded": 20
+        },
+        {
+          "step": 2,
+          "px": 25,
+          "rounded": 25
+        },
+        {
+          "step": 3,
+          "px": 31.25,
+          "rounded": 31
+        },
+        {
+          "step": 4,
+          "px": 39.06,
+          "rounded": 39
+        },
+        {
+          "step": 5,
+          "px": 48.83,
+          "rounded": 49
+        },
+        {
+          "step": 6,
+          "px": 61.04,
+          "rounded": 61
+        }
+      ]
+    },
+    {
+      "name": "Perfect fourth",
+      "ratio": 1.333,
+      "sizes": [
+        {
+          "step": -2,
+          "px": 9,
+          "rounded": 9
+        },
+        {
+          "step": -1,
+          "px": 12,
+          "rounded": 12
+        },
+        {
+          "step": 0,
+          "px": 16,
+          "rounded": 16
+        },
+        {
+          "step": 1,
+          "px": 21.33,
+          "rounded": 21
+        },
+        {
+          "step": 2,
+          "px": 28.43,
+          "rounded": 28
+        },
+        {
+          "step": 3,
+          "px": 37.9,
+          "rounded": 38
+        },
+        {
+          "step": 4,
+          "px": 50.52,
+          "rounded": 51
+        },
+        {
+          "step": 5,
+          "px": 67.34,
+          "rounded": 67
+        },
+        {
+          "step": 6,
+          "px": 89.76,
+          "rounded": 90
+        }
+      ]
+    },
+    {
+      "name": "Golden ratio",
+      "ratio": 1.618,
+      "sizes": [
+        {
+          "step": -2,
+          "px": 6.11,
+          "rounded": 6
+        },
+        {
+          "step": -1,
+          "px": 9.89,
+          "rounded": 10
+        },
+        {
+          "step": 0,
+          "px": 16,
+          "rounded": 16
+        },
+        {
+          "step": 1,
+          "px": 25.89,
+          "rounded": 26
+        },
+        {
+          "step": 2,
+          "px": 41.89,
+          "rounded": 42
+        },
+        {
+          "step": 3,
+          "px": 67.77,
+          "rounded": 68
+        },
+        {
+          "step": 4,
+          "px": 109.66,
+          "rounded": 110
+        },
+        {
+          "step": 5,
+          "px": 177.42,
+          "rounded": 177
+        },
+        {
+          "step": 6,
+          "px": 287.07,
+          "rounded": 287
+        }
+      ]
+    }
+  ],
+  "productScale": [
+    {
+      "token": "display.lg",
+      "px": 57,
+      "weight": 600,
+      "tracking": -0.02,
+      "lineHeight": 64,
+      "ratio": 1.12
+    },
+    {
+      "token": "display.md",
+      "px": 45,
+      "weight": 600,
+      "tracking": -0.02,
+      "lineHeight": 56,
+      "ratio": 1.24
+    },
+    {
+      "token": "heading.xl",
+      "px": 36,
+      "weight": 600,
+      "tracking": -0.015,
+      "lineHeight": 44,
+      "ratio": 1.22
+    },
+    {
+      "token": "heading.lg",
+      "px": 28,
+      "weight": 600,
+      "tracking": -0.01,
+      "lineHeight": 36,
+      "ratio": 1.29
+    },
+    {
+      "token": "heading.md",
+      "px": 22,
+      "weight": 600,
+      "tracking": -0.005,
+      "lineHeight": 28,
+      "ratio": 1.27
+    },
+    {
+      "token": "heading.sm",
+      "px": 18,
+      "weight": 600,
+      "tracking": 0,
+      "lineHeight": 24,
+      "ratio": 1.33
+    },
+    {
+      "token": "body.lg",
+      "px": 18,
+      "weight": 400,
+      "tracking": 0,
+      "lineHeight": 28,
+      "ratio": 1.56
+    },
+    {
+      "token": "body.md",
+      "px": 16,
+      "weight": 400,
+      "tracking": 0,
+      "lineHeight": 24,
+      "ratio": 1.5
+    },
+    {
+      "token": "body.sm",
+      "px": 14,
+      "weight": 400,
+      "tracking": 0,
+      "lineHeight": 20,
+      "ratio": 1.43
+    },
+    {
+      "token": "label.md",
+      "px": 14,
+      "weight": 500,
+      "tracking": 0.005,
+      "lineHeight": 20,
+      "ratio": 1.43
+    },
+    {
+      "token": "label.sm",
+      "px": 12,
+      "weight": 500,
+      "tracking": 0.01,
+      "lineHeight": 16,
+      "ratio": 1.33
+    },
+    {
+      "token": "caption",
+      "px": 12,
+      "weight": 400,
+      "tracking": 0.01,
+      "lineHeight": 16,
+      "ratio": 1.33
+    }
+  ]
+}

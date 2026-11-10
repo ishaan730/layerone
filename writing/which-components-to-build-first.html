@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Which Design System Components to Build First | Layer One</title>
+<meta name="description" content="How to choose your first design system components: count frequency and trouble, plot a 2×2, pick a pilot, and the eight components most teams start with.">
+<meta property="og:title" content="Which Design System Components to Build First | Layer One">
+<meta property="og:description" content="How to choose your first design system components: count frequency and trouble, plot a 2×2, pick a pilot, and the eight components most teams start with.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-11">
+<meta property="article:modified_time" content="2026-11-11">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="Building a system">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/which-components-to-build-first.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Which Design System Components to Build First | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css?v=35a137d5">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Which Design System Components to Build First", "description": "How to choose your first design system components: count frequency and trouble, plot a 2×2, pick a pilot, and the eight components most teams start with.", "image": "https://www.layerone.co.in/assets/images/writing/which-components-to-build-first.jpg", "datePublished": "2026-11-11", "dateModified": "2026-11-11", "mainEntityOfPage": "https://www.layerone.co.in/writing/which-components-to-build-first", "wordCount": 1091, "articleSection": "Building a system", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "Building a system", "item": "https://www.layerone.co.in/writing/topics/building"}, {"@type": "ListItem", "position": 3, "name": "Which components to build first: a prioritisation method", "item": "https://www.layerone.co.in/writing/which-components-to-build-first"}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/which-components-to-build-first">
+<meta property="og:url" content="https://www.layerone.co.in/writing/which-components-to-build-first">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Which Design System Components to Build First | Layer One">
+<meta name="twitter:description" content="How to choose your first design system components: count frequency and trouble, plot a 2×2, pick a pilot, and the eight components most teams start with.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/which-components-to-build-first.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<div class="shell ed-shell"><aside class="ed-rail" aria-label="Writing"><a class="ed-back" href="/writing">← All writing</a><div class="ed-rail-sec"><p class="ed-rail-h">On this page</p><nav class="ed-toc" aria-label="On this page"><ol><li><a href="#why-the-order-matters">Why the order matters</a></li><li><a href="#step-1-inventory-what-exists">Step 1: Inventory what exists</a></li><li><a href="#step-2-count-frequency-and-trouble">Step 2: Count frequency and trouble</a></li><li><a href="#step-3-plot-the-2-2">Step 3: Plot the 2×2</a></li><li><a href="#step-4-check-against-roadmaps">Step 4: Check against roadmaps</a></li><li><a href="#a-typical-build-order">A typical build order</a></li><li><a href="#step-5-build-each-one-with-a-pilot">Step 5: Build each one with a pilot</a></li><li><a href="#build-borrow-or-buy">Build, borrow or buy?</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></nav></div><div class="ed-rail-sec"><p class="ed-rail-h">Components in depth</p><ol class="ed-steps"><li aria-current="step"><a href="/writing/which-components-to-build-first">Which components to build first</a></li><li><a href="/writing/headless-component-library-build-vs-buy">Build, borrow or buy</a></li><li><a href="/writing/component-complexity">Component complexity</a></li><li><a href="/writing/component-props-best-practices">Component props best practices</a></li></ol></div><div class="ed-rail-foot"><button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="ed-theme-l">Light reading</span><span class="ed-theme-d">Dark reading</span></button></div></aside><main id="main" class="content ed-main"><article class="ed-article">
+  <header class="ed-head">
+    <p class="ed-kicker"><a href="/writing/topics/building">Building a system</a><span>Part 1 of 4 · <a href="/writing#components-in-depth">Components in depth</a></span></p>
+    <h1 class="ed-title">Which components to build first: a prioritisation method</h1>
+    <p class="ed-dek">Don't start with the component that's most fun to design, or the one that looks like the biggest problem. Start with the ones used everywhere and inconsistent today. A method for choosing, ranking and scheduling your first components.</p>
+    <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>5 min read · 11 November 2026</span></span></p>
+  </header>
+  <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>Why the order matters</b></summary><ol><li><a href="#why-the-order-matters">Why the order matters</a></li><li><a href="#step-1-inventory-what-exists">Step 1: Inventory what exists</a></li><li><a href="#step-2-count-frequency-and-trouble">Step 2: Count frequency and trouble</a></li><li><a href="#step-3-plot-the-2-2">Step 3: Plot the 2×2</a></li><li><a href="#step-4-check-against-roadmaps">Step 4: Check against roadmaps</a></li><li><a href="#a-typical-build-order">A typical build order</a></li><li><a href="#step-5-build-each-one-with-a-pilot">Step 5: Build each one with a pilot</a></li><li><a href="#build-borrow-or-buy">Build, borrow or buy?</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="ed-theme-l">Light reading</span><span class="ed-theme-d">Dark reading</span></button></details>
+  <figure class="ed-cover"><img src="../assets/images/writing/which-components-to-build-first.w1200.webp" alt="" width="1600" height="900" srcset="../assets/images/writing/which-components-to-build-first.w480.webp 480w, ../assets/images/writing/which-components-to-build-first.w800.webp 800w, ../assets/images/writing/which-components-to-build-first.w1200.webp 1200w, ../assets/images/writing/which-components-to-build-first.jpg 1600w" sizes="(max-width: 1280px) 100vw, 1240px" decoding="async"></figure>
+  <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>Build first the components that are <b>used everywhere and inconsistent today</b>. Count two things for each component from an <a href="/writing/design-system-audit">audit</a>: <b>how often</b> it's used and <b>how much trouble</b> it causes (versions, bugs, accessibility issues, rebuild time). Plot them on a 2×2 and start top-right. For most products that's the boring ones: <b>button, text field, select, checkbox, radio, switch, link and alert</b>, then dialog, tabs, menu and toast. Build each with a pilot team that needs it now.</p>
+  <ul>
+    <li>Don't start with the hardest component. Teams stop waiting.</li>
+    <li>Pick from real roadmaps, not a wish list.</li>
+    <li>Leave rare, fine components local until a second team needs them.</li>
+  </ul>
+</div>
+
+<h2 id="why-the-order-matters">Why the order matters</h2>
+<p>The first components set the tone for the whole system. Pick well and product teams see value within weeks, the system earns trust, and adoption pulls in more work. Pick badly and the system team spends months on something impressive while teams keep building their own buttons.</p>
+<div class="callout callout--warn"><span class="callout-k">A mistake we see often</span><p>A team decides to start with the data table "because it's the biggest problem". Six months later they have a sophisticated table, nothing else, and product teams have stopped waiting. Start with components you can finish in days, and tackle the big ones once you have momentum and a working process.</p></div>
+
+<h2 id="step-1-inventory-what-exists">Step 1: Inventory what exists</h2>
+<p>Run an interface inventory on your 15–25 most important screens: screenshot every instance of every component, group the near-duplicates, and ask engineers to count implementations in code. Do it as a team exercise. People who find the seven buttons themselves become supporters.</p>
+<figure class="w-fig">
+  <div class="hbars">
+    <div><span>Border greys</span><i style="width:100%"></i><span>11</span></div>
+    <div><span>Primary button</span><i style="width:64%"></i><span>7</span></div>
+    <div><span>Text field</span><i style="width:45%"></i><span>5</span></div>
+    <div><span>Error / alert message</span><i style="width:36%"></i><span>4</span></div>
+    <div><span>Date picker</span><i class="dim" style="width:27%"></i><span>3</span></div>
+    <div><span>Dialog</span><i class="dim" style="width:27%"></i><span>3</span></div>
+    <div><span>Table</span><i class="dim" style="width:18%"></i><span>2</span></div>
+  </div>
+  <figcaption>Different versions found in production in a typical inventory. <span class="ev ev--ill">Illustration</span> The most common components have the most versions, because they're built most often by the most people. Fixing a few everyday components fixes a large share of the inconsistency.</figcaption>
+</figure>
+
+<h2 id="step-2-count-frequency-and-trouble">Step 2: Count frequency and trouble</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">HOW OFTEN</span><h3>Frequency</h3><p>Count uses in code (imports, instances) and in design files. Engineers can usually script this in an afternoon.</p></div>
+  <div class="cell"><span class="k">HOW MUCH TROUBLE</span><h3>Pain</h3><p>Number of versions, bugs and accessibility issues reported, and how much time teams spend rebuilding or debating it. Ask in a short survey if you're unsure.</p></div>
+</div>
+
+<h2 id="step-3-plot-the-2-2">Step 3: Plot the 2×2</h2>
+<figure class="w-fig">
+  <div class="m2x2">
+    <div class="ax ay">more trouble ↑</div>
+    <div class="mq md"><b>Plan next</b><span>Painful but rare: date picker, file upload. Build after the basics, with the team that needs it most.</span></div>
+    <div class="mq hi"><b>Build first</b><span>Used everywhere and inconsistent: button, text field, select, alerts, dialog. The biggest payoff for the least effort.</span></div>
+    <div class="mq"><b>Leave alone</b><span>Rare and not causing problems. Keep local until a second team needs it.</span></div>
+    <div class="mq"><b>Quick tidy</b><span>Used everywhere, mostly fine: links, badges, avatars. Formalise what exists; don't redesign.</span></div>
+    <span></span><div class="ax ax-x">used more often →</div>
+  </div>
+  <figcaption>Top right first. Most teams' first ten components land there, and they're almost always the boring ones.</figcaption>
+</figure>
+
+<h2 id="step-4-check-against-roadmaps">Step 4: Check against roadmaps</h2>
+<p>The 2×2 tells you what matters today. Product roadmaps tell you what teams will build next quarter. Cross-check: a component in "plan next" jumps up if three teams are about to build features that need it. Nathan Curtis calls this exercise "picking parts, products and people": agree the parts to build, the products that will use them first, and the people who'll do the work.</p>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>At CARS24, the first components of the LEGO mobile system were picked from teams' actual roadmaps, then tested on real screens. The result was 44 composable components adopted in India, the UAE and Australia. <a href="/work/cars24-lego">Read the case study</a>.</p></div>
+
+<h2 id="a-typical-build-order">A typical build order</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Wave</th><th>Components</th><th>Why now</th><th>Typical effort</th></tr></thead>
+  <tbody>
+    <tr><td>1 · Basics</td><td>Button, text field, select, checkbox, radio, switch, link, alert</td><td>On almost every screen; most versions; accessibility issues repeat</td><td>Days to two weeks each</td></tr>
+    <tr><td>2 · Containers and feedback</td><td>Dialog, card, tabs, toast, menu, empty state</td><td>Used widely; harder keyboard and focus rules</td><td>One to four weeks each</td></tr>
+    <tr><td>3 · Data and navigation</td><td>Table, pagination, badge, tag, side navigation</td><td>Data-heavy screens; consistent navigation</td><td>Weeks; tables longer</td></tr>
+    <tr><td>4 · The hard ones</td><td>Date picker, search with suggestions, advanced table features, file upload</td><td>Complex behaviour; build with the teams that need them</td><td>One to three months each</td></tr>
+  </tbody>
+</table></div>
+<figcaption>A first year's waves for a typical product. Effort assumes foundations already exist; each extra platform adds roughly the same again.</figcaption></figure>
+<p>For a more precise estimate of each component, score it with the <a href="/writing/component-complexity">component complexity rubric</a>.</p>
+
+<h2 id="step-5-build-each-one-with-a-pilot">Step 5: Build each one with a pilot</h2>
+<p>Every component should be built inside a real product project: a pilot team that needs it for something they're shipping. Dan Mall makes this point in <em>Design That Scales</em>, and in our experience it's the single biggest predictor of a system people use. The pilot brings real requirements, a real deadline and a team that already trusts the result.</p>
+<ul class="checklist">
+  <li>Every state designed: default, hover, focus, pressed, disabled, loading, error.</li>
+  <li>Uses semantic tokens only.</li>
+  <li>Works with a keyboard and screen reader.</li>
+  <li>Same name and options in Figma and code.</li>
+  <li>Tested with real content in the pilot product.</li>
+  <li>Documented before it's called stable.</li>
+</ul>
+
+<h2 id="build-borrow-or-buy">Build, borrow or buy?</h2>
+<p>You don't have to build everything. For simple components (buttons, badges, cards), building is quick and gives you full control. For complex interactive ones (menus, dialogs, comboboxes, date pickers), a headless library gives you tested behaviour and accessibility. See <a href="/writing/headless-component-library-build-vs-buy">headless libraries vs building your own</a>.</p>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Inventory first; count frequency and trouble for each component.</li>
+  <li>Plot a 2×2 and start top-right: used everywhere and inconsistent.</li>
+  <li>Cross-check with roadmaps; pick parts, products and people together.</li>
+  <li>Build in waves, basics first, hardest last.</li>
+  <li>Build every component with a pilot team that needs it now.</li>
+</ul></div>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Which components should a design system start with?</summary><div><p>For most products: button, text field, select, checkbox, radio, switch, link and alert. Then dialog, card, tabs, toast and menu.</p></div></details>
+  <details><summary>How many components does a first version need?</summary><div><p>Eight to fifteen well-built components cover a large share of most screens. Ship those properly before adding more.</p></div></details>
+  <details><summary>Should we build the data table first if it's our biggest problem?</summary><div><p>Usually not first. Start with components you can finish quickly to build momentum and a working process, then tackle the table with the teams that need it.</p></div></details>
+  <details><summary>What about one-off components a single team needs?</summary><div><p>Keep them local, built from system parts, and watch them. If a second team needs the same thing, it becomes a candidate for the system.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://bradfrost.com/blog/post/interface-inventory/" target="_blank" rel="noopener">Interface Inventory</a><span>Brad Frost.</span></li>
+  <li><a href="https://eightshapes.com/articles/picking-parts-products-people/" target="_blank" rel="noopener">Picking Parts, Products &amp; People</a><span>Nathan Curtis, EightShapes.</span></li>
+  <li><a href="https://rosenfeldmedia.com/books/design-that-scales/" target="_blank" rel="noopener">Design That Scales</a><span>Dan Mall.</span></li>
+</ul>
+</div>
+  <footer class="ed-end">
+    <div class="ed-author"><img src="../assets/studio/aniket.jpg" alt="" width="56" height="56" loading="lazy"><p><b>Aniket Pandey</b> is the founder of Layer One. He has built and run design systems as an employee at <a href="/experience">CARS24, IBM and JPMorgan Chase</a>.</p></div>
+    <p class="ed-end-k">Next in Components in depth</p>
+    <div class="ec-grid ec-grid--3"><a class="ec " href="/writing/headless-component-library-build-vs-buy" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/headless-component-library-build-vs-buy.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/headless-component-library-build-vs-buy.w480.webp 480w, ../assets/images/writing/headless-component-library-build-vs-buy.w800.webp 800w, ../assets/images/writing/headless-component-library-build-vs-buy.w1200.webp 1200w, ../assets/images/writing/headless-component-library-build-vs-buy.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Building a system</span><b class="ec-t">Build, borrow or buy</b><span class="ec-d">Should you build design system components, use a headless library or theme a styled one? Trade-offs, a decision table and what we usually recommend.</span><span class="ec-f">5 min read</span></a><a class="ec " href="/writing/design-system-audit" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/design-system-audit.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/design-system-audit.w480.webp 480w, ../assets/images/writing/design-system-audit.w800.webp 800w, ../assets/images/writing/design-system-audit.w1200.webp 1200w, ../assets/images/writing/design-system-audit.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Building a system</span><b class="ec-t">How to run a design system audit (with an interface inventory method)</b><span class="ec-d">Screenshot, group, count and prioritise every button, field and colour in your product. A step-by-step UI audit that ends in a ranked plan, not a slide.</span><span class="ec-f">8 min read</span></a><a class="ec " href="/writing/component-complexity" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/component-complexity.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/component-complexity.w480.webp 480w, ../assets/images/writing/component-complexity.w800.webp 800w, ../assets/images/writing/component-complexity.w1200.webp 1200w, ../assets/images/writing/component-complexity.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Building a system</span><b class="ec-t">Component complexity: how to estimate design system work</b><span class="ec-d">A scoring method for design system components: four levels of complexity, an eight-question rubric, and how complexity changes process and effort.</span><span class="ec-f">6 min read</span></a></div>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Working on this in your own product?</h2><p>Most teams we work with start with a two-week audit: every style, component and token, checked and ranked.</p></div><a href="/pricing">How the audit works <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main></div><script src="../assets/site.js?v=da289b98" defer></script>
+</body>
+</html>
