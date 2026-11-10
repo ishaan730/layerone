@@ -493,9 +493,24 @@ def filter_bar(p, active=None, filt=False):
     return f'<nav class="ed-chips" aria-label="Filter by topic">{out}</nav>'
 
 
+# Articles with a matching Lab tool end with a nudge to that tool rather than the generic one.
+TOOL_FOR = {
+    "oklch-color-palette": ("Build an OKLCH palette from your brand colour", "The free palette generator makes even, accessible ramps from one colour, previews them in light and dark, and exports tokens.", "Open the palette generator", "lab/oklch-palette-generator.html"),
+    "dark-mode-design-tokens": ("Try your palette in dark mode", "The free palette generator previews your ramps on a real screen in light and dark, side by side.", "Open the palette generator", "lab/oklch-palette-generator.html"),
+    "color-contrast-design-system": ("Check your own colours", "The free contrast checker tests any pair against WCAG 2 and APCA, suggests the nearest colour that passes and simulates colour blindness.", "Open the contrast checker", "lab/color-contrast-checker.html"),
+    "type-scale-design-system": ("Make your type scale", "The free type scale generator rounds sizes the way engineers build them and can output fluid clamp() values.", "Open the type scale generator", "lab/type-scale-generator.html"),
+    "spacing-system-4px-vs-8px": ("Try a 4px or 8px scale", "The free spacing generator builds a scale on any base, tries it on a real card and exports tokens.", "Open the spacing generator", "lab/spacing-scale-generator.html"),
+    "layout-grid-breakpoints": ("Plan your own grid", "The free layout grid calculator shows columns, gutters and breakpoints at any screen width and exports CSS or tokens.", "Open the grid calculator", "lab/layout-grid-calculator.html"),
+    "design-token-naming-conventions": ("Check your token names", "Paste your tokens into the free name checker: it explains every problem and suggests a fix.", "Open the name checker", "lab/design-token-name-checker.html"),
+    "design-tokens": ("Generate a token file", "The free token generator combines a palette, type, spacing and grid into CSS, Tailwind, SCSS or DTCG JSON.", "Open the token generator", "lab/design-token-generator.html"),
+    "design-system-contribution-model": ("Score your own requests", "The free request scorecard ranks component requests with the same four questions and exports the backlog.", "Open the scorecard", "lab/component-request-scorecard.html"),
+    "which-components-to-build-first": ("Rank your requests", "The free request scorecard turns four questions into a ranked backlog you can share.", "Open the scorecard", "lab/component-request-scorecard.html"),
+    "design-system-roi": ("Run the numbers for your team", "The free ROI calculator uses the method in this article with your own team sizes, costs and adoption.", "Open the ROI calculator", "lab/design-system-roi-calculator.html"),
+}
+
 NUDGE = {
     "audit": ("Working on this in your own product?", "Most teams we work with start with a two-week audit: every style, component and token, checked and ranked.", "How the audit works", "pricing.html"),
-    "lab": ("Try it on your own values", "The Lab has the free tools we use ourselves: OKLCH palettes, contrast checks, scales, a token name linter and an export kit.", "Open the Lab", "lab.html"),
+    "lab": ("Try it on your own values", "The Lab has the free tools we use ourselves: OKLCH palettes, contrast checks, type, spacing and grid scales, token tools and an ROI calculator.", "Open the Lab", "lab.html"),
     "call": ("Thinking about how your system is run?", "If you'd like a second opinion on your team or process, a thirty-minute call is a good place to start.", "Book a call", CAL),
     "next": ("Looking at your own product next?", "Most teams we work with start with a two-week audit that ends in a ranked plan.", "How the audit works", "pricing.html"),
 }
@@ -512,7 +527,7 @@ def build_article(a):
         series_line = f'<span class="ed-crumb-s">Part {i + 1} of {len(s[3])} in <a href="{p}writing.html#{s[0]}">{s[1]}</a></span>'
         nxt = BY[s[3][i + 1]] if i + 1 < len(s[3]) else None
     toc = "".join(f'<li><a href="#{i}">{t}</a></li>' for t, i in a["toc"])
-    nh, nt, nl, nu = NUDGE[a["cta"]]
+    nh, nt, nl, nu = TOOL_FOR.get(a["slug"]) or NUDGE[a["cta"]]
     ext = nu.startswith("http")
     nattr = ' target="_blank" rel="noopener"' if ext else ""
     nhref = nu if ext else p + nu

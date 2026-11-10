@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design Token Name Checker and Linter | Layer One</title>
+<meta name="description" content="Paste design token names, CSS variables or a JSON token file. Check them against a naming convention, see every problem explained and get a fixed list.">
+<meta property="og:title" content="Design Token Name Checker and Linter | Layer One">
+<meta property="og:description" content="Paste design token names, CSS variables or a JSON token file. Check them against a naming convention, see every problem explained and get a fixed list.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://www.layerone.co.in/assets/og/layer-one.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Design Token Name Checker and Linter | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/lab.css?v=4ee35efe">
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Design token name checker", "url": "https://www.layerone.co.in/lab/design-token-name-checker", "description": "Paste design token names, CSS variables or a JSON token file. Check them against a naming convention, see every problem explained and get a fixed list.", "applicationCategory": "DesignApplication", "operatingSystem": "Any (runs in the browser)", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "featureList": ["A report on every token: clean, warning or error", "Plain explanations: wrong case, abbreviations, order, raw colours in semantic names", "A suggested fixed name for each problem", "Duplicates found once names are fixed", "A fixed list, or a JSON map of old to new names"], "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Lab", "item": "https://www.layerone.co.in/lab"}, {"@type": "ListItem", "position": 2, "name": "Token name checker", "item": "https://www.layerone.co.in/lab/design-token-name-checker"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is a good naming convention for design tokens?", "acceptedAnswer": {"@type": "Answer", "text": "Category, then the job, then a variant, with any state last, all lowercase with one separator: for example color-action-primary-hover."}}, {"@type": "Question", "name": "Can I check a JSON token file?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Paste a DTCG or Tokens Studio style JSON file; the checker reads every token path."}}, {"@type": "Question", "name": "Does it rename my tokens for me?", "acceptedAnswer": {"@type": "Answer", "text": "It gives you the fixed names and a JSON map from old to new, which you can use for a find-and-replace or a codemod."}}, {"@type": "Question", "name": "Why flag raw colours in semantic tokens?", "acceptedAnswer": {"@type": "Answer", "text": "A semantic token like color-button-blue breaks the moment the button changes colour, for example in dark mode or a rebrand. Name it for its job instead."}}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/lab/design-token-name-checker">
+<meta property="og:url" content="https://www.layerone.co.in/lab/design-token-name-checker">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Design Token Name Checker and Linter | Layer One">
+<meta name="twitter:description" content="Paste design token names, CSS variables or a JSON token file. Check them against a naming convention, see every problem explained and get a fixed list.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/og/layer-one.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab" aria-current="page">Lab</a><a href="/writing">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<main id="main" class="lx lx-page" data-tool="names">
+  <header class="lx-hero lx-hero--tool"><div class="lx-in">
+    <nav class="lx-crumb" aria-label="Breadcrumb"><a href="/lab">Lab</a><span aria-hidden="true">/</span><a href="/lab?task=tokens">Name and export tokens</a><span aria-hidden="true">/</span><span aria-current="page">Token name checker</span></nav>
+    <div class="lx-hero-row"><div><h1>Design token name checker</h1>
+      <p class="lx-lede">Paste your token names, CSS variables or a JSON token file. The checker tests every name against a naming convention you can adjust, explains each problem in plain words, and gives you a fixed list to rename from.</p>
+      <ul class="lx-facts"><li>Free, no sign-up</li><li>Runs in your browser</li><li>Saves as you go</li></ul></div>
+      <div class="lx-hero-act"><button type="button" class="lx-btn" data-share>Copy link to this</button><button type="button" class="lx-btn" data-reset>Reset</button><span class="lx-status" data-status role="status" aria-live="polite"></span></div></div>
+  </div></header>
+  <nav class="lx-tabs" aria-label="Lab tools"><div class="lx-in"><div class="lx-tablist lx-toolnav"><a class="lx-all" href="/lab">All tools</a><a href="/lab/oklch-palette-generator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="8" cy="10" r="1.6" fill="currentColor"/><circle cx="12" cy="7.5" r="1.6" fill="currentColor"/><circle cx="16" cy="10" r="1.6" fill="currentColor"/><path d="M12 21a3 3 0 0 1 0-6h1.5a2 2 0 0 0 0-4"/></svg><span><b>Palette</b></span></a><a href="/lab/color-contrast-checker"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18a9 9 0 0 0 0-18Z" fill="currentColor"/></svg><span><b>Contrast</b></span></a><a href="/lab/type-scale-generator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V5h11v2M9.5 5v14M7 19h5"/><path d="M14 12v-1.5h7V12M17.5 10.5V19M16 19h3"/></svg><span><b>Type scale</b></span></a><a href="/lab/spacing-scale-generator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v16M20 4v16"/><path d="M8 12h8M8 12l2.5-2.5M8 12l2.5 2.5M16 12l-2.5-2.5M16 12l-2.5 2.5"/></svg><span><b>Spacing</b></span></a><a href="/lab/layout-grid-calculator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 4v16M12 4v16M16 4v16"/></svg><span><b>Grid</b></span></a><a href="/lab/design-token-name-checker" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7h10M5 12h14M5 17h7"/><path d="m16 16 2 2 4-4"/></svg><span><b>Token names</b></span></a><a href="/lab/design-token-generator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v3h16v-3"/></svg><span><b>Token export</b></span></a><a href="/lab/component-request-scorecard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="4" rx="1"/><rect x="4" y="10" width="12" height="4" rx="1"/><rect x="4" y="16" width="8" height="4" rx="1"/></svg><span><b>Requests</b></span></a><a href="/lab/design-system-roi-calculator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V6M16 20v-8M22 20H2"/><path d="m4 7 6-4 6 5 5-4"/></svg><span><b>ROI</b></span></a></div></div></nav>
+  <div class="lx-in">
+    <div class="lx-presets" role="group" aria-label="Examples"><span>Try an example</span><button type="button" class="lx-chip" data-lx-preset="{&quot;n&quot;: {&quot;list&quot;: null}}" aria-pressed="false">The messy example</button><button type="button" class="lx-chip" data-lx-preset="{&quot;n&quot;: {&quot;list&quot;: &quot;--color-blue-500\n--color-primary\n--textBase\n--spacing-4\n--rounded-lg\n--shadow-md\n--color-btn-primary-hover\n--font-size-xl\n--z-50&quot;}}" aria-pressed="false">Tailwind-style names</button><button type="button" class="lx-chip" data-lx-preset="{&quot;n&quot;: {&quot;sep&quot;: &quot;.&quot;, &quot;list&quot;: &quot;{\n  \&quot;color\&quot;: {\n    \&quot;action\&quot;: { \&quot;primary\&quot;: { \&quot;$value\&quot;: \&quot;#4736fe\&quot; }, \&quot;Primary-Hover\&quot;: { \&quot;$value\&quot;: \&quot;#3e27b8\&quot; } },\n    \&quot;text\&quot;: { \&quot;muted\&quot;: { \&quot;$value\&quot;: \&quot;#5b6170\&quot; }, \&quot;blue\&quot;: { \&quot;$value\&quot;: \&quot;#4f46e5\&quot; } }\n  },\n  \&quot;space\&quot;: { \&quot;md\&quot;: { \&quot;$value\&quot;: \&quot;16px\&quot; } },\n  \&quot;bg\&quot;: { \&quot;card\&quot;: { \&quot;$value\&quot;: \&quot;#ffffff\&quot; } }\n}&quot;}}" aria-pressed="false">A DTCG JSON file</button></div>
+    <section class="lx-panel" id="p-names" data-panel="names" aria-label="Token name checker">
+<div class="lx-ws">
+  <aside class="lx-ctl" aria-label="Linter settings">
+    <div class="lx-card"><div class="lx-card-h"><b>Your convention</b></div>
+      <div class="lx-f"><span class="lx-l">Separator</span><div class="lx-seg" data-name="nsep" role="group" aria-label="Separator"><button type="button" data-v="-" aria-pressed="false">kebab-case</button><button type="button" data-v="." aria-pressed="false">dot.case</button><button type="button" data-v="/" aria-pressed="false">slash/case</button></div></div>
+      <label class="lx-f"><span class="lx-l">Categories<em>first word</em></span><input type="text" name="ncats" spellcheck="false" value="color, space, size, radius, font, line-height, shadow, border, opacity, motion, z"></label>
+      <label class="lx-f"><span class="lx-l">States<em>always last</em></span><input type="text" name="nstates" spellcheck="false" value="hover, active, pressed, focus, focused, disabled, selected"></label>
+      <label class="lx-f"><span class="lx-l">Most parts allowed<output data-out="ndepth"></output></span><input type="range" name="ndepth" min="3" max="8" step="1" value="6"></label>
+      <label class="lx-check"><input type="checkbox" name="nraw" checked><span>Flag raw colour names in semantic tokens</span></label>
+    </div>
+  </aside>
+  <div class="lx-out">
+    <div class="lx-names">
+      <div class="lx-card lx-names-in"><div class="lx-card-h"><b>Your tokens</b><div class="lx-btns"><button type="button" class="lx-btn lx-btn--sm" data-nexample>Load the messy example</button><button type="button" class="lx-btn lx-btn--sm" data-nclear>Clear</button></div></div>
+        <textarea name="nlist" rows="14" spellcheck="false" aria-label="Token names, one per line" placeholder="Paste token names, CSS variables or a JSON token file&#10;--color-action-primary&#10;color.text.muted"></textarea>
+        <p class="lx-hint" data-nparse></p></div>
+      <div class="lx-card lx-names-out"><div class="lx-card-h"><b>Report</b><span class="lx-score" data-nscore></span></div>
+        <div class="lx-nsum" data-nsum></div><ul class="lx-nlist" data-nresult></ul></div>
+    </div>
+    <div class="lx-exp" data-exp="names">
+      <div class="lx-exp-bar"><div class="lx-seg" role="group" aria-label="Export format"><button type="button" data-fmt="txt" aria-pressed="true">Fixed list</button><button type="button" data-fmt="json" aria-pressed="false">JSON</button></div>
+        <div class="lx-exp-act"><button type="button" class="lx-btn" data-copy>Copy</button><button type="button" class="lx-btn" data-dl>Download</button></div></div>
+      <pre class="lx-code" tabindex="0" aria-label="Exported code"><code></code></pre>
+    </div>
+  </div>
+</div></section>
+    <a class="lx-next" href="/lab/design-token-generator"><span>Next step</span><b>Generate a full token set</b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v3h16v-3"/></svg><i aria-hidden="true">→</i></a>
+  </div>
+  <div class="lx-in lx-doc">
+    <div class="lx-doc-main">
+      <section aria-labelledby="how-h"><h2 id="how-h">How to use it</h2><ol class="lx-steps"><li><b>Paste your tokens</b><p>One per line, a CSS :root block or a DTCG JSON file. A messy example is loaded to start.</p></li><li><b>Set your convention</b><p>Separator, category words, state words and how many parts a name can have.</p></li><li><b>Fix and export</b><p>Copy the fixed list, or the rename map for a find-and-replace or a codemod.</p></li></ol></section>
+      <section class="lx-guide"><h2>The convention it checks</h2>
+<p>Good token names read from general to specific: <b>category</b> first (colour, space, font), then the <b>job</b> (action, text, surface), then a <b>variant</b> (primary, muted), with any <b>state</b> (hover, disabled) last. One separator, lowercase, no abbreviations.</p>
+<p class="lx-formula"><code>color-action-primary-hover</code> = category · job · variant · state</p>
+<div class="lx-tbl"><table><thead><tr><th>Problem</th><th>Example</th><th>Fixed</th></tr></thead><tbody>
+<tr><td>Capitals or mixed case</td><td><code>--colorTextMuted</code></td><td><code>color-text-muted</code></td></tr>
+<tr><td>Abbreviation</td><td><code>--btn-bg-primary</code></td><td><code>color-button-background-primary</code></td></tr>
+<tr><td>Category not first</td><td><code>--primary-text-color</code></td><td><code>color-primary-text</code></td></tr>
+<tr><td>State not last</td><td><code>--color-surface-hover-brand</code></td><td><code>color-surface-brand-hover</code></td></tr>
+<tr><td>Raw colour in a semantic name</td><td><code>--color-button-blue</code></td><td>Name it for its job, like <code>color-action-primary</code></td></tr>
+</tbody></table></div>
+<p>The rules are adjustable: if your system uses dot.case or different category words, change them on the left and the whole report updates.</p></section>
+      <section aria-labelledby="faq-h"><h2 id="faq-h">Questions</h2><div class="lx-faq"><details><summary>What is a good naming convention for design tokens?</summary><p>Category, then the job, then a variant, with any state last, all lowercase with one separator: for example color-action-primary-hover.</p></details><details><summary>Can I check a JSON token file?</summary><p>Yes. Paste a DTCG or Tokens Studio style JSON file; the checker reads every token path.</p></details><details><summary>Does it rename my tokens for me?</summary><p>It gives you the fixed names and a JSON map from old to new, which you can use for a find-and-replace or a codemod.</p></details><details><summary>Why flag raw colours in semantic tokens?</summary><p>A semantic token like color-button-blue breaks the moment the button changes colour, for example in dark mode or a rebrand. Name it for its job instead.</p></details></div></section>
+    </div>
+    <aside class="lx-doc-side" aria-label="More">
+      <div class="lx-side-card"><h2>What you get</h2><ul class="lx-gets"><li>A report on every token: clean, warning or error</li><li>Plain explanations: wrong case, abbreviations, order, raw colours in semantic names</li><li>A suggested fixed name for each problem</li><li>Duplicates found once names are fixed</li><li>A fixed list, or a JSON map of old to new names</li></ul></div>
+      <div class="lx-side-card"><h2>Related tools</h2><a class="lx-rel" href="/lab/design-token-generator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v3h16v-3"/></svg><span><b>Design token generator</b><small>One token file for CSS, Tailwind or DTCG</small></span></a><a class="lx-rel" href="/lab/oklch-palette-generator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="8" cy="10" r="1.6" fill="currentColor"/><circle cx="12" cy="7.5" r="1.6" fill="currentColor"/><circle cx="16" cy="10" r="1.6" fill="currentColor"/><path d="M12 21a3 3 0 0 1 0-6h1.5a2 2 0 0 0 0-4"/></svg><span><b>Palette generator</b><small>Brand colour in, full accessible ramps out</small></span></a><a class="lx-rel" href="/lab/component-request-scorecard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="4" rx="1"/><rect x="4" y="10" width="12" height="4" rx="1"/><rect x="4" y="16" width="8" height="4" rx="1"/></svg><span><b>Request scorecard</b><small>Four questions, one ranked backlog</small></span></a></div>
+      <div class="lx-side-card"><h2>Read more</h2><ul class="lx-arts"><li><a href="/writing/design-token-naming-conventions">Design token naming conventions: a structure people can guess</a></li><li><a href="/writing/design-tokens">Design tokens</a></li><li><a href="/writing/figma-code-sync">Keeping Figma and code in sync: five habits that stop drift</a></li></ul></div>
+    </aside>
+  </div>
+  <div class="lx-in"><div class="lx-cta"><div><b>Want this done properly, for your product?</b><p>Our two-week audit turns your real screens into a token plan, a first-components list and a rollout plan.</p></div><a class="pill pill--accent" href="/pricing#plan-audit">See the audit</a></div></div>
+</main><script src="../assets/lab.js?v=abe1e32c" defer></script>
+<script src="../assets/site.js?v=3de6a9b6" defer></script>
+</body>
+</html>

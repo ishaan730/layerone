@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Layout Grid Calculator: Columns and Breakpoints | Layer One</title>
+<meta name="description" content="Plan a responsive layout grid: columns, gutters, margins and breakpoints, with a live preview at any screen width and CSS, SCSS, Tailwind or token export.">
+<meta property="og:title" content="Layout Grid Calculator: Columns and Breakpoints | Layer One">
+<meta property="og:description" content="Plan a responsive layout grid: columns, gutters, margins and breakpoints, with a live preview at any screen width and CSS, SCSS, Tailwind or token export.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://www.layerone.co.in/assets/og/layer-one.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Layout Grid Calculator: Columns and Breakpoints | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/lab.css?v=4ee35efe">
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Layout grid calculator for responsive breakpoints", "url": "https://www.layerone.co.in/lab/layout-grid-calculator", "description": "Plan a responsive layout grid: columns, gutters, margins and breakpoints, with a live preview at any screen width and CSS, SCSS, Tailwind or token export.", "applicationCategory": "DesignApplication", "operatingSystem": "Any (runs in the browser)", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "featureList": ["Breakpoints with columns, gutter, margin and maximum width for each", "A live preview at any screen width, with column width worked out", "A warning when columns get too narrow", "Starting points from Material 3, Bootstrap 5 and Carbon", "CSS custom properties and a .grid class, SCSS, Tailwind screens or DTCG JSON"], "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Lab", "item": "https://www.layerone.co.in/lab"}, {"@type": "ListItem", "position": 2, "name": "Layout grid calculator", "item": "https://www.layerone.co.in/lab/layout-grid-calculator"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I calculate column width?", "acceptedAnswer": {"@type": "Answer", "text": "Subtract the two margins and all the gutters from the container width, then divide by the number of columns. The calculator does this at any screen width."}}, {"@type": "Question", "name": "What breakpoints should I use?", "acceptedAnswer": {"@type": "Answer", "text": "Four or five, set where your layout needs to change. Material 3's 600, 840, 1200 and 1600 is a sound start. Name them by size, not device."}}, {"@type": "Question", "name": "How many columns should a grid have?", "acceptedAnswer": {"@type": "Answer", "text": "4 on phones, 8 on tablets and 12 on laptops and desktops is the most common choice. Dense enterprise tools sometimes use 16."}}, {"@type": "Question", "name": "Can I export the grid for Tailwind?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The Tailwind export gives a screens object with your breakpoints. The CSS export adds custom properties and a .grid class."}}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/lab/layout-grid-calculator">
+<meta property="og:url" content="https://www.layerone.co.in/lab/layout-grid-calculator">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Layout Grid Calculator: Columns and Breakpoints | Layer One">
+<meta name="twitter:description" content="Plan a responsive layout grid: columns, gutters, margins and breakpoints, with a live preview at any screen width and CSS, SCSS, Tailwind or token export.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/og/layer-one.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab" aria-current="page">Lab</a><a href="/writing">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<main id="main" class="lx lx-page" data-tool="grid">
+  <header class="lx-hero lx-hero--tool"><div class="lx-in">
+    <nav class="lx-crumb" aria-label="Breadcrumb"><a href="/lab">Lab</a><span aria-hidden="true">/</span><a href="/lab?task=layout">Lay out screens</a><span aria-hidden="true">/</span><span aria-current="page">Layout grid calculator</span></nav>
+    <div class="lx-hero-row"><div><h1>Layout grid calculator for responsive breakpoints</h1>
+      <p class="lx-lede">Set columns, gutters, margins and breakpoints, then drag the screen width to see exactly where your layout changes and how wide a column gets. Start from Material 3, Bootstrap 5 or Carbon, and export the grid as CSS or tokens.</p>
+      <ul class="lx-facts"><li>Free, no sign-up</li><li>Runs in your browser</li><li>Saves as you go</li></ul></div>
+      <div class="lx-hero-act"><button type="button" class="lx-btn" data-share>Copy link to this</button><button type="button" class="lx-btn" data-reset>Reset</button><span class="lx-status" data-status role="status" aria-live="polite"></span></div></div>
+  </div></header>
+  <nav class="lx-tabs" aria-label="Lab tools"><div class="lx-in"><div class="lx-tablist lx-toolnav"><a class="lx-all" href="/lab">All tools</a><a href="/lab/oklch-palette-generator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="8" cy="10" r="1.6" fill="currentColor"/><circle cx="12" cy="7.5" r="1.6" fill="currentColor"/><circle cx="16" cy="10" r="1.6" fill="currentColor"/><path d="M12 21a3 3 0 0 1 0-6h1.5a2 2 0 0 0 0-4"/></svg><span><b>Palette</b></span></a><a href="/lab/color-contrast-checker"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18a9 9 0 0 0 0-18Z" fill="currentColor"/></svg><span><b>Contrast</b></span></a><a href="/lab/type-scale-generator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V5h11v2M9.5 5v14M7 19h5"/><path d="M14 12v-1.5h7V12M17.5 10.5V19M16 19h3"/></svg><span><b>Type scale</b></span></a><a href="/lab/spacing-scale-generator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v16M20 4v16"/><path d="M8 12h8M8 12l2.5-2.5M8 12l2.5 2.5M16 12l-2.5-2.5M16 12l-2.5 2.5"/></svg><span><b>Spacing</b></span></a><a href="/lab/layout-grid-calculator" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 4v16M12 4v16M16 4v16"/></svg><span><b>Grid</b></span></a><a href="/lab/design-token-name-checker"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7h10M5 12h14M5 17h7"/><path d="m16 16 2 2 4-4"/></svg><span><b>Token names</b></span></a><a href="/lab/design-token-generator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v3h16v-3"/></svg><span><b>Token export</b></span></a><a href="/lab/component-request-scorecard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="4" rx="1"/><rect x="4" y="10" width="12" height="4" rx="1"/><rect x="4" y="16" width="8" height="4" rx="1"/></svg><span><b>Requests</b></span></a><a href="/lab/design-system-roi-calculator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V6M16 20v-8M22 20H2"/><path d="m4 7 6-4 6 5 5-4"/></svg><span><b>ROI</b></span></a></div></div></nav>
+  <div class="lx-in">
+    <div class="lx-presets" role="group" aria-label="Examples"><span>Try an example</span><button type="button" class="lx-chip" data-lx-preset="{&quot;g&quot;: {&quot;preset&quot;: &quot;m3&quot;, &quot;bps&quot;: null}}" aria-pressed="false">Material 3</button><button type="button" class="lx-chip" data-lx-preset="{&quot;g&quot;: {&quot;preset&quot;: &quot;bootstrap&quot;, &quot;bps&quot;: null}}" aria-pressed="false">Bootstrap 5</button><button type="button" class="lx-chip" data-lx-preset="{&quot;g&quot;: {&quot;preset&quot;: &quot;carbon&quot;, &quot;bps&quot;: null}}" aria-pressed="false">Carbon 2x Grid</button><button type="button" class="lx-chip" data-lx-preset="{&quot;g&quot;: {&quot;preset&quot;: &quot;product&quot;, &quot;bps&quot;: null}}" aria-pressed="false">Product UI</button><button type="button" class="lx-chip" data-lx-preset="{&quot;g&quot;: {&quot;vw&quot;: 390}}" aria-pressed="false">Check a phone</button><button type="button" class="lx-chip" data-lx-preset="{&quot;g&quot;: {&quot;vw&quot;: 1440}}" aria-pressed="false">Check a laptop</button></div>
+    <section class="lx-panel" id="p-grid" data-panel="grid" aria-label="Layout grid calculator">
+<div class="lx-ws">
+  <aside class="lx-ctl" aria-label="Grid settings">
+    <div class="lx-card"><div class="lx-card-h"><b>Start from</b></div>
+      <div class="lx-f"><span class="lx-l">Breakpoint set</span><div class="lx-seg" data-name="gpreset" role="group" aria-label="Breakpoint set"><button type="button" data-v="m3" aria-pressed="false">Material 3</button><button type="button" data-v="bootstrap" aria-pressed="false">Bootstrap 5</button><button type="button" data-v="carbon" aria-pressed="false">Carbon</button><button type="button" data-v="product" aria-pressed="false">Product UI</button><button type="button" data-v="custom" aria-pressed="false">Custom</button></div></div>
+      <p class="lx-hint">Edit any value in the table and the set becomes your own.</p>
+    </div>
+    <div class="lx-card"><div class="lx-card-h"><b>Preview</b></div>
+      <label class="lx-f"><span class="lx-l">Screen width<output data-out="gvw"></output><i>px</i></span><input type="range" name="gvw" min="320" max="1920" step="10" value="1280"></label>
+      <p class="lx-hint">Drag to see where the layout changes and how wide a column gets.</p>
+    </div>
+  </aside>
+  <div class="lx-out">
+    <div class="lx-gfacts" data-gfacts aria-live="polite"></div>
+    <div class="lx-gview" data-gview></div>
+    <div class="lx-card"><div class="lx-card-h"><b>Breakpoints</b><button type="button" class="lx-btn lx-btn--sm" data-gadd>+ Add breakpoint</button></div>
+      <div class="lx-gtable" data-gtable></div>
+      <p class="lx-hint">Max width 0 means the container fills the screen. Column at start is the column width at each breakpoint's smallest screen.</p>
+    </div>
+    <div class="lx-exp" data-exp="grid">
+      <div class="lx-exp-bar"><div class="lx-seg" role="group" aria-label="Export format"><button type="button" data-fmt="css" aria-pressed="true">CSS</button><button type="button" data-fmt="tailwind" aria-pressed="false">Tailwind</button><button type="button" data-fmt="json" aria-pressed="false">JSON (DTCG)</button><button type="button" data-fmt="scss" aria-pressed="false">SCSS</button></div>
+        <div class="lx-exp-act"><button type="button" class="lx-btn" data-copy>Copy</button><button type="button" class="lx-btn" data-dl>Download</button></div></div>
+      <pre class="lx-code" tabindex="0" aria-label="Exported code"><code></code></pre>
+    </div>
+  </div>
+</div></section>
+    <a class="lx-next" href="/lab/design-token-generator"><span>Next step</span><b>Export everything as one token file</b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v3h16v-3"/></svg><i aria-hidden="true">→</i></a>
+  </div>
+  <div class="lx-in lx-doc">
+    <div class="lx-doc-main">
+      <section aria-labelledby="how-h"><h2 id="how-h">How to use it</h2><ol class="lx-steps"><li><b>Start from a familiar set</b><p>Pick Material 3, Bootstrap 5, Carbon or our product UI starting point.</p></li><li><b>Drag the screen width</b><p>Watch the active breakpoint, column width and content width change as you go.</p></li><li><b>Make it yours and export</b><p>Edit any value in the table, add or remove breakpoints, then copy the CSS or tokens.</p></li></ol></section>
+      <section class="lx-guide"><h2>How the column width is worked out</h2>
+<p>At any screen width, the container is the screen (or the maximum width, if smaller). Take away the two margins to get the content width, take away the gutters between columns, and divide by the number of columns:</p>
+<p class="lx-formula"><code>column = (min(screen, max width) − 2 × margin − (columns − 1) × gutter) ÷ columns</code></p>
+<p>When columns get narrower than about 40px, a 12-column grid stops being useful on that screen: use fewer columns at that breakpoint.</p>
+<h2>About the starting points</h2>
+<div class="lx-tbl"><table><thead><tr><th>Set</th><th>Breakpoints</th><th>Notes</th></tr></thead><tbody>
+<tr><td>Material 3</td><td>600, 840, 1200, 1600</td><td>Material 3's window size classes and margins. Material 3 describes panes and margins rather than a fixed column grid, so the 4, 8 and 12 columns here follow the common convention.</td></tr>
+<tr><td>Bootstrap 5</td><td>576, 768, 992, 1200, 1400</td><td>12 columns, 24px gutters and fixed container widths from Bootstrap's defaults.</td></tr>
+<tr><td>Carbon 2x Grid</td><td>672, 1056, 1312, 1584</td><td>IBM Carbon's breakpoints, with 16 columns on large screens and 32px gutters.</td></tr>
+<tr><td>Product UI</td><td>600, 1024, 1440</td><td>Our starting point for business software: 4, 8 and 12 columns, full width up to 1440px.</td></tr>
+</tbody></table></div>
+<p>Check each system's own documentation before relying on exact values; frameworks change their defaults between versions.</p>
+<h2>Breakpoints as tokens</h2>
+<p>CSS custom properties can't be used inside media queries, so breakpoints are usually shared as constants (SCSS variables, a Tailwind <code>screens</code> object or JSON for your token pipeline), while columns, gutters and margins can be custom properties that change at each breakpoint. The CSS export does exactly that.</p></section>
+      <section aria-labelledby="faq-h"><h2 id="faq-h">Questions</h2><div class="lx-faq"><details><summary>How do I calculate column width?</summary><p>Subtract the two margins and all the gutters from the container width, then divide by the number of columns. The calculator does this at any screen width.</p></details><details><summary>What breakpoints should I use?</summary><p>Four or five, set where your layout needs to change. Material 3's 600, 840, 1200 and 1600 is a sound start. Name them by size, not device.</p></details><details><summary>How many columns should a grid have?</summary><p>4 on phones, 8 on tablets and 12 on laptops and desktops is the most common choice. Dense enterprise tools sometimes use 16.</p></details><details><summary>Can I export the grid for Tailwind?</summary><p>Yes. The Tailwind export gives a screens object with your breakpoints. The CSS export adds custom properties and a .grid class.</p></details></div></section>
+    </div>
+    <aside class="lx-doc-side" aria-label="More">
+      <div class="lx-side-card"><h2>What you get</h2><ul class="lx-gets"><li>Breakpoints with columns, gutter, margin and maximum width for each</li><li>A live preview at any screen width, with column width worked out</li><li>A warning when columns get too narrow</li><li>Starting points from Material 3, Bootstrap 5 and Carbon</li><li>CSS custom properties and a .grid class, SCSS, Tailwind screens or DTCG JSON</li></ul></div>
+      <div class="lx-side-card"><h2>Related tools</h2><a class="lx-rel" href="/lab/spacing-scale-generator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v16M20 4v16"/><path d="M8 12h8M8 12l2.5-2.5M8 12l2.5 2.5M16 12l-2.5-2.5M16 12l-2.5 2.5"/></svg><span><b>Spacing scale generator</b><small>A spacing and radius scale, tried on a card</small></span></a><a class="lx-rel" href="/lab/type-scale-generator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V5h11v2M9.5 5v14M7 19h5"/><path d="M14 12v-1.5h7V12M17.5 10.5V19M16 19h3"/></svg><span><b>Type scale generator</b><small>Font sizes, line heights and clamp() values</small></span></a><a class="lx-rel" href="/lab/design-token-generator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v3h16v-3"/></svg><span><b>Design token generator</b><small>One token file for CSS, Tailwind or DTCG</small></span></a></div>
+      <div class="lx-side-card"><h2>Read more</h2><ul class="lx-arts"><li><a href="/writing/layout-grid-breakpoints">Layout grids and breakpoints for product UI</a></li><li><a href="/writing/spacing-system-4px-vs-8px">Spacing systems: 4px vs 8px, the scale, and how to use it</a></li><li><a href="/writing/design-system-localization-rtl">Localisation and right-to-left in a design system</a></li></ul></div>
+    </aside>
+  </div>
+  <div class="lx-in"><div class="lx-cta"><div><b>Want this done properly, for your product?</b><p>Our two-week audit turns your real screens into a token plan, a first-components list and a rollout plan.</p></div><a class="pill pill--accent" href="/pricing#plan-audit">See the audit</a></div></div>
+</main><script src="../assets/lab.js?v=abe1e32c" defer></script>
+<script src="../assets/site.js?v=3de6a9b6" defer></script>
+</body>
+</html>

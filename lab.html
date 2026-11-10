@@ -3,24 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lab — Layer One</title>
-<meta name="description" content="Free design system tools: an OKLCH palette builder, a WCAG and APCA contrast checker, type and spacing scales, a token name linter, a request backlog and a token export kit.">
-<meta property="og:title" content="Lab — Layer One">
-<meta property="og:description" content="Free design system tools: an OKLCH palette builder, a WCAG and APCA contrast checker, type and spacing scales, a token name linter, a request backlog and a token export kit.">
+<title>Free Design System Tools: Color, Type, Tokens | Layer One</title>
+<meta name="description" content="Free online design system tools: OKLCH palette generator, WCAG and APCA contrast checker, type scale, spacing, grid, token tools and an ROI calculator.">
+<meta property="og:title" content="Free Design System Tools: Color, Type, Tokens | Layer One">
+<meta property="og:description" content="Free online design system tools: OKLCH palette generator, WCAG and APCA contrast checker, type scale, spacing, grid, token tools and an ROI calculator.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://www.layerone.co.in/assets/og/layer-one.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta property="og:image:alt" content="Lab — Layer One">
+<meta property="og:image:alt" content="Free Design System Tools: Color, Type, Tokens | Layer One">
 <meta name="theme-color" content="#0b0d12">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/site.css?v=9f602d1c">
+<link rel="stylesheet" href="assets/lab.css?v=4ee35efe">
 <script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "name": "Free design system tools", "url": "https://www.layerone.co.in/lab", "description": "Free online tools for designers and design system teams.", "mainEntity": {"@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": 1, "url": "https://www.layerone.co.in/lab/oklch-palette-generator", "name": "OKLCH colour palette generator"}, {"@type": "ListItem", "position": 2, "url": "https://www.layerone.co.in/lab/color-contrast-checker", "name": "Colour contrast checker with WCAG, APCA and fixes"}, {"@type": "ListItem", "position": 3, "url": "https://www.layerone.co.in/lab/type-scale-generator", "name": "Type scale generator, with fluid sizes"}, {"@type": "ListItem", "position": 4, "url": "https://www.layerone.co.in/lab/spacing-scale-generator", "name": "Spacing scale generator, with radius"}, {"@type": "ListItem", "position": 5, "url": "https://www.layerone.co.in/lab/layout-grid-calculator", "name": "Layout grid calculator for responsive breakpoints"}, {"@type": "ListItem", "position": 6, "url": "https://www.layerone.co.in/lab/design-token-name-checker", "name": "Design token name checker"}, {"@type": "ListItem", "position": 7, "url": "https://www.layerone.co.in/lab/design-token-generator", "name": "Design token generator"}, {"@type": "ListItem", "position": 8, "url": "https://www.layerone.co.in/lab/component-request-scorecard", "name": "Design system request scorecard"}, {"@type": "ListItem", "position": 9, "url": "https://www.layerone.co.in/lab/design-system-roi-calculator", "name": "Design system ROI calculator"}]}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Are the Lab tools free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Every tool is free, needs no account and runs in your browser. Nothing you enter is sent to a server."}}, {"@type": "Question", "name": "Do the tools work together?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. They share your work in this browser: a palette you make is available in the contrast checker and the token generator, and the token generator combines your palette, type, spacing and grid into one file."}}, {"@type": "Question", "name": "Can I share what I've made?", "acceptedAnswer": {"@type": "Answer", "text": "Every tool has a “Copy link to this” button that encodes your settings in the link, so a colleague opens exactly what you see."}}, {"@type": "Question", "name": "What formats can I export?", "acceptedAnswer": {"@type": "Answer", "text": "CSS custom properties, Tailwind config, SCSS and W3C DTCG JSON for tokens; Markdown, CSV and JSON for the planning tools."}}, {"@type": "Question", "name": "Who made these tools?", "acceptedAnswer": {"@type": "Answer", "text": "Layer One, a design systems studio. They come from the method we use on client systems at companies like CARS24, IBM and JPMorgan Chase."}}]}</script>
 <link rel="canonical" href="https://www.layerone.co.in/lab">
 <meta property="og:url" content="https://www.layerone.co.in/lab">
 <meta property="og:site_name" content="Layer One">
-<meta name="twitter:title" content="Lab — Layer One">
-<meta name="twitter:description" content="Free design system tools: an OKLCH palette builder, a WCAG and APCA contrast checker, type and spacing scales, a token name linter, a request backlog and a token export kit.">
+<meta name="twitter:title" content="Free Design System Tools: Color, Type, Tokens | Layer One">
+<meta name="twitter:description" content="Free online design system tools: OKLCH palette generator, WCAG and APCA contrast checker, type scale, spacing, grid, token tools and an ROI calculator.">
 <meta name="twitter:image" content="https://www.layerone.co.in/assets/og/layer-one.jpg">
 <script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
 </head>
@@ -32,222 +33,102 @@
   <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
   <a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
 </div></header>
-<main id="main" class="lx">
-  <header class="lx-hero"><div class="lx-in">
+<main id="main" class="lx lx-hub">
+  <header class="lx-hero lh-hero"><div class="lx-in">
     <p class="lx-eyebrow">lab:</p>
-    <div class="lx-hero-row"><div><h1>Free tools for building a design system</h1>
-      <p class="lx-lede">Seven tools from the method we use on client systems: palette, contrast, type, spacing, token names and request triage. They run in your browser, save as you go, and export tokens you can paste.</p></div>
-      <div class="lx-hero-act"><button type="button" class="lx-btn" data-share>Copy share link</button><button type="button" class="lx-btn" data-reset>Start over</button><span class="lx-status" data-status role="status" aria-live="polite"></span></div></div>
+    <h1>Free design system tools</h1>
+    <p class="lx-lede">Practical tools for the jobs that come up when you build and run a design system: palettes, contrast, type, spacing, grids, token names, exports and the business case. Pick what you're trying to do, or search.</p>
+    <div class="lh-search" role="search">
+      <label for="lh-q" class="sr">Search the tools</label>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="lh-q" type="search" placeholder="What do you want to do? Try “contrast”, “clamp” or “Tailwind colours”" autocomplete="off" spellcheck="false">
+      <span class="lh-count" data-count aria-live="polite"></span>
+    </div>
+    <div class="lh-sugs"><span>Popular:</span><button type="button" class="lh-sug" data-q="contrast">contrast</button><button type="button" class="lh-sug" data-q="palette">palette</button><button type="button" class="lh-sug" data-q="clamp">clamp</button><button type="button" class="lh-sug" data-q="breakpoints">breakpoints</button><button type="button" class="lh-sug" data-q="tailwind">tailwind</button><button type="button" class="lh-sug" data-q="ROI">ROI</button></div>
   </div></header>
-  <nav class="lx-tabs" aria-label="Tools"><div class="lx-in"><div class="lx-tablist" role="tablist" aria-label="Lab tools"><button type="button" role="tab" id="tab-palette" aria-controls="p-palette" aria-selected="true" data-tab="palette"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="8" cy="10" r="1.6" fill="currentColor"/><circle cx="12" cy="7.5" r="1.6" fill="currentColor"/><circle cx="16" cy="10" r="1.6" fill="currentColor"/><path d="M12 21a3 3 0 0 1 0-6h1.5a2 2 0 0 0 0-4"/></svg><span><b>Palette</b><small>From one colour</small></span></button><button type="button" role="tab" id="tab-contrast" aria-controls="p-contrast" aria-selected="false" data-tab="contrast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18a9 9 0 0 0 0-18Z" fill="currentColor"/></svg><span><b>Contrast</b><small>WCAG and APCA</small></span></button><button type="button" role="tab" id="tab-type" aria-controls="p-type" aria-selected="false" data-tab="type"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V5h11v2M9.5 5v14M7 19h5"/><path d="M14 12v-1.5h7V12M17.5 10.5V19M16 19h3"/></svg><span><b>Type scale</b><small>Sizes and lines</small></span></button><button type="button" role="tab" id="tab-space" aria-controls="p-space" aria-selected="false" data-tab="space"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v16M20 4v16"/><path d="M8 12h8M8 12l2.5-2.5M8 12l2.5 2.5M16 12l-2.5-2.5M16 12l-2.5 2.5"/></svg><span><b>Spacing</b><small>Space and radius</small></span></button><button type="button" role="tab" id="tab-names" aria-controls="p-names" aria-selected="false" data-tab="names"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7h10M5 12h14M5 17h7"/><path d="m16 16 2 2 4-4"/></svg><span><b>Token names</b><small>Lint and fix</small></span></button><button type="button" role="tab" id="tab-backlog" aria-controls="p-backlog" aria-selected="false" data-tab="backlog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="4" rx="1"/><rect x="4" y="10" width="12" height="4" rx="1"/><rect x="4" y="16" width="8" height="4" rx="1"/></svg><span><b>Backlog</b><small>Rank requests</small></span></button><button type="button" role="tab" id="tab-kit" aria-controls="p-kit" aria-selected="false" data-tab="kit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v3h16v-3"/></svg><span><b>Export kit</b><small>One file</small></span></button></div></div></nav>
-  <div class="lx-in"><section class="lx-panel" role="tabpanel" id="p-palette" aria-labelledby="tab-palette" data-panel="palette">
-  <header class="lx-ph"><h2>Palette</h2><p>Start from your brand colour. Get even, accessible ramps in OKLCH, a live UI preview in light and dark, and tokens you can paste.</p></header>
-<div class="lx-ws">
-  <aside class="lx-ctl" aria-label="Palette settings">
-    <div class="lx-card">
-      <div class="lx-card-h"><b>Ramps</b><div class="lx-add"><button type="button" class="lx-btn lx-btn--sm" data-add-ramp aria-expanded="false">+ Add ramp</button>
-        <div class="lx-menu" data-add-menu hidden><button type="button" data-preset="neutral">Neutral, tinted from brand</button><button type="button" data-preset="success">Success</button><button type="button" data-preset="warning">Warning</button><button type="button" data-preset="danger">Danger</button><button type="button" data-preset="info">Info</button><button type="button" data-preset="custom">Custom colour</button></div></div></div>
-      <ul class="lx-ramps" data-ramp-list></ul>
-    </div>
-    <div class="lx-card" data-ramp-editor>
-      <div class="lx-card-h"><b>Edit <span data-edit-name>brand</span></b><button type="button" class="lx-icon" data-del-ramp aria-label="Delete this ramp">✕</button></div>
-      <label class="lx-f"><span class="lx-l">Name</span><input type="text" name="rname" maxlength="20" spellcheck="false"></label>
-      <div class="lx-f"><span class="lx-l">Colour <em>paste a hex</em></span><div class="lx-hex"><input type="color" name="rcolor" aria-label="Pick a colour"><input type="text" name="rhex" maxlength="7" spellcheck="false" aria-label="Hex value"></div></div>
-      <label class="lx-f"><span class="lx-l">Hue<output data-out="hue"></output><i>°</i></span><input type="range" name="hue" min="0" max="360" step="1" value="275"></label>
-      <label class="lx-f"><span class="lx-l">Chroma<output data-out="chroma"></output></span><input type="range" name="chroma" min="0" max="0.37" step="0.005" value="0.2"></label>
-      <label class="lx-check"><input type="checkbox" name="pin" checked><span>Keep my exact colour at the closest step</span></label>
-    </div>
-    <div class="lx-card">
-      <div class="lx-card-h"><b>Scale</b></div>
-      <div class="lx-f"><span class="lx-l">Steps</span><div class="lx-seg" data-name="steps" role="group" aria-label="Steps"><button type="button" data-v="10" aria-pressed="false">50–900</button><button type="button" data-v="11" aria-pressed="false">50–950</button><button type="button" data-v="12" aria-pressed="false">25–950</button></div></div>
-      <label class="lx-f"><span class="lx-l">Lightest<output data-out="lmax"></output></span><input type="range" name="lmax" min="0.9" max="0.995" step="0.005" value="0.975"></label>
-      <label class="lx-f"><span class="lx-l">Darkest<output data-out="lmin"></output></span><input type="range" name="lmin" min="0.12" max="0.4" step="0.01" value="0.24"></label>
-      <div class="lx-f"><span class="lx-l">Fit to</span><div class="lx-seg" data-name="gamut" role="group" aria-label="Fit to"><button type="button" data-v="srgb" aria-pressed="false">sRGB</button><button type="button" data-v="p3" aria-pressed="false">Display P3</button></div></div>
-    </div>
-  </aside>
-  <div class="lx-out">
-    <div class="lx-sheet" data-sheet aria-live="polite"></div>
-    <p class="lx-hint">Select a swatch to copy its value. Badges show WCAG 2 contrast with white and black text.</p>
-    <div class="lx-prev" data-prev>
-      <div class="lx-prev-h"><b>Preview</b><div class="lx-seg" data-prev-mode role="group" aria-label="Preview theme"><button type="button" data-v="both" aria-pressed="true">Light and dark</button><button type="button" data-v="light" aria-pressed="false">Light</button><button type="button" data-v="dark" aria-pressed="false">Dark</button></div></div>
-      <div class="lx-prev-grid" data-prev-grid></div>
-    </div>
-    <div class="lx-exp" data-exp="palette">
-      <div class="lx-exp-bar"><div class="lx-seg" role="group" aria-label="Export format"><button type="button" data-fmt="css" aria-pressed="true">CSS</button><button type="button" data-fmt="tailwind" aria-pressed="false">Tailwind</button><button type="button" data-fmt="json" aria-pressed="false">JSON (DTCG)</button><button type="button" data-fmt="scss" aria-pressed="false">SCSS</button></div>
-        <div class="lx-exp-act"><button type="button" class="lx-btn" data-copy>Copy</button><button type="button" class="lx-btn" data-dl>Download</button></div></div>
-      <pre class="lx-code" tabindex="0" aria-label="Exported code"><code></code></pre>
-    </div>
-  </div>
-</div>
-</section><section class="lx-panel" role="tabpanel" id="p-contrast" aria-labelledby="tab-contrast" hidden data-panel="contrast">
-  <header class="lx-ph"><h2>Contrast</h2><p>Check any text and background against WCAG 2 and APCA. If it fails, get the closest colour that passes, in the same hue.</p></header>
-<div class="lx-ws">
-  <aside class="lx-ctl" aria-label="Contrast settings">
-    <div class="lx-card">
-      <div class="lx-card-h"><b>Colours</b><button type="button" class="lx-btn lx-btn--sm" data-swap>⇅ Swap</button></div>
-      <div class="lx-f"><span class="lx-l">Text</span><div class="lx-hex"><input type="color" name="fgc" aria-label="Pick the text colour"><input type="text" name="fg" maxlength="7" spellcheck="false" aria-label="Text hex"></div></div>
-      <div class="lx-f"><span class="lx-l">Background</span><div class="lx-hex"><input type="color" name="bgc" aria-label="Pick the background colour"><input type="text" name="bg" maxlength="7" spellcheck="false" aria-label="Background hex"></div></div>
-      <div class="lx-f"><span class="lx-l">From your palette <em>click for text, shift-click for background</em></span><div class="lx-mini" data-mini></div></div>
-    </div>
-    <div class="lx-card"><div class="lx-card-h"><b>Pair matrix</b></div>
-      <label class="lx-f"><span class="lx-l">Ramp</span><select name="mramp"></select></label>
-      <div class="lx-f"><span class="lx-l">Show pairs that pass</span><div class="lx-seg" data-name="mmin" role="group" aria-label="Show pairs that pass"><button type="button" data-v="3" aria-pressed="false">3:1</button><button type="button" data-v="4.5" aria-pressed="false">4.5:1</button><button type="button" data-v="7" aria-pressed="false">7:1</button></div></div>
-    </div>
-  </aside>
-  <div class="lx-out">
-    <div class="lx-cview" data-cview>
-      <div class="lx-cpreview" data-cpreview>
-        <p class="t-l">Design systems ship faster</p>
-        <p class="t-b">Body text at 16px. Your team reads this all day, so it needs to pass comfortably, not just barely.</p>
-        <p class="t-s">Small print at 13px · Last updated 2 hours ago</p>
-        <div class="t-ui"><span class="t-btn">Button</span><span class="t-out">Outlined</span><span class="t-ic" aria-hidden="true">★</span></div>
-      </div>
-      <div class="lx-cres">
-        <div class="lx-ratio"><strong data-ratio>—</strong><span>WCAG 2 ratio</span></div>
-        <div class="lx-apca"><strong data-apca>—</strong><span>APCA Lc</span></div>
-        <ul class="lx-pass" data-pass></ul>
-        <p class="lx-apca-note" data-apca-note></p>
-      </div>
-    </div>
-    <div class="lx-fix" data-fix></div>
-    <div class="lx-matrix-wrap"><div class="lx-matrix" data-matrix></div></div>
-    <p class="lx-hint">Rows are text, columns are backgrounds. Select a cell to load the pair above.</p>
-  </div>
-</div>
-</section><section class="lx-panel" role="tabpanel" id="p-type" aria-labelledby="tab-type" hidden data-panel="type">
-  <header class="lx-ph"><h2>Type scale</h2><p>Pick a base size and a ratio. Sizes are rounded the way engineers will build them, with line heights that tighten as text grows.</p></header>
-<div class="lx-ws">
-  <aside class="lx-ctl" aria-label="Type scale settings">
-    <div class="lx-card"><div class="lx-card-h"><b>Scale</b></div>
-      <label class="lx-f"><span class="lx-l">Base size<output data-out="tbase"></output><i>px</i></span><input type="range" name="tbase" min="12" max="20" step="1" value="16"></label>
-      <label class="lx-f"><span class="lx-l">Ratio</span><select name="tratio"><option value="1.067">1.067 · Minor second</option><option value="1.125">1.125 · Major second</option><option value="1.2">1.2 · Minor third</option><option value="1.25">1.25 · Major third</option><option value="1.333">1.333 · Perfect fourth</option><option value="1.414">1.414 · Augmented fourth</option><option value="1.5">1.5 · Perfect fifth</option><option value="1.618">1.618 · Golden ratio</option></select></label>
-      <label class="lx-f"><span class="lx-l">Steps above base<output data-out="tup"></output></span><input type="range" name="tup" min="3" max="9" step="1" value="6"></label>
-      <label class="lx-f"><span class="lx-l">Steps below base<output data-out="tdown"></output></span><input type="range" name="tdown" min="0" max="3" step="1" value="2"></label>
-      <div class="lx-f"><span class="lx-l">Rounding</span><div class="lx-seg" data-name="tround" role="group" aria-label="Rounding"><button type="button" data-v="1" aria-pressed="false">Whole px</button><button type="button" data-v="2" aria-pressed="false">Even px</button><button type="button" data-v="4" aria-pressed="false">4px grid</button><button type="button" data-v="0" aria-pressed="false">Exact</button></div></div>
-    </div>
-    <div class="lx-card"><div class="lx-card-h"><b>Lines and names</b></div>
-      <label class="lx-f"><span class="lx-l">Body line height<output data-out="tlh"></output></span><input type="range" name="tlh" min="1.3" max="1.7" step="0.05" value="1.5"></label>
-      <label class="lx-f"><span class="lx-l">Display line height<output data-out="tlhd"></output></span><input type="range" name="tlhd" min="1.0" max="1.3" step="0.05" value="1.1"></label>
-      <div class="lx-f"><span class="lx-l">Token names</span><div class="lx-seg" data-name="tname" role="group" aria-label="Token names"><button type="button" data-v="shirt" aria-pressed="false">xs · md · 2xl</button><button type="button" data-v="num" aria-pressed="false">100 · 400 · 900</button><button type="button" data-v="role" aria-pressed="false">body · heading</button></div></div>
-      <label class="lx-f"><span class="lx-l">Preview font</span><select name="tfont"><option value="Schibsted Grotesk, sans-serif">Schibsted Grotesk</option><option value="ui-sans-serif, system-ui, sans-serif">System sans</option><option value="Georgia, ui-serif, serif">Serif</option><option value="ui-monospace, Menlo, monospace">Monospace</option></select></label>
-      <label class="lx-f"><span class="lx-l">Sample text</span><input type="text" name="ttext" maxlength="60" value="Ship the system, not the screenshots"></label>
-    </div>
-  </aside>
-  <div class="lx-out">
-    <div class="lx-tscale" data-tscale></div>
-    <div class="lx-exp" data-exp="type">
-      <div class="lx-exp-bar"><div class="lx-seg" role="group" aria-label="Export format"><button type="button" data-fmt="css" aria-pressed="true">CSS</button><button type="button" data-fmt="tailwind" aria-pressed="false">Tailwind</button><button type="button" data-fmt="json" aria-pressed="false">JSON (DTCG)</button><button type="button" data-fmt="scss" aria-pressed="false">SCSS</button></div>
-        <div class="lx-exp-act"><button type="button" class="lx-btn" data-copy>Copy</button><button type="button" class="lx-btn" data-dl>Download</button></div></div>
-      <pre class="lx-code" tabindex="0" aria-label="Exported code"><code></code></pre>
-    </div>
-  </div>
-</div>
-</section><section class="lx-panel" role="tabpanel" id="p-space" aria-labelledby="tab-space" hidden data-panel="space">
-  <header class="lx-ph"><h2>Spacing and radius</h2><p>A spacing scale on a base unit, tried on a real card, and a short radius scale.</p></header>
-<div class="lx-ws">
-  <aside class="lx-ctl" aria-label="Spacing settings">
-    <div class="lx-card"><div class="lx-card-h"><b>Spacing</b></div>
-      <div class="lx-f"><span class="lx-l">Base unit</span><div class="lx-seg" data-name="sbase" role="group" aria-label="Base unit"><button type="button" data-v="2" aria-pressed="false">2px</button><button type="button" data-v="4" aria-pressed="false">4px</button><button type="button" data-v="8" aria-pressed="false">8px</button></div></div>
-      <label class="lx-f"><span class="lx-l">Method</span><select name="smethod"><option value="common">Common: 1, 2, 3, 4, 6, 8, 12, 16…</option><option value="linear">Linear: every multiple</option><option value="double">Doubling: 1, 2, 4, 8, 16…</option><option value="fib">Fibonacci: 1, 2, 3, 5, 8, 13…</option></select></label>
-      <label class="lx-f"><span class="lx-l">Steps<output data-out="scount"></output></span><input type="range" name="scount" min="6" max="16" step="1" value="12"></label>
-      <div class="lx-f"><span class="lx-l">Token names</span><div class="lx-seg" data-name="sname" role="group" aria-label="Token names"><button type="button" data-v="shirt" aria-pressed="false">xs · md · xl</button><button type="button" data-v="mult" aria-pressed="false">space-1 · space-4</button><button type="button" data-v="px" aria-pressed="false">space-8 · space-16</button></div></div>
-    </div>
-    <div class="lx-card"><div class="lx-card-h"><b>Radius</b></div>
-      <label class="lx-f"><span class="lx-l">Base radius<output data-out="rbase"></output><i>px</i></span><input type="range" name="rbase" min="2" max="12" step="1" value="6"></label>
-      <label class="lx-f"><span class="lx-l">Steps<output data-out="rcount"></output></span><input type="range" name="rcount" min="3" max="7" step="1" value="5"></label>
-      <label class="lx-check"><input type="checkbox" name="rfull" checked><span>Add radius-full for pills</span></label>
-    </div>
-  </aside>
-  <div class="lx-out">
-    <div class="lx-spacebox">
-      <div class="lx-sbars" data-sbars></div>
-      <div class="lx-sdemo" data-sdemo>
-        <p class="lx-k">Applied to a card</p>
-        <div class="lx-demo-card"><div class="lx-demo-top"><i></i><div><b>Loan application</b><span>Updated 2h ago</span></div></div><p>Spacing tokens set every gap here: padding, the gap between rows, and the space around the buttons.</p><div class="lx-demo-btns"><span>Approve</span><span>Review</span></div></div>
-        <label class="lx-f"><span class="lx-l">Card padding</span><select data-pad></select></label>
-        <label class="lx-f"><span class="lx-l">Gap</span><select data-gap></select></label>
-      </div>
-    </div>
-    <div class="lx-radii" data-radii></div>
-    <div class="lx-exp" data-exp="space">
-      <div class="lx-exp-bar"><div class="lx-seg" role="group" aria-label="Export format"><button type="button" data-fmt="css" aria-pressed="true">CSS</button><button type="button" data-fmt="tailwind" aria-pressed="false">Tailwind</button><button type="button" data-fmt="json" aria-pressed="false">JSON (DTCG)</button><button type="button" data-fmt="scss" aria-pressed="false">SCSS</button></div>
-        <div class="lx-exp-act"><button type="button" class="lx-btn" data-copy>Copy</button><button type="button" class="lx-btn" data-dl>Download</button></div></div>
-      <pre class="lx-code" tabindex="0" aria-label="Exported code"><code></code></pre>
-    </div>
-  </div>
-</div>
-</section><section class="lx-panel" role="tabpanel" id="p-names" aria-labelledby="tab-names" hidden data-panel="names">
-  <header class="lx-ph"><h2>Token names</h2><p>Paste a token list. The linter checks it against a naming convention, explains every problem and suggests a fix.</p></header>
-<div class="lx-ws">
-  <aside class="lx-ctl" aria-label="Linter settings">
-    <div class="lx-card"><div class="lx-card-h"><b>Convention</b></div>
-      <div class="lx-f"><span class="lx-l">Separator</span><div class="lx-seg" data-name="nsep" role="group" aria-label="Separator"><button type="button" data-v="-" aria-pressed="false">kebab-case</button><button type="button" data-v="." aria-pressed="false">dot.case</button><button type="button" data-v="/" aria-pressed="false">slash/case</button></div></div>
-      <label class="lx-f"><span class="lx-l">Categories<em>first word</em></span><input type="text" name="ncats" spellcheck="false" value="color, space, size, radius, font, line-height, shadow, border, opacity, motion, z"></label>
-      <label class="lx-f"><span class="lx-l">States<em>always last</em></span><input type="text" name="nstates" spellcheck="false" value="hover, active, pressed, focus, focused, disabled, selected"></label>
-      <label class="lx-f"><span class="lx-l">Most parts allowed<output data-out="ndepth"></output></span><input type="range" name="ndepth" min="3" max="8" step="1" value="6"></label>
-      <label class="lx-check"><input type="checkbox" name="nraw" checked><span>Flag raw colour names in semantic tokens</span></label>
-    </div>
-  </aside>
-  <div class="lx-out">
-    <div class="lx-names">
-      <div class="lx-card lx-names-in"><div class="lx-card-h"><b>Your tokens</b><div style="display:flex;gap:6px"><button type="button" class="lx-btn lx-btn--sm" data-nexample>Load a messy example</button><button type="button" class="lx-btn lx-btn--sm" data-nclear>Clear</button></div></div>
-        <textarea name="nlist" rows="14" spellcheck="false" aria-label="Token names, one per line" placeholder="Paste token names, CSS variables or a JSON token file&#10;--color-action-primary&#10;color.text.muted"></textarea>
-        <p class="lx-hint" data-nparse></p></div>
-      <div class="lx-card lx-names-out"><div class="lx-card-h"><b>Report</b><span class="lx-score" data-nscore></span></div>
-        <div class="lx-nsum" data-nsum></div><ul class="lx-nlist" data-nresult></ul></div>
-    </div>
-    <div class="lx-exp" data-exp="names">
-      <div class="lx-exp-bar"><div class="lx-seg" role="group" aria-label="Export format"><button type="button" data-fmt="txt" aria-pressed="true">Fixed list</button><button type="button" data-fmt="json" aria-pressed="false">JSON</button></div>
-        <div class="lx-exp-act"><button type="button" class="lx-btn" data-copy>Copy</button><button type="button" class="lx-btn" data-dl>Download</button></div></div>
-      <pre class="lx-code" tabindex="0" aria-label="Exported code"><code></code></pre>
-    </div>
-  </div>
-</div>
-</section><section class="lx-panel" role="tabpanel" id="p-backlog" aria-labelledby="tab-backlog" hidden data-panel="backlog">
-  <header class="lx-ph"><h2>Request backlog</h2><p>Score every component request with the same four questions, and get a ranked backlog you can share.</p></header>
-<div class="lx-ws">
-  <aside class="lx-ctl" aria-label="New request">
-    <form class="lx-card" data-bform onsubmit="return false">
-      <div class="lx-card-h"><b data-bform-title>New request</b></div>
-      <label class="lx-f"><span class="lx-l">Component or change</span><input type="text" name="bname" maxlength="60" placeholder="Date range picker" required></label>
-      <label class="lx-f"><span class="lx-l">Asked by</span><input type="text" name="bteam" maxlength="40" placeholder="Loans team"></label>
-      <div class="lx-f"><span class="lx-l">Where is it needed?</span><div class="lx-seg" data-name="where" role="group" aria-label="Where is it needed?"><button type="button" data-v="20" aria-pressed="false">Main products</button><button type="button" data-v="15" aria-pressed="false">Smaller products</button><button type="button" data-v="5" aria-pressed="false">One team</button><button type="button" data-v="x" aria-pressed="false">Nowhere</button></div></div>
-      <div class="lx-f"><span class="lx-l">How many can reuse it?</span><div class="lx-seg" data-name="reuse" role="group" aria-label="How many can reuse it?"><button type="button" data-v="20" aria-pressed="false">Many teams</button><button type="button" data-v="15" aria-pressed="false">A few teams</button><button type="button" data-v="5" aria-pressed="false">One team</button><button type="button" data-v="x" aria-pressed="false">One product</button></div></div>
-      <div class="lx-f"><span class="lx-l">Do we already have it?</span><div class="lx-seg" data-name="exists" role="group" aria-label="Do we already have it?"><button type="button" data-v="15" aria-pressed="false">No</button><button type="button" data-v="10" aria-pressed="false">Partly</button><button type="button" data-v="5" aria-pressed="false">Mostly</button><button type="button" data-v="x" aria-pressed="false">Fully solved</button></div></div>
-      <div class="lx-f"><span class="lx-l">How hard is it to build?</span><div class="lx-seg" data-name="effort" role="group" aria-label="How hard is it to build?"><button type="button" data-v="15" aria-pressed="false">Under a week</button><button type="button" data-v="10" aria-pressed="false">1–3 weeks</button><button type="button" data-v="5" aria-pressed="false">3+ weeks</button><button type="button" data-v="x" aria-pressed="false">Not worth it</button></div></div>
-      <div class="lx-bscore"><strong data-blive>0</strong><small>/ 70</small><span data-bverdict>Answer all four</span></div>
-      <div class="lx-bact"><button type="submit" class="lx-btn lx-btn--accent" data-bsave>Add to backlog</button><button type="button" class="lx-btn" data-bcancel hidden>Cancel</button></div>
-    </form>
-  </aside>
-  <div class="lx-out">
-    <div class="lx-card"><div class="lx-card-h"><b>Backlog, ranked</b><div style="display:flex;gap:6px"><button type="button" class="lx-btn lx-btn--sm" data-bexample>Load examples</button><button type="button" class="lx-btn lx-btn--sm" data-bclear>Clear all</button></div></div>
-      <div class="lx-bstats" data-bstats></div>
-      <ol class="lx-blist" data-blist></ol>
-      <p class="lx-hint">The 70-point model from the <a href="/work/cars24-governance">CARS24 governance case study</a>. Any “✕” answer rules a request out. 55+ is high, 40–54 medium, below 40 deferred.</p>
-    </div>
-    <div class="lx-exp" data-exp="backlog">
-      <div class="lx-exp-bar"><div class="lx-seg" role="group" aria-label="Export format"><button type="button" data-fmt="md" aria-pressed="true">Markdown</button><button type="button" data-fmt="csv" aria-pressed="false">CSV</button><button type="button" data-fmt="json" aria-pressed="false">JSON</button></div>
-        <div class="lx-exp-act"><button type="button" class="lx-btn" data-copy>Copy</button><button type="button" class="lx-btn" data-dl>Download</button></div></div>
-      <pre class="lx-code" tabindex="0" aria-label="Exported code"><code></code></pre>
-    </div>
-  </div>
-</div>
-</section><section class="lx-panel" role="tabpanel" id="p-kit" aria-labelledby="tab-kit" hidden data-panel="kit">
-  <header class="lx-ph"><h2>Export kit</h2><p>Palette, type, spacing and radius from the other tools, in one file.</p></header>
-<div class="lx-ws lx-ws--one">
-  <div class="lx-out">
-    <div class="lx-kit" data-kit></div>
-    <div class="lx-f" style="max-width:420px"><span class="lx-l">Prefix <em>optional, e.g. acme</em></span><input type="text" name="kprefix" maxlength="16" spellcheck="false"></div>
-    <div class="lx-exp" data-exp="kit">
-      <div class="lx-exp-bar"><div class="lx-seg" role="group" aria-label="Export format"><button type="button" data-fmt="css" aria-pressed="true">CSS</button><button type="button" data-fmt="tailwind" aria-pressed="false">Tailwind</button><button type="button" data-fmt="json" aria-pressed="false">JSON (DTCG)</button><button type="button" data-fmt="scss" aria-pressed="false">SCSS</button></div>
-        <div class="lx-exp-act"><button type="button" class="lx-btn" data-copy>Copy</button><button type="button" class="lx-btn" data-dl>Download</button></div></div>
-      <pre class="lx-code" tabindex="0" aria-label="Exported code"><code></code></pre>
-    </div>
+  <div class="lx-in">
+    <div class="lh-tasks" role="group" aria-label="Filter by task"><button type="button" class="lx-chip" data-task="" aria-pressed="true">All tools</button><button type="button" class="lx-chip" data-task="colour" aria-pressed="false">Choose colours</button><button type="button" class="lx-chip" data-task="access" aria-pressed="false">Check accessibility</button><button type="button" class="lx-chip" data-task="type" aria-pressed="false">Set type and spacing</button><button type="button" class="lx-chip" data-task="layout" aria-pressed="false">Lay out screens</button><button type="button" class="lx-chip" data-task="tokens" aria-pressed="false">Name and export tokens</button><button type="button" class="lx-chip" data-task="plan" aria-pressed="false">Plan and make the case</button></div>
+    <section aria-labelledby="tools-h" class="lh-sec"><h2 id="tools-h" class="lh-h">tools:</h2><div class="lh-grid" data-list><a class="lh-card" href="/lab/oklch-palette-generator" data-task="colour access" data-k="palette generator brand colour in, full accessible ramps out oklch colour palette generator color palette generator colour scheme oklch ramp shades tints tailwind colors brand color scale dark mode theme accessible palette 50 900 hex p3 choose colours check accessibility">
+      <div class="lh-thumb" aria-hidden="true"><div class="th th-pal"><i style="background:#f5f6fe"></i><i style="background:#c9d0fe"></i><i style="background:#a8b0ff"></i><i style="background:#858aff"></i><i style="background:#675eff"></i><i style="background:#4736fe"></i><i style="background:#3e27b8"></i><i style="background:#2b158a"></i><i style="background:#19045e"></i></div></div>
+      <div class="lh-body"><span class="lh-task"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="8" cy="10" r="1.6" fill="currentColor"/><circle cx="12" cy="7.5" r="1.6" fill="currentColor"/><circle cx="16" cy="10" r="1.6" fill="currentColor"/><path d="M12 21a3 3 0 0 1 0-6h1.5a2 2 0 0 0 0-4"/></svg>Choose colours</span>
+        <h3>Palette generator</h3><p>Brand colour in, full accessible ramps out</p></div>
+      <span class="lh-go">Open the tool <i aria-hidden="true">→</i></span>
+    </a><a class="lh-card" href="/lab/color-contrast-checker" data-task="access colour" data-k="contrast checker check a pair, get the nearest colour that passes colour contrast checker with wcag, apca and fixes color contrast checker colour contrast ratio wcag aa aaa apca accessibility a11y text background readable legibility color blind blindness simulator protanopia deuteranopia tritanopia fix failing check accessibility choose colours">
+      <div class="lh-thumb" aria-hidden="true"><div class="th th-con"><span class="a">Aa</span><span class="r">6.2:1</span><span class="p">AA ✓</span></div></div>
+      <div class="lh-body"><span class="lh-task"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18a9 9 0 0 0 0-18Z" fill="currentColor"/></svg>Check accessibility</span>
+        <h3>Contrast checker</h3><p>Check a pair, get the nearest colour that passes</p></div>
+      <span class="lh-go">Open the tool <i aria-hidden="true">→</i></span>
+    </a><a class="lh-card" href="/lab/type-scale-generator" data-task="type" data-k="type scale generator font sizes, line heights and clamp() values type scale generator, with fluid sizes type scale generator typography modular scale font size calculator fluid typography clamp calculator responsive font sizes line height letter spacing typescale heading sizes set type and spacing">
+      <div class="lh-thumb" aria-hidden="true"><div class="th th-typ"><span style="font-size:13px">Aa</span><span style="font-size:16px">Aa</span><span style="font-size:20px">Aa</span><span style="font-size:25px">Aa</span><span style="font-size:31px">Aa</span></div></div>
+      <div class="lh-body"><span class="lh-task"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V5h11v2M9.5 5v14M7 19h5"/><path d="M14 12v-1.5h7V12M17.5 10.5V19M16 19h3"/></svg>Set type and spacing</span>
+        <h3>Type scale generator</h3><p>Font sizes, line heights and clamp() values</p></div>
+      <span class="lh-go">Open the tool <i aria-hidden="true">→</i></span>
+    </a><a class="lh-card" href="/lab/spacing-scale-generator" data-task="type layout" data-k="spacing scale generator a spacing and radius scale, tried on a card spacing scale generator, with radius spacing scale generator spacing system 4px 8px grid spacing tokens padding margin gap border radius scale corner radius set type and spacing lay out screens">
+      <div class="lh-thumb" aria-hidden="true"><div class="th th-spc"><i style="width:8%"></i><i style="width:14%"></i><i style="width:22%"></i><i style="width:32%"></i><i style="width:46%"></i><i style="width:66%"></i><i style="width:92%"></i></div></div>
+      <div class="lh-body"><span class="lh-task"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v16M20 4v16"/><path d="M8 12h8M8 12l2.5-2.5M8 12l2.5 2.5M16 12l-2.5-2.5M16 12l-2.5 2.5"/></svg>Set type and spacing</span>
+        <h3>Spacing scale generator</h3><p>A spacing and radius scale, tried on a card</p></div>
+      <span class="lh-go">Open the tool <i aria-hidden="true">→</i></span>
+    </a><a class="lh-card" href="/lab/layout-grid-calculator" data-task="layout" data-k="layout grid calculator columns, gutters and breakpoints, previewed layout grid calculator for responsive breakpoints grid calculator layout grid column width calculator gutter margin breakpoints responsive breakpoints css grid 12 column bootstrap material carbon container width lay out screens">
+      <div class="lh-thumb" aria-hidden="true"><div class="th th-grd"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+      <div class="lh-body"><span class="lh-task"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 4v16M12 4v16M16 4v16"/></svg>Lay out screens<span class="lh-new">New</span></span>
+        <h3>Layout grid calculator</h3><p>Columns, gutters and breakpoints, previewed</p></div>
+      <span class="lh-go">Open the tool <i aria-hidden="true">→</i></span>
+    </a><a class="lh-card" href="/lab/design-token-name-checker" data-task="tokens" data-k="token name checker every naming problem explained, with a fix design token name checker design token naming convention checker linter lint css variables naming token names validate design tokens naming rules kebab case name and export tokens">
+      <div class="lh-thumb" aria-hidden="true"><div class="th th-nam"><code><s>--btnBg</s></code><code>color-button-background</code><code class="ok">color-text-muted ✓</code></div></div>
+      <div class="lh-body"><span class="lh-task"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7h10M5 12h14M5 17h7"/><path d="m16 16 2 2 4-4"/></svg>Name and export tokens</span>
+        <h3>Token name checker</h3><p>Every naming problem explained, with a fix</p></div>
+      <span class="lh-go">Open the tool <i aria-hidden="true">→</i></span>
+    </a><a class="lh-card" href="/lab/design-token-generator" data-task="tokens" data-k="design token generator one token file for css, tailwind or dtcg design token generator design token generator design tokens export css variables tailwind config scss dtcg json w3c tokens style dictionary figma variables token file name and export tokens">
+      <div class="lh-thumb" aria-hidden="true"><div class="th th-kit"><code>--color-brand-500</code><code>--font-size-lg</code><code>--space-md</code></div></div>
+      <div class="lh-body"><span class="lh-task"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v3h16v-3"/></svg>Name and export tokens</span>
+        <h3>Design token generator</h3><p>One token file for CSS, Tailwind or DTCG</p></div>
+      <span class="lh-go">Open the tool <i aria-hidden="true">→</i></span>
+    </a><a class="lh-card" href="/lab/component-request-scorecard" data-task="plan" data-k="request scorecard four questions, one ranked backlog design system request scorecard design system request prioritization component requests backlog prioritisation framework scorecard intake triage roadmap which component to build next plan and make the case">
+      <div class="lh-thumb" aria-hidden="true"><div class="th th-bkl"><i style="width:92%"></i><i style="width:78%"></i><i style="width:61%"></i><i style="width:44%"></i></div></div>
+      <div class="lh-body"><span class="lh-task"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="4" rx="1"/><rect x="4" y="10" width="12" height="4" rx="1"/><rect x="4" y="16" width="8" height="4" rx="1"/></svg>Plan and make the case</span>
+        <h3>Request scorecard</h3><p>Four questions, one ranked backlog</p></div>
+      <span class="lh-go">Open the tool <i aria-hidden="true">→</i></span>
+    </a><a class="lh-card" href="/lab/design-system-roi-calculator" data-task="plan" data-k="roi calculator three-year value, cost and payback design system roi calculator design system roi calculator return on investment business case cost savings value of a design system break even payback budget justify design system plan and make the case">
+      <div class="lh-thumb" aria-hidden="true"><div class="th th-roi"><span><i class="v" style="height:47%"></i><i class="c" style="height:90%"></i></span><span><i class="v" style="height:82%"></i><i class="c" style="height:90%"></i></span><span><i class="v" style="height:100%"></i><i class="c" style="height:90%"></i></span></div></div>
+      <div class="lh-body"><span class="lh-task"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V6M16 20v-8M22 20H2"/><path d="m4 7 6-4 6 5 5-4"/></svg>Plan and make the case<span class="lh-new">New</span></span>
+        <h3>ROI calculator</h3><p>Three-year value, cost and payback</p></div>
+      <span class="lh-go">Open the tool <i aria-hidden="true">→</i></span>
+    </a></div></section>
+    <p class="lh-empty" data-empty hidden>No tool matches that yet. <a href="/contact">Tell us what you were looking for</a>; it's how we decide what to build next.</p>
+    <section aria-labelledby="jobs-h" class="lh-sec"><div class="lh-sec-bar"><h2 id="jobs-h" class="lh-h">start from a problem:</h2><p>Common jobs, and the tool that does each one.</p></div><ul class="lh-jobs" data-jobs><li data-task="colour" data-k="turn one brand colour into a full palette palette generator color palette generator colour scheme oklch ramp shades tints tailwind colors brand color scale dark mode theme accessible palette 50 900 hex p3"><a href="/lab/oklch-palette-generator"><span>Turn one brand colour into a full palette</span><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="8" cy="10" r="1.6" fill="currentColor"/><circle cx="12" cy="7.5" r="1.6" fill="currentColor"/><circle cx="16" cy="10" r="1.6" fill="currentColor"/><path d="M12 21a3 3 0 0 1 0-6h1.5a2 2 0 0 0 0-4"/></svg>Palette generator</b><i aria-hidden="true">→</i></a></li><li data-task="colour" data-k="make a palette that works in dark mode palette generator color palette generator colour scheme oklch ramp shades tints tailwind colors brand color scale dark mode theme accessible palette 50 900 hex p3"><a href="/lab/oklch-palette-generator"><span>Make a palette that works in dark mode</span><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="8" cy="10" r="1.6" fill="currentColor"/><circle cx="12" cy="7.5" r="1.6" fill="currentColor"/><circle cx="16" cy="10" r="1.6" fill="currentColor"/><path d="M12 21a3 3 0 0 1 0-6h1.5a2 2 0 0 0 0-4"/></svg>Palette generator</b><i aria-hidden="true">→</i></a></li><li data-task="colour" data-k="get tailwind colours from our brand colour palette generator color palette generator colour scheme oklch ramp shades tints tailwind colors brand color scale dark mode theme accessible palette 50 900 hex p3"><a href="/lab/oklch-palette-generator"><span>Get Tailwind colours from our brand colour</span><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="8" cy="10" r="1.6" fill="currentColor"/><circle cx="12" cy="7.5" r="1.6" fill="currentColor"/><circle cx="16" cy="10" r="1.6" fill="currentColor"/><path d="M12 21a3 3 0 0 1 0-6h1.5a2 2 0 0 0 0-4"/></svg>Palette generator</b><i aria-hidden="true">→</i></a></li><li data-task="access" data-k="check if my text colour passes wcag contrast checker color contrast checker colour contrast ratio wcag aa aaa apca accessibility a11y text background readable legibility color blind blindness simulator protanopia deuteranopia tritanopia fix failing"><a href="/lab/color-contrast-checker"><span>Check if my text colour passes WCAG</span><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18a9 9 0 0 0 0-18Z" fill="currentColor"/></svg>Contrast checker</b><i aria-hidden="true">→</i></a></li><li data-task="access" data-k="fix a brand button that fails contrast contrast checker color contrast checker colour contrast ratio wcag aa aaa apca accessibility a11y text background readable legibility color blind blindness simulator protanopia deuteranopia tritanopia fix failing"><a href="/lab/color-contrast-checker"><span>Fix a brand button that fails contrast</span><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18a9 9 0 0 0 0-18Z" fill="currentColor"/></svg>Contrast checker</b><i aria-hidden="true">→</i></a></li><li data-task="access" data-k="see how my ui looks with colour blindness contrast checker color contrast checker colour contrast ratio wcag aa aaa apca accessibility a11y text background readable legibility color blind blindness simulator protanopia deuteranopia tritanopia fix failing"><a href="/lab/color-contrast-checker"><span>See how my UI looks with colour blindness</span><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18a9 9 0 0 0 0-18Z" fill="currentColor"/></svg>Contrast checker</b><i aria-hidden="true">→</i></a></li><li data-task="access" data-k="compare wcag 2 and apca contrast contrast checker color contrast checker colour contrast ratio wcag aa aaa apca accessibility a11y text background readable legibility color blind blindness simulator protanopia deuteranopia tritanopia fix failing"><a href="/lab/color-contrast-checker"><span>Compare WCAG 2 and APCA contrast</span><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18a9 9 0 0 0 0-18Z" fill="currentColor"/></svg>Contrast checker</b><i aria-hidden="true">→</i></a></li><li data-task="type" data-k="pick font sizes that work together type scale generator type scale generator typography modular scale font size calculator fluid typography clamp calculator responsive font sizes line height letter spacing typescale heading sizes"><a href="/lab/type-scale-generator"><span>Pick font sizes that work together</span><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V5h11v2M9.5 5v14M7 19h5"/><path d="M14 12v-1.5h7V12M17.5 10.5V19M16 19h3"/></svg>Type scale generator</b><i aria-hidden="true">→</i></a></li><li data-task="type" data-k="make headings grow with the screen using clamp() type scale generator type scale generator typography modular scale font size calculator fluid typography clamp calculator responsive font sizes line height letter spacing typescale heading sizes"><a href="/lab/type-scale-generator"><span>Make headings grow with the screen using clamp()</span><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V5h11v2M9.5 5v14M7 19h5"/><path d="M14 12v-1.5h7V12M17.5 10.5V19M16 19h3"/></svg>Type scale generator</b><i aria-hidden="true">→</i></a></li><li data-task="type" data-k="set up spacing tokens on a 4px or 8px grid spacing scale generator spacing scale generator spacing system 4px 8px grid spacing tokens padding margin gap border radius scale corner radius"><a href="/lab/spacing-scale-generator"><span>Set up spacing tokens on a 4px or 8px grid</span><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v16M20 4v16"/><path d="M8 12h8M8 12l2.5-2.5M8 12l2.5 2.5M16 12l-2.5-2.5M16 12l-2.5 2.5"/></svg>Spacing scale generator</b><i aria-hidden="true">→</i></a></li><li data-task="layout" data-k="choose columns, gutters and breakpoints layout grid calculator grid calculator layout grid column width calculator gutter margin breakpoints responsive breakpoints css grid 12 column bootstrap material carbon container width"><a href="/lab/layout-grid-calculator"><span>Choose columns, gutters and breakpoints</span><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 4v16M12 4v16M16 4v16"/></svg>Layout grid calculator</b><i aria-hidden="true">→</i></a></li><li data-task="layout" data-k="work out how wide a column is at any screen size layout grid calculator grid calculator layout grid column width calculator gutter margin breakpoints responsive breakpoints css grid 12 column bootstrap material carbon container width"><a href="/lab/layout-grid-calculator"><span>Work out how wide a column is at any screen size</span><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 4v16M12 4v16M16 4v16"/></svg>Layout grid calculator</b><i aria-hidden="true">→</i></a></li><li data-task="tokens" data-k="check our token names before we ship token name checker design token naming convention checker linter lint css variables naming token names validate design tokens naming rules kebab case"><a href="/lab/design-token-name-checker"><span>Check our token names before we ship</span><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7h10M5 12h14M5 17h7"/><path d="m16 16 2 2 4-4"/></svg>Token name checker</b><i aria-hidden="true">→</i></a></li><li data-task="tokens" data-k="export tokens as css, tailwind or dtcg json design token generator design token generator design tokens export css variables tailwind config scss dtcg json w3c tokens style dictionary figma variables token file"><a href="/lab/design-token-generator"><span>Export tokens as CSS, Tailwind or DTCG JSON</span><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v3h16v-3"/></svg>Design token generator</b><i aria-hidden="true">→</i></a></li><li data-task="tokens" data-k="get a token file for style dictionary or figma variables design token generator design token generator design tokens export css variables tailwind config scss dtcg json w3c tokens style dictionary figma variables token file"><a href="/lab/design-token-generator"><span>Get a token file for Style Dictionary or Figma variables</span><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v3h16v-3"/></svg>Design token generator</b><i aria-hidden="true">→</i></a></li><li data-task="plan" data-k="decide which component to build next request scorecard design system request prioritization component requests backlog prioritisation framework scorecard intake triage roadmap which component to build next"><a href="/lab/component-request-scorecard"><span>Decide which component to build next</span><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="4" rx="1"/><rect x="4" y="10" width="12" height="4" rx="1"/><rect x="4" y="16" width="8" height="4" rx="1"/></svg>Request scorecard</b><i aria-hidden="true">→</i></a></li><li data-task="plan" data-k="estimate what a design system will save roi calculator design system roi calculator return on investment business case cost savings value of a design system break even payback budget justify design system"><a href="/lab/design-system-roi-calculator"><span>Estimate what a design system will save</span><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V6M16 20v-8M22 20H2"/><path d="m4 7 6-4 6 5 5-4"/></svg>ROI calculator</b><i aria-hidden="true">→</i></a></li><li data-task="plan" data-k="work out when a design system pays back roi calculator design system roi calculator return on investment business case cost savings value of a design system break even payback budget justify design system"><a href="/lab/design-system-roi-calculator"><span>Work out when a design system pays back</span><b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V6M16 20v-8M22 20H2"/><path d="m4 7 6-4 6 5 5-4"/></svg>ROI calculator</b><i aria-hidden="true">→</i></a></li></ul></section>
+    <section aria-labelledby="flow-h" class="lh-sec"><div class="lh-sec-bar"><h2 id="flow-h" class="lh-h">build a token set in six steps:</h2><p>Each tool saves as you go and feeds the next, ending in one token file.</p></div><ol class="lh-flow"><li><a href="/lab/oklch-palette-generator"><span class="n">1</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="8" cy="10" r="1.6" fill="currentColor"/><circle cx="12" cy="7.5" r="1.6" fill="currentColor"/><circle cx="16" cy="10" r="1.6" fill="currentColor"/><path d="M12 21a3 3 0 0 1 0-6h1.5a2 2 0 0 0 0-4"/></svg><b>Palette generator</b><small>Brand colour in, full accessible ramps out</small></a></li><li><a href="/lab/color-contrast-checker"><span class="n">2</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18a9 9 0 0 0 0-18Z" fill="currentColor"/></svg><b>Contrast checker</b><small>Check a pair, get the nearest colour that passes</small></a></li><li><a href="/lab/type-scale-generator"><span class="n">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V5h11v2M9.5 5v14M7 19h5"/><path d="M14 12v-1.5h7V12M17.5 10.5V19M16 19h3"/></svg><b>Type scale generator</b><small>Font sizes, line heights and clamp() values</small></a></li><li><a href="/lab/spacing-scale-generator"><span class="n">4</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4v16M20 4v16"/><path d="M8 12h8M8 12l2.5-2.5M8 12l2.5 2.5M16 12l-2.5-2.5M16 12l-2.5 2.5"/></svg><b>Spacing scale generator</b><small>A spacing and radius scale, tried on a card</small></a></li><li><a href="/lab/layout-grid-calculator"><span class="n">5</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 4v16M12 4v16M16 4v16"/></svg><b>Layout grid calculator</b><small>Columns, gutters and breakpoints, previewed</small></a></li><li><a href="/lab/design-token-generator"><span class="n">6</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v3h16v-3"/></svg><b>Design token generator</b><small>One token file for CSS, Tailwind or DTCG</small></a></li></ol></section>
+    <section aria-labelledby="faq-h" class="lh-sec lh-faq-sec"><h2 id="faq-h" class="lh-h">questions:</h2><div class="lx-faq"><details><summary>Are the Lab tools free?</summary><p>Yes. Every tool is free, needs no account and runs in your browser. Nothing you enter is sent to a server.</p></details><details><summary>Do the tools work together?</summary><p>Yes. They share your work in this browser: a palette you make is available in the contrast checker and the token generator, and the token generator combines your palette, type, spacing and grid into one file.</p></details><details><summary>Can I share what I've made?</summary><p>Every tool has a “Copy link to this” button that encodes your settings in the link, so a colleague opens exactly what you see.</p></details><details><summary>What formats can I export?</summary><p>CSS custom properties, Tailwind config, SCSS and W3C DTCG JSON for tokens; Markdown, CSV and JSON for the planning tools.</p></details><details><summary>Who made these tools?</summary><p>Layer One, a design systems studio. They come from the method we use on client systems at companies like CARS24, IBM and JPMorgan Chase.</p></details></div></section>
     <div class="lx-cta"><div><b>Want this done properly, for your product?</b><p>Our two-week audit turns your real screens into a token plan, a first-components list and a rollout plan.</p></div><a class="pill pill--accent" href="/pricing#plan-audit">See the audit</a></div>
   </div>
-</div>
-</section></div>
-</main><script src="assets/lab.js?v=df55b46b" defer></script>
-<script src="assets/site.js?v=3de6a9b6" defer></script>
+</main><script>
+(function () {
+  // Old links (/lab#contrast, /lab#s=...) open the matching tool page.
+  var OLD = {"palette": "oklch-palette-generator", "contrast": "color-contrast-checker", "type": "type-scale-generator", "space": "spacing-scale-generator", "grid": "layout-grid-calculator", "names": "design-token-name-checker", "kit": "design-token-generator", "backlog": "component-request-scorecard", "roi": "design-system-roi-calculator"}, h = location.hash;
+  if (h) {
+    var m = h.match(/^#([a-z]+)$/), s = h.match(/^#s=([^&]+)/), k = m && m[1];
+    if (s) { try { k = JSON.parse(decodeURIComponent(escape(atob(s[1].replace(/-/g, "+").replace(/_/g, "/"))))).tab; } catch (e) {} }
+    if (k && OLD[k]) { location.replace("/lab/" + OLD[k] + (s ? h : "")); return; }
+  }
+  var q = document.getElementById("lh-q"), cards = [].slice.call(document.querySelectorAll("[data-list] > a")), jobs = [].slice.call(document.querySelectorAll("[data-jobs] > li"));
+  var chips = [].slice.call(document.querySelectorAll(".lh-tasks [data-task]")), count = document.querySelector("[data-count]"), empty = document.querySelector("[data-empty]"), task = "";
+  var SYN = { colour: "color", colours: "color", colors: "color", grey: "gray", a11y: "accessibility", accessible: "accessibility", wcag: "wcag", fonts: "font", typography: "type", tokens: "token", columns: "column", breakpoint: "breakpoints", prioritise: "prioritization", prioritize: "prioritization", roi: "roi", savings: "roi" };
+  function terms(v) { return v.toLowerCase().replace(/[“”"']/g, "").split(/[^a-z0-9().]+/).filter(Boolean).map(function (w) { return SYN[w] || w.replace(/s$/, ""); }); }
+  function run(push) {
+    var t = terms(q.value), n = 0;
+    function hit(el) { var k = el.getAttribute("data-k"), okT = !task || (" " + el.getAttribute("data-task") + " ").indexOf(" " + task + " ") > -1; return okT && t.every(function (w) { return k.indexOf(w) > -1; }); }
+    cards.forEach(function (c) { var on = hit(c); c.hidden = !on; if (on) n++; });
+    jobs.forEach(function (j) { j.hidden = !hit(j); });
+    count.textContent = q.value || task ? n + (n === 1 ? " tool" : " tools") : "";
+    empty.hidden = n > 0;
+    chips.forEach(function (c) { c.setAttribute("aria-pressed", c.getAttribute("data-task") === task ? "true" : "false"); });
+    if (push) { var u = new URLSearchParams(); if (q.value) u.set("q", q.value); if (task) u.set("task", task); try { history.replaceState(null, "", location.pathname + (u.toString() ? "?" + u : "")); } catch (e) {} }
+  }
+  var p = new URLSearchParams(location.search); q.value = p.get("q") || ""; task = p.get("task") || "";
+  q.addEventListener("input", function () { run(true); });
+  q.addEventListener("keydown", function (e) { if (e.key === "Enter") { var f = cards.filter(function (c) { return !c.hidden; })[0]; if (f) location.href = f.href; } });
+  chips.forEach(function (c) { c.addEventListener("click", function () { task = c.getAttribute("data-task"); run(true); }); });
+  [].forEach.call(document.querySelectorAll("[data-q]"), function (b) { b.addEventListener("click", function () { q.value = b.getAttribute("data-q"); run(true); q.focus(); }); });
+  run(false);
+})();
+</script><script src="assets/site.js?v=3de6a9b6" defer></script>
 </body>
 </html>

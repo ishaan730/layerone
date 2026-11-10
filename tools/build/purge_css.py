@@ -13,7 +13,7 @@ import re
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 
 
-def _used(pages):
+def _used(pages, scripts=()):
     classes, ids, tags = set(), set(), set()
     for f in pages:
         h = open(f).read()
@@ -23,6 +23,8 @@ def _used(pages):
         tags.update(t.lower() for t in re.findall(r"<([a-zA-Z][a-zA-Z0-9-]*)", h))
     js = open(os.path.join(ROOT, "assets", "site.js")).read()
     words = set(re.findall(r"""["']([a-zA-Z][\w-]*)["']""", js))
+    for f in scripts:  # page scripts that build markup from strings: keep every word that could be a class
+        words |= set(re.findall(r"[a-zA-Z][\w-]*", open(os.path.join(ROOT, f)).read()))
     classes |= words
     ids |= words
     return classes, ids, tags
@@ -108,10 +110,10 @@ def _minify(css):
     return css.strip() + "\n"
 
 
-def purge(pages, out):
+def purge(pages, out, js=()):
     full = open(os.path.join(ROOT, "assets", "site.css")).read()
     full = re.sub(r"/\*.*?\*/", "", full, flags=re.S)
-    lean = _minify(_keep(full, _used(pages)))
+    lean = _minify(_keep(full, _used(pages, js)))
     with open(os.path.join(ROOT, out), "w") as f:
         f.write(lean)
     return len(full), len(lean)
