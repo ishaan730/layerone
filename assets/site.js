@@ -636,3 +636,46 @@
   }, { rootMargin: "-80px 0px -70% 0px" });
   heads.forEach(function (h) { io.observe(h); });
 })();
+
+/* Reader: theme switch, contents panel, reading progress, and a bar that steps aside while you read. */
+(function () {
+  var bar = document.querySelector(".rd-bar");
+  if (!bar) return;
+  var root = document.documentElement;
+  var themeBtn = bar.querySelector("[data-rd-theme]");
+  if (themeBtn) themeBtn.addEventListener("click", function () {
+    var next = root.dataset.read === "dark" ? "light" : "dark";
+    root.dataset.read = next;
+    try { localStorage.setItem("l1-read", next); } catch (e) {}
+  });
+  var tocBtn = bar.querySelector("[data-rd-toc]"), toc = document.getElementById("rd-toc");
+  function setToc(open) { if (!toc) return; toc.hidden = !open; tocBtn.setAttribute("aria-expanded", open ? "true" : "false"); }
+  if (tocBtn && toc) {
+    tocBtn.addEventListener("click", function (e) { e.stopPropagation(); setToc(toc.hidden); });
+    toc.addEventListener("click", function (e) { if (e.target.closest("a")) setToc(false); });
+    document.addEventListener("click", function (e) { if (!toc.hidden && !toc.contains(e.target)) setToc(false); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !toc.hidden) { setToc(false); tocBtn.focus(); } });
+  }
+  var body = document.querySelector(".rd-body"), prog = bar.querySelector(".rd-progress span"), last = 0, ticking = false;
+  function update() {
+    ticking = false;
+    var y = window.scrollY;
+    if (body && prog) {
+      var top = body.getBoundingClientRect().top + y, h = body.offsetHeight - window.innerHeight * 0.6;
+      prog.style.width = Math.max(0, Math.min(1, (y - top + window.innerHeight * 0.3) / Math.max(h, 1))) * 100 + "%";
+    }
+    var hide = y > 240 && y > last && (!toc || toc.hidden);
+    bar.classList.toggle("is-hidden", hide);
+    last = y;
+  }
+  window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  update();
+  if (toc && body && "IntersectionObserver" in window) {
+    var links = {};
+    toc.querySelectorAll("a").forEach(function (a) { links[a.getAttribute("href").slice(1)] = a; });
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) Object.keys(links).forEach(function (k) { links[k].classList.toggle("is-on", k === e.target.id); }); });
+    }, { rootMargin: "-80px 0px -70% 0px" });
+    body.querySelectorAll("h2[id]").forEach(function (h) { io.observe(h); });
+  }
+})();
