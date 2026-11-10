@@ -1,0 +1,303 @@
+{
+  "assumptions": {
+    "hoursPerFteYear": 1600,
+    "monthlyRate": 12000,
+    "uiShareEng": 0.25,
+    "uiShareDes": 0.5,
+    "designersPerEngineer": 0.14285714285714285,
+    "hourlyRate": 90
+  },
+  "ledgerly": {
+    "engineers": 40,
+    "designers": 6
+  },
+  "years": [
+    {
+      "year": 1,
+      "adoption": 0.4,
+      "gain": 0.2,
+      "fte": 2,
+      "note": "Build year: foundations + core components, adoption ramps",
+      "engHours": 1280,
+      "desHours": 384,
+      "hours": 1664,
+      "usd": 149760,
+      "cost": 288000,
+      "net": -138240,
+      "roi": -48
+    },
+    {
+      "year": 2,
+      "adoption": 0.7,
+      "gain": 0.2,
+      "fte": 2,
+      "note": "Most new work uses the system",
+      "engHours": 2240,
+      "desHours": 672,
+      "hours": 2912,
+      "usd": 262080,
+      "cost": 288000,
+      "net": -25920,
+      "roi": -9
+    },
+    {
+      "year": 3,
+      "adoption": 0.85,
+      "gain": 0.2,
+      "fte": 2,
+      "note": "Migration of older screens largely complete",
+      "engHours": 2720,
+      "desHours": 816,
+      "hours": 3536,
+      "usd": 318240,
+      "cost": 288000,
+      "net": 30240,
+      "roi": 11
+    }
+  ],
+  "sensitivity": [
+    {
+      "gain": 0.1,
+      "cells": [
+        {
+          "adoption": 0.4,
+          "value": 74880,
+          "net": -213120
+        },
+        {
+          "adoption": 0.7,
+          "value": 131040,
+          "net": -156960
+        },
+        {
+          "adoption": 0.9,
+          "value": 168480,
+          "net": -119520
+        }
+      ]
+    },
+    {
+      "gain": 0.2,
+      "cells": [
+        {
+          "adoption": 0.4,
+          "value": 149760,
+          "net": -138240
+        },
+        {
+          "adoption": 0.7,
+          "value": 262080,
+          "net": -25920
+        },
+        {
+          "adoption": 0.9,
+          "value": 336960,
+          "net": 48960
+        }
+      ]
+    },
+    {
+      "gain": 0.34,
+      "cells": [
+        {
+          "adoption": 0.4,
+          "value": 254592,
+          "net": -33408
+        },
+        {
+          "adoption": 0.7,
+          "value": 445536,
+          "net": 157536
+        },
+        {
+          "adoption": 0.9,
+          "value": 572832,
+          "net": 284832
+        }
+      ]
+    }
+  ],
+  "breakEvens": [
+    {
+      "fte": 0.5,
+      "adoption": 0.7,
+      "gain": 0.2,
+      "cost": 72000,
+      "engineers": 12
+    },
+    {
+      "fte": 1,
+      "adoption": 0.7,
+      "gain": 0.2,
+      "cost": 144000,
+      "engineers": 23
+    },
+    {
+      "fte": 2,
+      "adoption": 0.7,
+      "gain": 0.2,
+      "cost": 288000,
+      "engineers": 45
+    },
+    {
+      "fte": 4,
+      "adoption": 0.7,
+      "gain": 0.2,
+      "cost": 576000,
+      "engineers": 89
+    },
+    {
+      "fte": 8,
+      "adoption": 0.7,
+      "gain": 0.2,
+      "cost": 1152000,
+      "engineers": 178
+    },
+    {
+      "fte": 2,
+      "adoption": 0.7,
+      "gain": 0.34,
+      "cost": 288000,
+      "engineers": 27
+    },
+    {
+      "fte": 2,
+      "adoption": 0.5,
+      "gain": 0.2,
+      "cost": 288000,
+      "engineers": 63
+    }
+  ],
+  "scenarios": [
+    {
+      "name": "Startup",
+      "profile": "1 product, web, 2–3 designers, 8–15 engineers",
+      "stage": "Stage 1 → 2",
+      "build": [
+        [
+          "Design system designer",
+          0.5,
+          3
+        ],
+        [
+          "Frontend engineer",
+          0.5,
+          3
+        ]
+      ],
+      "run": [
+        [
+          "Designer (embedded owner)",
+          0.2,
+          9
+        ],
+        [
+          "Engineer (embedded owner)",
+          0.2,
+          9
+        ]
+      ],
+      "buildFteMonths": 3,
+      "runFteMonths": 3.6,
+      "totalFteMonths": 6.6
+    },
+    {
+      "name": "Mid-sized SaaS",
+      "profile": "2–3 products, web + mobile web, 6–12 designers, 40–80 engineers",
+      "stage": "Stage 2 → 3",
+      "build": [
+        [
+          "Design system lead (0.5)",
+          0.5,
+          6
+        ],
+        [
+          "Design system designer",
+          1,
+          6
+        ],
+        [
+          "Design system engineers",
+          2,
+          6
+        ],
+        [
+          "Accessibility review",
+          0.2,
+          6
+        ]
+      ],
+      "run": [
+        [
+          "Design system lead (0.5)",
+          0.5,
+          6
+        ],
+        [
+          "Design system designer",
+          1,
+          6
+        ],
+        [
+          "Design system engineers",
+          1.5,
+          6
+        ],
+        [
+          "Product-team contributions",
+          0.8,
+          6
+        ]
+      ],
+      "buildFteMonths": 22.2,
+      "runFteMonths": 22.8,
+      "totalFteMonths": 45
+    },
+    {
+      "name": "Enterprise",
+      "profile": "5+ products, web + iOS + Android, multiple brands, 30+ designers, 200+ engineers",
+      "stage": "Stage 3 → 4",
+      "build": [
+        [
+          "Design system lead / PM",
+          1,
+          12
+        ],
+        [
+          "Design system designers",
+          2,
+          12
+        ],
+        [
+          "Web engineers",
+          3,
+          12
+        ],
+        [
+          "iOS + Android engineers",
+          2,
+          12
+        ],
+        [
+          "Accessibility specialist",
+          0.5,
+          12
+        ],
+        [
+          "Docs / content",
+          0.5,
+          12
+        ]
+      ],
+      "run": [],
+      "buildFteMonths": 108,
+      "runFteMonths": 0,
+      "totalFteMonths": 108
+    }
+  ],
+  "rates": [
+    6000,
+    12000,
+    20000
+  ]
+}

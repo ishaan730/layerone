@@ -1,0 +1,219 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p><b>Design tokens</b> are named design decisions (a colour, a font size, a spacing step, a radius) stored once in a format that design tools and code can both read. Instead of typing <code>#AB2800</code> in fifty places, everything uses a name like <code>action.primary.bg</code>. Change the token, and every button, in Figma and in every codebase, changes with it.</p>
+  <ul>
+    <li>Tokens come in three tiers: <b>primitive</b> (what a value is), <b>semantic</b> (what job it does) and, optionally, <b>component</b> (where it's used).</li>
+    <li>Components should only ever use semantic or component tokens. That's what makes dark mode, themes and rebrands cheap.</li>
+    <li>Since October 2025 there's a stable shared file format, from the W3C Design Tokens Community Group.</li>
+  </ul>
+</div>
+
+<h2>What are design tokens?</h2>
+<p>Here's the problem tokens solve. A designer decides the primary button should be a particular shade of orange. In a traditional handover, she writes <code>#AB2800</code> on a spec. An engineer copies it into the code. Another engineer, on another team, copies it from a screenshot and gets <code>#AA2900</code>. A year later nobody knows which is right, and changing it means finding every copy.</p>
+<p>A token writes the decision down once, gives it a name, and makes everything else read from that one place:</p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>01 · Decide</b><span>"Main actions use our brand orange, readable on white"</span></div><i>→</i>
+    <div><b>02 · Name the value</b><span><code>color.brand.700</code><br>oklch(0.486 0.172 35)</span></div><i>→</i>
+    <div class="hi"><b>03 · Name the job</b><span><code style="background:rgb(0 0 0 / .15)">action.primary.bg</code> → brand.700</span></div><i>→</i>
+    <div><b>04 · Translate</b><span>One file → CSS, iOS, Android, Figma variables</span></div><i>→</i>
+    <div><b>05 · Use</b><span>The button uses <code>action.primary.bg</code>. Nobody types a hex code.</span></div>
+  </div>
+  <figcaption>How a decision becomes code. Only step 1 needs human judgement. Everything after it can be automatic, so changing a value updates every platform in one release.</figcaption>
+</figure>
+<p>The term comes from Salesforce's design system team, who started using it around 2014 to share design decisions between platforms. Today almost every serious design system uses tokens: Material Design, IBM Carbon, Atlassian, Adobe Spectrum and GitHub Primer all publish theirs.</p>
+
+<h2>Why tokens matter</h2>
+<div class="cols3">
+  <div class="cell"><span class="k">ONE SOURCE OF TRUTH</span><p>Design and code read the same values, so "the blue" means one thing to everyone. Handoff stops being a translation exercise.</p></div>
+  <div class="cell"><span class="k">CHANGE ONCE</span><p>A rebrand, a contrast fix or a spacing tweak is one edit, released everywhere. Without tokens it's a search-and-replace across every codebase.</p></div>
+  <div class="cell"><span class="k">THEMES FOR FREE</span><p>Dark mode, high contrast, density and multiple brands become different values for the same names. Components don't change at all.</p></div>
+</div>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>At CARS24, one blue lived in the code as five different values across 10+ products in three countries. A four-layer token system carried the rebrand to all of them, and handoff from design to development got 65% faster. <a href="/work/cars24-tokens">Read the case study</a>.</p></div>
+
+<h2>The three tiers: primitive, semantic, component</h2>
+<p>Good token systems separate <em>what a value is</em> from <em>what it's for</em>. That separation is the whole trick.</p>
+<figure class="w-fig">
+  <div class="tiers">
+    <div class="tier"><span class="k">Tier 1 · Primitive</span><b>What it is</b><p>Raw values with neutral names. The full palette, the spacing scale, the type sizes. Nothing in the product uses these directly.</p>
+      <code><span class="sw2" style="background:#ab2800"></span>color.brand.700</code><code><span class="sw2" style="background:#f3f7fe"></span>color.neutral.50</code><code>space.4 = 16px</code></div>
+    <i>→</i>
+    <div class="tier" style="outline:1.5px solid var(--accent)"><span class="k">Tier 2 · Semantic</span><b>What job it does</b><p>Names a purpose and points to a primitive. Components use these. Themes change which primitive they point to.</p>
+      <code>action.primary.bg → brand.700</code><code>action.primary.text → neutral.50</code><code>space.inset.md → space.4</code></div>
+    <i>→</i>
+    <div class="tier"><span class="k">Tier 3 · Component</span><b>Where it's used</b><p>Optional. Names one property of one component and points to a semantic token. Useful for multi-brand systems.</p>
+      <code>button.primary.background → action.primary.bg</code><code>button.primary.label → action.primary.text</code></div>
+  </div>
+  <figcaption>Three tiers of tokens. Each tier points to the one before it. Values only ever live in tier 1.</figcaption>
+</figure>
+
+<h3>Primitive tokens</h3>
+<p>Your raw materials: every colour in every ramp (<code>blue.50</code> to <code>blue.950</code>), every step of the spacing scale, every font size and weight. Primitives are named by what they are, never by what they're for. They're the only tier that holds actual values.</p>
+<h3>Semantic tokens</h3>
+<p>The tier that does the real work. A semantic token names a job (<code>text.primary</code>, <code>border.default</code>, <code>feedback.danger.bg</code>, <code>action.primary.bg</code>) and points to a primitive. Components only use semantic tokens. That's why dark mode works: in dark mode, <code>text.primary</code> points to a light neutral instead of a dark one, and no component needs to change. We walk through it in <a href="/writing/dark-mode-design-tokens">dark mode with design tokens</a>.</p>
+<h3>Component tokens</h3>
+<p>Some systems add a third tier for specific components: <code>button.primary.background</code>, <code>input.container.border.focus</code>. They point to semantic tokens and add flexibility: one brand can give buttons a different colour without touching other actions. They also add a lot of names to maintain. Ten components with ten tokens each is already a hundred.</p>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Do you need component tokens?</th><th>Probably not</th><th>Probably yes</th></tr></thead>
+  <tbody>
+    <tr><td>Brands and themes</td><td>One brand, light and dark</td><td>Several brands, or white-labelled products</td></tr>
+    <tr><td>Who customises</td><td>Only the system team</td><td>Product teams or clients restyle specific components</td></tr>
+    <tr><td>Team size</td><td>Small system team</td><td>A team with time to maintain hundreds of names</td></tr>
+  </tbody>
+</table></div></div>
+<div class="callout callout--warn"><span class="callout-k">Watch out</span><p>The one thing to never do: let components use primitives or raw values directly. A date picker built with <code>brand.700</code> and <code>neutral.50</code> will stay bright orange on white when every other screen switches to dark mode. It's the first place theming breaks.</p></div>
+
+<h2>How to name design tokens</h2>
+<p>Token names are an interface. People type them hundreds of times a day, so they should be guessable. A structure that works for most systems:</p>
+<pre><code><span class="c">// primitives: {category}.{family}.{step}</span>
+color.blue.600        space.4        font.size.300        radius.2
+
+<span class="c">// semantic: {category}.{purpose}.{variant}.{state}</span>
+color.text.primary
+color.action.primary.bg
+color.action.primary.bg-hover
+color.feedback.danger.text
+
+<span class="c">// component: {component}.{variant}.{part}.{property}.{state}</span>
+button.primary.container.background.hover
+input.container.border.error</code></pre>
+<ul class="checklist">
+  <li><b>Name by job, not appearance.</b> <code>text.secondary</code>, not <code>grey-600</code>. Appearance changes; jobs don't.</li>
+  <li><b>Use one word per idea, everywhere.</b> If one token says <code>background</code>, none should say <code>bg</code> or <code>fill</code>.</li>
+  <li><b>Leave out levels that don't apply</b> rather than inventing filler like <code>default</code>.</li>
+  <li><b>Match the anatomy.</b> Token parts should use the same names as the component's docs and Figma layers.</li>
+  <li><b>Use numeric steps for scales</b> (50–950, or 1–10) so new steps can slot in without renaming.</li>
+</ul>
+<p>The <a href="/lab">Lab</a> has a free token name linter that checks a list of names against rules like these and suggests fixes.</p>
+
+<h2>The DTCG format: one file every tool can read</h2>
+<p>For years every design tool and code library stored tokens in its own format, which made moving between them painful. In October 2025 the W3C Design Tokens Community Group (with contributors from Adobe, Google, Microsoft and others) published the first stable version of a shared format, the <a href="https://www.designtokens.org/tr/2025.10/format/" target="_blank" rel="noopener">Design Tokens Format Module 2025.10</a>. <span class="ev ev--std">Standard</span> Strictly, it's a community group report rather than a formal W3C Recommendation, but it's the format token tools are converging on.</p>
+<p>It's a JSON file. Each token has a <code>$type</code> and a <code>$value</code>; groups are just nested objects; and tokens point to other tokens with curly braces. Here are the three tiers from above, using real values from our playbook's palette:</p>
+<pre><code>{
+  <span class="s">"color"</span>: {
+    <span class="s">"brand"</span>: {
+      <span class="s">"700"</span>: {
+        <span class="k">"$type"</span>: <span class="s">"color"</span>,
+        <span class="k">"$value"</span>: { <span class="s">"colorSpace"</span>: <span class="s">"oklch"</span>, <span class="s">"components"</span>: [0.486, 0.172, 35], <span class="s">"hex"</span>: <span class="s">"#ab2800"</span> }
+      }
+    },
+    <span class="s">"neutral"</span>: {
+      <span class="s">"50"</span>: {
+        <span class="k">"$type"</span>: <span class="s">"color"</span>,
+        <span class="k">"$value"</span>: { <span class="s">"colorSpace"</span>: <span class="s">"oklch"</span>, <span class="s">"components"</span>: [0.975, 0.011, 260], <span class="s">"hex"</span>: <span class="s">"#f3f7fe"</span> }
+      }
+    }
+  },
+  <span class="s">"action"</span>: {
+    <span class="s">"primary"</span>: {
+      <span class="s">"bg"</span>:   { <span class="k">"$type"</span>: <span class="s">"color"</span>, <span class="k">"$value"</span>: <span class="s">"{color.brand.700}"</span>, <span class="k">"$description"</span>: <span class="s">"Main actions. 6.44:1 with action.primary.text."</span> },
+      <span class="s">"text"</span>: { <span class="k">"$type"</span>: <span class="s">"color"</span>, <span class="k">"$value"</span>: <span class="s">"{color.neutral.50}"</span> }
+    }
+  },
+  <span class="s">"button"</span>: {
+    <span class="s">"primary"</span>: {
+      <span class="s">"background"</span>: { <span class="k">"$type"</span>: <span class="s">"color"</span>, <span class="k">"$value"</span>: <span class="s">"{action.primary.bg}"</span> }
+    }
+  },
+  <span class="s">"space"</span>: {
+    <span class="s">"4"</span>: { <span class="k">"$type"</span>: <span class="s">"dimension"</span>, <span class="k">"$value"</span>: { <span class="s">"value"</span>: 16, <span class="s">"unit"</span>: <span class="s">"px"</span> } }
+  }
+}</code></pre>
+<p>A few things worth knowing about the format:</p>
+<ul>
+  <li><b>Types</b> include <code>color</code>, <code>dimension</code>, <code>fontFamily</code>, <code>fontWeight</code>, <code>duration</code>, <code>cubicBezier</code> and <code>number</code>, plus composite types such as <code>typography</code>, <code>shadow</code>, <code>border</code> and <code>transition</code>.</li>
+  <li><b>Colours</b> are stored with their colour space and components, so a value defined in OKLCH stays in OKLCH. A <code>hex</code> fallback can sit alongside.</li>
+  <li><b>Aliases</b> (<code>"{color.brand.700}"</code>) are how tiers point to each other. Tools resolve them when they build outputs.</li>
+  <li><b>Properties starting with <code>$</code></b> are reserved by the format: <code>$type</code>, <code>$value</code>, <code>$description</code>, <code>$extensions</code>, <code>$deprecated</code>.</li>
+</ul>
+
+<h2>From tokens to code</h2>
+<p>Nobody should hand-copy tokens into code. A build tool reads the token file and writes out whatever each platform needs. <a href="https://styledictionary.com/" target="_blank" rel="noopener">Style Dictionary</a>, originally from Amazon, is the most widely used, and recent versions support the DTCG format.</p>
+<figure class="w-fig">
+  <div class="cols4">
+    <div class="cell"><span class="k">SOURCE</span><h4>tokens.json</h4><p>DTCG format, in a repository, reviewed like code.</p></div>
+    <div class="cell"><span class="k">WEB</span><h4>CSS variables</h4><p><code>--action-primary-bg</code>, plus Tailwind or Sass if you need them.</p></div>
+    <div class="cell"><span class="k">NATIVE</span><h4>Swift, Kotlin</h4><p>Colour and dimension constants for iOS and Android.</p></div>
+    <div class="cell"><span class="k">DESIGN</span><h4>Figma variables</h4><p>Collections and modes, synced by a plugin or the Figma API.</p></div>
+  </div>
+  <figcaption>One source, many outputs. The build runs on every change to the token file, so all platforms stay in step.</figcaption>
+</figure>
+<p>On the web, the output usually looks like this. Notice the semantic layer points to the primitive layer, so the browser resolves the chain and themes only need to override the middle layer:</p>
+<pre><code><span class="k">:root</span> {
+  <span class="c">/* primitives */</span>
+  --color-brand-700: oklch(0.486 0.172 35);
+  --color-neutral-50: oklch(0.975 0.011 260);
+  <span class="c">/* semantic */</span>
+  --action-primary-bg: var(--color-brand-700);
+  --action-primary-text: var(--color-neutral-50);
+}
+<span class="k">[data-theme="dark"]</span> {
+  --action-primary-bg: var(--color-brand-400);
+  --action-primary-text: var(--color-neutral-950);
+}
+<span class="k">.button--primary</span> { background: var(--action-primary-bg); color: var(--action-primary-text); }</code></pre>
+
+<h2>Tokens in Figma</h2>
+<p>Figma's <b>variables</b> are its implementation of tokens. Collections group them (primitives, semantic), and modes hold alternative values (light, dark, brand A, brand B). Set them up to mirror your token tiers exactly: a primitives collection that's hidden from publishing, and a semantic collection with a mode per theme that designers actually apply.</p>
+<div class="cols2">
+  <div class="cell"><h3>Keep the names identical</h3><p>The Figma variable <code>action/primary/bg</code> and the CSS variable <code>--action-primary-bg</code> should be the same name in different punctuation. Any difference becomes a translation step.</p></div>
+  <div class="cell"><h3>Pick one source of truth</h3><p>Either the token file feeds Figma, or Figma feeds the token file. Never both. Most teams with engineering capacity keep the JSON in a repository as the source.</p></div>
+</div>
+
+<h2>Theming and modes</h2>
+<p>Because components only use semantic tokens, a theme is simply a different mapping from semantic names to primitives. The same structure handles:</p>
+<div class="cols4">
+  <div class="cell"><h4>Dark mode</h4><p>Lighter text, darker surfaces, adjusted accents.</p></div>
+  <div class="cell"><h4>High contrast</h4><p>Stronger borders and text for users who need them.</p></div>
+  <div class="cell"><h4>Density</h4><p>Compact and comfortable spacing and control heights.</p></div>
+  <div class="cell"><h4>Brands</h4><p>Different palettes and radii for each brand or client.</p></div>
+</div>
+<p>The two most common mistakes are making themes by inverting colours (dark mode isn't an inverted light mode) and adding brand-specific semantic names (<code>brand-a.button</code>), which defeats the point. The full walkthrough is in <a href="/writing/dark-mode-design-tokens">dark mode with design tokens</a>; how to build the underlying palette is in <a href="/writing/oklch-color-palette">accessible colour palettes in OKLCH</a>.</p>
+
+<h2>Governing tokens</h2>
+<p>Tokens have the biggest blast radius in a design system: change one, and every product changes. So they deserve clear decision rights:</p>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Decision</th><th>Who decides</th><th>Who can block</th><th>Process</th></tr></thead>
+  <tbody>
+    <tr><td>Token names and structure</td><td>System engineering lead</td><td>—</td><td>Proposal, short comment period</td></tr>
+    <tr><td>Token value changes</td><td>System lead</td><td>Accessibility specialist (contrast)</td><td>One-week comment period; release notes</td></tr>
+    <tr><td>New semantic token</td><td>System design lead</td><td>—</td><td>Must name a job no existing token covers</td></tr>
+    <tr><td>Removing a token</td><td>System lead</td><td>—</td><td>Deprecate first (<code>$deprecated</code>), remove in the next major version</td></tr>
+  </tbody>
+</table></div></div>
+<p>Add an automated check that fails a build when a component uses a primitive or a raw value. It's the cheapest way to prevent a whole class of theming bugs. More in <a href="/writing/design-system-governance">design system governance</a>.</p>
+
+<h2>Common mistakes</h2>
+<div class="cols2">
+  <div class="cell"><h3>Only one tier</h3><p>Tokens named <code>blue-600</code> used directly in components. It looks like a token system, but nothing can be themed.</p></div>
+  <div class="cell"><h3>Too many semantic tokens</h3><p>A new semantic name for every screen. Keep the semantic layer small: 30–60 colour tokens covers most products.</p></div>
+  <div class="cell"><h3>Two sources of truth</h3><p>Tokens edited in Figma and in code separately. Within a month they disagree.</p></div>
+  <div class="cell"><h3>Tokens after components</h3><p>Components built first end up full of hard-coded values that someone has to find and replace. Tokens first, components second.</p></div>
+</div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>A design token is a named design decision, stored once and read by design tools and code.</li>
+  <li>Use three tiers: primitive (what it is), semantic (what job it does), component (optional, where it's used).</li>
+  <li>Components only use semantic or component tokens; that's what makes themes and rebrands cheap.</li>
+  <li>Store them in the DTCG 2025.10 format, build platform outputs automatically, and mirror them in Figma variables.</li>
+  <li>Govern token changes carefully: they have the biggest blast radius in the system.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Are design tokens the same as CSS variables?</summary><div><p>No, but they're closely related. A token is the platform-neutral decision; a CSS custom property is one way of delivering it on the web. The same token also becomes a Swift constant, a Kotlin resource and a Figma variable.</p></div></details>
+  <details><summary>Do I need component tokens?</summary><div><p>Only if you have several brands, white-labelled products, or teams that need to restyle specific components. For a single brand with light and dark modes, semantic tokens are usually enough.</p></div></details>
+  <details><summary>What is the W3C design tokens format?</summary><div><p>The Design Tokens Format Module, published as a stable version (2025.10) by the W3C Design Tokens Community Group in October 2025. It's a JSON format with <code>$type</code>, <code>$value</code> and aliases in curly braces, designed so tokens can move between tools.</p></div></details>
+  <details><summary>How do Figma variables relate to design tokens?</summary><div><p>Figma variables are Figma's way of storing tokens. Mirror your token tiers as variable collections, and your themes as modes, with identical names to the code.</p></div></details>
+  <details><summary>How many design tokens should a system have?</summary><div><p>Primitives can number in the hundreds (every step of every ramp). Keep the semantic layer small enough to remember: often 30–60 colour tokens plus spacing, type, radius and elevation.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://www.designtokens.org/tr/2025.10/format/" target="_blank" rel="noopener">Design Tokens Format Module 2025.10</a><span>W3C Design Tokens Community Group. The specification.</span></li>
+  <li><a href="https://www.w3.org/community/design-tokens/2025/10/28/design-tokens-specification-reaches-first-stable-version/" target="_blank" rel="noopener">Design Tokens specification reaches first stable version</a><span>W3C. The announcement, October 2025.</span></li>
+  <li><a href="https://styledictionary.com/" target="_blank" rel="noopener">Style Dictionary</a><span>The open-source build tool for turning tokens into platform code.</span></li>
+  <li><a href="https://help.figma.com/hc/en-us/articles/15339657135383-Guide-to-variables-in-Figma" target="_blank" rel="noopener">Guide to variables in Figma</a><span>Figma Help Center.</span></li>
+  <li><a href="https://atlassian.design/foundations/tokens/design-tokens" target="_blank" rel="noopener">Atlassian design tokens</a><span>A well-documented public token system to learn from.</span></li>
+</ul>

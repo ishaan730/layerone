@@ -3,7 +3,7 @@
 import http.server, os, sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-REDIRECTS = {"/clients": "/experience", "/blog": "/writing", "/services": "/pricing", "/index": "/"}
+REDIRECTS = {"/clients": "/experience", "/blog": "/writing", "/blog-librarian-vs-leader": "/writing/librarian-vs-leader", "/services": "/pricing", "/index": "/"}
 
 
 class H(http.server.SimpleHTTPRequestHandler):

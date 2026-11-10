@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design System Contribution Model and Request Process | Layer One</title>
+<meta name="description" content="A contribution model that scales: one front door, a request form, a scoring formula for priorities, contribution levels and the review flow.">
+<meta property="og:title" content="Design System Contribution Model and Request Process | Layer One">
+<meta property="og:description" content="A contribution model that scales: one front door, a request form, a scoring formula for priorities, contribution levels and the review flow.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-09">
+<meta property="article:modified_time" content="2026-11-09">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="Governance">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/design-system-contribution-model.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Design System Contribution Model and Request Process | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css?v=394ba543">
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Design System Contribution Model and Request Process", "description": "A contribution model that scales: one front door, a request form, a scoring formula for priorities, contribution levels and the review flow.", "image": "https://www.layerone.co.in/assets/images/writing/design-system-contribution-model.jpg", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "mainEntityOfPage": "https://www.layerone.co.in/writing/design-system-contribution-model", "wordCount": 1841, "articleSection": "Governance", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "Governance", "item": "https://www.layerone.co.in/writing/topics/governance"}, {"@type": "ListItem", "position": 3, "name": "Design system contribution model", "item": "https://www.layerone.co.in/writing/design-system-contribution-model"}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/design-system-contribution-model">
+<meta property="og:url" content="https://www.layerone.co.in/writing/design-system-contribution-model">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Design System Contribution Model and Request Process | Layer One">
+<meta name="twitter:description" content="A contribution model that scales: one front door, a request form, a scoring formula for priorities, contribution levels and the review flow.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/design-system-contribution-model.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<div class="shell"><aside class="side" aria-label="Studio">
+    <nav class="side-nav" aria-label="On this page"><a href="/writing">← All writing</a><a href="#why-requests-become-a-bottleneck">Why requests become a bottleneck</a><a href="#one-front-door-the-request-form">One front door: the request form</a><a href="#shared-need-or-product-specific">Shared need or product-specific?</a><a href="#how-to-score-and-prioritise-requests">How to score and prioritise requests</a><a href="#urgent-requests-and-exceptions">Urgent requests and exceptions</a><a href="#four-levels-of-contribution">Four levels of contribution</a><a href="#the-request-lifecycle">The request lifecycle</a><a href="#saying-no-well">Saying no, well</a><a href="#the-short-version">The short version</a><a href="#frequently-asked-questions">Frequently asked questions</a><a href="#further-reading">Further reading</a></nav>
+    <a class="side-card side-card--bar" href="/contact"><span>Start a project</span><svg viewBox="0 0 34 14" fill="none" aria-hidden="true"><path d="M1 7h31M26 1l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <p class="side-blurb">Layer One is a design systems studio in Bangalore, India.<br>Led by Aniket Pandey.</p>
+    <div class="wordmark"><svg viewBox="0 0 300 182" role="img" aria-label="Layer One"><g transform="translate(10 10)" opacity="0.35" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="none" stroke="currentColor" stroke-width="1.4">LAYER</text><text x="4" y="164" fill="none" stroke="currentColor" stroke-width="1.4">ONE</text></g><g transform="translate(5 5)" opacity="0.6" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="none" stroke="currentColor" stroke-width="1.4">LAYER</text><text x="4" y="164" fill="none" stroke="currentColor" stroke-width="1.4">ONE</text></g><g transform="translate(0 0)" opacity="1" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="currentColor">LAYER</text><text x="4" y="164" fill="currentColor">ONE</text></g><g transform="translate(222 100) scale(.62)"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></g></svg></div>
+    <div class="side-foot">
+      <ul><li><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">linkedin</a></li><li><a href="https://x.com/LayeroneStudios" target="_blank" rel="noopener">x</a></li><li><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">medium</a></li></ul>
+      <a href="mailto:layerone@proton.me">layerone@proton.me</a>
+    </div>
+  </aside><main id="main" class="content">
+<article class="post">
+  <header class="post-head">
+    <p class="crumb small muted"><a href="/writing">Writing</a> / <a href="/writing/topics/governance">Governance</a></p>
+    <a class="post-series" href="/writing#the-operating-model"><b>The operating model</b>&nbsp;· Part 4 of 4</a>
+    <h1 class="post-title">Design system contribution model: how to take requests without becoming a bottleneck</h1>
+    <p class="post-dek">Ten teams, forty requests, one small system team. Without a clear way in, the loudest team wins and the quiet ones build their own. One front door, a scoring formula, contribution levels and a review flow that keeps work moving.</p>
+    <div class="post-meta"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40" loading="lazy"><div><b>By Aniket Pandey</b><span>8 min read · Published 9 November 2026</span></div></div>
+    <div class="post-cover"><img src="../assets/images/writing/design-system-contribution-model.w1200.webp" alt="" width="1600" height="900" srcset="../assets/images/writing/design-system-contribution-model.w480.webp 480w, ../assets/images/writing/design-system-contribution-model.w800.webp 800w, ../assets/images/writing/design-system-contribution-model.w1200.webp 1200w, ../assets/images/writing/design-system-contribution-model.jpg 1600w" sizes="(max-width: 1280px) 100vw, 1240px" decoding="async"></div>
+  </header>
+  <details class="post-toc"><summary>In this article</summary><ol><li><a href="#why-requests-become-a-bottleneck">Why requests become a bottleneck</a></li><li><a href="#one-front-door-the-request-form">One front door: the request form</a></li><li><a href="#shared-need-or-product-specific">Shared need or product-specific?</a></li><li><a href="#how-to-score-and-prioritise-requests">How to score and prioritise requests</a></li><li><a href="#urgent-requests-and-exceptions">Urgent requests and exceptions</a></li><li><a href="#four-levels-of-contribution">Four levels of contribution</a></li><li><a href="#the-request-lifecycle">The request lifecycle</a></li><li><a href="#saying-no-well">Saying no, well</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+  <div class="post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>A <b>design system contribution model</b> is the agreed way product teams ask for changes and add their own work to the system. A good one has <b>one front door</b> (a short request form that creates an item in a public tracker), a <b>weekly triage</b> that decides whether each request is a shared need or a product-specific one, an open <b>scoring formula</b> for priorities, four <b>contribution levels</b> from reporting a bug to co-building a new component, and a visible <b>lifecycle</b> from request to adoption.</p>
+  <ul>
+    <li>Ask for the problem, not the solution.</li>
+    <li>Priority = (Reach + Impact + Reuse + Business value) ÷ Effort, each scored 1–3, published next to every request.</li>
+    <li>The system should never be the reason a team misses a deadline: offer a sanctioned local build instead.</li>
+  </ul>
+</div>
+
+<h2 id="why-requests-become-a-bottleneck">Why requests become a bottleneck</h2>
+<p>In the early days requests arrive informally: a message here, a hallway chat there. That works until about the third product team. Then requests get lost, the loudest team gets served first, and quiet teams decide the system isn't for them.</p>
+<p class="scenario-t">An illustration: whoever shouts loudest</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>Requests reach the system team through Slack, direct messages, meetings and a spreadsheet. A senior product manager escalates their team's request to a director.</p></div>
+  <div><span class="k">What goes wrong</span><p>The escalated request jumps the queue. Two quieter teams who asked months earlier hear nothing. One builds its own components; the other says the system is "political".</p></div>
+  <div><span class="k">What a framework changes</span><p>One front door, a public queue, a published scoring method and a weekly triage. Priorities can still change, but openly, with reasons everyone can see.</p></div>
+</div>
+<p>A request framework isn't bureaucracy. It's fairness made visible. It protects the system team from being pulled in ten directions, and it protects product teams from being forgotten.</p>
+
+<h2 id="one-front-door-the-request-form">One front door: the request form</h2>
+<p>All requests go through one place: a form on the documentation site that creates an item in a public tracker (GitHub issues, Jira or similar). Questions can still be asked in chat, but anything that needs work becomes a request. A good form takes two minutes and gives the system team everything it needs.</p>
+<figure class="w-fig">
+  <ol class="w-steps">
+    <li><h4>What kind of request?</h4><p>Bug · Enhancement to an existing component · New component · New pattern · Token change · Documentation · Other</p></li>
+    <li><h4>What problem are you trying to solve?</h4><p>Describe the user need, not the solution. "Customers can't tell which invoices are overdue", not "add a red badge".</p></li>
+    <li><h4>Where does it appear?</h4><p>Product, screen, and a screenshot or Figma link.</p></li>
+    <li><h4>What have you tried?</h4><p>Existing components you considered, and why they didn't fit.</p></li>
+    <li><h4>Who else might need this?</h4><p>Other teams or products you know of.</p></li>
+    <li><h4>When do you need it, and why?</h4><p>The deadline and what depends on it. "Launch on 12 March" helps; "ASAP" doesn't.</p></li>
+    <li><h4>Could your team help build it?</h4><p>Yes / Maybe / No. Contributions get faster turnaround.</p></li>
+  </ol>
+  <figcaption>A seven-question request form. Question 2 matters most: the best answer to a request is often an existing component, a pattern, or something more general that helps other teams too.</figcaption>
+</figure>
+
+<h2 id="shared-need-or-product-specific">Shared need or product-specific?</h2>
+<p>The most important judgement in triage: does this belong in the system, or in the product? Get it wrong one way and the system bloats with one-offs; the other way and teams duplicate work. Five questions settle most cases:</p>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Question</th><th>Points to the system if…</th><th>Points to the product if…</th></tr></thead>
+  <tbody>
+    <tr><td>How many teams need it?</td><td>Two or more now, or clearly soon (the rule of two)</td><td>Only one team</td></tr>
+    <tr><td>Is the need general?</td><td>A common problem: show status, pick a date range</td><td>Tied to one domain: a loan amortisation chart</td></tr>
+    <tr><td>Does it duplicate something?</td><td>Nothing existing solves it</td><td>An existing component does, with small changes or better guidance</td></tr>
+    <tr><td>Will it last?</td><td>A long-lived need</td><td>A campaign, experiment or short-lived feature</td></tr>
+    <tr><td>Is it consistent with the system?</td><td>Fits the principles and foundations</td><td>Requires breaking them</td></tr>
+  </tbody>
+</table></div></div>
+<p>These echo the GOV.UK Design System's public contribution criteria, where proposals must show they're useful and unique before they're accepted. When the answer is "product-specific", the team builds it locally from system parts, and the request stays open as a <b>watch</b> item. If a second team asks, it becomes a candidate for the system.</p>
+
+<h2 id="how-to-score-and-prioritise-requests">How to score and prioritise requests</h2>
+<p>Every request accepted for the system gets a category and a score. The score doesn't decide automatically, but it makes trade-offs visible and discussions much calmer.</p>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Factor</th><th>Question</th><th>1</th><th>2</th><th>3</th></tr></thead>
+  <tbody>
+    <tr><td>Reach</td><td>How many teams or screens benefit?</td><td>1 team</td><td>2–4 teams</td><td>5+ teams</td></tr>
+    <tr><td>Impact</td><td>How much does it help each team or user?</td><td>Nice to have</td><td>Saves real time</td><td>Unblocks or fixes a serious problem</td></tr>
+    <tr><td>Reuse</td><td>Will it be reused in future work?</td><td>Rarely</td><td>Sometimes</td><td>Constantly</td></tr>
+    <tr><td>Business value</td><td>Does it support a priority, revenue, compliance or accessibility?</td><td>Indirect</td><td>Supports a priority</td><td>Required for one</td></tr>
+    <tr><td>Effort (divides)</td><td>How complex is it?</td><td>Simple</td><td>Moderate</td><td>Complex</td></tr>
+  </tbody>
+</table></div></div>
+<figure class="w-fig "><div class="w-tbl"><table><thead><tr><th>Request</th><th class="r">Reach</th><th class="r">Impact</th><th class="r">Reuse</th><th class="r">Value</th><th class="r">Effort</th><th class="r">Score</th></tr></thead><tbody><tr><td>Dialog focus bug (accessibility)</td><td class="r">3</td><td class="r">3</td><td class="r">3</td><td class="r">3</td><td class="r">1</td><td class="r"><b>12.0</b></td></tr><tr><td>Filter pattern for lists</td><td class="r">3</td><td class="r">2</td><td class="r">3</td><td class="r">2</td><td class="r">2</td><td class="r"><b>5.0</b></td></tr><tr><td>Month-range date picker</td><td class="r">1</td><td class="r">2</td><td class="r">2</td><td class="r">2</td><td class="r">2</td><td class="r"><b>3.5</b></td></tr><tr><td>Spreadsheet-style editable grid</td><td class="r">1</td><td class="r">3</td><td class="r">1</td><td class="r">2</td><td class="r">3</td><td class="r"><b>2.3</b></td></tr></tbody></table></div><figcaption>Priority = (Reach + Impact + Reuse + Business value) ÷ Effort, each scored 1–3. An accessibility bug used everywhere scores 12; a complex grid for one team scores 2.3.</figcaption></figure>
+<p>Publish the score next to each request in the public queue. When two teams compete, the scores start the conversation, but people finish it: agree a quarterly roadmap with product leads so most priorities are settled once, together, and when something genuinely moves mid-quarter, say what moves down to make room.</p>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>At CARS24 the design system team used a 70-point scorecard any team could apply to its own request, one front door and three ownership tiers. <a href="/work/cars24-governance">Read how the team stopped being the bottleneck</a>. The <a href="/lab">Lab</a> has a free request backlog tool that ranks requests with that scorecard and exports CSV, Markdown or JSON.</p></div>
+
+<h2 id="urgent-requests-and-exceptions">Urgent requests and exceptions</h2>
+<p>Define "urgent" clearly and give it a fast lane, or everything will be called urgent.</p>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Qualifies as urgent</th><th>Fast-lane response</th></tr></thead>
+  <tbody>
+    <tr><td>A system bug blocking a launch or a key user task</td><td>Fixed within days as a patch release</td></tr>
+    <tr><td>A legal, regulatory or accessibility deadline</td><td>Prioritised above roadmap work, with leadership informed</td></tr>
+    <tr><td>A launch date with no time for the normal process</td><td>Build locally now from system parts; the system version follows; the local one is replaced later</td></tr>
+  </tbody>
+</table></div></div>
+<p><b>Exceptions</b>, where a team needs to break a system rule, should be allowed but explicit: a short written request, a named approver, an expiry date and an entry in an exception log. Review the log quarterly. Recurring exceptions are a sign the system needs to change.</p>
+<div class="callout callout--term"><span class="callout-k">Our rule</span><p>The system should never be the reason a team misses a deadline. If it can't deliver in time, the answer is a sanctioned local build, not a delay. That one promise does more for trust than any process.</p></div>
+
+<h2 id="four-levels-of-contribution">Four levels of contribution</h2>
+<p>When a team offers to build something themselves, the request becomes a contribution. Different kinds need different support, but the same standard:</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Level</th><th>Contributor provides</th><th>System team provides</th><th>Review</th></tr></thead>
+  <tbody>
+    <tr><td>1 · Report</td><td>A clear description with a screenshot</td><td>Triage within a week</td><td>—</td></tr>
+    <tr><td>2 · Fix</td><td>The fix, a test, a changelog line</td><td>Review within 2–3 days</td><td>One reviewer</td></tr>
+    <tr><td>3 · Extend</td><td>A short proposal; then design, code, tests and docs</td><td>Proposal feedback; pairing if wanted</td><td>Designer and engineer</td></tr>
+    <tr><td>4 · New</td><td>A written proposal with evidence of shared need; co-building</td><td>Kick-off workshop, co-design, final review</td><td>Design, code and accessibility review</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Contribution levels. All contributions meet the same definition of done as system-built work. Contributors shouldn't get a lower bar; they should get more help reaching it.</figcaption></figure>
+<p>Nathan Curtis has written in depth about contribution and about the criteria for "does this go in the system?". Both are worth reading before you write your own guidelines.</p>
+
+<h2 id="the-request-lifecycle">The request lifecycle</h2>
+<p>Every request moves through the same stages, visible to everyone in the tracker, so the requester always knows where it is and what happens next.</p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Submitted</b><span>Form completed; auto-acknowledged</span></div><i>→</i>
+    <div><b>Triaged</b><span>Shared vs local; scored; answered within a week</span></div><i>→</i>
+    <div><b>Accepted</b><span>On the roadmap with a timeframe, or invited as a contribution</span></div><i>→</i>
+    <div><b>In progress</b><span>Requester reviews design before build</span></div><i>→</i>
+    <div><b>Released</b><span>Shipped, announced, requester thanked</span></div><i>→</i>
+    <div class="hi"><b>Adopted</b><span>Requesting team using it; local versions retired</span></div>
+  </div>
+  <figcaption>Requests can also leave at triage as "use existing", "build locally (watching)" or "not planned", always with a written reason. A request isn't finished when it's released; it's finished when the team that asked is using it.</figcaption>
+</figure>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Stage</th><th>Owner</th><th>Service target</th></tr></thead>
+  <tbody>
+    <tr><td>Submitted → triaged</td><td>System lead (weekly triage)</td><td>First response within a week</td></tr>
+    <tr><td>Accepted</td><td>System lead</td><td>Timeframe stated; roadmap updated</td></tr>
+    <tr><td>In progress</td><td>Component owner (designer + engineer)</td><td>Requester reviews design before build</td></tr>
+    <tr><td>Released</td><td>Engineer on release rota</td><td>Announced with the release</td></tr>
+    <tr><td>Adopted</td><td>Requesting team's champion</td><td>Within one or two release cycles</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="saying-no-well">Saying no, well</h2>
+<p>Most requests that don't go into the system still deserve a good answer. "No" should almost always come with something useful:</p>
+<div class="cols3">
+  <div class="cell"><h3>"Use this instead"</h3><p>An existing component or pattern solves it, with a link and a short example.</p></div>
+  <div class="cell"><h3>"Build it locally, we're watching"</h3><p>Product-specific for now. Build from system parts; if a second team asks, it comes in.</p></div>
+  <div class="cell"><h3>"Not planned, because…"</h3><p>It conflicts with a principle or a standard. Say which, and what would change the answer.</p></div>
+</div>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>One front door and a public queue; ask for the problem, not the solution.</li>
+  <li>Test every request for shared versus product-specific need; send one-offs to local builds and watch them.</li>
+  <li>Score openly: (Reach + Impact + Reuse + Value) ÷ Effort. Define urgent; make exceptions explicit.</li>
+  <li>Four contribution levels, one standard, more help for contributors.</li>
+  <li>Track every request from submission to adoption, with an owner and a target at each stage.</li>
+</ul></div>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Who can contribute to a design system?</summary><div><p>Anyone who uses it. Reports and fixes should be open to everyone; extensions and new components need a proposal and the system team's support.</p></div></details>
+  <details><summary>How do you prioritise design system requests?</summary><div><p>Score each one by reach, impact, reuse and business value, divided by effort, and publish the scores. Then agree a quarterly roadmap with product leads so most priorities are settled together.</p></div></details>
+  <details><summary>What if a team needs a component now?</summary><div><p>Let them build it locally from system parts, as a sanctioned exception. The system version follows and replaces it later.</p></div></details>
+  <details><summary>Should contributions go through pull requests?</summary><div><p>Code contributions, yes, with the same review and tests as system-built work. But a pull request isn't a proposal: for extensions and new components, agree the design first.</p></div></details>
+  <details><summary>How quickly should requests get a response?</summary><div><p>A first response within a week, from a weekly triage. Fixes contributed by teams should be reviewed within two or three days.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://medium.com/eightshapes-llc/contributions-to-design-systems-89261a9363d8" target="_blank" rel="noopener">Contributions to Design Systems</a><span>Nathan Curtis, EightShapes.</span></li>
+  <li><a href="https://medium.com/eightshapes-llc/i-made-this-does-it-go-in-the-system-3b67b9894531" target="_blank" rel="noopener">I made this. Does it go in the system?</a><span>Nathan Curtis. Contribution criteria.</span></li>
+  <li><a href="https://design-system.service.gov.uk/community/contribution-criteria/" target="_blank" rel="noopener">GOV.UK contribution criteria</a><span>Government Digital Service.</span></li>
+  <li><a href="https://bradfrost.com/blog/post/a-design-system-governance-process/" target="_blank" rel="noopener">A Design System Governance Process</a><span>Brad Frost.</span></li>
+</ul>
+</div>
+  <aside class="post-author" aria-label="About the author">
+    <img src="../assets/studio/aniket.jpg" alt="Aniket Pandey" width="72" height="72" loading="lazy">
+    <div><b>Aniket Pandey</b><p>Founder of Layer One, a design systems studio in Bangalore. Built and ran design systems as an employee at <a href="/experience">CARS24, IBM and JPMorgan Chase</a>: tokens, components, governance and the teams behind them. <a href="/studio">More about the studio</a>.</p></div>
+  </aside>
+  <aside class="post-cta"><div><h2>Try it on your own values</h2><p>The Lab has free tools for this: OKLCH palettes, contrast checks, type and spacing scales, a token name linter and an export kit for CSS, Tailwind and DTCG JSON.</p></div><div class="btn-row"><a class="pill pill--accent" href="/lab">Open the Lab</a><a class="pill" href="/pricing">See pricing</a></div></aside>
+  <nav class="series-nav" aria-label="The operating model series"><a class="sn-prev" href="/writing/design-system-governance"><span>Previous in The operating model</span><b>Design system governance: who decides what, and how</b></a><a class="sn-next" href="/writing#series"><span>You finished The operating model</span><b>Pick another series</b></a></nav>
+  <h2 class="label">keep reading:</h2>
+  <div class="cards2"><a class="wcard" href="/writing/design-system-governance"><div class="m"><img src="../assets/images/writing/design-system-governance.w1200.webp" alt="" loading="lazy" width="1600" height="900" srcset="../assets/images/writing/design-system-governance.w480.webp 480w, ../assets/images/writing/design-system-governance.w800.webp 800w, ../assets/images/writing/design-system-governance.w1200.webp 1200w, ../assets/images/writing/design-system-governance.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></div><h3>Design system governance: who decides what, and how</h3><span>Governance · 9 min</span></a><a class="wcard" href="/writing/design-system-operating-model"><div class="m"><img src="../assets/images/writing/design-system-operating-model.w1200.webp" alt="" loading="lazy" width="1600" height="900" srcset="../assets/images/writing/design-system-operating-model.w480.webp 480w, ../assets/images/writing/design-system-operating-model.w800.webp 800w, ../assets/images/writing/design-system-operating-model.w1200.webp 1200w, ../assets/images/writing/design-system-operating-model.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></div><h3>The design system operating model</h3><span>Operating model & teams · 10 min</span></a></div>
+</article></main></div><script src="../assets/site.js?v=ba3edd5c" defer></script>
+</body>
+</html>

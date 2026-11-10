@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design System vs Style Guide vs Component Library vs UI Kit | Layer One</title>
+<meta name="description" content="Four terms people use interchangeably, and what each actually includes. A comparison table, a diagram of how they nest, and how to tell which one you have.">
+<meta property="og:title" content="Design System vs Style Guide vs Component Library vs UI Kit | Layer One">
+<meta property="og:description" content="Four terms people use interchangeably, and what each actually includes. A comparison table, a diagram of how they nest, and how to tell which one you have.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-09">
+<meta property="article:modified_time" content="2026-11-09">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="Fundamentals">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/design-system-vs-style-guide-vs-component-library.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Design System vs Style Guide vs Component Library vs UI Kit | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css?v=394ba543">
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Design System vs Style Guide vs Component Library vs UI Kit", "description": "Four terms people use interchangeably, and what each actually includes. A comparison table, a diagram of how they nest, and how to tell which one you have.", "image": "https://www.layerone.co.in/assets/images/writing/design-system-vs-style-guide-vs-component-library.jpg", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "mainEntityOfPage": "https://www.layerone.co.in/writing/design-system-vs-style-guide-vs-component-library", "wordCount": 1799, "articleSection": "Fundamentals", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "Fundamentals", "item": "https://www.layerone.co.in/writing/topics/fundamentals"}, {"@type": "ListItem", "position": 3, "name": "Design system vs style guide vs component library vs UI kit", "item": "https://www.layerone.co.in/writing/design-system-vs-style-guide-vs-component-library"}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/design-system-vs-style-guide-vs-component-library">
+<meta property="og:url" content="https://www.layerone.co.in/writing/design-system-vs-style-guide-vs-component-library">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Design System vs Style Guide vs Component Library vs UI Kit | Layer One">
+<meta name="twitter:description" content="Four terms people use interchangeably, and what each actually includes. A comparison table, a diagram of how they nest, and how to tell which one you have.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/design-system-vs-style-guide-vs-component-library.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<div class="shell"><aside class="side" aria-label="Studio">
+    <nav class="side-nav" aria-label="On this page"><a href="/writing">← All writing</a><a href="#why-the-difference-matters">Why the difference matters</a><a href="#the-comparison-at-a-glance">The comparison at a glance</a><a href="#how-they-fit-together">How they fit together</a><a href="#what-is-a-style-guide">What is a style guide?</a><a href="#what-is-a-ui-kit">What is a UI kit?</a><a href="#what-is-a-component-library">What is a component library?</a><a href="#what-makes-something-a-design-system">What makes something a design system?</a><a href="#which-one-do-you-have-a-quick-self-check">Which one do you have? A quick self-check</a><a href="#when-to-move-from-one-to-the-next">When to move from one to the next</a><a href="#the-short-version">The short version</a><a href="#frequently-asked-questions">Frequently asked questions</a><a href="#further-reading">Further reading</a></nav>
+    <a class="side-card side-card--bar" href="/contact"><span>Start a project</span><svg viewBox="0 0 34 14" fill="none" aria-hidden="true"><path d="M1 7h31M26 1l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <p class="side-blurb">Layer One is a design systems studio in Bangalore, India.<br>Led by Aniket Pandey.</p>
+    <div class="wordmark"><svg viewBox="0 0 300 182" role="img" aria-label="Layer One"><g transform="translate(10 10)" opacity="0.35" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="none" stroke="currentColor" stroke-width="1.4">LAYER</text><text x="4" y="164" fill="none" stroke="currentColor" stroke-width="1.4">ONE</text></g><g transform="translate(5 5)" opacity="0.6" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="none" stroke="currentColor" stroke-width="1.4">LAYER</text><text x="4" y="164" fill="none" stroke="currentColor" stroke-width="1.4">ONE</text></g><g transform="translate(0 0)" opacity="1" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="currentColor">LAYER</text><text x="4" y="164" fill="currentColor">ONE</text></g><g transform="translate(222 100) scale(.62)"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></g></svg></div>
+    <div class="side-foot">
+      <ul><li><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">linkedin</a></li><li><a href="https://x.com/LayeroneStudios" target="_blank" rel="noopener">x</a></li><li><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">medium</a></li></ul>
+      <a href="mailto:layerone@proton.me">layerone@proton.me</a>
+    </div>
+  </aside><main id="main" class="content">
+<article class="post">
+  <header class="post-head">
+    <p class="crumb small muted"><a href="/writing">Writing</a> / <a href="/writing/topics/fundamentals">Fundamentals</a></p>
+    <a class="post-series" href="/writing#design-systems-101"><b>Design Systems 101</b>&nbsp;· Part 2 of 3</a>
+    <h1 class="post-title">Design system vs style guide vs component library vs UI kit: what's the difference?</h1>
+    <p class="post-dek">People use these four terms as if they meant the same thing. They don't, and the difference decides what you should build next. A comparison table, a diagram of how they fit together, and a quick test to find out which one you have.</p>
+    <div class="post-meta"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40" loading="lazy"><div><b>By Aniket Pandey</b><span>8 min read · Published 9 November 2026</span></div></div>
+    <div class="post-cover"><img src="../assets/images/writing/design-system-vs-style-guide-vs-component-library.w1200.webp" alt="" width="1600" height="900" srcset="../assets/images/writing/design-system-vs-style-guide-vs-component-library.w480.webp 480w, ../assets/images/writing/design-system-vs-style-guide-vs-component-library.w800.webp 800w, ../assets/images/writing/design-system-vs-style-guide-vs-component-library.w1200.webp 1200w, ../assets/images/writing/design-system-vs-style-guide-vs-component-library.jpg 1600w" sizes="(max-width: 1280px) 100vw, 1240px" decoding="async"></div>
+  </header>
+  <details class="post-toc"><summary>In this article</summary><ol><li><a href="#why-the-difference-matters">Why the difference matters</a></li><li><a href="#the-comparison-at-a-glance">The comparison at a glance</a></li><li><a href="#how-they-fit-together">How they fit together</a></li><li><a href="#what-is-a-style-guide">What is a style guide?</a></li><li><a href="#what-is-a-ui-kit">What is a UI kit?</a></li><li><a href="#what-is-a-component-library">What is a component library?</a></li><li><a href="#what-makes-something-a-design-system">What makes something a design system?</a></li><li><a href="#which-one-do-you-have-a-quick-self-check">Which one do you have? A quick self-check</a></li><li><a href="#when-to-move-from-one-to-the-next">When to move from one to the next</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+  <div class="post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>A <b>style guide</b> records visual and brand rules. A <b>UI kit</b> is a set of reusable components in a design tool like Figma. A <b>component library</b> is the same idea in code. A <b>design system</b> contains all of these, plus the tokens that connect design and code, the patterns that combine components, the documentation, and the process for owning and changing it.</p>
+  <ul>
+    <li>Each term is a smaller part of the one above it, not an alternative to it.</li>
+    <li>Most teams that say "we have a design system" actually have a UI kit or a component library. That's a normal stage, not a failure.</li>
+    <li>The gap between them is usually <em>tokens</em> and <em>agreements</em>: one source of truth for decisions, and a way to change it.</li>
+  </ul>
+</div>
+
+<h2 id="why-the-difference-matters">Why the difference matters</h2>
+<p>This sounds like a question about vocabulary. It's really a question about what you're missing. If your team calls a Figma library a "design system", you'll wonder why engineers keep rebuilding components, why the product drifts after every sprint, and why nobody can tell you which version of the button is right. Those are symptoms of the missing layers, not of bad components.</p>
+<p>Getting the words right helps in three practical ways:</p>
+<div class="cols3">
+  <div class="cell"><h3>You can scope the work</h3><p>"Build a design system" is a vague brief. "Turn our UI kit into a system by adding tokens, code parity and a contribution process" is a plan.</p></div>
+  <div class="cell"><h3>You can set expectations</h3><p>Leadership funds a "design system" expecting faster delivery everywhere. A UI kit alone won't deliver that, because it never reaches code.</p></div>
+  <div class="cell"><h3>You can hire for it</h3><p>A UI kit needs a designer. A component library needs engineers. A system needs both, plus someone who owns decisions.</p></div>
+</div>
+
+<h2 id="the-comparison-at-a-glance">The comparison at a glance</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th></th><th>Style guide</th><th>UI kit</th><th>Component library</th><th>Design system</th></tr></thead>
+  <tbody>
+    <tr><td>What it is</td><td>Rules for visual and brand style</td><td>Reusable components in a design tool</td><td>Reusable components in code</td><td>Decisions, parts and agreements for building the whole interface</td></tr>
+    <tr><td>Typical contents</td><td>Logo, colours, fonts, tone of voice</td><td>Buttons, inputs, cards with variants</td><td>The same components, with props, states and tests</td><td>Tokens, UI kit, component library, patterns, docs, governance</td></tr>
+    <tr><td>Lives in</td><td>PDF or web page</td><td>Figma, Sketch</td><td>npm, Swift, Kotlin packages</td><td>Design tool, code, docs site and team rituals</td></tr>
+    <tr><td>Main users</td><td>Brand, marketing, designers</td><td>Product designers</td><td>Front-end engineers</td><td>Everyone who builds the product</td></tr>
+    <tr><td>Keeps design and code in sync?</td><td class="dim">No</td><td class="dim">No</td><td class="dim">Only the code side</td><td class="yes">Yes, through shared tokens and names</td></tr>
+    <tr><td>Says how to change it?</td><td class="dim">Rarely</td><td class="dim">Rarely</td><td class="dim">Through pull requests</td><td class="yes">Yes: requests, contribution, releases</td></tr>
+  </tbody>
+</table></div>
+<figcaption>How the four terms compare. The bottom two rows are where most of the difference lies.</figcaption></figure>
+
+<h2 id="how-they-fit-together">How they fit together</h2>
+<p>The clearest way to see the relationship is as boxes inside boxes. Each inner box is useful on its own, but it only becomes a system once the outer layers exist around it.</p>
+<figure class="w-fig">
+  <div class="nest">
+    <div class="nest-l l1"><span><b>Design system</b><i>decisions + parts + agreements</i></span>
+      <div class="nest-row"><span class="nest-chip">Principles</span><span class="nest-chip">Design tokens</span><span class="nest-chip">Patterns</span><span class="nest-chip">Documentation</span><span class="nest-chip">Governance &amp; contribution</span></div>
+      <div class="nest-l l2"><span><b>Component library</b><i>in code</i></span>
+        <div class="nest-l l3"><span><b>UI kit</b><i>in the design tool</i></span>
+          <div class="nest-l l4"><span><b>Style guide</b><i>visual rules</i></span>
+            <div class="nest-row"><span class="nest-chip">Colour</span><span class="nest-chip">Type</span><span class="nest-chip">Logo &amp; tone</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <figcaption>Each layer builds on the one inside it. Strictly, the UI kit and the component library sit side by side (one for designers, one for engineers); they're nested here because most teams build them in this order.</figcaption>
+</figure>
+
+<h2 id="what-is-a-style-guide">What is a style guide?</h2>
+<p>A style guide is a set of rules about how things should look and sound. In most companies it starts as a brand guideline from marketing: the logo, the brand colours, the typefaces and the tone of voice. Some product teams extend it with UI rules, such as "primary buttons are blue" and "headings use 24px".</p>
+<p>A style guide is valuable because it records decisions. Its weakness is that it records them as <em>instructions</em> that people must read, remember and re-implement by hand. Nothing enforces it, so it drifts. Six months after a style guide says "our blue is #1C75D6", you'll find five blues in the code.</p>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>Brand guidelines are usually made for marketing and print, not for interfaces. They rarely say anything about states, focus rings, error colours or contrast. Treat them as an input to your foundations, not as the foundations themselves.</p></div>
+
+<h2 id="what-is-a-ui-kit">What is a UI kit?</h2>
+<p>A UI kit is a collection of reusable components in a design tool: a Figma library with buttons, inputs, checkboxes, cards and so on, each with variants. Designers drag them into their files instead of drawing them from scratch.</p>
+<p>A good UI kit speeds up design work a lot and makes mock-ups more consistent. But it lives entirely on the design side. If the engineers don't have the same components in code, every handoff becomes a translation exercise: the designer uses the kit's button, the engineer builds or picks something that looks roughly similar, and the two drift apart a little more with every release.</p>
+
+<h2 id="what-is-a-component-library">What is a component library?</h2>
+<p>A component library is a set of reusable UI components in code, usually published as a package that product teams install. Each component has an API (its props or parameters), handles its own states and, if it's well built, its own accessibility: keyboard behaviour, focus, labels and screen reader announcements.</p>
+<p>Component libraries are where most of the speed-up from design systems actually happens, because adoption happens in code. But a library on its own has two gaps. It doesn't connect to the design tool, so designers and engineers can still mean different things by "the button". And it rarely includes the decisions underneath: if colours are hard-coded inside each component, a rebrand still means editing every one of them.</p>
+<div class="callout callout--term"><span class="callout-k">New word</span><p><b>Pattern library</b> is a term you'll also hear. It usually means a collection of larger, reusable solutions (a login form, a filter bar, an empty state) rather than single components. In a design system, patterns sit on top of components.</p></div>
+
+<h2 id="what-makes-something-a-design-system">What makes something a design system?</h2>
+<p>Three things separate a design system from a well-stocked UI kit or component library:</p>
+<ol class="w-steps">
+  <li><h3>One source of truth for decisions</h3><p>Colours, type, spacing and other foundations are stored as <a href="/writing/design-tokens">design tokens</a> that both Figma and code read from. Change a token and design and code change together.</p></li>
+  <li><h3>Parity between design and code</h3><p>The same components exist on both sides, with the same names, the same variants and the same options. "Button, secondary, small" means one thing to everyone.</p></li>
+  <li><h3>Agreements about how it's run</h3><p>A named owner, a way for teams to request and contribute changes, a release process and documentation. This is what keeps the first two true over time. See <a href="/writing/design-system-governance">design system governance</a>.</p></li>
+</ol>
+
+<h2 id="which-one-do-you-have-a-quick-self-check">Which one do you have? A quick self-check</h2>
+<p>Answer these honestly. The first "no" tells you which layer to work on next.</p>
+<ul class="checklist">
+  <li>Our colours, type and spacing have <b>names</b>, and those names are used in both Figma and code.</li>
+  <li>Our most-used components exist in <b>both Figma and code</b>, with matching names and options.</li>
+  <li>A new designer or engineer can find <b>documentation</b> that says when to use each component, not just what it looks like.</li>
+  <li>There's a <b>named owner</b> who can decide whether something goes into the system.</li>
+  <li>Teams know <b>how to ask</b> for a change, and changes are released with notes.</li>
+</ul>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>First "no" at…</th><th>What you most likely have</th><th>Next step</th></tr></thead>
+  <tbody>
+    <tr><td>Question 1</td><td>A style guide, perhaps with a UI kit</td><td>Name your foundations as tokens and use them in code</td></tr>
+    <tr><td>Question 2</td><td>A UI kit or a component library, not both</td><td>Build parity for the 10 most-used components</td></tr>
+    <tr><td>Question 3</td><td>Shared libraries without guidance</td><td>A page per component: usage, do's and don'ts, code</td></tr>
+    <tr><td>Questions 4–5</td><td>A system with no operating model</td><td>An owner, one front door for requests, release notes</td></tr>
+    <tr><td>All yes</td><td>A design system</td><td>Measure adoption and keep it current</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="when-to-move-from-one-to-the-next">When to move from one to the next</h2>
+<p>None of these stages is wrong. A five-person startup with a style guide and a themed open-source component library is in a perfectly healthy place. The question is whether what you have still matches the size of the problem.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">MOVE TO A UI KIT WHEN</span><p>Two or more designers keep redrawing the same components, or reviews keep catching small visual inconsistencies.</p></div>
+  <div class="cell"><span class="k">MOVE TO A COMPONENT LIBRARY WHEN</span><p>Engineers on different teams are building the same components, or accessibility bugs keep reappearing in the same kinds of controls.</p></div>
+  <div class="cell"><span class="k">MOVE TO A DESIGN SYSTEM WHEN</span><p>Design and code have visibly drifted apart, a rebrand or dark mode is coming, or more than about three teams depend on shared UI.</p></div>
+  <div class="cell"><span class="k">ADD MORE PROCESS WHEN</span><p>Requests pile up, decisions get re-opened, or teams start forking components because changing the originals is too slow.</p></div>
+</div>
+<p>For a fuller decision framework, see <a href="/writing/do-you-need-a-design-system">do you need a design system?</a></p>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Style guide: <b>rules</b>. UI kit: <b>parts in design</b>. Component library: <b>parts in code</b>. Design system: <b>decisions, parts and agreements</b> together.</li>
+  <li>The difference that matters is whether design and code share one source of truth, and whether there's a way to change it.</li>
+  <li>Most teams are somewhere in the middle. Use the self-check to find your first gap, and close that one first.</li>
+</ul></div>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Is Material Design a design system or a component library?</summary><div><p>A design system. Material Design 3 publishes principles, foundations, colour roles, tokens, components, patterns and guidance. There are also component libraries that implement it, such as Material Web and the Material components for Android and Flutter.</p></div></details>
+  <details><summary>Can a design system exist without code?</summary><div><p>Not really. Without code, design decisions have to be re-implemented by hand every time, which is exactly the drift a design system exists to prevent. A design-only "system" is a UI kit with good documentation.</p></div></details>
+  <details><summary>Is a brand guideline a style guide?</summary><div><p>Usually, yes: it's the brand's style guide. But brand guidelines are written for marketing and print, so they rarely cover what an interface needs, such as states, focus, error colours and contrast.</p></div></details>
+  <details><summary>Do I need a component library before a design system?</summary><div><p>You need components in code as part of a design system, but you don't have to build them yourself. Many teams start by theming an open-source or headless library with their own tokens.</p></div></details>
+  <details><summary>What's the difference between a pattern library and a component library?</summary><div><p>A component library holds single building blocks such as a button or a text field. A pattern library holds combinations that solve a recurring problem, such as a sign-in form or a filtered table.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="/writing/what-is-a-design-system">What is a design system?</a><span>Our full guide: the layers, examples, value and how to start.</span></li>
+  <li><a href="https://atomicdesign.bradfrost.com/" target="_blank" rel="noopener">Atomic Design</a><span>Brad Frost. A classic model for how components build into patterns and pages.</span></li>
+  <li><a href="https://www.smashingmagazine.com/design-systems-book/" target="_blank" rel="noopener">Design Systems</a><span>Alla Kholmatova, Smashing Magazine. On functional and perceptual patterns, and how systems differ.</span></li>
+  <li><a href="https://medium.com/@layerone_11803/most-design-systems-are-just-expensive-ui-libraries-e0cc8b146f2d" target="_blank" rel="noopener">Most design systems are just expensive UI libraries</a><span>Layer One on Medium. The opinion piece behind this comparison.</span></li>
+</ul>
+</div>
+  <aside class="post-author" aria-label="About the author">
+    <img src="../assets/studio/aniket.jpg" alt="Aniket Pandey" width="72" height="72" loading="lazy">
+    <div><b>Aniket Pandey</b><p>Founder of Layer One, a design systems studio in Bangalore. Built and ran design systems as an employee at <a href="/experience">CARS24, IBM and JPMorgan Chase</a>: tokens, components, governance and the teams behind them. <a href="/studio">More about the studio</a>.</p></div>
+  </aside>
+  <aside class="post-cta"><div><h2>Ready for the next step?</h2><p>When you're ready to look at your own product, a two-week audit gives you a baseline and a ranked plan. $1,500, fixed.</p></div><div class="btn-row"><a class="pill pill--accent" href="/pricing">See pricing</a><a class="pill" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a></div></aside>
+  <nav class="series-nav" aria-label="Design Systems 101 series"><a class="sn-prev" href="/writing/what-is-a-design-system"><span>Previous in Design Systems 101</span><b>What is a design system? A plain-English guide for product teams</b></a><a class="sn-next" href="/writing/do-you-need-a-design-system"><span>Next in Design Systems 101</span><b>Do you need a design system? A decision guide for startups and growing teams</b></a></nav>
+  <h2 class="label">keep reading:</h2>
+  <div class="cards2"><a class="wcard" href="/writing/what-is-a-design-system"><div class="m"><img src="../assets/images/writing/what-is-a-design-system.w1200.webp" alt="" loading="lazy" width="1600" height="900" srcset="../assets/images/writing/what-is-a-design-system.w480.webp 480w, ../assets/images/writing/what-is-a-design-system.w800.webp 800w, ../assets/images/writing/what-is-a-design-system.w1200.webp 1200w, ../assets/images/writing/what-is-a-design-system.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></div><h3>What is a design system? A plain-English guide for product teams</h3><span>Fundamentals · 13 min</span></a><a class="wcard" href="/writing/do-you-need-a-design-system"><div class="m"><img src="../assets/images/writing/do-you-need-a-design-system.w1200.webp" alt="" loading="lazy" width="1600" height="900" srcset="../assets/images/writing/do-you-need-a-design-system.w480.webp 480w, ../assets/images/writing/do-you-need-a-design-system.w800.webp 800w, ../assets/images/writing/do-you-need-a-design-system.w1200.webp 1200w, ../assets/images/writing/do-you-need-a-design-system.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></div><h3>Do you need a design system? A decision guide for startups and growing teams</h3><span>Fundamentals · 11 min</span></a></div>
+</article></main></div><script src="../assets/site.js?v=ba3edd5c" defer></script>
+</body>
+</html>

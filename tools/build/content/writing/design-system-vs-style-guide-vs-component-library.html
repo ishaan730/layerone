@@ -1,0 +1,126 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>A <b>style guide</b> records visual and brand rules. A <b>UI kit</b> is a set of reusable components in a design tool like Figma. A <b>component library</b> is the same idea in code. A <b>design system</b> contains all of these, plus the tokens that connect design and code, the patterns that combine components, the documentation, and the process for owning and changing it.</p>
+  <ul>
+    <li>Each term is a smaller part of the one above it, not an alternative to it.</li>
+    <li>Most teams that say "we have a design system" actually have a UI kit or a component library. That's a normal stage, not a failure.</li>
+    <li>The gap between them is usually <em>tokens</em> and <em>agreements</em>: one source of truth for decisions, and a way to change it.</li>
+  </ul>
+</div>
+
+<h2>Why the difference matters</h2>
+<p>This sounds like a question about vocabulary. It's really a question about what you're missing. If your team calls a Figma library a "design system", you'll wonder why engineers keep rebuilding components, why the product drifts after every sprint, and why nobody can tell you which version of the button is right. Those are symptoms of the missing layers, not of bad components.</p>
+<p>Getting the words right helps in three practical ways:</p>
+<div class="cols3">
+  <div class="cell"><h3>You can scope the work</h3><p>"Build a design system" is a vague brief. "Turn our UI kit into a system by adding tokens, code parity and a contribution process" is a plan.</p></div>
+  <div class="cell"><h3>You can set expectations</h3><p>Leadership funds a "design system" expecting faster delivery everywhere. A UI kit alone won't deliver that, because it never reaches code.</p></div>
+  <div class="cell"><h3>You can hire for it</h3><p>A UI kit needs a designer. A component library needs engineers. A system needs both, plus someone who owns decisions.</p></div>
+</div>
+
+<h2>The comparison at a glance</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th></th><th>Style guide</th><th>UI kit</th><th>Component library</th><th>Design system</th></tr></thead>
+  <tbody>
+    <tr><td>What it is</td><td>Rules for visual and brand style</td><td>Reusable components in a design tool</td><td>Reusable components in code</td><td>Decisions, parts and agreements for building the whole interface</td></tr>
+    <tr><td>Typical contents</td><td>Logo, colours, fonts, tone of voice</td><td>Buttons, inputs, cards with variants</td><td>The same components, with props, states and tests</td><td>Tokens, UI kit, component library, patterns, docs, governance</td></tr>
+    <tr><td>Lives in</td><td>PDF or web page</td><td>Figma, Sketch</td><td>npm, Swift, Kotlin packages</td><td>Design tool, code, docs site and team rituals</td></tr>
+    <tr><td>Main users</td><td>Brand, marketing, designers</td><td>Product designers</td><td>Front-end engineers</td><td>Everyone who builds the product</td></tr>
+    <tr><td>Keeps design and code in sync?</td><td class="dim">No</td><td class="dim">No</td><td class="dim">Only the code side</td><td class="yes">Yes, through shared tokens and names</td></tr>
+    <tr><td>Says how to change it?</td><td class="dim">Rarely</td><td class="dim">Rarely</td><td class="dim">Through pull requests</td><td class="yes">Yes: requests, contribution, releases</td></tr>
+  </tbody>
+</table></div>
+<figcaption>How the four terms compare. The bottom two rows are where most of the difference lies.</figcaption></figure>
+
+<h2>How they fit together</h2>
+<p>The clearest way to see the relationship is as boxes inside boxes. Each inner box is useful on its own, but it only becomes a system once the outer layers exist around it.</p>
+<figure class="w-fig">
+  <div class="nest">
+    <div class="nest-l l1"><span><b>Design system</b><i>decisions + parts + agreements</i></span>
+      <div class="nest-row"><span class="nest-chip">Principles</span><span class="nest-chip">Design tokens</span><span class="nest-chip">Patterns</span><span class="nest-chip">Documentation</span><span class="nest-chip">Governance &amp; contribution</span></div>
+      <div class="nest-l l2"><span><b>Component library</b><i>in code</i></span>
+        <div class="nest-l l3"><span><b>UI kit</b><i>in the design tool</i></span>
+          <div class="nest-l l4"><span><b>Style guide</b><i>visual rules</i></span>
+            <div class="nest-row"><span class="nest-chip">Colour</span><span class="nest-chip">Type</span><span class="nest-chip">Logo &amp; tone</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <figcaption>Each layer builds on the one inside it. Strictly, the UI kit and the component library sit side by side (one for designers, one for engineers); they're nested here because most teams build them in this order.</figcaption>
+</figure>
+
+<h2>What is a style guide?</h2>
+<p>A style guide is a set of rules about how things should look and sound. In most companies it starts as a brand guideline from marketing: the logo, the brand colours, the typefaces and the tone of voice. Some product teams extend it with UI rules, such as "primary buttons are blue" and "headings use 24px".</p>
+<p>A style guide is valuable because it records decisions. Its weakness is that it records them as <em>instructions</em> that people must read, remember and re-implement by hand. Nothing enforces it, so it drifts. Six months after a style guide says "our blue is #1C75D6", you'll find five blues in the code.</p>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>Brand guidelines are usually made for marketing and print, not for interfaces. They rarely say anything about states, focus rings, error colours or contrast. Treat them as an input to your foundations, not as the foundations themselves.</p></div>
+
+<h2>What is a UI kit?</h2>
+<p>A UI kit is a collection of reusable components in a design tool: a Figma library with buttons, inputs, checkboxes, cards and so on, each with variants. Designers drag them into their files instead of drawing them from scratch.</p>
+<p>A good UI kit speeds up design work a lot and makes mock-ups more consistent. But it lives entirely on the design side. If the engineers don't have the same components in code, every handoff becomes a translation exercise: the designer uses the kit's button, the engineer builds or picks something that looks roughly similar, and the two drift apart a little more with every release.</p>
+
+<h2>What is a component library?</h2>
+<p>A component library is a set of reusable UI components in code, usually published as a package that product teams install. Each component has an API (its props or parameters), handles its own states and, if it's well built, its own accessibility: keyboard behaviour, focus, labels and screen reader announcements.</p>
+<p>Component libraries are where most of the speed-up from design systems actually happens, because adoption happens in code. But a library on its own has two gaps. It doesn't connect to the design tool, so designers and engineers can still mean different things by "the button". And it rarely includes the decisions underneath: if colours are hard-coded inside each component, a rebrand still means editing every one of them.</p>
+<div class="callout callout--term"><span class="callout-k">New word</span><p><b>Pattern library</b> is a term you'll also hear. It usually means a collection of larger, reusable solutions (a login form, a filter bar, an empty state) rather than single components. In a design system, patterns sit on top of components.</p></div>
+
+<h2>What makes something a design system?</h2>
+<p>Three things separate a design system from a well-stocked UI kit or component library:</p>
+<ol class="w-steps">
+  <li><h3>One source of truth for decisions</h3><p>Colours, type, spacing and other foundations are stored as <a href="/writing/design-tokens">design tokens</a> that both Figma and code read from. Change a token and design and code change together.</p></li>
+  <li><h3>Parity between design and code</h3><p>The same components exist on both sides, with the same names, the same variants and the same options. "Button, secondary, small" means one thing to everyone.</p></li>
+  <li><h3>Agreements about how it's run</h3><p>A named owner, a way for teams to request and contribute changes, a release process and documentation. This is what keeps the first two true over time. See <a href="/writing/design-system-governance">design system governance</a>.</p></li>
+</ol>
+
+<h2>Which one do you have? A quick self-check</h2>
+<p>Answer these honestly. The first "no" tells you which layer to work on next.</p>
+<ul class="checklist">
+  <li>Our colours, type and spacing have <b>names</b>, and those names are used in both Figma and code.</li>
+  <li>Our most-used components exist in <b>both Figma and code</b>, with matching names and options.</li>
+  <li>A new designer or engineer can find <b>documentation</b> that says when to use each component, not just what it looks like.</li>
+  <li>There's a <b>named owner</b> who can decide whether something goes into the system.</li>
+  <li>Teams know <b>how to ask</b> for a change, and changes are released with notes.</li>
+</ul>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>First "no" at…</th><th>What you most likely have</th><th>Next step</th></tr></thead>
+  <tbody>
+    <tr><td>Question 1</td><td>A style guide, perhaps with a UI kit</td><td>Name your foundations as tokens and use them in code</td></tr>
+    <tr><td>Question 2</td><td>A UI kit or a component library, not both</td><td>Build parity for the 10 most-used components</td></tr>
+    <tr><td>Question 3</td><td>Shared libraries without guidance</td><td>A page per component: usage, do's and don'ts, code</td></tr>
+    <tr><td>Questions 4–5</td><td>A system with no operating model</td><td>An owner, one front door for requests, release notes</td></tr>
+    <tr><td>All yes</td><td>A design system</td><td>Measure adoption and keep it current</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2>When to move from one to the next</h2>
+<p>None of these stages is wrong. A five-person startup with a style guide and a themed open-source component library is in a perfectly healthy place. The question is whether what you have still matches the size of the problem.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">MOVE TO A UI KIT WHEN</span><p>Two or more designers keep redrawing the same components, or reviews keep catching small visual inconsistencies.</p></div>
+  <div class="cell"><span class="k">MOVE TO A COMPONENT LIBRARY WHEN</span><p>Engineers on different teams are building the same components, or accessibility bugs keep reappearing in the same kinds of controls.</p></div>
+  <div class="cell"><span class="k">MOVE TO A DESIGN SYSTEM WHEN</span><p>Design and code have visibly drifted apart, a rebrand or dark mode is coming, or more than about three teams depend on shared UI.</p></div>
+  <div class="cell"><span class="k">ADD MORE PROCESS WHEN</span><p>Requests pile up, decisions get re-opened, or teams start forking components because changing the originals is too slow.</p></div>
+</div>
+<p>For a fuller decision framework, see <a href="/writing/do-you-need-a-design-system">do you need a design system?</a></p>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Style guide: <b>rules</b>. UI kit: <b>parts in design</b>. Component library: <b>parts in code</b>. Design system: <b>decisions, parts and agreements</b> together.</li>
+  <li>The difference that matters is whether design and code share one source of truth, and whether there's a way to change it.</li>
+  <li>Most teams are somewhere in the middle. Use the self-check to find your first gap, and close that one first.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Is Material Design a design system or a component library?</summary><div><p>A design system. Material Design 3 publishes principles, foundations, colour roles, tokens, components, patterns and guidance. There are also component libraries that implement it, such as Material Web and the Material components for Android and Flutter.</p></div></details>
+  <details><summary>Can a design system exist without code?</summary><div><p>Not really. Without code, design decisions have to be re-implemented by hand every time, which is exactly the drift a design system exists to prevent. A design-only "system" is a UI kit with good documentation.</p></div></details>
+  <details><summary>Is a brand guideline a style guide?</summary><div><p>Usually, yes: it's the brand's style guide. But brand guidelines are written for marketing and print, so they rarely cover what an interface needs, such as states, focus, error colours and contrast.</p></div></details>
+  <details><summary>Do I need a component library before a design system?</summary><div><p>You need components in code as part of a design system, but you don't have to build them yourself. Many teams start by theming an open-source or headless library with their own tokens.</p></div></details>
+  <details><summary>What's the difference between a pattern library and a component library?</summary><div><p>A component library holds single building blocks such as a button or a text field. A pattern library holds combinations that solve a recurring problem, such as a sign-in form or a filtered table.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="/writing/what-is-a-design-system">What is a design system?</a><span>Our full guide: the layers, examples, value and how to start.</span></li>
+  <li><a href="https://atomicdesign.bradfrost.com/" target="_blank" rel="noopener">Atomic Design</a><span>Brad Frost. A classic model for how components build into patterns and pages.</span></li>
+  <li><a href="https://www.smashingmagazine.com/design-systems-book/" target="_blank" rel="noopener">Design Systems</a><span>Alla Kholmatova, Smashing Magazine. On functional and perceptual patterns, and how systems differ.</span></li>
+  <li><a href="https://medium.com/@layerone_11803/most-design-systems-are-just-expensive-ui-libraries-e0cc8b146f2d" target="_blank" rel="noopener">Most design systems are just expensive UI libraries</a><span>Layer One on Medium. The opinion piece behind this comparison.</span></li>
+</ul>

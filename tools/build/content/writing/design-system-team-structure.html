@@ -1,0 +1,179 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>A design system team needs, at minimum, <b>a designer and an engineer</b> working as a pair, with one of them acting as lead. As the company grows it adds a dedicated lead or product manager, more engineers (including native iOS and Android), and shared specialists for accessibility, content and enablement, plus <b>champions</b> in every product team. Typical sizes: no dedicated people at a startup, 1–3 at a scale-up, 4–8 at a mid-sized company, and rarely more than 20–25 at an enterprise, where growth comes from contributors and automation instead.</p>
+  <ul>
+    <li>Aim for at least as much engineering capacity as design capacity. Adoption happens in code.</li>
+    <li>Give the system one accountable leader, whichever department the team reports to.</li>
+    <li>A dedicated team should spend about a third of its time with product teams, not only on its own backlog.</li>
+  </ul>
+</div>
+
+<h2>The roles a design system needs</h2>
+<p>In a small company one person wears several of these hats. In a large one, each is a separate job. What matters is that every responsibility below is somebody's, by name.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Role</th><th>What they do day to day</th><th>Key skills</th><th>Needed from</th></tr></thead>
+  <tbody>
+    <tr><td>Design system lead / product manager</td><td>Owns the roadmap and priorities, talks to leadership and product teams, measures value, removes blockers. Runs the system as a product.</td><td>Prioritisation, communication, enough design and engineering literacy to make trade-offs</td><td>Scale-up (often a part-time hat)</td></tr>
+    <tr><td>Design system designer</td><td>Foundations, component design, Figma libraries, usage guidance, design reviews, workshops.</td><td>Systems thinking, interaction design, accessibility, Figma, writing</td><td>Startup (part-time)</td></tr>
+    <tr><td>Design system engineer</td><td>Builds components and the token pipeline; testing, releases, code review of contributions.</td><td>Front-end architecture, accessibility in code, API design, testing</td><td>Startup (part-time)</td></tr>
+    <tr><td>Native engineers (iOS, Android)</td><td>Build and maintain native component libraries from the shared tokens.</td><td>Platform expertise and platform accessibility</td><td>When native apps exist</td></tr>
+    <tr><td>Accessibility specialist</td><td>Sets standards, reviews components, tests with assistive technology, trains others.</td><td>WCAG, screen readers, testing</td><td>Scale-up (shared)</td></tr>
+    <tr><td>Content designer</td><td>Voice, vocabulary, message patterns, documentation writing standards.</td><td>UX writing, information architecture</td><td>Mid-sized (part-time)</td></tr>
+    <tr><td>DesignOps / programme manager</td><td>Runs rituals, community, enablement, communication and metrics.</td><td>Operations, facilitation</td><td>Mid-sized</td></tr>
+    <tr><td>Developer advocate / enablement lead</td><td>Training, onboarding, office hours, migration support, sample code.</td><td>Teaching, engineering credibility</td><td>Enterprise</td></tr>
+    <tr><td>Champions (in product teams)</td><td>The system's voice in each team: early feedback, local help, contributions. Not a full-time role.</td><td>Credibility in their team, curiosity</td><td>Scale-up</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Every design system role, what it does and when you typically need it. <span class="ev ev--prac">Practitioner view</span></figcaption></figure>
+<div class="callout callout--warn"><span class="callout-k">A mistake we see often</span><p><b>Hiring the designer, forgetting the engineer.</b> A design system team without engineers produces a beautiful Figma library and very little real use. At every size, aim for at least as much engineering capacity as design capacity on the core team.</p></div>
+
+<h2>How many people, at what size?</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Company</th><th class="r">Dedicated people</th><th>Model</th><th>Contributors</th></tr></thead>
+  <tbody>
+    <tr><td>Startup (10–50 people)</td><td class="r">0</td><td>Embedded: two owners with ~20% of their time</td><td>Everyone, informally</td></tr>
+    <tr><td>Scale-up (50–300)</td><td class="r">1–3</td><td>Small central team, starting hybrid</td><td>A champion per squad</td></tr>
+    <tr><td>Mid-sized, distributed (300–2,000)</td><td class="r">4–8</td><td>Hybrid, written-first</td><td>Regional champions plus protected contributor time</td></tr>
+    <tr><td>Fast-growing, many business units</td><td class="r">8–14</td><td>Hybrid with business-unit extensions</td><td>Extension teams plus champions</td></tr>
+    <tr><td>Global enterprise</td><td class="r">15–25</td><td>A family of systems with a central platform team</td><td>Federated contributors in every portfolio</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Team sizes for orientation, not rules. They're broadly consistent with zeroheight's 2025 survey, which found dedicated teams averaging about 3 people at companies under 100 employees, about 4 at 100–499, and about 9 at 500+.</figcaption></figure>
+
+<h2>Org chart: the founding pair</h2>
+<p>For a scale-up, the smallest team that works is two people with a sponsor and a ring of champions. The designer usually doubles as the lead. The engineer often reports into engineering with a dotted line to design.</p>
+<figure class="w-fig">
+  <div class="org">
+    <div class="org-row"><div class="org-n exec"><b>Head of Design</b><span>sponsor</span></div></div>
+    <div class="org-v"></div>
+    <div class="org-row"><div class="org-n lead"><b>System designer</b><span>also acts as lead</span></div><div class="org-n"><b>System engineer</b><span>reports to engineering, dotted line</span></div></div>
+    <div class="org-v"></div>
+    <div class="org-row"><div class="org-n dash"><b>Champion</b><span>squad A, ~10%</span></div><div class="org-n dash"><b>Champion</b><span>squad B</span></div><div class="org-n dash"><b>Champion</b><span>squad C</span></div><div class="org-n dash"><b>Champion</b><span>squad D</span></div></div>
+  </div>
+  <figcaption>The founding pair. <span class="ev ev--ill">Illustration</span> Dashed boxes are champions in product teams, not team members.</figcaption>
+</figure>
+
+<h2>Org chart: a product team of six to eight</h2>
+<p>At a mid-sized company the system becomes a product with its own lead, design and engineering roughly balanced, and specialists shared with the wider organisation.</p>
+<figure class="w-fig">
+  <div class="org">
+    <div class="org-row"><div class="org-n exec"><b>Director of Design or Platform</b><span>sponsor</span></div></div>
+    <div class="org-v"></div>
+    <div class="org-row"><div class="org-n lead"><b>Design system lead</b><span>product owner</span></div></div>
+    <div class="org-v"></div>
+    <div class="org-row"><div class="org-n"><b>2 system designers</b><span>foundations, components</span></div><div class="org-n"><b>3 web engineers</b><span>components, tokens, tooling</span></div><div class="org-n dash"><b>Accessibility</b><span>shared, part-time</span></div><div class="org-n dash"><b>Content designer</b><span>part-time</span></div></div>
+  </div>
+  <figcaption>A team of six to eight. <span class="ev ev--ill">Illustration</span></figcaption>
+</figure>
+
+<h2>Org chart: a platform organisation of about twenty</h2>
+<p>At enterprise scale the team splits into squads, each with its own focus, held together by a central lead and an enablement squad. Beyond this size, growth comes from contributors and automation, not headcount.</p>
+<figure class="w-fig">
+  <div class="org">
+    <div class="org-row"><div class="org-n lead"><b>Head of Design Systems</b><span>reports to VP Design and VP Engineering</span></div></div>
+    <div class="org-v"></div>
+    <div class="org-row">
+      <div class="org-group"><p>Foundations &amp; tokens</p><div class="org-n"><b>2 designers</b><span>2 engineers</span></div></div>
+      <div class="org-group"><p>Web components</p><div class="org-n"><b>1 designer</b><span>4 engineers</span></div></div>
+      <div class="org-group"><p>Native</p><div class="org-n"><b>1 designer</b><span>2 iOS · 2 Android</span></div></div>
+      <div class="org-group"><p>Enablement &amp; ops</p><div class="org-n"><b>DesignOps</b><span>advocate · content</span></div></div>
+    </div>
+    <div class="org-v"></div>
+    <div class="org-row"><div class="org-n dash" style="min-width:min(100%,520px)"><b>Federated contributors and champions in every portfolio</b><span>portfolio extensions, reviews, local support</span></div></div>
+  </div>
+  <figcaption>About twenty people in four squads. <span class="ev ev--ill">Illustration</span></figcaption>
+</figure>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>At IBM, the Riyadh Air design system was run with six named roles across three companies: IBM, Riyadh Air and Publicis Sapient. <a href="/work/ibm-riyadh-air-ops">See the roles and how they worked together</a>. At CARS24, the internal tools system ran with one system designer, two engineering maintainers and a squad of eight engineers for the build. <a href="/work/cars24-internal-tools">Read the case study</a>.</p></div>
+
+<h2>Running the system with no dedicated team</h2>
+<p>Most companies start here, and many stay here for good reason. It's cheap, close to real product needs, and spreads knowledge widely. It also fades quietly unless you set it up deliberately:</p>
+<ol class="w-steps">
+  <li><h3>Name two owners and protect their time</h3><p>One designer and one engineer, each with about 20% of their time (a day a week) reserved in their team's plan and written into their goals. Unprotected time is no time.</p></li>
+  <li><h3>Form a small guild</h3><p>Interested designers and engineers from each team meet every two weeks for 45 minutes: review new UI, decide what goes into the system, share problems.</p></li>
+  <li><h3>Keep a single backlog</h3><p>One visible list of system work. Items are picked up by whichever team needs them first, built properly, and contributed back.</p></li>
+  <li><h3>Rotate the support role</h3><p>A weekly rotation for answering questions in the system channel, so the owners aren't the only point of contact.</p></li>
+  <li><h3>Build the system inside product work</h3><p>New components are built when a feature needs them, with a little extra time to make them reusable.</p></li>
+</ol>
+
+<h2>What a dedicated team should and shouldn't do</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">DO</span><ul>
+    <li>Own a public roadmap, planned with product teams each quarter.</li>
+    <li>Ship on a regular rhythm, with release notes written for users.</li>
+    <li>Spend real time with product teams: pairing, pilots, office hours.</li>
+    <li>Run a support rota so questions get fast answers.</li>
+    <li>Review and merge contributions quickly.</li>
+    <li>Measure adoption, satisfaction and value, and report them.</li>
+  </ul></div>
+  <div class="cell"><span class="k" style="color:var(--signal-400)">AVOID</span><ul>
+    <li>Building in isolation, then "launching" to teams who weren't involved.</li>
+    <li>Being the only people allowed to change anything.</li>
+    <li>Measuring success by components shipped rather than value delivered.</li>
+    <li>Saying yes to everything, or no to everything.</li>
+    <li>Spending more time on internal process than with product teams.</li>
+  </ul></div>
+</div>
+
+<h2>Where should the team report?</h2>
+<p>Reporting lines sound like an HR detail, but they shape what the system becomes.</p>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Reports to</th><th>Tends to be good at</th><th>Watch out for</th></tr></thead>
+  <tbody>
+    <tr><td>Design leadership</td><td>Visual quality, foundations, design adoption</td><td>Weak engineering investment; code lags behind Figma</td></tr>
+    <tr><td>Engineering / platform</td><td>Code quality, tooling, releases, technical adoption</td><td>Design quality and the Figma library neglected</td></tr>
+    <tr><td>Product</td><td>Prioritising by business value; roadmap discipline</td><td>Treated as a feature team and constantly reprioritised</td></tr>
+    <tr><td>Joint</td><td>Balance; shared accountability</td><td>Needs two leaders who genuinely agree, or decisions stall</td></tr>
+  </tbody>
+</table></div></div>
+<p>Our recommendation: one accountable leader for the system, and clear, equal standing for designers and engineers on the team, whichever organisation they formally sit in. A common arrangement is a team reporting into design with engineers holding a dotted line to engineering (or the reverse), plus a joint quarterly review with both leaders.</p>
+
+<h2>Who's responsible for what</h2>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Activity</th><th>System lead</th><th>Designers</th><th>Engineers</th><th>Champions</th><th>Product teams</th></tr></thead>
+  <tbody>
+    <tr><td>Roadmap and priorities</td><td><b>A</b></td><td>C</td><td>C</td><td>C</td><td>C</td></tr>
+    <tr><td>Foundations and tokens</td><td>C</td><td><b>A</b>/R</td><td>R</td><td>I</td><td>I</td></tr>
+    <tr><td>Component design</td><td>I</td><td><b>A</b>/R</td><td>C</td><td>C</td><td>C</td></tr>
+    <tr><td>Component code and API</td><td>I</td><td>C</td><td><b>A</b>/R</td><td>C</td><td>C</td></tr>
+    <tr><td>Office hours and support</td><td><b>A</b></td><td>R</td><td>R</td><td>R</td><td>—</td></tr>
+    <tr><td>Contributions</td><td>I</td><td>R (review)</td><td>R (review)</td><td>R</td><td><b>A</b> for their own</td></tr>
+    <tr><td>Adoption in a product</td><td>C</td><td>C</td><td>C</td><td>R</td><td><b>A</b></td></tr>
+  </tbody>
+</table></div>
+<figcaption>A = accountable (makes the call), R = responsible (does the work), C = consulted, I = informed. For decision rights in full, see <a href="/writing/design-system-governance">governance</a>.</figcaption></div>
+
+<h2>Signs it's time to grow the team</h2>
+<ul class="checklist">
+  <li>Requests wait more than a few weeks for a first response.</li>
+  <li>The part-time owners are always too busy with product work.</li>
+  <li>Teams are building local copies of system components.</li>
+  <li>A second platform, brand or business unit is coming.</li>
+  <li>Nobody has time to measure adoption or write release notes.</li>
+</ul>
+<p>When it's time, make the move carefully. Hire from inside where you can (the part-time owners often make the best first dedicated members), turn the guild into a champions network, announce clearly what changes and what doesn't, and clear the oldest requests in the first quarter. Trust is earned by response time. For the cost side of that decision, see <a href="/writing/design-system-roi">design system ROI</a>.</p>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Start with a designer and an engineer as a pair; balance design and engineering at every size.</li>
+  <li>Add a lead, native engineers and shared specialists as the company grows; champions in every team.</li>
+  <li>Without a dedicated team: protected time, a guild, one backlog and a support rota.</li>
+  <li>A dedicated team runs like an internal product company and spends a third of its time with product teams.</li>
+  <li>One accountable leader, whatever the reporting line.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>How big should a design system team be?</summary><div><p>Zero dedicated people at a startup (two part-time owners), 1–3 at a scale-up, 4–8 at a mid-sized company, and 15–25 at the largest enterprises. Beyond that, scale comes from contributors and automation.</p></div></details>
+  <details><summary>Should the team sit in design or engineering?</summary><div><p>Either can work. What matters more is one accountable leader and equal standing for designers and engineers. Joint quarterly reviews with both design and engineering leaders keep it balanced.</p></div></details>
+  <details><summary>What does a design system designer do?</summary><div><p>Designs foundations and components, maintains the Figma library, writes usage guidance, reviews product designs for system use, and runs workshops and office hours.</p></div></details>
+  <details><summary>Do you need a dedicated design system engineer?</summary><div><p>Yes, as soon as you have a dedicated team at all. Without engineering capacity the system never reaches code, and code is where adoption and most of the savings happen.</p></div></details>
+  <details><summary>What are design system champions?</summary><div><p>Designers or engineers in product teams who spend a small share of their time (often about 10%) as the system's local voice: early feedback, local help and contributions.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://eightshapes.com/articles/team-models-for-scaling-a-design-system" target="_blank" rel="noopener">Team Models for Scaling a Design System</a><span>Nathan Curtis, EightShapes.</span></li>
+  <li><a href="https://medium.com/salesforce-ux/the-salesforce-team-model-for-scaling-a-design-system-d89c2a2d404b" target="_blank" rel="noopener">The Salesforce Team Model for Scaling a Design System</a><span>Salesforce UX. A cyclical model for how teams grow.</span></li>
+  <li><a href="https://zeroheight.com/how-we-document" target="_blank" rel="noopener">Design Systems Report 2025</a><span>zeroheight. Survey data on team sizes.</span></li>
+  <li><a href="/writing/librarian-vs-leader">Most design system leads are just librarians</a><span>Layer One. On what leading a system really involves.</span></li>
+</ul>

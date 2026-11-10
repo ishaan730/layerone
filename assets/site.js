@@ -620,3 +620,19 @@
 
   $$("[data-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
 })();
+
+/* Writing: highlight the section you're reading in the sidebar's "On this page" list. */
+(function () {
+  var post = document.querySelector(".post-body");
+  if (!post || !("IntersectionObserver" in window)) return;
+  var links = {};
+  document.querySelectorAll('.side-nav a[href^="#"]').forEach(function (a) { links[a.getAttribute("href").slice(1)] = a; });
+  var heads = post.querySelectorAll("h2[id]");
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      Object.keys(links).forEach(function (k) { links[k].classList.toggle("is-on", k === e.target.id); });
+    });
+  }, { rootMargin: "-80px 0px -70% 0px" });
+  heads.forEach(function (h) { io.observe(h); });
+})();

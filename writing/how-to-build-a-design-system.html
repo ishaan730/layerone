@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Build a Design System: A Step-by-Step Guide | Layer One</title>
+<meta name="description" content="Audit, foundations, tokens, first components, docs and governance, in order. A staged 12-month plan with gates, so you invest only as fast as it pays off.">
+<meta property="og:title" content="How to Build a Design System: A Step-by-Step Guide | Layer One">
+<meta property="og:description" content="Audit, foundations, tokens, first components, docs and governance, in order. A staged 12-month plan with gates, so you invest only as fast as it pays off.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-09">
+<meta property="article:modified_time" content="2026-11-09">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="Building a system">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/how-to-build-a-design-system.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="How to Build a Design System: A Step-by-Step Guide | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css?v=394ba543">
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "How to Build a Design System: A Step-by-Step Guide", "description": "Audit, foundations, tokens, first components, docs and governance, in order. A staged 12-month plan with gates, so you invest only as fast as it pays off.", "image": "https://www.layerone.co.in/assets/images/writing/how-to-build-a-design-system.jpg", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "mainEntityOfPage": "https://www.layerone.co.in/writing/how-to-build-a-design-system", "wordCount": 2563, "articleSection": "Building a system", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "Building a system", "item": "https://www.layerone.co.in/writing/topics/building"}, {"@type": "ListItem", "position": 3, "name": "How to build a design system", "item": "https://www.layerone.co.in/writing/how-to-build-a-design-system"}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/how-to-build-a-design-system">
+<meta property="og:url" content="https://www.layerone.co.in/writing/how-to-build-a-design-system">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="How to Build a Design System: A Step-by-Step Guide | Layer One">
+<meta name="twitter:description" content="Audit, foundations, tokens, first components, docs and governance, in order. A staged 12-month plan with gates, so you invest only as fast as it pays off.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/how-to-build-a-design-system.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<div class="shell"><aside class="side" aria-label="Studio">
+    <nav class="side-nav" aria-label="On this page"><a href="/writing">← All writing</a><a href="#before-you-start-sponsor-scope-and-owner">Before you start: sponsor, scope and owner</a><a href="#the-plan-at-a-glance">The plan at a glance</a><a href="#step-1-audit-what-you-already-have">Step 1: Audit what you already have</a><a href="#step-2-set-foundations-and-turn-them-into-tokens">Step 2: Set foundations and turn them into tokens</a><a href="#step-3-choose-your-first-components">Step 3: Choose your first components</a><a href="#step-4-build-in-design-and-code-together-with-a-pilot">Step 4: Build in design and code together, with a pilot</a><a href="#step-5-document-as-you-go">Step 5: Document as you go</a><a href="#step-6-agree-how-decisions-and-requests-work">Step 6: Agree how decisions and requests work</a><a href="#step-7-launch-measure-and-scale">Step 7: Launch, measure and scale</a><a href="#a-12-month-plan">A 12-month plan</a><a href="#common-mistakes">Common mistakes</a><a href="#the-short-version">The short version</a><a href="#frequently-asked-questions">Frequently asked questions</a><a href="#further-reading">Further reading</a></nav>
+    <a class="side-card side-card--bar" href="/contact"><span>Start a project</span><svg viewBox="0 0 34 14" fill="none" aria-hidden="true"><path d="M1 7h31M26 1l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <p class="side-blurb">Layer One is a design systems studio in Bangalore, India.<br>Led by Aniket Pandey.</p>
+    <div class="wordmark"><svg viewBox="0 0 300 182" role="img" aria-label="Layer One"><g transform="translate(10 10)" opacity="0.35" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="none" stroke="currentColor" stroke-width="1.4">LAYER</text><text x="4" y="164" fill="none" stroke="currentColor" stroke-width="1.4">ONE</text></g><g transform="translate(5 5)" opacity="0.6" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="none" stroke="currentColor" stroke-width="1.4">LAYER</text><text x="4" y="164" fill="none" stroke="currentColor" stroke-width="1.4">ONE</text></g><g transform="translate(0 0)" opacity="1" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="currentColor">LAYER</text><text x="4" y="164" fill="currentColor">ONE</text></g><g transform="translate(222 100) scale(.62)"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></g></svg></div>
+    <div class="side-foot">
+      <ul><li><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">linkedin</a></li><li><a href="https://x.com/LayeroneStudios" target="_blank" rel="noopener">x</a></li><li><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">medium</a></li></ul>
+      <a href="mailto:layerone@proton.me">layerone@proton.me</a>
+    </div>
+  </aside><main id="main" class="content">
+<article class="post">
+  <header class="post-head">
+    <p class="crumb small muted"><a href="/writing">Writing</a> / <a href="/writing/topics/building">Building a system</a></p>
+    <a class="post-series" href="/writing#building-one"><b>Building one</b>&nbsp;· Part 1 of 3</a>
+    <h1 class="post-title">How to build a design system: a step-by-step plan for the first 12 months</h1>
+    <p class="post-dek">Most guides start with colours and end with components. The systems that last start with a sponsor, a scope and a pilot. Seven steps in order, a 12-month plan, and the mistakes that sink most first attempts.</p>
+    <div class="post-meta"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40" loading="lazy"><div><b>By Aniket Pandey</b><span>11 min read · Published 9 November 2026</span></div></div>
+    <div class="post-cover"><img src="../assets/images/writing/how-to-build-a-design-system.w1200.webp" alt="" width="1600" height="900" srcset="../assets/images/writing/how-to-build-a-design-system.w480.webp 480w, ../assets/images/writing/how-to-build-a-design-system.w800.webp 800w, ../assets/images/writing/how-to-build-a-design-system.w1200.webp 1200w, ../assets/images/writing/how-to-build-a-design-system.jpg 1600w" sizes="(max-width: 1280px) 100vw, 1240px" decoding="async"></div>
+  </header>
+  <details class="post-toc"><summary>In this article</summary><ol><li><a href="#before-you-start-sponsor-scope-and-owner">Before you start: sponsor, scope and owner</a></li><li><a href="#the-plan-at-a-glance">The plan at a glance</a></li><li><a href="#step-1-audit-what-you-already-have">Step 1: Audit what you already have</a></li><li><a href="#step-2-set-foundations-and-turn-them-into-tokens">Step 2: Set foundations and turn them into tokens</a></li><li><a href="#step-3-choose-your-first-components">Step 3: Choose your first components</a></li><li><a href="#step-4-build-in-design-and-code-together-with-a-pilot">Step 4: Build in design and code together, with a pilot</a></li><li><a href="#step-5-document-as-you-go">Step 5: Document as you go</a></li><li><a href="#step-6-agree-how-decisions-and-requests-work">Step 6: Agree how decisions and requests work</a></li><li><a href="#step-7-launch-measure-and-scale">Step 7: Launch, measure and scale</a></li><li><a href="#a-12-month-plan">A 12-month plan</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+  <div class="post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>To build a design system: <b>(1)</b> get a sponsor, engineering commitment and a named owner; <b>(2)</b> audit what you already have; <b>(3)</b> turn your foundations into design tokens; <b>(4)</b> build the ten most-used components in design and code, inside a real product project; <b>(5)</b> document them; <b>(6)</b> agree how decisions and requests work; <b>(7)</b> launch to more teams, measure, and only then scale to themes, brands and platforms.</p>
+  <ul>
+    <li>Fund it in stages. Each stage ends with a "gate" that earns the next round of investment.</li>
+    <li>Build components with a pilot team that needs them, never in isolation.</li>
+    <li>Start with the boring components: buttons, fields, alerts and dialogs. That's where the waste is.</li>
+  </ul>
+</div>
+
+<p>Most "how to build a design system" guides start with colour palettes and end with a component list. That's the visible part of the work, and it's not where design systems fail. In audits, the systems that struggle almost never struggle because the buttons were badly drawn. They struggle because engineering never adopted them, because nobody owned them after launch, or because the team built for a year before anyone used anything.</p>
+<p>So this guide puts the people, scope and gates around each step. It's the plan we'd follow ourselves for a growing product company, condensed from <a href="https://github.com/smishra280199-oss/Design-System-Handbook" target="_blank" rel="noopener">our design systems playbook</a>.</p>
+
+<h2 id="before-you-start-sponsor-scope-and-owner">Before you start: sponsor, scope and owner</h2>
+<p>Three things need to be true before any design work starts. Skip them and the rest of this guide won't save you.</p>
+<div class="cols3">
+  <div class="cell"><span class="k">A SPONSOR</span><h3>Someone with a budget</h3><p>A head of design, product or engineering who will defend the system in planning when a product deadline wants its people back.</p></div>
+  <div class="cell"><span class="k">ENGINEERING COMMITMENT</span><h3>A yes from engineering leads</h3><p>An explicit agreement that teams will use the shared component package. Without it, you're building a UI kit.</p></div>
+  <div class="cell"><span class="k">AN OWNER</span><h3>Protected time, in writing</h3><p>A named designer and engineer, with time reserved in their team's plan. "A bit of everyone's time" becomes nobody's.</p></div>
+</div>
+<p>Then decide the scope: which stage you're aiming for next, not the final one. If you're not sure whether you need a full system yet, start with <a href="/writing/do-you-need-a-design-system">do you need a design system?</a></p>
+<div class="callout callout--warn"><span class="callout-k">Watch out</span><p>The most common failure we see is a system built by design and ignored by engineering. Staff the work with at least as much engineering time as design time. Adoption happens in code.</p></div>
+
+<h2 id="the-plan-at-a-glance">The plan at a glance</h2>
+<p>Here's the sequence, with how long each step usually takes and the gate that should be met before moving on.</p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Audit</b><span>2 weeks</span><span>Gate: leadership agrees on the top problems</span></div><i>→</i>
+    <div><b>Foundations &amp; tokens</b><span>1–2 months, part-time</span><span>Gate: a team ships using only tokens</span></div><i>→</i>
+    <div class="hi"><b>10 core components</b><span>2–3 months</span><span>Gate: the pilot team is measurably faster</span></div><i>→</i>
+    <div><b>Docs, releases, contribution</b><span>ongoing</span><span>Gate: a second team adopts without help</span></div><i>→</i>
+    <div><b>Scale</b><span>themes, platforms, governance</span><span>Gate: a real change needs it</span></div>
+  </div>
+  <figcaption>Fund the system one step at a time and let each step earn the next. <span class="ev ev--prac">Practitioner view</span></figcaption>
+</figure>
+
+<h2 id="step-1-audit-what-you-already-have">Step 1: Audit what you already have</h2>
+<p>Before you design anything, find out what exists. An audit (also called an interface inventory) means screenshotting and grouping every button, input, message, colour and text style across your product, then counting the duplicates in design and code.</p>
+<p>It does three jobs at once. It shows you where to start. It gives you "before" numbers to prove progress later. And, done as a team exercise, it turns sceptics into supporters: people who find seven different primary buttons themselves rarely need convincing.</p>
+<figure class="w-fig">
+  <div class="hbars">
+    <div><span>Border greys</span><i style="width:100%"></i><span>11</span></div>
+    <div><span>Primary button</span><i style="width:64%"></i><span>7</span></div>
+    <div><span>Text field</span><i style="width:45%"></i><span>5</span></div>
+    <div><span>Error / alert message</span><i style="width:36%"></i><span>4</span></div>
+    <div><span>Date picker</span><i class="dim" style="width:27%"></i><span>3</span></div>
+    <div><span>Dialog</span><i class="dim" style="width:27%"></i><span>3</span></div>
+    <div><span>Table</span><i class="dim" style="width:18%"></i><span>2</span></div>
+  </div>
+  <figcaption>Different versions found in production in a typical audit. <span class="ev ev--ill">Illustration</span> The shape is what matters: the most common components have the most versions, because they're built most often by the most people.</figcaption>
+</figure>
+<p>We've written the full method, step by step, in <a href="/writing/design-system-audit">how to run a design system audit</a>.</p>
+
+<h2 id="step-2-set-foundations-and-turn-them-into-tokens">Step 2: Set foundations and turn them into tokens</h2>
+<p>Foundations are the decisions every component depends on: colour, typography, spacing, layout grid, radius and elevation. Settle them before components, because every component inherits them, good or bad.</p>
+<ul>
+  <li><b>Colour:</b> build ramps with even lightness steps (we use <a href="/writing/oklch-color-palette">OKLCH</a>), then name colours by their job: <code>text.primary</code>, <code>border.default</code>, <code>action.primary</code>. Check every text and background pairing against WCAG contrast.</li>
+  <li><b>Typography:</b> a small set of text styles named by role (display, heading, body, label, caption), not by size.</li>
+  <li><b>Spacing:</b> a scale on a 4px base (4, 8, 12, 16, 24, 32, 48…) so every gap is a choice from a short list.</li>
+  <li><b>Layout:</b> breakpoints, columns and gutters that match how your product is actually used.</li>
+</ul>
+<p>Then store them as <a href="/writing/design-tokens">design tokens</a>, in one source that feeds both Figma variables and code. This is the cheapest layer of a design system and it pays back first: a rebrand, a dark theme or an accessibility fix becomes a change to token values rather than a hunt through the codebase.</p>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>At CARS24, one blue lived in the code as five different values. A new OKLCH palette and a four-layer token system carried the rebrand across 10+ products in three countries, with a 65% faster design-to-development handoff. <a href="/work/cars24-tokens">Read the case study</a>.</p></div>
+
+<h2 id="step-3-choose-your-first-components">Step 3: Choose your first components</h2>
+<p>Don't start with the component that's most fun to design, or the one that seems like the biggest problem. Start with the ones that are used everywhere <em>and</em> inconsistent today. Plot each component from your audit on two axes:</p>
+<figure class="w-fig">
+  <div class="m2x2">
+    <div class="ax ay">more trouble ↑</div>
+    <div class="mq md"><b>Plan next</b><span>Painful but rare: date picker, file upload. Build after the basics, with the team that needs it most.</span></div>
+    <div class="mq hi"><b>Build first</b><span>Used everywhere and inconsistent: button, text field, select, alert, dialog.</span></div>
+    <div class="mq"><b>Leave alone</b><span>Rare and fine. One-off widgets stay local until a second team needs them.</span></div>
+    <div class="mq"><b>Quick tidy</b><span>Used everywhere but mostly fine: links, badges, avatars. Formalise, don't redesign.</span></div>
+    <span></span><div class="ax ax-x">used more often →</div>
+  </div>
+  <figcaption>Rank components by how often they're used and how much trouble they cause today. Most teams' first ten land top right, and they're almost always the boring ones.</figcaption>
+</figure>
+<p>A typical first set of eight: button, text field, select, checkbox, radio, switch, link and alert. Then containers and feedback (dialog, card, tabs, toast, menu, empty state), then data and navigation (table, pagination, badge, tag, side navigation), and only then the hard ones like date pickers and advanced tables.</p>
+<div class="callout callout--warn"><span class="callout-k">A mistake we see often</span><p>A team decides to start with the data table "because it's the biggest problem". Six months later they have a sophisticated table, nothing else, and product teams have stopped waiting. Start with components you can finish in days, so teams see progress early.</p></div>
+<h3>Build, borrow or buy?</h3>
+<p>You don't need to build every component from scratch. Our usual recommendation: build simple components yourself (buttons, badges, cards), because they're easy and you'll want full control. Use a <b>headless library</b> (one that handles behaviour and accessibility but has no visual style) for complex interactive components like menus, dialogs, comboboxes and date pickers, because the behaviour is the hard part.</p>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Approach</th><th>Good for</th><th>Watch out for</th></tr></thead>
+  <tbody>
+    <tr><td>Build your own</td><td>Full control, exactly your needs, no outside dependency</td><td>Slowest; accessible behaviour for complex components is hard</td></tr>
+    <tr><td>Headless library + your tokens</td><td>Correct, accessible behaviour out of the box, with your own look</td><td>You depend on the library's updates and conventions</td></tr>
+    <tr><td>Fully styled library, themed</td><td>Fastest start; early-stage products and internal tools</td><td>Hard to make truly yours; heavy theming can be harder than building</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="step-4-build-in-design-and-code-together-with-a-pilot">Step 4: Build in design and code together, with a pilot</h2>
+<p>Every component should be built inside a real product project: a pilot team that needs it for something they're shipping. Dan Mall makes this point in <em>Design That Scales</em>, and in our experience it's the single biggest predictor of a system people actually use. The pilot gives you real requirements, a real deadline and a team that already trusts the result.</p>
+<p>For each component, design and code are built as twins: the same name, the same variants, the same options in Figma and in code. Before a component is called "ready", it should pass a definition of done like this:</p>
+<ul class="checklist">
+  <li>Every state designed: default, hover, focus, pressed, disabled, loading, error.</li>
+  <li>Uses only semantic tokens, no hard-coded values.</li>
+  <li>Works with a keyboard and a screen reader; contrast checked.</li>
+  <li>Same name, variants and props in Figma and code.</li>
+  <li>Tested in the pilot product, with real content (long labels, empty data, translations).</li>
+  <li>Documented: what it's for, when not to use it, and a code example.</li>
+</ul>
+<p>At CARS24 this is how the LEGO component system was built: the first components were picked from teams' actual roadmaps, look and feel was tested on real screens, and the result was 44 composable components adopted in India, the UAE and Australia. <a href="/work/cars24-lego">See how</a>.</p>
+
+<h2 id="step-5-document-as-you-go">Step 5: Document as you go</h2>
+<p>Documentation decides adoption. A component nobody can find, or can't work out how to use, doesn't exist. Write the page for each component as you build it, while the decisions are fresh, using one template so every page reads the same way: what it is, when to use it and when not to, anatomy, variants, states, accessibility notes, content guidance and code.</p>
+<p>Keep everything in one place, a single source of truth, rather than half in Figma descriptions and half in a wiki. We've written a full guide with a component page template in <a href="/writing/design-system-documentation">design system documentation: what to include</a>.</p>
+
+<h2 id="step-6-agree-how-decisions-and-requests-work">Step 6: Agree how decisions and requests work</h2>
+<p>As soon as a second team starts using the system, you'll get requests: a new variant, a missing component, a bug. Decide now how they're handled, before the first argument:</p>
+<div class="cols2">
+  <div class="cell"><h3>Who decides what</h3><p>A short decision-rights table: who has the final say on tokens, components, patterns and breaking changes. One decider per row. See <a href="/writing/design-system-governance">governance</a>.</p></div>
+  <div class="cell"><h3>One front door for requests</h3><p>A single form that creates an item in a public tracker, plus a weekly triage. See <a href="/writing/design-system-contribution-model">the contribution model</a>.</p></div>
+  <div class="cell"><h3>Versioning rules</h3><p>Semantic versioning (major.minor.patch), with breaking changes announced ahead and a deprecation period.</p></div>
+  <div class="cell"><h3>Release notes</h3><p>A predictable rhythm (every two weeks is common) with notes written for the people who use the system, not for the team that built it.</p></div>
+</div>
+
+<h2 id="step-7-launch-measure-and-scale">Step 7: Launch, measure and scale</h2>
+<p>There's no big-bang launch. The system spreads team by team: the pilot, then a second team, then a third, each with less hand-holding than the one before. Set up the rhythms that keep it healthy (office hours, triage, releases, a monthly health check) and start measuring adoption from the first release. See <a href="/writing/design-system-metrics">how to measure design system success</a>.</p>
+<p>Only once most new work uses the system should you invest in the expensive layers: dark mode and multiple themes, multiple brands, native platforms and formal cross-department governance. These multiply value when the basics are adopted, and multiply cost when they're not.</p>
+
+<h2 id="a-12-month-plan">A 12-month plan</h2>
+<p>Here's a realistic first year for a mid-sized product company starting from a UI kit or a few shared components. Four workstreams run side by side, and each quarter ends with a gate.</p>
+<figure class="w-fig">
+  <div class="w-tbl"><table>
+    <thead><tr><th></th><th>Q1 · Start</th><th>Q2 · Prove</th><th>Q3 · Spread</th><th>Q4 · Settle</th></tr></thead>
+    <tbody>
+      <tr><td>Foundations</td><td>Audit. Colour, type, spacing and layout as tokens. Token pipeline.</td><td>Semantic tokens complete. Contrast checks automated.</td><td>Dark mode as a second theme.</td><td>Density modes. Token audit.</td></tr>
+      <tr><td>Components</td><td>8 basics: button, field, select, checkbox, radio, switch, link, alert.</td><td>Dialog, card, tabs, toast, menu, empty state.</td><td>Table, pagination, badge, tag, side menu.</td><td>The hard ones: date picker, search, advanced table.</td></tr>
+      <tr><td>Operations</td><td>Owner named. Who-decides-what agreed. Versioning rules.</td><td>Request and contribution process live. Docs template.</td><td>First outside contribution. Monthly health check.</td><td>Deprecate old components. Next year's roadmap.</td></tr>
+      <tr><td>Adoption</td><td>Pilot team: a new settings page.</td><td>Second pilot. A champion in each team.</td><td>Second and third teams adopt. Office hours.</td><td>Migration dashboard. Most new work on the system.</td></tr>
+      <tr><td><b style="color:var(--accent)">Gate</b></td><td>The pilot ships using only tokens.</td><td>The pilot team is measurably faster or has fewer UI bugs.</td><td>A team adopts without hand-holding.</td><td>Adoption trend and savings reported to leadership.</td></tr>
+    </tbody>
+  </table></div>
+  <figcaption>A first year in four quarters. <span class="ev ev--ill">Illustration</span> Every quarter delivers something teams can use immediately, so the system earns trust as it goes.</figcaption>
+</figure>
+<h3>How many people does it take?</h3>
+<p>For a mid-sized SaaS company (2–3 products, 6–12 designers, 40–80 engineers), a realistic first year is about 45 FTE-months: a part-time lead, one system designer, two engineers during the build, then one and a half engineers plus product-team contributions to run it. A startup can do a lighter version in about 6–7 FTE-months. The full model is in <a href="/writing/design-system-roi">design system ROI and cost</a>.</p>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>How it fails</th><th>The antidote</th></tr></thead>
+  <tbody>
+    <tr><td>Built by design, ignored by engineering</td><td>Get engineering commitment before you start; staff the team with engineers.</td></tr>
+    <tr><td>Treated as a project, then abandoned</td><td>Run it as a product, with a team that stays after launch.</td></tr>
+    <tr><td>Started with the fun components</td><td>Rank by frequency and pain; start with the boring ones.</td></tr>
+    <tr><td>Built in isolation, then "launched"</td><td>Build every component inside a pilot product project.</td></tr>
+    <tr><td>Colours named by appearance, not job</td><td>Semantic tokens: <code>text.primary</code>, not <code>grey-700</code>.</td></tr>
+    <tr><td>No way in for requests</td><td>One front door, a public queue and weekly triage.</td></tr>
+    <tr><td>Docs written last, or never</td><td>A page per component, written while it's built.</td></tr>
+    <tr><td>Measuring output, not use</td><td>Track adoption, request turnaround and satisfaction, not components shipped.</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Start with a sponsor, engineering commitment and an owner with protected time.</li>
+  <li>Audit first; tokens second; then the ten most-used components, in design and code, inside a pilot.</li>
+  <li>Document as you build, and agree decision rights and a request process before the second team arrives.</li>
+  <li>Fund it in stages with gates. Scale to themes, brands and platforms only once the basics are adopted.</li>
+</ul></div>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>How long does it take to build a design system?</summary><div><p>A useful first version, with tokens and 8–15 core components in design and code, usually takes three to six months. A system that most new work runs on takes about a year. After that it's never "done": it's maintained like any product.</p></div></details>
+  <details><summary>Should design or code come first?</summary><div><p>Neither: they should move together. Foundations are decided in design and stored as tokens that code reads; components are built as twins with the same names and options on both sides.</p></div></details>
+  <details><summary>How many people do you need?</summary><div><p>For a startup, a designer and an engineer with about a day a week each. For a mid-sized company, a small team of two to four. For an enterprise, eight or more, including engineers for each platform. See <a href="/writing/design-system-team-structure">team structure</a>.</p></div></details>
+  <details><summary>Which components should you build first?</summary><div><p>The ones used everywhere and inconsistent today: usually button, text field, select, checkbox, radio, switch, link and alert. Rank them from your audit by frequency and pain.</p></div></details>
+  <details><summary>Should you start from an open-source design system?</summary><div><p>Often, yes, for the component layer. A headless library gives you accessible behaviour; your own tokens give you your look. You still need your own documentation, patterns and process.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://bradfrost.com/blog/post/interface-inventory/" target="_blank" rel="noopener">Interface Inventory</a><span>Brad Frost. The original write-up of the audit method.</span></li>
+  <li><a href="https://eightshapes.com/articles/picking-parts-products-people/" target="_blank" rel="noopener">Picking Parts, Products &amp; People</a><span>Nathan Curtis, EightShapes. How to choose what to build first, for whom and with whom.</span></li>
+  <li><a href="https://rosenfeldmedia.com/books/design-that-scales/" target="_blank" rel="noopener">Design That Scales</a><span>Dan Mall. Why pilots beat building in isolation.</span></li>
+  <li><a href="https://www.w3.org/WAI/ARIA/apg/" target="_blank" rel="noopener">ARIA Authoring Practices Guide</a><span>W3C. Keyboard and screen reader patterns for complex components.</span></li>
+  <li><a href="https://www.designtokens.org/tr/2025.10/format/" target="_blank" rel="noopener">Design Tokens Format Module 2025.10</a><span>Design Tokens Community Group. The stable format for storing tokens.</span></li>
+</ul>
+</div>
+  <aside class="post-author" aria-label="About the author">
+    <img src="../assets/studio/aniket.jpg" alt="Aniket Pandey" width="72" height="72" loading="lazy">
+    <div><b>Aniket Pandey</b><p>Founder of Layer One, a design systems studio in Bangalore. Built and ran design systems as an employee at <a href="/experience">CARS24, IBM and JPMorgan Chase</a>: tokens, components, governance and the teams behind them. <a href="/studio">More about the studio</a>.</p></div>
+  </aside>
+  <aside class="post-cta"><div><h2>Not sure where your system stands?</h2><p>A two-week audit maps every style, component and token you have in Figma and code, checks accessibility, and gives you a ranked plan. $1,500, fixed.</p></div><div class="btn-row"><a class="pill pill--accent" href="/pricing">See pricing</a><a class="pill" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a></div></aside>
+  <nav class="series-nav" aria-label="Building one series"><span></span><a class="sn-next" href="/writing/design-system-audit"><span>Next in Building one</span><b>How to run a design system audit (with an interface inventory method)</b></a></nav>
+  <h2 class="label">keep reading:</h2>
+  <div class="cards2"><a class="wcard" href="/writing/design-system-audit"><div class="m"><img src="../assets/images/writing/design-system-audit.w1200.webp" alt="" loading="lazy" width="1600" height="900" srcset="../assets/images/writing/design-system-audit.w480.webp 480w, ../assets/images/writing/design-system-audit.w800.webp 800w, ../assets/images/writing/design-system-audit.w1200.webp 1200w, ../assets/images/writing/design-system-audit.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></div><h3>How to run a design system audit (with an interface inventory method)</h3><span>Building a system · 8 min</span></a><a class="wcard" href="/writing/design-tokens"><div class="m"><img src="../assets/images/writing/design-tokens.w1200.webp" alt="" loading="lazy" width="1600" height="900" srcset="../assets/images/writing/design-tokens.w480.webp 480w, ../assets/images/writing/design-tokens.w800.webp 800w, ../assets/images/writing/design-tokens.w1200.webp 1200w, ../assets/images/writing/design-tokens.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></div><h3>Design tokens</h3><span>Foundations & tokens · 10 min</span></a></div>
+</article></main></div><script src="../assets/site.js?v=ba3edd5c" defer></script>
+</body>
+</html>

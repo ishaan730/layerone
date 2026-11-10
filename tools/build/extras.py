@@ -26,10 +26,11 @@ open(f, "w").write(html)
 
 # sitemap.xml and robots.txt
 today = datetime.date.today().isoformat()
-pages = sorted(p for p in (os.path.relpath(x, OUT) for x in glob.glob(os.path.join(OUT, "*.html")) + glob.glob(os.path.join(OUT, "work", "*.html")))
+pages = sorted(p for p in (os.path.relpath(x, OUT) for x in glob.glob(os.path.join(OUT, "*.html")) + glob.glob(os.path.join(OUT, "work", "*.html"))
+                                                       + glob.glob(os.path.join(OUT, "writing", "*.html")) + glob.glob(os.path.join(OUT, "writing", "topics", "*.html")))
                if p != "404.html")
 prio = {"/": "1.0", "/work": "0.9", "/pricing": "0.9", "/contact": "0.8", "/lab": "0.7"}
-urls = "".join(f"  <url><loc>{SITE}{url_path(p)}</loc><lastmod>{today}</lastmod><priority>{prio.get(url_path(p), '0.8' if p.startswith('work/') else '0.6')}</priority></url>\n" for p in pages)
+urls = "".join(f"  <url><loc>{SITE}{url_path(p)}</loc><lastmod>{today}</lastmod><priority>{prio.get(url_path(p), '0.8' if p.startswith(('work/', 'writing/')) and 'topics' not in p else '0.6')}</priority></url>\n" for p in pages)
 open(os.path.join(OUT, "sitemap.xml"), "w").write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n')
 open(os.path.join(OUT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
 print("wrote sitemap.xml", len(pages), "pages; robots.txt")
