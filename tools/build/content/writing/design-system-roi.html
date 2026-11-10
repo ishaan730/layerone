@@ -1,0 +1,122 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>Design system ROI comes mostly from time saved on UI work, multiplied by how much of that work actually uses the system. A simple, defensible model: <b>value = hours of UI work × adoption × speed-up × hourly cost</b>, compared with the cost of the people who run the system. On those terms alone a system breaks even at roughly <b>22–23 engineers for every full-time system person</b>, at 70% adoption and a 20% speed-up. Below that, the case rests on things the model doesn't count: rebrands, accessibility, dark mode, multiple products.</p>
+  <ul>
+    <li>Published speed-ups (34%, ~47%) are real but come from best-case tasks. Model with lower numbers.</li>
+    <li>Adoption matters as much as component quality. A system nobody uses returns nothing.</li>
+    <li>Fund it in stages, and let each stage earn the next.</li>
+  </ul>
+</div>
+
+<h2>Why most ROI claims fall over</h2>
+<p>"Design systems make teams 47% faster" sounds great in a slide deck and collapses under one good question: faster at what? That figure comes from a small study in which eight developers built a form from scratch, then with IBM's Carbon design system. Medians of 4.2 hours and 2 hours: about 47% faster. <span class="ev ev--doc">Documented</span> It's a real result. It's also one form, eight people, and the from-scratch build always came first, so familiarity with the design helped the second.</p>
+<p>Figma ran a similar internal experiment: designers with a relevant, up-to-date design system completed a task 34% faster. <span class="ev ev--doc">Documented</span> Again real, again a best case, and run by a vendor with limited published detail.</p>
+<p>Neither number tells you what <em>your</em> team will save across a year, because real work isn't all UI work, not all UI work uses the system, and adoption takes time. If your business case leans on 47%, it falls over at the first question from finance. Here's a model that doesn't.</p>
+
+<h2>What the evidence actually supports</h2>
+<div class="stats">
+  <div><b>34%</b><span>faster on one design task with a relevant system. Figma, internal, vendor-run.</span></div>
+  <div><b>~47%</b><span>faster to build one form with Carbon. Sparkbox, eight developers.</span></div>
+  <div><b>79.1%</b><span>of top home pages had low-contrast text (WebAIM, 2025): the kind of issue a system fixes once, everywhere.</span></div>
+</div>
+<p>Honest conclusion: design systems speed up the work they're used for, sometimes a lot. The size of the overall saving depends on how much work they're used for. That's the variable to model.</p>
+
+<h2>What a design system costs</h2>
+<p>The cost is almost entirely people. Count it in <b>FTE-months</b> (one person working full-time for one month) first, which works in any country, then convert to money with your own rates. The biggest cost drivers are the number of platforms (web, iOS, Android), the number of technologies in use, and the number of brands, not the number of components.</p>
+<!--fig:budgets-->
+<div class="callout callout--warn"><span class="callout-k">Watch out</span><p>The most expensive mistake is funding the build and not the run. A system with no team after launch decays: requests go unanswered, teams fork components, and the build investment is lost. Budget for running it from the start.</p></div>
+
+<h2>Where the savings come from</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">COUNTED IN THE MODEL</span><h3>Time saved on UI work</h3><p>Engineers and designers building screens from tested parts instead of from scratch, and spending less time on reviews, rework and "which grey is it?" questions.</p></div>
+  <div class="cell"><span class="k">NOT COUNTED, OFTEN BIGGER</span><h3>Change made cheap</h3><p>A rebrand, dark mode, a new market or an accessibility fix becomes a token change instead of a project. One such change can be worth more than a year of small savings.</p></div>
+  <div class="cell"><span class="k">NOT COUNTED</span><h3>Quality and risk</h3><p>Fewer UI bugs, accessibility fixed at the source, lower compliance exposure, a product that feels like one product.</p></div>
+  <div class="cell"><span class="k">NOT COUNTED</span><h3>People</h3><p>Faster onboarding for new designers and engineers, and a shared vocabulary that makes cross-team work smoother.</p></div>
+</div>
+
+<h2>A simple ROI model, worked through</h2>
+<p>Here's the model from our playbook, applied to Ledgerly, a fictional SaaS company with 40 engineers and 6 designers. <span class="ev ev--ill">Illustration</span> Every assumption is visible so you can replace it with your own.</p>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Assumption</th><th class="r">Value</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td>Working hours per person per year</td><td class="r">1,600</td><td>After holidays, meetings and leave</td></tr>
+    <tr><td>Share of engineering time spent on UI</td><td class="r">25%</td><td>The rest is back end, data, infrastructure, meetings</td></tr>
+    <tr><td>Share of design time spent on UI</td><td class="r">50%</td><td>The rest is research, strategy, workshops</td></tr>
+    <tr><td>Speed-up on work that uses the system</td><td class="r">20%</td><td>Deliberately well below the 34% and 47% best cases</td></tr>
+    <tr><td>Adoption</td><td class="r">40% → 70% → 85%</td><td>Share of UI work using the system, years 1–3</td></tr>
+    <tr><td>Blended hourly cost</td><td class="r">$90</td><td>Replace with your own</td></tr>
+    <tr><td>System team</td><td class="r">2 FTE</td><td>At $12,000 a month each: $288,000 a year</td></tr>
+  </tbody>
+</table></div></div>
+<pre><code>UI hours a year  = (40 engineers × 1,600 × 25%) + (6 designers × 1,600 × 50%) = 16,000 + 4,800 = 20,800
+Hours saved, Y1  = 20,800 × 40% adoption × 20% speed-up = 1,664 hours
+Value, Y1        = 1,664 × $90 = $149,760     <span class="c">// against a cost of $288,000</span></code></pre>
+<!--fig:roi-years-->
+<p>Two honest observations. First, on speed alone, the system loses money in years one and two and makes a modest return in year three (+$30,240, about 11%). Second, across all three years it hasn't yet paid back its cumulative cost. If Ledgerly's case rested on speed alone, it would be a weak case. It doesn't, because a rebrand or a dark mode that would otherwise take two quarters changes the picture entirely. But you should know which part of your case is which.</p>
+
+<h2>Break-even by team size</h2>
+<p>Flip the model around and ask: how many engineers does a system team need to serve before it pays for itself on speed alone?</p>
+<!--fig:break-even-->
+<p>That gives a useful rule of thumb: <b>roughly 22–23 engineers for every full-time system person</b>, at 70% adoption and a 20% speed-up. A two-person team needs about 45 engineers using the system. A startup with eight engineers can't justify a dedicated team on speed, which is exactly why we recommend two part-time owners and an open-source library at that stage. See <a href="/writing/do-you-need-a-design-system">do you need a design system?</a></p>
+
+<h2>Sensitivity: what moves the answer</h2>
+<!--fig:sensitivity-->
+<p>Read across the rows and down the columns. Doubling the speed-up helps, but going from 40% to 90% adoption helps about as much. That's why adoption work (documentation, office hours, pilots, champions) isn't a nice-to-have. It's half the return. See <a href="/writing/design-system-metrics">how to measure adoption</a>.</p>
+
+<h2>What the model doesn't capture</h2>
+<ul class="checklist">
+  <li><b>Big changes:</b> rebrands, dark mode, new brands or markets. Price the next one you know is coming with and without a system.</li>
+  <li><b>Accessibility:</b> issues fixed once in components instead of in every product, and lower legal and procurement risk.</li>
+  <li><b>Quality:</b> fewer UI bugs and less rework in review.</li>
+  <li><b>Onboarding:</b> new joiners productive sooner.</li>
+  <li><b>Opportunity:</b> what teams build with the time they no longer spend on buttons.</li>
+</ul>
+<p>Don't put made-up numbers on these. Name them, give one real example from your own company, and let leadership weigh them alongside the speed model.</p>
+
+<h2>How to build your own business case</h2>
+<ol class="w-steps">
+  <li><h3>Baseline first</h3><p>Run an <a href="/writing/design-system-audit">audit</a>: count button versions, hard-coded colours, accessibility issues, and time spent on a few recent UI tickets.</p></li>
+  <li><h3>Model with conservative numbers</h3><p>Use your own team sizes, UI share and costs, a speed-up of 10–20%, and a realistic adoption curve. Show the sensitivity table.</p></li>
+  <li><h3>Add one big upcoming change</h3><p>The rebrand, dark mode or new product that's already on the roadmap. Estimate it with and without tokens.</p></li>
+  <li><h3>Ask for the smallest first step</h3><p>Not a two-year programme. An audit, then foundations, then ten components, each with a gate.</p></li>
+  <li><h3>Report against the baseline</h3><p>Quarterly: adoption, one or two outcomes, and what's next.</p></li>
+</ol>
+
+<h2>Start small: funding in stages</h2>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Audit</b><span>2 weeks</span><span>Gate: leadership agrees on the top problems</span></div><i>→</i>
+    <div><b>Foundations</b><span>1–2 months, part-time</span><span>Gate: a team ships using only tokens</span></div><i>→</i>
+    <div class="hi"><b>10 components</b><span>2–3 months</span><span>Gate: the pilot team is measurably faster</span></div><i>→</i>
+    <div><b>Docs &amp; contribution</b><span>ongoing</span><span>Gate: a second team adopts without help</span></div><i>→</i>
+    <div><b>Scale</b><span>themes, platforms</span><span>Gate: a real change needs it</span></div>
+  </div>
+  <figcaption>Fund one step at a time. Each gate is something you can point to that justifies the next round. Foundations are the cheapest step and pay back first.</figcaption>
+</figure>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>Real outcomes are the best evidence. At CARS24, a token system made design-to-development handoff 65% faster across 10+ products, and a pattern library cut page design and build time by about 43%. <a href="/work/cars24-tokens">See the token case study</a>.</p></div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Value = UI hours × adoption × speed-up × hourly cost. Cost = the people who build and run it.</li>
+  <li>Use conservative speed-ups; the published 34% and 47% are best cases.</li>
+  <li>On speed alone, break-even is about 22–23 engineers per full-time system person.</li>
+  <li>Adoption moves the answer as much as quality does.</li>
+  <li>The strongest cases add one big upcoming change, and fund the system in stages.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>How much does a design system cost?</summary><div><p>Mostly people. Roughly 6–7 FTE-months in the first year for a startup, about 45 for a mid-sized SaaS company and 100+ for an enterprise with native apps and several brands. Multiply by your monthly cost per person.</p></div></details>
+  <details><summary>How long until a design system pays for itself?</summary><div><p>On speed alone, often two to three years, and only if adoption keeps rising. With a big change like a rebrand or dark mode on the roadmap, it can be much sooner.</p></div></details>
+  <details><summary>Is a design system worth it for a small team?</summary><div><p>A light one is: named tokens and a themed open-source library cost days and pay back on the first visual change. A dedicated team usually isn't, below about 20 engineers.</p></div></details>
+  <details><summary>How do you present design system ROI to leadership?</summary><div><p>Show the baseline, a conservative model with a sensitivity table, one concrete upcoming change priced with and without the system, and a small first step with a gate.</p></div></details>
+  <details><summary>Where does the 47% figure come from?</summary><div><p>A Sparkbox study in which eight developers built a form from scratch and then with IBM's Carbon: a median of 4.2 hours versus 2. It's real, but small and best-case.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://sparkbox.com/foundry/design_system_roi_impact_of_design_systems_business_value_carbon_design_system" target="_blank" rel="noopener">Yes, Design Systems Do Improve Developer Efficiency</a><span>Sparkbox. The source of the ~47% figure.</span></li>
+  <li><a href="https://www.figma.com/blog/measuring-the-value-of-design-systems/" target="_blank" rel="noopener">Measuring the value of design systems</a><span>Figma. The source of the 34% figure.</span></li>
+  <li><a href="https://medium.com/eightshapes-llc/a-design-system-isn-t-a-project-it-s-a-product-serving-products-74dcfffef935" target="_blank" rel="noopener">A design system isn't a project</a><span>Nathan Curtis. Why the run costs matter.</span></li>
+  <li><a href="/pricing">Layer One pricing</a><span>What an audit, a foundations build and ongoing partnership cost with us.</span></li>
+</ul>

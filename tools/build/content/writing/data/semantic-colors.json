@@ -1,0 +1,215 @@
+{
+  "tokens": [
+    {
+      "token": "bg.canvas",
+      "light": "neutral.50",
+      "dark": "neutral.950",
+      "lightHex": "#f3f7fe",
+      "darkHex": "#1e232c"
+    },
+    {
+      "token": "bg.surface",
+      "light": "neutral.50",
+      "dark": "neutral.900",
+      "lightHex": "#f3f7fe",
+      "darkHex": "#30363f"
+    },
+    {
+      "token": "bg.subtle",
+      "light": "neutral.100",
+      "dark": "neutral.800",
+      "lightHex": "#e6edf9",
+      "darkHex": "#434953"
+    },
+    {
+      "token": "border.default",
+      "light": "neutral.200",
+      "dark": "neutral.700",
+      "lightHex": "#d2dae5",
+      "darkHex": "#595f69"
+    },
+    {
+      "token": "border.strong",
+      "light": "neutral.500",
+      "dark": "neutral.500",
+      "lightHex": "#878e99",
+      "darkHex": "#878e99"
+    },
+    {
+      "token": "text.primary",
+      "light": "neutral.950",
+      "dark": "neutral.50",
+      "lightHex": "#1e232c",
+      "darkHex": "#f3f7fe"
+    },
+    {
+      "token": "text.secondary",
+      "light": "neutral.700",
+      "dark": "neutral.300",
+      "lightHex": "#595f69",
+      "darkHex": "#bcc3ce"
+    },
+    {
+      "token": "text.disabled",
+      "light": "neutral.400",
+      "dark": "neutral.600",
+      "lightHex": "#a1a8b3",
+      "darkHex": "#707681"
+    },
+    {
+      "token": "text.link",
+      "light": "blue.700",
+      "dark": "blue.300",
+      "lightHex": "#065db4",
+      "darkHex": "#8ec6ff"
+    },
+    {
+      "token": "action.primary.bg",
+      "light": "brand.700",
+      "dark": "brand.400",
+      "lightHex": "#ab2800",
+      "darkHex": "#ff7951"
+    },
+    {
+      "token": "action.primary.bg-hover",
+      "light": "brand.800",
+      "dark": "brand.300",
+      "lightHex": "#861b00",
+      "darkHex": "#ffa384"
+    },
+    {
+      "token": "action.primary.text",
+      "light": "neutral.50",
+      "dark": "neutral.950",
+      "lightHex": "#f3f7fe",
+      "darkHex": "#1e232c"
+    },
+    {
+      "token": "feedback.danger.text",
+      "light": "red.700",
+      "dark": "red.300",
+      "lightHex": "#b3081d",
+      "darkHex": "#ffa198"
+    },
+    {
+      "token": "feedback.danger.bg",
+      "light": "red.100",
+      "dark": "red.900",
+      "lightHex": "#ffe1dc",
+      "darkHex": "#67080f"
+    },
+    {
+      "token": "feedback.success.text",
+      "light": "green.700",
+      "dark": "green.300",
+      "lightHex": "#007628",
+      "darkHex": "#84d997"
+    },
+    {
+      "token": "feedback.success.bg",
+      "light": "green.100",
+      "dark": "green.900",
+      "lightHex": "#d9f6de",
+      "darkHex": "#004315"
+    },
+    {
+      "token": "focus.ring",
+      "light": "blue.600",
+      "dark": "blue.400",
+      "lightHex": "#1c75d6",
+      "darkHex": "#5eaaff"
+    }
+  ],
+  "pairs": [
+    {
+      "fg": "text.primary",
+      "bg": "bg.canvas",
+      "use": "Body text",
+      "min": 4.5,
+      "light": 14.67,
+      "dark": 14.67,
+      "lightPass": true,
+      "darkPass": true
+    },
+    {
+      "fg": "text.secondary",
+      "bg": "bg.canvas",
+      "use": "Secondary text",
+      "min": 4.5,
+      "light": 5.99,
+      "dark": 8.89,
+      "lightPass": true,
+      "darkPass": true
+    },
+    {
+      "fg": "text.link",
+      "bg": "bg.canvas",
+      "use": "Links",
+      "min": 4.5,
+      "light": 6.05,
+      "dark": 8.76,
+      "lightPass": true,
+      "darkPass": true
+    },
+    {
+      "fg": "action.primary.text",
+      "bg": "action.primary.bg",
+      "use": "Primary button label",
+      "min": 4.5,
+      "light": 6.44,
+      "dark": 6.09,
+      "lightPass": true,
+      "darkPass": true
+    },
+    {
+      "fg": "feedback.danger.text",
+      "bg": "feedback.danger.bg",
+      "use": "Error message",
+      "min": 4.5,
+      "light": 5.74,
+      "dark": 6.68,
+      "lightPass": true,
+      "darkPass": true
+    },
+    {
+      "fg": "feedback.success.text",
+      "bg": "feedback.success.bg",
+      "use": "Success message",
+      "min": 4.5,
+      "light": 5.02,
+      "dark": 6.81,
+      "lightPass": true,
+      "darkPass": true
+    },
+    {
+      "fg": "border.strong",
+      "bg": "bg.canvas",
+      "use": "Input border (non-text)",
+      "min": 3,
+      "light": 3.07,
+      "dark": 4.77,
+      "lightPass": true,
+      "darkPass": true
+    },
+    {
+      "fg": "focus.ring",
+      "bg": "bg.canvas",
+      "use": "Focus ring (non-text)",
+      "min": 3,
+      "light": 4.28,
+      "dark": 6.51,
+      "lightPass": true,
+      "darkPass": true
+    },
+    {
+      "fg": "text.disabled",
+      "bg": "bg.canvas",
+      "use": "Disabled text (exempt)",
+      "min": 0,
+      "light": 2.23,
+      "dark": 3.45,
+      "lightPass": null,
+      "darkPass": null
+    }
+  ]
+}

@@ -82,7 +82,7 @@ Studied in a live browser across home, /work, /work/grafana, /clients, /info and
 | `studio.html` | About: story (Bangalore), founder, what we do, how we work, founding partners invitation |
 | `pricing.html` | Pricing (services.html redirects here) |
 | `lab.html` | Seven tools in one tabbed workspace: palette, contrast, type scale, spacing and radius, token name linter, request backlog, export kit (`lab.py`, `assets/lab.js`) |
-| `writing.html` at `/writing` + articles | Writing |
+| `writing.html` at `/writing`, `writing/<slug>.html`, `writing/topics/<topic>.html` | Writing library (`writing.py`): hub with start here, topics, five reading series, guides and archive; articles with an "On this page" sidebar, short answer, figures (`writing_figs.py`, data from the playbook), FAQ, author box, CTA and series navigation; Article and BreadcrumbList JSON-LD. `/blog-librarian-vs-leader` redirects to `/writing/librarian-vs-leader` |
 | `contact.html` | Enquiry form (choice cards and chips, validated, opens an email draft), founder card, what happens next |
 
 ## The offer

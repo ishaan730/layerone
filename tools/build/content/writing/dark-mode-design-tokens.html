@@ -1,0 +1,117 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>To build dark mode with design tokens, name every colour by its <b>job</b> (<code>bg.canvas</code>, <code>text.primary</code>, <code>action.primary.bg</code>) as semantic tokens, make every component use only those names, then give each name a second value for dark mode. Check every text and background pair for contrast in both modes. The components don't change at all; only the token values do.</p>
+  <ul>
+    <li>Dark mode is not inverted light mode. Surfaces get <em>lighter</em> as they rise, and accents usually move to lighter, softer steps.</li>
+    <li>Avoid pure black backgrounds and pure white text; both make reading harder.</li>
+    <li>The bug you'll hit first is a component that used a raw colour or a primitive. Lint for it.</li>
+  </ul>
+</div>
+
+<h2>Why dark mode breaks without semantic tokens</h2>
+<p>Most teams discover their colour problem the day someone asks for dark mode. The estimate is "two sprints". Then engineering searches the code and finds hundreds of colour values typed directly into styles, many of them nearly identical greys. Nothing says which grey is text and which is a border, so nothing can be switched. Two sprints become two quarters.</p>
+<p>The fix is a layer of names between the colours and the components. If a card's background is <code>bg.surface</code> rather than <code>#F3F7FE</code>, then dark mode only has to answer one question: what should <code>bg.surface</code> be in the dark? Answer that for every semantic token, and every screen switches at once.</p>
+
+<h2>Primitive vs semantic colour tokens</h2>
+<p>Two tiers of colour tokens do two different jobs. (The full explanation, with a third optional tier, is in our <a href="/writing/design-tokens">design tokens guide</a>.)</p>
+<div class="cols2">
+  <div class="cell"><span class="k">PRIMITIVE</span><h3>The paint</h3><p>Every step of every colour ramp, named by what it is: <code>neutral.50</code>, <code>neutral.950</code>, <code>brand.700</code>. These never change between modes. Components never use them.</p></div>
+  <div class="cell" style="outline:1.5px solid var(--accent)"><span class="k">SEMANTIC</span><h3>The job</h3><p>Names for purposes: <code>bg.canvas</code>, <code>text.secondary</code>, <code>feedback.danger.bg</code>. Each points to a primitive, and <b>that pointer is what changes</b> between light and dark.</p></div>
+</div>
+
+<h2>Step 1: Name colours by their job</h2>
+<p>List every distinct job colour does in your interface. Most products need a surprisingly small set, grouped by role:</p>
+<div class="cols4">
+  <div class="cell"><span class="k">BACKGROUNDS</span><p><code>bg.canvas</code>, <code>bg.surface</code>, <code>bg.subtle</code>: the page, raised surfaces, quiet fills.</p></div>
+  <div class="cell"><span class="k">TEXT</span><p><code>text.primary</code>, <code>text.secondary</code>, <code>text.disabled</code>, <code>text.link</code>.</p></div>
+  <div class="cell"><span class="k">BORDERS &amp; FOCUS</span><p><code>border.default</code>, <code>border.strong</code>, <code>focus.ring</code>.</p></div>
+  <div class="cell"><span class="k">ACTION &amp; FEEDBACK</span><p><code>action.primary.*</code>, <code>feedback.danger.*</code>, <code>feedback.success.*</code>.</p></div>
+</div>
+<p>Resist creating a semantic token for every screen ("checkout header background"). If a new name doesn't describe a job that several components share, it's a component token or a one-off, not a semantic token.</p>
+
+<h2>Step 2 and 3: Map light mode, then dark mode</h2>
+<p>For each semantic token, choose a primitive for light mode and a primitive for dark mode. Here's the full set from our playbook, built on an OKLCH palette:</p>
+<!--fig:semantic-->
+<p>Read down the dark column and you'll see the rules most good dark themes follow:</p>
+<ol class="w-steps">
+  <li><h3>Don't use pure black</h3><p>The dark canvas is <code>neutral.950</code> (#1E232C), not #000000. Pure black makes light text appear to glow and smear, especially for people with astigmatism, and leaves no room below it for shadows or depth.</p></li>
+  <li><h3>Raise surfaces by making them lighter</h3><p>In light mode, shadows show elevation. In the dark, shadows barely show, so raised surfaces get lighter instead: canvas <code>neutral.950</code>, surface <code>neutral.900</code>, subtle <code>neutral.800</code>. Material Design uses the same idea.</p></li>
+  <li><h3>Soften the text</h3><p>Primary text is <code>neutral.50</code>, a very light, slightly cool grey, rather than pure white. Contrast stays very high (14.67:1) without the glare.</p></li>
+  <li><h3>Move accents to lighter steps</h3><p>The primary action moves from <code>brand.700</code> to <code>brand.400</code>, and links from <code>blue.700</code> to <code>blue.300</code>. Dark accents that work on white disappear into a dark background.</p></li>
+  <li><h3>Flip feedback fills</h3><p>Error and success backgrounds move from pale tints (<code>red.100</code>) to deep tones (<code>red.900</code>), and their text from dark to light, so alerts stay readable without glowing.</p></li>
+</ol>
+<p>Here's what that does to a real piece of interface. Same component, same code, two sets of answers:</p>
+<!--fig:theme-preview-->
+
+<h2>Step 4: Check every pair for contrast</h2>
+<p>A dark theme is only finished when every text and background pairing passes, in both modes. WCAG 2.2 asks for 4.5:1 for body text (1.4.3) and 3:1 for meaningful non-text elements like input borders and focus rings (1.4.11). Check pairs, not colours: a token is only "accessible" in relation to what it sits on.</p>
+<!--fig:pairs-->
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>Put the pairs table in your documentation and in an automated test. When someone proposes a new token value, the test tells them which pairs would fail before the change ships. The <a href="/lab">Lab</a> has a free contrast checker with a pair matrix if you want to try this on your own palette.</p></div>
+
+<h2>Step 5: Ship it as modes</h2>
+<p>On the web, the cleanest implementation is CSS custom properties with the semantic layer overridden per theme. Let users choose, default to their system setting, and remember the choice:</p>
+<pre><code><span class="k">:root</span> {
+  --bg-canvas: var(--neutral-50);
+  --text-primary: var(--neutral-950);
+  --action-primary-bg: var(--brand-700);
+  color-scheme: light;
+}
+<span class="c">/* Follow the system unless the user picked a theme */</span>
+<span class="k">@media (prefers-color-scheme: dark)</span> {
+  <span class="k">:root:not([data-theme="light"])</span> {
+    --bg-canvas: var(--neutral-950);
+    --text-primary: var(--neutral-50);
+    --action-primary-bg: var(--brand-400);
+    color-scheme: dark;
+  }
+}
+<span class="k">[data-theme="dark"]</span> { <span class="c">/* the same overrides, for an explicit choice */</span> }</code></pre>
+<p>Setting <code>color-scheme</code> matters more than it looks: it tells the browser to draw scrollbars, form controls and the default page background in the matching theme, so there's no white flash while the page loads.</p>
+<p>In Figma, the same structure becomes a semantic variable collection with two modes, light and dark. Designers switch a whole frame between modes to check their work, exactly as the product will.</p>
+
+<h2>Things that break in dark mode</h2>
+<div class="cols2">
+  <div class="cell"><h3>One component that used a primitive</h3><p>Every screen switches except the date picker, whose selected day stays bright orange on white, because it used <code>brand.700</code> directly. Lint for primitives and raw values in component code.</p></div>
+  <div class="cell"><h3>Images and illustrations</h3><p>Logos, illustrations with white backgrounds and screenshots need dark variants or a transparent background. Plan them as assets, not afterthoughts.</p></div>
+  <div class="cell"><h3>Charts</h3><p>Data colours tuned for white often lose contrast on dark. Give charts their own semantic tokens (<code>chart.series.1</code>…) with dark values checked against the dark surface.</p></div>
+  <div class="cell"><h3>Shadows</h3><p>Dark shadows on dark surfaces vanish. Use lighter surfaces for elevation, and a subtle border where separation matters.</p></div>
+  <div class="cell"><h3>Third-party embeds</h3><p>Maps, payment forms and chat widgets often ignore your theme. Check whether they support a dark mode parameter, and test them.</p></div>
+  <div class="cell"><h3>Hard-coded colours in content</h3><p>Rich text from a CMS with inline colours will fight your theme. Strip inline colours or map them to tokens on the way in.</p></div>
+</div>
+
+<h2>Beyond dark mode: brands, density and white-label</h2>
+<p>Once your components only use semantic tokens, dark mode is just the first theme. The same structure supports:</p>
+<ul>
+  <li><b>High contrast:</b> stronger borders and text, for users who need them.</li>
+  <li><b>Multiple brands:</b> a different primitive palette behind the same semantic names.</li>
+  <li><b>White-labelled products:</b> a client's palette mapped into your semantic layer, with contrast checks run on their values before release.</li>
+  <li><b>Density:</b> the same trick for spacing and control heights.</li>
+</ul>
+<p>At IBM, the Riyadh Air design system drew 71 components in English and Arabic, light and dark: four versions of every component, all from one set of semantic decisions. <a href="/work/ibm-riyadh-air">See the case study</a>.</p>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Name colours by job as semantic tokens; components use only those names.</li>
+  <li>Give each semantic token a dark value. Don't invert: lighter surfaces for elevation, lighter accents, softer text, no pure black.</li>
+  <li>Check every pair for contrast in both modes, and automate the check.</li>
+  <li>Ship as CSS custom properties with <code>prefers-color-scheme</code>, an explicit user choice and <code>color-scheme</code>.</li>
+  <li>The same structure gives you high contrast, brands and white-label for free.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Should dark mode just invert colours?</summary><div><p>No. Inverting turns shadows into glows, makes accents too dark to read, and flips the logic of elevation. Dark mode is a separate set of choices for the same jobs.</p></div></details>
+  <details><summary>How many semantic colour tokens do I need?</summary><div><p>Fewer than you think. The set in this article has 17 and covers most of a typical product. Large systems often have 40–60, mostly for feedback states, data visualisation and specific surfaces.</p></div></details>
+  <details><summary>How do I handle elevation in dark mode?</summary><div><p>Make raised surfaces lighter rather than relying on shadows: canvas, then surface, then subtle, each a step lighter. Add a faint border where two surfaces at similar levels meet.</p></div></details>
+  <details><summary>Do images and charts need dark tokens?</summary><div><p>Charts, yes: give each data series a semantic token with a checked dark value. Images need dark-friendly variants or transparent backgrounds, managed as assets.</p></div></details>
+  <details><summary>Should dark mode follow the system setting?</summary><div><p>Yes by default, using <code>prefers-color-scheme</code>, with an explicit choice in settings that overrides it and is remembered.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html" target="_blank" rel="noopener">Understanding 1.4.3: Contrast (Minimum)</a><span>W3C. The 4.5:1 text contrast requirement.</span></li>
+  <li><a href="https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" target="_blank" rel="noopener">Understanding 1.4.11: Non-text Contrast</a><span>W3C. The 3:1 requirement for borders, icons and focus indicators.</span></li>
+  <li><a href="https://m3.material.io/styles/color/system/how-the-system-works" target="_blank" rel="noopener">Material 3 colour system</a><span>Google. Colour roles that map neatly to semantic tokens.</span></li>
+  <li><a href="https://www.carbondesignsystem.com/elements/themes/overview/" target="_blank" rel="noopener">Carbon themes</a><span>IBM. Four themes from one set of tokens.</span></li>
+  <li><a href="/writing/oklch-color-palette">How to build an accessible colour palette in OKLCH</a><span>The palette behind every value in this article.</span></li>
+</ul>

@@ -1,0 +1,174 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>A <b>design system</b> is the set of shared decisions, reusable parts and working agreements a company uses to design and build its product's interface consistently. The decisions are things like colours, type and spacing, stored as design tokens. The parts are components such as buttons, inputs and dialogs, in Figma and in code. The agreements are how people use, change and contribute to all of it.</p>
+  <ul>
+    <li>A UI kit or component library is <em>part</em> of a design system, not the whole thing.</li>
+    <li>The value comes from deciding things once, so teams stop re-solving the same problems.</li>
+    <li>Most teams don't need a full system on day one. They need named foundations, then components, then process, in that order.</li>
+  </ul>
+</div>
+
+<h2>What is a design system?</h2>
+<p>Here's the definition we use, because it's the one that survives contact with real teams:</p>
+<blockquote>A design system is a company's shared decisions, reusable parts and working agreements for building its product interfaces.</blockquote>
+<p>Each of those three words carries weight.</p>
+<div class="cols3">
+  <div class="cell"><span class="k">01 · DECISIONS</span><h3>What we've agreed</h3><p>Our blue is this exact blue. Body text is 16px. Spacing goes up in steps of 4. Errors are always red, written in plain words, and say how to fix the problem.</p></div>
+  <div class="cell"><span class="k">02 · PARTS</span><h3>What we've built</h3><p>Design tokens, Figma components and coded components that already carry those decisions, so nobody has to remember them.</p></div>
+  <div class="cell"><span class="k">03 · AGREEMENTS</span><h3>How we work</h3><p>Who owns the system, how teams ask for changes, how new parts get in, how releases are announced and how old parts are retired.</p></div>
+</div>
+<p>Most definitions you'll find stop at the second word: "a library of reusable components". That's the visible part, and it's the easiest to buy or copy. It's also why so many design systems end up as expensive component libraries nobody trusts. Without the decisions underneath, the components drift. Without the agreements around them, nobody knows how to change them, so teams fork them and the system quietly dies.</p>
+
+<h2>The five-button problem</h2>
+<p>The easiest way to understand why design systems exist is to watch what happens without one.</p>
+<p class="scenario-t">An illustration we see in almost every audit</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>A product grows from one team to five. Each team needs a primary button, so each designs and builds one. Nobody is being careless: they're shipping on deadline.</p></div>
+  <div><span class="k">What goes wrong</span><p>A year later there are five primary buttons with slightly different blues, heights, corner radii and hover states. A rebrand means changing all five, in five codebases. Two of them fail contrast checks. Users notice that the product feels stitched together.</p></div>
+  <div><span class="k">What a system changes</span><p>One button, built once, with its states, accessibility and behaviour decided. Every team uses it. The rebrand changes one token and the new blue reaches every screen in a release.</p></div>
+</div>
+<p>Multiply that by every input, dropdown, table, date picker and error message in a product, and you get the real problem design systems solve. It isn't "our UI looks a bit inconsistent". It's that a growing company is paying, again and again, to make the same decisions, and the cost grows faster than the team does.</p>
+<div class="callout callout--term"><span class="callout-k">New word</span><p><b>Design debt</b> is the accumulated cost of inconsistent, duplicated interface decisions: every extra button variant, one-off colour and slightly different form layout that someone will eventually have to maintain, test, fix or migrate.</p></div>
+
+<h2>What's inside a design system</h2>
+<p>A complete design system has layers. Each one depends on the layer below it, which is why the order you build them in matters.</p>
+<figure class="w-fig">
+  <div class="stack">
+    <div class="lt"><b>People &amp; process</b><span>Owners, contribution model, governance, releases, support, training</span></div>
+    <div><b>Documentation</b><span>A single place to find guidance, code, examples, do's and don'ts</span></div>
+    <div><b>Patterns</b><span>Solutions to recurring problems: forms, tables, navigation, empty states, errors</span></div>
+    <div><b>Components</b><span>Buttons, inputs, dialogs, tabs, cards: in Figma and in code, with states and accessibility built in</span></div>
+    <div class="hi"><b>Design tokens</b><span>Named decisions stored once and shared by design and code: <code style="background:rgb(0 0 0 / .15)">color.action.primary</code>, <code style="background:rgb(0 0 0 / .15)">space.4</code></span></div>
+    <div><b>Foundations</b><span>Colour, typography, spacing, layout grid, radius, elevation, motion, icons</span></div>
+    <div><b>Principles</b><span>A few statements that settle arguments: "Clarity over density", "Accessible by default"</span></div>
+  </div>
+  <figcaption>The layers of a design system, from the principles at the bottom to the people who run it at the top. Tokens are the bridge between design decisions and code, which is why they're highlighted.</figcaption>
+</figure>
+
+<h3>Principles</h3>
+<p>Three to five short statements about what the product values. Good principles help people make decisions when the system doesn't have an answer yet. "Clarity over cleverness" tells a designer what to do with a tempting animation; "be delightful" doesn't.</p>
+<h3>Foundations</h3>
+<p>The basic visual decisions every screen relies on: <a href="/writing/oklch-color-palette">colour</a>, typography, spacing, layout, corner radius, elevation, motion and iconography. Get these right and components almost design themselves. Get them wrong and every component inherits the problem. A low-contrast grey in the foundations becomes low-contrast text in every component that uses it.</p>
+<h3>Design tokens</h3>
+<p><a href="/writing/design-tokens">Design tokens</a> are those foundation decisions given names and stored in one place, in a format both design tools and code can read. Instead of <code>#CC3C00</code> scattered across a codebase, there's one token, <code>color.action.primary</code>, that points to it. Change the token and every button, link and focus ring that uses it updates together. Tokens are also what make <a href="/writing/dark-mode-design-tokens">dark mode</a> and multiple brands possible without redesigning anything.</p>
+<h3>Components</h3>
+<p>The reusable building blocks people picture when they hear "design system". A good component isn't just a drawing: it has every state designed (default, hover, focus, pressed, disabled, loading, error), it works with a keyboard and a screen reader, and it exists in Figma <em>and</em> in code with the same name and the same options.</p>
+<h3>Patterns</h3>
+<p>Components are words; patterns are sentences. A pattern describes how components combine to solve a recurring problem: how a form validates, how a table filters, how a page explains that it's empty. Patterns are where most of the real consistency in a product comes from, and they're usually the part teams skip.</p>
+<h3>Documentation</h3>
+<p>If people can't find a component, or can't work out how to use it, it doesn't exist. Documentation is the shop window: what each part is for, when to use it and when not to, with live examples and code. We've written a whole guide on <a href="/writing/design-system-documentation">what good design system documentation includes</a>.</p>
+<h3>People and process</h3>
+<p>The layer most teams forget, and the one that decides whether the system lasts. Who owns it? How do teams ask for a new component? Who can say no? How are breaking changes announced? This is the <a href="/writing/design-system-operating-model">operating model</a>, and in our experience it matters more than the quality of the components.</p>
+
+<h2>Design system vs style guide, UI kit and component library</h2>
+<p>These four terms get used interchangeably, but they describe different things. Each one is a smaller part of the one before it.</p>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Term</th><th>What it contains</th><th>Lives in</th><th>Who uses it</th></tr></thead>
+  <tbody>
+    <tr><td>Design system</td><td>Everything below, plus principles, patterns, docs and the process for running it</td><td>Figma, code, docs site, team rituals</td><td>Everyone who builds the product</td></tr>
+    <tr><td>Component library</td><td>Coded, reusable UI components</td><td>A code package (npm, Swift, Kotlin)</td><td>Engineers</td></tr>
+    <tr><td>UI kit</td><td>Reusable components drawn in a design tool</td><td>A Figma or Sketch library</td><td>Designers</td></tr>
+    <tr><td>Style guide</td><td>Rules for brand and visual style: logo, colour, type, tone</td><td>A PDF or a web page</td><td>Designers, marketing, writers</td></tr>
+  </tbody>
+</table></div></div>
+<p>The short version: a UI kit and a component library are the <em>parts</em> of a design system, one for designers and one for engineers. A style guide records some of the <em>decisions</em>. A design system includes all of them and adds the <em>agreements</em> that keep them in sync. We go deeper, with a diagram and a self-check, in <a href="/writing/design-system-vs-style-guide-vs-component-library">design system vs style guide vs component library vs UI kit</a>.</p>
+
+<h2>Examples of design systems</h2>
+<p>Some of the best-known design systems are public, and they're worth studying. Not to copy, but to see how different companies make different trade-offs.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">GOOGLE</span><h3><a href="https://m3.material.io/" target="_blank" rel="noopener">Material Design 3</a></h3><p>A design system built to be used by other companies as well as Google. Strong on colour roles: tonal palettes generated from a single source colour, mapped to named roles like <code>primary</code> and <code>on-primary</code>.</p></div>
+  <div class="cell"><span class="k">IBM</span><h3><a href="https://carbondesignsystem.com/" target="_blank" rel="noopener">Carbon</a></h3><p>Open source and built for dense enterprise software. Worth studying for its 2x grid, its separate type sets for product screens and for marketing, and its four themes.</p></div>
+  <div class="cell"><span class="k">SHOPIFY</span><h3><a href="https://shopify.dev/docs/api/polaris" target="_blank" rel="noopener">Polaris</a></h3><p>The system behind the Shopify admin, also used by third-party developers building apps for merchants. Good example of content and voice guidance living next to components.</p></div>
+  <div class="cell"><span class="k">UK GOVERNMENT</span><h3><a href="https://design-system.service.gov.uk/" target="_blank" rel="noopener">GOV.UK Design System</a></h3><p>Perhaps the clearest public example of patterns and governance: every component is backed by research, and there are published criteria for what gets in.</p></div>
+</div>
+<p>Notice that none of these are "just" component libraries. Each publishes principles, foundations, patterns and some form of contribution or governance process. That's what makes them systems.</p>
+
+<h2>Why a design system is worth having</h2>
+<p>The value of a design system comes from three things, which we call decide once, build once and change once.</p>
+<div class="cols3">
+  <div class="cell"><span class="k">DECIDE ONCE</span><p>The blue, the button height and the error message format are settled. Designers and engineers stop debating them in every project, and reviewers stop catching the same problems.</p></div>
+  <div class="cell"><span class="k">BUILD ONCE</span><p>Each component is designed, coded, tested for accessibility and documented one time, then reused everywhere. Product teams spend their time on the product.</p></div>
+  <div class="cell"><span class="k">CHANGE ONCE</span><p>A rebrand, a new theme or an accessibility fix is made in one place and reaches every product that uses the system in a single release.</p></div>
+</div>
+<p>There's real evidence behind this, though less than the marketing suggests. Here's what's actually been measured, with the caveats that matter:</p>
+<div class="stats">
+  <div><b>34%</b><span>faster on a design task with a relevant, up-to-date design system, in Figma's own internal experiment. <span class="ev ev--doc">Documented</span> Vendor-run, sample details limited.</span></div>
+  <div><b>~47%</b><span>faster to build a form with IBM's Carbon than from scratch: median 2 hours vs 4.2, in Sparkbox's study of eight developers. <span class="ev ev--doc">Documented</span> Small sample.</span></div>
+  <div><b>79.1%</b><span>of the world's top million home pages had low-contrast text in WebAIM's 2025 scan. A system that fixes contrast once fixes it everywhere. <span class="ev ev--std">Measured</span></span></div>
+</div>
+<p>Two honest points about those numbers. First, they come from best-case tasks: building a known form with a known library. Real gains across a whole team are smaller, because not all work is UI work and not all UI work uses the system. Second, the speed-up only arrives if people actually use the system, which is why adoption matters as much as quality. We built a transparent model for this, with break-even points by team size, in <a href="/writing/design-system-roi">design system ROI: an honest model</a>.</p>
+<p>The benefits that don't show up in a speed study are often bigger: a product that feels like one product, accessibility that's fixed at the source, faster onboarding for new designers and engineers, and a shared vocabulary that makes cross-team work less painful.</p>
+
+<h2>Who builds and runs a design system?</h2>
+<p>It depends on the size of the company, and it should change as the company grows. A rough guide:</p>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Company size</th><th>Typical setup</th><th>What the system looks like</th></tr></thead>
+  <tbody>
+    <tr><td>Startup (10–50 people)</td><td>No dedicated team. One designer and one engineer own it, about a day a week each.</td><td>Named tokens in code, a themed open-source component library, a small Figma library.</td></tr>
+    <tr><td>Scale-up (50–300)</td><td>A small central team of 1–3 people, plus a champion in each product squad.</td><td>Tokens, 20–35 components, a docs site, versioned releases, a simple request process.</td></tr>
+    <tr><td>Enterprise (1,000+)</td><td>A dedicated team of 8–20 with product management, engineering per platform, accessibility and enablement.</td><td>Multi-brand, multi-platform, with formal governance, a contribution model and support rota.</td></tr>
+  </tbody>
+</table></div></div>
+<p>Two rules hold at every size. Aim for at least as much engineering capacity as design capacity, because adoption happens in code. And protect the time: "a bit of everyone's time" turns into nobody's time the first week a deadline slips. We go deeper in <a href="/writing/design-system-team-structure">design system team structure</a> and <a href="/writing/design-system-operating-model">the design system operating model</a>.</p>
+
+<h2>Do you need a design system?</h2>
+<p>Not always, and not all at once. A design system is a response to scale: more people, more products, more platforms, more brands. If you have one designer, four engineers and one product that changes every week, a full system will slow you down.</p>
+<p>What almost every team <em>does</em> need, from early on, is the cheapest layer: foundations named as tokens and used in code. It costs days, survives every pivot, and makes everything you build later easier. Components come when the same piece of UI is needed by two teams. Formal process comes when there are more teams than one person can talk to.</p>
+<figure class="w-fig">
+  <div class="stairs">
+    <div><span class="n">1</span><b>Ad hoc</b><span>Every screen designed from scratch</span></div>
+    <div><span class="n">2</span><b>Shared library</b><span>A Figma kit, maybe a component folder</span></div>
+    <div class="on"><span class="n">3</span><b>System</b><span>Tokens, components in design and code, docs, an owner</span></div>
+    <div><span class="n">4</span><b>Product</b><span>A team, a roadmap, releases, contribution, metrics</span></div>
+    <div><span class="n">5</span><b>Platform</b><span>Many brands and platforms, governance, a community</span></div>
+  </div>
+  <figcaption>Five stages of design system maturity. Most teams should aim one stage ahead of where they are, not three. Stage 3 is where something can honestly be called a design system.</figcaption>
+</figure>
+<p>We wrote a full decision guide, with seven questions and a readiness checklist, in <a href="/writing/do-you-need-a-design-system">do you need a design system?</a></p>
+
+<h2>How to start a design system</h2>
+<p>If you've decided you need one, the order matters more than the tools. The short version of our <a href="/writing/how-to-build-a-design-system">step-by-step guide</a>:</p>
+<ol class="w-steps">
+  <li><h3>Audit what you have</h3><p>Screenshot and count every button, input, colour and text style in the product. The numbers make the case for you, and show you where to start. See <a href="/writing/design-system-audit">how to run a design system audit</a>.</p></li>
+  <li><h3>Name the foundations as tokens</h3><p>Colour, type, spacing and radius, agreed and stored as <a href="/writing/design-tokens">design tokens</a> in both Figma and code.</p></li>
+  <li><h3>Build the components teams need next</h3><p>Pick from real roadmaps, not a wish list. Build each one with a product team that needs it, in design and code together.</p></li>
+  <li><h3>Document as you go, and agree how it's run</h3><p>A page per component, a single front door for requests, and a named owner who can make decisions.</p></li>
+</ol>
+
+<h2>Common misconceptions</h2>
+<div class="cols2">
+  <div class="cell"><h3>"A design system is a Figma library"</h3><p>A Figma library is a UI kit. If the same components don't exist in code with the same names and options, designers and engineers are working from two different systems.</p></div>
+  <div class="cell"><h3>"It's a project with an end date"</h3><p>It's a product that serves other products. It needs owners, a roadmap and maintenance for as long as the products using it exist.</p></div>
+  <div class="cell"><h3>"It will make every screen look the same"</h3><p>It makes the <em>decided</em> things the same, so teams can spend their creativity on the things that should differ: the product itself.</p></div>
+  <div class="cell"><h3>"We'll adopt Material and be done"</h3><p>An open-source system is a great starting point for components. You still need your own tokens, patterns, documentation and process on top.</p></div>
+</div>
+
+<h2>The short version</h2>
+<div class="short">
+  <ul>
+    <li>A design system is <b>decisions, parts and agreements</b>: tokens, components and the process for using and changing them.</li>
+    <li>It exists to stop growing teams paying to make the same decisions again and again: decide once, build once, change once.</li>
+    <li>It has layers. Principles, foundations and tokens come first; components, patterns and docs build on them; people and process keep it alive.</li>
+    <li>A UI kit, a component library and a style guide are parts of a design system, not substitutes for one.</li>
+    <li>Start small: tokens first, components when two teams need them, process when there are more teams than one person can talk to.</li>
+  </ul>
+</div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Is a design system the same as a component library?</summary><div><p>No. A component library is the coded set of reusable components, and it's one part of a design system. The system also includes the decisions underneath (foundations and tokens), the design-tool library, patterns, documentation, and the process for owning and changing it all.</p></div></details>
+  <details><summary>Who owns a design system?</summary><div><p>Ideally a named design system lead, with design and engineering capacity behind them. In small companies that's often one designer and one engineer with protected time. Ownership means being accountable for quality and for decisions, not being the only people allowed to make changes.</p></div></details>
+  <details><summary>How long does it take to build a design system?</summary><div><p>A useful first version, with tokens and the 10–15 most-used components in design and code, typically takes three to six months for a small team. But a design system is never finished: it keeps growing and changing with the products it serves.</p></div></details>
+  <details><summary>Is Figma a design system?</summary><div><p>Figma is a tool. A Figma library of components is a UI kit, which is one part of a design system. You also need the same components in code, plus tokens, documentation and a process.</p></div></details>
+  <details><summary>What are the main parts of a design system?</summary><div><p>Principles, foundations (colour, type, spacing, layout), design tokens, components, patterns, documentation, and the people and process that run it.</p></div></details>
+  <details><summary>Can a small startup have a design system?</summary><div><p>A light one, yes. Name your foundations as tokens, theme an open-source component library with them, and agree one simple habit: check whether something exists before building it. Save the heavier process for when you have several teams.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://atomicdesign.bradfrost.com/" target="_blank" rel="noopener">Atomic Design</a><span>Brad Frost. The book that gave many teams a shared vocabulary for components and patterns.</span></li>
+  <li><a href="https://medium.com/eightshapes-llc/a-design-system-isn-t-a-project-it-s-a-product-serving-products-74dcfffef935" target="_blank" rel="noopener">A Design System isn't a Project. It's a Product, Serving Products.</a><span>Nathan Curtis, EightShapes. Why systems need owners and roadmaps.</span></li>
+  <li><a href="https://www.figma.com/blog/measuring-the-value-of-design-systems/" target="_blank" rel="noopener">Measuring the value of design systems</a><span>Figma. The source of the 34% figure, and how it was measured.</span></li>
+  <li><a href="https://webaim.org/projects/million/2025" target="_blank" rel="noopener">The WebAIM Million, 2025</a><span>WebAIM. The annual accessibility scan of the top million home pages.</span></li>
+  <li><a href="/work/cars24-lego">CARS24: LEGO, a component system teams chose to build with</a><span>A case study of a component system built and adopted in three countries.</span></li>
+</ul>

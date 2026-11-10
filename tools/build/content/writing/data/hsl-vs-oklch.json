@@ -1,0 +1,78 @@
+{
+  "hsl": [
+    {
+      "label": "hsl(0 100% 50%)",
+      "hex": "#ff0000",
+      "perceivedL": 0.63,
+      "onWhite": 4
+    },
+    {
+      "label": "hsl(60 100% 50%)",
+      "hex": "#ffff00",
+      "perceivedL": 0.97,
+      "onWhite": 1.07
+    },
+    {
+      "label": "hsl(120 100% 50%)",
+      "hex": "#00ff00",
+      "perceivedL": 0.87,
+      "onWhite": 1.37
+    },
+    {
+      "label": "hsl(180 100% 50%)",
+      "hex": "#00ffff",
+      "perceivedL": 0.91,
+      "onWhite": 1.25
+    },
+    {
+      "label": "hsl(240 100% 50%)",
+      "hex": "#0000ff",
+      "perceivedL": 0.45,
+      "onWhite": 8.59
+    },
+    {
+      "label": "hsl(300 100% 50%)",
+      "hex": "#ff00ff",
+      "perceivedL": 0.7,
+      "onWhite": 3.14
+    }
+  ],
+  "oklch": [
+    {
+      "label": "oklch(0.65 0.15 25)",
+      "hex": "#dc655f",
+      "perceivedL": 0.65,
+      "onWhite": 3.46
+    },
+    {
+      "label": "oklch(0.65 0.15 60)",
+      "hex": "#d0750a",
+      "perceivedL": 0.65,
+      "onWhite": 3.37
+    },
+    {
+      "label": "oklch(0.65 0.15 120)",
+      "hex": "#849b11",
+      "perceivedL": 0.65,
+      "onWhite": 3.14
+    },
+    {
+      "label": "oklch(0.659 0.121 178)",
+      "hex": "#00aa92",
+      "perceivedL": 0.66,
+      "onWhite": 2.93
+    },
+    {
+      "label": "oklch(0.65 0.149 240)",
+      "hex": "#0099e0",
+      "perceivedL": 0.65,
+      "onWhite": 3.17
+    },
+    {
+      "label": "oklch(0.65 0.15 300)",
+      "hex": "#9e77dc",
+      "perceivedL": 0.65,
+      "onWhite": 3.43
+    }
+  ]
+}

@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design System Governance: Models, Roles and Process | Layer One</title>
+<meta name="description" content="Governance without bureaucracy: decision rights, a lightweight review process, escalation paths and a decision log. How it should change as you grow.">
+<meta property="og:title" content="Design System Governance: Models, Roles and Process | Layer One">
+<meta property="og:description" content="Governance without bureaucracy: decision rights, a lightweight review process, escalation paths and a decision log. How it should change as you grow.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-09">
+<meta property="article:modified_time" content="2026-11-09">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="Governance">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/design-system-governance.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Design System Governance: Models, Roles and Process | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css?v=394ba543">
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Design System Governance: Models, Roles and Process", "description": "Governance without bureaucracy: decision rights, a lightweight review process, escalation paths and a decision log. How it should change as you grow.", "image": "https://www.layerone.co.in/assets/images/writing/design-system-governance.jpg", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "mainEntityOfPage": "https://www.layerone.co.in/writing/design-system-governance", "wordCount": 2026, "articleSection": "Governance", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "Governance", "item": "https://www.layerone.co.in/writing/topics/governance"}, {"@type": "ListItem", "position": 3, "name": "Design system governance: who decides what, and how", "item": "https://www.layerone.co.in/writing/design-system-governance"}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/design-system-governance">
+<meta property="og:url" content="https://www.layerone.co.in/writing/design-system-governance">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Design System Governance: Models, Roles and Process | Layer One">
+<meta name="twitter:description" content="Governance without bureaucracy: decision rights, a lightweight review process, escalation paths and a decision log. How it should change as you grow.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/design-system-governance.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<div class="shell"><aside class="side" aria-label="Studio">
+    <nav class="side-nav" aria-label="On this page"><a href="/writing">← All writing</a><a href="#what-design-system-governance-is-and-isn-t">What design system governance is, and isn't</a><a href="#why-governance-fails">Why governance fails</a><a href="#centralised-federated-and-hybrid-models">Centralised, federated and hybrid models</a><a href="#decision-rights-who-has-the-final-say">Decision rights: who has the final say</a><a href="#matching-the-process-to-the-decision">Matching the process to the decision</a><a href="#when-people-disagree-the-escalation-path">When people disagree: the escalation path</a><a href="#standards-and-quality-gates">Standards and quality gates</a><a href="#the-component-lifecycle">The component lifecycle</a><a href="#the-decision-log">The decision log</a><a href="#governance-by-company-size">Governance by company size</a><a href="#the-short-version">The short version</a><a href="#frequently-asked-questions">Frequently asked questions</a><a href="#further-reading">Further reading</a></nav>
+    <a class="side-card side-card--bar" href="/contact"><span>Start a project</span><svg viewBox="0 0 34 14" fill="none" aria-hidden="true"><path d="M1 7h31M26 1l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <p class="side-blurb">Layer One is a design systems studio in Bangalore, India.<br>Led by Aniket Pandey.</p>
+    <div class="wordmark"><svg viewBox="0 0 300 182" role="img" aria-label="Layer One"><g transform="translate(10 10)" opacity="0.35" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="none" stroke="currentColor" stroke-width="1.4">LAYER</text><text x="4" y="164" fill="none" stroke="currentColor" stroke-width="1.4">ONE</text></g><g transform="translate(5 5)" opacity="0.6" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="none" stroke="currentColor" stroke-width="1.4">LAYER</text><text x="4" y="164" fill="none" stroke="currentColor" stroke-width="1.4">ONE</text></g><g transform="translate(0 0)" opacity="1" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="currentColor">LAYER</text><text x="4" y="164" fill="currentColor">ONE</text></g><g transform="translate(222 100) scale(.62)"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></g></svg></div>
+    <div class="side-foot">
+      <ul><li><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">linkedin</a></li><li><a href="https://x.com/LayeroneStudios" target="_blank" rel="noopener">x</a></li><li><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">medium</a></li></ul>
+      <a href="mailto:layerone@proton.me">layerone@proton.me</a>
+    </div>
+  </aside><main id="main" class="content">
+<article class="post">
+  <header class="post-head">
+    <p class="crumb small muted"><a href="/writing">Writing</a> / <a href="/writing/topics/governance">Governance</a></p>
+    <a class="post-series" href="/writing#the-operating-model"><b>The operating model</b>&nbsp;· Part 3 of 4</a>
+    <h1 class="post-title">Design system governance: who decides what, and how</h1>
+    <p class="post-dek">Good governance isn't a committee. It's what lets most decisions happen quickly, by the right person, without a meeting. A decision-rights matrix, processes matched to the size of the decision, an escalation path and a decision log.</p>
+    <div class="post-meta"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40" loading="lazy"><div><b>By Aniket Pandey</b><span>9 min read · Published 9 November 2026</span></div></div>
+    <div class="post-cover"><img src="../assets/images/writing/design-system-governance.w1200.webp" alt="" width="1600" height="900" srcset="../assets/images/writing/design-system-governance.w480.webp 480w, ../assets/images/writing/design-system-governance.w800.webp 800w, ../assets/images/writing/design-system-governance.w1200.webp 1200w, ../assets/images/writing/design-system-governance.jpg 1600w" sizes="(max-width: 1280px) 100vw, 1240px" decoding="async"></div>
+  </header>
+  <details class="post-toc"><summary>In this article</summary><ol><li><a href="#what-design-system-governance-is-and-isn-t">What design system governance is, and isn't</a></li><li><a href="#why-governance-fails">Why governance fails</a></li><li><a href="#centralised-federated-and-hybrid-models">Centralised, federated and hybrid models</a></li><li><a href="#decision-rights-who-has-the-final-say">Decision rights: who has the final say</a></li><li><a href="#matching-the-process-to-the-decision">Matching the process to the decision</a></li><li><a href="#when-people-disagree-the-escalation-path">When people disagree: the escalation path</a></li><li><a href="#standards-and-quality-gates">Standards and quality gates</a></li><li><a href="#the-component-lifecycle">The component lifecycle</a></li><li><a href="#the-decision-log">The decision log</a></li><li><a href="#governance-by-company-size">Governance by company size</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+  <div class="post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p><b>Design system governance</b> is the agreed way decisions about the system get made: who decides what, how, how fast, and how it's recorded. Good governance is light. It lets most decisions happen quickly, by the person closest to the work, and slows down only for the few that affect everyone. Its core parts are a <b>decision-rights matrix</b>, processes matched to the size of each decision, an <b>escalation path</b>, automated <b>quality gates</b> and a <b>decision log</b>.</p>
+  <ul>
+    <li>One decider per kind of decision. "The team decides" means nobody does.</li>
+    <li>Give accessibility a real veto: someone who can block a change that fails the standard.</li>
+    <li>Grow governance with the organisation, never ahead of it.</li>
+  </ul>
+</div>
+
+<h2 id="what-design-system-governance-is-and-isn-t">What design system governance is, and isn't</h2>
+<p>Governance has a bad reputation, because people picture committees and approval forms. Good design system governance is the opposite: it's what lets a token change, a new variant or a deprecation happen in days rather than drift for months.</p>
+<p class="scenario-t">An illustration: three months to change a border radius</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>Brand wants rounder corners. The system designer agrees. An engineering lead worries about layouts. A product director wants to wait until after a launch.</p></div>
+  <div><span class="k">What goes wrong</span><p>Nobody knows who decides. The topic comes up in five meetings over three months. Everyone's frustrated; nothing happens.</p></div>
+  <div><span class="k">What governance changes</span><p>Token changes are decided by the system lead after a one-week comment period. The engineering concern becomes a release plan; the launch sets the date. Decided in ten days and logged with reasons.</p></div>
+</div>
+<p>Brad Frost's widely used governance process makes the same point a different way: most work should flow through a clear, predictable path from "use what's there" to "propose a change" to "release", with the system team and product teams each knowing their part. Governance is that path, plus clarity about who decides at each step.</p>
+
+<h2 id="why-governance-fails">Why governance fails</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">TOO LITTLE</span><h3>Nobody decides</h3><p>Decisions are re-opened in every meeting. The loudest team gets its way. Components fork because changing the original is too uncertain. Quality drifts because nobody can say no.</p></div>
+  <div class="cell"><span class="k">TOO MUCH</span><h3>Everything waits</h3><p>Every change goes to a monthly council, so everything takes a month. Teams stop asking and build locally. The system becomes something to work around.</p></div>
+</div>
+<p>The aim is the narrow path between them: <b>fast for small, reversible decisions; careful for big, hard-to-undo ones</b>.</p>
+
+<h2 id="centralised-federated-and-hybrid-models">Centralised, federated and hybrid models</h2>
+<p>Governance depends on how the system is staffed. Nathan Curtis's team models are still the clearest way to describe the options:</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Model</th><th>How it works</th><th>Strengths</th><th>Breaks when…</th></tr></thead>
+  <tbody>
+    <tr><td>Embedded</td><td>Product designers and engineers look after it part-time</td><td>Cheap; close to real needs</td><td>More than about three squads depend on it</td></tr>
+    <tr><td>Centralised</td><td>A dedicated team builds and runs it for everyone</td><td>Focus, quality, clear accountability</td><td>Requests outpace the team; teams feel unheard</td></tr>
+    <tr><td>Federated only</td><td>Every team contributes; nobody owns it full-time</td><td>Shared ownership; broad input</td><td>Almost immediately, without strong leadership</td></tr>
+    <tr><td>Hybrid</td><td>A core team owns quality and direction; product teams contribute</td><td>Scales; balances quality and speed</td><td>Contribution time isn't protected in product plans</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Curtis's own later conclusion is the one most mature organisations reach: a central team plus participation from a wider community.</figcaption></figure>
+
+<h2 id="decision-rights-who-has-the-final-say">Decision rights: who has the final say</h2>
+<p>The single most useful governance artefact is a table that says, for each kind of decision, who decides. Here's one for a hybrid system at a mid-sized company. "Decides" is accountable for the final call; "can block" may veto; "consulted" must be asked first. Rename the roles for your organisation, but keep one decider per row.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Decision</th><th>Decides</th><th>Can block</th><th>Consulted</th></tr></thead>
+  <tbody>
+    <tr><td>Design principles</td><td>Head of Design</td><td>—</td><td>System lead, design leads</td></tr>
+    <tr><td>Foundations (colour, type, spacing)</td><td>System lead</td><td>Brand (brand values only)</td><td>System and product designers, engineering</td></tr>
+    <tr><td>Token names and structure</td><td>System engineering lead</td><td>—</td><td>System designers</td></tr>
+    <tr><td>Token value changes</td><td>System lead</td><td>Accessibility specialist (contrast)</td><td>Champions</td></tr>
+    <tr><td>Component architecture and API</td><td>System engineering lead</td><td>—</td><td>System designers, product engineers</td></tr>
+    <tr><td>Component design</td><td>System design lead</td><td>Accessibility specialist</td><td>Requesting teams</td></tr>
+    <tr><td>Patterns</td><td>Pattern owner (often a senior product designer)</td><td>System design lead</td><td>Teams using the pattern</td></tr>
+    <tr><td>Accessibility standard</td><td>Accessibility lead</td><td>Heads of Design and Engineering</td><td>Legal / compliance</td></tr>
+    <tr><td>Breaking changes and release timing</td><td>System lead</td><td>—</td><td>Champions, affected teams</td></tr>
+    <tr><td>Deprecation and removal</td><td>System lead</td><td>—</td><td>Affected teams</td></tr>
+    <tr><td>Exceptions to system rules</td><td>System design or engineering lead</td><td>—</td><td>Requesting team</td></tr>
+    <tr><td>Roadmap and funding</td><td>Design and engineering leadership</td><td>—</td><td>System lead, product leads</td></tr>
+  </tbody>
+</table></div>
+<figcaption>A decision-rights matrix. <span class="ev ev--prac">Practitioner view</span> Decisions are pushed down to the people closest to the work; leadership decides only direction and money.</figcaption></figure>
+<p>Notice the accessibility veto. It's deliberate: accessibility is the one area where "we'll fix it later" multiplies harm across every product that uses the system.</p>
+
+<h2 id="matching-the-process-to-the-decision">Matching the process to the decision</h2>
+<p>Not every decision needs the same process. Ask two questions: how many people does this affect, and how easy is it to undo?</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Decision type</th><th>Examples</th><th>Process</th><th class="r">Time</th></tr></thead>
+  <tbody>
+    <tr><td>Everyday</td><td>Bug fixes, docs, small enhancements, new variants</td><td>The owner decides, in review</td><td class="r">Days</td></tr>
+    <tr><td>Significant</td><td>New components, token value changes, new patterns, deprecations</td><td>Short written proposal; one-week comment period; decider decides</td><td class="r">1–2 weeks</td></tr>
+    <tr><td>Foundational</td><td>New framework, library-wide breaking change, new brand, accessibility standard</td><td>Proposal; wider comment period; leadership or council review</td><td class="r">2–6 weeks</td></tr>
+    <tr><td>Exception</td><td>Breaking a rule for one product</td><td>Short request; named approver; expiry date; logged</td><td class="r">Days</td></tr>
+  </tbody>
+</table></div></figure>
+<p>The comment period matters as much as the decision. People accept decisions they disagree with far more readily when they had a genuine chance to be heard and the reasons are written down.</p>
+
+<h2 id="when-people-disagree-the-escalation-path">When people disagree: the escalation path</h2>
+<p>Disagreement is healthy; endless disagreement isn't. Publish an escalation path, with time limits, so nobody has to invent one in the middle of an argument.</p>
+<figure class="w-fig">
+  <div class="ladder">
+    <div><span class="n">1</span><p><b>The owner decides</b><br><span>The person with decision rights makes the call after hearing the concerns. Most disagreements end here.</span></p><em>days</em></div>
+    <div><span class="n">2</span><p><b>System lead</b><br><span>If someone believes the decision is wrong for the system as a whole.</span></p><em>within a week</em></div>
+    <div><span class="n">3</span><p><b>Design and engineering leads together</b><br><span>For conflicts between design and engineering, or between product teams.</span></p><em>within two weeks</em></div>
+    <div><span class="n">4</span><p><b>Council or leadership</b><br><span>Only for decisions affecting several business units or company direction.</span></p><em>next session</em></div>
+  </div>
+  <figcaption>Four steps, each with a time limit. Once a decision is made through the agreed process, everyone commits to it, including those who argued against it. They can propose revisiting it later, with new evidence, through the same process.</figcaption>
+</figure>
+
+<h2 id="standards-and-quality-gates">Standards and quality gates</h2>
+<p>Some things shouldn't be decided case by case. They're standards, applied as gates every change passes through. The more gates are automated, the less governance needs people's time.</p>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Gate</th><th>Standard</th><th>Checked by</th></tr></thead>
+  <tbody>
+    <tr><td>Accessibility</td><td>WCAG 2.2 AA minimum for every component and pattern</td><td>Automated checks plus manual review</td></tr>
+    <tr><td>Tokens only</td><td>No raw colours, sizes or spacing in system code</td><td>Lint rules</td></tr>
+    <tr><td>Visual change</td><td>No unintended visual differences</td><td>Visual regression tests plus designer sign-off</td></tr>
+    <tr><td>Design and code in step</td><td>Figma and code match in names, props and states</td><td>Definition of done</td></tr>
+    <tr><td>Versioning</td><td>Semantic versioning, including visual breaking changes</td><td>Release review</td></tr>
+    <tr><td>Documentation</td><td>Every public component has a complete page</td><td>Build check for missing docs</td></tr>
+  </tbody>
+</table></div></div>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>At JPMorgan Chase, governance is partly automated: two checkers point out where a Figma file or a piece of code doesn't match the design system, so problems are fixed before review, for a community of 500+ designers and 1,000+ engineers. <a href="/work/jpmc-system-checks">See the project</a>. At IBM, the Riyadh Air system used four quality gates between a request and a release, shared by three companies. <a href="/work/ibm-riyadh-air-ops">Read the case study</a>.</p></div>
+
+<h2 id="the-component-lifecycle">The component lifecycle</h2>
+<p>Governance also covers how parts enter and leave the system. A simple set of labels, shown on every documentation page, tells teams what they can rely on:</p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Proposed</b><span>Request accepted; being designed with a pilot team</span></div><i>→</i>
+    <div><b>Beta</b><span>Usable, API may still change; feedback wanted</span></div><i>→</i>
+    <div class="hi"><b>Stable</b><span>Supported; breaking changes only in major versions</span></div><i>→</i>
+    <div><b>Deprecated</b><span>Replacement named; removal date announced</span></div><i>→</i>
+    <div><b>Removed</b><span>Gone in the next major version, with a migration guide</span></div>
+  </div>
+</figure>
+
+<h2 id="the-decision-log">The decision log</h2>
+<p>Two simple records make governance trustworthy: a <b>decision log</b> that records what was decided and why, and an <b>ownership registry</b> that lists who owns each component, pattern and token group. The log stops decisions being re-litigated and gives newcomers the history behind the system.</p>
+<figure class="w-fig">
+  <div class="cell cell--light" style="font-size:15px">
+    <span class="k" style="color:var(--signal-600)">DS-042 · DECIDED 2 OCTOBER BY THE SYSTEM LEAD</span>
+    <h3>Increase default button height from 36px to 40px</h3>
+    <p><b style="color:var(--ink-950)">Context.</b> Research showed buttons were hard to hit on touch laptops; 36px is below our comfortable-target guideline.</p>
+    <p><b style="color:var(--ink-950)">Options.</b> (a) Patch release now · (b) A new "large" default only for new work · (c) A breaking change in 5.0, with notice.</p>
+    <p><b style="color:var(--ink-950)">Decision.</b> (c), shipping in 5.0 on 18 November, with visual diffs and a layout checklist.</p>
+    <p><b style="color:var(--ink-950)">Consulted.</b> Champions in every team, engineering leads, accessibility specialist. Concern about table rows addressed with a compact variant.</p>
+    <p><b style="color:var(--ink-950)">Revisit if.</b> More than two teams report blocking layout problems during the beta.</p>
+  </div>
+  <figcaption>A decision log entry. <span class="ev ev--ill">Illustration</span> Six short fields; the "revisit if" line is what makes people comfortable committing.</figcaption>
+</figure>
+
+<h2 id="governance-by-company-size">Governance by company size</h2>
+<p>Governance should grow with the organisation, never ahead of it.</p>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th></th><th>Startup</th><th>Scale-up</th><th>Mid-sized</th><th>Enterprise</th></tr></thead>
+  <tbody>
+    <tr><td>Who decides</td><td>The two owners, in conversation</td><td>System lead; decisions written down</td><td>Decision-rights matrix</td><td>Matrix plus a council for cross-portfolio decisions</td></tr>
+    <tr><td>Proposals</td><td>A message in the channel</td><td>One page for big changes</td><td>Proposals with comment periods</td><td>Per portfolio plus central review</td></tr>
+    <tr><td>Records</td><td>Pinned messages</td><td>Simple decision log</td><td>Log plus ownership registry</td><td>Same, plus an audit trail</td></tr>
+    <tr><td>Gates</td><td>Code review</td><td>Lint plus review</td><td>Automated gates plus release review</td><td>Plus compliance sign-off where required</td></tr>
+    <tr><td>Escalation</td><td>Talk it out</td><td>Lead → design/eng lead</td><td>Full path</td><td>Full path plus council</td></tr>
+  </tbody>
+</table></div></div>
+<div class="callout callout--warn"><span class="callout-k">A mistake we see often</span><p>A council for everything. Councils meet monthly, so everything takes a month. Keep the council for the handful of decisions that genuinely cross business units, and let the decision-rights matrix handle the rest.</p></div>
+<p>Governance is one part of a wider operating model. For how requests and contributions flow into these decisions, see <a href="/writing/design-system-contribution-model">the contribution model</a>; for team structure and rituals, see <a href="/writing/design-system-operating-model">the design system operating model</a>.</p>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Governance makes most decisions fast and slows down only the few that affect everyone.</li>
+  <li>Write down one decider for each kind of decision, and give accessibility a real veto.</li>
+  <li>Match the process to the impact, publish an escalation path, and expect everyone to disagree and commit.</li>
+  <li>Automate standards as gates; keep a decision log and an ownership registry.</li>
+  <li>Grow governance only as you grow.</li>
+</ul></div>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>What's the difference between centralised and federated governance?</summary><div><p>In a centralised model a dedicated team makes and builds the decisions. In a federated model, contributors across product teams do, with no full-time owner. Most mature systems end up hybrid: a core team owns quality and direction, and product teams contribute.</p></div></details>
+  <details><summary>Who has the final say on a design system?</summary><div><p>It depends on the decision. The system lead usually decides foundations, breaking changes and deprecations; the engineering lead decides architecture and token structure; leadership decides roadmap and funding. Write it down in a decision-rights matrix.</p></div></details>
+  <details><summary>How do you stop governance slowing teams down?</summary><div><p>Match the process to the size of the decision, automate standards as gates, and keep councils for genuinely cross-company decisions. Everyday changes should be decided by the owner in review, in days.</p></div></details>
+  <details><summary>How should we handle teams that detach or fork components?</summary><div><p>Treat it as a signal, not a crime. Track detaches, ask why, and either improve the component or offer an exception with an expiry date. Persistent forking usually means requests are too slow.</p></div></details>
+  <details><summary>Do small teams need governance?</summary><div><p>A little: two named owners, decisions written in the channel, and code review as the gate. That's governance too, and it's enough until there are more teams than the owners can talk to.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://bradfrost.com/blog/post/a-design-system-governance-process/" target="_blank" rel="noopener">A Design System Governance Process</a><span>Brad Frost. A widely used starting point.</span></li>
+  <li><a href="https://eightshapes.com/articles/team-models-for-scaling-a-design-system" target="_blank" rel="noopener">Team Models for Scaling a Design System</a><span>Nathan Curtis, EightShapes. Centralised, federated and hybrid.</span></li>
+  <li><a href="https://nathanacurtis.substack.com/p/the-fallacy-of-federated-design-systems-23b9a9a05542" target="_blank" rel="noopener">The Fallacy of Federated Design Systems</a><span>Nathan Curtis. Why "everyone owns it" rarely works.</span></li>
+  <li><a href="https://design-system.service.gov.uk/community/contribution-criteria/" target="_blank" rel="noopener">GOV.UK contribution criteria</a><span>Published criteria for what gets into a system.</span></li>
+  <li><a href="/work/cars24-governance">CARS24: how the design system team stopped being the bottleneck</a><span>One front door, a 70-point scorecard and three ownership tiers.</span></li>
+</ul>
+</div>
+  <aside class="post-author" aria-label="About the author">
+    <img src="../assets/studio/aniket.jpg" alt="Aniket Pandey" width="72" height="72" loading="lazy">
+    <div><b>Aniket Pandey</b><p>Founder of Layer One, a design systems studio in Bangalore. Built and ran design systems as an employee at <a href="/experience">CARS24, IBM and JPMorgan Chase</a>: tokens, components, governance and the teams behind them. <a href="/studio">More about the studio</a>.</p></div>
+  </aside>
+  <aside class="post-cta"><div><h2>Not sure where your system stands?</h2><p>A two-week audit maps every style, component and token you have in Figma and code, checks accessibility, and gives you a ranked plan. $1,500, fixed.</p></div><div class="btn-row"><a class="pill pill--accent" href="/pricing">See pricing</a><a class="pill" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a></div></aside>
+  <nav class="series-nav" aria-label="The operating model series"><a class="sn-prev" href="/writing/design-system-team-structure"><span>Previous in The operating model</span><b>Design system team structure</b></a><a class="sn-next" href="/writing/design-system-contribution-model"><span>Next in The operating model</span><b>Design system contribution model</b></a></nav>
+  <h2 class="label">keep reading:</h2>
+  <div class="cards2"><a class="wcard" href="/writing/design-system-contribution-model"><div class="m"><img src="../assets/images/writing/design-system-contribution-model.w1200.webp" alt="" loading="lazy" width="1600" height="900" srcset="../assets/images/writing/design-system-contribution-model.w480.webp 480w, ../assets/images/writing/design-system-contribution-model.w800.webp 800w, ../assets/images/writing/design-system-contribution-model.w1200.webp 1200w, ../assets/images/writing/design-system-contribution-model.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></div><h3>Design system contribution model</h3><span>Governance · 8 min</span></a><a class="wcard" href="/writing/design-system-operating-model"><div class="m"><img src="../assets/images/writing/design-system-operating-model.w1200.webp" alt="" loading="lazy" width="1600" height="900" srcset="../assets/images/writing/design-system-operating-model.w480.webp 480w, ../assets/images/writing/design-system-operating-model.w800.webp 800w, ../assets/images/writing/design-system-operating-model.w1200.webp 1200w, ../assets/images/writing/design-system-operating-model.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></div><h3>The design system operating model</h3><span>Operating model & teams · 10 min</span></a></div>
+</article></main></div><script src="../assets/site.js?v=ba3edd5c" defer></script>
+</body>
+</html>

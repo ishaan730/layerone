@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design System Documentation: What to Include (Template) | Layer One</title>
+<meta name="description" content="What people actually read in design system docs, the sections every component page needs and how to structure the portal. A page template to copy.">
+<meta property="og:title" content="Design System Documentation: What to Include (Template) | Layer One">
+<meta property="og:description" content="What people actually read in design system docs, the sections every component page needs and how to structure the portal. A page template to copy.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-09">
+<meta property="article:modified_time" content="2026-11-09">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="Building a system">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/design-system-documentation.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Design System Documentation: What to Include (Template) | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css?v=394ba543">
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Design System Documentation: What to Include (Template)", "description": "What people actually read in design system docs, the sections every component page needs and how to structure the portal. A page template to copy.", "image": "https://www.layerone.co.in/assets/images/writing/design-system-documentation.jpg", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "mainEntityOfPage": "https://www.layerone.co.in/writing/design-system-documentation", "wordCount": 1833, "articleSection": "Building a system", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "Building a system", "item": "https://www.layerone.co.in/writing/topics/building"}, {"@type": "ListItem", "position": 3, "name": "Design system documentation", "item": "https://www.layerone.co.in/writing/design-system-documentation"}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/design-system-documentation">
+<meta property="og:url" content="https://www.layerone.co.in/writing/design-system-documentation">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Design System Documentation: What to Include (Template) | Layer One">
+<meta name="twitter:description" content="What people actually read in design system docs, the sections every component page needs and how to structure the portal. A page template to copy.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/design-system-documentation.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<div class="shell"><aside class="side" aria-label="Studio">
+    <nav class="side-nav" aria-label="On this page"><a href="/writing">← All writing</a><a href="#what-design-system-documentation-is-for">What design system documentation is for</a><a href="#who-reads-it-and-what-they-re-looking-for">Who reads it, and what they're looking for</a><a href="#the-component-page-template">The component page template</a><a href="#foundations-patterns-and-guidelines-pages">Foundations, patterns and guidelines pages</a><a href="#structuring-the-portal">Structuring the portal</a><a href="#tools-storybook-zeroheight-supernova-or-custom">Tools: Storybook, zeroheight, Supernova or custom</a><a href="#keeping-docs-current">Keeping docs current</a><a href="#the-short-version">The short version</a><a href="#frequently-asked-questions">Frequently asked questions</a><a href="#further-reading">Further reading</a></nav>
+    <a class="side-card side-card--bar" href="/contact"><span>Start a project</span><svg viewBox="0 0 34 14" fill="none" aria-hidden="true"><path d="M1 7h31M26 1l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <p class="side-blurb">Layer One is a design systems studio in Bangalore, India.<br>Led by Aniket Pandey.</p>
+    <div class="wordmark"><svg viewBox="0 0 300 182" role="img" aria-label="Layer One"><g transform="translate(10 10)" opacity="0.35" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="none" stroke="currentColor" stroke-width="1.4">LAYER</text><text x="4" y="164" fill="none" stroke="currentColor" stroke-width="1.4">ONE</text></g><g transform="translate(5 5)" opacity="0.6" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="none" stroke="currentColor" stroke-width="1.4">LAYER</text><text x="4" y="164" fill="none" stroke="currentColor" stroke-width="1.4">ONE</text></g><g transform="translate(0 0)" opacity="1" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="currentColor">LAYER</text><text x="4" y="164" fill="currentColor">ONE</text></g><g transform="translate(222 100) scale(.62)"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></g></svg></div>
+    <div class="side-foot">
+      <ul><li><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">linkedin</a></li><li><a href="https://x.com/LayeroneStudios" target="_blank" rel="noopener">x</a></li><li><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">medium</a></li></ul>
+      <a href="mailto:layerone@proton.me">layerone@proton.me</a>
+    </div>
+  </aside><main id="main" class="content">
+<article class="post">
+  <header class="post-head">
+    <p class="crumb small muted"><a href="/writing">Writing</a> / <a href="/writing/topics/building">Building a system</a></p>
+    <a class="post-series" href="/writing#building-one"><b>Building one</b>&nbsp;· Part 3 of 3</a>
+    <h1 class="post-title">Design system documentation: what to include, with a component page template</h1>
+    <p class="post-dek">Docs decide adoption. A component nobody can find, or can't work out how to use, doesn't exist. Who reads design system docs, what they're looking for, a component page template and how to keep it all current.</p>
+    <div class="post-meta"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40" loading="lazy"><div><b>By Aniket Pandey</b><span>8 min read · Published 9 November 2026</span></div></div>
+    <div class="post-cover"><img src="../assets/images/writing/design-system-documentation.w1200.webp" alt="" width="1600" height="900" srcset="../assets/images/writing/design-system-documentation.w480.webp 480w, ../assets/images/writing/design-system-documentation.w800.webp 800w, ../assets/images/writing/design-system-documentation.w1200.webp 1200w, ../assets/images/writing/design-system-documentation.jpg 1600w" sizes="(max-width: 1280px) 100vw, 1240px" decoding="async"></div>
+  </header>
+  <details class="post-toc"><summary>In this article</summary><ol><li><a href="#what-design-system-documentation-is-for">What design system documentation is for</a></li><li><a href="#who-reads-it-and-what-they-re-looking-for">Who reads it, and what they're looking for</a></li><li><a href="#the-component-page-template">The component page template</a></li><li><a href="#foundations-patterns-and-guidelines-pages">Foundations, patterns and guidelines pages</a></li><li><a href="#structuring-the-portal">Structuring the portal</a></li><li><a href="#tools-storybook-zeroheight-supernova-or-custom">Tools: Storybook, zeroheight, Supernova or custom</a></li><li><a href="#keeping-docs-current">Keeping docs current</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+  <div class="post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>Good <b>design system documentation</b> answers the questions people arrive with, in the five minutes before a deadline: <em>what is this, when should I use it, how do I build with it, and is it changing?</em> Give every component page the same nine sections in the same order (summary, when not to use it, live examples, anatomy, how to build with it, accessibility, writing, do's and don'ts, status and history), and put everything behind <b>one front door</b>: a portal organised by the tasks people come with, not by how the system team is organised.</p>
+  <ul>
+    <li>The trick isn't writing more. It's writing the same few things for every component, so people know where to look.</li>
+    <li>"When not to use it" is the most valuable section, and the one most often missing.</li>
+    <li>If it's in the portal, it's true. If it isn't, it isn't official.</li>
+  </ul>
+</div>
+
+<h2 id="what-design-system-documentation-is-for">What design system documentation is for</h2>
+<p>Docs decide adoption. A component nobody can find, or can't work out how to use, doesn't exist: people will build their own. Documentation is the shop window of the system and its main support channel, the thing that answers questions when the system team isn't in the room.</p>
+<p class="scenario-t">An illustration: seven places to check, zero answers</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>An engineer wants to know whether the old modal is being retired. The answer might be in the wiki, the Figma file, Storybook, the release notes, a Slack thread or the roadmap spreadsheet.</p></div>
+  <div><span class="k">What goes wrong</span><p>The wiki says one thing, a three-month-old thread says another. The engineer asks in the channel, waits a day, and builds with the old modal anyway.</p></div>
+  <div><span class="k">What one home changes</span><p>The modal's page says: "Deprecated: removed in 6.0 (March). Use Dialog. Migration guide →". One place, one answer, always current.</p></div>
+</div>
+
+<h2 id="who-reads-it-and-what-they-re-looking-for">Who reads it, and what they're looking for</h2>
+<div class="cols4">
+  <div class="cell"><span class="k">DESIGNERS</span><p>Which component fits this problem? What are the variants? What should the words say? Where's the Figma component?</p></div>
+  <div class="cell"><span class="k">ENGINEERS</span><p>How do I install and import it? What are the props? How does it handle focus and keyboard? What changed in this version?</p></div>
+  <div class="cell"><span class="k">PRODUCT MANAGERS</span><p>Does something already exist for this? How do I request something new? When will it be ready?</p></div>
+  <div class="cell"><span class="k">NEWCOMERS</span><p>Where do I start? What do I need to know in my first week? Who do I ask?</p></div>
+</div>
+<p>Notice how few of these questions are about design philosophy. Essays have a place, on a separate page for people who want them, but the pages people use daily should be short, consistent and scannable.</p>
+
+<h2 id="the-component-page-template">The component page template</h2>
+<p>Every component gets the same nine sections, in the same order. Consistency is the feature: after reading two pages, people know exactly where to look on the third.</p>
+<figure class="w-fig">
+  <div class="anat">
+    <div class="anat-nav"><b>Components</b><span>Alert</span><span>Badge</span><span style="color:var(--accent)">Button</span><span>Card</span><span>Checkbox</span><span>Dialog</span><span>Menu</span><span>Select</span><span>Tabs</span><span>Text field</span></div>
+    <div class="anat-main">
+      <div class="hi"><i>1</i><b>Summary</b><span>What it is and when to use it. One or two sentences.</span></div>
+      <div class="hi"><i>2</i><b>When not to use it</b><span>What to use instead, and when. Two or three bullets.</span></div>
+      <div><i>3</i><b>Live examples</b><span>Every variant and state, interactive.</span></div>
+      <div><i>4</i><b>Anatomy</b><span>One labelled diagram; part names match tokens and Figma layers.</span></div>
+      <div><i>5</i><b>How to build with it</b><span>Copyable code, a props table, a link to the Figma component.</span></div>
+      <div><i>6</i><b>Accessibility</b><span>Keyboard and screen reader behaviour; what the product team must add.</span></div>
+      <div><i>7</i><b>Writing</b><span>What the words should say, with examples.</span></div>
+      <div><i>8</i><b>Do's and don'ts</b><span>Two to four visual pairs of correct and incorrect use.</span></div>
+      <div><i>9</i><b>Status and history</b><span>Beta, stable or deprecated; a short changelog.</span></div>
+    </div>
+  </div>
+  <figcaption>The nine sections of a component page. Sections 1 and 2 are highlighted because they answer the question people arrive with: is this the right component?</figcaption>
+</figure>
+
+<h3>1–2. Summary, and when not to use it</h3>
+<p>Start with what the component is for, in plain words: "Buttons start an action, such as saving a form or opening a dialog." Then, immediately, what to use instead in the cases people get wrong: "To go to another page, use a link. For a choice between options, use a radio group or a segmented control." This section prevents more misuse than any review.</p>
+<h3>3–4. Live examples and anatomy</h3>
+<p>Show every variant and state in a live, interactive example, rendered by the real component code, not a screenshot. Then one labelled anatomy diagram. Use the same part names everywhere: in the diagram, in token names (<code>button.primary.label.color</code>) and in Figma layer names.</p>
+<h3>5. How to build with it</h3>
+<pre><code><span class="k">import</span> { Button } <span class="k">from</span> <span class="s">"@acme/ui"</span>;
+
+&lt;Button variant=<span class="s">"primary"</span> size=<span class="s">"md"</span> onClick={save}&gt;Save changes&lt;/Button&gt;</code></pre>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>variant</code></td><td><code>"primary" | "secondary" | "ghost" | "danger"</code></td><td><code>"secondary"</code></td><td>Visual emphasis. One primary button per view.</td></tr>
+    <tr><td><code>size</code></td><td><code>"sm" | "md" | "lg"</code></td><td><code>"md"</code></td><td>Height and padding. Use <code>sm</code> only in dense tables.</td></tr>
+    <tr><td><code>loading</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Shows a spinner, keeps the width, announces "Loading" to screen readers.</td></tr>
+    <tr><td><code>disabled</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Prefer explaining why an action isn't available over disabling it.</td></tr>
+  </tbody>
+</table></div></div>
+<p>The same options should exist in Figma with the same names. If the Figma component has a "Style" property and the code has <code>variant</code>, somebody will translate them wrong.</p>
+<h3>6. Accessibility</h3>
+<p>A short checklist, split into what the component handles and what the product team must still do. For a button: the component provides focus styles, keyboard activation with Enter and Space, and a minimum target size; the team must give icon-only buttons an accessible name and must not use a button to navigate.</p>
+<h3>7–8. Writing, and do's and don'ts</h3>
+<p>One or two lines on what the words should say ("Start with a verb: Save, Send, Delete. Say what will happen.") with examples, then two to four visual pairs. Pictures of wrong use teach faster than paragraphs about right use.</p>
+<h3>9. Status and history</h3>
+<p>A status label (proposed, beta, stable, deprecated) that matches the label in Figma and in code, and a short changelog linking to release notes. Beta and deprecated are the two labels teams most often skip, and the two that build the most trust.</p>
+
+<h2 id="foundations-patterns-and-guidelines-pages">Foundations, patterns and guidelines pages</h2>
+<p>Components aren't the only pages. Three other kinds matter:</p>
+<div class="cols3">
+  <div class="cell"><h3>Token pages</h3><p>Every token with its value in each theme, a swatch or preview, its purpose and an example. <b style="color:var(--text)">Generate them from the token source</b> so they're never out of date. See <a href="/writing/design-tokens">design tokens</a>.</p></div>
+  <div class="cell"><h3>Pattern pages</h3><p>How components combine to solve a recurring problem: forms, tables, empty states, errors. Include the evidence behind the pattern, as the GOV.UK Design System does.</p></div>
+  <div class="cell"><h3>Content guidelines</h3><p>Voice, vocabulary and message formulas: how to write errors, confirmations and empty states consistently.</p></div>
+</div>
+
+<h2 id="structuring-the-portal">Structuring the portal</h2>
+<p>A single source of truth doesn't mean everything lives in one tool. Figma files stay in Figma and code in the repository. It means one front door that everyone knows, which links to everything else and says what's current. Organise it by the questions people arrive with:</p>
+<figure class="w-fig">
+  <div class="cols3">
+    <div class="cell"><span class="k">GET STARTED</span><p>For designers · For engineers · For PMs · Learning paths</p></div>
+    <div class="cell"><span class="k">FOUNDATIONS</span><p>Principles · Colour · Type · Spacing · Layout · Motion · Icons</p></div>
+    <div class="cell"><span class="k">TOKENS</span><p>Every token, every theme, generated from source</p></div>
+    <div class="cell cell--light"><span class="k" style="color:var(--signal-600)">COMPONENTS</span><p>A–Z and by group, one template</p></div>
+    <div class="cell"><span class="k">PATTERNS &amp; CONTENT</span><p>Forms, tables, feedback · Voice and vocabulary</p></div>
+    <div class="cell"><span class="k">ENGINEERING</span><p>Install · Theming · Testing · Migration guides</p></div>
+    <div class="cell"><span class="k">CONTRIBUTE</span><p>Request something · Contribute · Review process</p></div>
+    <div class="cell cell--light"><span class="k" style="color:var(--signal-600)">UPDATES</span><p>Release notes · Roadmap · Deprecations and breaking changes</p></div>
+    <div class="cell"><span class="k">SUPPORT &amp; COMMUNITY</span><p>Office hours · FAQ · Owners · Channels</p></div>
+  </div>
+  <figcaption>A portal structure that works for most teams. <span class="ev ev--prac">Practitioner view</span> "Get started" splits by role, and "Updates" is always one click away, because "what's changed?" is one of the most common questions.</figcaption>
+</figure>
+<p>A startup's version might be three of these on a single page. An enterprise's has all of them. The home page should answer "what's new and where do I go?": the latest release and any upcoming breaking change, quick links by role, search front and centre, and the next office hours.</p>
+
+<h2 id="tools-storybook-zeroheight-supernova-or-custom">Tools: Storybook, zeroheight, Supernova or custom</h2>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Approach</th><th>Good for</th><th>Watch out for</th></tr></thead>
+  <tbody>
+    <tr><td><a href="https://storybook.js.org/" target="_blank" rel="noopener">Storybook</a></td><td>Live component examples and props tables generated from code; engineers</td><td>On its own it's weak for design guidance, patterns and content</td></tr>
+    <tr><td>Documentation platforms (zeroheight, Supernova, Knapsack and others)</td><td>Combining Figma, code examples and written guidance quickly, without building a site</td><td>Cost per seat; another tool to keep in sync</td></tr>
+    <tr><td>Custom docs site</td><td>Full control; live components; generated token pages</td><td>Needs engineering time to build and maintain</td></tr>
+    <tr><td>A wiki or Notion</td><td>A startup's first page</td><td>No live examples; drifts from the real components fast</td></tr>
+  </tbody>
+</table></div></div>
+<p>Many teams combine two: Storybook for live, generated component examples, embedded in a documentation platform or custom site that holds the guidance. Whatever you choose, it must render the real components, not pictures of them.</p>
+
+<h2 id="keeping-docs-current">Keeping docs current</h2>
+<p>An out-of-date portal is worse than none: people learn not to trust it. Four habits keep it accurate:</p>
+<ol class="w-steps">
+  <li><h3>Docs are part of done</h3><p>A component isn't released until its page is complete. Add a build check that fails when a public component has no page.</p></li>
+  <li><h3>Generate what you can</h3><p>Token values, props tables and live examples should come from the source, never be typed by hand.</p></li>
+  <li><h3>Give every page an owner and a review date</h3><p>Show "Last reviewed" on the page. Track pages past their review date as a metric.</p></li>
+  <li><h3>Listen to search</h3><p>Searches with no results are a to-do list. So are repeated questions in office hours: each one should become a docs or FAQ entry.</p></li>
+</ol>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Docs decide adoption: write for the five minutes before a deadline.</li>
+  <li>Use one nine-section template for every component; lead with what it's for and when not to use it.</li>
+  <li>Render real components, generate token and props tables, and keep names identical in Figma, code and docs.</li>
+  <li>One front door, organised by the questions people arrive with; updates always one click away.</li>
+  <li>Make docs part of done, give pages owners and review dates, and treat failed searches as a backlog.</li>
+</ul></div>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>What tool should we use for design system documentation?</summary><div><p>Whatever renders your real components and is easy for both designers and engineers to edit. Storybook plus a documentation platform or a custom site is the most common combination.</p></div></details>
+  <details><summary>Should design and code documentation live together?</summary><div><p>Yes, on one page per component. Separate design and code docs drift apart, and the reader has to merge them in their head.</p></div></details>
+  <details><summary>How do you keep docs up to date?</summary><div><p>Make a complete page part of the definition of done, generate everything you can from source, and give each page an owner and a review date.</p></div></details>
+  <details><summary>What should a component documentation page include?</summary><div><p>Summary, when not to use it, live examples, anatomy, how to build with it, accessibility, writing, do's and don'ts, and status and history.</p></div></details>
+  <details><summary>How long should a component page be?</summary><div><p>As short as it can be while answering those nine questions. Most good pages can be skimmed in two minutes.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://design-system.service.gov.uk/patterns/" target="_blank" rel="noopener">GOV.UK Design System patterns</a><span>Consistent pages with research behind each one.</span></li>
+  <li><a href="https://atlassian.design/foundations/tokens/design-tokens" target="_blank" rel="noopener">Atlassian Design System</a><span>A clear, well-structured public portal.</span></li>
+  <li><a href="https://storybook.js.org/" target="_blank" rel="noopener">Storybook</a><span>A frontend workshop for building and documenting components.</span></li>
+  <li><a href="https://zeroheight.com/how-we-document" target="_blank" rel="noopener">How we document</a><span>zeroheight's Design Systems Report.</span></li>
+</ul>
+</div>
+  <aside class="post-author" aria-label="About the author">
+    <img src="../assets/studio/aniket.jpg" alt="Aniket Pandey" width="72" height="72" loading="lazy">
+    <div><b>Aniket Pandey</b><p>Founder of Layer One, a design systems studio in Bangalore. Built and ran design systems as an employee at <a href="/experience">CARS24, IBM and JPMorgan Chase</a>: tokens, components, governance and the teams behind them. <a href="/studio">More about the studio</a>.</p></div>
+  </aside>
+  <aside class="post-cta"><div><h2>Not sure where your system stands?</h2><p>A two-week audit maps every style, component and token you have in Figma and code, checks accessibility, and gives you a ranked plan. $1,500, fixed.</p></div><div class="btn-row"><a class="pill pill--accent" href="/pricing">See pricing</a><a class="pill" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a></div></aside>
+  <nav class="series-nav" aria-label="Building one series"><a class="sn-prev" href="/writing/design-system-audit"><span>Previous in Building one</span><b>How to run a design system audit (with an interface inventory method)</b></a><a class="sn-next" href="/writing#series"><span>You finished Building one</span><b>Pick another series</b></a></nav>
+  <h2 class="label">keep reading:</h2>
+  <div class="cards2"><a class="wcard" href="/writing/design-system-contribution-model"><div class="m"><img src="../assets/images/writing/design-system-contribution-model.w1200.webp" alt="" loading="lazy" width="1600" height="900" srcset="../assets/images/writing/design-system-contribution-model.w480.webp 480w, ../assets/images/writing/design-system-contribution-model.w800.webp 800w, ../assets/images/writing/design-system-contribution-model.w1200.webp 1200w, ../assets/images/writing/design-system-contribution-model.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></div><h3>Design system contribution model</h3><span>Governance · 8 min</span></a><a class="wcard" href="/writing/how-to-build-a-design-system"><div class="m"><img src="../assets/images/writing/how-to-build-a-design-system.w1200.webp" alt="" loading="lazy" width="1600" height="900" srcset="../assets/images/writing/how-to-build-a-design-system.w480.webp 480w, ../assets/images/writing/how-to-build-a-design-system.w800.webp 800w, ../assets/images/writing/how-to-build-a-design-system.w1200.webp 1200w, ../assets/images/writing/how-to-build-a-design-system.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></div><h3>How to build a design system</h3><span>Building a system · 11 min</span></a></div>
+</article></main></div><script src="../assets/site.js?v=ba3edd5c" defer></script>
+</body>
+</html>

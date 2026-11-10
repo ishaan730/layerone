@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design System Audit: How to Run an Interface Inventory | Layer One</title>
+<meta name="description" content="Screenshot, group, count and prioritise every button, field and colour in your product. A step-by-step UI audit that ends in a ranked plan, not a slide.">
+<meta property="og:title" content="Design System Audit: How to Run an Interface Inventory | Layer One">
+<meta property="og:description" content="Screenshot, group, count and prioritise every button, field and colour in your product. A step-by-step UI audit that ends in a ranked plan, not a slide.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-09">
+<meta property="article:modified_time" content="2026-11-09">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="Building a system">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/design-system-audit.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Design System Audit: How to Run an Interface Inventory | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css?v=394ba543">
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Design System Audit: How to Run an Interface Inventory", "description": "Screenshot, group, count and prioritise every button, field and colour in your product. A step-by-step UI audit that ends in a ranked plan, not a slide.", "image": "https://www.layerone.co.in/assets/images/writing/design-system-audit.jpg", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "mainEntityOfPage": "https://www.layerone.co.in/writing/design-system-audit", "wordCount": 1744, "articleSection": "Building a system", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "Building a system", "item": "https://www.layerone.co.in/writing/topics/building"}, {"@type": "ListItem", "position": 3, "name": "How to run a design system audit (with an interface inventory method)", "item": "https://www.layerone.co.in/writing/design-system-audit"}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/design-system-audit">
+<meta property="og:url" content="https://www.layerone.co.in/writing/design-system-audit">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Design System Audit: How to Run an Interface Inventory | Layer One">
+<meta name="twitter:description" content="Screenshot, group, count and prioritise every button, field and colour in your product. A step-by-step UI audit that ends in a ranked plan, not a slide.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/design-system-audit.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<div class="shell"><aside class="side" aria-label="Studio">
+    <nav class="side-nav" aria-label="On this page"><a href="/writing">← All writing</a><a href="#what-is-a-design-system-audit">What is a design system audit?</a><a href="#what-you-ll-need">What you'll need</a><a href="#the-audit-step-by-step">The audit, step by step</a><a href="#what-a-good-audit-report-contains">What a good audit report contains</a><a href="#turning-the-audit-into-a-business-case">Turning the audit into a business case</a><a href="#common-audit-mistakes">Common audit mistakes</a><a href="#the-short-version">The short version</a><a href="#frequently-asked-questions">Frequently asked questions</a><a href="#further-reading">Further reading</a></nav>
+    <a class="side-card side-card--bar" href="/contact"><span>Start a project</span><svg viewBox="0 0 34 14" fill="none" aria-hidden="true"><path d="M1 7h31M26 1l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <p class="side-blurb">Layer One is a design systems studio in Bangalore, India.<br>Led by Aniket Pandey.</p>
+    <div class="wordmark"><svg viewBox="0 0 300 182" role="img" aria-label="Layer One"><g transform="translate(10 10)" opacity="0.35" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="none" stroke="currentColor" stroke-width="1.4">LAYER</text><text x="4" y="164" fill="none" stroke="currentColor" stroke-width="1.4">ONE</text></g><g transform="translate(5 5)" opacity="0.6" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="none" stroke="currentColor" stroke-width="1.4">LAYER</text><text x="4" y="164" fill="none" stroke="currentColor" stroke-width="1.4">ONE</text></g><g transform="translate(0 0)" opacity="1" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="currentColor">LAYER</text><text x="4" y="164" fill="currentColor">ONE</text></g><g transform="translate(222 100) scale(.62)"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></g></svg></div>
+    <div class="side-foot">
+      <ul><li><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">linkedin</a></li><li><a href="https://x.com/LayeroneStudios" target="_blank" rel="noopener">x</a></li><li><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">medium</a></li></ul>
+      <a href="mailto:layerone@proton.me">layerone@proton.me</a>
+    </div>
+  </aside><main id="main" class="content">
+<article class="post">
+  <header class="post-head">
+    <p class="crumb small muted"><a href="/writing">Writing</a> / <a href="/writing/topics/building">Building a system</a></p>
+    <a class="post-series" href="/writing#building-one"><b>Building one</b>&nbsp;· Part 2 of 3</a>
+    <h1 class="post-title">How to run a design system audit (with an interface inventory method)</h1>
+    <p class="post-dek">An audit shows you what you really have: how many buttons, how many blues, which screens drift. Done well, it ends in a ranked plan and a number leadership understands. Here's the method, step by step.</p>
+    <div class="post-meta"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40" loading="lazy"><div><b>By Aniket Pandey</b><span>8 min read · Published 9 November 2026</span></div></div>
+    <div class="post-cover"><img src="../assets/images/writing/design-system-audit.w1200.webp" alt="" width="1600" height="900" srcset="../assets/images/writing/design-system-audit.w480.webp 480w, ../assets/images/writing/design-system-audit.w800.webp 800w, ../assets/images/writing/design-system-audit.w1200.webp 1200w, ../assets/images/writing/design-system-audit.jpg 1600w" sizes="(max-width: 1280px) 100vw, 1240px" decoding="async"></div>
+  </header>
+  <details class="post-toc"><summary>In this article</summary><ol><li><a href="#what-is-a-design-system-audit">What is a design system audit?</a></li><li><a href="#what-you-ll-need">What you'll need</a></li><li><a href="#the-audit-step-by-step">The audit, step by step</a></li><li><a href="#what-a-good-audit-report-contains">What a good audit report contains</a></li><li><a href="#turning-the-audit-into-a-business-case">Turning the audit into a business case</a></li><li><a href="#common-audit-mistakes">Common audit mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+  <div class="post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>A <b>design system audit</b> (or interface inventory) is a structured look at everything your product's interface is made of: every button, input, message, colour, text style and spacing value, in design files and in code. You screenshot it, group near-duplicates, count the variations, check accessibility, and rank what to fix first. Done well, it takes about two weeks and ends in a ranked plan and a handful of "before" numbers leadership understands.</p>
+  <ul>
+    <li>Audit 15–25 key screens across every product and platform; you don't need every screen to see the pattern.</li>
+    <li>Count in code as well as design. The code is where the real duplication lives.</li>
+    <li>Run it with designers and engineers together. People who find the seven buttons themselves become the system's supporters.</li>
+  </ul>
+</div>
+
+<h2 id="what-is-a-design-system-audit">What is a design system audit?</h2>
+<p>An audit answers one question: <em>what do we actually have?</em> Not what the style guide says, not what the Figma library contains, but what's live in production and in the code that builds it.</p>
+<p>Brad Frost popularised the method as an <b>interface inventory</b> in 2013: screenshot every instance of every interface element, group them by type, and look at them side by side. The differences jump out immediately. We extend it in two directions that matter for planning a design system: counting what's in the code, and turning what you find into a ranked plan.</p>
+<p>You need an audit when you're about to start a design system, when an existing one has lost trust, before a rebrand or dark mode, or when you need to make the case for investment. It's also the first thing we do in any engagement, because every later decision depends on it.</p>
+
+<h2 id="what-you-ll-need">What you'll need</h2>
+<div class="cols3">
+  <div class="cell"><span class="k">PEOPLE</span><p>One or two designers and one engineer for most of two weeks, plus an hour each from product leads for the walkthrough. Ideally someone who can run accessibility checks.</p></div>
+  <div class="cell"><span class="k">ACCESS</span><p>Production (and staging) for every product and platform in scope, the main design files, and read access to the front-end repositories.</p></div>
+  <div class="cell"><span class="k">TOOLS</span><p>A shared board (FigJam, Miro or a Figma page), a spreadsheet for counts, a code search tool, and a browser accessibility checker.</p></div>
+</div>
+
+<h2 id="the-audit-step-by-step">The audit, step by step</h2>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>1 · Scope</b><span>Pick 15–25 screens</span></div><i>→</i>
+    <div><b>2 · Capture</b><span>Screenshot by category</span></div><i>→</i>
+    <div><b>3 · Group</b><span>Near-duplicates side by side</span></div><i>→</i>
+    <div><b>4 · Count</b><span>Design and code</span></div><i>→</i>
+    <div><b>5 · Check</b><span>Accessibility and foundations</span></div><i>→</i>
+    <div class="hi"><b>6 · Rank</b><span>Frequency × pain</span></div><i>→</i>
+    <div><b>7 · Share</b><span>Walk people through it</span></div>
+  </div>
+  <figcaption>Seven steps over about two weeks. Steps 2–5 can run in parallel between designers and engineers.</figcaption>
+</figure>
+
+<h3>Step 1: Pick your scope</h3>
+<p>Choose the 15–25 screens that matter most, by traffic, revenue or importance, across every product and platform: web, mobile web, iOS, Android, admin tools. Include at least one form-heavy flow, one data-heavy screen (a table or dashboard) and one empty or error state. These are where inconsistency hides.</p>
+<h3>Step 2: Capture everything, by category</h3>
+<p>Screenshot every instance of each kind of element and paste them onto one board per category. Categories that almost always reveal something:</p>
+<div class="cols4">
+  <div class="cell"><h4>Actions</h4><p>Buttons, links, icon buttons, menus</p></div>
+  <div class="cell"><h4>Inputs</h4><p>Text fields, selects, checkboxes, radios, toggles, date pickers</p></div>
+  <div class="cell"><h4>Feedback</h4><p>Alerts, toasts, inline errors, empty states, loaders</p></div>
+  <div class="cell"><h4>Containers</h4><p>Cards, dialogs, drawers, tabs, accordions</p></div>
+  <div class="cell"><h4>Data</h4><p>Tables, lists, badges, tags, charts</p></div>
+  <div class="cell"><h4>Navigation</h4><p>Headers, side navigation, breadcrumbs, pagination</p></div>
+  <div class="cell"><h4>Foundations</h4><p>Colours, text styles, spacing, radii, shadows, icons</p></div>
+  <div class="cell"><h4>Content</h4><p>Button labels, error messages, dates, numbers</p></div>
+</div>
+<h3>Step 3: Group the near-duplicates</h3>
+<p>Within each board, put things that are <em>meant</em> to be the same next to each other. Five primary buttons with slightly different heights, radii and blues; four ways to show an error; three date pickers. Don't judge yet, just group. The visual comparison does the persuading for you.</p>
+<h3>Step 4: Count, in design and in code</h3>
+<p>This is the step most audits skip, and the one that makes yours useful. For each category, record:</p>
+<ul>
+  <li><b>How many different versions</b> exist in production.</li>
+  <li><b>How many implementations</b> exist in code: separate button components, separate modal components, copy-pasted variants.</li>
+  <li><b>How many raw values</b> are in the code: search the repositories for hex codes, <code>rgb()</code> values and pixel sizes typed directly into styles.</li>
+  <li><b>How often each component is used</b>: count imports or instances in code and in design files.</li>
+</ul>
+<pre><code><span class="c"># Rough but useful: distinct hex colours in the front-end code</span>
+grep -rhoiE <span class="s">'#[0-9a-f]{6}\b|#[0-9a-f]{3}\b'</span> src/ | tr <span class="s">'A-F'</span> <span class="s">'a-f'</span> | sort | uniq -c | sort -rn | head -40
+
+<span class="c"># How many different button components exist?</span>
+grep -rlE <span class="s">'(export (default )?function|const) \w*Button\b'</span> src/ | wc -l</code></pre>
+<p>These counts are imperfect, and that's fine. You're looking for orders of magnitude: "eleven border greys" and "four modal implementations" are what leadership remembers.</p>
+<h3>Step 5: Check accessibility and foundations</h3>
+<p>Run an automated checker on each screen in scope and record the issues by type. Then check the foundations directly:</p>
+<ul class="checklist">
+  <li>Text and background pairs meet WCAG 2.2 contrast: 4.5:1 for body text, 3:1 for large text, borders and focus indicators.</li>
+  <li>Every interactive element shows a visible focus state and can be reached with a keyboard.</li>
+  <li>Form fields have visible labels, and errors say what went wrong and how to fix it.</li>
+  <li>Touch targets are at least 24 by 24 CSS pixels (WCAG 2.2, 2.5.8), and ideally 44 or more on mobile.</li>
+  <li>Text still works when users enlarge it to 200% and increase line and letter spacing.</li>
+</ul>
+<p>Accessibility issues found in shared-looking components are the strongest argument for a design system: fix them once in the system, and they're fixed everywhere it's used. WebAIM's 2025 scan found low-contrast text on 79.1% of the top million home pages, so expect to find some.</p>
+<h3>Step 6: Rank what to fix first</h3>
+<p>Now combine two pieces of information for each component: how often it's used, and how much trouble it causes (versions, bugs, accessibility issues, time spent rebuilding or debating it).</p>
+<figure class="w-fig">
+  <div class="m2x2">
+    <div class="ax ay">more trouble ↑</div>
+    <div class="mq md"><b>Plan next</b><span>Painful but rare: date picker, file upload</span></div>
+    <div class="mq hi"><b>Build first</b><span>Used everywhere and inconsistent: button, field, select, alert, dialog</span></div>
+    <div class="mq"><b>Leave alone</b><span>Rare and fine: keep local until a second team needs it</span></div>
+    <div class="mq"><b>Quick tidy</b><span>Used everywhere, mostly fine: links, badges, avatars</span></div>
+    <span></span><div class="ax ax-x">used more often →</div>
+  </div>
+  <figcaption>The audit's main output: a ranked list. Top right first. Most teams' first ten components land there.</figcaption>
+</figure>
+<h3>Step 7: Share it, in person</h3>
+<p>Walk leadership and product teams through the boards. Don't send a PDF. Seeing seven primary buttons on one wall is the fastest way to build shared understanding, and it's when people start asking "so what do we do?", which is exactly the question you want.</p>
+
+<h2 id="what-a-good-audit-report-contains">What a good audit report contains</h2>
+<p>Keep it short. The boards do the persuading; the report records the decisions.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">1 · THE NUMBERS</span><p>Five or six headline counts: button versions, raw colour values, modal implementations, accessibility issues by severity, text styles in use.</p></div>
+  <div class="cell"><span class="k">2 · THE BOARDS</span><p>One image per category showing the near-duplicates side by side.</p></div>
+  <div class="cell"><span class="k">3 · THE RANKING</span><p>Every component plotted on the 2×2, with the first ten to build named.</p></div>
+  <div class="cell"><span class="k">4 · THE PLAN</span><p>What to do in the next 90 days: foundations, first components, pilot team, owner. With rough effort in FTE-weeks.</p></div>
+</div>
+<div class="stats">
+  <div><b>11</b><span>border greys</span></div>
+  <div><b>7</b><span>primary buttons</span></div>
+  <div><b>5</b><span>text field styles</span></div>
+  <div><b>4</b><span>ways to show an error</span></div>
+</div>
+<p class="small muted" style="font-size:14px">Example headline numbers from a fictional audit. <span class="ev ev--ill">Illustration</span> Your numbers will differ; their shape usually won't.</p>
+
+<h2 id="turning-the-audit-into-a-business-case">Turning the audit into a business case</h2>
+<p>Counts become a business case when you connect them to time and risk. Three simple translations work well:</p>
+<ol class="w-steps">
+  <li><h3>Duplication → maintenance cost</h3><p>Four modal implementations means four places to fix every bug and four to update in a rebrand. Ask engineers how long the last cross-cutting change took.</p></li>
+  <li><h3>Accessibility issues → risk</h3><p>If you sell to enterprises or the public sector, or operate in the EU under the European Accessibility Act, issues in shared components are a compliance exposure, not just a quality problem.</p></li>
+  <li><h3>Raw values → change cost</h3><p>Hundreds of hard-coded colours means a rebrand or dark mode is a rewrite. Tokens turn it into a configuration change. See <a href="/writing/design-tokens">design tokens</a>.</p></li>
+</ol>
+<p>Be careful with speed claims. Published studies show real gains on specific tasks, but they're best cases. We've written an honest model, with break-even points by team size, in <a href="/writing/design-system-roi">design system ROI</a>.</p>
+
+<h2 id="common-audit-mistakes">Common audit mistakes</h2>
+<div class="cols2">
+  <div class="cell"><h3>Auditing only Figma</h3><p>Design files show intentions. Production and code show reality. The gap between them is often the most important finding.</p></div>
+  <div class="cell"><h3>Auditing every screen</h3><p>You'll spend weeks and learn little more than you would from 20 well-chosen screens.</p></div>
+  <div class="cell"><h3>Doing it alone</h3><p>A solo audit produces a report people feel judged by. A team audit produces supporters.</p></div>
+  <div class="cell"><h3>Stopping at the inventory</h3><p>Boards without a ranking and a 90-day plan are interesting, not useful. Always end with what to build first.</p></div>
+</div>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Scope 15–25 key screens; capture every element by category; group near-duplicates.</li>
+  <li>Count in code as well as design: versions, implementations, raw values, usage.</li>
+  <li>Check accessibility and foundations; issues in shared components are the strongest case for a system.</li>
+  <li>Rank by frequency × trouble; build the top-right components first.</li>
+  <li>Share it in person, as a team, and end with a 90-day plan.</li>
+</ul></div>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>How long does a UI audit take?</summary><div><p>About two weeks for most product companies with one to three products, with one or two designers and an engineer. A single-product startup can do a lighter version in a few days.</p></div></details>
+  <details><summary>Who should be involved?</summary><div><p>Designers and engineers together, with product leads joining for the walkthrough. Engineers are essential for the code counts, which are often the most revealing numbers.</p></div></details>
+  <details><summary>Can a design system audit be automated?</summary><div><p>Parts of it. Code searches for raw values, import counts, Figma library analytics and automated accessibility checkers all help. Grouping near-duplicates and ranking them still needs people.</p></div></details>
+  <details><summary>What's the difference between a UX audit and a UI audit?</summary><div><p>A UX audit looks at whether people can complete their tasks: flows, findability, friction. A UI or design system audit looks at what the interface is made of and how consistent it is. They complement each other.</p></div></details>
+  <details><summary>How often should we audit?</summary><div><p>A full audit before starting or restarting a system, then a lighter check every quarter: raw values, detached components and new one-off patterns.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://bradfrost.com/blog/post/interface-inventory/" target="_blank" rel="noopener">Interface Inventory</a><span>Brad Frost. The original method.</span></li>
+  <li><a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noopener">WCAG 2.2</a><span>W3C. The accessibility standard to check against.</span></li>
+  <li><a href="https://webaim.org/projects/million/2025" target="_blank" rel="noopener">The WebAIM Million, 2025</a><span>WebAIM. What the most common accessibility failures are.</span></li>
+  <li><a href="/work/cars24-internal-tools">CARS24: one design system for 30+ internal tools</a><span>A system that started with an audit of 20+ tools.</span></li>
+</ul>
+</div>
+  <aside class="post-author" aria-label="About the author">
+    <img src="../assets/studio/aniket.jpg" alt="Aniket Pandey" width="72" height="72" loading="lazy">
+    <div><b>Aniket Pandey</b><p>Founder of Layer One, a design systems studio in Bangalore. Built and ran design systems as an employee at <a href="/experience">CARS24, IBM and JPMorgan Chase</a>: tokens, components, governance and the teams behind them. <a href="/studio">More about the studio</a>.</p></div>
+  </aside>
+  <aside class="post-cta"><div><h2>Not sure where your system stands?</h2><p>A two-week audit maps every style, component and token you have in Figma and code, checks accessibility, and gives you a ranked plan. $1,500, fixed.</p></div><div class="btn-row"><a class="pill pill--accent" href="/pricing">See pricing</a><a class="pill" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a></div></aside>
+  <nav class="series-nav" aria-label="Building one series"><a class="sn-prev" href="/writing/how-to-build-a-design-system"><span>Previous in Building one</span><b>How to build a design system</b></a><a class="sn-next" href="/writing/design-system-documentation"><span>Next in Building one</span><b>Design system documentation</b></a></nav>
+  <h2 class="label">keep reading:</h2>
+  <div class="cards2"><a class="wcard" href="/writing/how-to-build-a-design-system"><div class="m"><img src="../assets/images/writing/how-to-build-a-design-system.w1200.webp" alt="" loading="lazy" width="1600" height="900" srcset="../assets/images/writing/how-to-build-a-design-system.w480.webp 480w, ../assets/images/writing/how-to-build-a-design-system.w800.webp 800w, ../assets/images/writing/how-to-build-a-design-system.w1200.webp 1200w, ../assets/images/writing/how-to-build-a-design-system.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></div><h3>How to build a design system</h3><span>Building a system · 11 min</span></a><a class="wcard" href="/writing/do-you-need-a-design-system"><div class="m"><img src="../assets/images/writing/do-you-need-a-design-system.w1200.webp" alt="" loading="lazy" width="1600" height="900" srcset="../assets/images/writing/do-you-need-a-design-system.w480.webp 480w, ../assets/images/writing/do-you-need-a-design-system.w800.webp 800w, ../assets/images/writing/do-you-need-a-design-system.w1200.webp 1200w, ../assets/images/writing/do-you-need-a-design-system.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></div><h3>Do you need a design system? A decision guide for startups and growing teams</h3><span>Fundamentals · 11 min</span></a></div>
+</article></main></div><script src="../assets/site.js?v=ba3edd5c" defer></script>
+</body>
+</html>

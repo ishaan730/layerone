@@ -16,7 +16,7 @@ Direction for every page lives in `.claude/skills/layer-one-site/SKILL.md` (Hex 
 | `studio.html` | About the studio and founder |
 | `pricing.html` | Pricing (`services.html` redirects here) |
 | `lab.html` | Free tools: palette, contrast, type scale, spacing, token name linter, request backlog, export kit |
-| `writing.html` (`/writing`), `blog-librarian-vs-leader.html` | Writing |
+| `writing.html` (`/writing`), `writing/*.html`, `writing/topics/*.html` | Writing library: hub (series, topics, archive), 16 articles and 6 topic pages, built by `tools/build/writing.py`; article bodies in `tools/build/content/writing/`, covers by `tools/covers/writing_art.py` |
 | `404.html`, `sitemap.xml`, `robots.txt` | Not-found page with the best work, sitemap, robots (built by `extras.py`) |
 | `contact.html` | Project enquiry (validated form that opens an email draft) |
 

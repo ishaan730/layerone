@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dark Mode Design Tokens: A Step-by-Step Guide | Layer One</title>
+<meta name="description" content="Build dark mode by swapping semantic tokens, not redesigning screens. A worked example with checked contrast ratios, naming rules and the common traps.">
+<meta property="og:title" content="Dark Mode Design Tokens: A Step-by-Step Guide | Layer One">
+<meta property="og:description" content="Build dark mode by swapping semantic tokens, not redesigning screens. A worked example with checked contrast ratios, naming rules and the common traps.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-09">
+<meta property="article:modified_time" content="2026-11-09">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="Foundations & tokens">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/dark-mode-design-tokens.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Dark Mode Design Tokens: A Step-by-Step Guide | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css?v=394ba543">
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Dark Mode Design Tokens: A Step-by-Step Guide", "description": "Build dark mode by swapping semantic tokens, not redesigning screens. A worked example with checked contrast ratios, naming rules and the common traps.", "image": "https://www.layerone.co.in/assets/images/writing/dark-mode-design-tokens.jpg", "datePublished": "2026-11-09", "dateModified": "2026-11-09", "mainEntityOfPage": "https://www.layerone.co.in/writing/dark-mode-design-tokens", "wordCount": 1775, "articleSection": "Foundations & tokens", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "Foundations & tokens", "item": "https://www.layerone.co.in/writing/topics/foundations-and-tokens"}, {"@type": "ListItem", "position": 3, "name": "Dark mode with design tokens", "item": "https://www.layerone.co.in/writing/dark-mode-design-tokens"}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/dark-mode-design-tokens">
+<meta property="og:url" content="https://www.layerone.co.in/writing/dark-mode-design-tokens">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Dark Mode Design Tokens: A Step-by-Step Guide | Layer One">
+<meta name="twitter:description" content="Build dark mode by swapping semantic tokens, not redesigning screens. A worked example with checked contrast ratios, naming rules and the common traps.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/dark-mode-design-tokens.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<div class="shell"><aside class="side" aria-label="Studio">
+    <nav class="side-nav" aria-label="On this page"><a href="/writing">← All writing</a><a href="#why-dark-mode-breaks-without-semantic-tokens">Why dark mode breaks without semantic tokens</a><a href="#primitive-vs-semantic-colour-tokens">Primitive vs semantic colour tokens</a><a href="#step-1-name-colours-by-their-job">Step 1: Name colours by their job</a><a href="#step-2-and-3-map-light-mode-then-dark-mode">Step 2 and 3: Map light mode, then dark mode</a><a href="#step-4-check-every-pair-for-contrast">Step 4: Check every pair for contrast</a><a href="#step-5-ship-it-as-modes">Step 5: Ship it as modes</a><a href="#things-that-break-in-dark-mode">Things that break in dark mode</a><a href="#beyond-dark-mode-brands-density-and-white-label">Beyond dark mode: brands, density and white-label</a><a href="#the-short-version">The short version</a><a href="#frequently-asked-questions">Frequently asked questions</a><a href="#further-reading">Further reading</a></nav>
+    <a class="side-card side-card--bar" href="/contact"><span>Start a project</span><svg viewBox="0 0 34 14" fill="none" aria-hidden="true"><path d="M1 7h31M26 1l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <p class="side-blurb">Layer One is a design systems studio in Bangalore, India.<br>Led by Aniket Pandey.</p>
+    <div class="wordmark"><svg viewBox="0 0 300 182" role="img" aria-label="Layer One"><g transform="translate(10 10)" opacity="0.35" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="none" stroke="currentColor" stroke-width="1.4">LAYER</text><text x="4" y="164" fill="none" stroke="currentColor" stroke-width="1.4">ONE</text></g><g transform="translate(5 5)" opacity="0.6" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="none" stroke="currentColor" stroke-width="1.4">LAYER</text><text x="4" y="164" fill="none" stroke="currentColor" stroke-width="1.4">ONE</text></g><g transform="translate(0 0)" opacity="1" font-family="Schibsted Grotesk, sans-serif" font-weight="800" font-size="92" letter-spacing="-4"><text x="4" y="80" fill="currentColor">LAYER</text><text x="4" y="164" fill="currentColor">ONE</text></g><g transform="translate(222 100) scale(.62)"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></g></svg></div>
+    <div class="side-foot">
+      <ul><li><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">linkedin</a></li><li><a href="https://x.com/LayeroneStudios" target="_blank" rel="noopener">x</a></li><li><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">medium</a></li></ul>
+      <a href="mailto:layerone@proton.me">layerone@proton.me</a>
+    </div>
+  </aside><main id="main" class="content">
+<article class="post">
+  <header class="post-head">
+    <p class="crumb small muted"><a href="/writing">Writing</a> / <a href="/writing/topics/foundations-and-tokens">Foundations & tokens</a></p>
+    <a class="post-series" href="/writing#tokens-in-practice"><b>Tokens in practice</b>&nbsp;· Part 3 of 3</a>
+    <h1 class="post-title">Dark mode with design tokens: a step-by-step guide using semantic tokens</h1>
+    <p class="post-dek">Dark mode isn't a second design. It's a second set of answers to the same questions: what's the background, what's the text, what's the action? Set those answers up as semantic tokens and the whole product switches at once.</p>
+    <div class="post-meta"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40" loading="lazy"><div><b>By Aniket Pandey</b><span>8 min read · Published 9 November 2026</span></div></div>
+    <div class="post-cover"><img src="../assets/images/writing/dark-mode-design-tokens.w1200.webp" alt="" width="1600" height="900" srcset="../assets/images/writing/dark-mode-design-tokens.w480.webp 480w, ../assets/images/writing/dark-mode-design-tokens.w800.webp 800w, ../assets/images/writing/dark-mode-design-tokens.w1200.webp 1200w, ../assets/images/writing/dark-mode-design-tokens.jpg 1600w" sizes="(max-width: 1280px) 100vw, 1240px" decoding="async"></div>
+  </header>
+  <details class="post-toc"><summary>In this article</summary><ol><li><a href="#why-dark-mode-breaks-without-semantic-tokens">Why dark mode breaks without semantic tokens</a></li><li><a href="#primitive-vs-semantic-colour-tokens">Primitive vs semantic colour tokens</a></li><li><a href="#step-1-name-colours-by-their-job">Step 1: Name colours by their job</a></li><li><a href="#step-2-and-3-map-light-mode-then-dark-mode">Step 2 and 3: Map light mode, then dark mode</a></li><li><a href="#step-4-check-every-pair-for-contrast">Step 4: Check every pair for contrast</a></li><li><a href="#step-5-ship-it-as-modes">Step 5: Ship it as modes</a></li><li><a href="#things-that-break-in-dark-mode">Things that break in dark mode</a></li><li><a href="#beyond-dark-mode-brands-density-and-white-label">Beyond dark mode: brands, density and white-label</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+  <div class="post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>To build dark mode with design tokens, name every colour by its <b>job</b> (<code>bg.canvas</code>, <code>text.primary</code>, <code>action.primary.bg</code>) as semantic tokens, make every component use only those names, then give each name a second value for dark mode. Check every text and background pair for contrast in both modes. The components don't change at all; only the token values do.</p>
+  <ul>
+    <li>Dark mode is not inverted light mode. Surfaces get <em>lighter</em> as they rise, and accents usually move to lighter, softer steps.</li>
+    <li>Avoid pure black backgrounds and pure white text; both make reading harder.</li>
+    <li>The bug you'll hit first is a component that used a raw colour or a primitive. Lint for it.</li>
+  </ul>
+</div>
+
+<h2 id="why-dark-mode-breaks-without-semantic-tokens">Why dark mode breaks without semantic tokens</h2>
+<p>Most teams discover their colour problem the day someone asks for dark mode. The estimate is "two sprints". Then engineering searches the code and finds hundreds of colour values typed directly into styles, many of them nearly identical greys. Nothing says which grey is text and which is a border, so nothing can be switched. Two sprints become two quarters.</p>
+<p>The fix is a layer of names between the colours and the components. If a card's background is <code>bg.surface</code> rather than <code>#F3F7FE</code>, then dark mode only has to answer one question: what should <code>bg.surface</code> be in the dark? Answer that for every semantic token, and every screen switches at once.</p>
+
+<h2 id="primitive-vs-semantic-colour-tokens">Primitive vs semantic colour tokens</h2>
+<p>Two tiers of colour tokens do two different jobs. (The full explanation, with a third optional tier, is in our <a href="/writing/design-tokens">design tokens guide</a>.)</p>
+<div class="cols2">
+  <div class="cell"><span class="k">PRIMITIVE</span><h3>The paint</h3><p>Every step of every colour ramp, named by what it is: <code>neutral.50</code>, <code>neutral.950</code>, <code>brand.700</code>. These never change between modes. Components never use them.</p></div>
+  <div class="cell" style="outline:1.5px solid var(--accent)"><span class="k">SEMANTIC</span><h3>The job</h3><p>Names for purposes: <code>bg.canvas</code>, <code>text.secondary</code>, <code>feedback.danger.bg</code>. Each points to a primitive, and <b>that pointer is what changes</b> between light and dark.</p></div>
+</div>
+
+<h2 id="step-1-name-colours-by-their-job">Step 1: Name colours by their job</h2>
+<p>List every distinct job colour does in your interface. Most products need a surprisingly small set, grouped by role:</p>
+<div class="cols4">
+  <div class="cell"><span class="k">BACKGROUNDS</span><p><code>bg.canvas</code>, <code>bg.surface</code>, <code>bg.subtle</code>: the page, raised surfaces, quiet fills.</p></div>
+  <div class="cell"><span class="k">TEXT</span><p><code>text.primary</code>, <code>text.secondary</code>, <code>text.disabled</code>, <code>text.link</code>.</p></div>
+  <div class="cell"><span class="k">BORDERS &amp; FOCUS</span><p><code>border.default</code>, <code>border.strong</code>, <code>focus.ring</code>.</p></div>
+  <div class="cell"><span class="k">ACTION &amp; FEEDBACK</span><p><code>action.primary.*</code>, <code>feedback.danger.*</code>, <code>feedback.success.*</code>.</p></div>
+</div>
+<p>Resist creating a semantic token for every screen ("checkout header background"). If a new name doesn't describe a job that several components share, it's a component token or a one-off, not a semantic token.</p>
+
+<h2 id="step-2-and-3-map-light-mode-then-dark-mode">Step 2 and 3: Map light mode, then dark mode</h2>
+<p>For each semantic token, choose a primitive for light mode and a primitive for dark mode. Here's the full set from our playbook, built on an OKLCH palette:</p>
+<figure class="w-fig "><div class="w-tbl"><table><thead><tr><th>Semantic token</th><th>Light mode</th><th>Dark mode</th></tr></thead><tbody><tr><td><code>bg.canvas</code></td><td><span class="chip" style="background:#f3f7fe"></span><code>neutral.50</code></td><td><span class="chip" style="background:#1e232c"></span><code>neutral.950</code></td></tr><tr><td><code>bg.surface</code></td><td><span class="chip" style="background:#f3f7fe"></span><code>neutral.50</code></td><td><span class="chip" style="background:#30363f"></span><code>neutral.900</code></td></tr><tr><td><code>bg.subtle</code></td><td><span class="chip" style="background:#e6edf9"></span><code>neutral.100</code></td><td><span class="chip" style="background:#434953"></span><code>neutral.800</code></td></tr><tr><td><code>border.default</code></td><td><span class="chip" style="background:#d2dae5"></span><code>neutral.200</code></td><td><span class="chip" style="background:#595f69"></span><code>neutral.700</code></td></tr><tr><td><code>border.strong</code></td><td><span class="chip" style="background:#878e99"></span><code>neutral.500</code></td><td><span class="chip" style="background:#878e99"></span><code>neutral.500</code></td></tr><tr><td><code>text.primary</code></td><td><span class="chip" style="background:#1e232c"></span><code>neutral.950</code></td><td><span class="chip" style="background:#f3f7fe"></span><code>neutral.50</code></td></tr><tr><td><code>text.secondary</code></td><td><span class="chip" style="background:#595f69"></span><code>neutral.700</code></td><td><span class="chip" style="background:#bcc3ce"></span><code>neutral.300</code></td></tr><tr><td><code>text.disabled</code></td><td><span class="chip" style="background:#a1a8b3"></span><code>neutral.400</code></td><td><span class="chip" style="background:#707681"></span><code>neutral.600</code></td></tr><tr><td><code>text.link</code></td><td><span class="chip" style="background:#065db4"></span><code>blue.700</code></td><td><span class="chip" style="background:#8ec6ff"></span><code>blue.300</code></td></tr><tr><td><code>action.primary.bg</code></td><td><span class="chip" style="background:#ab2800"></span><code>brand.700</code></td><td><span class="chip" style="background:#ff7951"></span><code>brand.400</code></td></tr><tr><td><code>action.primary.bg-hover</code></td><td><span class="chip" style="background:#861b00"></span><code>brand.800</code></td><td><span class="chip" style="background:#ffa384"></span><code>brand.300</code></td></tr><tr><td><code>action.primary.text</code></td><td><span class="chip" style="background:#f3f7fe"></span><code>neutral.50</code></td><td><span class="chip" style="background:#1e232c"></span><code>neutral.950</code></td></tr><tr><td><code>feedback.danger.text</code></td><td><span class="chip" style="background:#b3081d"></span><code>red.700</code></td><td><span class="chip" style="background:#ffa198"></span><code>red.300</code></td></tr><tr><td><code>feedback.danger.bg</code></td><td><span class="chip" style="background:#ffe1dc"></span><code>red.100</code></td><td><span class="chip" style="background:#67080f"></span><code>red.900</code></td></tr><tr><td><code>feedback.success.text</code></td><td><span class="chip" style="background:#007628"></span><code>green.700</code></td><td><span class="chip" style="background:#84d997"></span><code>green.300</code></td></tr><tr><td><code>feedback.success.bg</code></td><td><span class="chip" style="background:#d9f6de"></span><code>green.100</code></td><td><span class="chip" style="background:#004315"></span><code>green.900</code></td></tr><tr><td><code>focus.ring</code></td><td><span class="chip" style="background:#1c75d6"></span><code>blue.600</code></td><td><span class="chip" style="background:#5eaaff"></span><code>blue.400</code></td></tr></tbody></table></div><figcaption>Seventeen semantic colour tokens and the primitive each one points to in light and dark mode. Components only ever use the left column.</figcaption></figure>
+<p>Read down the dark column and you'll see the rules most good dark themes follow:</p>
+<ol class="w-steps">
+  <li><h3>Don't use pure black</h3><p>The dark canvas is <code>neutral.950</code> (#1E232C), not #000000. Pure black makes light text appear to glow and smear, especially for people with astigmatism, and leaves no room below it for shadows or depth.</p></li>
+  <li><h3>Raise surfaces by making them lighter</h3><p>In light mode, shadows show elevation. In the dark, shadows barely show, so raised surfaces get lighter instead: canvas <code>neutral.950</code>, surface <code>neutral.900</code>, subtle <code>neutral.800</code>. Material Design uses the same idea.</p></li>
+  <li><h3>Soften the text</h3><p>Primary text is <code>neutral.50</code>, a very light, slightly cool grey, rather than pure white. Contrast stays very high (14.67:1) without the glare.</p></li>
+  <li><h3>Move accents to lighter steps</h3><p>The primary action moves from <code>brand.700</code> to <code>brand.400</code>, and links from <code>blue.700</code> to <code>blue.300</code>. Dark accents that work on white disappear into a dark background.</p></li>
+  <li><h3>Flip feedback fills</h3><p>Error and success backgrounds move from pale tints (<code>red.100</code>) to deep tones (<code>red.900</code>), and their text from dark to light, so alerts stay readable without glowing.</p></li>
+</ol>
+<p>Here's what that does to a real piece of interface. Same component, same code, two sets of answers:</p>
+<figure class="w-fig "><div class="tm-pair"><div class="tm" style="background:#f3f7fe;color:#1e232c;border-color:#d2dae5"><p class="tm-k" style="color:#595f69">light mode</p><p class="tm-h">Invoice #2041</p><p style="color:#595f69">Due 12 March · 3 items</p><div class="tm-alert" style="background:#ffe1dc;color:#b3081d">Payment overdue by 4 days</div><div class="tm-row"><span class="tm-btn" style="background:#ab2800;color:#f3f7fe">Pay now</span><span style="color:#065db4;text-decoration:underline">View details</span></div></div><div class="tm" style="background:#1e232c;color:#f3f7fe;border-color:#595f69"><p class="tm-k" style="color:#bcc3ce">dark mode</p><p class="tm-h">Invoice #2041</p><p style="color:#bcc3ce">Due 12 March · 3 items</p><div class="tm-alert" style="background:#67080f;color:#ffa198">Payment overdue by 4 days</div><div class="tm-row"><span class="tm-btn" style="background:#ff7951;color:#1e232c">Pay now</span><span style="color:#8ec6ff;text-decoration:underline">View details</span></div></div></div><figcaption>The same card, the same component code, two sets of answers. Only the semantic tokens change between the two.</figcaption></figure>
+
+<h2 id="step-4-check-every-pair-for-contrast">Step 4: Check every pair for contrast</h2>
+<p>A dark theme is only finished when every text and background pairing passes, in both modes. WCAG 2.2 asks for 4.5:1 for body text (1.4.3) and 3:1 for meaningful non-text elements like input borders and focus rings (1.4.11). Check pairs, not colours: a token is only "accessible" in relation to what it sits on.</p>
+<figure class="w-fig "><div class="w-tbl"><table><thead><tr><th>Use</th><th>Pair</th><th class="r">Needs</th><th class="r">Light</th><th class="r">Dark</th></tr></thead><tbody><tr><td>Body text</td><td><code>text.primary</code> on <code>bg.canvas</code></td><td class="r">4.5:1</td><td class="r">14.67:1 <span class="ok">Pass</span></td><td class="r">14.67:1 <span class="ok">Pass</span></td></tr><tr><td>Secondary text</td><td><code>text.secondary</code> on <code>bg.canvas</code></td><td class="r">4.5:1</td><td class="r">5.99:1 <span class="ok">Pass</span></td><td class="r">8.89:1 <span class="ok">Pass</span></td></tr><tr><td>Links</td><td><code>text.link</code> on <code>bg.canvas</code></td><td class="r">4.5:1</td><td class="r">6.05:1 <span class="ok">Pass</span></td><td class="r">8.76:1 <span class="ok">Pass</span></td></tr><tr><td>Primary button label</td><td><code>action.primary.text</code> on <code>action.primary.bg</code></td><td class="r">4.5:1</td><td class="r">6.44:1 <span class="ok">Pass</span></td><td class="r">6.09:1 <span class="ok">Pass</span></td></tr><tr><td>Error message</td><td><code>feedback.danger.text</code> on <code>feedback.danger.bg</code></td><td class="r">4.5:1</td><td class="r">5.74:1 <span class="ok">Pass</span></td><td class="r">6.68:1 <span class="ok">Pass</span></td></tr><tr><td>Success message</td><td><code>feedback.success.text</code> on <code>feedback.success.bg</code></td><td class="r">4.5:1</td><td class="r">5.02:1 <span class="ok">Pass</span></td><td class="r">6.81:1 <span class="ok">Pass</span></td></tr><tr><td>Input border (non-text)</td><td><code>border.strong</code> on <code>bg.canvas</code></td><td class="r">3:1</td><td class="r">3.07:1 <span class="ok">Pass</span></td><td class="r">4.77:1 <span class="ok">Pass</span></td></tr><tr><td>Focus ring (non-text)</td><td><code>focus.ring</code> on <code>bg.canvas</code></td><td class="r">3:1</td><td class="r">4.28:1 <span class="ok">Pass</span></td><td class="r">6.51:1 <span class="ok">Pass</span></td></tr><tr><td>Disabled text (exempt)</td><td><code>text.disabled</code> on <code>bg.canvas</code></td><td class="r">exempt</td><td class="r">2.23:1 </td><td class="r">3.45:1 </td></tr></tbody></table></div><figcaption>Every pairing that matters, checked in both modes against WCAG 2.2: 4.5:1 for text (1.4.3) and 3:1 for borders and focus rings (1.4.11). Disabled text is exempt under WCAG, but we still keep it readable.</figcaption></figure>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>Put the pairs table in your documentation and in an automated test. When someone proposes a new token value, the test tells them which pairs would fail before the change ships. The <a href="/lab">Lab</a> has a free contrast checker with a pair matrix if you want to try this on your own palette.</p></div>
+
+<h2 id="step-5-ship-it-as-modes">Step 5: Ship it as modes</h2>
+<p>On the web, the cleanest implementation is CSS custom properties with the semantic layer overridden per theme. Let users choose, default to their system setting, and remember the choice:</p>
+<pre><code><span class="k">:root</span> {
+  --bg-canvas: var(--neutral-50);
+  --text-primary: var(--neutral-950);
+  --action-primary-bg: var(--brand-700);
+  color-scheme: light;
+}
+<span class="c">/* Follow the system unless the user picked a theme */</span>
+<span class="k">@media (prefers-color-scheme: dark)</span> {
+  <span class="k">:root:not([data-theme="light"])</span> {
+    --bg-canvas: var(--neutral-950);
+    --text-primary: var(--neutral-50);
+    --action-primary-bg: var(--brand-400);
+    color-scheme: dark;
+  }
+}
+<span class="k">[data-theme="dark"]</span> { <span class="c">/* the same overrides, for an explicit choice */</span> }</code></pre>
+<p>Setting <code>color-scheme</code> matters more than it looks: it tells the browser to draw scrollbars, form controls and the default page background in the matching theme, so there's no white flash while the page loads.</p>
+<p>In Figma, the same structure becomes a semantic variable collection with two modes, light and dark. Designers switch a whole frame between modes to check their work, exactly as the product will.</p>
+
+<h2 id="things-that-break-in-dark-mode">Things that break in dark mode</h2>
+<div class="cols2">
+  <div class="cell"><h3>One component that used a primitive</h3><p>Every screen switches except the date picker, whose selected day stays bright orange on white, because it used <code>brand.700</code> directly. Lint for primitives and raw values in component code.</p></div>
+  <div class="cell"><h3>Images and illustrations</h3><p>Logos, illustrations with white backgrounds and screenshots need dark variants or a transparent background. Plan them as assets, not afterthoughts.</p></div>
+  <div class="cell"><h3>Charts</h3><p>Data colours tuned for white often lose contrast on dark. Give charts their own semantic tokens (<code>chart.series.1</code>…) with dark values checked against the dark surface.</p></div>
+  <div class="cell"><h3>Shadows</h3><p>Dark shadows on dark surfaces vanish. Use lighter surfaces for elevation, and a subtle border where separation matters.</p></div>
+  <div class="cell"><h3>Third-party embeds</h3><p>Maps, payment forms and chat widgets often ignore your theme. Check whether they support a dark mode parameter, and test them.</p></div>
+  <div class="cell"><h3>Hard-coded colours in content</h3><p>Rich text from a CMS with inline colours will fight your theme. Strip inline colours or map them to tokens on the way in.</p></div>
+</div>
+
+<h2 id="beyond-dark-mode-brands-density-and-white-label">Beyond dark mode: brands, density and white-label</h2>
+<p>Once your components only use semantic tokens, dark mode is just the first theme. The same structure supports:</p>
+<ul>
+  <li><b>High contrast:</b> stronger borders and text, for users who need them.</li>
+  <li><b>Multiple brands:</b> a different primitive palette behind the same semantic names.</li>
+  <li><b>White-labelled products:</b> a client's palette mapped into your semantic layer, with contrast checks run on their values before release.</li>
+  <li><b>Density:</b> the same trick for spacing and control heights.</li>
+</ul>
+<p>At IBM, the Riyadh Air design system drew 71 components in English and Arabic, light and dark: four versions of every component, all from one set of semantic decisions. <a href="/work/ibm-riyadh-air">See the case study</a>.</p>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Name colours by job as semantic tokens; components use only those names.</li>
+  <li>Give each semantic token a dark value. Don't invert: lighter surfaces for elevation, lighter accents, softer text, no pure black.</li>
+  <li>Check every pair for contrast in both modes, and automate the check.</li>
+  <li>Ship as CSS custom properties with <code>prefers-color-scheme</code>, an explicit user choice and <code>color-scheme</code>.</li>
+  <li>The same structure gives you high contrast, brands and white-label for free.</li>
+</ul></div>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Should dark mode just invert colours?</summary><div><p>No. Inverting turns shadows into glows, makes accents too dark to read, and flips the logic of elevation. Dark mode is a separate set of choices for the same jobs.</p></div></details>
+  <details><summary>How many semantic colour tokens do I need?</summary><div><p>Fewer than you think. The set in this article has 17 and covers most of a typical product. Large systems often have 40–60, mostly for feedback states, data visualisation and specific surfaces.</p></div></details>
+  <details><summary>How do I handle elevation in dark mode?</summary><div><p>Make raised surfaces lighter rather than relying on shadows: canvas, then surface, then subtle, each a step lighter. Add a faint border where two surfaces at similar levels meet.</p></div></details>
+  <details><summary>Do images and charts need dark tokens?</summary><div><p>Charts, yes: give each data series a semantic token with a checked dark value. Images need dark-friendly variants or transparent backgrounds, managed as assets.</p></div></details>
+  <details><summary>Should dark mode follow the system setting?</summary><div><p>Yes by default, using <code>prefers-color-scheme</code>, with an explicit choice in settings that overrides it and is remembered.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html" target="_blank" rel="noopener">Understanding 1.4.3: Contrast (Minimum)</a><span>W3C. The 4.5:1 text contrast requirement.</span></li>
+  <li><a href="https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html" target="_blank" rel="noopener">Understanding 1.4.11: Non-text Contrast</a><span>W3C. The 3:1 requirement for borders, icons and focus indicators.</span></li>
+  <li><a href="https://m3.material.io/styles/color/system/how-the-system-works" target="_blank" rel="noopener">Material 3 colour system</a><span>Google. Colour roles that map neatly to semantic tokens.</span></li>
+  <li><a href="https://www.carbondesignsystem.com/elements/themes/overview/" target="_blank" rel="noopener">Carbon themes</a><span>IBM. Four themes from one set of tokens.</span></li>
+  <li><a href="/writing/oklch-color-palette">How to build an accessible colour palette in OKLCH</a><span>The palette behind every value in this article.</span></li>
+</ul>
+</div>
+  <aside class="post-author" aria-label="About the author">
+    <img src="../assets/studio/aniket.jpg" alt="Aniket Pandey" width="72" height="72" loading="lazy">
+    <div><b>Aniket Pandey</b><p>Founder of Layer One, a design systems studio in Bangalore. Built and ran design systems as an employee at <a href="/experience">CARS24, IBM and JPMorgan Chase</a>: tokens, components, governance and the teams behind them. <a href="/studio">More about the studio</a>.</p></div>
+  </aside>
+  <aside class="post-cta"><div><h2>Try it on your own values</h2><p>The Lab has free tools for this: OKLCH palettes, contrast checks, type and spacing scales, a token name linter and an export kit for CSS, Tailwind and DTCG JSON.</p></div><div class="btn-row"><a class="pill pill--accent" href="/lab">Open the Lab</a><a class="pill" href="/pricing">See pricing</a></div></aside>
+  <nav class="series-nav" aria-label="Tokens in practice series"><a class="sn-prev" href="/writing/oklch-color-palette"><span>Previous in Tokens in practice</span><b>How to build an accessible colour palette in OKLCH</b></a><a class="sn-next" href="/writing#series"><span>You finished Tokens in practice</span><b>Pick another series</b></a></nav>
+  <h2 class="label">keep reading:</h2>
+  <div class="cards2"><a class="wcard" href="/writing/design-tokens"><div class="m"><img src="../assets/images/writing/design-tokens.w1200.webp" alt="" loading="lazy" width="1600" height="900" srcset="../assets/images/writing/design-tokens.w480.webp 480w, ../assets/images/writing/design-tokens.w800.webp 800w, ../assets/images/writing/design-tokens.w1200.webp 1200w, ../assets/images/writing/design-tokens.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></div><h3>Design tokens</h3><span>Foundations & tokens · 10 min</span></a><a class="wcard" href="/writing/oklch-color-palette"><div class="m"><img src="../assets/images/writing/oklch-color-palette.w1200.webp" alt="" loading="lazy" width="1600" height="900" srcset="../assets/images/writing/oklch-color-palette.w480.webp 480w, ../assets/images/writing/oklch-color-palette.w800.webp 800w, ../assets/images/writing/oklch-color-palette.w1200.webp 1200w, ../assets/images/writing/oklch-color-palette.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></div><h3>How to build an accessible colour palette in OKLCH</h3><span>Foundations & tokens · 10 min</span></a></div>
+</article></main></div><script src="../assets/site.js?v=ba3edd5c" defer></script>
+</body>
+</html>
