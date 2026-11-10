@@ -1,0 +1,115 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>A <b>multi-brand design system</b> shares one core (behaviour, accessibility, component structure and the names of semantic tokens) and lets each brand vary its <b>values</b>: palette hues, fonts, corner radius, imagery and voice. A new brand becomes a new set of token values, not a new system. Platforms work the same way: one token source, translated for web, iOS and Android, with components built natively. At large scale, one system becomes a <b>family</b>: a shared core with specialised systems on top.</p>
+  <ul>
+    <li>Share what should be the same; make what should differ easy to differ.</li>
+    <li>Design the first components against your two most different brands at once.</li>
+    <li>Fund the shared core centrally, or it becomes nobody's job.</li>
+  </ul>
+</div>
+
+<h2>What changes when you scale</h2>
+<p>Scaling a design system isn't "the same thing, bigger". New kinds of difference appear: brands that must look different, platforms that must feel native, and business units with their own priorities and budgets. Each one tempts teams to start their own system.</p>
+<p class="scenario-t">An illustration: one group, three brands, three systems</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>A financial group runs a bank, an insurer and a lending app. Each brand has its own design team, and each built its own design system.</p></div>
+  <div><span class="k">What goes wrong</span><p>Three date pickers, three accessibility fixes, three token pipelines. When a regulation changes how fees must be shown, it's implemented three times, differently.</p></div>
+  <div><span class="k">Scaling well</span><p>One shared core (behaviour, accessibility, structure, foundations) with a brand layer on top. Each brand still looks like itself; the hard work is done once.</p></div>
+</div>
+
+<h2>What to share and what to vary</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Layer</th><th>Shared across brands</th><th>Varies by brand</th></tr></thead>
+  <tbody>
+    <tr><td>Behaviour</td><td>Keyboard use, focus, announcements, validation logic</td><td class="dim">Nothing</td></tr>
+    <tr><td>Structure</td><td>Component anatomy, props, patterns</td><td>Rarely; only through agreed extensions</td></tr>
+    <tr><td>Semantic tokens</td><td>The names of the jobs</td><td>Which values the names point to</td></tr>
+    <tr><td>Colour</td><td>The lightness curve and contrast rules</td><td>Brand hues, sometimes neutral tints</td></tr>
+    <tr><td>Typography</td><td>The roles and accessibility rules</td><td>Font families, sometimes the scale</td></tr>
+    <tr><td>Shape and motion</td><td>The token names</td><td>Corner rounding, shadows, animation style</td></tr>
+    <tr><td>Imagery and voice</td><td>Accessibility rules</td><td>Illustration, photography, tone of voice</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Behaviour and structure are almost always shared. Identity varies, in controlled ways, through token values.</figcaption></figure>
+<p>The key move is that brands change <b>values, not names</b>. Every brand has <code>color.action.primary.bg</code>; each points it to its own palette. Because the lightness curve is shared, each brand's colours meet the same <a href="/writing/color-contrast-design-system">contrast rules</a> automatically, even when their hues are completely different.</p>
+
+<h2>How brand tokens work</h2>
+<figure class="w-fig">
+  <div class="tiers">
+    <div class="tier"><span class="k">Brand palettes</span><b>Primitives per brand</b><p>Each brand has its own ramps on the shared lightness curve.</p><code><span class="sw2" style="background:#ab2800"></span>bank.brand.700</code><code><span class="sw2" style="background:#065db4"></span>insure.brand.700</code></div>
+    <i>→</i>
+    <div class="tier" style="outline:1.5px solid var(--accent)"><span class="k">Shared semantic layer</span><b>Same names, every brand</b><p>Each brand maps the shared job names to its own primitives.</p><code>action.primary.bg</code><code>text.link</code></div>
+    <i>→</i>
+    <div class="tier"><span class="k">Shared components</span><b>Built once</b><p>Components only read semantic (or component) tokens, so they restyle themselves.</p><code>Button · Input · Dialog</code></div>
+  </div>
+  <figcaption>A brand is a set of values plugged into a shared structure. Optional component tokens let one brand restyle a specific component without forking it.</figcaption>
+</figure>
+<p>Component tokens (<code>button.primary.container.radius</code>) are where multi-brand systems usually need them: one brand wants pill-shaped buttons and square cards, another the reverse. See <a href="/writing/design-token-naming-conventions">token naming</a> for how to keep those names consistent.</p>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>Test with the most different brand first. Design the first components against your two most different brands at once, not one brand and then the other. It's much easier to find the right flexibility points while building than to add them afterwards.</p></div>
+
+<h2>Several platforms from one source</h2>
+<p>Web, iOS and Android each have their own conventions. A good multi-platform system respects them while keeping the brand recognisably the same.</p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>One source</b><span>Token files in the DTCG format</span></div><i>→</i>
+    <div><b>Build</b><span>A pipeline such as Style Dictionary translates them</span></div><i>→</i>
+    <div><b>Outputs</b><span>CSS variables · Swift · Kotlin · Figma variables</span></div><i>→</i>
+    <div class="hi"><b>Native components</b><span>Built per platform, same names, props and tokens</span></div>
+  </div>
+</figure>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Decide to…</th><th>Usually</th><th>Examples</th></tr></thead>
+  <tbody>
+    <tr><td>Share</td><td>Brand, foundations, content, component names and purposes</td><td>Colours, voice, "primary button", error message formulas</td></tr>
+    <tr><td>Adapt</td><td>Things with strong platform conventions</td><td>Navigation, date pickers, switches, text sizes, haptics</td></tr>
+    <tr><td>Keep separate</td><td>Things that exist on one platform only</td><td>Widgets, watch faces, desktop keyboard shortcuts</td></tr>
+  </tbody>
+</table></div></div>
+<p>A useful test: would a regular user of this platform be surprised by how this behaves? If yes, adapt to the platform. If no, share it.</p>
+<p>At IBM, the Riyadh Air design system drew 71 components in 13 families, each in English and Arabic, light and dark, for eight or more web and mobile apps built at the same time. <a href="/work/ibm-riyadh-air">See how</a>.</p>
+
+<h2>Families of systems</h2>
+<p>At a certain size, one system can't sensibly hold everything. A bank's customer app, its internal tools and its marketing site have such different needs that forcing them into one library makes it worse for all three. Many large companies arrive at a <b>family of systems</b>:</p>
+<figure class="w-fig">
+  <div class="org">
+    <div class="org-row"><div class="org-n lead"><b>Core</b><span>tokens · base components · accessibility</span></div></div>
+    <div class="org-v"></div>
+    <div class="org-row"><div class="org-n"><b>Customer apps</b><span>mobile patterns, onboarding</span></div><div class="org-n"><b>Internal tools</b><span>dense tables, admin patterns</span></div><div class="org-n"><b>Marketing sites</b><span>page sections, CMS blocks</span></div><div class="org-n"><b>Data products</b><span>charts, data grids</span></div></div>
+  </div>
+  <figcaption>A family of systems. Each specialised system builds on the shared core and is owned by the teams closest to its users.</figcaption>
+</figure>
+<p>Nathan Curtis describes this as tiers below a high-quality core, and Spotify's Encore is a well-known example of bringing many separate systems under one shared structure. At CARS24, a separate system for 30+ internal tools runs alongside the consumer system, sharing the brand's foundations. <a href="/work/cars24-internal-tools">Read the case study</a>.</p>
+
+<h2>Governance and funding across units</h2>
+<ul class="checklist">
+  <li><b>Fund the core centrally.</b> If every business unit pays only for its own needs, the shared core becomes nobody's job.</li>
+  <li><b>Let units own their extensions</b>, built on the core and reviewed against its standards.</li>
+  <li><b>Have a path for absorption:</b> when an extension component proves useful to two or more units, it moves into the core.</li>
+  <li><b>Set cross-unit decisions in one place</b>: a small forum for changes that affect every brand, and the decision-rights matrix for the rest. See <a href="/writing/design-system-governance">governance</a>.</li>
+  <li><b>Measure per brand and per unit:</b> adoption, version spread and the cost of a cross-brand change.</li>
+</ul>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Share behaviour, structure and semantic names; vary token values per brand.</li>
+  <li>A shared lightness curve keeps every brand's colours accessible.</li>
+  <li>One token source, many platform outputs; adapt only where platform users would be surprised.</li>
+  <li>At large scale, use a family: a shared core with specialised systems on top.</li>
+  <li>Fund the core centrally and give extensions a path back into it.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Do I need component tokens for multi-brand?</summary><div><p>Usually yes, for a handful of properties that brands want to differ on, such as radius and button styles. Keep them to what brands genuinely need.</p></div></details>
+  <details><summary>Can brands have different fonts?</summary><div><p>Yes. Share the text roles (heading, body, label) and accessibility rules; let each brand map them to its own font families and, if needed, slightly different sizes.</p></div></details>
+  <details><summary>What about white-label products?</summary><div><p>Treat each client as a brand: map their palette into your semantic layer, then run your contrast tests on their values before release.</p></div></details>
+  <details><summary>When does one system become a family?</summary><div><p>When product types are so different (customer apps, internal tools, marketing) that one library serves all of them badly. Keep a shared core either way.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://medium.com/eightshapes-llc/design-system-tiers-2c827b67eae1" target="_blank" rel="noopener">Design System Tiers</a><span>Nathan Curtis, EightShapes.</span></li>
+  <li><a href="https://spotify.design/article/reimagining-design-systems-at-spotify" target="_blank" rel="noopener">Reimagining Design Systems at Spotify</a><span>Spotify Design, on Encore.</span></li>
+  <li><a href="https://www.carbondesignsystem.com/elements/themes/overview/" target="_blank" rel="noopener">Carbon themes</a><span>IBM. Four themes from one token structure.</span></li>
+  <li><a href="https://styledictionary.com/" target="_blank" rel="noopener">Style Dictionary</a><span>One token source, many platform outputs.</span></li>
+</ul>

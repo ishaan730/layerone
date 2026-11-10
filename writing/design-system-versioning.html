@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design System Versioning and Breaking Changes, Explained | Layer One</title>
+<meta name="description" content="How to version a design system so updates don&#x27;t break products: what counts as breaking, visual breaking changes, deprecation and migration.">
+<meta property="og:title" content="Design System Versioning and Breaking Changes, Explained | Layer One">
+<meta property="og:description" content="How to version a design system so updates don&#x27;t break products: what counts as breaking, visual breaking changes, deprecation and migration.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-11">
+<meta property="article:modified_time" content="2026-11-11">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="Governance">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/design-system-versioning.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Design System Versioning and Breaking Changes, Explained | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css?v=35a137d5">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Design System Versioning and Breaking Changes, Explained", "description": "How to version a design system so updates don't break products: what counts as breaking, visual breaking changes, deprecation and migration.", "image": "https://www.layerone.co.in/assets/images/writing/design-system-versioning.jpg", "datePublished": "2026-11-11", "dateModified": "2026-11-11", "mainEntityOfPage": "https://www.layerone.co.in/writing/design-system-versioning", "wordCount": 1387, "articleSection": "Governance", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "Governance", "item": "https://www.layerone.co.in/writing/topics/governance"}, {"@type": "ListItem", "position": 3, "name": "Design system versioning", "item": "https://www.layerone.co.in/writing/design-system-versioning"}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/design-system-versioning">
+<meta property="og:url" content="https://www.layerone.co.in/writing/design-system-versioning">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Design System Versioning and Breaking Changes, Explained | Layer One">
+<meta name="twitter:description" content="How to version a design system so updates don&#x27;t break products: what counts as breaking, visual breaking changes, deprecation and migration.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/design-system-versioning.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<div class="shell ed-shell"><aside class="ed-rail" aria-label="Writing"><a class="ed-back" href="/writing">← All writing</a><div class="ed-rail-sec"><p class="ed-rail-h">On this page</p><nav class="ed-toc" aria-label="On this page"><ol><li><a href="#why-design-systems-break-products">Why design systems break products</a></li><li><a href="#semantic-versioning-in-plain-words">Semantic versioning, in plain words</a></li><li><a href="#what-counts-as-a-breaking-change">What counts as a breaking change</a></li><li><a href="#release-cadence">Release cadence</a></li><li><a href="#deprecation-retiring-things-gracefully">Deprecation: retiring things gracefully</a></li><li><a href="#migrations-make-switching-cheap">Migrations: make switching cheap</a></li><li><a href="#supporting-old-versions">Supporting old versions</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></nav></div><div class="ed-rail-sec"><p class="ed-rail-h">Running it day to day</p><ol class="ed-steps"><li><a href="/writing/design-system-office-hours">How to run design system office hours people actually use</a></li><li><a href="/writing/design-system-release-notes">Design system release notes and announcements</a></li><li aria-current="step"><a href="/writing/design-system-versioning">Design system versioning</a></li><li><a href="/writing/design-system-champions">Design system champions</a></li><li><a href="/writing/ai-in-design-systems">AI in design systems</a></li></ol></div><div class="ed-rail-foot"><button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="ed-theme-l">Light reading</span><span class="ed-theme-d">Dark reading</span></button></div></aside><main id="main" class="content ed-main"><article class="ed-article">
+  <header class="ed-head">
+    <p class="ed-kicker"><a href="/writing/topics/governance">Governance</a><span>Part 3 of 5 · <a href="/writing#running-it-day-to-day">Running it day to day</a></span></p>
+    <h1 class="ed-title">Design system versioning: semantic versions, breaking changes and deprecation</h1>
+    <p class="ed-dek">Nothing in the code broke, but three products did. Design system releases can break screens through a padding tweak as easily as a renamed prop. How to number versions, decide what's breaking, and retire things without surprising anyone.</p>
+    <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>6 min read · 11 November 2026</span></span></p>
+  </header>
+  <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>Why design systems break products</b></summary><ol><li><a href="#why-design-systems-break-products">Why design systems break products</a></li><li><a href="#semantic-versioning-in-plain-words">Semantic versioning, in plain words</a></li><li><a href="#what-counts-as-a-breaking-change">What counts as a breaking change</a></li><li><a href="#release-cadence">Release cadence</a></li><li><a href="#deprecation-retiring-things-gracefully">Deprecation: retiring things gracefully</a></li><li><a href="#migrations-make-switching-cheap">Migrations: make switching cheap</a></li><li><a href="#supporting-old-versions">Supporting old versions</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="ed-theme-l">Light reading</span><span class="ed-theme-d">Dark reading</span></button></details>
+  <figure class="ed-cover"><img src="../assets/images/writing/design-system-versioning.w1200.webp" alt="" width="1600" height="900" srcset="../assets/images/writing/design-system-versioning.w480.webp 480w, ../assets/images/writing/design-system-versioning.w800.webp 800w, ../assets/images/writing/design-system-versioning.w1200.webp 1200w, ../assets/images/writing/design-system-versioning.jpg 1600w" sizes="(max-width: 1280px) 100vw, 1240px" decoding="async"></figure>
+  <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>Version a design system with <b>semantic versioning</b> (major.minor.patch): <b>patch</b> for fixes that are safe to take, <b>minor</b> for new things that change nothing existing, and <b>major</b> for anything that could make a product look wrong or stop working. In a design system, that includes <b>visual</b> changes, like padding that no longer fits a table row, not just renamed props. Retire old parts by <b>deprecating</b> them first, with a replacement, a migration guide and a notice period, and remove them only in the next major release.</p>
+  <ul>
+    <li>Decide in advance which visual changes count as breaking, and write it down.</li>
+    <li>Announce breaking changes at least one release cycle ahead, ideally four to eight weeks.</li>
+    <li>Track who still uses deprecated parts, and offer a codemod where the change is mechanical.</li>
+  </ul>
+</div>
+
+<h2 id="why-design-systems-break-products">Why design systems break products</h2>
+<p class="scenario-t">An illustration: the Friday padding change</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>The system team gives buttons slightly more rounded corners and a little more padding. It's a small visual tweak, shipped on a Friday as a minor release.</p></div>
+  <div><span class="k">What goes wrong</span><p>On Monday three teams report broken screens: buttons no longer fit in table rows, a toolbar wraps onto two lines, and a checkout button pushes the price off small phones.</p></div>
+  <div><span class="k">What should have happened</span><p>A layout-affecting size change is a major release: announced ahead, with before-and-after screenshots, a beta period and a checklist for teams.</p></div>
+</div>
+<p>Nothing in the code "broke". But the products did. Nathan Curtis wrote a whole article about exactly this: changes to colour, size and spacing can break a product as surely as a change to an API.</p>
+
+<h2 id="semantic-versioning-in-plain-words">Semantic versioning, in plain words</h2>
+<p>Most design systems label releases with a three-part number like <code>4.2.1</code>, following the Semantic Versioning convention. Each number tells teams how careful they need to be when updating.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Which number changes</th><th>What it means for teams</th><th>Design system examples</th></tr></thead>
+  <tbody>
+    <tr><td>Major · 4 → 5</td><td>"Careful: check or change your work."</td><td>A component renamed or removed; a token removed; button sizes changed in a way that affects layouts; a prop renamed.</td></tr>
+    <tr><td>Minor · 4.2 → 4.3</td><td>"New things added; nothing you use should change."</td><td>A new component, a new variant, a new icon, a new optional prop.</td></tr>
+    <tr><td>Patch · 4.2.1 → 4.2.2</td><td>"Fixes only. Safe to update."</td><td>A bug fix; an accessibility fix that doesn't change size or layout; a docs correction.</td></tr>
+  </tbody>
+</table></div></figure>
+
+<h2 id="what-counts-as-a-breaking-change">What counts as a breaking change</h2>
+<p>Code-level breaking changes are well understood: removing a component, renaming or removing a prop, changing a default. Design systems add a second category, which is where most surprises come from.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">CODE BREAKING CHANGES</span><ul>
+    <li>A component, prop or token removed or renamed</li>
+    <li>A prop's default value changed</li>
+    <li>An event or callback changed shape</li>
+    <li>A dependency's major version raised (framework, peer libraries)</li>
+  </ul></div>
+  <div class="cell"><span class="k">VISUAL BREAKING CHANGES</span><ul>
+    <li>Size, padding or height changed in a way that affects layout</li>
+    <li>Typography metrics changed (line height, font, size)</li>
+    <li>A colour change that alters meaning, not just shade</li>
+    <li>A component's outside margin added or removed</li>
+  </ul></div>
+</div>
+<p>Write your own rule list and publish it. A common, workable rule: <b>if a change can move anything around it, it's major</b>. A colour that gets slightly darker inside a fixed space is a minor change, announced. A button that gets 4px taller is major.</p>
+<div class="callout callout--term"><span class="callout-k">New word</span><p>A <b>breaking change</b> is any update that could make something stop working or look wrong in a product, so teams need to check or change their own work before taking it.</p></div>
+
+<h2 id="release-cadence">Release cadence</h2>
+<p>Predictable timing is itself a form of communication. When teams know releases come every other Tuesday and breaking changes are announced at least a release cycle ahead, they can plan.</p>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>What</th><th>When</th></tr></thead>
+  <tbody>
+    <tr><td>Minor and patch releases</td><td>On a regular release day, early in the working week, never late on a Friday</td></tr>
+    <tr><td>Breaking change: first notice</td><td>At least one full release cycle before, ideally 4–8 weeks, with the migration guide ready</td></tr>
+    <tr><td>Breaking change: reminders</td><td>One week before, and on release day</td></tr>
+    <tr><td>Major releases</td><td>Rarely, and bundled: two or three a year beats one a month</td></tr>
+    <tr><td>Critical fixes</td><td>Immediately, as a patch</td></tr>
+  </tbody>
+</table></div></div>
+<p>Bundling matters. Every major release asks every team to stop and check their screens. Group breaking changes into a few planned majors a year, and use the time between them to deprecate.</p>
+
+<h2 id="deprecation-retiring-things-gracefully">Deprecation: retiring things gracefully</h2>
+<p>Sooner or later you'll replace a component. Doing it suddenly breaks things; never doing it leaves two ways to do the same job forever. The healthy middle path:</p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Mark it deprecated</b><span>It still works; docs, Figma and a code warning say "use the new one"</span></div><i>→</i>
+    <div><b>Give a way to switch</b><span>A migration guide; a codemod where the change is mechanical</span></div><i>→</i>
+    <div><b>Track remaining use</b><span>A live count of uses per product, shared with champions</span></div><i>→</i>
+    <div class="hi"><b>Remove in a major</b><span>After the notice period everyone knew about</span></div>
+  </div>
+  <figcaption>Four steps from "please stop using this" to removal. The notice period is announced when the part is deprecated, not when it's removed.</figcaption>
+</figure>
+<p>Use the DTCG format's <code>$deprecated</code> property for tokens, a lifecycle label on documentation pages, and a console warning in development builds for components. Make sure the deprecation shows up wherever people meet the old part.</p>
+
+<h2 id="migrations-make-switching-cheap">Migrations: make switching cheap</h2>
+<ul class="checklist">
+  <li><b>A migration guide</b> with before-and-after code and screenshots for every breaking change.</li>
+  <li><b>A codemod</b>: a script that rewrites code automatically for mechanical changes like renamed props.</li>
+  <li><b>A visual diff</b> of affected components, so teams know what to check.</li>
+  <li><b>Extra office hours</b> in the weeks around a major release.</li>
+  <li><b>A beta</b> of the major version, so a couple of pilot teams can try it first.</li>
+</ul>
+<p class="scenario-t">An illustration: renaming a prop across 600 uses</p>
+<div class="scenario">
+  <div><span class="k">The change</span><p>Button's <code>kind</code> prop is renamed to <code>variant</code>, so every component in the library uses the same word.</p></div>
+  <div><span class="k">The risk</span><p>About 600 uses across seven products. A rename posted once in a busy channel will be missed.</p></div>
+  <div><span class="k">How it ships</span><p><code>variant</code> is added in a minor release alongside <code>kind</code>; <code>kind</code> is deprecated with a codemod; it's removed in the next major, with reminders and extra office hours.</p></div>
+</div>
+<p>That pattern, <b>add the new thing in a minor, deprecate the old, remove in a major</b>, turns most breaking changes into routine maintenance.</p>
+
+<h2 id="supporting-old-versions">Supporting old versions</h2>
+<p>Decide how long a major version is supported after the next one ships. A common policy: the previous major gets critical fixes and security updates for six to twelve months; older versions get nothing. Publish the policy and track version spread: how many products are on each major. If many products are stuck on old versions, your majors are too frequent or too expensive to adopt.</p>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Use semantic versioning: patch for fixes, minor for additions, major for anything that can break a product.</li>
+  <li>Visual changes that move layouts are breaking. Write your rules down.</li>
+  <li>Bundle breaking changes into a few planned majors; announce them four to eight weeks ahead.</li>
+  <li>Add the new in a minor, deprecate the old, remove in a major, with guides and codemods.</li>
+  <li>Publish a support policy for old versions and track version spread.</li>
+</ul></div>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Should design and code share one version number?</summary><div><p>It helps if they release together. Many teams version the code package and tag the Figma library release with the same number, so "4.6" means the same thing in both.</p></div></details>
+  <details><summary>Is a colour change a breaking change?</summary><div><p>Usually not, if it keeps the same meaning and passes contrast. It becomes breaking if it changes meaning (a warning becoming red) or affects layouts or images that depend on it. Announce it either way.</p></div></details>
+  <details><summary>How long should a deprecation period be?</summary><div><p>At least one major release cycle, typically two to six months, depending on how many uses there are and whether a codemod exists.</p></div></details>
+  <details><summary>How often should a design system ship a major version?</summary><div><p>Rarely: one to three times a year is common. Each major asks every team to check their work, so bundle breaking changes.</p></div></details>
+  <details><summary>What's a codemod?</summary><div><p>A script that rewrites code automatically, for example changing every <code>kind=</code> to <code>variant=</code>. It turns a migration from hours of manual work into one command.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://semver.org/" target="_blank" rel="noopener">Semantic Versioning 2.0.0</a><span>The convention behind major.minor.patch.</span></li>
+  <li><a href="https://eightshapes.com/articles/visual-breaking-change-in-design-systems/" target="_blank" rel="noopener">Visual Breaking Change in Design Systems</a><span>Nathan Curtis, EightShapes.</span></li>
+  <li><a href="https://eightshapes.com/articles/versioning-design-systems" target="_blank" rel="noopener">Versioning Design Systems</a><span>Nathan Curtis, part of his series on releasing design systems.</span></li>
+  <li><a href="/writing/design-system-release-notes">Design system release notes: templates</a><span>How to announce each kind of change.</span></li>
+</ul>
+</div>
+  <footer class="ed-end">
+    <div class="ed-author"><img src="../assets/studio/aniket.jpg" alt="" width="56" height="56" loading="lazy"><p><b>Aniket Pandey</b> is the founder of Layer One. He has built and run design systems as an employee at <a href="/experience">CARS24, IBM and JPMorgan Chase</a>.</p></div>
+    <p class="ed-end-k">Next in Running it day to day</p>
+    <div class="ec-grid ec-grid--3"><a class="ec " href="/writing/design-system-champions" data-topic="operations"><span class="ec-m"><img src="../assets/images/writing/design-system-champions.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/design-system-champions.w480.webp 480w, ../assets/images/writing/design-system-champions.w800.webp 800w, ../assets/images/writing/design-system-champions.w1200.webp 1200w, ../assets/images/writing/design-system-champions.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Operating model & teams</span><b class="ec-t">Design system champions</b><span class="ec-d">How to run a design system champions programme and community: what champions do, time and recognition, community sessions and working groups.</span><span class="ec-f">5 min read</span></a><a class="ec " href="/writing/design-system-release-notes" data-topic="operations"><span class="ec-m"><img src="../assets/images/writing/design-system-release-notes.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/design-system-release-notes.w480.webp 480w, ../assets/images/writing/design-system-release-notes.w800.webp 800w, ../assets/images/writing/design-system-release-notes.w1200.webp 1200w, ../assets/images/writing/design-system-release-notes.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Operating model & teams</span><b class="ec-t">Design system release notes and announcements</b><span class="ec-d">How to announce design system changes: channels, timing, and copyable templates for releases, breaking changes, deprecations, token updates and digests.</span><span class="ec-f">6 min read</span></a><a class="ec " href="/writing/design-system-governance" data-topic="governance"><span class="ec-m"><img src="../assets/images/writing/design-system-governance.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/design-system-governance.w480.webp 480w, ../assets/images/writing/design-system-governance.w800.webp 800w, ../assets/images/writing/design-system-governance.w1200.webp 1200w, ../assets/images/writing/design-system-governance.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Governance</span><b class="ec-t">Design system governance: who decides what, and how</b><span class="ec-d">Governance without bureaucracy: decision rights, a lightweight review process, escalation paths and a decision log. How it should change as you grow.</span><span class="ec-f">9 min read · Guide</span></a></div>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Thinking about how your system is run?</h2><p>If you'd like a second opinion on your team or process, a thirty-minute call is a good place to start.</p></div><a href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main></div><script src="../assets/site.js?v=da289b98" defer></script>
+</body>
+</html>

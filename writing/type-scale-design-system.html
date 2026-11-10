@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Type Scale for Design Systems: How to Build One | Layer One</title>
+<meta name="description" content="How to build a type scale: choosing a base and ratio, line height and letter spacing, naming text styles by role, fluid type and accessibility.">
+<meta property="og:title" content="Type Scale for Design Systems: How to Build One | Layer One">
+<meta property="og:description" content="How to build a type scale: choosing a base and ratio, line height and letter spacing, naming text styles by role, fluid type and accessibility.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-11">
+<meta property="article:modified_time" content="2026-11-11">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="Foundations & tokens">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/type-scale-design-system.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Type Scale for Design Systems: How to Build One | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css?v=35a137d5">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Type Scale for Design Systems: How to Build One", "description": "How to build a type scale: choosing a base and ratio, line height and letter spacing, naming text styles by role, fluid type and accessibility.", "image": "https://www.layerone.co.in/assets/images/writing/type-scale-design-system.jpg", "datePublished": "2026-11-11", "dateModified": "2026-11-11", "mainEntityOfPage": "https://www.layerone.co.in/writing/type-scale-design-system", "wordCount": 1491, "articleSection": "Foundations & tokens", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "Foundations & tokens", "item": "https://www.layerone.co.in/writing/topics/foundations-and-tokens"}, {"@type": "ListItem", "position": 3, "name": "How to build a type scale for a design system", "item": "https://www.layerone.co.in/writing/type-scale-design-system"}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/type-scale-design-system">
+<meta property="og:url" content="https://www.layerone.co.in/writing/type-scale-design-system">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Type Scale for Design Systems: How to Build One | Layer One">
+<meta name="twitter:description" content="How to build a type scale: choosing a base and ratio, line height and letter spacing, naming text styles by role, fluid type and accessibility.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/type-scale-design-system.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<div class="shell ed-shell"><aside class="ed-rail" aria-label="Writing"><a class="ed-back" href="/writing">← All writing</a><div class="ed-rail-sec"><p class="ed-rail-h">On this page</p><nav class="ed-toc" aria-label="On this page"><ol><li><a href="#why-a-type-scale">Why a type scale</a></li><li><a href="#step-1-choose-a-base-and-a-ratio">Step 1: Choose a base and a ratio</a></li><li><a href="#step-2-adjust-by-hand">Step 2: Adjust by hand</a></li><li><a href="#step-3-line-height-and-letter-spacing">Step 3: Line height and letter spacing</a></li><li><a href="#step-4-name-text-styles-by-their-job">Step 4: Name text styles by their job</a></li><li><a href="#importance-takes-more-than-size">Importance takes more than size</a></li><li><a href="#step-5-responsive-and-fluid-type">Step 5: Responsive and fluid type</a></li><li><a href="#readable-for-everyone">Readable for everyone</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></nav></div><div class="ed-rail-sec"><p class="ed-rail-h">Foundations in depth</p><ol class="ed-steps"><li><a href="/writing/spacing-system-4px-vs-8px">Spacing systems</a></li><li aria-current="step"><a href="/writing/type-scale-design-system">How to build a type scale for a design system</a></li><li><a href="/writing/color-contrast-design-system">Colour contrast in design systems</a></li></ol></div><div class="ed-rail-foot"><button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="ed-theme-l">Light reading</span><span class="ed-theme-d">Dark reading</span></button></div></aside><main id="main" class="content ed-main"><article class="ed-article">
+  <header class="ed-head">
+    <p class="ed-kicker"><a href="/writing/topics/foundations-and-tokens">Foundations & tokens</a><span>Part 2 of 3 · <a href="/writing#foundations-in-depth">Foundations in depth</a></span></p>
+    <h1 class="ed-title">How to build a type scale for a design system</h1>
+    <p class="ed-dek">If anyone can pick any text size, you end up with 13, 14, 14.5 and 15 pixels and nothing looks related. A type scale is a short list of sizes everyone chooses from. How to build one that suits product screens, name it, and keep it accessible.</p>
+    <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>6 min read · 11 November 2026</span></span></p>
+  </header>
+  <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>Why a type scale</b></summary><ol><li><a href="#why-a-type-scale">Why a type scale</a></li><li><a href="#step-1-choose-a-base-and-a-ratio">Step 1: Choose a base and a ratio</a></li><li><a href="#step-2-adjust-by-hand">Step 2: Adjust by hand</a></li><li><a href="#step-3-line-height-and-letter-spacing">Step 3: Line height and letter spacing</a></li><li><a href="#step-4-name-text-styles-by-their-job">Step 4: Name text styles by their job</a></li><li><a href="#importance-takes-more-than-size">Importance takes more than size</a></li><li><a href="#step-5-responsive-and-fluid-type">Step 5: Responsive and fluid type</a></li><li><a href="#readable-for-everyone">Readable for everyone</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="ed-theme-l">Light reading</span><span class="ed-theme-d">Dark reading</span></button></details>
+  <figure class="ed-cover"><img src="../assets/images/writing/type-scale-design-system.w1200.webp" alt="" width="1600" height="900" srcset="../assets/images/writing/type-scale-design-system.w480.webp 480w, ../assets/images/writing/type-scale-design-system.w800.webp 800w, ../assets/images/writing/type-scale-design-system.w1200.webp 1200w, ../assets/images/writing/type-scale-design-system.jpg 1600w" sizes="(max-width: 1280px) 100vw, 1240px" decoding="async"></figure>
+  <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>A <b>type scale</b> is the short, fixed list of text sizes a product uses. To build one: start from a <b>base size</b> (usually 16px), multiply by a <b>ratio</b> to get candidate sizes (1.125–1.25 suits product screens), then <b>adjust by hand</b>: apps need several sizes between 12 and 20px and only a few large ones. Give each size a line height that <b>tightens as text grows</b> (about 1.5 for body, 1.2 for display), rounded to a 4px grid, and name the styles by <b>role</b>: display, heading, body, label, caption.</p>
+  <ul>
+    <li>A mathematical scale is a starting point, not the answer.</li>
+    <li>Show importance with weight, colour and space as well as size; you'll need fewer sizes.</li>
+    <li>Fluid type must keep a fixed part, or it won't grow when people zoom.</li>
+  </ul>
+</div>
+
+<h2 id="why-a-type-scale">Why a type scale</h2>
+<p>If anyone can pick any text size, you end up with 13, 14, 14.5, 15 and 16 pixels across the product, and nothing quite looks related. A type scale fixes this with a short list everyone chooses from. It also makes typography a set of decisions you can change in one place, and the foundation for accessible text across every screen.</p>
+
+<h2 id="step-1-choose-a-base-and-a-ratio">Step 1: Choose a base and a ratio</h2>
+<p>The classic method: start from a base size and multiply by the same number at each step up. That number is the <b>ratio</b>. A small ratio gives many sizes close together; a large one jumps quickly to big headlines.</p>
+<figure class="w-fig w-fig--wide"><div class="tr"><div class="tr-row"><p><b>Major second</b><span>× 1.125</span></p><div class="tr-sizes"><span class="tr-s" style="font-size:14px">Aa<em>14</em></span><span class="tr-s" style="font-size:16px">Aa<em>16</em></span><span class="tr-s" style="font-size:18px">Aa<em>18</em></span><span class="tr-s" style="font-size:20px">Aa<em>20</em></span><span class="tr-s" style="font-size:23px">Aa<em>23</em></span><span class="tr-s" style="font-size:26px">Aa<em>26</em></span></div></div><div class="tr-row"><p><b>Major third</b><span>× 1.25</span></p><div class="tr-sizes"><span class="tr-s" style="font-size:13px">Aa<em>13</em></span><span class="tr-s" style="font-size:16px">Aa<em>16</em></span><span class="tr-s" style="font-size:20px">Aa<em>20</em></span><span class="tr-s" style="font-size:25px">Aa<em>25</em></span><span class="tr-s" style="font-size:31px">Aa<em>31</em></span><span class="tr-s" style="font-size:39px">Aa<em>39</em></span></div></div><div class="tr-row"><p><b>Perfect fourth</b><span>× 1.333</span></p><div class="tr-sizes"><span class="tr-s" style="font-size:12px">Aa<em>12</em></span><span class="tr-s" style="font-size:16px">Aa<em>16</em></span><span class="tr-s" style="font-size:21px">Aa<em>21</em></span><span class="tr-s" style="font-size:28px">Aa<em>28</em></span><span class="tr-s" style="font-size:38px">Aa<em>38</em></span><span class="tr-s" style="font-size:51px">Aa<em>51</em></span></div></div><div class="tr-row"><p><b>Golden ratio</b><span>× 1.618</span></p><div class="tr-sizes"><span class="tr-s" style="font-size:10px">Aa<em>10</em></span><span class="tr-s" style="font-size:16px">Aa<em>16</em></span><span class="tr-s" style="font-size:26px">Aa<em>26</em></span><span class="tr-s" style="font-size:42px">Aa<em>42</em></span><span class="tr-s" style="font-size:56px">Aa<em>68</em></span><span class="tr-s" style="font-size:56px">Aa<em>110</em></span></div></div></div><figcaption>Four type scales from the same 16px base. A small ratio (1.125) gives many sizes close together, which suits dense product screens; the golden ratio (1.618) jumps so fast it leaves few useful sizes for an app. Sizes are rounded to whole pixels.</figcaption></figure>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Ratio</th><th>Feels</th><th>Suits</th></tr></thead>
+  <tbody>
+    <tr><td>1.125 (major second)</td><td>Quiet, dense</td><td>Data-heavy apps, dashboards, admin tools</td></tr>
+    <tr><td>1.2 – 1.25 (minor/major third)</td><td>Balanced</td><td>Most product UIs</td></tr>
+    <tr><td>1.333 (perfect fourth)</td><td>Editorial</td><td>Content sites, marketing pages</td></tr>
+    <tr><td>1.618 (golden ratio)</td><td>Dramatic</td><td>Posters and landing pages; too few useful sizes for apps</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2 id="step-2-adjust-by-hand">Step 2: Adjust by hand</h2>
+<p>Pure maths gives you sizes like 22.78px and leaves gaps where apps need options. Product screens need several sizes clustered between 12 and 20px (labels, body text, small headings) and only a few large ones. So mature systems start from a ratio, then round to whole numbers and tune the set. Google's Material Design 3, for example, uses a hand-tuned set of 15 named styles rather than a strict formula.</p>
+<p>Three practical rules for tuning:</p>
+<ul>
+  <li>Keep body text at 16px on the web (the browser default) and no smaller than 14px in dense apps.</li>
+  <li>Make sure neighbouring steps are visibly different: 14 and 15 are too close to both earn a place.</li>
+  <li>Stop adding large sizes once you have one for page titles and one for big numbers or hero text.</li>
+</ul>
+
+<h2 id="step-3-line-height-and-letter-spacing">Step 3: Line height and letter spacing</h2>
+<p>Line height (leading) should get <b>proportionally tighter as text gets bigger</b>. Body text reads comfortably at about 1.4–1.6 times its size; big headlines look loose above about 1.2. Round every line height to a multiple of 4px so text lines up with the <a href="/writing/spacing-system-4px-vs-8px">spacing system</a>.</p>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Text size</th><th class="r">Target line height</th></tr></thead>
+  <tbody>
+    <tr><td>Up to 14px</td><td class="r">about 1.45</td></tr>
+    <tr><td>15–20px</td><td class="r">about 1.5</td></tr>
+    <tr><td>21–32px</td><td class="r">about 1.3</td></tr>
+    <tr><td>33–48px</td><td class="r">about 1.2</td></tr>
+    <tr><td>Over 48px</td><td class="r">about 1.1</td></tr>
+  </tbody>
+</table></div></div>
+<p>Letter spacing works the other way. Fonts are spaced for reading sizes, so headlines usually get slightly tighter tracking, while very small text and all-caps labels get slightly looser tracking to stay legible.</p>
+
+<h2 id="step-4-name-text-styles-by-their-job">Step 4: Name text styles by their job</h2>
+<p>Like colours, text styles should be named by what they're for, not their size. "Heading large" survives a redesign; "28px" doesn't. Five families cover almost every product:</p>
+<div class="cols5">
+  <div class="cell"><span class="k">DISPLAY</span><p>Big numbers and headlines: a dashboard total, a welcome message.</p></div>
+  <div class="cell"><span class="k">HEADING</span><p>Page and section titles: the structure of a screen.</p></div>
+  <div class="cell"><span class="k">BODY</span><p>Paragraphs, descriptions, table cells, form values.</p></div>
+  <div class="cell"><span class="k">LABEL</span><p>Buttons, tabs, form labels, menu items. Slightly bolder.</p></div>
+  <div class="cell"><span class="k">CAPTION</span><p>Timestamps, helper text, small print.</p></div>
+</div>
+<p>Here's a complete set built this way, from the Layer One playbook. Each style bundles size, line height, weight and tracking under one name, stored as a DTCG <code>typography</code> token:</p>
+<figure class="w-fig "><div class="w-tbl"><table><thead><tr><th>Text style</th><th class="r">Size</th><th class="r">Line height</th><th class="r">Ratio</th><th class="r">Weight</th><th class="r">Tracking</th></tr></thead><tbody><tr><td><code>display.lg</code></td><td class="r">57px</td><td class="r">64px</td><td class="r">1.12</td><td class="r">600</td><td class="r">-0.020em</td></tr><tr><td><code>display.md</code></td><td class="r">45px</td><td class="r">56px</td><td class="r">1.24</td><td class="r">600</td><td class="r">-0.020em</td></tr><tr><td><code>heading.xl</code></td><td class="r">36px</td><td class="r">44px</td><td class="r">1.22</td><td class="r">600</td><td class="r">-0.015em</td></tr><tr><td><code>heading.lg</code></td><td class="r">28px</td><td class="r">36px</td><td class="r">1.29</td><td class="r">600</td><td class="r">-0.010em</td></tr><tr><td><code>heading.md</code></td><td class="r">22px</td><td class="r">28px</td><td class="r">1.27</td><td class="r">600</td><td class="r">-0.005em</td></tr><tr><td><code>heading.sm</code></td><td class="r">18px</td><td class="r">24px</td><td class="r">1.33</td><td class="r">600</td><td class="r">+0.000em</td></tr><tr><td><code>body.lg</code></td><td class="r">18px</td><td class="r">28px</td><td class="r">1.56</td><td class="r">400</td><td class="r">+0.000em</td></tr><tr><td><code>body.md</code></td><td class="r">16px</td><td class="r">24px</td><td class="r">1.50</td><td class="r">400</td><td class="r">+0.000em</td></tr><tr><td><code>body.sm</code></td><td class="r">14px</td><td class="r">20px</td><td class="r">1.43</td><td class="r">400</td><td class="r">+0.000em</td></tr><tr><td><code>label.md</code></td><td class="r">14px</td><td class="r">20px</td><td class="r">1.43</td><td class="r">500</td><td class="r">+0.005em</td></tr><tr><td><code>label.sm</code></td><td class="r">12px</td><td class="r">16px</td><td class="r">1.33</td><td class="r">500</td><td class="r">+0.010em</td></tr><tr><td><code>caption</code></td><td class="r">12px</td><td class="r">16px</td><td class="r">1.33</td><td class="r">400</td><td class="r">+0.010em</td></tr></tbody></table></div><figcaption>Twelve text styles in five families, from the Layer One playbook. Every line height is a multiple of 4px, and the line-height ratio tightens as text gets bigger: 1.5 for body text, about 1.2 for display sizes. Large sizes get slightly tighter letter spacing; small labels slightly looser.</figcaption></figure>
+
+<h2 id="importance-takes-more-than-size">Importance takes more than size</h2>
+<p>A common mistake is showing every level of importance with size alone. You end up with a dozen sizes and a page that still feels flat. <b>Weight</b> (bold or regular), <b>colour</b> (primary or secondary text), <b>case</b> and <b>space</b> around text are just as effective, and they don't add sizes. The clearest hierarchies change two or more of these at once between levels.</p>
+<div class="cols2">
+  <div class="cell"><span class="k" style="color:var(--warn)">SIZE DOING ALL THE WORK</span><p>Title 28 · Status 22 · Summary 18 · Meta 14, all the same weight and colour. Four sizes, and the eye still has to work to find the order.</p></div>
+  <div class="cell"><span class="k" style="color:var(--good)">SIZE, WEIGHT, COLOUR AND SPACE</span><p>Title 22 semibold · Status 14 semibold in the danger colour · Summary 16 regular · Meta 14 secondary colour. Fewer sizes, clearer order.</p></div>
+</div>
+
+<h2 id="step-5-responsive-and-fluid-type">Step 5: Responsive and fluid type</h2>
+<p>A 36px heading looks right on a laptop and takes half the screen on a phone. Two approaches work:</p>
+<div class="cols2">
+  <div class="cell"><span class="k">STEPPED</span><h3>Different sizes per breakpoint</h3><p>"Heading XL" is 28px on phones and 36px on larger screens. Simple, predictable, easy to show in design files.</p></div>
+  <div class="cell"><span class="k">FLUID</span><h3>Sizes that grow smoothly</h3><p>Text grows between a minimum and maximum with the viewport, using CSS <code>clamp()</code>. Tools like Utopia popularised this.</p></div>
+</div>
+<pre><code><span class="c">/* Heading XL: 28px on a 360px phone → 36px on a 1280px laptop */</span>
+--type-heading-xl-size: clamp(1.75rem, 1.554rem + 0.87vw, 2.25rem);
+<span class="c">/* growth = (36 − 28) ÷ (1280 − 360) = 0.0087 → 0.87vw
+   start  = 28 − 0.0087 × 360       = 24.87px → 1.554rem */</span></code></pre>
+<div class="callout callout--warn"><span class="callout-k">Watch out</span><p>If text size depends only on viewport width, it won't get bigger when someone zooms in, which can fail WCAG's requirement that text can be enlarged to 200%. Always keep a fixed <code>rem</code> part in the formula, and only make headings fluid. Keep body text at a steady size.</p></div>
+<p>On iOS and Android, people can choose a larger text size for every app. Map your text styles to the platform's adjustable styles (Dynamic Type on iOS) rather than fixing sizes.</p>
+
+<h2 id="readable-for-everyone">Readable for everyone</h2>
+<ul class="checklist">
+  <li><b>Contrast:</b> every text style uses a colour that passes 4.5:1 (3:1 for large text). See <a href="/writing/color-contrast-design-system">colour contrast in design systems</a>.</li>
+  <li><b>Zoom:</b> text can be enlarged to 200% without being cut off (WCAG 1.4.4).</li>
+  <li><b>Text spacing:</b> layouts survive users increasing line and letter spacing (1.4.12). Avoid fixed heights around text.</li>
+  <li><b>Line length:</b> aim for about 45–75 characters per line in long text.</li>
+  <li><b>Minimum size:</b> avoid body text below 14px in dense web apps, or 16px on mobile.</li>
+</ul>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Start from 16px and a ratio of about 1.125–1.25, then round and tune by hand.</li>
+  <li>Line height tightens as size grows; round it to 4px.</li>
+  <li>Name styles by role: display, heading, body, label, caption.</li>
+  <li>Use weight, colour and space for hierarchy, not just size.</li>
+  <li>Make only headings fluid, and always keep a fixed part so zoom works.</li>
+</ul></div>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>What's a good type scale ratio for apps?</summary><div><p>Usually between 1.125 and 1.25. Then adjust by hand so you have enough sizes between 12 and 20px.</p></div></details>
+  <details><summary>How many text styles does a design system need?</summary><div><p>Ten to fifteen named styles is typical. Our set has twelve across five families.</p></div></details>
+  <details><summary>Should I use px or rem?</summary><div><p>Design in px, ship in rem on the web, so text respects the user's browser font size and zoom.</p></div></details>
+  <details><summary>Should headings be fluid?</summary><div><p>Large headings benefit from fluid sizing; body text shouldn't change with viewport width. Keep a rem component in any fluid formula.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://m3.material.io/styles/typography/type-scale-tokens" target="_blank" rel="noopener">Material 3 type scale tokens</a><span>A hand-tuned set of named styles.</span></li>
+  <li><a href="https://www.carbondesignsystem.com/elements/typography/type-sets/" target="_blank" rel="noopener">Carbon type sets</a><span>Productive and expressive type for different jobs.</span></li>
+  <li><a href="https://utopia.fyi/" target="_blank" rel="noopener">Utopia</a><span>Fluid type and space calculators.</span></li>
+  <li><a href="https://developer.apple.com/design/human-interface-guidelines/typography" target="_blank" rel="noopener">Apple HIG: Typography</a><span>Dynamic Type and platform text styles.</span></li>
+</ul>
+</div>
+  <footer class="ed-end">
+    <div class="ed-author"><img src="../assets/studio/aniket.jpg" alt="" width="56" height="56" loading="lazy"><p><b>Aniket Pandey</b> is the founder of Layer One. He has built and run design systems as an employee at <a href="/experience">CARS24, IBM and JPMorgan Chase</a>.</p></div>
+    <p class="ed-end-k">Next in Foundations in depth</p>
+    <div class="ec-grid ec-grid--3"><a class="ec " href="/writing/color-contrast-design-system" data-topic="foundations-and-tokens"><span class="ec-m"><img src="../assets/images/writing/color-contrast-design-system.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/color-contrast-design-system.w480.webp 480w, ../assets/images/writing/color-contrast-design-system.w800.webp 800w, ../assets/images/writing/color-contrast-design-system.w1200.webp 1200w, ../assets/images/writing/color-contrast-design-system.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Foundations & tokens</span><b class="ec-t">Colour contrast in design systems</b><span class="ec-d">How to build colour contrast into a design system: WCAG 2.2 ratios, checking pairs not colours, a contrast matrix, pairing rules by step, and APCA.</span><span class="ec-f">6 min read</span></a><a class="ec " href="/writing/spacing-system-4px-vs-8px" data-topic="foundations-and-tokens"><span class="ec-m"><img src="../assets/images/writing/spacing-system-4px-vs-8px.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/spacing-system-4px-vs-8px.w480.webp 480w, ../assets/images/writing/spacing-system-4px-vs-8px.w800.webp 800w, ../assets/images/writing/spacing-system-4px-vs-8px.w1200.webp 1200w, ../assets/images/writing/spacing-system-4px-vs-8px.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Foundations & tokens</span><b class="ec-t">Spacing systems: 4px vs 8px, the scale, and how to use it</b><span class="ec-d">How to build a spacing system: choosing a 4px or 8px base, a spacing scale, inset, stack and inline space, density modes and responsive spacing.</span><span class="ec-f">7 min read</span></a><a class="ec " href="/writing/design-tokens" data-topic="foundations-and-tokens"><span class="ec-m"><img src="../assets/images/writing/design-tokens.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/design-tokens.w480.webp 480w, ../assets/images/writing/design-tokens.w800.webp 800w, ../assets/images/writing/design-tokens.w1200.webp 1200w, ../assets/images/writing/design-tokens.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Foundations & tokens</span><b class="ec-t">Design tokens</b><span class="ec-d">What design tokens are, the three tiers, naming, the DTCG 2025.10 format and how tokens reach code. Examples and JSON you can adapt for your system.</span><span class="ec-f">10 min read · Guide</span></a></div>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Try it on your own values</h2><p>The Lab has the free tools we use ourselves: OKLCH palettes, contrast checks, scales, a token name linter and an export kit.</p></div><a href="/lab">Open the Lab <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main></div><script src="../assets/site.js?v=da289b98" defer></script>
+</body>
+</html>

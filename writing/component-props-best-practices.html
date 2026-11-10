@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Component Props Best Practices for Design Systems | Layer One</title>
+<meta name="description" content="How to design component props: the eight kinds of props, rules for good APIs, controlled vs uncontrolled, and keeping props in step between Figma and code.">
+<meta property="og:title" content="Component Props Best Practices for Design Systems | Layer One">
+<meta property="og:description" content="How to design component props: the eight kinds of props, rules for good APIs, controlled vs uncontrolled, and keeping props in step between Figma and code.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-11">
+<meta property="article:modified_time" content="2026-11-11">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="Building a system">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/component-props-best-practices.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Component Props Best Practices for Design Systems | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css?v=35a137d5">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Component Props Best Practices for Design Systems", "description": "How to design component props: the eight kinds of props, rules for good APIs, controlled vs uncontrolled, and keeping props in step between Figma and code.", "image": "https://www.layerone.co.in/assets/images/writing/component-props-best-practices.jpg", "datePublished": "2026-11-11", "dateModified": "2026-11-11", "mainEntityOfPage": "https://www.layerone.co.in/writing/component-props-best-practices", "wordCount": 1319, "articleSection": "Building a system", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "Building a system", "item": "https://www.layerone.co.in/writing/topics/building"}, {"@type": "ListItem", "position": 3, "name": "Component props best practices: designing APIs people can use", "item": "https://www.layerone.co.in/writing/component-props-best-practices"}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/component-props-best-practices">
+<meta property="og:url" content="https://www.layerone.co.in/writing/component-props-best-practices">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Component Props Best Practices for Design Systems | Layer One">
+<meta name="twitter:description" content="How to design component props: the eight kinds of props, rules for good APIs, controlled vs uncontrolled, and keeping props in step between Figma and code.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/component-props-best-practices.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<div class="shell ed-shell"><aside class="ed-rail" aria-label="Writing"><a class="ed-back" href="/writing">← All writing</a><div class="ed-rail-sec"><p class="ed-rail-h">On this page</p><nav class="ed-toc" aria-label="On this page"><ol><li><a href="#props-are-a-promise">Props are a promise</a></li><li><a href="#the-eight-kinds-of-props">The eight kinds of props</a></li><li><a href="#five-rules-for-good-props">Five rules for good props</a></li><li><a href="#how-props-work-down-then-up">How props work: down, then up</a></li><li><a href="#keep-figma-and-code-in-step">Keep Figma and code in step</a></li><li><a href="#a-props-review-checklist">A props review checklist</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></nav></div><div class="ed-rail-sec"><p class="ed-rail-h">Components in depth</p><ol class="ed-steps"><li><a href="/writing/which-components-to-build-first">Which components to build first</a></li><li><a href="/writing/headless-component-library-build-vs-buy">Build, borrow or buy</a></li><li><a href="/writing/component-complexity">Component complexity</a></li><li aria-current="step"><a href="/writing/component-props-best-practices">Component props best practices</a></li></ol></div><div class="ed-rail-foot"><button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="ed-theme-l">Light reading</span><span class="ed-theme-d">Dark reading</span></button></div></aside><main id="main" class="content ed-main"><article class="ed-article">
+  <header class="ed-head">
+    <p class="ed-kicker"><a href="/writing/topics/building">Building a system</a><span>Part 4 of 4 · <a href="/writing#components-in-depth">Components in depth</a></span></p>
+    <h1 class="ed-title">Component props best practices: designing APIs people can use</h1>
+    <p class="ed-dek">Props are a promise. They're the interface designers and engineers use every day, and once teams depend on one, changing it breaks their screens. The kinds of props, the rules we review them against, and how to keep Figma and code saying the same thing.</p>
+    <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>6 min read · 11 November 2026</span></span></p>
+  </header>
+  <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>Props are a promise</b></summary><ol><li><a href="#props-are-a-promise">Props are a promise</a></li><li><a href="#the-eight-kinds-of-props">The eight kinds of props</a></li><li><a href="#five-rules-for-good-props">Five rules for good props</a></li><li><a href="#how-props-work-down-then-up">How props work: down, then up</a></li><li><a href="#keep-figma-and-code-in-step">Keep Figma and code in step</a></li><li><a href="#a-props-review-checklist">A props review checklist</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg><span class="ed-theme-l">Light reading</span><span class="ed-theme-d">Dark reading</span></button></details>
+  <figure class="ed-cover"><img src="../assets/images/writing/component-props-best-practices.w1200.webp" alt="" width="1600" height="900" srcset="../assets/images/writing/component-props-best-practices.w480.webp 480w, ../assets/images/writing/component-props-best-practices.w800.webp 800w, ../assets/images/writing/component-props-best-practices.w1200.webp 1200w, ../assets/images/writing/component-props-best-practices.jpg 1600w" sizes="(max-width: 1280px) 100vw, 1240px" decoding="async"></figure>
+  <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>Component props are the API designers and engineers use every day, and a promise you'll have to keep for years. Good props: use <b>one choice instead of several switches</b> (<code>variant="danger"</code>, not <code>isPrimary isDanger</code>); use <b>the same names everywhere</b> (<code>variant</code>, <code>size</code>, <code>tone</code>, <code>disabled</code>); make <b>the default the right answer</b>; <b>never let props bypass the system</b> with raw colours or pixel values; and <b>only require what's essential</b>. Keep the same properties, names and defaults in Figma and code.</p>
+  <ul>
+    <li>Every prop you add is one you'll have to support. Add it only when it earns its place.</li>
+    <li>Information flows down through props; news flows up through events.</li>
+    <li>Name controlled and uncontrolled values the same way in every component.</li>
+  </ul>
+</div>
+
+<h2 id="props-are-a-promise">Props are a promise</h2>
+<p>Think of a TV remote. A good one has a few clearly labelled buttons that do exactly what they say. Now imagine one where "volume up" only works if "mode B" is on, and pressing "mute" on input 2 changes the channel. That's what a component with badly designed props feels like.</p>
+<p>Props matter for three reasons. They're the interface people use every day, so clarity saves time on every screen. They decide consistency: if a prop lets anyone pick any colour, they will, and the product drifts. And they're a promise: once teams use a prop, changing or removing it breaks their screens. That's a <a href="/writing/design-system-versioning">breaking change</a>, with all the cost that implies.</p>
+
+<h2 id="the-eight-kinds-of-props">The eight kinds of props</h2>
+<p>Almost every prop in every component library falls into one of eight kinds. Knowing them helps you spot what a component needs, and props that don't belong.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Kind</th><th>What it does</th><th>Example in code</th><th>In Figma</th></tr></thead>
+  <tbody>
+    <tr><td>Variant</td><td>Picks one approved version from a fixed list</td><td><code>variant="primary"</code></td><td>Variant property</td></tr>
+    <tr><td>Size</td><td>Picks one approved size</td><td><code>size="sm" | "md" | "lg"</code></td><td>Variant property</td></tr>
+    <tr><td>Switch</td><td>Turns one thing on or off</td><td><code>disabled</code>, <code>loading</code></td><td>Boolean property</td></tr>
+    <tr><td>Content</td><td>Text or information to show</td><td><code>label="Email"</code></td><td>Text property</td></tr>
+    <tr><td>Slot</td><td>Lets you put other components inside</td><td><code>icon={&lt;SendIcon /&gt;}</code>, <code>children</code></td><td>Instance swap or slot</td></tr>
+    <tr><td>State</td><td>The current value, and its starting value</td><td><code>value</code>, <code>defaultValue</code>, <code>open</code></td><td>Usually a "state" variant</td></tr>
+    <tr><td>Event</td><td>What to do when something happens</td><td><code>onClick</code>, <code>onChange</code></td><td>Not represented (prototype only)</td></tr>
+    <tr><td>Accessibility</td><td>Extra information for assistive technology</td><td><code>aria-label="Close dialog"</code></td><td>A note in the spec</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Figma's component property types (variant, boolean, text, instance swap) line up neatly with most of these. When both sides use the same names and values, a designer's choices translate directly into code.</figcaption></figure>
+
+<h2 id="five-rules-for-good-props">Five rules for good props</h2>
+<h3>1. Prefer one choice over many switches</h3>
+<p>The most common mistake is using several on/off switches for what's really one choice. If a button has <code>isPrimary</code>, <code>isDanger</code> and <code>isGhost</code>, what happens when someone turns on two? Nobody knows. One <code>variant</code> prop with a list of allowed values makes impossible combinations impossible.</p>
+<pre><code><span class="c">// ✕ Three switches, eight combinations, most of them meaningless</span>
+&lt;Button isPrimary isDanger&gt;Delete&lt;/Button&gt;
+
+<span class="c">// ✓ One choice, three valid options</span>
+&lt;Button variant=<span class="s">"danger"</span>&gt;Delete&lt;/Button&gt;</code></pre>
+<h3>2. Use the same names everywhere</h3>
+<p>If buttons use <code>variant</code>, badges shouldn't use <code>type</code> and alerts shouldn't use <code>kind</code>. If buttons use <code>size="sm"</code>, inputs shouldn't use <code>size="small"</code>. Write down a short list of standard prop names and use it across the library. People then learn the library once, not component by component.</p>
+<h3>3. Make the default the right answer</h3>
+<p>The value a prop takes when nobody sets it should be the most common, safest choice. A button should default to medium and secondary, so the big primary button is a deliberate decision. A text field should default to a visible label, not a hidden one.</p>
+<h3>4. Don't let props bypass the system</h3>
+<p>Props like <code>color="#FF3300"</code> or <code>padding={13}</code> let anyone escape the foundations, and someone always will. Offer choices from the system (<code>tone="critical"</code>, <code>size="lg"</code>), never raw values.</p>
+<h3>5. Only require what's essential</h3>
+<p>A component should work with as few props as possible. A button needs a label and something to do when pressed; everything else should have a sensible default. Every required prop is something someone will forget.</p>
+
+<h2 id="how-props-work-down-then-up">How props work: down, then up</h2>
+<p>In most modern frameworks, information flows <b>down</b> through props and news flows <b>up</b> through events. The screen tells the component what to show; when something happens inside it, the component tells the screen, which decides what to do.</p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Product screen</b><span>Knows the data and the rules: <code>tab = "invoices"</code></span></div><i>→</i>
+    <div class="hi"><b>props down</b><span><code style="background:rgb(0 0 0 / .15)">value="invoices"</code></span></div><i>→</i>
+    <div><b>Tabs component</b><span>Knows how to look and behave</span></div><i>→</i>
+    <div><b>event up</b><span><code>onValueChange("payments")</code></span></div>
+  </div>
+  <figcaption>Props flow down, events flow up. Given the same props, a component always looks the same, which is also what makes visual testing possible.</figcaption>
+</figure>
+<h3>Controlled and uncontrolled</h3>
+<p>An <b>uncontrolled</b> component takes a <code>defaultValue</code> and looks after itself. A <b>controlled</b> component takes a <code>value</code> plus an event like <code>onValueChange</code>, and the screen stays in charge. Good libraries name these the same way in every component that has a value, so engineers learn the pattern once.</p>
+<h3>Passing things through</h3>
+<p>Components should pass along standard attributes they don't use themselves (an ID for testing, a data attribute, an extra ARIA attribute) to the underlying element. It means the system doesn't block teams from doing ordinary, legitimate things.</p>
+
+<h2 id="keep-figma-and-code-in-step">Keep Figma and code in step</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Code prop</th><th>Values</th><th>Default</th><th>Figma property</th><th>What it's for</th></tr></thead>
+  <tbody>
+    <tr><td><code>variant</code></td><td>primary · secondary · danger</td><td>secondary</td><td>Variant: Variant</td><td>The importance of the action. One primary per area.</td></tr>
+    <tr><td><code>size</code></td><td>sm · md · lg</td><td>md</td><td>Variant: Size</td><td>Match the density of the surrounding UI.</td></tr>
+    <tr><td><code>icon</code></td><td>icon name</td><td>none</td><td>Boolean + instance swap</td><td>An optional icon before the label.</td></tr>
+    <tr><td><code>loading</code></td><td>true / false</td><td>false</td><td>Boolean: Loading</td><td>Shows progress and prevents double clicks.</td></tr>
+    <tr><td><code>disabled</code></td><td>true / false</td><td>false</td><td>Variant: State = Disabled</td><td>Can't be used right now. Explain why nearby.</td></tr>
+    <tr><td><code>children</code></td><td>text</td><td>—</td><td>Text: Label</td><td>The label. Start with a verb: "Send invoice".</td></tr>
+  </tbody>
+</table></div>
+<figcaption>One button, documented as twins. Two small differences are agreed and written down: Figma splits the icon into a switch and a choice, and treats "disabled" as a visual state.</figcaption></figure>
+<p>Put a table like this on every component's documentation page. See <a href="/writing/design-system-documentation">design system documentation</a> for the full page template.</p>
+
+<h2 id="a-props-review-checklist">A props review checklist</h2>
+<ul class="checklist">
+  <li>Could two of these switches be one variant?</li>
+  <li>Does every name match the standard list used across the library?</li>
+  <li>Is the default the most common, safest choice?</li>
+  <li>Can any prop accept a raw colour, size or spacing value?</li>
+  <li>Is every required prop genuinely essential?</li>
+  <li>Are controlled and uncontrolled values named consistently?</li>
+  <li>Does the Figma component expose the same properties, names and defaults?</li>
+  <li>Are we sure we want to support this prop for years?</li>
+</ul>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Props are an interface and a promise; add them sparingly.</li>
+  <li>One variant over many switches; the same names everywhere; good defaults.</li>
+  <li>Offer choices from the system, never raw values.</li>
+  <li>Props down, events up; consistent controlled and uncontrolled patterns.</li>
+  <li>Keep Figma properties and code props as twins, and document both.</li>
+</ul></div>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Should a component accept a className or style prop?</summary><div><p>Usually yes for layout (positioning, width), as an escape hatch passed to the root element. Don't use it as the way to change colours or spacing; offer system choices for those.</p></div></details>
+  <details><summary>How do I rename a prop safely?</summary><div><p>Add the new name in a minor release alongside the old one, deprecate the old with a warning and a codemod, then remove it in the next major.</p></div></details>
+  <details><summary>variant, kind, type or appearance?</summary><div><p>The specific word matters less than using one everywhere. <code>variant</code> is the most common and maps well to Figma's variant properties.</p></div></details>
+  <details><summary>Should slots or props be preferred?</summary><div><p>Props for constrained choices; slots where teams need to compose content, such as a card's body. Slots give flexibility; props give consistency.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://help.figma.com/hc/en-us/articles/5579474826519-Explore-component-properties" target="_blank" rel="noopener">Explore component properties</a><span>Figma Help Center.</span></li>
+  <li><a href="https://react.dev/learn/sharing-state-between-components" target="_blank" rel="noopener">Sharing state between components</a><span>react.dev, on controlled and uncontrolled components.</span></li>
+  <li><a href="/writing/component-complexity">Component complexity</a><span>How options and composition add effort.</span></li>
+</ul>
+</div>
+  <footer class="ed-end">
+    <div class="ed-author"><img src="../assets/studio/aniket.jpg" alt="" width="56" height="56" loading="lazy"><p><b>Aniket Pandey</b> is the founder of Layer One. He has built and run design systems as an employee at <a href="/experience">CARS24, IBM and JPMorgan Chase</a>.</p></div>
+    <p class="ed-end-k">Read next</p>
+    <div class="ec-grid ec-grid--3"><a class="ec " href="/writing/component-complexity" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/component-complexity.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/component-complexity.w480.webp 480w, ../assets/images/writing/component-complexity.w800.webp 800w, ../assets/images/writing/component-complexity.w1200.webp 1200w, ../assets/images/writing/component-complexity.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Building a system</span><b class="ec-t">Component complexity: how to estimate design system work</b><span class="ec-d">A scoring method for design system components: four levels of complexity, an eight-question rubric, and how complexity changes process and effort.</span><span class="ec-f">6 min read</span></a><a class="ec " href="/writing/design-system-versioning" data-topic="governance"><span class="ec-m"><img src="../assets/images/writing/design-system-versioning.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/design-system-versioning.w480.webp 480w, ../assets/images/writing/design-system-versioning.w800.webp 800w, ../assets/images/writing/design-system-versioning.w1200.webp 1200w, ../assets/images/writing/design-system-versioning.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Governance</span><b class="ec-t">Design system versioning</b><span class="ec-d">How to version a design system so updates don't break products: what counts as breaking, visual breaking changes, deprecation and migration.</span><span class="ec-f">6 min read</span></a><a class="ec " href="/writing/design-token-naming-conventions" data-topic="foundations-and-tokens"><span class="ec-m"><img src="../assets/images/writing/design-token-naming-conventions.w1200.webp" alt="" width="1600" height="900" loading="lazy" srcset="../assets/images/writing/design-token-naming-conventions.w480.webp 480w, ../assets/images/writing/design-token-naming-conventions.w800.webp 800w, ../assets/images/writing/design-token-naming-conventions.w1200.webp 1200w, ../assets/images/writing/design-token-naming-conventions.jpg 1600w" sizes="auto, (max-width: 760px) 100vw, 60vw" decoding="async"></span><span class="ec-k">Foundations & tokens</span><b class="ec-t">Design token naming conventions: a structure people can guess</b><span class="ec-d">How to name design tokens so people can guess them: the parts of a name, primitive, semantic and component patterns, common mistakes and a checklist.</span><span class="ec-f">5 min read</span></a></div>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Working on this in your own product?</h2><p>Most teams we work with start with a two-week audit: every style, component and token, checked and ranked.</p></div><a href="/pricing">How the audit works <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main></div><script src="../assets/site.js?v=da289b98" defer></script>
+</body>
+</html>

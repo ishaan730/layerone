@@ -236,6 +236,173 @@ ART = {"what-is-a-design-system": what_is, "design-system-vs-style-guide-vs-comp
        "design-system-metrics": metrics, "design-system-roi": roi}
 
 
+def maturity():
+    b = ""
+    names = ["unwritten", "shared styles", "basics in code", "looked after", "platform"]
+    for i, n in enumerate(names):
+        x, h = 130 + i * 270, 120 + i * 110
+        on = i == 2
+        b += box(x, 740 - h, 230, h, SIG if on else SUNK, "none" if on else RULE) + text(x + 22, 740 - h + 50, f"{i}", 34, INK if on else SIG) + text(x + 22, 740 - h + 92, n, 20, INK if on else PAPER)
+    b += f'<path d="M110 760H1490" stroke="{RULE}" stroke-width="3"/>'
+    return frame(INK, b, label="writing / fundamentals")
+
+
+def versioning():
+    b = ""
+    for i, (v, t, c) in enumerate([("4.2.1", "fix", MUTED), ("4.3.0", "new", PAPER), ("4.6.0", "deprecate", PAPER), ("5.0.0", "breaking", SIG)]):
+        x = 130 + i * 350
+        b += f'<circle cx="{x + 60}" cy="450" r="{22 if i < 3 else 32}" fill="{SIG if i == 3 else RAISED}" stroke="{c}" stroke-width="3"/>'
+        b += text(x + 60, 380, v, 34, c, anchor="middle") + text(x + 60, 540, t, 22, MUTED if i < 3 else SIG, anchor="middle")
+    b = f'<path d="M190 450H1240" stroke="{RULE}" stroke-width="4" stroke-dasharray="12 10"/>' + b
+    b += text(104, 760, "major . minor . patch", 26, MUTED)
+    return frame(INK, b, label="writing / governance")
+
+
+def naming():
+    parts = [("color", SIG), ("action", PAPER), ("primary", PAPER), ("bg", PAPER), ("hover", MUTED)]
+    b, x = "", 130
+    for i, (p, c) in enumerate(parts):
+        w = len(p) * 26 + 70
+        b += box(x, 340, w, 110, RAISED if i else "none", c, sw=3 if i == 0 else 2) + text(x + w / 2, 408, p, 34, c, anchor="middle")
+        if i < len(parts) - 1:
+            b += text(x + w + 20, 410, ".", 50, MUTED, anchor="middle")
+        x += w + 40
+    for i, t in enumerate(["category", "concept", "variant", "property", "state"]):
+        b += text(130 + i * 260, 540, t, 20, MUTED)
+    return frame(INK, b, label="writing / tokens")
+
+
+def spacing():
+    vals = [4, 8, 12, 16, 24, 32, 48, 64, 96]
+    b, x = "", 130
+    for v in vals:
+        w = v * 4
+        b += f'<rect x="{x}" y="{620 - v * 4}" width="{w * 0.55}" height="{v * 4}" rx="4" fill="{SIG if v in (8, 16, 24, 32) else SUNK}" stroke="{RULE}"/>' + text(x, 660, f"{v}", 20, MUTED)
+        x += w * 0.55 + 36
+    b += text(104, 780, "4px base · 8px rhythm", 26, MUTED)
+    return frame(INK, b, label="writing / foundations")
+
+
+def typescale():
+    b, x = "", 120
+    for s in [14, 16, 20, 25, 31, 39, 49]:
+        b += f'<text x="{x}" y="560" font-family="Schibsted Grotesk" font-weight="600" font-size="{s * 2.4:.0f}" fill="{SIG if s == 16 else PAPER}" letter-spacing="-2">Aa</text>'
+        b += text(x, 640, f"{s}", 20, MUTED)
+        x += s * 2.4 * 1.15 + 34
+    b += f'<path d="M110 580H1490" stroke="{RULE}" stroke-width="2"/>' + text(104, 780, "base 16 · ratio 1.25", 26, MUTED)
+    return frame(INK, b, label="writing / foundations")
+
+
+def contrast():
+    import json as _json
+    c = _json.load(open(os.path.join(DATA, "contrast-matrix.json")))
+    b = ""
+    for i, row in enumerate(c["neutral"]):
+        for j, v in enumerate(row):
+            fill = "#12352a" if v >= 4.5 else ("#10283f" if v >= 3 else SUNK)
+            b += f'<rect x="{400 + j * 74}" y="{150 + i * 56}" width="68" height="50" rx="6" fill="{fill}"/>'
+            if i != j:
+                b += text(434 + j * 74, 182 + i * 56, f"{v:.1f}", 15, "#9de7c8" if v >= 4.5 else ("#8ec6ff" if v >= 3 else MUTED), anchor="middle")
+    b += text(104, 220, "4.5 : 1", 54, SIG, SANS, weight=600) + text(104, 270, "text", 22, MUTED) + text(104, 380, "3 : 1", 54, PAPER, SANS, weight=600) + text(104, 430, "borders · icons", 22, MUTED)
+    return frame(INK, b, label="writing / accessibility")
+
+
+def multibrand():
+    b = box(560, 600, 480, 120, SIG, "none") + text(800, 672, "shared core", 30, INK, anchor="middle")
+    for i, (n, col) in enumerate([("bank", "#ab2800"), ("insure", "#065db4"), ("lend", "#007628")]):
+        x = 180 + i * 440
+        b += box(x, 230, 360, 220, RAISED, RULE) + f'<rect x="{x + 30}" y="270" width="120" height="44" rx="8" fill="{col}"/>' + text(x + 30, 370, n, 26, PAPER) + text(x + 30, 410, "action.primary.bg", 18, MUTED)
+        b += f'<path d="M{x + 180} 450L800 600" stroke="{RULE}" stroke-width="3"/>'
+    return frame(INK, b, label="writing / scaling")
+
+
+def buildfirst():
+    b = f'<path d="M800 160V760M200 460H1400" stroke="{RULE}" stroke-width="3"/>'
+    for x, y, t, hi in [(1030, 230, "button", True), (1180, 310, "field", True), (960, 360, "alert", True), (1250, 200, "dialog", True), (420, 240, "date picker", False), (500, 600, "one-off", False), (1100, 620, "badge", False)]:
+        b += f'<circle cx="{x}" cy="{y}" r="16" fill="{SIG if hi else MUTED}"/>' + text(x + 28, y + 8, t, 22, PAPER if hi else MUTED)
+    b += box(860, 170, 520, 270, "none", SIG, sw=3, extra='stroke-dasharray="10 10"') + text(880, 160, "build first", 22, SIG)
+    b += text(1400, 800, "used more →", 20, MUTED, anchor="end") + text(210, 180, "↑ more trouble", 20, MUTED)
+    return frame(INK, b, label="writing / building")
+
+
+def headless():
+    b = box(160, 230, 560, 440, "none", RULE, extra='stroke-dasharray="10 10"') + text(190, 280, "behaviour (borrowed)", 24, MUTED)
+    for i, t in enumerate(["keyboard", "focus", "aria", "state"]):
+        b += box(200, 320 + i * 82, 300, 60, SUNK, RULE) + text(225, 358 + i * 82, t, 22, PAPER)
+    b += text(800, 460, "+", 70, SIG, anchor="middle")
+    b += box(880, 230, 560, 440, RAISED, SIG, sw=3) + text(910, 280, "your tokens + API", 24, SIG)
+    b += box(930, 340, 220, 64, SIG, "none") + text(1040, 381, "Button", 22, INK, anchor="middle") + box(930, 440, 420, 60, SUNK, RULE) + box(930, 530, 300, 60, "none", PAPER)
+    return frame(INK, b, label="writing / building")
+
+
+def complexity():
+    b = ""
+    for i, (n, sc) in enumerate([("badge", 2), ("button", 9), ("date picker", 17), ("data table", 22)]):
+        y = 220 + i * 140
+        b += text(130, y + 40, n, 26, PAPER) + box(420, y, 960, 60, SUNK, "none") + f'<rect x="420" y="{y}" width="{sc / 24 * 960:.0f}" height="60" rx="8" fill="{SIG if i == 2 else PAPER if i == 3 else MUTED}"/>' + text(1420, y + 42, f"{sc}", 30, SIG if i == 2 else PAPER, anchor="end")
+    return frame(INK, b, label="writing / building")
+
+
+def props():
+    b = text(130, 300, '&lt;Button', 46, PAPER) + text(170, 380, 'variant=&quot;danger&quot;', 40, SIG) + text(170, 450, 'size=&quot;md&quot;', 40, PAPER) + text(170, 520, 'loading', 40, PAPER) + text(130, 600, '&gt;Delete&lt;/Button&gt;', 46, PAPER)
+    b += box(960, 260, 440, 360, RAISED, RULE)
+    for i, (k, v) in enumerate([("Variant", "Danger"), ("Size", "md"), ("Loading", "on")]):
+        b += text(990, 330 + i * 90, k, 22, MUTED) + box(1180, 300 + i * 90, 190, 50, SUNK, SIG if i == 0 else RULE) + text(1200, 333 + i * 90, v, 22, PAPER)
+    b += text(800, 460, "=", 70, MUTED, anchor="middle")
+    return frame(INK, b, label="writing / components")
+
+
+def officehours():
+    b = ""
+    days = ["mon", "tue", "wed", "thu", "fri"]
+    for i, d in enumerate(days):
+        x = 140 + i * 270
+        b += text(x, 230, d, 24, MUTED) + box(x, 260, 230, 420, SUNK, RULE)
+    b += box(410, 300, 230, 120, SIG, "none") + text(430, 350, "office hours", 22, INK) + text(430, 390, "60 min · open", 18, INK)
+    b += box(950, 480, 230, 120, "none", SIG, sw=3) + text(970, 530, "second slot", 22, SIG) + text(970, 570, "other time zone", 18, MUTED)
+    return frame(INK, b, label="writing / operations")
+
+
+def releasenotes():
+    b = box(280, 170, 1040, 600, RAISED, RULE) + text(320, 240, "4.6.0 is out", 40, PAPER, SANS, weight=600)
+    for i, (k, c, w) in enumerate([("BREAKING", SIG, 600), ("NEW", "#9de7c8", 760), ("IMPROVED", PAPER, 520), ("FIXED", MUTED, 680)]):
+        y = 320 + i * 100
+        b += box(320, y, 170, 44, "none", c, rx=22) + text(405, y + 30, k, 18, c, anchor="middle") + bar(520, y + 16, w, 14, PAPER, .35)
+    return frame(INK, b, label="writing / operations")
+
+
+def champions():
+    import math
+    b = box(670, 370, 260, 120, SIG, "none") + text(800, 440, "system team", 24, INK, anchor="middle")
+    for i in range(8):
+        a = i * 2 * math.pi / 8
+        x, y = 800 + 470 * math.cos(a), 430 + 260 * math.sin(a)
+        b += f'<path d="M800 430L{x:.0f} {y:.0f}" stroke="{RULE}" stroke-width="2"/>'
+        b += f'<circle cx="{x:.0f}" cy="{y:.0f}" r="34" fill="{RAISED}" stroke="{SIG}" stroke-width="3"/>' + star(x - 14, y - 14, 28, SIG)
+    b = b.replace(box(670, 370, 260, 120, SIG, "none") + text(800, 440, "system team", 24, INK, anchor="middle"), "") + box(670, 370, 260, 120, SIG, "none") + text(800, 440, "system team", 24, INK, anchor="middle")
+    return frame(INK, b, label="writing / community")
+
+
+def ai():
+    b = ""
+    steps = [("context", SUNK, PAPER), ("draft", SUNK, PAPER), ("review", SIG, INK), ("publish", SUNK, PAPER), ("check", SUNK, PAPER)]
+    for i, (t, f, c) in enumerate(steps):
+        x = 130 + i * 280
+        b += box(x, 380, 220, 110, f, RULE if f == SUNK else "none") + text(x + 110, 445, t, 26, c, anchor="middle")
+        if i < 4:
+            b += f'<path d="M{x + 225} 435H{x + 275}" stroke="{SIG}" stroke-width="3"/>'
+    b += text(130, 300, "ai drafts", 22, MUTED) + text(690, 300, "people decide", 22, SIG)
+    return frame(INK, b, label="writing / tooling")
+
+
+ART.update({"design-system-maturity-model": maturity, "design-system-versioning": versioning, "design-token-naming-conventions": naming,
+            "spacing-system-4px-vs-8px": spacing, "type-scale-design-system": typescale, "color-contrast-design-system": contrast,
+            "multi-brand-design-system": multibrand, "which-components-to-build-first": buildfirst,
+            "headless-component-library-build-vs-buy": headless, "component-complexity": complexity, "component-props-best-practices": props,
+            "design-system-office-hours": officehours, "design-system-release-notes": releasenotes, "design-system-champions": champions,
+            "ai-in-design-systems": ai})
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     from playwright.sync_api import sync_playwright

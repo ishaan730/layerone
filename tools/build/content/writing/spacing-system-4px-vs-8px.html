@@ -1,0 +1,116 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>A <b>spacing system</b> is one small base unit and a short scale of multiples that everyone picks from. Use a <b>4px base with an 8px rhythm</b>: every value is a multiple of 4, and most of the values people reach for (8, 16, 24, 32) are multiples of 8. You get the precision small components need without "any number will do". Then give space clear jobs: <b>inset</b> (padding inside), <b>stack</b> (between things vertically) and <b>inline</b> (between things side by side), with space inside a group always clearly smaller than space between groups.</p>
+  <ul>
+    <li>Jump at least two steps on the scale between levels (8 → 16 → 24 or 32), so grouping stays obvious.</li>
+    <li>Component spacing changes with density; layout spacing changes with screen size.</li>
+    <li>Set line heights on the same 4px grid, so text and boxes share one rhythm.</li>
+  </ul>
+</div>
+
+<h2>Why spacing matters so much</h2>
+<p>Space does three jobs on a screen. It <b>groups</b> things: we automatically read items that sit close together as belonging together. It shows <b>importance</b>: things with more room around them feel more important. And it creates <b>rhythm</b>: a repeating beat that makes a page feel calm and intentional.</p>
+<p>When spacing is chosen screen by screen, each value can be defended on its own, but together they're noise: 13 pixels here, 14 there, 22 somewhere else. People don't notice the numbers. They notice that the product feels a bit untidy, and they trust it a little less.</p>
+<figure class="w-fig">
+  <div class="cols2">
+    <div class="cell"><span class="k" style="color:var(--warn)">SPACED BY EYE · 7 VALUES</span><p style="font-size:14px;line-height:1.9">Title <b style="color:var(--text)">5</b> · Description <b style="color:var(--text)">22</b> · Label <b style="color:var(--text)">7</b> · Field <b style="color:var(--text)">13</b> · Label <b style="color:var(--text)">9</b> · Field <b style="color:var(--text)">19</b> · Button</p><p>The gap between a label and its field (7) is almost the same as the gap between fields (13), so labels seem to float.</p></div>
+    <div class="cell"><span class="k" style="color:var(--good)">SPACED FROM A SCALE · 3 VALUES</span><p style="font-size:14px;line-height:1.9">Title <b style="color:var(--text)">4</b> · Description <b style="color:var(--text)">24</b> · Label <b style="color:var(--text)">4</b> · Field <b style="color:var(--text)">16</b> · Label <b style="color:var(--text)">4</b> · Field <b style="color:var(--text)">24</b> · Button</p><p>Three relationships, three values: belongs to (4), next item (16), new section (24).</p></div>
+  </div>
+  <figcaption>The same form, spaced two ways. Fewer values, used deliberately, make the structure readable.</figcaption>
+</figure>
+
+<h2>4px vs 8px: choosing a base unit</h2>
+<p>A spacing system starts with one small number, the base unit, and every value is a multiple of it. Think of it like the smallest Lego stud: everything you build is a whole number of studs.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">8PX BASE</span><h3>Fewer, clearer choices</h3><p>Easy to think about, and most screen sizes divide neatly by 8. Atlassian's design system builds its spacing on an 8px base, with a few smaller steps for tight spots.</p></div>
+  <div class="cell"><span class="k">4PX BASE</span><h3>Finer control for busy screens</h3><p>Allows 12, 20 and 28, which matter for small components, icons and line spacing. Google's Material uses a 4dp grid for text and icons alongside an 8dp grid for layout.</p></div>
+</div>
+<p>Our recommendation is the combination: <b>a 4px base with an 8px rhythm.</b> Allow every multiple of 4 in the scale, but steer people to multiples of 8 for most layout decisions. In practice, the 4px steps get used inside components (an icon gap, a badge's padding, line heights) and the 8px steps everywhere else.</p>
+
+<h2>The spacing scale</h2>
+<p>The scale is the fixed list of values people can choose from. Give it lots of options at the small end, where 4px is a visible difference, and only a few at the large end, where nobody can tell 64 from 68.</p>
+<!--fig:spacing-scale-->
+<p>Naming each value by how many base units it contains (<code>space-6</code> = 6 × 4 = 24px) means anyone who knows the name knows the size. Other styles work too (Atlassian's <code>space.300</code>, Carbon's <code>spacing-06</code>, T-shirt sizes); choose the one your engineers can read without a lookup table. More on naming in <a href="/writing/design-token-naming-conventions">design token naming conventions</a>.</p>
+
+<h2>Inset, stack and inline: giving space a job</h2>
+<p>Nathan Curtis gave three kinds of space names that have stuck. Naming the kind of space, not just the amount, makes specs and code reviews much clearer.</p>
+<div class="cols3">
+  <div class="cell"><span class="k">INSET</span><h3>Padding inside</h3><p>The space between a box's edge and its content: inside a card, a button, an input. Usually equal on all sides, or a little less vertically.</p></div>
+  <div class="cell"><span class="k">STACK</span><h3>Top to bottom</h3><p>Space between things stacked vertically: a label and its field, one field and the next, one section and the next.</p></div>
+  <div class="cell"><span class="k">INLINE</span><h3>Side by side</h3><p>Space between things in a row: two buttons, an icon and its label, chips in a list.</p></div>
+</div>
+<p>Then use smaller values inside things and larger values between bigger groups:</p>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Where the space is</th><th>Typical values</th><th>Examples</th></tr></thead>
+  <tbody>
+    <tr><td>Inside a component</td><td>4–16px</td><td>Icon to label; padding inside a button or input</td></tr>
+    <tr><td>Between related items</td><td>8–16px</td><td>A label and its field; one field and the next; list items</td></tr>
+    <tr><td>Between groups</td><td>24–32px</td><td>Sections of a form; gaps between cards</td></tr>
+    <tr><td>Between page sections</td><td>40–64px</td><td>Major sections of a page</td></tr>
+    <tr><td>Page edges</td><td>16–80px</td><td>Grows with screen size</td></tr>
+  </tbody>
+</table></div></div>
+<div class="callout callout--tip"><span class="callout-k">The golden rule</span><p>Space within a group must always be clearly smaller than space between groups. A simple way to guarantee it: jump at least two steps on the scale between levels, 8 → 16 → 24 or 32. That keeps relationships obvious even when different designers make their own sensible choices.</p></div>
+
+<h2>Compact and comfortable: density</h2>
+<p>An accountant at month-end wants to see 200 rows without scrolling. A small business owner checking one invoice on a Sunday wants things roomy and easy to tap. Good systems serve both by switching a few spacing values, not by building separate components.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Setting</th><th class="r">Compact</th><th class="r">Default</th><th class="r">Comfortable</th></tr></thead>
+  <tbody>
+    <tr><td>Height of buttons and inputs</td><td class="r">32px</td><td class="r">40px</td><td class="r">48px</td></tr>
+    <tr><td>Padding inside buttons and inputs</td><td class="r">8px</td><td class="r">12px</td><td class="r">16px</td></tr>
+    <tr><td>Padding inside table rows</td><td class="r">4px</td><td class="r">8px</td><td class="r">12px</td></tr>
+    <tr><td>Space between form fields</td><td class="r">12px</td><td class="r">16px</td><td class="r">24px</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Three density modes from the same scale. The compact table fits 50% more rows in the same space as the comfortable one.</figcaption></figure>
+<p>There's a floor to how compact you can go. WCAG 2.2 requires targets of at least 24 by 24 pixels (2.5.8), with some exceptions. Apple recommends at least 44 by 44 points for touch, and Material recommends 48 by 48. So compact modes are for mouse-and-keyboard use on desktop; don't make them the default on phones.</p>
+
+<h2>Spacing on different screen sizes</h2>
+<p>A simple principle: <b>spacing inside components shouldn't change with screen size</b> (a button has the same padding on a phone and a laptop), but <b>layout spacing should</b> (page margins and section gaps grow when there's room). Build that split into your tokens:</p>
+<pre><code><span class="c">/* The scale itself never changes */</span>
+--space-2: 8px;  --space-4: 16px;  --space-6: 24px;  --space-10: 40px;  --space-16: 64px;
+
+<span class="c">/* Layout spacing grows on bigger screens */</span>
+--space-page-margin: var(--space-4);      <span class="c">/* 16px on phones */</span>
+--space-section-gap: var(--space-10);
+<span class="k">@media (min-width: 840px)</span> {
+  --space-page-margin: var(--space-6);    <span class="c">/* 24px on larger screens */</span>
+  --space-section-gap: var(--space-16);
+}
+
+<span class="c">/* Component spacing changes with density, not screen size */</span>
+--space-control-inset-x: var(--space-3);</code></pre>
+
+<h2>Common spacing mistakes</h2>
+<div class="cols2">
+  <div class="cell"><h3>"Just this once" values</h3><p>Each one seems harmless. Fifty of them add up to a second, invisible spacing system. Add a lint rule for values that aren't on the scale.</p></div>
+  <div class="cell"><h3>The same spacing everywhere</h3><p>Using 16px for everything removes the grouping signal, and groups disappear. Vary space on purpose.</p></div>
+  <div class="cell"><h3>Components with built-in outside margins</h3><p>A component that adds its own margin fights every layout it's placed in. Components own their inside (inset); layouts own the space between them.</p></div>
+  <div class="cell"><h3>Text that ignores the grid</h3><p>Line heights like 1.4 × 15px give 21px, off the 4px grid, and nothing lines up. Round line heights to multiples of 4.</p></div>
+</div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Use a 4px base with an 8px rhythm, and a scale with many small steps and few large ones.</li>
+  <li>Name values so the size is obvious: <code>space-6</code> = 24px.</li>
+  <li>Think in inset, stack and inline; keep space inside groups clearly smaller than between them.</li>
+  <li>Offer density modes by changing a few values, never below accessible target sizes.</li>
+  <li>Component spacing changes with density; layout spacing changes with screen size.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Is the 8px grid better than 4px?</summary><div><p>Neither is better in general. 8px gives fewer, clearer choices; 4px gives the precision small components and line heights need. A 4px base with an 8px rhythm gets the benefits of both.</p></div></details>
+  <details><summary>How many spacing values should a system have?</summary><div><p>Ten to fourteen is typical. Our scale has thirteen, from 2px to 96px.</p></div></details>
+  <details><summary>Should spacing tokens be semantic?</summary><div><p>Keep the scale as primitives (<code>space-4</code>) and add a small set of semantic tokens for layout and density (<code>space-page-margin</code>, <code>space-control-inset-x</code>) where values change by context.</p></div></details>
+  <details><summary>Should line height follow the spacing grid?</summary><div><p>Yes. Rounding line heights to multiples of 4px lets text and boxes share one rhythm. See <a href="/writing/type-scale-design-system">how to build a type scale</a>.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://atlassian.design/foundations/spacing" target="_blank" rel="noopener">Atlassian spacing</a><span>An 8px-based scale with smaller steps.</span></li>
+  <li><a href="https://www.carbondesignsystem.com/elements/spacing/overview/" target="_blank" rel="noopener">Carbon spacing</a><span>IBM's numbered spacing scale.</span></li>
+  <li><a href="https://m3.material.io/foundations/designing/structure" target="_blank" rel="noopener">Material 3: structure</a><span>The 4dp and 8dp grids.</span></li>
+  <li><a href="https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" target="_blank" rel="noopener">WCAG 2.5.8 Target Size (Minimum)</a><span>The floor for compact modes.</span></li>
+</ul>

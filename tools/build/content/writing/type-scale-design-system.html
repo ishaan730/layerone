@@ -1,0 +1,114 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>A <b>type scale</b> is the short, fixed list of text sizes a product uses. To build one: start from a <b>base size</b> (usually 16px), multiply by a <b>ratio</b> to get candidate sizes (1.125–1.25 suits product screens), then <b>adjust by hand</b>: apps need several sizes between 12 and 20px and only a few large ones. Give each size a line height that <b>tightens as text grows</b> (about 1.5 for body, 1.2 for display), rounded to a 4px grid, and name the styles by <b>role</b>: display, heading, body, label, caption.</p>
+  <ul>
+    <li>A mathematical scale is a starting point, not the answer.</li>
+    <li>Show importance with weight, colour and space as well as size; you'll need fewer sizes.</li>
+    <li>Fluid type must keep a fixed part, or it won't grow when people zoom.</li>
+  </ul>
+</div>
+
+<h2>Why a type scale</h2>
+<p>If anyone can pick any text size, you end up with 13, 14, 14.5, 15 and 16 pixels across the product, and nothing quite looks related. A type scale fixes this with a short list everyone chooses from. It also makes typography a set of decisions you can change in one place, and the foundation for accessible text across every screen.</p>
+
+<h2>Step 1: Choose a base and a ratio</h2>
+<p>The classic method: start from a base size and multiply by the same number at each step up. That number is the <b>ratio</b>. A small ratio gives many sizes close together; a large one jumps quickly to big headlines.</p>
+<!--fig:type-ratios-->
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Ratio</th><th>Feels</th><th>Suits</th></tr></thead>
+  <tbody>
+    <tr><td>1.125 (major second)</td><td>Quiet, dense</td><td>Data-heavy apps, dashboards, admin tools</td></tr>
+    <tr><td>1.2 – 1.25 (minor/major third)</td><td>Balanced</td><td>Most product UIs</td></tr>
+    <tr><td>1.333 (perfect fourth)</td><td>Editorial</td><td>Content sites, marketing pages</td></tr>
+    <tr><td>1.618 (golden ratio)</td><td>Dramatic</td><td>Posters and landing pages; too few useful sizes for apps</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2>Step 2: Adjust by hand</h2>
+<p>Pure maths gives you sizes like 22.78px and leaves gaps where apps need options. Product screens need several sizes clustered between 12 and 20px (labels, body text, small headings) and only a few large ones. So mature systems start from a ratio, then round to whole numbers and tune the set. Google's Material Design 3, for example, uses a hand-tuned set of 15 named styles rather than a strict formula.</p>
+<p>Three practical rules for tuning:</p>
+<ul>
+  <li>Keep body text at 16px on the web (the browser default) and no smaller than 14px in dense apps.</li>
+  <li>Make sure neighbouring steps are visibly different: 14 and 15 are too close to both earn a place.</li>
+  <li>Stop adding large sizes once you have one for page titles and one for big numbers or hero text.</li>
+</ul>
+
+<h2>Step 3: Line height and letter spacing</h2>
+<p>Line height (leading) should get <b>proportionally tighter as text gets bigger</b>. Body text reads comfortably at about 1.4–1.6 times its size; big headlines look loose above about 1.2. Round every line height to a multiple of 4px so text lines up with the <a href="/writing/spacing-system-4px-vs-8px">spacing system</a>.</p>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Text size</th><th class="r">Target line height</th></tr></thead>
+  <tbody>
+    <tr><td>Up to 14px</td><td class="r">about 1.45</td></tr>
+    <tr><td>15–20px</td><td class="r">about 1.5</td></tr>
+    <tr><td>21–32px</td><td class="r">about 1.3</td></tr>
+    <tr><td>33–48px</td><td class="r">about 1.2</td></tr>
+    <tr><td>Over 48px</td><td class="r">about 1.1</td></tr>
+  </tbody>
+</table></div></div>
+<p>Letter spacing works the other way. Fonts are spaced for reading sizes, so headlines usually get slightly tighter tracking, while very small text and all-caps labels get slightly looser tracking to stay legible.</p>
+
+<h2>Step 4: Name text styles by their job</h2>
+<p>Like colours, text styles should be named by what they're for, not their size. "Heading large" survives a redesign; "28px" doesn't. Five families cover almost every product:</p>
+<div class="cols5">
+  <div class="cell"><span class="k">DISPLAY</span><p>Big numbers and headlines: a dashboard total, a welcome message.</p></div>
+  <div class="cell"><span class="k">HEADING</span><p>Page and section titles: the structure of a screen.</p></div>
+  <div class="cell"><span class="k">BODY</span><p>Paragraphs, descriptions, table cells, form values.</p></div>
+  <div class="cell"><span class="k">LABEL</span><p>Buttons, tabs, form labels, menu items. Slightly bolder.</p></div>
+  <div class="cell"><span class="k">CAPTION</span><p>Timestamps, helper text, small print.</p></div>
+</div>
+<p>Here's a complete set built this way, from the Layer One playbook. Each style bundles size, line height, weight and tracking under one name, stored as a DTCG <code>typography</code> token:</p>
+<!--fig:type-styles-->
+
+<h2>Importance takes more than size</h2>
+<p>A common mistake is showing every level of importance with size alone. You end up with a dozen sizes and a page that still feels flat. <b>Weight</b> (bold or regular), <b>colour</b> (primary or secondary text), <b>case</b> and <b>space</b> around text are just as effective, and they don't add sizes. The clearest hierarchies change two or more of these at once between levels.</p>
+<div class="cols2">
+  <div class="cell"><span class="k" style="color:var(--warn)">SIZE DOING ALL THE WORK</span><p>Title 28 · Status 22 · Summary 18 · Meta 14, all the same weight and colour. Four sizes, and the eye still has to work to find the order.</p></div>
+  <div class="cell"><span class="k" style="color:var(--good)">SIZE, WEIGHT, COLOUR AND SPACE</span><p>Title 22 semibold · Status 14 semibold in the danger colour · Summary 16 regular · Meta 14 secondary colour. Fewer sizes, clearer order.</p></div>
+</div>
+
+<h2>Step 5: Responsive and fluid type</h2>
+<p>A 36px heading looks right on a laptop and takes half the screen on a phone. Two approaches work:</p>
+<div class="cols2">
+  <div class="cell"><span class="k">STEPPED</span><h3>Different sizes per breakpoint</h3><p>"Heading XL" is 28px on phones and 36px on larger screens. Simple, predictable, easy to show in design files.</p></div>
+  <div class="cell"><span class="k">FLUID</span><h3>Sizes that grow smoothly</h3><p>Text grows between a minimum and maximum with the viewport, using CSS <code>clamp()</code>. Tools like Utopia popularised this.</p></div>
+</div>
+<pre><code><span class="c">/* Heading XL: 28px on a 360px phone → 36px on a 1280px laptop */</span>
+--type-heading-xl-size: clamp(1.75rem, 1.554rem + 0.87vw, 2.25rem);
+<span class="c">/* growth = (36 − 28) ÷ (1280 − 360) = 0.0087 → 0.87vw
+   start  = 28 − 0.0087 × 360       = 24.87px → 1.554rem */</span></code></pre>
+<div class="callout callout--warn"><span class="callout-k">Watch out</span><p>If text size depends only on viewport width, it won't get bigger when someone zooms in, which can fail WCAG's requirement that text can be enlarged to 200%. Always keep a fixed <code>rem</code> part in the formula, and only make headings fluid. Keep body text at a steady size.</p></div>
+<p>On iOS and Android, people can choose a larger text size for every app. Map your text styles to the platform's adjustable styles (Dynamic Type on iOS) rather than fixing sizes.</p>
+
+<h2>Readable for everyone</h2>
+<ul class="checklist">
+  <li><b>Contrast:</b> every text style uses a colour that passes 4.5:1 (3:1 for large text). See <a href="/writing/color-contrast-design-system">colour contrast in design systems</a>.</li>
+  <li><b>Zoom:</b> text can be enlarged to 200% without being cut off (WCAG 1.4.4).</li>
+  <li><b>Text spacing:</b> layouts survive users increasing line and letter spacing (1.4.12). Avoid fixed heights around text.</li>
+  <li><b>Line length:</b> aim for about 45–75 characters per line in long text.</li>
+  <li><b>Minimum size:</b> avoid body text below 14px in dense web apps, or 16px on mobile.</li>
+</ul>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Start from 16px and a ratio of about 1.125–1.25, then round and tune by hand.</li>
+  <li>Line height tightens as size grows; round it to 4px.</li>
+  <li>Name styles by role: display, heading, body, label, caption.</li>
+  <li>Use weight, colour and space for hierarchy, not just size.</li>
+  <li>Make only headings fluid, and always keep a fixed part so zoom works.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>What's a good type scale ratio for apps?</summary><div><p>Usually between 1.125 and 1.25. Then adjust by hand so you have enough sizes between 12 and 20px.</p></div></details>
+  <details><summary>How many text styles does a design system need?</summary><div><p>Ten to fifteen named styles is typical. Our set has twelve across five families.</p></div></details>
+  <details><summary>Should I use px or rem?</summary><div><p>Design in px, ship in rem on the web, so text respects the user's browser font size and zoom.</p></div></details>
+  <details><summary>Should headings be fluid?</summary><div><p>Large headings benefit from fluid sizing; body text shouldn't change with viewport width. Keep a rem component in any fluid formula.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://m3.material.io/styles/typography/type-scale-tokens" target="_blank" rel="noopener">Material 3 type scale tokens</a><span>A hand-tuned set of named styles.</span></li>
+  <li><a href="https://www.carbondesignsystem.com/elements/typography/type-sets/" target="_blank" rel="noopener">Carbon type sets</a><span>Productive and expressive type for different jobs.</span></li>
+  <li><a href="https://utopia.fyi/" target="_blank" rel="noopener">Utopia</a><span>Fluid type and space calculators.</span></li>
+  <li><a href="https://developer.apple.com/design/human-interface-guidelines/typography" target="_blank" rel="noopener">Apple HIG: Typography</a><span>Dynamic Type and platform text styles.</span></li>
+</ul>

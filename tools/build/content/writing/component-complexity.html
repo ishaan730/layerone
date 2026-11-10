@@ -1,0 +1,112 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>Not all components are equal: a badge takes days, a data table can take months. Sort components into <b>four levels</b>: <b>elements</b> (show something), <b>controls</b> (one clear interaction), <b>composites</b> (several parts that coordinate) and <b>systems</b> (data, logic and performance). For planning, score each one 0–3 on <b>eight questions</b> (options, states, interaction, keyboard and screen reader, data, screen sizes, composition, platforms) and add them up. Then match the process (people, research, testing, beta length) to the level, and plan by points rather than by component count.</p>
+  <ul>
+    <li>0–6 points is level 1, 7–12 level 2, 13–18 level 3, 19–24 level 4.</li>
+    <li>A date picker scores like a composite, not a select menu: dates are data, and the calendar grid has demanding keyboard behaviour.</li>
+    <li>Each extra platform adds roughly the same effort again.</li>
+  </ul>
+</div>
+
+<h2>Why "ten components this quarter" misleads</h2>
+<p>Plans that count components treat a divider and a data table as the same unit of work. They're not, and the result is predictable: the quarter's plan looks on track until the one complex component swallows two months. Leadership loses confidence, and the team gets blamed for a planning model that was wrong from the start.</p>
+<p>Complexity also matters for process. Running a heavyweight process for a badge wastes everyone's time; running a lightweight one for a data table guarantees bugs in production.</p>
+
+<h2>Four levels of complexity</h2>
+<p>These loosely echo Brad Frost's idea of building from small parts to large ones, but they're organised by how hard something is to get right, not by how big it is.</p>
+<figure class="w-fig">
+  <div class="stairs stairs--4">
+    <div><span class="n">1</span><b>Elements</b><span>Show something. Little interaction, few states. Badge, avatar, divider, icon, tag, spinner.</span></div>
+    <div><span class="n">2</span><b>Controls</b><span>One clear interaction. Full set of states; standard keyboard use. Button, text field, checkbox, radio, switch, link.</span></div>
+    <div class="on"><span class="n">3</span><b>Composites</b><span>Several parts that coordinate. Complex focus rules; open/close; selection. Select, menu, tabs, dialog, combobox, date picker.</span></div>
+    <div><span class="n">4</span><b>Systems</b><span>Data and logic; performance matters. Data table, rich text editor, file uploader, charts, multi-step form, app frame.</span></div>
+  </div>
+  <figcaption>Each level adds a new kind of difficulty: interaction at level 2, coordination between parts at level 3, and data, logic and performance at level 4. <span class="ev ev--prac">Practitioner view</span></figcaption>
+</figure>
+<p>Level 3 is where accessibility gets genuinely hard: a menu has a trigger and a list, tabs have a tab list and panels, a dialog manages focus for everything inside it, and people expect established keyboard patterns. Level 4 components are small applications in their own right and often take longer than everything else in the library combined.</p>
+
+<h2>Scoring complexity: eight questions</h2>
+<p>Levels are a good first guess. For planning, rate each component 0–3 on eight questions and add them up. You don't need precision; the point is to have the conversation as a team before committing to dates.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Question</th><th>0 · none</th><th>1 · a little</th><th>2 · quite a lot</th><th>3 · a lot</th></tr></thead>
+  <tbody>
+    <tr><td>Options</td><td>One version</td><td>2–3 variants</td><td>Variants × sizes</td><td>Many combinations</td></tr>
+    <tr><td>States</td><td>Static</td><td>Hover, focus</td><td>Full interactive set</td><td>Plus loading, empty, error</td></tr>
+    <tr><td>Interaction</td><td>None</td><td>Click</td><td>Typing, selection</td><td>Drag, resize, multi-select</td></tr>
+    <tr><td>Keyboard &amp; screen reader</td><td>Nothing special</td><td>Tab and Enter</td><td>Arrow keys, announcements</td><td>Complex focus, live updates</td></tr>
+    <tr><td>Data</td><td>None</td><td>A simple value</td><td>Lists, formatting</td><td>Large data, async loading</td></tr>
+    <tr><td>Screen sizes</td><td>Same everywhere</td><td>Minor adjustments</td><td>Different layout on mobile</td><td>Different behaviour on mobile</td></tr>
+    <tr><td>Composition</td><td>Single part</td><td>Fixed sub-parts</td><td>Slots or children</td><td>Nested, coordinated components</td></tr>
+    <tr><td>Platforms</td><td>Web only</td><td>Web, one framework</td><td>Web plus one native</td><td>Web, iOS and Android</td></tr>
+  </tbody>
+</table></div>
+<figcaption>The eight-question rubric. Total 0–6 → level 1 · 7–12 → level 2 · 13–18 → level 3 · 19–24 → level 4.</figcaption></figure>
+
+<h2>Four components, scored</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Component</th><th class="r">Options</th><th class="r">States</th><th class="r">Interaction</th><th class="r">Keyboard</th><th class="r">Data</th><th class="r">Screens</th><th class="r">Composition</th><th class="r">Platforms</th><th class="r">Total</th><th>Level</th></tr></thead>
+  <tbody>
+    <tr><td>Badge</td><td class="r">1</td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">0</td><td class="r">1</td><td class="r"><b>2</b></td><td>1 · Element</td></tr>
+    <tr><td>Button</td><td class="r">2</td><td class="r">2</td><td class="r">1</td><td class="r">1</td><td class="r">0</td><td class="r">1</td><td class="r">1</td><td class="r">1</td><td class="r"><b>9</b></td><td>2 · Control</td></tr>
+    <tr><td>Date picker</td><td class="r">2</td><td class="r">3</td><td class="r">2</td><td class="r">3</td><td class="r">2</td><td class="r">2</td><td class="r">2</td><td class="r">1</td><td class="r"><b>17</b></td><td>3 · Composite</td></tr>
+    <tr><td>Data table</td><td class="r">3</td><td class="r">3</td><td class="r">3</td><td class="r">3</td><td class="r">3</td><td class="r">3</td><td class="r">3</td><td class="r">1</td><td class="r"><b>22</b></td><td>4 · System</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Notice the date picker. Most people would guess it's like a select menu. It isn't: dates are data (time zones, locales, ranges, disabled days), and a calendar grid has some of the most demanding keyboard behaviour of any common component.</figcaption></figure>
+
+<h2>Match the process to the level</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th></th><th>1 · Elements</th><th>2 · Controls</th><th>3 · Composites</th><th>4 · Systems</th></tr></thead>
+  <tbody>
+    <tr><td>Who's involved</td><td>One designer, one engineer</td><td>Pair, plus an accessibility check</td><td>Pair, accessibility specialist, a pilot team</td><td>A small squad, several pilots, product managers</td></tr>
+    <tr><td>Research</td><td>Inventory only</td><td>Inventory and real content</td><td>Usage research across teams</td><td>Requirements gathering, like a product feature</td></tr>
+    <tr><td>Accessibility</td><td>Contrast, labels</td><td>Keyboard and screen reader basics</td><td>Full ARIA pattern; manual testing</td><td>Expert review; testing with assistive technology users</td></tr>
+    <tr><td>Testing</td><td>Visual</td><td>Visual and behaviour</td><td>Plus manual keyboard and screen reader</td><td>Plus performance with real data volumes</td></tr>
+    <tr><td>Beta period</td><td>None</td><td>A week or two</td><td>A month, with a pilot</td><td>A quarter, with several pilots</td></tr>
+    <tr><td>Documentation</td><td>Short page</td><td>Full template</td><td>Template plus behaviour notes</td><td>Guides, recipes and examples</td></tr>
+    <tr><td>Typical effort</td><td>Days</td><td>1–2 weeks</td><td>3–6 weeks</td><td>1–3 months or more</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Effort ranges are practitioner estimates for one web framework, with foundations in place. Each extra platform adds roughly the same again.</figcaption></figure>
+<p>For level 3 and 4 components, start with a kick-off workshop with every team that will use the component: walk through every existing version, agree must-haves and out-of-scope items, and name the pilot team. People support what they helped shape.</p>
+
+<h2>Plan by points, not by count</h2>
+<p>Instead of "ten components this quarter", plan with the totals: "about 90 points this quarter". A badge is 2 points; a data table is 22. It sounds a little nerdy, but it makes plans honest overnight, and it gives leadership a much better picture of progress than a count of finished components.</p>
+<p>The same scores help with <a href="/writing/design-system-contribution-model">request prioritisation</a>: complexity is the "effort" that divides a request's value score.</p>
+
+<h2>Choose the simplest component that works</h2>
+<p>Complexity is also a design decision for product teams. Every time a designer picks a component, they pick a level of complexity for users and for the engineers who'll build the screen. The simplest component that does the job is almost always right.</p>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>If people need to…</th><th>Prefer</th><th>Over</th><th>Unless…</th></tr></thead>
+  <tbody>
+    <tr><td>Choose one of 2–5 options</td><td>Radio buttons</td><td>A dropdown select</td><td>Space is very tight</td></tr>
+    <tr><td>Choose one of 6–15 options</td><td>A select</td><td>A searchable combobox</td><td>Options are unfamiliar or long</td></tr>
+    <tr><td>Choose from hundreds of options</td><td>A combobox with search</td><td>A custom picker dialog</td><td>Options need images or grouping</td></tr>
+    <tr><td>Enter a date they know (a birthday)</td><td>Simple text fields</td><td>A calendar date picker</td><td>They need to see days of the week</td></tr>
+    <tr><td>Show extra information</td><td>Text on the page</td><td>A tooltip</td><td>It's genuinely secondary</td></tr>
+  </tbody>
+</table></div></div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Four levels: elements, controls, composites, systems.</li>
+  <li>Score components 0–3 on eight questions to place them and estimate effort.</li>
+  <li>Match people, research, testing and beta length to the level.</li>
+  <li>Plan by points, not by number of components.</li>
+  <li>For product teams: choose the simplest component that does the job.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>How long does it take to build a design system component?</summary><div><p>From days for a simple element to one to three months or more for a data table, on one platform. Score the component to estimate it.</p></div></details>
+  <details><summary>Why are date pickers so hard?</summary><div><p>Because they combine data (locales, time zones, ranges, disabled days) with a calendar grid that needs complex keyboard and screen reader behaviour.</p></div></details>
+  <details><summary>Should the whole team score components together?</summary><div><p>Yes, briefly. The value is in the conversation: designers, engineers and accessibility specialists notice different sources of complexity.</p></div></details>
+  <details><summary>How do we re-score as we learn more?</summary><div><p>Re-score yearly, or when a component's scope changes. Scores also help explain to leadership why one component took a quarter.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://atomicdesign.bradfrost.com/" target="_blank" rel="noopener">Atomic Design</a><span>Brad Frost. Building from small parts to large ones.</span></li>
+  <li><a href="https://www.w3.org/WAI/ARIA/apg/" target="_blank" rel="noopener">ARIA Authoring Practices Guide</a><span>W3C. Why composites are hard.</span></li>
+  <li><a href="/writing/which-components-to-build-first">Which components to build first</a><span>The prioritisation method.</span></li>
+</ul>

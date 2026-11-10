@@ -1,0 +1,114 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>Component props are the API designers and engineers use every day, and a promise you'll have to keep for years. Good props: use <b>one choice instead of several switches</b> (<code>variant="danger"</code>, not <code>isPrimary isDanger</code>); use <b>the same names everywhere</b> (<code>variant</code>, <code>size</code>, <code>tone</code>, <code>disabled</code>); make <b>the default the right answer</b>; <b>never let props bypass the system</b> with raw colours or pixel values; and <b>only require what's essential</b>. Keep the same properties, names and defaults in Figma and code.</p>
+  <ul>
+    <li>Every prop you add is one you'll have to support. Add it only when it earns its place.</li>
+    <li>Information flows down through props; news flows up through events.</li>
+    <li>Name controlled and uncontrolled values the same way in every component.</li>
+  </ul>
+</div>
+
+<h2>Props are a promise</h2>
+<p>Think of a TV remote. A good one has a few clearly labelled buttons that do exactly what they say. Now imagine one where "volume up" only works if "mode B" is on, and pressing "mute" on input 2 changes the channel. That's what a component with badly designed props feels like.</p>
+<p>Props matter for three reasons. They're the interface people use every day, so clarity saves time on every screen. They decide consistency: if a prop lets anyone pick any colour, they will, and the product drifts. And they're a promise: once teams use a prop, changing or removing it breaks their screens. That's a <a href="/writing/design-system-versioning">breaking change</a>, with all the cost that implies.</p>
+
+<h2>The eight kinds of props</h2>
+<p>Almost every prop in every component library falls into one of eight kinds. Knowing them helps you spot what a component needs, and props that don't belong.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Kind</th><th>What it does</th><th>Example in code</th><th>In Figma</th></tr></thead>
+  <tbody>
+    <tr><td>Variant</td><td>Picks one approved version from a fixed list</td><td><code>variant="primary"</code></td><td>Variant property</td></tr>
+    <tr><td>Size</td><td>Picks one approved size</td><td><code>size="sm" | "md" | "lg"</code></td><td>Variant property</td></tr>
+    <tr><td>Switch</td><td>Turns one thing on or off</td><td><code>disabled</code>, <code>loading</code></td><td>Boolean property</td></tr>
+    <tr><td>Content</td><td>Text or information to show</td><td><code>label="Email"</code></td><td>Text property</td></tr>
+    <tr><td>Slot</td><td>Lets you put other components inside</td><td><code>icon={&lt;SendIcon /&gt;}</code>, <code>children</code></td><td>Instance swap or slot</td></tr>
+    <tr><td>State</td><td>The current value, and its starting value</td><td><code>value</code>, <code>defaultValue</code>, <code>open</code></td><td>Usually a "state" variant</td></tr>
+    <tr><td>Event</td><td>What to do when something happens</td><td><code>onClick</code>, <code>onChange</code></td><td>Not represented (prototype only)</td></tr>
+    <tr><td>Accessibility</td><td>Extra information for assistive technology</td><td><code>aria-label="Close dialog"</code></td><td>A note in the spec</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Figma's component property types (variant, boolean, text, instance swap) line up neatly with most of these. When both sides use the same names and values, a designer's choices translate directly into code.</figcaption></figure>
+
+<h2>Five rules for good props</h2>
+<h3>1. Prefer one choice over many switches</h3>
+<p>The most common mistake is using several on/off switches for what's really one choice. If a button has <code>isPrimary</code>, <code>isDanger</code> and <code>isGhost</code>, what happens when someone turns on two? Nobody knows. One <code>variant</code> prop with a list of allowed values makes impossible combinations impossible.</p>
+<pre><code><span class="c">// ✕ Three switches, eight combinations, most of them meaningless</span>
+&lt;Button isPrimary isDanger&gt;Delete&lt;/Button&gt;
+
+<span class="c">// ✓ One choice, three valid options</span>
+&lt;Button variant=<span class="s">"danger"</span>&gt;Delete&lt;/Button&gt;</code></pre>
+<h3>2. Use the same names everywhere</h3>
+<p>If buttons use <code>variant</code>, badges shouldn't use <code>type</code> and alerts shouldn't use <code>kind</code>. If buttons use <code>size="sm"</code>, inputs shouldn't use <code>size="small"</code>. Write down a short list of standard prop names and use it across the library. People then learn the library once, not component by component.</p>
+<h3>3. Make the default the right answer</h3>
+<p>The value a prop takes when nobody sets it should be the most common, safest choice. A button should default to medium and secondary, so the big primary button is a deliberate decision. A text field should default to a visible label, not a hidden one.</p>
+<h3>4. Don't let props bypass the system</h3>
+<p>Props like <code>color="#FF3300"</code> or <code>padding={13}</code> let anyone escape the foundations, and someone always will. Offer choices from the system (<code>tone="critical"</code>, <code>size="lg"</code>), never raw values.</p>
+<h3>5. Only require what's essential</h3>
+<p>A component should work with as few props as possible. A button needs a label and something to do when pressed; everything else should have a sensible default. Every required prop is something someone will forget.</p>
+
+<h2>How props work: down, then up</h2>
+<p>In most modern frameworks, information flows <b>down</b> through props and news flows <b>up</b> through events. The screen tells the component what to show; when something happens inside it, the component tells the screen, which decides what to do.</p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Product screen</b><span>Knows the data and the rules: <code>tab = "invoices"</code></span></div><i>→</i>
+    <div class="hi"><b>props down</b><span><code style="background:rgb(0 0 0 / .15)">value="invoices"</code></span></div><i>→</i>
+    <div><b>Tabs component</b><span>Knows how to look and behave</span></div><i>→</i>
+    <div><b>event up</b><span><code>onValueChange("payments")</code></span></div>
+  </div>
+  <figcaption>Props flow down, events flow up. Given the same props, a component always looks the same, which is also what makes visual testing possible.</figcaption>
+</figure>
+<h3>Controlled and uncontrolled</h3>
+<p>An <b>uncontrolled</b> component takes a <code>defaultValue</code> and looks after itself. A <b>controlled</b> component takes a <code>value</code> plus an event like <code>onValueChange</code>, and the screen stays in charge. Good libraries name these the same way in every component that has a value, so engineers learn the pattern once.</p>
+<h3>Passing things through</h3>
+<p>Components should pass along standard attributes they don't use themselves (an ID for testing, a data attribute, an extra ARIA attribute) to the underlying element. It means the system doesn't block teams from doing ordinary, legitimate things.</p>
+
+<h2>Keep Figma and code in step</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Code prop</th><th>Values</th><th>Default</th><th>Figma property</th><th>What it's for</th></tr></thead>
+  <tbody>
+    <tr><td><code>variant</code></td><td>primary · secondary · danger</td><td>secondary</td><td>Variant: Variant</td><td>The importance of the action. One primary per area.</td></tr>
+    <tr><td><code>size</code></td><td>sm · md · lg</td><td>md</td><td>Variant: Size</td><td>Match the density of the surrounding UI.</td></tr>
+    <tr><td><code>icon</code></td><td>icon name</td><td>none</td><td>Boolean + instance swap</td><td>An optional icon before the label.</td></tr>
+    <tr><td><code>loading</code></td><td>true / false</td><td>false</td><td>Boolean: Loading</td><td>Shows progress and prevents double clicks.</td></tr>
+    <tr><td><code>disabled</code></td><td>true / false</td><td>false</td><td>Variant: State = Disabled</td><td>Can't be used right now. Explain why nearby.</td></tr>
+    <tr><td><code>children</code></td><td>text</td><td>—</td><td>Text: Label</td><td>The label. Start with a verb: "Send invoice".</td></tr>
+  </tbody>
+</table></div>
+<figcaption>One button, documented as twins. Two small differences are agreed and written down: Figma splits the icon into a switch and a choice, and treats "disabled" as a visual state.</figcaption></figure>
+<p>Put a table like this on every component's documentation page. See <a href="/writing/design-system-documentation">design system documentation</a> for the full page template.</p>
+
+<h2>A props review checklist</h2>
+<ul class="checklist">
+  <li>Could two of these switches be one variant?</li>
+  <li>Does every name match the standard list used across the library?</li>
+  <li>Is the default the most common, safest choice?</li>
+  <li>Can any prop accept a raw colour, size or spacing value?</li>
+  <li>Is every required prop genuinely essential?</li>
+  <li>Are controlled and uncontrolled values named consistently?</li>
+  <li>Does the Figma component expose the same properties, names and defaults?</li>
+  <li>Are we sure we want to support this prop for years?</li>
+</ul>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Props are an interface and a promise; add them sparingly.</li>
+  <li>One variant over many switches; the same names everywhere; good defaults.</li>
+  <li>Offer choices from the system, never raw values.</li>
+  <li>Props down, events up; consistent controlled and uncontrolled patterns.</li>
+  <li>Keep Figma properties and code props as twins, and document both.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Should a component accept a className or style prop?</summary><div><p>Usually yes for layout (positioning, width), as an escape hatch passed to the root element. Don't use it as the way to change colours or spacing; offer system choices for those.</p></div></details>
+  <details><summary>How do I rename a prop safely?</summary><div><p>Add the new name in a minor release alongside the old one, deprecate the old with a warning and a codemod, then remove it in the next major.</p></div></details>
+  <details><summary>variant, kind, type or appearance?</summary><div><p>The specific word matters less than using one everywhere. <code>variant</code> is the most common and maps well to Figma's variant properties.</p></div></details>
+  <details><summary>Should slots or props be preferred?</summary><div><p>Props for constrained choices; slots where teams need to compose content, such as a card's body. Slots give flexibility; props give consistency.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://help.figma.com/hc/en-us/articles/5579474826519-Explore-component-properties" target="_blank" rel="noopener">Explore component properties</a><span>Figma Help Center.</span></li>
+  <li><a href="https://react.dev/learn/sharing-state-between-components" target="_blank" rel="noopener">Sharing state between components</a><span>react.dev, on controlled and uncontrolled components.</span></li>
+  <li><a href="/writing/component-complexity">Component complexity</a><span>How options and composition add effort.</span></li>
+</ul>
