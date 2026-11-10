@@ -1,5 +1,6 @@
-/* Layer One Lab (v2). Seven tools in one workspace. No dependencies.
-   State lives in one object, saved to localStorage and shareable as #s=<base64>. */
+/* Layer One Lab (v3). One script for every tool page; each module runs only when its panel is on the page.
+   State lives in one object shared by all tools (a palette made on one page feeds contrast and the export kit),
+   saved to localStorage and shareable as #s=<base64>. Presets are JSON patches merged into the state. No dependencies. */
 (function () {
   "use strict";
   var $ = function (s, r) { return (r || document).querySelector(s); };
@@ -58,12 +59,15 @@
     ramps: [{ name: "brand", h: 279, c: 0.25, hex: "#4736fe", pin: true }, { name: "neutral", h: 279, c: 0.014, hex: null, pin: false }],
     sel: 0, steps: "10", lmax: 0.975, lmin: 0.24, gamut: "srgb", prev: "both",
     fg: "#5b6170", bg: "#ffffff", mramp: 0, mmin: "4.5",
-    t: { base: 16, ratio: "1.25", up: 6, down: 2, round: "1", lh: 1.5, lhd: 1.1, name: "shirt", font: "Schibsted Grotesk, sans-serif", text: "Ship the system, not the screenshots" },
+    t: { base: 16, ratio: "1.25", up: 6, down: 2, round: "1", lh: 1.5, lhd: 1.1, name: "shirt", font: "Schibsted Grotesk, sans-serif", text: "Ship the system, not the screenshots", fluid: false, bmin: 15, rmin: "1.2", vmin: 360, vmax: 1440, vw: 1440 },
     s: { base: "4", method: "common", count: 12, name: "shirt", pad: "", gap: "" },
     r: { base: 6, count: 5, full: true },
-    n: { sep: "-", cats: "color, space, size, radius, font, line-height, shadow, border, opacity, motion, z", states: "hover, active, pressed, focus, focused, disabled, selected", depth: 6, raw: true, list: "" },
-    b: { items: [], draft: {} },
+    n: { sep: "-", cats: "color, space, size, radius, font, line-height, shadow, border, opacity, motion, z", states: "hover, active, pressed, focus, focused, disabled, selected", depth: 6, raw: true, list: null },
+    b: { items: null, draft: {} },
     k: { prefix: "" },
+    vision: "none",
+    g: { preset: "m3", bps: null, vw: 1280 },
+    roi: { cur: "$", eng: 40, des: 6, fte: 2, monthly: 12000, rate: 90, gain: 20, a1: 40, a2: 70, a3: 85, uiEng: 25, uiDes: 50, hours: 1600 },
     fmt: {}
   };
   function clone(o) { return JSON.parse(JSON.stringify(o)); }
@@ -78,7 +82,10 @@
   else { try { var saved = JSON.parse(localStorage.getItem(KEY) || "null"); if (saved) merge(S, saved); } catch (e) {} }
   if (!S.ramps.length) S.ramps = clone(DEF.ramps);
   var saveT;
-  function save() { clearTimeout(saveT); saveT = setTimeout(function () { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }, 250); }
+  function flush() { clearTimeout(saveT); try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+  function save() { clearTimeout(saveT); saveT = setTimeout(flush, 250); }
+  window.addEventListener("pagehide", flush);
+  document.addEventListener("visibilitychange", function () { if (document.visibilityState === "hidden") flush(); });
 
   var statusEl = $("[data-status]"), stT;
   function status(msg) { if (!statusEl) return; statusEl.textContent = msg; statusEl.classList.add("on"); clearTimeout(stT); stT = setTimeout(function () { statusEl.classList.remove("on"); }, 2200); }
@@ -95,10 +102,12 @@
   function slug(s, d) { return (String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")) || d; }
 
   /* ================================================================ UI helpers */
+  var SYNC = [];
   function seg(panel, name, value, fn) {
-    var g = $('[data-name="' + name + '"]', panel); if (!g) return;
+    var g = $('[data-name="' + name + '"]', panel); if (!g) return function () {};
     var bs = $$("button", g);
     function set(v) { bs.forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-v") === String(v) ? "true" : "false"); }); }
+    if (typeof value === "function") { var get = value; SYNC.push(function () { set(get()); }); value = get(); }
     set(value);
     bs.forEach(function (b) { b.addEventListener("click", function () { set(b.getAttribute("data-v")); fn(b.getAttribute("data-v")); }); });
     return set;
@@ -109,27 +118,18 @@
     function show() { if (out) out.textContent = fmt ? fmt(+el.value) : el.value; }
     el.value = get(); show();
     el.addEventListener("input", function () { set(+el.value); show(); });
-    return function () { el.value = get(); show(); };
+    var sync = function () { el.value = get(); show(); }; SYNC.push(sync);
+    return sync;
   }
 
-  /* ================================================================ tabs */
-  var tabs = $$("[data-tab]"), panels = $$("[data-panel]"), renders = {};
-  function openTab(k, focus) {
-    if (!$('[data-panel="' + k + '"]')) k = "palette";
-    S.tab = k; save();
-    tabs.forEach(function (t) { var on = t.getAttribute("data-tab") === k; t.setAttribute("aria-selected", on ? "true" : "false"); t.tabIndex = on ? 0 : -1; if (on && focus) t.focus(); });
-    panels.forEach(function (p) { p.hidden = p.getAttribute("data-panel") !== k; });
-    if (renders[k]) renders[k]();
-    try { if (location.hash || k !== "palette") history.replaceState(null, "", "#" + k); } catch (e) {}
-    var on = $('[data-tab="' + k + '"]'); if (on && on.scrollIntoView) on.scrollIntoView({ block: "nearest", inline: "nearest" });
-  }
-  tabs.forEach(function (t, i) {
-    t.addEventListener("click", function () { openTab(t.getAttribute("data-tab")); });
-    t.addEventListener("keydown", function (e) {
-      var d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0; if (!d) return;
-      e.preventDefault(); openTab(tabs[(i + d + tabs.length) % tabs.length].getAttribute("data-tab"), true);
-    });
-  });
+  /* ================================================================ page */
+  var SLUG = { palette: "oklch-palette-generator", contrast: "color-contrast-checker", type: "type-scale-generator", space: "spacing-scale-generator",
+               grid: "layout-grid-calculator", names: "design-token-name-checker", backlog: "component-request-scorecard", kit: "design-token-generator", roi: "design-system-roi-calculator" };
+  var OWN = { palette: ["ramps", "sel", "steps", "lmax", "lmin", "gamut", "prev"], contrast: ["fg", "bg", "mramp", "mmin", "vision"], type: ["t"], space: ["s", "r"],
+              grid: ["g"], names: ["n"], backlog: ["b"], kit: ["k"], roi: ["roi"] };
+  var TOOL = root.getAttribute("data-tool") || "", renders = {};
+  function renderAll() { Object.keys(renders).forEach(function (k) { if (k[0] !== "_") try { renders[k](); } catch (e) { if (window.console) console.error(e); } }); }
+  function bindVal(el, get) { if (el) SYNC.push(function () { if (el.type === "checkbox") el.checked = !!get(); else el.value = get(); }); }
 
   /* ================================================================ export bars */
   var GEN = {}, FILES = {};
@@ -171,8 +171,21 @@
   }
   var PRESETS = { success: ["success", 152, 0.16], warning: ["warning", 70, 0.16], danger: ["danger", 25, 0.2], info: ["info", 245, 0.14] };
 
+  GEN.palette = function (fmt, prefix) {
+    var px = prefix ? slug(prefix, "") + "-" : "", all = S.ramps.map(function (r) { return { n: r.name, s: rampOf(r) }; });
+    if (fmt === "css") {
+      var o = ":root {\n" + all.map(function (r) { return r.s.map(function (s) { return "  --" + px + "color-" + r.n + "-" + s.step + ": " + s.hex + ";"; }).join("\n"); }).join("\n\n") + "\n}";
+      if (S.gamut === "p3") o += "\n\n@supports (color: oklch(0% 0 0)) {\n  @media (color-gamut: p3) {\n    :root {\n" + all.map(function (r) { return r.s.map(function (s) { return "      --" + px + "color-" + r.n + "-" + s.step + ": oklch(" + (s.L * 100).toFixed(1) + "% " + s.C.toFixed(3) + " " + Math.round(s.H) + ");"; }).join("\n"); }).join("\n") + "\n    }\n  }\n}";
+      return o;
+    }
+    if (fmt === "scss") return all.map(function (r) { return r.s.map(function (s) { return "$" + px + "color-" + r.n + "-" + s.step + ": " + s.hex + ";"; }).join("\n"); }).join("\n\n");
+    if (fmt === "tailwind") return "/** tailwind.config.js */\nmodule.exports = {\n  theme: {\n    extend: {\n      colors: {\n" + all.map(function (r) { return "        " + JSON.stringify(px + r.n) + ": {\n" + r.s.map(function (s) { return "          " + s.step + ": '" + s.hex + "',"; }).join("\n") + "\n        },"; }).join("\n") + "\n      },\n    },\n  },\n};";
+    var j = {}; all.forEach(function (r) { j[px + r.n] = {}; r.s.forEach(function (s) { j[px + r.n][s.step] = { $type: "color", $value: s.hex }; }); });
+    return JSON.stringify({ color: j }, null, 2);
+  };
   (function () {
-    var P = $("#p-palette"), list = $("[data-ramp-list]", P), sheet = $("[data-sheet]", P), grid = $("[data-prev-grid]", P);
+    var P = $("#p-palette"); if (!P) return;
+    var list = $("[data-ramp-list]", P), sheet = $("[data-sheet]", P), grid = $("[data-prev-grid]", P);
     var nameI = inp(P, "rname"), hexI = inp(P, "rhex"), colI = inp(P, "rcolor"), pinI = inp(P, "pin"), menu = $("[data-add-menu]", P), addB = $("[data-add-ramp]", P);
     var syncHue, syncChroma, renderExp;
     function cur() { if (S.sel >= S.ramps.length) S.sel = 0; return S.ramps[S.sel]; }
@@ -222,6 +235,7 @@
     }
     function renderAll() { drawList(); editor(); drawSheet(); drawPrev(); renderExp(); refreshMini(); }
     renders.palette = renderAll;
+    SYNC.push(function () { pm.forEach(function (x) { x.setAttribute("aria-pressed", x.getAttribute("data-v") === S.prev ? "true" : "false"); }); });
 
     nameI.addEventListener("input", function () { cur().name = slug(nameI.value, "ramp"); $("[data-edit-name]", P).textContent = cur().name; save(); drawList(); drawSheet(); renderExp(); });
     function takeHex(v) { var h = normHex(v); if (!h) return; setFromHex(cur(), h); cur().pin = pinI.checked || !cur().hex; save(); renderAll(); }
@@ -234,8 +248,8 @@
     syncChroma = bindRange(P, "chroma", function () { return cur().c; }, function (v) { cur().c = v; slid(); }, function (v) { return v.toFixed(3); });
     var r1 = bindRange(P, "lmax", function () { return S.lmax; }, function (v) { S.lmax = v; save(); drawList(); drawSheet(); drawPrev(); renderExp(); }, function (v) { return "L " + v.toFixed(3); });
     var r2 = bindRange(P, "lmin", function () { return S.lmin; }, function (v) { S.lmin = v; save(); drawList(); drawSheet(); drawPrev(); renderExp(); }, function (v) { return "L " + v.toFixed(2); });
-    seg(P, "steps", S.steps, function (v) { S.steps = v; save(); renderAll(); });
-    seg(P, "gamut", S.gamut, function (v) { S.gamut = v; save(); renderAll(); });
+    seg(P, "steps", function () { return S.steps; }, function (v) { S.steps = v; save(); renderAll(); });
+    seg(P, "gamut", function () { return S.gamut; }, function (v) { S.gamut = v; save(); renderAll(); });
     var pm = $$("[data-prev-mode] button", P);
     pm.forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-v") === S.prev ? "true" : "false"); b.addEventListener("click", function () { S.prev = b.getAttribute("data-v"); pm.forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); }); save(); drawPrev(); }); });
     $("[data-del-ramp]", P).addEventListener("click", function () { if (S.ramps.length < 2) return; var gone = S.ramps.splice(S.sel, 1)[0]; S.sel = Math.max(0, S.sel - 1); save(); renderAll(); status("Deleted " + gone.name); });
@@ -253,18 +267,6 @@
       });
     });
 
-    GEN.palette = function (fmt, prefix) {
-      var px = prefix ? slug(prefix, "") + "-" : "", all = S.ramps.map(function (r) { return { n: r.name, s: rampOf(r) }; });
-      if (fmt === "css") {
-        var o = ":root {\n" + all.map(function (r) { return r.s.map(function (s) { return "  --" + px + "color-" + r.n + "-" + s.step + ": " + s.hex + ";"; }).join("\n"); }).join("\n\n") + "\n}";
-        if (S.gamut === "p3") o += "\n\n@supports (color: oklch(0% 0 0)) {\n  @media (color-gamut: p3) {\n    :root {\n" + all.map(function (r) { return r.s.map(function (s) { return "      --" + px + "color-" + r.n + "-" + s.step + ": oklch(" + (s.L * 100).toFixed(1) + "% " + s.C.toFixed(3) + " " + Math.round(s.H) + ");"; }).join("\n"); }).join("\n") + "\n    }\n  }\n}";
-        return o;
-      }
-      if (fmt === "scss") return all.map(function (r) { return r.s.map(function (s) { return "$" + px + "color-" + r.n + "-" + s.step + ": " + s.hex + ";"; }).join("\n"); }).join("\n\n");
-      if (fmt === "tailwind") return "/** tailwind.config.js */\nmodule.exports = {\n  theme: {\n    extend: {\n      colors: {\n" + all.map(function (r) { return "        " + JSON.stringify(px + r.n) + ": {\n" + r.s.map(function (s) { return "          " + s.step + ": '" + s.hex + "',"; }).join("\n") + "\n        },"; }).join("\n") + "\n      },\n    },\n  },\n};";
-      var j = {}; all.forEach(function (r) { j[px + r.n] = {}; r.s.forEach(function (s) { j[px + r.n][s.step] = { $type: "color", $value: s.hex }; }); });
-      return JSON.stringify({ color: j }, null, 2);
-    };
     FILES.palette = function (f) { return f === "tailwind" ? "tailwind.colors.js" : "palette." + EXT[f]; };
     renderExp = exportBar("palette");
     renders._palette = renderAll;
@@ -273,7 +275,8 @@
   /* ================================================================ 2. contrast */
   var refreshMini = function () {};
   (function () {
-    var P = $("#p-contrast"), fgI = inp(P, "fg"), bgI = inp(P, "bg"), fgC = inp(P, "fgc"), bgC = inp(P, "bgc"), mrS = inp(P, "mramp");
+    var P = $("#p-contrast"); if (!P) return;
+    var fgI = inp(P, "fg"), bgI = inp(P, "bg"), fgC = inp(P, "fgc"), bgC = inp(P, "bgc"), mrS = inp(P, "mramp");
     var prev = $("[data-cpreview]", P), mini = $("[data-mini]", P), mat = $("[data-matrix]", P), fix = $("[data-fix]", P);
     function setFg(h) { S.fg = h; save(); draw(); }
     function setBg(h) { S.bg = h; save(); draw(); }
@@ -331,21 +334,23 @@
     fgC.addEventListener("input", function () { setFg(fgC.value); }); bgC.addEventListener("input", function () { setBg(bgC.value); });
     $("[data-swap]", P).addEventListener("click", function () { var t = S.fg; S.fg = S.bg; S.bg = t; save(); draw(); });
     mrS.addEventListener("change", function () { S.mramp = +mrS.value; save(); drawMatrix(); });
-    seg(P, "mmin", S.mmin, function (v) { S.mmin = v; save(); drawMatrix(); });
-    renders.contrast = function () { refreshMini(); draw(); };
+    seg(P, "mmin", function () { return S.mmin; }, function (v) { S.mmin = v; save(); drawMatrix(); });
+    function vision() { prev.style.filter = S.vision && S.vision !== "none" ? "url(#cvd-" + S.vision + ")" : ""; var n = $("[data-vision-note]", P); if (n) n.hidden = !S.vision || S.vision === "none"; }
+    seg(P, "vision", function () { return S.vision || "none"; }, function (v) { S.vision = v; save(); vision(); });
+    renders.contrast = function () { refreshMini(); draw(); vision(); };
   })();
 
   /* ================================================================ 3. type scale */
-  function typeScale() {
-    var t = S.t, out = [], rr = +t.ratio, unit = +t.round, prev = 0;
+  function typeScale(base, ratio) {
+    var t = S.t, out = [], rr = +(ratio || t.ratio), unit = +t.round, prev = 0, b0 = base || t.base;
     for (var i = -t.down; i <= t.up; i++) {
-      var raw = t.base * Math.pow(rr, i), px = unit ? Math.max(unit, Math.round(raw / unit) * unit) : +raw.toFixed(2);
+      var raw = b0 * Math.pow(rr, i), px = unit ? Math.max(unit, Math.round(raw / unit) * unit) : +raw.toFixed(2);
       if (px <= prev) px = prev + (unit || 1);
       prev = px; out.push({ i: i, px: px });
     }
     var maxPx = out[out.length - 1].px;
     out.forEach(function (s) {
-      var k = s.i <= 0 ? 0 : (s.px - t.base) / Math.max(1, maxPx - t.base), lh = t.lh + (t.lhd - t.lh) * Math.min(1, k * 1.25);
+      var k = s.i <= 0 ? 0 : (s.px - b0) / Math.max(1, maxPx - b0), lh = t.lh + (t.lhd - t.lh) * Math.min(1, k * 1.25);
       s.lhPx = Math.round(s.px * lh / 2) * 2; s.lh = s.lhPx / s.px;
       s.ls = s.px >= 24 ? -Math.min(0.03, 0.006 + (s.px - 24) * 0.0008) : (s.px <= 13 ? 0.01 : 0);
       s.name = tName(s.i, t.up, t.down);
@@ -362,11 +367,51 @@
     if (i === 0) return "md"; if (i < 0) return ["sm", "xs", "2xs"][-i - 1];
     return ["lg", "xl", "2xl", "3xl", "4xl", "5xl", "6xl", "7xl", "8xl"][i - 1];
   }
+  function fluidPairs() {
+    var hi = typeScale(), lo = typeScale(S.t.bmin, S.t.rmin);
+    return hi.map(function (s, i) { var m = lo[i] || s; return { name: s.name, i: s.i, min: Math.min(m.px, s.px), max: Math.max(m.px, s.px), lh: s.lh, ls: s.ls }; });
+  }
+  function clampOf(min, max) {
+    var r = function (v) { return +(v / 16).toFixed(4) + "rem"; };
+    if (min === max || S.t.vmax <= S.t.vmin) return r(max);
+    var slope = (max - min) / (S.t.vmax - S.t.vmin), icpt = min - slope * S.t.vmin;
+    return "clamp(" + r(min) + ", " + r(icpt) + " + " + +(slope * 100).toFixed(4) + "vw, " + r(max) + ")";
+  }
+  function fluidAt(f, w) { var k = Math.max(0, Math.min(1, (w - S.t.vmin) / Math.max(1, S.t.vmax - S.t.vmin))); return f.min + (f.max - f.min) * k; }
+  GEN.type = function (fmt, prefix) {
+    var px = prefix ? slug(prefix, "") + "-" : "", sc = typeScale(), rem = function (v) { return +(v / 16).toFixed(4) + "rem"; };
+    if (S.t.fluid) {
+      var fp = fluidPairs(), note = "fluid between " + S.t.vmin + "px and " + S.t.vmax + "px screens";
+      if (fmt === "css") return ":root {\n  /* " + note + " */\n" + fp.map(function (f) { return "  --" + px + "font-size-" + f.name + ": " + clampOf(f.min, f.max) + "; /* " + f.min + "–" + f.max + "px */\n  --" + px + "line-height-" + f.name + ": " + f.lh.toFixed(3) + ";" + (f.ls ? "\n  --" + px + "letter-spacing-" + f.name + ": " + f.ls.toFixed(3) + "em;" : ""); }).join("\n") + "\n}";
+      if (fmt === "scss") return "// " + note + "\n" + fp.map(function (f) { return "$" + px + "font-size-" + f.name + ": " + clampOf(f.min, f.max) + ";\n$" + px + "line-height-" + f.name + ": " + f.lh.toFixed(3) + ";"; }).join("\n");
+      if (fmt === "tailwind") return "/** tailwind.config.js · " + note + " */\nmodule.exports = {\n  theme: {\n    extend: {\n      fontSize: {\n" + fp.map(function (f) { return "        " + JSON.stringify(px + f.name) + ": ['" + clampOf(f.min, f.max) + "', { lineHeight: '" + f.lh.toFixed(3) + "'" + (f.ls ? ", letterSpacing: '" + f.ls.toFixed(3) + "em'" : "") + " }],"; }).join("\n") + "\n      },\n    },\n  },\n};";
+      var jf = { "font-size": {}, "line-height": {} };
+      fp.forEach(function (f) { jf["font-size"][px + f.name] = { $type: "dimension", $value: f.max + "px", $extensions: { "in.co.layerone.fluid": { min: f.min + "px", max: f.max + "px", minViewport: S.t.vmin + "px", maxViewport: S.t.vmax + "px", css: clampOf(f.min, f.max) } } }; jf["line-height"][px + f.name] = { $type: "number", $value: +f.lh.toFixed(3) }; });
+      return JSON.stringify(jf, null, 2);
+    }
+    if (fmt === "css") return ":root {\n" + sc.map(function (s) { return "  --" + px + "font-size-" + s.name + ": " + rem(s.px) + "; /* " + s.px + "px */\n  --" + px + "line-height-" + s.name + ": " + rem(s.lhPx) + ";" + (s.ls ? "\n  --" + px + "letter-spacing-" + s.name + ": " + s.ls.toFixed(3) + "em;" : ""); }).join("\n") + "\n}";
+    if (fmt === "scss") return sc.map(function (s) { return "$" + px + "font-size-" + s.name + ": " + rem(s.px) + ";\n$" + px + "line-height-" + s.name + ": " + rem(s.lhPx) + ";"; }).join("\n");
+    if (fmt === "tailwind") return "/** tailwind.config.js */\nmodule.exports = {\n  theme: {\n    extend: {\n      fontSize: {\n" + sc.map(function (s) { return "        " + JSON.stringify(px + s.name) + ": ['" + rem(s.px) + "', { lineHeight: '" + rem(s.lhPx) + "'" + (s.ls ? ", letterSpacing: '" + s.ls.toFixed(3) + "em'" : "") + " }],"; }).join("\n") + "\n      },\n    },\n  },\n};";
+    var j = { "font-size": {}, "line-height": {} };
+    sc.forEach(function (s) { j["font-size"][px + s.name] = { $type: "dimension", $value: s.px + "px" }; j["line-height"][px + s.name] = { $type: "dimension", $value: s.lhPx + "px" }; });
+    return JSON.stringify(j, null, 2);
+  };
   (function () {
-    var P = $("#p-type"), box = $("[data-tscale]", P), renderExp;
+    var P = $("#p-type"); if (!P) return;
+    var box = $("[data-tscale]", P), fl = $("[data-fluid]", P), renderExp;
+    function drawFluid(txt) {
+      var fp = fluidPairs().slice().reverse(), w = S.t.vw;
+      box.innerHTML = '<div class="lx-trow lx-trow-h"><span>Token</span><span>Size</span><span>At ' + w + 'px</span><span>Sample at ' + w + "px wide</span></div>" + fp.map(function (f) {
+        var now = fluidAt(f, w), big = f.max / Math.max(1, f.min) > 2.5;
+        return '<div class="lx-trow' + (f.i === 0 ? " base" : "") + '"><code>font-size-' + f.name + "</code><span>" + f.min + "→" + f.max + "px<small>" + (f.min === f.max ? "fixed" : "fluid") + (big ? ' · <b class="warn" title="The largest size is more than 2.5 times the smallest. Browser zoom may not reach 200% (WCAG 1.4.4).">zoom</b>' : "") + "</small></span><span>" + now.toFixed(1) + "px<small>" + f.lh.toFixed(2) + '</small></span><p style="font-size:' + now.toFixed(2) + "px;line-height:" + f.lh + ";letter-spacing:" + f.ls + 'em">' + txt + "</p></div>";
+      }).join("");
+    }
     function draw() {
       var sc = typeScale(), txt = esc(S.t.text || "Ship the system, not the screenshots");
       box.style.fontFamily = S.t.font;
+      if (fl) fl.hidden = !S.t.fluid;
+      P.classList.toggle("is-fluid", !!S.t.fluid);
+      if (S.t.fluid) { drawFluid(txt); renderExp(); return; }
       box.innerHTML = '<div class="lx-trow lx-trow-h"><span>Token</span><span>Size</span><span>Line</span><span>Sample</span></div>' + sc.slice().reverse().map(function (s) {
         return '<div class="lx-trow' + (s.i === 0 ? " base" : "") + '"><code>font-size-' + s.name + '</code><span>' + s.px + "px<small>" + (s.px / 16).toFixed(3).replace(/\.?0+$/, "") + "rem</small></span><span>" + s.lhPx + "px<small>" + s.lh.toFixed(2) + (s.ls ? " · " + s.ls.toFixed(3) + "em" : "") + '</small></span><p style="font-size:' + s.px + "px;line-height:" + s.lh + ";letter-spacing:" + s.ls + 'em">' + txt + "</p></div>";
       }).join("");
@@ -379,20 +424,19 @@
     bindRange(P, "tdown", function () { return S.t.down; }, function (v) { S.t.down = v; up(); });
     bindRange(P, "tlh", function () { return S.t.lh; }, function (v) { S.t.lh = v; up(); }, function (v) { return v.toFixed(2); });
     bindRange(P, "tlhd", function () { return S.t.lhd; }, function (v) { S.t.lhd = v; up(); }, function (v) { return v.toFixed(2); });
-    var rs = inp(P, "tratio"); rs.value = S.t.ratio; rs.addEventListener("change", function () { S.t.ratio = rs.value; up(); });
-    var fs = inp(P, "tfont"); fs.value = S.t.font; fs.addEventListener("change", function () { S.t.font = fs.value; up(); });
-    var tx = inp(P, "ttext"); tx.value = S.t.text; tx.addEventListener("input", function () { S.t.text = tx.value; up(); });
-    seg(P, "tround", S.t.round, function (v) { S.t.round = v; up(); });
-    seg(P, "tname", S.t.name, function (v) { S.t.name = v; up(); });
-    GEN.type = function (fmt, prefix) {
-      var px = prefix ? slug(prefix, "") + "-" : "", sc = typeScale(), rem = function (v) { return +(v / 16).toFixed(4) + "rem"; };
-      if (fmt === "css") return ":root {\n" + sc.map(function (s) { return "  --" + px + "font-size-" + s.name + ": " + rem(s.px) + "; /* " + s.px + "px */\n  --" + px + "line-height-" + s.name + ": " + rem(s.lhPx) + ";" + (s.ls ? "\n  --" + px + "letter-spacing-" + s.name + ": " + s.ls.toFixed(3) + "em;" : ""); }).join("\n") + "\n}";
-      if (fmt === "scss") return sc.map(function (s) { return "$" + px + "font-size-" + s.name + ": " + rem(s.px) + ";\n$" + px + "line-height-" + s.name + ": " + rem(s.lhPx) + ";"; }).join("\n");
-      if (fmt === "tailwind") return "/** tailwind.config.js */\nmodule.exports = {\n  theme: {\n    extend: {\n      fontSize: {\n" + sc.map(function (s) { return "        " + JSON.stringify(px + s.name) + ": ['" + rem(s.px) + "', { lineHeight: '" + rem(s.lhPx) + "'" + (s.ls ? ", letterSpacing: '" + s.ls.toFixed(3) + "em'" : "") + " }],"; }).join("\n") + "\n      },\n    },\n  },\n};";
-      var j = { "font-size": {}, "line-height": {} };
-      sc.forEach(function (s) { j["font-size"][px + s.name] = { $type: "dimension", $value: s.px + "px" }; j["line-height"][px + s.name] = { $type: "dimension", $value: s.lhPx + "px" }; });
-      return JSON.stringify(j, null, 2);
-    };
+    var rs = inp(P, "tratio"); rs.value = S.t.ratio; bindVal(rs, function () { return S.t.ratio; }); rs.addEventListener("change", function () { S.t.ratio = rs.value; up(); });
+    var fs = inp(P, "tfont"); fs.value = S.t.font; bindVal(fs, function () { return S.t.font; }); fs.addEventListener("change", function () { S.t.font = fs.value; up(); });
+    var tx = inp(P, "ttext"); tx.value = S.t.text; bindVal(tx, function () { return S.t.text; }); tx.addEventListener("input", function () { S.t.text = tx.value; up(); });
+    seg(P, "tround", function () { return S.t.round; }, function (v) { S.t.round = v; up(); });
+    var fx = inp(P, "tfluid"); if (fx) { fx.checked = S.t.fluid; bindVal(fx, function () { return S.t.fluid; }); fx.addEventListener("change", function () { S.t.fluid = fx.checked; up(); }); }
+    if (inp(P, "tbmin")) {
+      bindRange(P, "tbmin", function () { return S.t.bmin; }, function (v) { S.t.bmin = v; up(); });
+      bindRange(P, "tvmin", function () { return S.t.vmin; }, function (v) { S.t.vmin = v; up(); });
+      bindRange(P, "tvmax", function () { return S.t.vmax; }, function (v) { S.t.vmax = v; up(); });
+      bindRange(P, "tvw", function () { return S.t.vw; }, function (v) { S.t.vw = v; up(); });
+      var rm = inp(P, "trmin"); rm.value = S.t.rmin; bindVal(rm, function () { return S.t.rmin; }); rm.addEventListener("change", function () { S.t.rmin = rm.value; up(); });
+    }
+    seg(P, "tname", function () { return S.t.name; }, function (v) { S.t.name = v; up(); });
     FILES.type = function (f) { return f === "tailwind" ? "tailwind.type.js" : "type." + EXT[f]; };
     renderExp = exportBar("type");
   })();
@@ -418,8 +462,18 @@
     if (S.r.full) o.push({ name: "full", px: 9999 });
     return o;
   }
+  GEN.space = function (fmt, prefix) {
+    var px = prefix ? slug(prefix, "") + "-" : "", sc = spaceScale(), rs = radiusScale(), u = function (v) { return v === 9999 ? "9999px" : (v === 0 ? "0" : +(v / 16).toFixed(4) + "rem"); };
+    if (fmt === "css") return ":root {\n" + sc.map(function (s) { return "  --" + px + "space-" + s.name + ": " + u(s.px) + "; /* " + s.px + "px */"; }).join("\n") + "\n\n" + rs.map(function (r) { return "  --" + px + "radius-" + r.name + ": " + (r.px === 9999 ? "9999px" : r.px + "px") + ";"; }).join("\n") + "\n}";
+    if (fmt === "scss") return sc.map(function (s) { return "$" + px + "space-" + s.name + ": " + u(s.px) + ";"; }).join("\n") + "\n\n" + rs.map(function (r) { return "$" + px + "radius-" + r.name + ": " + r.px + "px;"; }).join("\n");
+    if (fmt === "tailwind") return "/** tailwind.config.js */\nmodule.exports = {\n  theme: {\n    extend: {\n      spacing: {\n" + sc.map(function (s) { return "        " + JSON.stringify(px + s.name) + ": '" + u(s.px) + "',"; }).join("\n") + "\n      },\n      borderRadius: {\n" + rs.map(function (r) { return "        " + JSON.stringify(px + r.name) + ": '" + r.px + "px',"; }).join("\n") + "\n      },\n    },\n  },\n};";
+    var j = { space: {}, radius: {} };
+    sc.forEach(function (s) { j.space[px + s.name] = { $type: "dimension", $value: s.px + "px" }; }); rs.forEach(function (r) { j.radius[px + r.name] = { $type: "dimension", $value: r.px + "px" }; });
+    return JSON.stringify(j, null, 2);
+  };
   (function () {
-    var P = $("#p-space"), bars = $("[data-sbars]", P), demo = $(".lx-demo-card", P), padS = $("[data-pad]", P), gapS = $("[data-gap]", P), radii = $("[data-radii]", P), renderExp;
+    var P = $("#p-space"); if (!P) return;
+    var bars = $("[data-sbars]", P), demo = $(".lx-demo-card", P), padS = $("[data-pad]", P), gapS = $("[data-gap]", P), radii = $("[data-radii]", P), renderExp;
     function draw() {
       var sc = spaceScale(), max = sc[sc.length - 1].px;
       bars.innerHTML = '<p class="lx-k">' + sc.length + " spacing tokens</p>" + sc.map(function (s) { return '<div><code>space-' + s.name + '</code><i style="width:' + Math.max(0.6, s.px / max * 100) + '%"></i><span>' + s.px + "</span></div>"; }).join("");
@@ -434,23 +488,14 @@
     }
     renders.space = draw;
     function up() { save(); draw(); }
-    seg(P, "sbase", S.s.base, function (v) { S.s.base = v; S.s.pad = S.s.gap = ""; up(); });
-    seg(P, "sname", S.s.name, function (v) { S.s.name = v; up(); });
-    var ms = inp(P, "smethod"); ms.value = S.s.method; ms.addEventListener("change", function () { S.s.method = ms.value; S.s.pad = S.s.gap = ""; up(); });
+    seg(P, "sbase", function () { return S.s.base; }, function (v) { S.s.base = v; S.s.pad = S.s.gap = ""; up(); });
+    seg(P, "sname", function () { return S.s.name; }, function (v) { S.s.name = v; up(); });
+    var ms = inp(P, "smethod"); ms.value = S.s.method; bindVal(ms, function () { return S.s.method; }); ms.addEventListener("change", function () { S.s.method = ms.value; S.s.pad = S.s.gap = ""; up(); });
     bindRange(P, "scount", function () { return S.s.count; }, function (v) { S.s.count = v; up(); });
     bindRange(P, "rbase", function () { return S.r.base; }, function (v) { S.r.base = v; up(); });
     bindRange(P, "rcount", function () { return S.r.count; }, function (v) { S.r.count = v; up(); });
-    var rf = inp(P, "rfull"); rf.checked = S.r.full; rf.addEventListener("change", function () { S.r.full = rf.checked; up(); });
+    var rf = inp(P, "rfull"); rf.checked = S.r.full; bindVal(rf, function () { return S.r.full; }); rf.addEventListener("change", function () { S.r.full = rf.checked; up(); });
     padS.addEventListener("change", function () { S.s.pad = padS.value; up(); }); gapS.addEventListener("change", function () { S.s.gap = gapS.value; up(); });
-    GEN.space = function (fmt, prefix) {
-      var px = prefix ? slug(prefix, "") + "-" : "", sc = spaceScale(), rs = radiusScale(), u = function (v) { return v === 9999 ? "9999px" : (v === 0 ? "0" : +(v / 16).toFixed(4) + "rem"); };
-      if (fmt === "css") return ":root {\n" + sc.map(function (s) { return "  --" + px + "space-" + s.name + ": " + u(s.px) + "; /* " + s.px + "px */"; }).join("\n") + "\n\n" + rs.map(function (r) { return "  --" + px + "radius-" + r.name + ": " + (r.px === 9999 ? "9999px" : r.px + "px") + ";"; }).join("\n") + "\n}";
-      if (fmt === "scss") return sc.map(function (s) { return "$" + px + "space-" + s.name + ": " + u(s.px) + ";"; }).join("\n") + "\n\n" + rs.map(function (r) { return "$" + px + "radius-" + r.name + ": " + r.px + "px;"; }).join("\n");
-      if (fmt === "tailwind") return "/** tailwind.config.js */\nmodule.exports = {\n  theme: {\n    extend: {\n      spacing: {\n" + sc.map(function (s) { return "        " + JSON.stringify(px + s.name) + ": '" + u(s.px) + "',"; }).join("\n") + "\n      },\n      borderRadius: {\n" + rs.map(function (r) { return "        " + JSON.stringify(px + r.name) + ": '" + r.px + "px',"; }).join("\n") + "\n      },\n    },\n  },\n};";
-      var j = { space: {}, radius: {} };
-      sc.forEach(function (s) { j.space[px + s.name] = { $type: "dimension", $value: s.px + "px" }; }); rs.forEach(function (r) { j.radius[px + r.name] = { $type: "dimension", $value: r.px + "px" }; });
-      return JSON.stringify(j, null, 2);
-    };
     FILES.space = function (f) { return f === "tailwind" ? "tailwind.spacing.js" : "spacing." + EXT[f]; };
     renderExp = exportBar("space");
   })();
@@ -511,8 +556,10 @@
     });
   }
   (function () {
-    var P = $("#p-names"), ta = inp(P, "nlist"), res = $("[data-nresult]", P), sum = $("[data-nsum]", P), sc = $("[data-nscore]", P), renderExp, last = [];
+    var P = $("#p-names"); if (!P) return;
+    var ta = inp(P, "nlist"), res = $("[data-nresult]", P), sum = $("[data-nsum]", P), sc = $("[data-nscore]", P), renderExp, last = [];
     function draw() {
+      if (S.n.list == null) { S.n.list = EXAMPLE; ta.value = EXAMPLE; }
       var list = parseTokens(S.n.list); last = lint(list);
       $("[data-nparse]", P).textContent = list.length ? list.length + " tokens found." : "Paste one token per line, a CSS block, or a JSON token file.";
       var ok = last.filter(function (x) { return !x.sev; }).length, w = last.filter(function (x) { return x.sev === 1; }).length, e = last.filter(function (x) { return x.sev === 2; }).length;
@@ -525,14 +572,14 @@
       renderExp();
     }
     renders.names = draw;
-    ta.value = S.n.list;
+    ta.value = S.n.list == null ? EXAMPLE : S.n.list; bindVal(ta, function () { return S.n.list == null ? EXAMPLE : S.n.list; });
     var dt; ta.addEventListener("input", function () { S.n.list = ta.value; save(); clearTimeout(dt); dt = setTimeout(draw, 180); });
     $("[data-nexample]", P).addEventListener("click", function () { ta.value = S.n.list = EXAMPLE; save(); draw(); });
     $("[data-nclear]", P).addEventListener("click", function () { ta.value = S.n.list = ""; save(); draw(); ta.focus(); });
-    seg(P, "nsep", S.n.sep, function (v) { S.n.sep = v; save(); draw(); });
-    ["ncats", "nstates"].forEach(function (n) { var el = inp(P, n), k = n === "ncats" ? "cats" : "states"; el.value = S.n[k]; el.addEventListener("input", function () { S.n[k] = el.value; save(); draw(); }); });
+    seg(P, "nsep", function () { return S.n.sep; }, function (v) { S.n.sep = v; save(); draw(); });
+    ["ncats", "nstates"].forEach(function (n) { var el = inp(P, n), k = n === "ncats" ? "cats" : "states"; el.value = S.n[k]; bindVal(el, function () { return S.n[k]; }); el.addEventListener("input", function () { S.n[k] = el.value; save(); draw(); }); });
     bindRange(P, "ndepth", function () { return S.n.depth; }, function (v) { S.n.depth = v; save(); draw(); });
-    var rw = inp(P, "nraw"); rw.checked = S.n.raw; rw.addEventListener("change", function () { S.n.raw = rw.checked; save(); draw(); });
+    var rw = inp(P, "nraw"); rw.checked = S.n.raw; bindVal(rw, function () { return S.n.raw; }); rw.addEventListener("change", function () { S.n.raw = rw.checked; save(); draw(); });
     GEN.names = function (fmt) {
       if (!last.length) return fmt === "json" ? "{}" : "# Paste tokens to get a fixed list";
       if (fmt === "json") { var o = {}; last.forEach(function (x) { if (x.fixed !== x.name) o[x.name] = x.fixed; }); return JSON.stringify(o, null, 2); }
@@ -545,13 +592,16 @@
   /* ================================================================ 6. backlog */
   var QS = ["where", "reuse", "exists", "effort"];
   var QL = { where: { 20: "Main products", 15: "Smaller products", 5: "One team", x: "Nowhere" }, reuse: { 20: "Many teams", 15: "A few teams", 5: "One team", x: "One product" }, exists: { 15: "No", 10: "Partly", 5: "Mostly", x: "Fully solved" }, effort: { 15: "Under a week", 10: "1–3 weeks", 5: "3+ weeks", x: "Not worth it" } };
+  var BEX = [["Date range picker", "Loans", "20", "20", "15", "10"], ["Data table with filters", "Operations", "20", "20", "10", "5"], ["Promo banner, Diwali", "Marketing", "15", "5", "10", "15"], ["OTP input", "Login", "20", "15", "5", "15"], ["3D car viewer", "Buy", "5", "5", "15", "5"], ["Secondary button", "Sell", "20", "20", "x", "15"]];
+  function bexamples() { return BEX.map(function (e, i) { return { id: "ex" + Date.now().toString(36) + i, name: e[0], team: e[1], a: { where: e[2], reuse: e[3], exists: e[4], effort: e[5] } }; }); }
   function score(a) {
     var tot = 0, x = false, n = 0; QS.forEach(function (q) { var v = a[q]; if (v === undefined || v === null || v === "") return; n++; if (v === "x") x = true; else tot += +v; });
     var v = x ? ["no", "Won't fix", "Rejected: build it outside the system"] : n < 4 ? ["", "Answer all four", "The score only means something once every question has an answer."] : tot >= 55 ? ["hi", "High", "Accept. The system team builds it first."] : tot >= 40 ? ["md", "Medium", "Accept, after high-priority work. The team can contribute."] : ["lo", "Low", "Defer. The team builds it as a custom component."];
     return { total: x ? null : tot, done: n === 4, v: v };
   }
   (function () {
-    var P = $("#p-backlog"), form = $("[data-bform]", P), list = $("[data-blist]", P), stats = $("[data-bstats]", P), nameI = inp(P, "bname"), teamI = inp(P, "bteam"), saveB = $("[data-bsave]", P), cancelB = $("[data-bcancel]", P), renderExp;
+    var P = $("#p-backlog"); if (!P) return;
+    var form = $("[data-bform]", P), list = $("[data-blist]", P), stats = $("[data-bstats]", P), nameI = inp(P, "bname"), teamI = inp(P, "bteam"), saveB = $("[data-bsave]", P), cancelB = $("[data-bcancel]", P), renderExp;
     var draft = S.b.draft || {}, editing = null, setters = {};
     QS.forEach(function (q) { setters[q] = seg(P, q, draft[q] || "", function (v) { draft[q] = v; S.b.draft = draft; save(); live(); }); });
     nameI.value = draft.name || ""; teamI.value = draft.team || "";
@@ -567,7 +617,7 @@
       status(editing ? "Saved" : "Added " + nm); resetForm(); draw();
     });
     cancelB.addEventListener("click", resetForm);
-    function ranked() { return S.b.items.map(function (x) { return { x: x, s: score(x.a) }; }).sort(function (a, b) { return (b.s.total === null ? -1 : b.s.total) - (a.s.total === null ? -1 : a.s.total); }); }
+    function ranked() { if (!S.b.items) S.b.items = bexamples(); return S.b.items.map(function (x) { return { x: x, s: score(x.a) }; }).sort(function (a, b) { return (b.s.total === null ? -1 : b.s.total) - (a.s.total === null ? -1 : a.s.total); }); }
     function draw() {
       var r = ranked(), c = { hi: 0, md: 0, lo: 0, no: 0 }; r.forEach(function (y) { c[y.s.v[0]]++; });
       stats.innerHTML = r.length ? '<span class="hi">' + c.hi + ' high</span><span class="md">' + c.md + ' medium</span><span class="lo">' + c.lo + ' low</span><span class="no">' + c.no + " won't fix</span>" : "";
@@ -588,11 +638,10 @@
     }
     renders.backlog = function () { live(); draw(); };
     $("[data-bexample]", P).addEventListener("click", function () {
-      var ex = [["Date range picker", "Loans", "20", "20", "15", "10"], ["Data table with filters", "Operations", "20", "20", "10", "5"], ["Promo banner, Diwali", "Marketing", "15", "5", "10", "15"], ["OTP input", "Login", "20", "15", "5", "15"], ["3D car viewer", "Buy", "5", "5", "15", "5"], ["Secondary button", "Sell", "20", "20", "x", "15"]];
-      ex.forEach(function (e, i) { S.b.items.push({ id: "ex" + Date.now().toString(36) + i, name: e[0], team: e[1], a: { where: e[2], reuse: e[3], exists: e[4], effort: e[5] } }); });
+      S.b.items = (S.b.items || []).concat(bexamples());
       draw(); status("Loaded 6 example requests");
     });
-    $("[data-bclear]", P).addEventListener("click", function () { if (!S.b.items.length || confirm("Remove every request from the backlog?")) { S.b.items = []; draw(); } });
+    $("[data-bclear]", P).addEventListener("click", function () { if (!(S.b.items || []).length || confirm("Remove every request from the backlog?")) { S.b.items = []; draw(); } });
     GEN.backlog = function (fmt) {
       var r = ranked();
       if (fmt === "json") return JSON.stringify(r.map(function (y) { return { name: y.x.name, team: y.x.team, score: y.s.total, verdict: y.s.v[1], answers: y.x.a }; }), null, 2);
@@ -606,7 +655,8 @@
 
   /* ================================================================ 7. export kit */
   (function () {
-    var P = $("#p-kit"), box = $("[data-kit]", P), pre = inp(P, "kprefix"), renderExp;
+    var P = $("#p-kit"); if (!P) return;
+    var box = $("[data-kit]", P), pre = inp(P, "kprefix"), renderExp;
     pre.value = S.k.prefix;
     function draw() {
       var sc = spaceScale(), ts = typeScale(), rs = radiusScale();
@@ -614,43 +664,165 @@
         ["palette", "Palette", S.ramps.length + " ramps × " + stepsOf().length + " steps", S.ramps.map(function (r) { return '<span class="strip">' + rampOf(r).map(function (s) { return '<i style="background:' + s.hex + '"></i>'; }).join("") + "</span>"; }).join("")],
         ["type", "Type scale", ts.length + " sizes, " + ts[0].px + "–" + ts[ts.length - 1].px + "px", '<span class="ts">' + ts.slice(-4).map(function (s) { return '<b style="font-size:' + Math.min(s.px, 40) + 'px">Aa</b>'; }).join("") + "</span>"],
         ["space", "Spacing", sc.length + " steps, " + sc[0].px + "–" + sc[sc.length - 1].px + "px", '<span class="sp">' + sc.slice(0, 10).map(function (s) { return '<i style="height:' + Math.min(40, s.px) + 'px"></i>'; }).join("") + "</span>"],
-        ["space", "Radius", rs.length + " steps", '<span class="rd">' + rs.slice(0, 5).map(function (r) { return '<i style="border-radius:' + Math.min(r.px, 20) + 'px"></i>'; }).join("") + "</span>"]
-      ].map(function (c) { return '<button type="button" class="lx-kc" data-go="' + c[0] + '"><span class="h"><b>' + c[1] + "</b><small>" + c[2] + '</small></span><span class="vis">' + c[3] + '</span><span class="e">Edit →</span></button>'; }).join("");
-      $$("[data-go]", box).forEach(function (b) { b.addEventListener("click", function () { openTab(b.getAttribute("data-go")); window.scrollTo({ top: $(".lx-tabs").offsetTop - 60, behavior: "smooth" }); }); });
+        ["space", "Radius", rs.length + " steps", '<span class="rd">' + rs.slice(0, 5).map(function (r) { return '<i style="border-radius:' + Math.min(r.px, 20) + 'px"></i>'; }).join("") + "</span>"],
+        ["grid", "Layout grid", gridBps().length + " breakpoints", '<span class="gd">' + gridBps().map(function (b) { return "<i>" + b.cols + "</i>"; }).join("") + "</span>"]
+      ].map(function (c) { return '<a class="lx-kc" href="/lab/' + SLUG[c[0]] + '"><span class="h"><b>' + c[1] + "</b><small>" + c[2] + '</small></span><span class="vis">' + c[3] + '</span><span class="e">Edit →</span></a>'; }).join("");
       renderExp();
     }
     renders.kit = draw;
     pre.addEventListener("input", function () { S.k.prefix = slug(pre.value, ""); save(); renderExp(); });
     GEN.kit = function (fmt) {
       var p = S.k.prefix, head = "Layer One Lab · design tokens · " + new Date().toISOString().slice(0, 10);
-      if (fmt === "json") { var o = {}; [GEN.palette, GEN.type, GEN.space].forEach(function (g) { merge(o, JSON.parse(g("json", p))); }); return JSON.stringify(o, null, 2); }
+      if (fmt === "json") { var o = {}; [GEN.palette, GEN.type, GEN.space, GEN.grid].forEach(function (g) { merge(o, JSON.parse(g("json", p))); }); return JSON.stringify(o, null, 2); }
       if (fmt === "tailwind") {
         var grab = function (s) { return s.split("extend: {\n")[1].split("\n    },\n  },\n};")[0]; };
-        return "/** " + head + " · tailwind.config.js */\nmodule.exports = {\n  theme: {\n    extend: {\n" + [GEN.palette, GEN.type, GEN.space].map(function (g) { return grab(g("tailwind", p)); }).join("\n") + "\n    },\n  },\n};";
+        return "/** " + head + " · tailwind.config.js */\nmodule.exports = {\n  theme: {\n    extend: {\n" + [GEN.palette, GEN.type, GEN.space, GEN.grid].map(function (g) { return grab(g("tailwind", p)); }).join("\n") + "\n    },\n  },\n};";
       }
-      if (fmt === "scss") return "// " + head + "\n\n// Colour\n" + GEN.palette("scss", p) + "\n\n// Type\n" + GEN.type("scss", p) + "\n\n// Spacing and radius\n" + GEN.space("scss", p);
+      if (fmt === "scss") return "// " + head + "\n\n// Colour\n" + GEN.palette("scss", p) + "\n\n// Type\n" + GEN.type("scss", p) + "\n\n// Spacing and radius\n" + GEN.space("scss", p) + "\n\n// Layout grid\n" + GEN.grid("scss", p);
       var strip = function (s) { return s.replace(/^:root \{\n|\n\}$/g, ""); }, pal = GEN.palette("css", p), extra = "";
       var i = pal.indexOf("\n\n@supports"); if (i > -1) { extra = pal.slice(i); pal = pal.slice(0, i); }
-      return "/* " + head + " */\n:root {\n  /* Colour */\n" + strip(pal) + "\n\n  /* Type */\n" + strip(GEN.type("css", p)) + "\n\n  /* Spacing and radius */\n" + strip(GEN.space("css", p)) + "\n}" + extra;
+      return "/* " + head + " */\n:root {\n  /* Colour */\n" + strip(pal) + "\n\n  /* Type */\n" + strip(GEN.type("css", p)) + "\n\n  /* Spacing and radius */\n" + strip(GEN.space("css", p)) + "\n}" + extra + "\n\n/* Layout grid */\n" + GEN.grid("css", p);
     };
     FILES.kit = function (f) { return f === "tailwind" ? "tailwind.config.js" : "tokens." + EXT[f]; };
     renderExp = exportBar("kit");
   })();
 
-  /* ================================================================ share, reset, start */
-  $("[data-share]").addEventListener("click", function (e) {
+  /* ================================================================ 8. layout grid */
+  var GRIDP = {
+    m3: [{ n: "compact", min: 0, cols: 4, gut: 16, mar: 16, max: 0 }, { n: "medium", min: 600, cols: 8, gut: 24, mar: 24, max: 0 }, { n: "expanded", min: 840, cols: 12, gut: 24, mar: 24, max: 0 },
+         { n: "large", min: 1200, cols: 12, gut: 24, mar: 24, max: 0 }, { n: "xlarge", min: 1600, cols: 12, gut: 24, mar: 24, max: 0 }],
+    bootstrap: [{ n: "xs", min: 0, cols: 12, gut: 24, mar: 12, max: 0 }, { n: "sm", min: 576, cols: 12, gut: 24, mar: 12, max: 540 }, { n: "md", min: 768, cols: 12, gut: 24, mar: 12, max: 720 },
+                { n: "lg", min: 992, cols: 12, gut: 24, mar: 12, max: 960 }, { n: "xl", min: 1200, cols: 12, gut: 24, mar: 12, max: 1140 }, { n: "xxl", min: 1400, cols: 12, gut: 24, mar: 12, max: 1320 }],
+    carbon: [{ n: "sm", min: 0, cols: 4, gut: 32, mar: 0, max: 0 }, { n: "md", min: 672, cols: 8, gut: 32, mar: 16, max: 0 }, { n: "lg", min: 1056, cols: 16, gut: 32, mar: 16, max: 0 },
+             { n: "xlg", min: 1312, cols: 16, gut: 32, mar: 16, max: 0 }, { n: "max", min: 1584, cols: 16, gut: 32, mar: 24, max: 1584 }],
+    product: [{ n: "phone", min: 0, cols: 4, gut: 16, mar: 16, max: 0 }, { n: "tablet", min: 600, cols: 8, gut: 16, mar: 24, max: 0 }, { n: "laptop", min: 1024, cols: 12, gut: 24, mar: 32, max: 0 },
+              { n: "desktop", min: 1440, cols: 12, gut: 24, mar: 32, max: 1440 }]
+  };
+  function gridBps() { if (!S.g.bps || !S.g.bps.length) S.g.bps = clone(GRIDP[S.g.preset] || GRIDP.m3); return S.g.bps.slice().sort(function (a, b) { return a.min - b.min; }); }
+  function gridAt(w) {
+    var bs = gridBps(), b = bs[0]; bs.forEach(function (x) { if (x.min <= w) b = x; });
+    var box = b.max ? Math.min(w, b.max) : w, content = Math.max(0, box - 2 * b.mar), col = (content - (b.cols - 1) * b.gut) / b.cols;
+    return { bp: b, box: box, content: content, col: col };
+  }
+  GEN.grid = function (fmt, prefix) {
+    var px = prefix ? slug(prefix, "") + "-" : "", bs = gridBps(), first = bs[0];
+    var vars = function (b, ind) { return ind + "--" + px + "grid-columns: " + b.cols + ";\n" + ind + "--" + px + "grid-gutter: " + b.gut + "px;\n" + ind + "--" + px + "grid-margin: " + b.mar + "px;\n" + ind + "--" + px + "grid-max-width: " + (b.max ? b.max + "px" : "none") + ";"; };
+    if (fmt === "css") {
+      return ":root {\n" + vars(first, "  ") + "\n}\n" + bs.slice(1).map(function (b) { return "@media (min-width: " + b.min + "px) { /* " + b.n + " */\n  :root {\n" + vars(b, "    ") + "\n  }\n}"; }).join("\n") +
+        "\n\n." + px + "grid {\n  display: grid;\n  grid-template-columns: repeat(var(--" + px + "grid-columns), minmax(0, 1fr));\n  column-gap: var(--" + px + "grid-gutter);\n  padding-inline: var(--" + px + "grid-margin);\n  max-width: var(--" + px + "grid-max-width);\n  margin-inline: auto;\n  box-sizing: border-box;\n}";
+    }
+    if (fmt === "scss") return "$" + px + "breakpoints: (\n" + bs.map(function (b) { return "  " + b.n + ": " + b.min + "px,"; }).join("\n") + "\n);\n$" + px + "grid: (\n" + bs.map(function (b) { return "  " + b.n + ": (columns: " + b.cols + ", gutter: " + b.gut + "px, margin: " + b.mar + "px, max-width: " + (b.max ? b.max + "px" : "none") + "),"; }).join("\n") + "\n);\n\n@mixin " + px + "from($name) {\n  $min: map-get($" + px + "breakpoints, $name);\n  @if $min == 0px { @content; } @else { @media (min-width: $min) { @content; } }\n}";
+    if (fmt === "tailwind") return "/** tailwind.config.js */\nmodule.exports = {\n  theme: {\n    extend: {\n      screens: {\n" + bs.slice(1).map(function (b) { return "        " + JSON.stringify(px + b.n) + ": '" + b.min + "px',"; }).join("\n") + "\n      },\n    },\n  },\n};";
+    var j = { breakpoint: {}, grid: { columns: {}, gutter: {}, margin: {} } };
+    bs.forEach(function (b) { j.breakpoint[px + b.n] = { $type: "dimension", $value: b.min + "px" }; j.grid.columns[px + b.n] = { $type: "number", $value: b.cols }; j.grid.gutter[px + b.n] = { $type: "dimension", $value: b.gut + "px" }; j.grid.margin[px + b.n] = { $type: "dimension", $value: b.mar + "px" }; });
+    return JSON.stringify(j, null, 2);
+  };
+  FILES.grid = function (f) { return f === "tailwind" ? "tailwind.screens.js" : "grid." + EXT[f]; };
+  (function () {
+    var P = $("#p-grid"); if (!P) return;
+    var tbl = $("[data-gtable]", P), view = $("[data-gview]", P), facts = $("[data-gfacts]", P), renderExp;
+    function draw() {
+      var bs = gridBps(), g = gridAt(S.g.vw), b = g.bp, w = S.g.vw, pct = function (v) { return (v / w * 100).toFixed(3) + "%"; };
+      var cols = ""; for (var i = 0; i < b.cols; i++) cols += "<i></i>";
+      var spans = b.cols >= 12 ? [[3, 3, 3, 3], [8, 4], [6, 6], [12]] : b.cols >= 8 ? [[4, 4], [2, 6], [8]] : [[2, 2], [4]];
+      if (b.cols === 16) spans = [[4, 4, 4, 4], [12, 4], [8, 8], [16]];
+      view.innerHTML = '<div class="lx-gv-frame" style="--w:' + w + '"><span class="lx-gv-w">' + w + 'px</span>' +
+        '<div class="lx-gv-box" style="width:' + pct(g.box) + ';padding-inline:' + (g.box ? (b.mar / g.box * 100).toFixed(3) : 0) + '%">' +
+        '<div class="lx-gv-cols" style="grid-template-columns:repeat(' + b.cols + ',minmax(0,1fr));column-gap:' + (g.content ? (b.gut / g.content * 100).toFixed(3) : 0) + '%">' + cols + "</div>" +
+        '<div class="lx-gv-demo" style="grid-template-columns:repeat(' + b.cols + ',minmax(0,1fr));column-gap:' + (g.content ? (b.gut / g.content * 100).toFixed(3) : 0) + '%">' +
+        spans.map(function (r) { return r.map(function (n) { return '<b style="grid-column:span ' + n + '">' + n + "</b>"; }).join(""); }).join("") + "</div></div></div>";
+      var narrow = g.col < 40;
+      facts.innerHTML = '<div><b>' + esc(b.n) + "</b><span>active breakpoint</span></div><div><b>" + b.cols + "</b><span>columns</span></div><div" + (narrow ? ' class="warn"' : "") + "><b>" + g.col.toFixed(1) + "px</b><span>column width" + (narrow ? " · narrow" : "") + "</span></div><div><b>" + b.gut + "px</b><span>gutter</span></div><div><b>" + b.mar + "px</b><span>margin</span></div><div><b>" + Math.round(g.content) + "px</b><span>content width</span></div>";
+      tbl.innerHTML = '<table><thead><tr><th scope="col">Name</th><th scope="col">From</th><th scope="col">Columns</th><th scope="col">Gutter</th><th scope="col">Margin</th><th scope="col">Max width</th><th scope="col">Column at start</th><th scope="col"><span class="sr">Remove</span></th></tr></thead><tbody>' +
+        bs.map(function (x) {
+          var at = gridAt(Math.max(x.min, 320)), id = S.g.bps.indexOf(x), on = x === b;
+          var num = function (k, lo, hi) { return '<input type="number" inputmode="numeric" min="' + lo + '" max="' + hi + '" value="' + x[k] + '" data-k="' + k + '" data-i="' + id + '" aria-label="' + esc(x.n) + " " + k + '">'; };
+          return '<tr' + (on ? ' class="on"' : "") + '><td><input type="text" value="' + esc(x.n) + '" data-k="n" data-i="' + id + '" aria-label="Breakpoint name" maxlength="16" spellcheck="false"></td><td>' + num("min", 0, 3840) + "</td><td>" + num("cols", 1, 24) + "</td><td>" + num("gut", 0, 96) + "</td><td>" + num("mar", 0, 200) + "</td><td>" + num("max", 0, 3840) + '</td><td class="r">' + at.col.toFixed(1) + 'px</td><td><button type="button" class="lx-icon" data-grm="' + id + '" aria-label="Remove ' + esc(x.n) + '"' + (bs.length < 2 ? " disabled" : "") + ">✕</button></td></tr>";
+        }).join("") + "</tbody></table>";
+      $$("input", tbl).forEach(function (el) {
+        el.addEventListener("change", function () {
+          var it = S.g.bps[+el.getAttribute("data-i")], k = el.getAttribute("data-k"); if (!it) return;
+          it[k] = k === "n" ? slug(el.value, "bp") : Math.max(0, Math.round(+el.value || 0)); if (k === "cols") it.cols = Math.max(1, Math.min(24, it.cols));
+          S.g.preset = "custom"; presetSet("custom"); save(); draw();
+        });
+      });
+      $$("[data-grm]", tbl).forEach(function (bt) { bt.addEventListener("click", function () { S.g.bps.splice(+bt.getAttribute("data-grm"), 1); S.g.preset = "custom"; presetSet("custom"); save(); draw(); }); });
+      renderExp();
+    }
+    renders.grid = draw;
+    var presetSet = seg(P, "gpreset", function () { return S.g.preset; }, function (v) { if (v === "custom") return; S.g.preset = v; S.g.bps = clone(GRIDP[v]); save(); draw(); });
+    bindRange(P, "gvw", function () { return S.g.vw; }, function (v) { S.g.vw = v; save(); draw(); });
+    $("[data-gadd]", P).addEventListener("click", function () { var bs = gridBps(), last = bs[bs.length - 1]; S.g.bps.push({ n: "bp-" + (bs.length + 1), min: last.min + 320, cols: last.cols, gut: last.gut, mar: last.mar, max: 0 }); S.g.preset = "custom"; presetSet("custom"); save(); draw(); });
+    renderExp = exportBar("grid");
+  })();
+
+  /* ================================================================ 9. ROI calculator */
+  function roiModel(o) {
+    o = o || S.roi;
+    var g = o.gain / 100, cost = o.fte * o.monthly * 12, ui = function (a) { return (o.eng * o.uiEng / 100 + o.des * o.uiDes / 100) * o.hours * g * a; };
+    var years = [o.a1, o.a2, o.a3].map(function (a, i) { var hrs = ui(a / 100), val = hrs * o.rate; return { y: i + 1, a: a, hours: hrs, value: val, cost: cost, net: val - cost, roi: cost ? (val - cost) / cost * 100 : 0 }; });
+    var cum = 0, be = null, first = null; years.forEach(function (y) { cum += y.net; y.cum = cum; if (be === null && cum >= 0) be = y.y; if (first === null && y.net >= 0) first = y.y; });
+    var perEng = (o.uiEng / 100 + (o.eng ? o.des / o.eng : 0) * o.uiDes / 100) * o.hours * g * 0.7 * o.rate;
+    return { years: years, cost: cost, beYear: be, firstYear: first, beEng: perEng > 0 ? Math.ceil(cost / perEng) : null };
+  }
+  GEN.roi = function (fmt) {
+    var m = roiModel(), o = S.roi, c = o.cur;
+    var rows = m.years.map(function (y) { return { year: y.y, adoption: y.a + "%", hoursSaved: Math.round(y.hours), value: Math.round(y.value), cost: Math.round(y.cost), net: Math.round(y.net), cumulative: Math.round(y.cum) }; });
+    if (fmt === "json") return JSON.stringify({ inputs: o, years: rows, firstProfitableYear: m.firstYear, cumulativePaybackYear: m.beYear, breakEvenEngineersAt70: m.beEng, method: "UI hours = (engineers × UI share + designers × UI share) × hours per year; saved = UI hours × time gain × adoption; value = saved × hourly rate; cost = system FTE × monthly cost × 12." }, null, 2);
+    if (fmt === "csv") return "Year,Adoption,Hours saved,Value,Cost,Net,Cumulative\n" + rows.map(function (r) { return [r.year, r.adoption, r.hoursSaved, r.value, r.cost, r.net, r.cumulative].join(","); }).join("\n");
+    var f = function (v) { return (v < 0 ? "−" : "") + c + Math.abs(Math.round(v)).toLocaleString("en-US"); };
+    return "# Design system ROI estimate\n\n" + o.eng + " engineers, " + o.des + " designers; a system team of " + o.fte + " FTE at " + f(o.monthly) + " a month; " + o.gain + "% time gain on UI work; " + f(o.rate) + " an hour.\n\n| Year | Adoption | Hours saved | Value | Cost | Net | Cumulative |\n|---|---|---|---|---|---|---|\n" +
+      m.years.map(function (y) { return "| " + y.y + " | " + y.a + "% | " + Math.round(y.hours).toLocaleString("en-US") + " | " + f(y.value) + " | " + f(y.cost) + " | " + f(y.net) + " | " + f(y.cum) + " |"; }).join("\n") +
+      "\n\n" + (m.firstYear ? "First profitable year: " + m.firstYear + ". " : "Not profitable in any of the first three years. ") + (m.beYear ? "Fully paid back, cumulatively, in year " + m.beYear + "." : "The early losses aren't recovered within three years on these inputs.") + (m.beEng ? " At 70% adoption, this team size breaks even with about " + m.beEng + " engineers." : "") + "\n\nMethod: Layer One Lab, design system ROI calculator. Time saved only; quality, accessibility and brand consistency are not counted.";
+  };
+  FILES.roi = function (f) { return "design-system-roi." + EXT[f]; };
+  (function () {
+    var P = $("#p-roi"); if (!P) return;
+    var out = $("[data-roi]", P), renderExp;
+    var money = function (v) { var a = Math.abs(Math.round(v)), c = S.roi.cur; return (v < 0 ? "−" : "") + c + (a >= 1e6 ? (a / 1e6).toFixed(a >= 1e7 ? 1 : 2) + "M" : a >= 1e4 ? Math.round(a / 1e3) + "k" : a.toLocaleString("en-US")); };
+    function draw() {
+      var m = roiModel(), y3 = m.years[2], peak = Math.max.apply(null, m.years.map(function (y) { return Math.max(y.value, y.cost); }).concat([1]));
+      var grid = [10, 20, 34].map(function (g) { return "<tr><th scope=\"row\">" + g + "%</th>" + [40, 70, 90].map(function (a) { var o = clone(S.roi); o.gain = g; o.a1 = a; var n = roiModel(o).years[0].net; return '<td class="' + (n >= 0 ? "pos" : "neg") + '">' + money(n) + "</td>"; }).join("") + "</tr>"; }).join("");
+      out.innerHTML = '<div class="lx-roi-stats"><div class="' + (y3.net >= 0 ? "pos" : "neg") + '"><b>' + money(y3.net) + "</b><span>net in year 3</span></div><div class=\"" + (m.years[2].cum >= 0 ? "pos" : "neg") + '"><b>' + money(m.years[2].cum) + "</b><span>three years, cumulative</span></div><div><b>" + (m.firstYear ? "Year " + m.firstYear : "Not in 3 years") + "</b><span>first profitable year" + (m.firstYear && !m.beYear ? "; early losses not yet recovered" : m.beYear ? "; fully paid back in year " + m.beYear : "") + "</span></div><div><b>" + (m.beEng || "—") + "</b><span>engineers to break even at 70% adoption</span></div></div>" +
+        '<div class="lx-roi-bars" role="img" aria-label="Value and cost per year">' + m.years.map(function (y) { return '<div class="yr"><span class="k">Year ' + y.y + " · " + y.a + '% adoption</span><div class="b"><i class="v" style="width:' + (y.value / peak * 100).toFixed(1) + '%"></i><em>' + money(y.value) + ' value</em></div><div class="b"><i class="c" style="width:' + (y.cost / peak * 100).toFixed(1) + '%"></i><em>' + money(y.cost) + " cost</em></div></div>"; }).join("") + "</div>" +
+        '<div class="lx-roi-tbl"><table><thead><tr><th scope="col">Year</th><th scope="col">Adoption</th><th scope="col" class="r">Hours saved</th><th scope="col" class="r">Value</th><th scope="col" class="r">Cost</th><th scope="col" class="r">Net</th><th scope="col" class="r">Cumulative</th></tr></thead><tbody>' +
+        m.years.map(function (y) { return "<tr><td>" + y.y + "</td><td>" + y.a + '%</td><td class="r">' + Math.round(y.hours).toLocaleString("en-US") + '</td><td class="r">' + money(y.value) + '</td><td class="r">' + money(y.cost) + '</td><td class="r ' + (y.net >= 0 ? "pos" : "neg") + '">' + money(y.net) + '</td><td class="r ' + (y.cum >= 0 ? "pos" : "neg") + '">' + money(y.cum) + "</td></tr>"; }).join("") + "</tbody></table></div>" +
+        '<div class="lx-roi-sens"><p class="lx-k">How sensitive is it? Net in one year, by time gain (rows) and adoption (columns)</p><table><thead><tr><th scope="col">Gain \\ adoption</th><th scope="col">40%</th><th scope="col">70%</th><th scope="col">90%</th></tr></thead><tbody>' + grid + "</tbody></table></div>";
+      renderExp();
+    }
+    renders.roi = draw;
+    function up() { save(); draw(); }
+    [["reng", "eng"], ["rdes", "des"], ["rfte", "fte"], ["rmonthly", "monthly"], ["rrate", "rate"], ["rhours", "hours"]].forEach(function (x) {
+      var el = inp(P, x[0]); if (!el) return; el.value = S.roi[x[1]]; bindVal(el, function () { return S.roi[x[1]]; });
+      el.addEventListener("input", function () { var v = +el.value; if (!isFinite(v) || v < 0) return; S.roi[x[1]] = v; up(); });
+    });
+    ["gain", "a1", "a2", "a3", "uiEng", "uiDes"].forEach(function (k) { if (inp(P, "r" + k)) bindRange(P, "r" + k, function () { return S.roi[k]; }, function (v) { S.roi[k] = v; up(); }, function (v) { return v + "%"; }); });
+    seg(P, "rcur", function () { return S.roi.cur; }, function (v) { S.roi.cur = v; up(); });
+    renderExp = exportBar("roi");
+  })();
+
+  /* ================================================================ presets, share, reset, start */
+  $$("[data-lx-preset]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var patch; try { patch = JSON.parse(b.getAttribute("data-lx-preset")); } catch (e) { return; }
+      merge(S, patch); save(); SYNC.forEach(function (f) { f(); }); renderAll();
+      $$("[data-lx-preset]").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+      status("Loaded: " + b.textContent.trim());
+    });
+  });
+  var shareB = $("[data-share]"), resetB = $("[data-reset]");
+  if (shareB) shareB.addEventListener("click", function (e) {
     var s = clone(S); delete s.b.draft;
     var enc64 = btoa(unescape(encodeURIComponent(JSON.stringify(s)))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
-    var url = location.origin + location.pathname + "#s=" + enc64;
-    copy(url, e.currentTarget); status("Share link copied. It opens the Lab exactly as it is now.");
+    copy(location.origin + location.pathname + "#s=" + enc64, e.currentTarget); status("Link copied. It opens this tool exactly as it is now.");
   });
-  $("[data-reset]").addEventListener("click", function () {
-    if (!confirm("Start over? This clears every tool, including your backlog.")) return;
-    try { localStorage.removeItem(KEY); } catch (e) {}
-    location.hash = "palette"; location.reload();
+  if (resetB) resetB.addEventListener("click", function () {
+    var keys = OWN[TOOL] || [];
+    keys.forEach(function (k) { S[k] = clone(DEF[k]); });
+    save(); SYNC.forEach(function (f) { f(); }); renderAll();
+    $$("[data-lx-preset]").forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
+    status("Reset to the defaults");
   });
-  if (shared) status("Opened a shared Lab");
-  var start = (location.hash.match(/^#([a-z]+)$/) || [])[1] || S.tab || "palette";
-  Object.keys(renders).forEach(function (k) { if (k[0] !== "_") try { renders[k](); } catch (e) {} });
-  openTab(start);
+  if (shared) { status("Opened a shared link"); try { history.replaceState(null, "", location.pathname); } catch (e) {} }
+  renderAll();
 })();
