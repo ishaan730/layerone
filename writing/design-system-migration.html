@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Migrating Legacy Products to a Design System | Layer One</title>
+<meta name="description" content="How to migrate legacy products onto a design system without a big-bang rewrite: tokens first, screens as they&#x27;re touched, codemods and clear end states.">
+<meta property="og:title" content="Migrating Legacy Products to a Design System | Layer One">
+<meta property="og:description" content="How to migrate legacy products onto a design system without a big-bang rewrite: tokens first, screens as they&#x27;re touched, codemods and clear end states.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-12">
+<meta property="article:modified_time" content="2026-11-12">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="Governance">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/design-system-migration.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Migrating Legacy Products to a Design System | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/writing.css?v=84145a1d">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Migrating Legacy Products to a Design System", "description": "How to migrate legacy products onto a design system without a big-bang rewrite: tokens first, screens as they're touched, codemods and clear end states.", "image": "https://www.layerone.co.in/assets/images/writing/design-system-migration.jpg", "datePublished": "2026-11-12", "dateModified": "2026-11-12", "mainEntityOfPage": "https://www.layerone.co.in/writing/design-system-migration", "wordCount": 1289, "articleSection": "Governance", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "Governance", "item": "https://www.layerone.co.in/writing/topics/governance"}, {"@type": "ListItem", "position": 3, "name": "Migrating legacy products onto a design system", "item": "https://www.layerone.co.in/writing/design-system-migration"}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/design-system-migration">
+<meta property="og:url" content="https://www.layerone.co.in/writing/design-system-migration">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Migrating Legacy Products to a Design System | Layer One">
+<meta name="twitter:description" content="How to migrate legacy products onto a design system without a big-bang rewrite: tokens first, screens as they&#x27;re touched, codemods and clear end states.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/design-system-migration.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading" title="Light or dark reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button><a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<main id="main" class="ed-wrap"><article class="ed-article">
+  <div class="ed-layout">
+    <aside class="ed-meta" aria-label="About this article"><div class="ed-meta-in">
+      <div class="ed-meta-who"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40"><p><b>Aniket Pandey</b><span>Founder, Layer One</span></p></div>
+      <dl class="ed-meta-dl"><div><dt>Published</dt><dd>12 November 2026</dd></div><div><dt>Reading time</dt><dd>6 minutes</dd></div><div><dt>Topic</dt><dd><a href="/writing/topics/governance">Governance</a></dd></div></dl>
+      <div class="ed-meta-sec"><p class="ed-meta-h">Growing adoption</p><ol class="ed-steps"><li><a href="/writing/design-system-onboarding">Design system onboarding and training that keeps adoption growing</a></li><li><a href="/writing/design-system-research">Design system research</a></li><li aria-current="step"><a href="/writing/design-system-migration">Migrating legacy products onto a design system</a></li></ol></div><div class="ed-meta-sec"><p class="ed-meta-h">Share</p><p class="ed-share"><button type="button" data-copy="https://www.layerone.co.in/writing/design-system-migration">Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.layerone.co.in/writing/design-system-migration" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/intent/post?url=https://www.layerone.co.in/writing/design-system-migration" target="_blank" rel="noopener">X</a></p></div>
+    </div></aside>
+    <header class="ed-head">
+      <p class="ed-crumb"><a href="/writing">Writing</a><span aria-hidden="true">/</span><a href="/writing/topics/governance">Governance</a><span class="ed-crumb-s">Part 3 of 3 in <a href="/writing#growing-adoption">Growing adoption</a></span></p>
+      <h1 class="ed-title">Migrating legacy products onto a design system</h1>
+      <p class="ed-dek">Big-bang rewrites stall halfway and leave products with two systems. Migrate in layers instead: tokens first, then the most visible parts, then screen by screen, with codemods, warnings and an agreed end state for every product.</p>
+      <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>6 min read · 12 November 2026</span></span></p>
+    </header>
+    <figure class="ed-cover"><img src="../assets/images/writing/design-system-migration.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 1024px) calc(100vw - 32px), 760px" fetchpriority="high" srcset="../assets/images/writing/design-system-migration.w480.webp 480w, ../assets/images/writing/design-system-migration.w800.webp 800w, ../assets/images/writing/design-system-migration.w1200.webp 1200w, ../assets/images/writing/design-system-migration.jpg 1600w" decoding="async"></figure>
+    <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>Why big-bang migrations fail</b></summary><ol><li><a href="#why-big-bang-migrations-fail">Why big-bang migrations fail</a></li><li><a href="#migrate-in-layers">Migrate in layers</a></li><li><a href="#a-migration-plan-across-products">A migration plan across products</a></li><li><a href="#decide-an-end-state-for-every-product">Decide an end state for every product</a></li><li><a href="#make-the-new-way-the-easy-way">Make the new way the easy way</a></li><li><a href="#measure-the-whole-portfolio">Measure the whole portfolio</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+    <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>Don't migrate a legacy product onto a design system with a big-bang rewrite. Migrate in layers: <b>tokens first</b> (ship colours, type and spacing into the old product as CSS variables or a theme file, so it looks part of the family within weeks), then <b>replace the most visible components as screens are touched</b> (navigation, buttons, forms), with <b>codemods</b> for mechanical changes and <b>warnings</b> on old components. Track every product on <b>one adoption dashboard</b>, and agree an <b>end state</b> for each legacy product openly: full adoption, tokens only, or retirement.</p>
+  <ul>
+    <li>Migrate as screens are touched for feature work, not in a separate project nobody funds.</li>
+    <li>Make the new way the easy way: a migration guide, an automated codemod and someone to ask.</li>
+    <li>Every deprecated component gets a replacement, a guide and a removal date.</li>
+  </ul>
+</div>
+
+<h2 id="why-big-bang-migrations-fail">Why big-bang migrations fail</h2>
+<p>Every company with a design system has an older product that can't adopt it quickly: different technology, no team assigned, or a rewrite planned "next year". The tempting answer is a migration project: freeze features, rebuild every screen on the new system, launch. It almost never works. The project competes with feature work, takes longer than planned, and gets cancelled halfway, leaving a product with two systems instead of one.</p>
+<p class="scenario-t">An illustration: the rewrite that stalled</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>A team plans a six-month project to rebuild its admin product on the new design system, starting with a full screen inventory.</p></div>
+  <div><span class="k">What goes wrong</span><p>In month three, a customer deadline pulls half the team back to features. The project pauses with 40% of screens migrated. Users now see two buttons, two tables and two date pickers.</p></div>
+  <div><span class="k">What works instead</span><p>Tokens shipped in two weeks so the whole product looks consistent; then each screen migrated when a feature touches it, with codemods doing the mechanical work. Slower on paper, finished in practice.</p></div>
+</div>
+<div class="callout callout--term"><span class="callout-k">New word</span><p>A <b>codemod</b> is a script that rewrites code automatically: renaming a prop across a whole codebase, or swapping an old component import for a new one. Tools such as jscodeshift make them practical for JavaScript and TypeScript codebases.</p></div>
+
+<h2 id="migrate-in-layers">Migrate in layers</h2>
+<figure class="w-fig">
+  <div class="stairs stairs--4">
+    <div class="on"><span class="n">1</span><b>Tokens</b><span>Ship token values into the old product as CSS variables or a theme file. Colours, type and spacing align quickly.</span></div>
+    <div><span class="n">2</span><b>Most visible parts</b><span>Navigation, buttons, forms and alerts: where users notice inconsistency most.</span></div>
+    <div><span class="n">3</span><b>Screen by screen</b><span>Migrate each screen when a feature touches it, with codemods doing the mechanical work.</span></div>
+    <div><span class="n">4</span><b>Remove the old</b><span>Deprecation warnings, then removal on a published date, once usage reaches zero.</span></div>
+  </div>
+  <figcaption>Four layers of migration. Layer 1 gives most of the visible consistency for the least effort, which is why tokens come first.</figcaption>
+</figure>
+<p>Layer 1 works even when the legacy product uses a completely different framework. Tokens are just values; the token pipeline can generate them as CSS variables, a Sass file or a JavaScript theme for whatever the old product uses. See <a href="/writing/design-tokens">design tokens</a>.</p>
+
+<h2 id="a-migration-plan-across-products">A migration plan across products</h2>
+<figure class="w-fig"><div class="gantt-wrap"><div class="gantt">
+  <div class="gantt-row gantt-h"><b></b><span>M1</span><span>M2</span><span>M3</span><span>M4</span><span>M5</span><span>M6</span><span>M7</span><span>M8</span><span>M9</span><span>M10</span><span>M11</span><span>M12</span></div>
+  <div class="gantt-row"><b>Main web app · tokens</b><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="gantt-row"><b>Main web app · screens</b><i></i><i></i><i class="lt"></i><i class="lt"></i><i class="lt"></i><i class="lt"></i><i class="lt"></i><i class="lt"></i><i class="lt"></i><i class="lt"></i><i class="gate"></i><i></i></div>
+  <div class="gantt-row"><b>Admin tool · tokens</b><i></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="gantt-row"><b>Admin tool · key parts</b><i></i><i></i><i></i><i class="lt"></i><i class="lt"></i><i class="lt"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="gantt-row"><b>Old portal · tokens only</b><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="gantt-row"><b>Old dropdowns · removal</b><i></i><i></i><i></i><i></i><i class="lt"></i><i class="lt"></i><i class="lt"></i><i class="gate"></i><i></i><i></i><i></i><i></i></div>
+</div></div>
+<div class="gantt-k"><span>Focused work</span><span class="lt">As screens are touched</span></div>
+<figcaption>A first-year migration across three products. <span class="ev ev--ill">Illustration</span> Tokens go everywhere early; the main app migrates screen by screen with feature work; the old portal is agreed as "tokens only" because it's being retired; old dropdowns are removed on a published date.</figcaption></figure>
+
+<h2 id="decide-an-end-state-for-every-product">Decide an end state for every product</h2>
+<p>For each legacy product, decide openly what "done" means. A clear plan is better than an endless "someday".</p>
+<div class="cols3">
+  <div class="cell cell--accent"><span class="k">FULL ADOPTION</span><h4>Products with a future</h4><p>Actively developed, used by many customers. Migrate screen by screen until no old components remain.</p></div>
+  <div class="cell"><span class="k">TOKENS ONLY</span><h4>Stable products</h4><p>Rarely changed, but customers still see them. Tokens make them look part of the family; no component migration.</p></div>
+  <div class="cell"><span class="k">RETIREMENT</span><h4>Products on the way out</h4><p>Leave alone, or tokens only if retirement is far away. Don't spend migration effort on something being switched off.</p></div>
+</div>
+
+<h2 id="make-the-new-way-the-easy-way">Make the new way the easy way</h2>
+<p>Teams migrate when it's easier to migrate than not to. Each deprecated component should come with four things:</p>
+<ol class="w-steps">
+  <li><h3>A replacement that's actually better</h3><p>If the new component is missing something the old one did, teams won't move. Find out what before you deprecate.</p></li>
+  <li><h3>A migration guide</h3><p>Old props mapped to new ones, before-and-after code, and the visual differences to expect. Short, with examples.</p></li>
+  <li><h3>A codemod for the mechanical part</h3><p>Renames, import changes and prop mappings done automatically; people review the result and handle the judgement calls.</p></li>
+  <li><h3>A warning and a date</h3><p>A console or lint warning when the old component is used, and a removal date announced well ahead in the <a href="/writing/design-system-release-notes">release notes</a>.</p></li>
+</ol>
+<pre><code><span class="c">// The old component still works, but says what to do</span>
+<span class="k">export function</span> Dropdown(props) {
+  warnOnce(<span class="s">"Dropdown is deprecated and will be removed in 6.0. Use Select. Guide: /docs/migrate/select"</span>);
+  <span class="k">return</span> &lt;Select {...mapDropdownProps(props)} /&gt;;
+}</code></pre>
+<p>Notice the trick in that example: the old component is re-implemented on top of the new one. Teams that haven't migrated still get the new behaviour and accessibility fixes, and the eventual switch is just a rename, which a codemod handles. More on deprecation and version numbers in <a href="/writing/design-system-versioning">design system versioning</a>.</p>
+
+<h2 id="measure-the-whole-portfolio">Measure the whole portfolio</h2>
+<p>Leadership needs to see migration progress across the company, not just in the newest product. One simple dashboard is enough:</p>
+<figure class="w-fig"><div class="hbars">
+  <div><span>Main web app</span><i style="width:78%"></i><span>78%</span></div>
+  <div><span>Mobile app</span><i style="width:64%"></i><span>64%</span></div>
+  <div><span>Admin tool</span><i style="width:41%"></i><span>41%</span></div>
+  <div><span>Partner portal</span><i style="width:22%"></i><span>22%</span></div>
+  <div><span>Old portal (tokens only)</span><i class="dim" style="width:100%"></i><span>done</span></div>
+</div>
+<figcaption>Share of UI built from system components, per product. <span class="ev ev--ill">Illustration</span> Measure against each product's agreed end state: the old portal is "done" because tokens only was the goal. Counting component imports with a script is usually enough.</figcaption></figure>
+<p>Track two numbers per product: the share of screens (or component usages) on the system, and the number of deprecated components still in use. The second one tells you whether you can keep your removal dates.</p>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>At CARS24, changes were documented in Figma and Storybook and announced with a changelog and migration steps, as part of a governance model with one front door for requests. <a href="/work/cars24-governance">Read the case study</a>.</p></div>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Avoid big-bang rewrites; migrate in layers.</li>
+  <li>Tokens first: the fastest way to make a legacy product look part of the family.</li>
+  <li>Migrate screens as feature work touches them, with codemods for the mechanical part.</li>
+  <li>Every deprecated component gets a replacement, a guide, a warning and a date.</li>
+  <li>Agree an end state per product and track the whole portfolio on one dashboard.</li>
+</ul></div>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>How do you migrate a legacy product to a design system?</summary><div><p>Start with tokens, shipped into the old product as CSS variables or a theme file. Then replace the most visible components, migrate screens as feature work touches them, and remove old components on published dates.</p></div></details>
+  <details><summary>Can a legacy product use the design system if it's built in a different framework?</summary><div><p>Yes, at the token level. The token pipeline can generate values for any technology. Components may need wrappers or a later rebuild, but colours, type and spacing can align immediately.</p></div></details>
+  <details><summary>How long should a deprecated component stay available?</summary><div><p>Long enough for teams to plan the change: typically at least one or two release cycles, announced in advance, with usage tracked so you know when it's safe to remove.</p></div></details>
+  <details><summary>Who pays for migration work?</summary><div><p>Usually product teams do the migration as part of feature work, while the system team provides guides, codemods and support. Large migrations can justify dedicated help from the system team.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://martinfowler.com/bliki/StranglerFigApplication.html" target="_blank" rel="noopener">Strangler Fig Application</a><span>Martin Fowler, on replacing a system gradually.</span></li>
+  <li><a href="https://github.com/facebook/jscodeshift" target="_blank" rel="noopener">jscodeshift</a><span>A toolkit for writing codemods.</span></li>
+  <li><a href="/writing/design-system-versioning">Design system versioning</a><span>Deprecation and breaking changes.</span></li>
+</ul>
+</div>
+    <aside class="ed-aside" aria-label="On this page"><nav class="ed-toc"><p>On this page</p><ol><li><a href="#why-big-bang-migrations-fail">Why big-bang migrations fail</a></li><li><a href="#migrate-in-layers">Migrate in layers</a></li><li><a href="#a-migration-plan-across-products">A migration plan across products</a></li><li><a href="#decide-an-end-state-for-every-product">Decide an end state for every product</a></li><li><a href="#make-the-new-way-the-easy-way">Make the new way the easy way</a></li><li><a href="#measure-the-whole-portfolio">Measure the whole portfolio</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><a class="ed-top" href="#main">Back to top ↑</a></nav></aside>
+  </div>
+  <footer class="ed-end">
+    <section class="ed-more" aria-labelledby="more-h"><h2 class="ed-sec-h" id="more-h">keep reading:</h2><div class="ec-grid"><a class="ec " href="/writing/design-system-versioning" data-topic="governance"><span class="ec-m"><img src="../assets/images/writing/design-system-versioning.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-system-versioning.w480.webp 480w, ../assets/images/writing/design-system-versioning.w800.webp 800w, ../assets/images/writing/design-system-versioning.w1200.webp 1200w, ../assets/images/writing/design-system-versioning.jpg 1600w"></span><span class="ec-k">Governance</span><b class="ec-t">Design system versioning</b><span class="ec-d">How to version a design system so updates don't break products: what counts as breaking, visual breaking changes, deprecation and migration.</span><span class="ec-f">6 min read</span></a><a class="ec " href="/writing/design-tokens" data-topic="foundations-and-tokens"><span class="ec-m"><img src="../assets/images/writing/design-tokens.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-tokens.w480.webp 480w, ../assets/images/writing/design-tokens.w800.webp 800w, ../assets/images/writing/design-tokens.w1200.webp 1200w, ../assets/images/writing/design-tokens.jpg 1600w"></span><span class="ec-k">Foundations & tokens</span><b class="ec-t">Design tokens</b><span class="ec-d">What design tokens are, the three tiers, naming, the DTCG 2025.10 format and how tokens reach code. Examples and JSON you can adapt for your system.</span><span class="ec-f">10 min read · Guide</span></a><a class="ec " href="/writing/multi-brand-design-system" data-topic="foundations-and-tokens"><span class="ec-m"><img src="../assets/images/writing/multi-brand-design-system.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/multi-brand-design-system.w480.webp 480w, ../assets/images/writing/multi-brand-design-system.w800.webp 800w, ../assets/images/writing/multi-brand-design-system.w1200.webp 1200w, ../assets/images/writing/multi-brand-design-system.jpg 1600w"></span><span class="ec-k">Foundations & tokens</span><b class="ec-t">Multi-brand design systems: one core, many brands</b><span class="ec-d">How to support several brands, platforms and products from one design system: what to share, what to vary, brand tokens and families of systems.</span><span class="ec-f">5 min read</span></a></div></section>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Working on this in your own product?</h2><p>Most teams we work with start with a two-week audit: every style, component and token, checked and ranked.</p></div><a href="/pricing">How the audit works <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main><footer class="ed-foot"><div class="ed-foot-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
+  <nav aria-label="Studio"><a href="/work">Work</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/contact">Contact</a><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">LinkedIn</a><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></nav>
+</div></footer><script src="../assets/site.js?v=3de6a9b6" defer></script>
+</body>
+</html>

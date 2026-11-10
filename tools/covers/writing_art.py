@@ -403,6 +403,144 @@ ART.update({"design-system-maturity-model": maturity, "design-system-versioning"
             "ai-in-design-systems": ai})
 
 
+def patterns():
+    # words (components) combine into a sentence (pattern)
+    b = ""
+    for i, t in enumerate(["field", "select", "chip", "button"]):
+        x = 150 + i * 330
+        b += box(x, 210, 270, 90, SUNK, RULE) + text(x + 135, 266, t, 26, PAPER, anchor="middle")
+        b += f'<path d="M{x + 135} 310V420" stroke="{RULE}" stroke-width="2" stroke-dasharray="6 8"/>'
+    b += box(150, 440, 1260, 200, RAISED, SIG, sw=3) + text(190, 500, "pattern / filter bar", 24, SIG)
+    for i, w in enumerate([300, 240, 150, 150, 200]):
+        x = 190 + sum([300, 240, 150, 150, 200][:i]) + i * 24
+        b += box(x, 540, w, 60, SIG if i == 4 else SUNK, "none" if i == 4 else RULE, rx=30 if i in (2, 3) else 8)
+    return frame(INK, b, label="writing / patterns")
+
+
+def forms():
+    b = box(440, 140, 720, 640, RAISED, RULE)
+    b += box(480, 180, 640, 110, "none", SIG, sw=3) + text(510, 225, "2 problems", 24, PAPER, SANS, weight=600) + bar(510, 252, 360, 12, SIG, .7)
+    for i, (lab, err) in enumerate([("customer email", True), ("due date", True), ("po number (optional)", False)]):
+        y = 330 + i * 140
+        b += text(480, y, lab, 22, PAPER if err else MUTED)
+        if err:
+            b += f'<rect x="466" y="{y - 30}" width="4" height="120" fill="{SIG}"/>' + bar(480, y + 18, 340, 12, SIG, .8)
+        b += box(480, y + (44 if err else 20), 640, 50, SUNK, SIG if err else RULE)
+    b += box(480, 720, 220, 40, SIG, "none", rx=6) + text(590, 747, "Send invoice", 20, INK, anchor="middle")
+    return frame(INK, b, label="writing / patterns")
+
+
+def uxwriting():
+    b = ""
+    words = [("Delete", "permanent · confirmed", SIG), ("Archive", "hidden · can be restored", PAPER), ("Remove", "out of a list · not deleted", PAPER)]
+    for i, (w, m, c) in enumerate(words):
+        y = 200 + i * 180
+        b += box(140, y, 1320, 140, RAISED if i == 0 else SUNK, SIG if i == 0 else RULE, sw=3 if i == 0 else 2)
+        b += text(190, y + 88, w, 52, c, SANS, weight=700) + text(640, y + 84, m, 28, MUTED)
+    b += text(1420, 255, "not: discard, erase", 20, MUTED, anchor="end")
+    return frame(INK, b, label="writing / content")
+
+
+def grid():
+    b = ""
+    cols, x0, w, g = 12, 150, 1300, 16
+    cw = (w - g * (cols - 1)) / cols
+    for i in range(cols):
+        b += f'<rect x="{x0 + i * (cw + g):.1f}" y="160" width="{cw:.1f}" height="600" fill="{SUNK}" opacity=".9"/>'
+    def span(c0, n, y, h, fill, op=1):
+        return f'<rect x="{x0 + c0 * (cw + g):.1f}" y="{y}" width="{n * cw + (n - 1) * g:.1f}" height="{h}" rx="8" fill="{fill}" opacity="{op}"/>'
+    for i in range(4):
+        b += span(i * 3, 3, 200, 130, SIG if i == 0 else PAPER, 1 if i == 0 else .85)
+    b += span(0, 9, 360, 240, MUTED, .55) + span(9, 3, 360, 240, PAPER, .5) + span(0, 12, 630, 100, MUTED, .35)
+    b += text(150, 140, "12 columns · 16px gutters", 22, MUTED)
+    return frame(INK, b, label="writing / foundations")
+
+
+def rtl():
+    b = ""
+    for side, x, lab in [(0, 130, "ltr"), (1, 830, "rtl")]:
+        b += box(x, 200, 640, 520, RAISED, SIG if side else RULE, sw=3 if side else 2) + text(x + 30, 180, lab, 22, SIG if side else MUTED)
+        ic = x + 40 if not side else x + 560
+        bt = x + 430 if not side else x + 40
+        b += box(ic, 240, 40, 40, SUNK, RULE, rx=8) + box(bt, 236, 170, 48, SIG, "none") + bar(x + (110 if not side else 300), 254, 220, 14, PAPER, .8)
+        for i in range(4):
+            y = 340 + i * 90
+            ex = x + 40 if not side else x + 596
+            b += f'<rect x="{ex}" y="{y}" width="4" height="56" fill="{SIG if i == 0 else RULE}"/>'
+            b += bar(x + (64 if not side else 336), y + 20, 240, 14, PAPER, .55) + bar(x + (480 if not side else 64), y + 20, 100, 14, MUTED, .7)
+    return frame(INK, b, label="writing / foundations")
+
+
+def twins():
+    b = box(150, 220, 560, 460, RAISED, RULE) + text(180, 270, "figma", 24, MUTED)
+    b += box(890, 220, 560, 460, RAISED, RULE) + text(920, 270, "code", 24, MUTED)
+    for i, (k, v, c) in enumerate([("Variant", "Primary", "primary"), ("Size", "Medium", "md"), ("Type", "Tertiary", "ghost")]):
+        y = 330 + i * 110
+        bad = i == 2
+        b += text(190, y + 32, k, 22, MUTED) + box(400, y, 270, 50, SUNK, SIG if bad else RULE) + text(420, y + 33, v, 22, PAPER)
+        b += text(930, y + 33, f'{k.lower()}=&quot;{c}&quot;', 26, SIG if bad else PAPER)
+        b += f'<path d="M720 {y + 25}H880" stroke="{SIG if bad else RULE}" stroke-width="3" {"stroke-dasharray=&quot;8 8&quot;" if bad else ""}/>'
+    b += text(800, 760, "≠ drift", 28, SIG, anchor="middle")
+    return frame(INK, b, label="writing / tooling")
+
+
+def tooling():
+    b = ""
+    areas = ["design", "tokens", "code", "docs", "quality", "insight"]
+    for i, t in enumerate(areas):
+        x = 120 + i * 230
+        hi = t == "tokens"
+        b += box(x, 360, 190, 140, SIG if hi else SUNK, "none" if hi else RULE) + text(x + 95, 440, t, 26, INK if hi else PAPER, anchor="middle")
+        if i < 5:
+            b += f'<path d="M{x + 196} 430H{x + 226}" stroke="{SIG}" stroke-width="3"/>'
+    for i, (t, w) in enumerate([("1 token pipeline", 380), ("2 lint rules", 300)]):
+        b += box(120, 580 + i * 80, w, 54, "none", SIG, sw=3, rx=27) + text(150, 616 + i * 80, t, 22, SIG)
+    b += text(120, 300, "automate first ↓", 22, MUTED)
+    return frame(INK, b, label="writing / tooling")
+
+
+def migration():
+    b = ""
+    labs = ["tokens", "visible parts", "screen by screen", "remove the old"]
+    for i, t in enumerate(labs):
+        x, y = 150 + i * 330, 640 - i * 120
+        b += box(x, y, 300, 780 - y, SIG if i == 0 else SUNK, "none" if i == 0 else RULE)
+        b += text(x + 24, y + 48, f"{i + 1}", 30, INK if i == 0 else SIG) + text(x + 24, y + 92, t, 24, INK if i == 0 else PAPER)
+    b += text(150, 200, "legacy → system, in layers", 26, MUTED)
+    return frame(INK, b, label="writing / governance")
+
+
+def onboarding():
+    b = ""
+    steps = [("day 1", "welcome"), ("week 1", "45 min"), ("week 2", "starter task"), ("week 4", "office hours"), ("month 2", "check-in")]
+    b += f'<path d="M180 450H1420" stroke="{RULE}" stroke-width="3"/>'
+    for i, (k, v) in enumerate(steps):
+        x = 180 + i * 310
+        hi = i == 2
+        b += f'<circle cx="{x}" cy="450" r="{26 if hi else 16}" fill="{SIG if hi else PAPER}"/>'
+        b += text(x, 380, k, 22, MUTED, anchor="middle") + text(x, 530, v, 26 if hi else 22, SIG if hi else PAPER, anchor="middle")
+    b += box(560, 590, 480, 120, "none", SIG, sw=3) + text(800, 662, "learn by doing", 26, SIG, anchor="middle")
+    return frame(INK, b, label="writing / operations")
+
+
+def research():
+    b = text(140, 210, "pain-point log", 24, MUTED)
+    rows = [("filtering is inconsistent", 12, True), ("can't find warning banner", 7, False), ("which alert do I use?", 6, False), ("too many toast styles", 4, False)]
+    for i, (t, n, hi) in enumerate(rows):
+        y = 250 + i * 120
+        b += box(140, y, 860, 90, RAISED if hi else SUNK, SIG if hi else RULE, sw=3 if hi else 2) + text(180, y + 56, t, 26, PAPER if hi else MUTED)
+        b += text(960, y + 58, f"{n} teams", 22, SIG if hi else MUTED, anchor="end")
+    b += f'<path d="M1020 {370 + 0}C1120 370 1120 560 1200 560" stroke="{SIG}" stroke-width="3" fill="none"/>'
+    b += box(1200, 500, 260, 120, SIG, "none") + text(1330, 570, "roadmap", 28, INK, anchor="middle")
+    return frame(INK, b, label="writing / research")
+
+
+ART.update({"design-system-patterns": patterns, "form-design-patterns": forms, "ux-writing-design-system": uxwriting,
+            "layout-grid-breakpoints": grid, "design-system-localization-rtl": rtl, "figma-code-sync": twins,
+            "design-system-tooling": tooling, "design-system-migration": migration, "design-system-onboarding": onboarding,
+            "design-system-research": research})
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     from playwright.sync_api import sync_playwright

@@ -1,0 +1,135 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>Every design system component has two twins: one in Figma and one in code. They drift apart unless you work at keeping them identical. Five habits do most of the work: <b>one vocabulary</b> (the same component names, prop names and values in both); <b>one token source</b> feeding Figma variables and code; <b>one definition of done</b> that only counts a component finished when both twins match; a <b>monthly twin check</b>, an hour comparing recently changed components side by side; and <b>links between the twins</b> (Figma to code, code to docs), so drift is easy to spot. Tools help, but the habits matter more.</p>
+  <ul>
+    <li>Agreed differences are fine, as long as they're written down. Undocumented ones are drift.</li>
+    <li>Release the Figma library and the code package together, with one set of release notes.</li>
+    <li>Detach data in Figma and override data in code show where the twins fail people.</li>
+  </ul>
+</div>
+
+<h2>Why twins drift</h2>
+<p>Drift rarely starts with a big decision. A designer adds a "tertiary" variant in Figma for one project; an engineer adds a <code>ghost</code> variant in code for another. A colour is tweaked in a Figma style but not in the token file. Six months later, designers hand over screens using options that don't exist in code, engineers rebuild them locally, and nobody's sure which twin is right.</p>
+<p class="scenario-t">An illustration: three dropdowns, all called "Dropdown"</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>Over two years, three engineering teams each built a dropdown: one wraps an old library, one is custom, one was copied from the system and modified. Figma has a fourth.</p></div>
+  <div><span class="k">What goes wrong</span><p>A keyboard accessibility bug exists in all three coded versions and is fixed differently in each. A design update to the dropdown takes three projects. New engineers don't know which to use.</p></div>
+  <div><span class="k">The way out</span><p>One dropdown, matching Figma exactly; a migration guide; an automatic warning when the old ones are used; a date after which they're deleted.</p></div>
+</div>
+
+<h2>Five habits that keep the twins identical</h2>
+<figure class="w-fig">
+  <div class="stack">
+    <div class="lt"><b>Links between the twins</b><span>Each Figma component links to its code and docs; each docs page links back. Drift becomes visible.</span></div>
+    <div><b>A monthly twin check</b><span>An hour, a designer and an engineer, recently changed components side by side.</span></div>
+    <div><b>One definition of done</b><span>A component is finished when both twins match, are tested and are released together.</span></div>
+    <div class="hi"><b>One token source</b><span>Token files in a shared format generate Figma variables and code values from the same place.</span></div>
+    <div><b>One vocabulary</b><span>The same component names, prop names and values in Figma, code and docs.</span></div>
+  </div>
+  <figcaption>The habits, from the foundation up. The bottom two prevent most drift; the top three catch the rest early.</figcaption>
+</figure>
+
+<h3>1 · One vocabulary</h3>
+<p>The simplest and most effective rule: the names and options in Figma match the names and options in code, exactly. If the design file says "Variant: Primary / Secondary / Danger", the code says <code>variant="primary" | "secondary" | "danger"</code>. Not "kind", not "solid / outline".</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>In Figma</th><th>In code</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td>Variant = Primary</td><td><code>variant="primary"</code></td><td>Match</td></tr>
+    <tr><td>Size = Medium</td><td><code>size="md"</code></td><td>Match (agreed short form, documented)</td></tr>
+    <tr><td>State = Disabled</td><td><code>disabled</code></td><td>Match (Figma shows it as a state; code as a switch; documented)</td></tr>
+    <tr><td>Type = Tertiary</td><td><code>variant="ghost"</code></td><td><b>Mismatch:</b> rename one of them</td></tr>
+    <tr><td>Has icon = Yes + Icon = Send</td><td><code>icon="send"</code></td><td>Match (two Figma properties, one prop; documented)</td></tr>
+  </tbody>
+</table></div>
+<figcaption>A twin check for a button. Agreed, documented differences are fine; the tertiary/ghost split is drift. Figma's component property types (variant, boolean, text, instance swap) line up well with most kinds of props.</figcaption></figure>
+<p>More on naming props in <a href="/writing/component-props-best-practices">component props best practices</a>.</p>
+
+<h3>2 · One token source</h3>
+<p>If colours, spacing and type live separately in Figma styles and in code, they will diverge. Keep tokens in files in the vendor-neutral <a href="https://www.designtokens.org/" target="_blank" rel="noopener">DTCG format</a> in your repository, and generate both sides from them: CSS variables or platform values for code, and Figma variables for design. Changes then go through review like any code change.</p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div class="hi"><b>Token files</b><span>DTCG JSON in the repository; reviewed like code</span></div><i>→</i>
+    <div><b>Build</b><span>A pipeline such as Style Dictionary</span></div><i>→</i>
+    <div><b>Code</b><span>CSS variables, Swift, Kotlin</span></div><i>+</i>
+    <div><b>Figma</b><span>Variables, synced by a plugin or the Figma API</span></div>
+  </div>
+  <figcaption>One source, both twins. If you can only automate one thing, automate this: it removes the most common cause of drift.</figcaption>
+</figure>
+
+<h3>3 · One definition of done</h3>
+<p>Most design–engineering friction comes from one question: when is a component actually done? If designers think "done" means the Figma file is published and engineers think it means the code is merged, nothing is ever really finished. Agree one definition, for both twins:</p>
+<ul class="checklist">
+  <li>Figma and code components have the same name, props and values.</li>
+  <li>Every variant and state exists in both, and in the component workshop.</li>
+  <li>Styles use tokens only; lint passes.</li>
+  <li>Keyboard and screen reader behaviour tested by a person.</li>
+  <li>Visual, behaviour and automated accessibility tests pass.</li>
+  <li>Documentation page complete.</li>
+  <li>Release note written; Figma library and code package released together.</li>
+</ul>
+
+<h3>4 · A monthly twin check</h3>
+<p>Once a month, a system designer and a system engineer spend an hour going through recently changed components side by side: Figma on one screen, the coded version in the workshop on the other. List every difference and decide which twin is right. It's tedious, and it's the cheapest way we know to stop drift. <span class="ev ev--prac">Practitioner view</span></p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>List</b><span>Components changed since the last check, from the release notes</span></div><i>→</i>
+    <div><b>Compare</b><span>Names, props, values, states, spacing, motion</span></div><i>→</i>
+    <div class="hi"><b>Decide</b><span>Which twin is right? Fix the other, or document the difference</span></div><i>→</i>
+    <div><b>Log</b><span>Fixes go into the next release; patterns of drift go to the retro</span></div>
+  </div>
+</figure>
+
+<h3>5 · Links between the twins</h3>
+<p>Link each Figma component to its code and documentation, and each documentation page back to Figma and the workshop. Many teams use Figma's Dev Mode and <a href="https://github.com/figma/code-connect" target="_blank" rel="noopener">Code Connect</a> to show the real code snippet for a component right inside the design file, which also makes mismatched props obvious the moment an engineer inspects a design.</p>
+
+<h2>Reading the trail the twins leave</h2>
+<p>Both twins leave usage data, and the gaps between them show up there first.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">IN FIGMA</span><h4>Inserts and detaches</h4><p>Library analytics show how often each component is inserted, and how often designers detach it to customise it. Frequent detaches mean the component doesn't do something people need.</p></div>
+  <div class="cell"><span class="k">IN CODE</span><h4>Imports, versions and overrides</h4><p>A simple script counts which components each product imports, which package version it uses, and where styles are overridden or components copied.</p></div>
+</div>
+<p class="scenario-t">An illustration: what the detach numbers revealed</p>
+<div class="scenario">
+  <div><span class="k">The data</span><p>The alert component is inserted 900 times and detached 310 times.</p></div>
+  <div><span class="k">What they find</span><p>Almost every detached copy adds a second button: "Retry" next to "Dismiss". The component allowed only one.</p></div>
+  <div><span class="k">What they do</span><p>They add an optional second action to both twins, release it as a minor update, and the detach rate falls. No survey needed.</p></div>
+</div>
+<div class="callout callout--warn"><span class="callout-k">Watch out</span><p>Use the data to learn, not to police. If a team detaches a component a lot, the first question is "what does the component fail to do for you?", not "why aren't you following the rules?"</p></div>
+
+<h2>Which twin leads?</h2>
+<p>Teams often ask whether design or code should be the source of truth. In practice, it's different for different things:</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>What</th><th>Source of truth</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td>Tokens</td><td>Token files in the repository</td><td>Reviewed, versioned and generated for every platform</td></tr>
+    <tr><td>Behaviour, accessibility, props</td><td>Code</td><td>It's what users actually get; Figma can only describe it</td></tr>
+    <tr><td>Visual design of new work</td><td>Figma, until it's built</td><td>Exploration is faster in design; once shipped, code and Figma must match</td></tr>
+    <tr><td>Usage guidance</td><td>The documentation site</td><td>One place for "when to use it", linked from both twins</td></tr>
+  </tbody>
+</table></div></figure>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>At JPMorgan Chase, two tools point out where a design file or a piece of code doesn't match the design system, so problems are fixed before review. <a href="/work/jpmc-system-checks">See the project</a>.</p></div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Same names, props and values in Figma, code and docs. Document agreed differences.</li>
+  <li>One token source generates both Figma variables and code.</li>
+  <li>A component is done when both twins match and are released together.</li>
+  <li>Run a one-hour twin check every month.</li>
+  <li>Link the twins, and read detach and override data as feedback.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>How do you keep Figma and code in sync?</summary><div><p>Use the same names and props in both, generate Figma variables and code values from one token source, agree a shared definition of done, release both together, and compare recently changed components side by side every month.</p></div></details>
+  <details><summary>Should Figma or code be the source of truth?</summary><div><p>Tokens live in files in the repository; behaviour and props are defined by code; new visual design starts in Figma. Once a component ships, both twins must match.</p></div></details>
+  <details><summary>Can tokens be synced to Figma automatically?</summary><div><p>Yes. Token files in the DTCG format can be turned into Figma variables by a plugin or a script using Figma's API, from the same source that generates code.</p></div></details>
+  <details><summary>What's a twin check?</summary><div><p>A regular one-hour session where a system designer and engineer compare recently changed components in Figma and code, list differences and decide which side is right.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://www.designtokens.org/" target="_blank" rel="noopener">Design Tokens Community Group</a><span>The shared format for tokens.</span></li>
+  <li><a href="https://github.com/figma/code-connect" target="_blank" rel="noopener">Code Connect</a><span>Figma. Real code snippets inside design files.</span></li>
+  <li><a href="/writing/component-props-best-practices">Component props best practices</a><span>Designing props both twins can share.</span></li>
+  <li><a href="/writing/design-system-tooling">Design system tools by stage</a><span>The toolchain behind both twins.</span></li>
+</ul>

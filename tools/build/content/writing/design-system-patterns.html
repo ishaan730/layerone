@@ -1,0 +1,152 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>A <b>design system pattern</b> is a documented way of combining components to solve a recurring user problem, such as "how we show that there are no results" or "how we confirm a destructive action". Components are the words; patterns are the sentences. A system with good components and no patterns still produces inconsistent products, because every team combines the same parts differently. Start with the four pattern families that cause most inconsistency: <b>forms</b>, <b>lists and tables</b>, <b>navigation</b> and <b>feedback</b> (loading, empty, error and success).</p>
+  <ul>
+    <li>A pattern isn't a new component. It's guidance, with the reasoning and evidence behind it.</li>
+    <li>Document a pattern when two or more teams have solved the same problem differently.</li>
+    <li>Patterns need documentation even more than components, because there's no code to copy: the guidance is the pattern.</li>
+  </ul>
+</div>
+
+<h2>Components are words, patterns are sentences</h2>
+<p>You can have a perfect dictionary and still write confusing sentences. Design systems have the same problem. Every team uses the system's button, text field and table, so the components are consistent. But each team combines them differently: one form shows errors at the top, another under each field, a third in a pop-up. One list paginates, another scrolls forever. The parts match and the product still feels like five products.</p>
+<p class="scenario-t">An illustration: four ways to say "nothing here"</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>A customer searches invoices, filters payments, opens an empty report and views a new project. Every component on those screens comes from the design system.</p></div>
+  <div><span class="k">What they see</span><p>"No data", a blank white area, a sad-face illustration with "Oops!", and "0 results found" in small grey text. Four teams, four answers to the same question.</p></div>
+  <div><span class="k">What a pattern changes</span><p>One documented empty-state pattern with three versions (first use, no results, all done), each with a clear message and a next step. Same components, now saying the same thing.</p></div>
+</div>
+<div class="callout callout--term"><span class="callout-k">New word</span><p>A <b>pattern</b> is a proven, documented way of combining components to solve a recurring user problem. The UK government's GOV.UK Design System is the best-known public example: alongside its components it publishes patterns for asking for dates, addresses and names, each based on research with real users.</p></div>
+<figure class="w-fig">
+  <div class="stack">
+    <div class="lt"><b>Patterns</b><span>How components combine to solve a problem: "validate a form", "show no results", "confirm a deletion". Guidance, examples and evidence.</span></div>
+    <div class="hi"><b>Components</b><span>The reusable parts: button, text field, table, dialog, toast. Code and design, with props and states.</span></div>
+    <div><b>Foundations and tokens</b><span>Colour, type, spacing and layout as named decisions every component inherits.</span></div>
+  </div>
+  <figcaption>Where patterns sit. Patterns are built from components, which are built from tokens. Each layer only makes sense once the one below it is settled.</figcaption>
+</figure>
+
+<h2>Pattern or component?</h2>
+<p>Teams often ask for a new component when what they need is a pattern, and the other way round. A quick test helps:</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>If the request is…</th><th>It's probably a…</th><th>Example</th></tr></thead>
+  <tbody>
+    <tr><td>A new visual element with its own states and behaviour</td><td>Component</td><td>A stepper, a file uploader, a segmented control</td></tr>
+    <tr><td>A way of arranging existing components for a task</td><td>Pattern</td><td>A filter bar built from fields, selects and chips</td></tr>
+    <tr><td>A rule about when to use one component over another</td><td>Pattern</td><td>"Toast for confirmations, banner for account-wide warnings"</td></tr>
+    <tr><td>A flow across several screens</td><td>Pattern</td><td>Sign-up, checkout, onboarding a new team member</td></tr>
+    <tr><td>The same arrangement copied into many products, with code</td><td>Pattern first, then maybe a component</td><td>An empty state used everywhere may earn its own component later</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Most "we need a new component" requests at a mature system are really pattern requests. The parts exist; the agreement about how to use them doesn't.</figcaption></figure>
+
+<h2>The four pattern families to start with</h2>
+<p>You don't need a hundred patterns. Most of the inconsistency in business software comes from four families, and writing down one answer for each removes most of the re-debating between teams.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">FORMS</span><h3>Where products make money</h3><p>Layout, required fields, when to check for errors, where to show them, what they say, long forms and buttons. Usually the first pattern worth writing down. See <a href="/writing/form-design-patterns">form design patterns</a>.</p></div>
+  <div class="cell"><span class="k">LISTS AND TABLES</span><h3>Where people find things</h3><p>Table, list or cards; pagination or "load more"; how filters, search, sorting and bulk actions work across the product.</p></div>
+  <div class="cell"><span class="k">NAVIGATION</span><h3>Noticed only when it fails</h3><p>The app frame, side menu or top navigation, tabs, breadcrumbs and back links, and the rules for when each is right.</p></div>
+  <div class="cell cell--accent"><span class="k">FEEDBACK</span><h3>Where products feel inconsistent</h3><p>Loading, empty, error and success states. Each team handles them as an afterthought, so they drift the most.</p></div>
+</div>
+
+<h3>Lists and tables: three choices to make once</h3>
+<p>Most business software is a collection of lists: invoices, customers, orders, users. How people find, sort and act on items decides how fast they work.</p>
+<div class="cols3">
+  <div class="cell"><span class="k">TABLE</span><h4>When people compare</h4><p>Many items with the same attributes, where people scan columns, sort and compare: invoices, transactions.</p></div>
+  <div class="cell"><span class="k">LIST</span><h4>When people pick</h4><p>Items with one or two key details, where people mostly find one and open it: messages, notifications.</p></div>
+  <div class="cell"><span class="k">CARDS</span><h4>When items are visual</h4><p>Where an image or preview matters more than comparison: templates, projects, products.</p></div>
+</div>
+<div class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Approach</th><th>Best for</th><th>Downsides</th></tr></thead>
+  <tbody>
+    <tr><td>Pages</td><td>Work tools where people need to find their place again or reach the end</td><td>Extra clicks; page size choice matters</td></tr>
+    <tr><td>"Load more" button</td><td>Feeds and search results where people mostly look at the first few</td><td>Long pages; footer hard to reach after loading lots</td></tr>
+    <tr><td>Endless scrolling</td><td>Browsing with no particular goal</td><td>Hard to return to a spot; footer unreachable; heavy for keyboard and screen reader users</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Pagination choices. <span class="ev ev--prac">Practitioner view</span> For work tools, pages are usually right; endless scrolling rarely is.</figcaption></div>
+<p>For filters, decide where they sit (above the list or in a side panel), whether results update instantly or after "Apply", how active filters are shown and cleared, and what the empty result says. For bulk actions, decide how people select many items and where the actions appear. Written once, these decisions stop every list in the product from working slightly differently.</p>
+
+<h3>Navigation: one job per component</h3>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Component</th><th>Use it for</th><th>Don't use it for</th></tr></thead>
+  <tbody>
+    <tr><td>Side menu</td><td>The main sections of an app with many areas (five or more)</td><td>Actions; settings for the current page</td></tr>
+    <tr><td>Top navigation</td><td>A few main sections, often on websites</td><td>Deep hierarchies</td></tr>
+    <tr><td>Tabs</td><td>Switching between views of the same thing (an invoice's details, payments, history)</td><td>Moving between different areas of the app</td></tr>
+    <tr><td>Breadcrumbs</td><td>Showing where you are in a deep hierarchy and stepping back up</td><td>Flat products with one or two levels</td></tr>
+    <tr><td>Back link</td><td>Returning from a detail page or a step in a flow</td><td>Replacing the browser's own back button</td></tr>
+  </tbody>
+</table></div></figure>
+<div class="callout callout--tip"><span class="callout-k">Practitioner view</span><p>If people need to go more than three levels deep (section, page, tab) to reach something they use often, the problem is usually the structure of the product, not the navigation component. That's a conversation for product leadership, and the design system team is often the first to notice it.</p></div>
+
+<h3>Feedback: four moments, four components</h3>
+<p>Every screen has moments when things aren't normal: data is loading, there's nothing to show, something went wrong, or something just succeeded. Decide once which component carries each kind of message.</p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Inline message</b><span>About one field or section. "Enter a full email address."</span></div><i>→</i>
+    <div><b>Toast</b><span>A short confirmation it's fine to miss. "Invoice sent."</span></div><i>→</i>
+    <div><b>Banner</b><span>About the whole page or account; stays visible. "Your trial ends in 3 days."</span></div><i>→</i>
+    <div class="hi"><b>Dialog</b><span>A decision people must make before continuing. "Delete this customer and 12 invoices?"</span></div>
+  </div>
+  <figcaption>From least to most interruptive. Choose the least interruptive component that still gets the message across; reserve dialogs for decisions.</figcaption>
+</figure>
+<div class="cols3">
+  <div class="cell"><span class="k">FIRST USE</span><h4>Nothing yet</h4><p>Explain what will appear and offer the first step: "No invoices yet. Create your first invoice to get paid faster."</p></div>
+  <div class="cell"><span class="k">NO RESULTS</span><h4>Search found nothing</h4><p>Say what was searched, and suggest changing or clearing the filters.</p></div>
+  <div class="cell"><span class="k">ALL DONE</span><h4>Everything is cleared</h4><p>A small, positive confirmation: "All invoices are paid." No action needed.</p></div>
+</div>
+<p>For loading, show a skeleton for short waits so the page doesn't jump, show progress on the button that was pressed for actions like saving, and always handle the case where loading fails, with a clear way to try again.</p>
+
+<h2>How to document a pattern</h2>
+<p>A component page can lean on live code examples. A pattern page can't: the words are the pattern. A consistent template makes patterns quick to write and easy to trust.</p>
+<figure class="w-fig">
+  <div class="anat">
+    <div class="anat-nav"><b>Patterns</b><span>Confirm a deletion</span><span style="color:var(--accent)">Empty states</span><span>Error summary</span><span>Filters</span><span>Long forms</span><span>Navigation</span><span>Loading</span></div>
+    <div class="anat-main">
+      <div class="hi"><i>1</i><b>The problem</b><span>What people are trying to do, in one or two sentences.</span></div>
+      <div class="hi"><i>2</i><b>The solution</b><span>Which components are used, in what arrangement, with a diagram.</span></div>
+      <div><i>3</i><b>Examples</b><span>Real screens from your products: good ones, and ones to improve.</span></div>
+      <div><i>4</i><b>Variations</b><span>Approved versions for different situations, such as a short form and a long one.</span></div>
+      <div><i>5</i><b>When not to use it</b><span>Situations where a different pattern fits better.</span></div>
+      <div><i>6</i><b>Evidence</b><span>Research, test results or analytics that support the approach.</span></div>
+      <div><i>7</i><b>Accessibility and writing</b><span>Keyboard flow, announcements, and the words to use.</span></div>
+    </div>
+  </div>
+  <figcaption>A pattern page template. Sections 1 and 2 answer the question people arrive with; section 6 is what stops the pattern being re-debated every quarter.</figcaption>
+</figure>
+<p>The evidence section matters more than it looks. Without it, a pattern is one team's preference, and the next team with a different preference will argue. With it ("we tested inline errors against a top summary with eight users; both were needed"), the conversation moves on.</p>
+
+<h2>When to write a pattern down</h2>
+<ol class="w-steps">
+  <li><h3>Notice the second solution</h3><p>When a second team solves a problem the first team already solved, differently, that's the signal. The same "rule of two" that decides when something joins the core library applies to patterns.</p></li>
+  <li><h3>Collect every existing version</h3><p>Screenshot each team's solution side by side. Seeing four empty states on one board usually ends the debate about whether a pattern is needed.</p></li>
+  <li><h3>Agree one answer, with evidence</h3><p>Pick or design the best version with the teams involved, and test it if the stakes are high. A short working group of three to six people works well.</p></li>
+  <li><h3>Document it with the template</h3><p>Problem, solution, examples, variations, when not to use it, evidence, accessibility and writing.</p></li>
+  <li><h3>Migrate the most visible versions</h3><p>Update the screens people see most first. The rest follow as teams touch them.</p></li>
+</ol>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>At JPMorgan Chase, shared design patterns are used by product teams across the company, with a workflow where an AI agent does the early research and drafts each pattern for designers to review. <a href="/work/jpmc-patterns">See the project</a>.</p></div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Components are words; patterns are sentences. Consistent parts still need agreed combinations.</li>
+  <li>Start with forms, lists and tables, navigation, and feedback states.</li>
+  <li>Write a pattern down when a second team solves the same problem differently.</li>
+  <li>Use one template: problem, solution, examples, variations, when not to use it, evidence, accessibility and writing.</li>
+  <li>Evidence is what stops a pattern being re-debated.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>What is the difference between a pattern and a component in a design system?</summary><div><p>A component is a reusable part with its own code, design, props and states, like a button or a dialog. A pattern is guidance on how to combine components to solve a recurring problem, like validating a form or showing that there are no results.</p></div></details>
+  <details><summary>Do patterns need code?</summary><div><p>Not necessarily. Many patterns are guidance plus examples. When a pattern is copied into many products with the same code, it can be worth turning into a component or a copyable recipe later.</p></div></details>
+  <details><summary>Who should own patterns?</summary><div><p>The system team owns the library of patterns, but individual patterns are often written by the product team closest to the problem, through the normal contribution process, and reviewed by the system team.</p></div></details>
+  <details><summary>How many patterns does a design system need?</summary><div><p>Fewer than you think. Start with the four families (forms, lists, navigation, feedback) and add patterns only when two or more teams need the same answer.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://design-system.service.gov.uk/patterns/" target="_blank" rel="noopener">GOV.UK Design System patterns</a><span>Research-based patterns for common tasks.</span></li>
+  <li><a href="/writing/form-design-patterns">Form design patterns</a><span>The first pattern most systems should write down.</span></li>
+  <li><a href="/writing/ux-writing-design-system">Content design in a design system</a><span>The words inside every pattern.</span></li>
+</ul>

@@ -1,0 +1,133 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>A layout grid splits the screen into <b>columns</b> separated by fixed <b>gutters</b>, inside <b>margins</b> and a <b>container</b>. For product UI, use <b>4 columns on phones, 8 on tablets and 12 on laptops and desktops</b>, gutters from your spacing scale (16–24px), and four or five <b>named breakpoints</b> ("medium", not "iPad") set where your layout needs to change. Grid the big things (page sections, cards) and let small things inside a component align with spacing tokens. Store breakpoints, columns, gutters and named widths as tokens so design and code agree.</p>
+  <ul>
+    <li>Material 3 and IBM Carbon use different numbers, and both work. The lesson is to pick a set and name it, not to copy either.</li>
+    <li>Body text should stay around 45–75 characters per line, so reading widths are their own named values.</li>
+    <li>WCAG 2.2 requires content to work at 320px wide without sideways scrolling, except things like data tables.</li>
+  </ul>
+</div>
+
+<h2>The parts of a grid</h2>
+<p>Look at a newspaper. The text sits in columns, photos span one, two or three of them, and everything lines up even though dozens of people worked on the page. Screen grids do the same job: they make things line up without anyone measuring.</p>
+<figure class="w-fig">
+  <div class="w-grid">
+    <div class="w-grid-r"><b>Compact<span>&lt; 600px · 4 columns</span></b><div class="w-grid-c" style="grid-template-columns:repeat(4,minmax(0,1fr))"><i class="on" style="grid-column:span 4">key numbers · 4</i><i style="grid-column:span 4">chart · 4</i><i class="lt" style="grid-column:span 4">activity · 4</i></div></div>
+    <div class="w-grid-r"><b>Medium<span>600–839px · 8 columns</span></b><div class="w-grid-c" style="grid-template-columns:repeat(8,minmax(0,1fr))"><i class="on" style="grid-column:span 4">key · 4</i><i class="on" style="grid-column:span 4">key · 4</i><i style="grid-column:span 8">chart · 8</i><i class="lt" style="grid-column:span 8">activity · 8</i></div></div>
+    <div class="w-grid-r"><b>Expanded<span>840px and up · 12 columns</span></b><div class="w-grid-c" style="grid-template-columns:repeat(12,minmax(0,1fr))"><i class="on" style="grid-column:span 3">key · 3</i><i class="on" style="grid-column:span 3">key · 3</i><i class="on" style="grid-column:span 3">key · 3</i><i class="on" style="grid-column:span 3">key · 3</i><i style="grid-column:span 9">main chart · 9</i><i class="lt" style="grid-column:span 3">activity · 3</i></div></div>
+  </div>
+  <figcaption>The same dashboard at three widths. The content and its order stay the same; what changes is how many columns each block spans. The activity panel only gets its own column when there's room.</figcaption>
+</figure>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Part</th><th>What it is</th><th>Rule of thumb</th></tr></thead>
+  <tbody>
+    <tr><td>Columns</td><td>The vertical strips content lines up to</td><td>4 on phones, 8 on tablets, 12 on laptops and desktops. Twelve divides into halves, thirds, quarters and sixths.</td></tr>
+    <tr><td>Gutters</td><td>The fixed gaps between columns</td><td>A value from the spacing scale (16–24px). Gutters stay fixed; columns stretch.</td></tr>
+    <tr><td>Margins</td><td>The space between the grid and the edge of the screen</td><td>Grows with screen size: 16px on phones, 32–80px on large screens</td></tr>
+    <tr><td>Container</td><td>The box the grid lives in, sometimes with a maximum width</td><td>Cap reading pages (around 1200–1440px); let busy apps use the full width</td></tr>
+  </tbody>
+</table></div></figure>
+
+<h2>Choosing breakpoints</h2>
+<div class="callout callout--term"><span class="callout-k">New word</span><p>A <b>breakpoint</b> is a screen width at which the layout changes, for example from one column to two, or from a side menu to a bottom bar.</p></div>
+<p>Set breakpoints where your layout needs to change, guided by broad classes of device, rather than chasing specific phone models, which change every year. Here's how two mature systems do it:</p>
+<div class="cols2">
+  <div class="cell"><span class="k">MATERIAL 3 · WINDOW SIZE CLASSES</span><div class="w-tbl"><table>
+    <thead><tr><th>Class</th><th class="r">Width (dp)</th></tr></thead>
+    <tbody><tr><td>Compact</td><td class="r">&lt; 600</td></tr><tr><td>Medium</td><td class="r">600–839</td></tr><tr><td>Expanded</td><td class="r">840–1199</td></tr><tr><td>Large</td><td class="r">1200–1599</td></tr><tr><td>Extra-large</td><td class="r">≥ 1600</td></tr></tbody>
+  </table></div></div>
+  <div class="cell"><span class="k">IBM CARBON · 2X GRID</span><div class="w-tbl"><table>
+    <thead><tr><th>Name</th><th class="r">From (px)</th><th class="r">Columns</th></tr></thead>
+    <tbody><tr><td>sm</td><td class="r">320</td><td class="r">4</td></tr><tr><td>md</td><td class="r">672</td><td class="r">8</td></tr><tr><td>lg</td><td class="r">1056</td><td class="r">16</td></tr><tr><td>xlg</td><td class="r">1312</td><td class="r">16</td></tr><tr><td>max</td><td class="r">1584</td><td class="r">16</td></tr></tbody>
+  </table></div></div>
+</div>
+<p>Two respected systems, two sets of numbers. Carbon's 16 columns suit dense enterprise screens; Material's classes are designed around how apps adapt across phones, foldables and tablets. Pick four or five breakpoints, give them names rather than device names, and share them as tokens so design and code agree. <span class="ev ev--doc">Documented</span></p>
+
+<h2>Stretchy, fixed, or both</h2>
+<div class="cols3">
+  <div class="cell"><span class="k">FLUID</span><h4>Stretches to fill the screen</h4><p>Uses all the space. Great for busy apps, but lines of text get uncomfortably long on wide screens.</p></div>
+  <div class="cell"><span class="k">FIXED</span><h4>Always the same width</h4><p>Predictable and easy to design, but wastes space on big screens and needs separate layouts for small ones.</p></div>
+  <div class="cell cell--accent"><span class="k">BOTH · RECOMMENDED</span><h4>Stretches, up to a limit</h4><p>Columns stretch until a maximum width. Reading pages use the limit; busy apps can skip it.</p></div>
+</div>
+<h3>Named widths for content</h3>
+<p>The grid decides where things can go. Separately, decide how wide some things should be. Paragraphs are easiest to read at around 45–75 characters per line, so body text should rarely stretch across all 12 columns of a big screen. Forms work best narrow too.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Named width</th><th>Value</th><th>Used for</th></tr></thead>
+  <tbody>
+    <tr><td><code>width.prose</code></td><td>68ch</td><td>Articles, help pages, long descriptions</td></tr>
+    <tr><td><code>width.form</code></td><td>560px</td><td>Single-column forms and settings</td></tr>
+    <tr><td><code>width.dialog</code></td><td>560px</td><td>Standard dialogs</td></tr>
+    <tr><td><code>width.page</code></td><td>1440px</td><td>Maximum width for reading and marketing pages</td></tr>
+    <tr><td><code>width.app</code></td><td>none</td><td>Busy app screens that use the full width</td></tr>
+  </tbody>
+</table></div></figure>
+
+<h2>Laying out a dashboard</h2>
+<p>Most business software isn't a set of pages on a grid. It's a <b>frame</b> (a top bar and a side menu that stay put) around a content area that changes. If the design system defines the frame once, every team stops reinventing it, and every product feels like part of the same family.</p>
+<figure class="w-fig">
+  <div class="w-grid-c" style="grid-template-columns:repeat(12,minmax(0,1fr))">
+    <i class="on" style="grid-column:span 12">① Top bar · always 48px tall</i>
+    <i class="lt" style="grid-column:span 2;grid-row:span 5">② Side menu · 240px, folds to 64px</i>
+    <i style="grid-column:span 10">③ Page title and main action</i>
+    <i style="grid-column:span 10">④ Filters</i>
+    <i style="grid-column:span 10">⑤ Key numbers · four cards × 3 columns of the content grid</i>
+    <i style="grid-column:span 7">⑥ Main chart · 9 cols</i><i style="grid-column:span 3">⑦ Panel · 3 cols</i>
+    <i style="grid-column:span 10">⑧ Table · 12 cols, header stays visible</i>
+  </div>
+  <figcaption>The parts of a business dashboard. ① and ② are the frame, identical on every page; ③ and ④ follow a standard page pattern; ⑤ to ⑧ sit on the content area's own 12-column grid. Each part's size is a named value, not a per-page decision.</figcaption>
+</figure>
+<ul class="checklist">
+  <li><b>Most important thing at the top start.</b> In left-to-right languages that's the top left. Put the number that answers "is everything OK?" there.</li>
+  <li><b>Cards in a row share a height,</b> so the grid stays visible and comparison is easy.</li>
+  <li><b>A short list of spans:</b> 3, 4, 6, 8, 9 or 12 columns. Avoid 5 and 7, which create edges that line up with nothing.</li>
+  <li><b>Build with "start" and "end",</b> not "left" and "right", so right-to-left layouts mirror correctly. See <a href="/writing/design-system-localization-rtl">localisation and RTL</a>.</li>
+</ul>
+
+<h2>Phones, and what lines up with what</h2>
+<div class="cols2">
+  <div class="cell"><h3>A phone layout isn't a shrunken desktop</h3><p>The side menu becomes a bottom bar or drawer, side-by-side panels become separate screens with a back button, and wide tables become lists or cards. Decide these changes once, as patterns.</p></div>
+  <div class="cell"><h3>Big things to columns, small things to each other</h3><p>Page sections and cards line up to grid columns. Inside a card, elements line up with each other using spacing tokens. A button doesn't need to snap to a column; gridding everything makes components rigid.</p></div>
+</div>
+<div class="callout callout--warn"><span class="callout-k">The narrow-screen rule</span><p>WCAG 2.2 success criterion 1.4.10 (Reflow) requires content to fit a 320px-wide viewport without scrolling in two directions, except for things that genuinely need two dimensions, like data tables, maps and diagrams. <span class="ev ev--std">Standard</span> Plan the 320px version of every pattern, and only ever scroll sideways inside a table, never the whole page.</p></div>
+
+<h2>Layouts for complex software</h2>
+<p>Enterprise tools push past a simple page grid: an email app with a folder list, message list and reading pane side by side, or a CRM where people resize panels to fit their work. The layout system needs words and rules for these too:</p>
+<div class="cols2">
+  <div class="cell"><span class="k">PANES</span><h4>Several panes side by side</h4><p>List and detail views side by side on large screens, separate screens on small ones. Material documents these as canonical layouts.</p></div>
+  <div class="cell"><span class="k">RESIZING</span><h4>Panels people resize or fold</h4><p>Set minimum and maximum widths as tokens, and remember each person's choice.</p></div>
+  <div class="cell"><span class="k">CONTAINER QUERIES</span><h4>Components that fit their space</h4><p>A component in a narrow side panel should adapt to the panel, not the whole screen. CSS container queries make this possible.</p></div>
+  <div class="cell"><span class="k">STICKY HEADERS</span><h4>Headers that stay put</h4><p>Table headers that stay visible, fixed first columns, and sideways scrolling inside tables keep people oriented in large data sets.</p></div>
+</div>
+
+<h2>Layout decisions as tokens</h2>
+<pre><code><span class="s">"breakpoint"</span>: { <span class="s">"medium"</span>: <span class="s">"600px"</span>, <span class="s">"expanded"</span>: <span class="s">"840px"</span>, <span class="s">"large"</span>: <span class="s">"1200px"</span>, <span class="s">"xlarge"</span>: <span class="s">"1600px"</span> },
+<span class="s">"grid"</span>: { <span class="s">"columns"</span>: { <span class="s">"compact"</span>: 4, <span class="s">"medium"</span>: 8, <span class="s">"expanded"</span>: 12 },
+          <span class="s">"gutter"</span>: <span class="s">"{space.4}"</span>, <span class="s">"margin"</span>: { <span class="s">"compact"</span>: <span class="s">"{space.4}"</span>, <span class="s">"expanded"</span>: <span class="s">"{space.6}"</span> } },
+<span class="s">"layout"</span>: { <span class="s">"sidebar"</span>: { <span class="s">"width"</span>: <span class="s">"240px"</span>, <span class="s">"folded"</span>: <span class="s">"64px"</span> }, <span class="s">"topbar"</span>: { <span class="s">"height"</span>: <span class="s">"48px"</span> },
+            <span class="s">"width"</span>: { <span class="s">"prose"</span>: <span class="s">"68ch"</span>, <span class="s">"form"</span>: <span class="s">"560px"</span>, <span class="s">"page"</span>: <span class="s">"1440px"</span> } }</code></pre>
+<p>A note for engineers: CSS custom properties can't be used inside media query conditions, so breakpoint tokens are generated as constants (Sass variables, JavaScript values or custom media queries) by the token pipeline, alongside the CSS variables. Gutters and margins reference the <a href="/writing/spacing-system-4px-vs-8px">spacing scale</a>.</p>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>4, 8 and 12 columns; gutters from the spacing scale; margins that grow with the screen.</li>
+  <li>Four or five named breakpoints, set where your layout needs to change.</li>
+  <li>Stretch up to a limit; give prose, forms and dialogs their own named widths.</li>
+  <li>Define the app frame once; grid the big things, space the small things.</li>
+  <li>Plan the 320px version of every pattern, and store layout decisions as tokens.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>How many columns should a design system grid have?</summary><div><p>Twelve on laptops and desktops is the most common choice because it divides evenly into halves, thirds, quarters and sixths. Use 4 on phones and 8 on tablets. Dense enterprise tools sometimes use 16.</p></div></details>
+  <details><summary>What breakpoints should I use?</summary><div><p>Four or five, set where your layout needs to change. Material 3's window size classes (600, 840, 1200 and 1600) are a sound starting point. Name them by size, not device.</p></div></details>
+  <details><summary>Should gutters change at each breakpoint?</summary><div><p>Keep gutters fixed within a breakpoint and take them from the spacing scale. Many systems use 16px on phones and 24px on larger screens.</p></div></details>
+  <details><summary>Do components need to snap to the grid?</summary><div><p>No. Page sections and cards align to columns; elements inside a component align to each other with spacing tokens.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://m3.material.io/foundations/layout/applying-layout/window-size-classes" target="_blank" rel="noopener">Window size classes</a><span>Material Design 3.</span></li>
+  <li><a href="https://carbondesignsystem.com/elements/2x-grid/overview/" target="_blank" rel="noopener">2x Grid</a><span>IBM Carbon Design System.</span></li>
+  <li><a href="https://www.w3.org/WAI/WCAG22/Understanding/reflow.html" target="_blank" rel="noopener">Understanding Reflow (1.4.10)</a><span>W3C, WCAG 2.2.</span></li>
+  <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_containment/Container_queries" target="_blank" rel="noopener">Container queries</a><span>MDN.</span></li>
+</ul>

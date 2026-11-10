@@ -1,0 +1,135 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>Translation touches components, patterns and code, so getting ready for other languages is a design system job. Six habits cover most of it: <b>leave room for longer text</b> (components wrap or grow, never cut text off); <b>support right-to-left</b> with logical CSS properties (<code>start</code> and <code>end</code>, not <code>left</code> and <code>right</code>); <b>never build sentences from pieces</b>; <b>use the platform's plural rules</b>; <b>format dates, numbers and money by locale</b> with built-in tools; and <b>give translators context</b> for every string. Do them now, even with one language, and a later launch is configuration rather than a rebuild.</p>
+  <ul>
+    <li>In right-to-left languages such as Arabic and Hebrew, layouts and directional icons mirror; most other things don't.</li>
+    <li>"1,00,000" in India is "100,000" in many other places. Hand-written formats break.</li>
+    <li>Test every component with long text, right-to-left text and the tallest script you support.</li>
+  </ul>
+</div>
+
+<h2>Why it's a design system problem</h2>
+<p>Most of what breaks in a translated product breaks in shared parts: a button that can't fit a longer label, a navigation that doesn't mirror, a date written by hand in one format, a sentence assembled from fragments. Fix those in the system and every product inherits the fix. Leave them to each product team and each team discovers the same problems, separately, during a launch.</p>
+<p class="scenario-t">An illustration: the launch that found every shortcut</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>A product built for one English-speaking market is launching in the UAE, in English and Arabic, in three months.</p></div>
+  <div><span class="k">What goes wrong</span><p>Buttons truncate. Icons point the wrong way. Prices show in the wrong format. "You have 1 invoices" appears in English, and the Arabic plurals are worse. Each team fixes its own screens differently.</p></div>
+  <div><span class="k">What the system changes</span><p>Components built on logical properties, a mirroring rule for icons, formatting helpers for dates and money, and a long-text and RTL check in the definition of done. The next market takes weeks, not months.</p></div>
+</div>
+<div class="callout callout--term"><span class="callout-k">New words</span><p><b>Localisation</b> is adapting a product for a language and region: words, formats, layout direction, sometimes imagery. <b>Internationalisation</b> is building the product so localisation is possible without rewriting it. A design system's job is mostly the second.</p></div>
+
+<h2>Six habits that make a system ready</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Habit</th><th>Why it matters</th><th>In the system</th></tr></thead>
+  <tbody>
+    <tr><td>Leave room for longer text</td><td>Many languages need noticeably more space than English for the same message</td><td>Components wrap or grow; nothing has a fixed text width; truncation only with a tooltip or full text nearby</td></tr>
+    <tr><td>Support right-to-left</td><td>Arabic, Hebrew, Persian and Urdu read right to left; layouts and directional icons should mirror</td><td>Logical CSS properties everywhere; a mirroring flag on icons</td></tr>
+    <tr><td>Never build sentences from pieces</td><td>"You have " + count + " invoices" breaks in languages with different word order</td><td>Whole sentences with placeholders, in components and docs examples</td></tr>
+    <tr><td>Handle plurals properly</td><td>Some languages have several plural forms; Arabic has six</td><td>Use the platform's plural rules (<code>Intl.PluralRules</code> on the web)</td></tr>
+    <tr><td>Format by locale</td><td>Dates, numbers, currencies and separators differ by region</td><td>Formatting helpers built on <code>Intl</code>; no hand-written formats in components</td></tr>
+    <tr><td>Give translators context</td><td>"Post" could be a verb or a noun; "Save" might mean store or rescue</td><td>A description and a screenshot for every string; character limits where they're real</td></tr>
+  </tbody>
+</table></div></figure>
+
+<h2>Right-to-left: what mirrors and what doesn't</h2>
+<p>When a layout switches to right-to-left, its reading direction flips: navigation starts on the right, a "back" arrow points right, progress fills from right to left. But not everything mirrors.</p>
+<figure class="w-fig">
+  <div class="w-mock">
+    <div dir="ltr" lang="en"><span class="w-mock-k">English · left to right</span>
+      <div class="w-mock-bar"><span class="ic"></span><span class="t">Invoices</span><span class="btn">New invoice</span></div>
+      <div class="w-mock-row">INV-1024 <em>₹5,000</em></div>
+      <div class="w-mock-row dim">INV-1023 <em>₹12,400</em></div>
+      <div class="w-mock-row dim">INV-1022 <em>₹860</em></div>
+    </div>
+    <div dir="rtl" lang="ar"><span class="w-mock-k">العربية · من اليمين إلى اليسار</span>
+      <div class="w-mock-bar"><span class="ic"></span><span class="t">الفواتير</span><span class="btn">فاتورة جديدة</span></div>
+      <div class="w-mock-row"><span dir="ltr">INV-1024</span> <em dir="ltr">₹5,000</em></div>
+      <div class="w-mock-row dim"><span dir="ltr">INV-1023</span> <em dir="ltr">₹12,400</em></div>
+      <div class="w-mock-row dim"><span dir="ltr">INV-1022</span> <em dir="ltr">₹860</em></div>
+    </div>
+  </div>
+  <figcaption>The same component, built once with logical properties, rendered in both directions. Only the <code>dir</code> attribute changes: the icon, the title, the button and the accent edge all move to the other side. The invoice numbers stay left to right inside the mirrored row, as numbers and codes do. <span class="ev ev--ill">Illustration</span></figcaption>
+</figure>
+<div class="cols2">
+  <div class="cell"><span class="k">MIRRORS</span><h4>Things that show direction or order</h4><p>Page layout and navigation, back and forward arrows, chevrons in lists, progress bars and steppers, sliders, text alignment, the side a panel opens from.</p></div>
+  <div class="cell"><span class="k">DOESN'T MIRROR</span><h4>Things that show the real world</h4><p>Numbers and phone numbers, media playback controls, clocks, checkmarks, logos, charts with a time axis (usually), and icons of physical objects like a phone or a camera.</p></div>
+</div>
+
+<h3>Logical properties do most of the work</h3>
+<p>CSS logical properties describe layout relative to the reading direction instead of the screen. Use them in every component and most right-to-left support comes for free:</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Instead of</th><th>Use</th><th>What it means</th></tr></thead>
+  <tbody>
+    <tr><td><code>margin-left</code></td><td><code>margin-inline-start</code></td><td>The side where reading starts</td></tr>
+    <tr><td><code>padding-right</code></td><td><code>padding-inline-end</code></td><td>The side where reading ends</td></tr>
+    <tr><td><code>border-left</code></td><td><code>border-inline-start</code></td><td>An accent edge that follows the text</td></tr>
+    <tr><td><code>text-align: left</code></td><td><code>text-align: start</code></td><td>Aligned to the reading direction</td></tr>
+    <tr><td><code>left: 0</code></td><td><code>inset-inline-start: 0</code></td><td>Positioning that mirrors</td></tr>
+    <tr><td><code>width</code> / <code>height</code></td><td><code>inline-size</code> / <code>block-size</code></td><td>Size along and across the text</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Common physical properties and their logical equivalents. A lint rule that flags physical properties in component code keeps new ones from creeping in. <span class="ev ev--doc">Documented</span></figcaption></figure>
+<p>Set the direction on the page with the HTML <code>dir</code> attribute (and the language with <code>lang</code>), not with CSS alone, so browsers, screen readers and text input all behave correctly. For icons, add a property to the icon component (for example <code>mirrored</code>) and set it once per icon in the library, so product teams never decide it screen by screen.</p>
+
+<h2>Text that grows</h2>
+<p>A label that fits comfortably in English may not fit in German, Finnish or Tamil. Components should cope by design:</p>
+<ul class="checklist">
+  <li><b>Buttons and tabs</b> grow with their label; on narrow screens, labels wrap rather than truncate.</li>
+  <li><b>Navigation</b> has a plan for long items: wrap, or move into a "more" menu.</li>
+  <li><b>Tables</b> allow header text to wrap onto two lines.</li>
+  <li><b>Line height</b> leaves room for scripts with tall marks above and below the line, such as Arabic, Thai and Devanagari. Test with the tallest script you support.</li>
+  <li><b>Fonts</b> cover every script you ship, with a tested fallback, and numbers that line up in tables.</li>
+</ul>
+<div class="callout callout--tip"><span class="callout-k">Practitioner view</span><p>Add a "pseudo-locale" to your component workshop: a fake language that makes every string about a third longer and wraps it in brackets ("[Ŝéñð íñvóíçé ţóðáý]"). Truncation, hard-coded strings and fixed widths become visible in seconds, long before a real translation arrives.</p></div>
+
+<h2>Dates, numbers and money</h2>
+<p>Never format these by hand inside components. The same amount is written differently across regions, and the browser already knows the rules.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Locale</th><th>One hundred thousand rupees</th><th>Date (10 November 2026)</th></tr></thead>
+  <tbody>
+    <tr><td>English (India), <code>en-IN</code></td><td>₹1,00,000.00</td><td>10/11/2026</td></tr>
+    <tr><td>English (US), <code>en-US</code></td><td>₹100,000.00</td><td>11/10/2026</td></tr>
+    <tr><td>German (Germany), <code>de-DE</code></td><td>100.000,00 ₹</td><td>10.11.2026</td></tr>
+  </tbody>
+</table></div>
+<figcaption>The same values formatted with <code>Intl.NumberFormat</code> and <code>Intl.DateTimeFormat</code>. Exact output can vary slightly between browsers and versions, which is one more reason not to hard-code it.</figcaption></figure>
+<pre><code><span class="c">// In a shared formatting helper, never inline in a component</span>
+<span class="k">const</span> money = <span class="k">new</span> Intl.NumberFormat(locale, { style: <span class="s">"currency"</span>, currency: <span class="s">"INR"</span> });
+money.format(<span class="s">100000</span>);   <span class="c">// "₹1,00,000.00" in en-IN</span>
+
+<span class="k">const</span> plural = <span class="k">new</span> Intl.PluralRules(<span class="s">"ar"</span>);
+plural.select(<span class="s">2</span>);           <span class="c">// "two": Arabic has zero, one, two, few, many and other</span></code></pre>
+
+<h2>Testing for other languages</h2>
+<ol class="w-steps">
+  <li><h3>Add direction and locale controls to the workshop</h3><p>Every component story can be viewed right to left, in a pseudo-locale and in each supported language.</p></li>
+  <li><h3>Add checks to the definition of done</h3><p>Long text, right-to-left, and the tallest script, for every new or changed component.</p></li>
+  <li><h3>Lint for physical properties and hard-coded formats</h3><p>Automated rules catch <code>margin-left</code>, string concatenation and hand-written dates in review.</p></li>
+  <li><h3>Review with native speakers</h3><p>Automated checks find layout problems; only people who read the language find awkward, wrong or offensive results.</p></li>
+</ol>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>At CARS24, the mobile component system had to work in India, the UAE and Australia, with every UAE screen in Arabic, reading right to left. Every component got right-to-left checks with the UAE team, and every market's longest price had to fit the same slot. <a href="/work/cars24-lego">Read the case study</a>.</p></div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Internationalisation is a design system job: fix it once in shared parts.</li>
+  <li>Use logical properties and the <code>dir</code> attribute; mirror layout and directional icons, not numbers or media controls.</li>
+  <li>Let components grow with text; test with a pseudo-locale and the tallest script.</li>
+  <li>Format dates, numbers, money and plurals with the platform's built-in tools.</li>
+  <li>Give translators context, and review with native speakers.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>How do I make a design system support right-to-left languages?</summary><div><p>Build components with CSS logical properties (start and end instead of left and right), set direction with the HTML dir attribute, mark which icons mirror, and test every component in a right-to-left view.</p></div></details>
+  <details><summary>Do all icons need to be flipped in right-to-left layouts?</summary><div><p>No. Mirror icons that show direction or order, like arrows, chevrons and progress. Don't mirror icons of real-world objects, media playback controls, checkmarks or logos.</p></div></details>
+  <details><summary>Should we prepare for translation if we only support one language?</summary><div><p>Yes, at least the cheap habits: logical properties, components that grow with text, whole sentences with placeholders and built-in formatting. They cost little now and save a rebuild later.</p></div></details>
+  <details><summary>How much longer does translated text get?</summary><div><p>It varies by language and string; short labels often grow the most. Rather than designing for one percentage, make components wrap or grow and test with a pseudo-locale.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_logical_properties_and_values" target="_blank" rel="noopener">CSS logical properties and values</a><span>MDN.</span></li>
+  <li><a href="https://www.w3.org/International/questions/qa-html-dir" target="_blank" rel="noopener">Structural markup and right-to-left text in HTML</a><span>W3C Internationalization.</span></li>
+  <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl" target="_blank" rel="noopener">Intl</a><span>MDN. Dates, numbers, plurals and more.</span></li>
+  <li><a href="/writing/ux-writing-design-system">Content design in a design system</a><span>Writing words that translate well.</span></li>
+</ul>
