@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Component Composition vs Configuration and Slots | Layer One</title>
+<meta name="description" content="When to give a component settings and when to compose it from parts: slots, compound components, recipes, and the signs a component should be split.">
+<meta property="og:title" content="Component Composition vs Configuration and Slots | Layer One">
+<meta property="og:description" content="When to give a component settings and when to compose it from parts: slots, compound components, recipes, and the signs a component should be split.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-14">
+<meta property="article:modified_time" content="2026-11-14">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="Building a system">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/component-composition-slots.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Component Composition vs Configuration and Slots | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/writing.css?v=69e939a1">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Component Composition vs Configuration and Slots", "description": "When to give a component settings and when to compose it from parts: slots, compound components, recipes, and the signs a component should be split.", "image": "https://www.layerone.co.in/assets/images/writing/component-composition-slots.jpg", "datePublished": "2026-11-14", "dateModified": "2026-11-14", "mainEntityOfPage": "https://www.layerone.co.in/writing/component-composition-slots", "wordCount": 1232, "articleSection": "Building a system", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "Building a system", "item": "https://www.layerone.co.in/writing/topics/building"}, {"@type": "ListItem", "position": 3, "name": "Composition vs configuration", "item": "https://www.layerone.co.in/writing/component-composition-slots"}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/component-composition-slots">
+<meta property="og:url" content="https://www.layerone.co.in/writing/component-composition-slots">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Component Composition vs Configuration and Slots | Layer One">
+<meta name="twitter:description" content="When to give a component settings and when to compose it from parts: slots, compound components, recipes, and the signs a component should be split.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/component-composition-slots.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading" title="Light or dark reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button><a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<main id="main" class="ed-wrap"><article class="ed-article">
+  <div class="ed-layout">
+    <aside class="ed-meta" aria-label="About this article"><div class="ed-meta-in">
+      <div class="ed-meta-who"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40"><p><b>Aniket Pandey</b><span>Founder, Layer One</span></p></div>
+      <dl class="ed-meta-dl"><div><dt>Published</dt><dd>14 November 2026</dd></div><div><dt>Reading time</dt><dd>5 minutes</dd></div><div><dt>Topic</dt><dd><a href="/writing/topics/building">Building a system</a></dd></div></dl>
+      <div class="ed-meta-sec"><p class="ed-meta-h">Building components well</p><ol class="ed-steps"><li><a href="/writing/component-states">Component states</a></li><li aria-current="step"><a href="/writing/component-composition-slots">Composition vs configuration</a></li><li><a href="/writing/component-tokens">Component tokens</a></li><li><a href="/writing/design-system-testing">Testing a design system</a></li><li><a href="/writing/accessible-design-system">Accessibility in a design system</a></li></ol></div><div class="ed-meta-sec"><p class="ed-meta-h">Share</p><p class="ed-share"><button type="button" data-copy="https://www.layerone.co.in/writing/component-composition-slots">Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.layerone.co.in/writing/component-composition-slots" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/intent/post?url=https://www.layerone.co.in/writing/component-composition-slots" target="_blank" rel="noopener">X</a></p></div>
+    </div></aside>
+    <header class="ed-head">
+      <p class="ed-crumb"><a href="/writing">Writing</a><span aria-hidden="true">/</span><a href="/writing/topics/building">Building a system</a><span class="ed-crumb-s">Part 2 of 5 in <a href="/writing#building-components-well">Building components well</a></span></p>
+      <h1 class="ed-title">Composition vs configuration: slots, compound components and the forty-setting card</h1>
+      <p class="ed-dek">Every library has a card with forty settings that nobody can change. The two ways to make components flexible, which to use for which component, and how slots and compound components keep composition consistent.</p>
+      <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>5 min read · 14 November 2026</span></span></p>
+    </header>
+    <figure class="ed-cover"><img src="../assets/images/writing/component-composition-slots.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 1024px) calc(100vw - 32px), 760px" fetchpriority="high" srcset="../assets/images/writing/component-composition-slots.w480.webp 480w, ../assets/images/writing/component-composition-slots.w800.webp 800w, ../assets/images/writing/component-composition-slots.w1200.webp 1200w, ../assets/images/writing/component-composition-slots.jpg 1600w" decoding="async"></figure>
+    <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>The forty-setting card</b></summary><ol><li><a href="#the-forty-setting-card">The forty-setting card</a></li><li><a href="#configuration-and-composition-side-by-side">Configuration and composition, side by side</a></li><li><a href="#which-to-use-by-component">Which to use, by component</a></li><li><a href="#three-composition-techniques">Three composition techniques</a></li><li><a href="#keeping-composition-safe">Keeping composition safe</a></li><li><a href="#signs-a-component-should-be-split">Signs a component should be split</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+    <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>There are two ways to make a component flexible. <b>Configuration</b> gives one component many settings (<code>showImage</code>, <code>footerAlign</code>); <b>composition</b> gives several small parts that fit together (<code>Card.Header</code>, <code>Card.Footer</code>), with <b>slots</b> where any content can go. Use configuration for <b>small, frequent components</b> with limited options (button, checkbox, badge), because consistency matters most there. Use composition for <b>containers whose content varies</b> (card, dialog, table, page layout), because every new need would otherwise add another setting. Most mature libraries use both, deliberately.</p>
+  <ul>
+    <li>A component with more than about ten settings is usually a sign that it should be composed instead.</li>
+    <li>Compound components (tabs, menus, selects) are composition with shared state: the parts coordinate behind the scenes.</li>
+    <li>Slots give freedom inside a frame the system still controls: spacing, order, accessibility.</li>
+  </ul>
+</div>
+
+<h2 id="the-forty-setting-card">The forty-setting card</h2>
+<p>Every library has one. It starts as a simple card with a title and some text. One team needs an image, so <code>showImage</code> is added. Another needs a menu, then a footer, then the footer aligned right, then two buttons in the footer. Two years later the card has forty settings, half of them interact in ways nobody remembers, and teams still copy it to make the version they need.</p>
+<p class="scenario-t">An illustration: the card nobody could change</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>A card component has grown to 38 props. Every team's request was reasonable, so every one became a setting.</p></div>
+  <div><span class="k">What goes wrong</span><p>Changing the footer spacing breaks three combinations nobody tested. New engineers can't tell which settings work together. A redesign is estimated at a quarter.</p></div>
+  <div><span class="k">What composition changes</span><p>The card becomes a frame with header, media, body and footer parts. Teams put what they need in each slot. The card itself has four props.</p></div>
+</div>
+
+<h2 id="configuration-and-composition-side-by-side">Configuration and composition, side by side</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">CONFIGURATION</span><h3>One component, many settings</h3><p>Easy to start and easy to use for common cases. Every new need adds another setting; combinations multiply; testing gets harder.</p></div>
+  <div class="cell cell--accent"><span class="k">COMPOSITION</span><h3>Small parts that fit together</h3><p>Handles needs nobody predicted. Each part stays simple. Asks a little more of the person using it, and needs good examples.</p></div>
+</div>
+<pre><code><span class="c">// Configuration: one component, many settings</span>
+&lt;Card
+  title=<span class="s">"Revenue"</span>
+  showMenu
+  image={chart}
+  footerText=<span class="s">"Updated 4 min ago"</span>
+  footerAlign=<span class="s">"right"</span>
+  primaryAction=<span class="s">"View report"</span>
+  <span class="c">// …and the next team will need one more</span>
+/&gt;
+
+<span class="c">// Composition: small pieces that fit together</span>
+&lt;Card&gt;
+  &lt;Card.Header title=<span class="s">"Revenue"</span>&gt;&lt;Menu … /&gt;&lt;/Card.Header&gt;
+  &lt;Card.Media&gt;{chart}&lt;/Card.Media&gt;
+  &lt;Card.Footer&gt;
+    Updated 4 min ago
+    &lt;Button&gt;View report&lt;/Button&gt;
+  &lt;/Card.Footer&gt;
+&lt;/Card&gt;</code></pre>
+
+<h2 id="which-to-use-by-component">Which to use, by component</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Component</th><th>Approach</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td>Button, link, badge, checkbox, switch</td><td>Configuration</td><td>Few options; consistency matters most; used constantly</td></tr>
+    <tr><td>Text field, select</td><td>Mostly configuration</td><td>Label, hint and error are fixed parts; allow a slot for a prefix or suffix</td></tr>
+    <tr><td>Tabs, menu, accordion, select options</td><td>Compound components</td><td>A fixed family of parts that coordinate selection and focus</td></tr>
+    <tr><td>Card, dialog, side panel</td><td>Composition with slots</td><td>Content varies endlessly; the frame stays consistent</td></tr>
+    <tr><td>Table, page layout, app frame</td><td>Composition</td><td>Too many shapes of content for settings to cover</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Our rule of thumb. <span class="ev ev--prac">Practitioner view</span> The smaller and more frequent the component, the more it benefits from fixed settings.</figcaption></figure>
+
+<h2 id="three-composition-techniques">Three composition techniques</h2>
+<h3>1 · Slots: spaces for any content</h3>
+<p>A slot is a named space in a component where any content can go, while the component controls the frame around it: spacing, order, borders and accessibility. In Figma, slots are usually made with an instance-swap property or a nested placeholder component that designers replace. In code, a slot is a child or a named prop.</p>
+<figure class="w-fig">
+  <div class="stack">
+    <div class="lt"><b>Header slot</b><span>Title, plus an optional actions area. The card sets the spacing and alignment.</span></div>
+    <div class="hi"><b>Media slot</b><span>Any image, chart or preview, edge to edge.</span></div>
+    <div><b>Body slot</b><span>Any content. The card applies the padding token.</span></div>
+    <div><b>Footer slot</b><span>Metadata and actions. The card handles wrapping on small screens.</span></div>
+  </div>
+  <figcaption>A card as a frame with four slots. Teams decide what goes in each; the system decides how the frame behaves.</figcaption>
+</figure>
+
+<h3>2 · Compound components: a family that works together</h3>
+<p>Some components are a small family of parts that only make sense together. Tabs are the classic example: a list of tabs, the tabs themselves, and a panel for each. The parts share information quietly (which tab is selected, where focus goes), so the person using them doesn't have to wire it up.</p>
+<pre><code>&lt;Tabs defaultValue=<span class="s">"invoices"</span>&gt;
+  &lt;Tabs.List&gt;
+    &lt;Tabs.Tab value=<span class="s">"invoices"</span>&gt;Invoices&lt;/Tabs.Tab&gt;
+    &lt;Tabs.Tab value=<span class="s">"payments"</span>&gt;Payments&lt;/Tabs.Tab&gt;
+  &lt;/Tabs.List&gt;
+  &lt;Tabs.Panel value=<span class="s">"invoices"</span>&gt;…&lt;/Tabs.Panel&gt;
+  &lt;Tabs.Panel value=<span class="s">"payments"</span>&gt;…&lt;/Tabs.Panel&gt;
+&lt;/Tabs&gt;</code></pre>
+
+<h3>3 · Recipes: proven combinations, ready to copy</h3>
+<p>Composition gives freedom, which can mean ten slightly different filter bars. Recipes close the gap: documented, copyable combinations of components for common problems, like a filter bar or an invoice summary card. They aren't new components; they're examples with the decisions already made. When a recipe is copied into many products unchanged, it may be ready to become a component.</p>
+
+<h2 id="keeping-composition-safe">Keeping composition safe</h2>
+<p>The risk of composition is that teams can put anything anywhere. Three habits keep it consistent:</p>
+<ul class="checklist">
+  <li><b>The frame owns spacing and order.</b> Slots don't take margin props; the parent applies spacing tokens between them.</li>
+  <li><b>The frame owns accessibility.</b> A dialog manages focus and its title, whatever goes in the body slot.</li>
+  <li><b>Document what belongs in each slot.</b> "Footer: metadata on the left, up to two actions on the right" prevents most misuse.</li>
+  <li><b>Watch for repeated combinations.</b> If ten teams compose the same thing, write a recipe; if it keeps spreading, make it a component.</li>
+</ul>
+
+<h2 id="signs-a-component-should-be-split">Signs a component should be split</h2>
+<ul class="checklist">
+  <li>It has more than about ten props, or props that only work in certain combinations.</li>
+  <li>Props are named after layout (<code>footerAlign</code>, <code>showDivider</code>) rather than meaning.</li>
+  <li>Teams detach it in Figma or copy it in code to add one thing.</li>
+  <li>Changing one part regularly breaks another.</li>
+</ul>
+<p>Splitting a configured component into composed parts is a breaking change. Do it in a major release with a migration guide, or ship the composed version alongside and deprecate the old one. See <a href="/writing/design-system-versioning">design system versioning</a>.</p>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>At CARS24, the mobile component system was built as 44 composable pieces that teams in India, the UAE and Australia assembled into their own screens. <a href="/work/cars24-lego">Read the case study</a>.</p></div>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Configuration for small, frequent components; composition for containers.</li>
+  <li>Slots give freedom inside a frame the system controls.</li>
+  <li>Compound components share state between parts that belong together.</li>
+  <li>Recipes stop composition from producing ten versions of the same thing.</li>
+  <li>More than ten props, or layout-named props, means it's time to compose.</li>
+</ul></div>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>What is a slot in a design system component?</summary><div><p>A named space in a component where any content can go, such as a card's header or footer. The component controls the frame (spacing, order, accessibility); the team supplies the content.</p></div></details>
+  <details><summary>What are compound components?</summary><div><p>A family of parts that work together and share state, like Tabs, Tabs.List, Tabs.Tab and Tabs.Panel. They read like a sentence and avoid one component with dozens of settings.</p></div></details>
+  <details><summary>How do slots work in Figma?</summary><div><p>Usually with instance-swap properties or a placeholder component inside the main component that designers replace with their own content.</p></div></details>
+  <details><summary>Is composition harder for product teams?</summary><div><p>A little, at first. Good examples and recipes make it as quick as configuration for common cases, and far more flexible for the rest.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://atomicdesign.bradfrost.com/" target="_blank" rel="noopener">Atomic Design</a><span>Brad Frost. Building larger parts from smaller ones.</span></li>
+  <li><a href="/writing/component-props-best-practices">Component props best practices</a><span>Designing the settings you do keep.</span></li>
+  <li><a href="/writing/component-complexity">Component complexity</a><span>Why composites and systems take longer.</span></li>
+</ul>
+</div>
+    <aside class="ed-aside" aria-label="On this page"><nav class="ed-toc"><p>On this page</p><ol><li><a href="#the-forty-setting-card">The forty-setting card</a></li><li><a href="#configuration-and-composition-side-by-side">Configuration and composition, side by side</a></li><li><a href="#which-to-use-by-component">Which to use, by component</a></li><li><a href="#three-composition-techniques">Three composition techniques</a></li><li><a href="#keeping-composition-safe">Keeping composition safe</a></li><li><a href="#signs-a-component-should-be-split">Signs a component should be split</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><a class="ed-top" href="#main">Back to top ↑</a></nav></aside>
+  </div>
+  <footer class="ed-end">
+    <section class="ed-more" aria-labelledby="more-h"><h2 class="ed-sec-h" id="more-h">next in building components well:</h2><div class="ec-grid"><a class="ec " href="/writing/component-tokens" data-topic="foundations-and-tokens"><span class="ec-m"><img src="../assets/images/writing/component-tokens.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/component-tokens.w480.webp 480w, ../assets/images/writing/component-tokens.w800.webp 800w, ../assets/images/writing/component-tokens.w1200.webp 1200w, ../assets/images/writing/component-tokens.jpg 1600w"></span><span class="ec-k">Foundations & tokens</span><b class="ec-t">Component tokens</b><span class="ec-d">What component tokens are, when a component deserves its own tokens, how to name them from its anatomy, and how to keep them healthy in Figma and code.</span><span class="ec-f">5 min read</span></a><a class="ec " href="/writing/component-props-best-practices" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/component-props-best-practices.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/component-props-best-practices.w480.webp 480w, ../assets/images/writing/component-props-best-practices.w800.webp 800w, ../assets/images/writing/component-props-best-practices.w1200.webp 1200w, ../assets/images/writing/component-props-best-practices.jpg 1600w"></span><span class="ec-k">Building a system</span><b class="ec-t">Component props best practices: designing APIs people can use</b><span class="ec-d">How to design component props: the eight kinds of props, rules for good APIs, controlled vs uncontrolled, and keeping props in step between Figma and code.</span><span class="ec-f">6 min read</span></a><a class="ec " href="/writing/component-complexity" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/component-complexity.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/component-complexity.w480.webp 480w, ../assets/images/writing/component-complexity.w800.webp 800w, ../assets/images/writing/component-complexity.w1200.webp 1200w, ../assets/images/writing/component-complexity.jpg 1600w"></span><span class="ec-k">Building a system</span><b class="ec-t">Component complexity: how to estimate design system work</b><span class="ec-d">A scoring method for design system components: four levels of complexity, an eight-question rubric, and how complexity changes process and effort.</span><span class="ec-f">6 min read</span></a></div></section>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Working on this in your own product?</h2><p>Most teams we work with start with a two-week audit: every style, component and token, checked and ranked.</p></div><a href="/pricing">How the audit works <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main><footer class="ed-foot"><div class="ed-foot-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
+  <nav aria-label="Studio"><a href="/work">Work</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/contact">Contact</a><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">LinkedIn</a><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></nav>
+</div></footer><script src="../assets/site.js?v=3de6a9b6" defer></script>
+</body>
+</html>

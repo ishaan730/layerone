@@ -28,15 +28,21 @@
   <url><loc>https://www.layerone.co.in/work/jpmc-patterns</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/work/jpmc-system-checks</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing</loc><lastmod>2026-11-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://www.layerone.co.in/writing/accessible-design-system</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/ai-in-design-systems</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/color-contrast-design-system</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/component-complexity</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.layerone.co.in/writing/component-composition-slots</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/component-props-best-practices</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.layerone.co.in/writing/component-states</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.layerone.co.in/writing/component-tokens</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.layerone.co.in/writing/cross-platform-design-system</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/dark-mode-design-tokens</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/design-system-audit</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/design-system-champions</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/design-system-contribution-model</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/design-system-documentation</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.layerone.co.in/writing/design-system-for-startups</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/design-system-governance</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/design-system-localization-rtl</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/design-system-maturity-model</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
@@ -48,8 +54,10 @@
   <url><loc>https://www.layerone.co.in/writing/design-system-patterns</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/design-system-release-notes</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/design-system-research</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.layerone.co.in/writing/design-system-roadmap</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/design-system-roi</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/design-system-team-structure</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.layerone.co.in/writing/design-system-testing</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/design-system-tooling</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/design-system-versioning</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/design-system-vs-style-guide-vs-component-library</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
@@ -57,6 +65,7 @@
   <url><loc>https://www.layerone.co.in/writing/design-tokens</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/do-you-need-a-design-system</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/figma-code-sync</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.layerone.co.in/writing/figma-library-structure</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/form-design-patterns</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/headless-component-library-build-vs-buy</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/how-to-build-a-design-system</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
@@ -75,4 +84,5 @@
   <url><loc>https://www.layerone.co.in/writing/ux-writing-design-system</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/what-is-a-design-system</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/which-components-to-build-first</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.layerone.co.in/writing/why-design-systems-fail</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
 </urlset>

@@ -1,0 +1,98 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>A startup doesn't need a design system team, a governance council or a custom component library. It needs a <b>minimum viable system</b>: <b>named tokens</b> for colour, type and spacing used in code from day one; a <b>themed off-the-shelf component library</b> (headless or styled); a <b>small Figma library</b> that matches it; <b>one page</b> of "how we build UI"; and <b>two named owners</b>, a designer and an engineer, with about a day a week protected. Add structure only when a real problem appears: teams waiting, decisions stalling or quality slipping.</p>
+  <ul>
+    <li>Tokens cost days, survive every pivot and are the foundation everything later builds on.</li>
+    <li>Don't copy how a famous tech company runs its system. Use the lightest model that keeps the system trusted.</li>
+    <li>"Build it locally" is a respectable answer for anything only one team needs.</li>
+  </ul>
+</div>
+
+<h2>The startup that copied a tech giant</h2>
+<p class="scenario-t">An illustration</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>A 60-person startup reads how a famous tech company runs its design system: a dedicated team, a governance council, a formal request process, quarterly planning. They copy it.</p></div>
+  <div><span class="k">What goes wrong</span><p>Two designers spend half their week in process meetings. A button change needs council approval. Product teams wait weeks for simple things and start building their own.</p></div>
+  <div><span class="k">What would have fitted</span><p>One owner with protected time, a shared channel, a fortnightly half-hour review, and "build it locally" for anything one team needs. Process grows when the company does, not before.</p></div>
+</div>
+<p>The rule we use: <b>use the lightest model that keeps the system trusted and moving</b>. Every meeting, approval and form should solve a problem you actually have today.</p>
+
+<h2>The minimum viable design system</h2>
+<figure class="w-fig">
+  <div class="stairs stairs--4">
+    <div class="on"><span class="n">1</span><b>Tokens in code</b><span>Colour, type, spacing and radius as named values, used everywhere. Days of work.</span></div>
+    <div><span class="n">2</span><b>A themed library</b><span>An off-the-shelf component library, themed with your tokens. Don't build your own yet.</span></div>
+    <div><span class="n">3</span><b>A small Figma library</b><span>Variables and the components you actually use, named like the code.</span></div>
+    <div><span class="n">4</span><b>One page and two owners</b><span>"How we build UI" in one page; a designer and an engineer with a day a week.</span></div>
+  </div>
+  <figcaption>Four steps, in order. Step 1 is the one to get right: tokens survive every pivot, rebrand and rewrite. <span class="ev ev--prac">Practitioner view</span></figcaption>
+</figure>
+
+<h3>1 · Tokens from day one</h3>
+<p>Name your colours by job (<code>color.action.primary</code>, <code>color.text.muted</code>), set a spacing scale and a type scale, and use only those names in code. It takes days and pays back at every pivot: a rebrand, dark mode or a second product becomes a change of values, not a rewrite. The free <a href="/lab/oklch-palette-generator">palette generator</a>, <a href="/lab/type-scale-generator">type scale generator</a> and <a href="/lab/design-token-generator">token generator</a> will get you there in an afternoon.</p>
+
+<h3>2 · Borrow components, don't build them</h3>
+<p>At this stage, product is still changing fast and you can't afford months on a date picker. Use a well-maintained library and theme it with your tokens: a fully styled one for speed, or a headless one if you want your own look with tested behaviour. Wrap it in your own components with your own props from the start, so swapping it later doesn't touch product screens. See <a href="/writing/headless-component-library-build-vs-buy">build, borrow or buy</a>.</p>
+
+<h3>3 · A Figma library that matches</h3>
+<p>Variables for your tokens, and only the components you actually use, named exactly like the code. Twenty well-kept components beat a downloaded kit of two hundred that doesn't match what engineers ship.</p>
+
+<h3>4 · One page, two owners</h3>
+<p>A single page explaining how you build UI: where tokens live, which library you use, how to add something new. And two named owners, a designer and an engineer, with about a day a week protected. Without names, "everyone owns it" quickly means nobody does.</p>
+
+<h2>What not to do yet</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">DO</span><h4>Habits, not process</h4><p>Check whether something exists before building it. Put reusable things in the shared place. Review new UI in your normal design critique. Ask in the team channel.</p></div>
+  <div class="cell cell--accent"><span class="k">DON'T, YET</span><h4>Structure without a problem</h4><p>A dedicated team, a council, request forms, a docs platform, custom versions of standard components, component tokens, quarterly design system planning.</p></div>
+</div>
+
+<h2>When to add the next piece</h2>
+<p>Add structure when a specific problem appears, not on a calendar. These are the signals we watch for:</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Signal</th><th>What to add</th></tr></thead>
+  <tbody>
+    <tr><td>More than about three squads depend on the shared UI</td><td>A small dedicated team: a designer and an engineer, at least part-time each</td></tr>
+    <tr><td>The same component has been built twice</td><td>Move it into the shared library (the rule of two)</td></tr>
+    <tr><td>Teams wait more than a week for small changes</td><td>A simple request process and a contribution guide</td></tr>
+    <tr><td>Updates break screens</td><td>Versioning rules and release notes</td></tr>
+    <tr><td>New joiners can't find things</td><td>A documentation site and onboarding</td></tr>
+    <tr><td>A second brand or a mobile app is coming</td><td>A token pipeline and semantic token layer, if you don't have one</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Signals and responses. <span class="ev ev--prac">Practitioner view</span> Each response solves a problem you have; none is worth adding before it appears.</figcaption></figure>
+
+<h2>How the model grows with the company</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Stage</th><th>Typical size</th><th>Model</th><th>What exists</th></tr></thead>
+  <tbody>
+    <tr><td>Early-stage startup</td><td>10–50 people; 1–3 designers</td><td>Embedded: two owners, a day a week</td><td>Tokens, a themed library, a small Figma library, one page</td></tr>
+    <tr><td>Scale-up</td><td>50–300 people; 3–8 squads</td><td>Small central team starting hybrid: 1–3 people plus champions</td><td>20–35 components, docs site, versioned releases, simple requests</td></tr>
+    <tr><td>Mid-sized</td><td>300–2,000 people</td><td>Hybrid, written-first: a core team of 4–8</td><td>Themes, contribution, health metrics, a documentation portal</td></tr>
+  </tbody>
+</table></div>
+<figcaption>The first three stages. <span class="ev ev--ill">Illustration</span> Sizes are typical, not rules; the signals above matter more than headcount. More in <a href="/writing/design-system-operating-model">the operating model</a> and <a href="/writing/design-system-team-structure">team structure</a>.</figcaption></figure>
+<div class="callout callout--warn"><span class="callout-k">A mistake we see often</span><p>Hiring one "design system designer" at the scale-up stage and expecting a system. Without engineering capacity, you get a beautiful Figma library and very little real use. The minimum effective team is a designer and an engineer.</p></div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Tokens in code from day one; they survive every pivot.</li>
+  <li>Theme an existing component library; wrap it in your own API.</li>
+  <li>A small Figma library named like the code; one page of guidance.</li>
+  <li>Two named owners with protected time.</li>
+  <li>Add structure only when a specific problem appears.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Does a startup need a design system?</summary><div><p>It needs the basics: named tokens used in code, a themed component library and a small matching Figma library. It doesn't need a dedicated team or formal process until several squads depend on shared UI.</p></div></details>
+  <details><summary>Should a startup build its own component library?</summary><div><p>Usually not. Theme a well-maintained library with your tokens and wrap it in your own components, so you can replace it later without changing product screens.</p></div></details>
+  <details><summary>When should a startup hire a design system team?</summary><div><p>When more than about three squads depend on shared UI, or teams are regularly waiting on or duplicating components. Start with a designer and an engineer.</p></div></details>
+  <details><summary>What's the cheapest thing that makes the biggest difference?</summary><div><p>Tokens. Naming colours, type and spacing and using only those names in code takes days and makes every later change cheaper.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="/writing/do-you-need-a-design-system">Do you need a design system?</a><span>The signs it's time.</span></li>
+  <li><a href="/writing/design-system-maturity-model">The design system maturity model</a><span>Choosing the next stage, not the last one.</span></li>
+  <li><a href="/writing/design-tokens">Design tokens</a><span>The foundation to get right first.</span></li>
+</ul>

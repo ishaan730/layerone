@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design System for Startups: The Minimum Viable System | Layer One</title>
+<meta name="description" content="What a startup actually needs from a design system: tokens in code, a themed component library, a small Figma library, two owners, and when to add more.">
+<meta property="og:title" content="Design System for Startups: The Minimum Viable System | Layer One">
+<meta property="og:description" content="What a startup actually needs from a design system: tokens in code, a themed component library, a small Figma library, two owners, and when to add more.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-14">
+<meta property="article:modified_time" content="2026-11-14">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="Fundamentals">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/design-system-for-startups.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Design System for Startups: The Minimum Viable System | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/writing.css?v=69e939a1">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Design System for Startups: The Minimum Viable System", "description": "What a startup actually needs from a design system: tokens in code, a themed component library, a small Figma library, two owners, and when to add more.", "image": "https://www.layerone.co.in/assets/images/writing/design-system-for-startups.jpg", "datePublished": "2026-11-14", "dateModified": "2026-11-14", "mainEntityOfPage": "https://www.layerone.co.in/writing/design-system-for-startups", "wordCount": 1189, "articleSection": "Fundamentals", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "Fundamentals", "item": "https://www.layerone.co.in/writing/topics/fundamentals"}, {"@type": "ListItem", "position": 3, "name": "Design systems for startups: the minimum that pays off", "item": "https://www.layerone.co.in/writing/design-system-for-startups"}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/design-system-for-startups">
+<meta property="og:url" content="https://www.layerone.co.in/writing/design-system-for-startups">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Design System for Startups: The Minimum Viable System | Layer One">
+<meta name="twitter:description" content="What a startup actually needs from a design system: tokens in code, a themed component library, a small Figma library, two owners, and when to add more.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/design-system-for-startups.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading" title="Light or dark reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button><a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<main id="main" class="ed-wrap"><article class="ed-article">
+  <div class="ed-layout">
+    <aside class="ed-meta" aria-label="About this article"><div class="ed-meta-in">
+      <div class="ed-meta-who"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40"><p><b>Aniket Pandey</b><span>Founder, Layer One</span></p></div>
+      <dl class="ed-meta-dl"><div><dt>Published</dt><dd>14 November 2026</dd></div><div><dt>Reading time</dt><dd>5 minutes</dd></div><div><dt>Topic</dt><dd><a href="/writing/topics/fundamentals">Fundamentals</a></dd></div></dl>
+      <div class="ed-meta-sec"><p class="ed-meta-h">Planning the system</p><ol class="ed-steps"><li aria-current="step"><a href="/writing/design-system-for-startups">Design systems for startups</a></li><li><a href="/writing/design-system-roadmap">A design system roadmap for the first twelve months</a></li><li><a href="/writing/why-design-systems-fail">Why design systems fail</a></li></ol></div><div class="ed-meta-sec"><p class="ed-meta-h">Share</p><p class="ed-share"><button type="button" data-copy="https://www.layerone.co.in/writing/design-system-for-startups">Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.layerone.co.in/writing/design-system-for-startups" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/intent/post?url=https://www.layerone.co.in/writing/design-system-for-startups" target="_blank" rel="noopener">X</a></p></div>
+    </div></aside>
+    <header class="ed-head">
+      <p class="ed-crumb"><a href="/writing">Writing</a><span aria-hidden="true">/</span><a href="/writing/topics/fundamentals">Fundamentals</a><span class="ed-crumb-s">Part 1 of 3 in <a href="/writing#planning-the-system">Planning the system</a></span></p>
+      <h1 class="ed-title">Design systems for startups: the minimum that pays off</h1>
+      <p class="ed-dek">A startup that copies a tech giant's design system process drowns in it. The minimum viable system that survives every pivot, what not to do yet, and the signals that tell you it's time to add the next piece.</p>
+      <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>5 min read · 14 November 2026</span></span></p>
+    </header>
+    <figure class="ed-cover"><img src="../assets/images/writing/design-system-for-startups.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 1024px) calc(100vw - 32px), 760px" fetchpriority="high" srcset="../assets/images/writing/design-system-for-startups.w480.webp 480w, ../assets/images/writing/design-system-for-startups.w800.webp 800w, ../assets/images/writing/design-system-for-startups.w1200.webp 1200w, ../assets/images/writing/design-system-for-startups.jpg 1600w" decoding="async"></figure>
+    <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>The startup that copied a tech giant</b></summary><ol><li><a href="#the-startup-that-copied-a-tech-giant">The startup that copied a tech giant</a></li><li><a href="#the-minimum-viable-design-system">The minimum viable design system</a></li><li><a href="#what-not-to-do-yet">What not to do yet</a></li><li><a href="#when-to-add-the-next-piece">When to add the next piece</a></li><li><a href="#how-the-model-grows-with-the-company">How the model grows with the company</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+    <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>A startup doesn't need a design system team, a governance council or a custom component library. It needs a <b>minimum viable system</b>: <b>named tokens</b> for colour, type and spacing used in code from day one; a <b>themed off-the-shelf component library</b> (headless or styled); a <b>small Figma library</b> that matches it; <b>one page</b> of "how we build UI"; and <b>two named owners</b>, a designer and an engineer, with about a day a week protected. Add structure only when a real problem appears: teams waiting, decisions stalling or quality slipping.</p>
+  <ul>
+    <li>Tokens cost days, survive every pivot and are the foundation everything later builds on.</li>
+    <li>Don't copy how a famous tech company runs its system. Use the lightest model that keeps the system trusted.</li>
+    <li>"Build it locally" is a respectable answer for anything only one team needs.</li>
+  </ul>
+</div>
+
+<h2 id="the-startup-that-copied-a-tech-giant">The startup that copied a tech giant</h2>
+<p class="scenario-t">An illustration</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>A 60-person startup reads how a famous tech company runs its design system: a dedicated team, a governance council, a formal request process, quarterly planning. They copy it.</p></div>
+  <div><span class="k">What goes wrong</span><p>Two designers spend half their week in process meetings. A button change needs council approval. Product teams wait weeks for simple things and start building their own.</p></div>
+  <div><span class="k">What would have fitted</span><p>One owner with protected time, a shared channel, a fortnightly half-hour review, and "build it locally" for anything one team needs. Process grows when the company does, not before.</p></div>
+</div>
+<p>The rule we use: <b>use the lightest model that keeps the system trusted and moving</b>. Every meeting, approval and form should solve a problem you actually have today.</p>
+
+<h2 id="the-minimum-viable-design-system">The minimum viable design system</h2>
+<figure class="w-fig">
+  <div class="stairs stairs--4">
+    <div class="on"><span class="n">1</span><b>Tokens in code</b><span>Colour, type, spacing and radius as named values, used everywhere. Days of work.</span></div>
+    <div><span class="n">2</span><b>A themed library</b><span>An off-the-shelf component library, themed with your tokens. Don't build your own yet.</span></div>
+    <div><span class="n">3</span><b>A small Figma library</b><span>Variables and the components you actually use, named like the code.</span></div>
+    <div><span class="n">4</span><b>One page and two owners</b><span>"How we build UI" in one page; a designer and an engineer with a day a week.</span></div>
+  </div>
+  <figcaption>Four steps, in order. Step 1 is the one to get right: tokens survive every pivot, rebrand and rewrite. <span class="ev ev--prac">Practitioner view</span></figcaption>
+</figure>
+
+<h3>1 · Tokens from day one</h3>
+<p>Name your colours by job (<code>color.action.primary</code>, <code>color.text.muted</code>), set a spacing scale and a type scale, and use only those names in code. It takes days and pays back at every pivot: a rebrand, dark mode or a second product becomes a change of values, not a rewrite. The free <a href="/lab/oklch-palette-generator">palette generator</a>, <a href="/lab/type-scale-generator">type scale generator</a> and <a href="/lab/design-token-generator">token generator</a> will get you there in an afternoon.</p>
+
+<h3>2 · Borrow components, don't build them</h3>
+<p>At this stage, product is still changing fast and you can't afford months on a date picker. Use a well-maintained library and theme it with your tokens: a fully styled one for speed, or a headless one if you want your own look with tested behaviour. Wrap it in your own components with your own props from the start, so swapping it later doesn't touch product screens. See <a href="/writing/headless-component-library-build-vs-buy">build, borrow or buy</a>.</p>
+
+<h3>3 · A Figma library that matches</h3>
+<p>Variables for your tokens, and only the components you actually use, named exactly like the code. Twenty well-kept components beat a downloaded kit of two hundred that doesn't match what engineers ship.</p>
+
+<h3>4 · One page, two owners</h3>
+<p>A single page explaining how you build UI: where tokens live, which library you use, how to add something new. And two named owners, a designer and an engineer, with about a day a week protected. Without names, "everyone owns it" quickly means nobody does.</p>
+
+<h2 id="what-not-to-do-yet">What not to do yet</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">DO</span><h4>Habits, not process</h4><p>Check whether something exists before building it. Put reusable things in the shared place. Review new UI in your normal design critique. Ask in the team channel.</p></div>
+  <div class="cell cell--accent"><span class="k">DON'T, YET</span><h4>Structure without a problem</h4><p>A dedicated team, a council, request forms, a docs platform, custom versions of standard components, component tokens, quarterly design system planning.</p></div>
+</div>
+
+<h2 id="when-to-add-the-next-piece">When to add the next piece</h2>
+<p>Add structure when a specific problem appears, not on a calendar. These are the signals we watch for:</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Signal</th><th>What to add</th></tr></thead>
+  <tbody>
+    <tr><td>More than about three squads depend on the shared UI</td><td>A small dedicated team: a designer and an engineer, at least part-time each</td></tr>
+    <tr><td>The same component has been built twice</td><td>Move it into the shared library (the rule of two)</td></tr>
+    <tr><td>Teams wait more than a week for small changes</td><td>A simple request process and a contribution guide</td></tr>
+    <tr><td>Updates break screens</td><td>Versioning rules and release notes</td></tr>
+    <tr><td>New joiners can't find things</td><td>A documentation site and onboarding</td></tr>
+    <tr><td>A second brand or a mobile app is coming</td><td>A token pipeline and semantic token layer, if you don't have one</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Signals and responses. <span class="ev ev--prac">Practitioner view</span> Each response solves a problem you have; none is worth adding before it appears.</figcaption></figure>
+
+<h2 id="how-the-model-grows-with-the-company">How the model grows with the company</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Stage</th><th>Typical size</th><th>Model</th><th>What exists</th></tr></thead>
+  <tbody>
+    <tr><td>Early-stage startup</td><td>10–50 people; 1–3 designers</td><td>Embedded: two owners, a day a week</td><td>Tokens, a themed library, a small Figma library, one page</td></tr>
+    <tr><td>Scale-up</td><td>50–300 people; 3–8 squads</td><td>Small central team starting hybrid: 1–3 people plus champions</td><td>20–35 components, docs site, versioned releases, simple requests</td></tr>
+    <tr><td>Mid-sized</td><td>300–2,000 people</td><td>Hybrid, written-first: a core team of 4–8</td><td>Themes, contribution, health metrics, a documentation portal</td></tr>
+  </tbody>
+</table></div>
+<figcaption>The first three stages. <span class="ev ev--ill">Illustration</span> Sizes are typical, not rules; the signals above matter more than headcount. More in <a href="/writing/design-system-operating-model">the operating model</a> and <a href="/writing/design-system-team-structure">team structure</a>.</figcaption></figure>
+<div class="callout callout--warn"><span class="callout-k">A mistake we see often</span><p>Hiring one "design system designer" at the scale-up stage and expecting a system. Without engineering capacity, you get a beautiful Figma library and very little real use. The minimum effective team is a designer and an engineer.</p></div>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Tokens in code from day one; they survive every pivot.</li>
+  <li>Theme an existing component library; wrap it in your own API.</li>
+  <li>A small Figma library named like the code; one page of guidance.</li>
+  <li>Two named owners with protected time.</li>
+  <li>Add structure only when a specific problem appears.</li>
+</ul></div>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Does a startup need a design system?</summary><div><p>It needs the basics: named tokens used in code, a themed component library and a small matching Figma library. It doesn't need a dedicated team or formal process until several squads depend on shared UI.</p></div></details>
+  <details><summary>Should a startup build its own component library?</summary><div><p>Usually not. Theme a well-maintained library with your tokens and wrap it in your own components, so you can replace it later without changing product screens.</p></div></details>
+  <details><summary>When should a startup hire a design system team?</summary><div><p>When more than about three squads depend on shared UI, or teams are regularly waiting on or duplicating components. Start with a designer and an engineer.</p></div></details>
+  <details><summary>What's the cheapest thing that makes the biggest difference?</summary><div><p>Tokens. Naming colours, type and spacing and using only those names in code takes days and makes every later change cheaper.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="/writing/do-you-need-a-design-system">Do you need a design system?</a><span>The signs it's time.</span></li>
+  <li><a href="/writing/design-system-maturity-model">The design system maturity model</a><span>Choosing the next stage, not the last one.</span></li>
+  <li><a href="/writing/design-tokens">Design tokens</a><span>The foundation to get right first.</span></li>
+</ul>
+</div>
+    <aside class="ed-aside" aria-label="On this page"><nav class="ed-toc"><p>On this page</p><ol><li><a href="#the-startup-that-copied-a-tech-giant">The startup that copied a tech giant</a></li><li><a href="#the-minimum-viable-design-system">The minimum viable design system</a></li><li><a href="#what-not-to-do-yet">What not to do yet</a></li><li><a href="#when-to-add-the-next-piece">When to add the next piece</a></li><li><a href="#how-the-model-grows-with-the-company">How the model grows with the company</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><a class="ed-top" href="#main">Back to top ↑</a></nav></aside>
+  </div>
+  <footer class="ed-end">
+    <section class="ed-more" aria-labelledby="more-h"><h2 class="ed-sec-h" id="more-h">next in planning the system:</h2><div class="ec-grid"><a class="ec " href="/writing/design-system-roadmap" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/design-system-roadmap.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-system-roadmap.w480.webp 480w, ../assets/images/writing/design-system-roadmap.w800.webp 800w, ../assets/images/writing/design-system-roadmap.w1200.webp 1200w, ../assets/images/writing/design-system-roadmap.jpg 1600w"></span><span class="ec-k">Building a system</span><b class="ec-t">A design system roadmap for the first twelve months</b><span class="ec-d">A realistic first-year design system roadmap: four workstreams over four quarters, a gate that earns each next quarter, pilots and the rhythms to start.</span><span class="ec-f">5 min read</span></a><a class="ec " href="/writing/do-you-need-a-design-system" data-topic="fundamentals"><span class="ec-m"><img src="../assets/images/writing/do-you-need-a-design-system.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/do-you-need-a-design-system.w480.webp 480w, ../assets/images/writing/do-you-need-a-design-system.w800.webp 800w, ../assets/images/writing/do-you-need-a-design-system.w1200.webp 1200w, ../assets/images/writing/do-you-need-a-design-system.jpg 1600w"></span><span class="ec-k">Fundamentals</span><b class="ec-t">Do you need a design system? A decision guide for startups and growing teams</b><span class="ec-d">Seven questions, five maturity stages and the signs you've outgrown a UI kit. A practical way to decide whether your team needs a design system yet.</span><span class="ec-f">11 min read</span></a><a class="ec " href="/writing/design-system-maturity-model" data-topic="fundamentals"><span class="ec-m"><img src="../assets/images/writing/design-system-maturity-model.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-system-maturity-model.w480.webp 480w, ../assets/images/writing/design-system-maturity-model.w800.webp 800w, ../assets/images/writing/design-system-maturity-model.w1200.webp 1200w, ../assets/images/writing/design-system-maturity-model.jpg 1600w"></span><span class="ec-k">Fundamentals</span><b class="ec-t">The design system maturity model</b><span class="ec-d">Five stages of design system maturity, how to tell which one you're at, what the next step takes, and why aiming for the top too early backfires.</span><span class="ec-f">7 min read</span></a></div></section>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Make your first token set this afternoon</h2><p>The free Lab tools take you from a brand colour to a palette, type and spacing scales and one token file for CSS or Tailwind.</p></div><a href="/lab/design-token-generator">Open the token generator <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main><footer class="ed-foot"><div class="ed-foot-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
+  <nav aria-label="Studio"><a href="/work">Work</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/contact">Contact</a><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">LinkedIn</a><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></nav>
+</div></footer><script src="../assets/site.js?v=3de6a9b6" defer></script>
+</body>
+</html>

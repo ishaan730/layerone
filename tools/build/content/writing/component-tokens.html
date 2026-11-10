@@ -1,0 +1,132 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p><b>Component tokens</b> are the third tier of design tokens: names for one property of one component, like <code>button.primary.container.background</code>, that point to a semantic token like <code>color.action.primary.bg</code>. Most single-brand products with light and dark mode <b>don't need them</b>: components can use semantic tokens directly. Create component tokens when you have a reason: <b>brands that style specific components differently</b>, <b>white-label products</b> where customers adjust components, a component that <b>genuinely departs</b> from the semantic rule, or <b>platform-specific sizes</b>. Then create them only for the properties that vary.</p>
+  <ul>
+    <li>Never let components use primitive tokens or raw values. That's where dark mode breaks first.</li>
+    <li>Name them {component}.{variant}.{part}.{property}.{state}, using the anatomy's part names.</li>
+    <li>Component tokens multiply fast: ten components with ten tokens each is already a hundred names to maintain.</li>
+  </ul>
+</div>
+
+<h2>Where component tokens fit</h2>
+<figure class="w-fig">
+  <div class="tiers">
+    <div class="tier"><span class="k">Tier 1 · Primitive</span><b>What it is</b><p>Raw values with neutral names. Components never use these directly.</p><code>color.brand.700</code><code>radius.4</code></div>
+    <i>→</i>
+    <div class="tier"><span class="k">Tier 2 · Semantic</span><b>What job it does</b><p>Names a purpose and points to a primitive. Enough for most components.</p><code>color.action.primary.bg</code><code>radius.control</code></div>
+    <i>→</i>
+    <div class="tier" style="outline:1.5px solid var(--accent)"><span class="k">Tier 3 · Component</span><b>Where it's used</b><p>Names one property of one component and points to a semantic token. Optional.</p><code>button.primary.container.background</code><code>button.container.radius</code></div>
+  </div>
+  <figcaption>The three tiers. Component tokens sit on top and only exist where a component needs to vary on its own. See <a href="/writing/design-tokens">design tokens</a> for the first two tiers.</figcaption>
+</figure>
+<p>There are two good ways for a component to get its values, and one bad one:</p>
+<div class="cols3">
+  <div class="cell"><span class="k">GOOD</span><h4>Semantic tokens</h4><p>The button's background is <code>action.primary.bg</code>. Simple, and enough for most single-brand products.</p></div>
+  <div class="cell"><span class="k">GOOD</span><h4>Its own tokens</h4><p>The background is <code>button.primary.container.background</code>, pointing to <code>action.primary.bg</code>. More flexible, more to maintain.</p></div>
+  <div class="cell cell--accent"><span class="k">BAD</span><h4>Primitives or raw values</h4><p>The background is <code>brand.700</code> or <code>#AB2800</code>. Dark mode and theming break here first.</p></div>
+</div>
+<p class="scenario-t">An illustration: dark mode works everywhere except the date picker</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>A product launches dark mode. Every screen looks right except the date picker, whose selected day stays bright orange on a white square.</p></div>
+  <div><span class="k">The cause</span><p>The date picker was built in a hurry using <code>brand.700</code> and <code>neutral.50</code> directly. Those are paints, not jobs, so dark mode had no way of switching them.</p></div>
+  <div><span class="k">The fix</span><p>Point it at job names (<code>action.primary.bg</code>, <code>bg.surface</code>) and add a lint rule that flags any component using primitives. One component fixed; a whole class of bugs prevented.</p></div>
+</div>
+
+<h2>When a component deserves its own tokens</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Situation</th><th>Component tokens?</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td>One brand, light and dark mode</td><td>Usually no</td><td>Semantic tokens already switch with the theme</td></tr>
+    <tr><td>Several brands that differ only in colour</td><td>Usually no</td><td>A brand level under the semantic tokens handles it</td></tr>
+    <tr><td>Brands that style specific components differently</td><td><b>Yes</b></td><td>Each brand overrides just those components' tokens</td></tr>
+    <tr><td>White-label products customers can adjust</td><td><b>Yes</b></td><td>A safe, limited list of things customers can change</td></tr>
+    <tr><td>A component that departs from the semantic rule</td><td><b>Yes, for that part</b></td><td>Records the exception in one visible place instead of hiding it in code</td></tr>
+    <tr><td>Native apps with platform-specific sizes</td><td><b>Yes, for sizes</b></td><td>iOS and Android can map sizes to their own guidelines</td></tr>
+  </tbody>
+</table></div>
+<figcaption>A decision guide. <span class="ev ev--prac">Practitioner view</span> Even Nathan Curtis has cautioned that the industry may focus too much on tokens at the expense of the rest of a system. Create them for a reason, not by default.</figcaption></figure>
+<p>A good middle path, used by many teams, is to create component tokens <b>only for the properties that vary</b>. A system might give buttons a <code>button.container.radius</code> token because one brand wants pill-shaped buttons, while the button's colours keep using semantic tokens directly. The token list stays short and every token has a reason.</p>
+
+<h2>Mapping a component's anatomy to tokens</h2>
+<p>Start from the component's anatomy. For each part, ask which visual properties could ever change with a theme, a brand, a density or a platform. Those come from tokens. Properties that never change (the label sits above the field) are just part of the design.</p>
+<figure class="w-fig"><div class="w-tbl w-tbl--dense"><table>
+  <thead><tr><th>Part</th><th>Property</th><th>Component token</th><th>Points to</th><th>Changes with</th></tr></thead>
+  <tbody>
+    <tr><td>Label</td><td>Colour</td><td><code>input.label.color</code></td><td><code>text.primary</code></td><td>Theme</td></tr>
+    <tr><td>Container</td><td>Background</td><td><code>input.container.background</code></td><td><code>bg.surface</code></td><td>Theme</td></tr>
+    <tr><td>Container</td><td>Border</td><td><code>input.container.border</code></td><td><code>border.strong</code></td><td>Theme</td></tr>
+    <tr><td>Container</td><td>Border, error</td><td><code>input.container.border.error</code></td><td><code>feedback.danger.text</code></td><td>Theme</td></tr>
+    <tr><td>Container</td><td>Border, focus</td><td><code>input.container.border.focus</code></td><td><code>focus.ring</code></td><td>Theme</td></tr>
+    <tr><td>Container</td><td>Height</td><td><code>input.container.height</code></td><td><code>size.control.height</code></td><td>Density</td></tr>
+    <tr><td>Container</td><td>Corners</td><td><code>input.container.radius</code></td><td><code>radius.control</code></td><td>Brand</td></tr>
+    <tr><td>Helper text</td><td>Colour</td><td><code>input.helper.color</code></td><td><code>text.secondary</code></td><td>Theme</td></tr>
+  </tbody>
+</table></div>
+<figcaption>A text field's anatomy mapped to tokens. Even if you decide not to create component tokens, this map tells you exactly which semantic tokens the component must use.</figcaption></figure>
+
+<h2>Naming them</h2>
+<pre><code>{component}.{variant}.{part}.{property}.{state}
+
+button.primary.container.background          <span class="c">// default state left out</span>
+button.primary.container.background.hover
+button.primary.label.color
+input.container.border.error                 <span class="c">// no variant needed</span>
+table.row.background.selected</code></pre>
+<ul class="checklist">
+  <li><b>Use the anatomy's part names,</b> so the token, the anatomy diagram and the Figma layer names match.</li>
+  <li><b>Leave out levels that don't apply</b> rather than inventing filler like "default".</li>
+  <li><b>Use the same property words everywhere:</b> if one component says <code>background</code>, none should say <code>bg</code> or <code>fill</code>.</li>
+  <li><b>Test with a newcomer:</b> show someone a component's anatomy and ask them to guess the token for the error border. If they can't, simplify.</li>
+</ul>
+<p>More in <a href="/writing/design-token-naming-conventions">design token naming conventions</a>.</p>
+
+<h2>How it works in code and in Figma</h2>
+<p>Here's the whole point in one example: a second brand gets pill-shaped buttons by changing one value, and no component code changes.</p>
+<pre><code><span class="c">/* generated from the token files */</span>
+:root {
+  --button-container-radius: var(--radius-control);
+  --button-primary-container-background: var(--color-action-primary-bg);
+}
+<span class="c">/* brand B overrides one component token */</span>
+[data-brand=<span class="s">"b"</span>] { --button-container-radius: 999px; }
+
+<span class="c">/* Button.css never changes */</span>
+.button { border-radius: var(--button-container-radius); }</code></pre>
+<p>In Figma, the same tokens become variables attached to the component's layers, with modes for each brand or theme. When the variable names match the token names, switching a mode restyles every component exactly as the code does. See <a href="/writing/figma-code-sync">keeping Figma and code in sync</a>.</p>
+
+<h2>Keeping them healthy</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Check</th><th>What it finds</th><th>How</th></tr></thead>
+  <tbody>
+    <tr><td>Raw values in components</td><td>Colours or sizes typed directly into component styles</td><td>A lint rule on every change</td></tr>
+    <tr><td>Primitives in components</td><td>The date picker problem</td><td>A lint rule allowing only semantic and component tokens</td></tr>
+    <tr><td>Unused tokens</td><td>Tokens nothing uses any more</td><td>A script comparing the token list with usage</td></tr>
+    <tr><td>Missing tokens</td><td>Properties that should change with themes but don't</td><td>Switch every theme and density in the workshop and look</td></tr>
+    <tr><td>Figma–code mismatch</td><td>Variables that don't match tokens</td><td>Compare the exported variable list with the token source</td></tr>
+  </tbody>
+</table></div>
+<figcaption>A light quarterly audit. Before changing any token, check its blast radius: which components and products use it.</figcaption></figure>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Component tokens are optional; semantic tokens are enough for most products.</li>
+  <li>Create them for brands, white-label, real exceptions or platform sizes, and only for properties that vary.</li>
+  <li>Components must never use primitives or raw values.</li>
+  <li>Name them from the anatomy: component, variant, part, property, state.</li>
+  <li>Audit quarterly for raw values, primitives, unused and missing tokens.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>What are component tokens?</summary><div><p>Tokens that name one property of one component, like button.primary.container.background, and point to a semantic token. They're the optional third tier after primitive and semantic tokens.</p></div></details>
+  <details><summary>Do I need component tokens for dark mode?</summary><div><p>Usually not. Semantic tokens switch with the theme. Component tokens help when brands or customers need to restyle specific components.</p></div></details>
+  <details><summary>How many component tokens should a system have?</summary><div><p>As few as possible. Create them only for properties that genuinely vary by brand, customer or platform.</p></div></details>
+  <details><summary>Can component tokens point to primitives?</summary><div><p>Avoid it. Point them to semantic tokens, so themes still work. A component token pointing at a primitive is the date picker problem one level up.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://www.designtokens.org/" target="_blank" rel="noopener">Design Tokens Community Group</a><span>The shared format for tokens.</span></li>
+  <li><a href="/writing/multi-brand-design-system">Multi-brand design systems</a><span>Where component tokens earn their place.</span></li>
+  <li><a href="/writing/dark-mode-design-tokens">Dark mode with design tokens</a><span>Why semantic tokens are usually enough.</span></li>
+</ul>

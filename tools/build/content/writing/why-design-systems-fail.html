@@ -1,0 +1,94 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>Design systems rarely fail because of the quality of their buttons. They fail for organisational reasons, and the same ten come up again and again: <b>built by design and ignored by engineering</b>; <b>treated as a project</b> and abandoned after launch; <b>started with the fun components</b>; <b>components before tokens</b>; a <b>system team that became a bottleneck</b>; <b>components that grew forty settings</b>; <b>Figma and code that drifted apart</b>; <b>updates that broke products</b> without warning; <b>nobody could find anything</b>; and success <b>measured by usage instead of value</b>. Each has a well-tested antidote.</p>
+  <ul>
+    <li>A design system is an agreement, not a library. Most failures are broken agreements, not broken components.</li>
+    <li>The two most common causes are the first two: no engineering commitment, and no team after launch.</li>
+    <li>Early warning signs show up months before failure. Watch for them.</li>
+  </ul>
+</div>
+
+<h2>An agreement, not a library</h2>
+<p>A design system is a shared set of decisions, reusable parts and working agreements. The components and tokens are how the agreement is written down; the people, processes and rhythms are how it stays alive. When we audit systems that are struggling, the components are usually fine. What's missing is the agreement: who owns it, who builds with it, how changes happen safely, and how anyone knows whether it's working.</p>
+
+<h2>Ten ways design systems fail, and the antidote</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th class="r">#</th><th>How it fails</th><th>What it looks like</th><th>The antidote</th></tr></thead>
+  <tbody>
+    <tr><td class="r">1</td><td><b>Built by design, ignored by engineering</b></td><td>A beautiful Figma library; products still built with custom code</td><td>Engineering commitment before you start; engineers on the team from day one</td></tr>
+    <tr><td class="r">2</td><td><b>Treated as a project, then abandoned</b></td><td>A launch, a party, then no owner; the library slowly goes stale</td><td>Run it as a product, with a team that stays after launch</td></tr>
+    <tr><td class="r">3</td><td><b>Started with the fun components</b></td><td>A carousel and a data visualisation kit; no consistent button</td><td>Start with an audit and the everyday basics</td></tr>
+    <tr><td class="r">4</td><td><b>Components before tokens</b></td><td>Every component hard-codes colours; dark mode means a rewrite</td><td>Tokens first, components second</td></tr>
+    <tr><td class="r">5</td><td><b>The system team became a bottleneck</b></td><td>A long queue; teams build their own while they wait</td><td>Contribution levels, local components and the rule of two</td></tr>
+    <tr><td class="r">6</td><td><b>Components grew forty settings</b></td><td>Every request became a prop; nobody can change anything safely</td><td>Scope statements, composition, and "build it locally"</td></tr>
+    <tr><td class="r">7</td><td><b>Figma and code drifted apart</b></td><td>Designs use options that don't exist in code</td><td>Same names and props; monthly twin checks; one definition of done</td></tr>
+    <tr><td class="r">8</td><td><b>Updates broke products without warning</b></td><td>Teams pin old versions and stop updating</td><td>Versioning that counts visual changes; release notes; notice periods</td></tr>
+    <tr><td class="r">9</td><td><b>Nobody could find anything</b></td><td>"Tag", "Tag v2", "Chip" and "Pill/Status" side by side</td><td>A tidy library, clear names, one documentation template</td></tr>
+    <tr><td class="r">10</td><td><b>Success measured by usage, not value</b></td><td>"80% adoption" and no idea whether anything got faster</td><td>A baseline first; report time saved and change made cheap</td></tr>
+  </tbody>
+</table></div>
+<figcaption>The ten failure modes we see most often in audits. <span class="ev ev--prac">Practitioner view</span></figcaption></figure>
+
+<h2>The two that cause the most damage</h2>
+<h3>1 · No engineering commitment</h3>
+<p>A design system that exists only in Figma isn't a system; it's a style guide with better organisation. If engineering leadership hasn't agreed to build and use coded components, designers will hand over screens using the library and engineers will rebuild them by hand, differently each time. The minimum effective team is a designer and an engineer, and the engineering commitment needs to be in writing before any components are built. See <a href="/writing/design-system-team-structure">design system team structure</a>.</p>
+
+<h3>2 · A project instead of a product</h3>
+<p>Projects end; products are run. A system launched by a temporary team, then left to "the community", goes stale within a year: bugs wait, requests pile up, and teams quietly fork. Fund a permanent team, however small, with the <a href="/writing/design-system-operating-model">rhythms of a product</a>: support, releases, a roadmap and health checks.</p>
+<p class="scenario-t">An illustration: the launch nobody remembered</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>A design system launches with an all-hands presentation and a link to the documentation. The project team moves on to other work.</p></div>
+  <div><span class="k">What goes wrong</span><p>Six months later, half the designers hired since launch have never heard of it. Engineers who hit a setup problem gave up. Adoption is stuck at a third of the product.</p></div>
+  <div><span class="k">What works instead</span><p>A permanent owner, onboarding for every new joiner, office hours and champions. Teaching never stops, because hiring never stops.</p></div>
+</div>
+
+<h2>Early warning signs</h2>
+<p>Failure is slow. These signals usually appear six to twelve months before a system is quietly abandoned:</p>
+<ul class="checklist">
+  <li><b>Detach rates rising</b> in Figma, or components being copied in code instead of imported.</li>
+  <li><b>Old versions lingering:</b> products several major versions behind and not planning to update.</li>
+  <li><b>The request queue only grows,</b> and the median wait passes a month.</li>
+  <li><b>Questions repeat</b> in the support channel because the docs don't answer them.</li>
+  <li><b>Office hours empty out,</b> or are cancelled "for now".</li>
+  <li><b>Local versions multiply:</b> a second date picker, a third dropdown.</li>
+  <li><b>Leadership stops asking</b> about the system in reviews.</li>
+</ul>
+<p>Each of these is fixable when caught early. Put the first four on a one-page monthly dashboard; see <a href="/writing/design-system-metrics">design system metrics</a>.</p>
+
+<h2>A quick self-check</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Question</th><th>If the answer is no…</th></tr></thead>
+  <tbody>
+    <tr><td>Is there a named owner with protected time?</td><td>Failure mode 2. Name one this month.</td></tr>
+    <tr><td>Is at least one engineer building system components?</td><td>Failure mode 1. Get the commitment before more design work.</td></tr>
+    <tr><td>Do components use only tokens?</td><td>Failure mode 4. Add a lint rule and fix the worst offenders.</td></tr>
+    <tr><td>Can a team get a small request answered within a week?</td><td>Failure mode 5. Add contribution and local components.</td></tr>
+    <tr><td>Do visual changes come with release notes and a version bump?</td><td>Failure mode 8. Adopt versioning rules.</td></tr>
+    <tr><td>Did you measure anything before you started?</td><td>Failure mode 10. Take a baseline now; it's still useful.</td></tr>
+  </tbody>
+</table></div></figure>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>At CARS24, one front door for requests, a 70-point scorecard any team could apply and three ownership tiers kept the system team from becoming a bottleneck. <a href="/work/cars24-governance">Read the case study</a>.</p></div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Systems fail for organisational reasons, not component quality.</li>
+  <li>Get engineering commitment and a permanent team before anything else.</li>
+  <li>Tokens first, basics first, composition over forty settings.</li>
+  <li>Keep Figma and code in step, and never break products without warning.</li>
+  <li>Measure value from a baseline, and watch the early warning signs.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Why do design systems fail?</summary><div><p>Most often because engineering never committed to them, or because they were run as a one-off project with no team after launch. Other common causes are starting with the wrong components, skipping tokens, bottlenecks, drift between Figma and code, and breaking updates.</p></div></details>
+  <details><summary>How do you know a design system is failing?</summary><div><p>Rising detach rates, products stuck on old versions, a growing request queue, repeated questions, empty office hours and a growing number of local versions of the same components.</p></div></details>
+  <details><summary>Can a failing design system be rescued?</summary><div><p>Usually. Start with an audit, name an owner, get engineering commitment, fix the most visible drift and restart the rhythms. Rescues often succeed faster than first attempts because the problems are known.</p></div></details>
+  <details><summary>Is low adoption a sign of failure?</summary><div><p>Not on its own. Adoption grows with enablement and time. The bigger warning is teams actively working around the system, by detaching, copying or building their own.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://medium.com/eightshapes-llc/a-design-system-isn-t-a-project-it-s-a-product-serving-products-74dcfffef935" target="_blank" rel="noopener">A design system isn't a project. It's a product, serving products.</a><span>Nathan Curtis.</span></li>
+  <li><a href="/writing/design-system-audit">How to run a design system audit</a><span>The usual first step in a rescue.</span></li>
+  <li><a href="/writing/design-system-roadmap">A first-year design system roadmap</a><span>A plan that avoids most of the ten.</span></li>
+</ul>

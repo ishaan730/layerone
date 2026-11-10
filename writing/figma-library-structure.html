@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Organise a Figma Design System Library | Layer One</title>
+<meta name="description" content="How to structure a Figma design system: separate libraries, pages grouped by job, names that match code, descriptions, life-cycle status and detach data.">
+<meta property="og:title" content="How to Organise a Figma Design System Library | Layer One">
+<meta property="og:description" content="How to structure a Figma design system: separate libraries, pages grouped by job, names that match code, descriptions, life-cycle status and detach data.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-14">
+<meta property="article:modified_time" content="2026-11-14">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="Building a system">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/figma-library-structure.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="How to Organise a Figma Design System Library | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/writing.css?v=69e939a1">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "How to Organise a Figma Design System Library", "description": "How to structure a Figma design system: separate libraries, pages grouped by job, names that match code, descriptions, life-cycle status and detach data.", "image": "https://www.layerone.co.in/assets/images/writing/figma-library-structure.jpg", "datePublished": "2026-11-14", "dateModified": "2026-11-14", "mainEntityOfPage": "https://www.layerone.co.in/writing/figma-library-structure", "wordCount": 1280, "articleSection": "Building a system", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "Building a system", "item": "https://www.layerone.co.in/writing/topics/building"}, {"@type": "ListItem", "position": 3, "name": "How to organise a Figma design system library people can use", "item": "https://www.layerone.co.in/writing/figma-library-structure"}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/figma-library-structure">
+<meta property="og:url" content="https://www.layerone.co.in/writing/figma-library-structure">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="How to Organise a Figma Design System Library | Layer One">
+<meta name="twitter:description" content="How to structure a Figma design system: separate libraries, pages grouped by job, names that match code, descriptions, life-cycle status and detach data.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/figma-library-structure.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading" title="Light or dark reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button><a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<main id="main" class="ed-wrap"><article class="ed-article">
+  <div class="ed-layout">
+    <aside class="ed-meta" aria-label="About this article"><div class="ed-meta-in">
+      <div class="ed-meta-who"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40"><p><b>Aniket Pandey</b><span>Founder, Layer One</span></p></div>
+      <dl class="ed-meta-dl"><div><dt>Published</dt><dd>14 November 2026</dd></div><div><dt>Reading time</dt><dd>6 minutes</dd></div><div><dt>Topic</dt><dd><a href="/writing/topics/building">Building a system</a></dd></div></dl>
+      <div class="ed-meta-sec"><p class="ed-meta-h">Tools and twins</p><ol class="ed-steps"><li><a href="/writing/figma-code-sync">Keeping Figma and code in sync</a></li><li aria-current="step"><a href="/writing/figma-library-structure">How to organise a Figma design system library people can use</a></li><li><a href="/writing/design-system-tooling">Design system tools by stage</a></li><li><a href="/writing/ai-in-design-systems">AI in design systems</a></li></ol></div><div class="ed-meta-sec"><p class="ed-meta-h">Share</p><p class="ed-share"><button type="button" data-copy="https://www.layerone.co.in/writing/figma-library-structure">Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.layerone.co.in/writing/figma-library-structure" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/intent/post?url=https://www.layerone.co.in/writing/figma-library-structure" target="_blank" rel="noopener">X</a></p></div>
+    </div></aside>
+    <header class="ed-head">
+      <p class="ed-crumb"><a href="/writing">Writing</a><span aria-hidden="true">/</span><a href="/writing/topics/building">Building a system</a><span class="ed-crumb-s">Part 2 of 4 in <a href="/writing#tools-and-twins">Tools and twins</a></span></p>
+      <h1 class="ed-title">How to organise a Figma design system library people can use</h1>
+      <p class="ed-dek">If people can't find a component, they'll rebuild it. A library structure that works, the naming and description habits that make components findable, and how to read the data the library leaves behind.</p>
+      <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>6 min read · 14 November 2026</span></span></p>
+    </header>
+    <figure class="ed-cover"><img src="../assets/images/writing/figma-library-structure.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 1024px) calc(100vw - 32px), 760px" fetchpriority="high" srcset="../assets/images/writing/figma-library-structure.w480.webp 480w, ../assets/images/writing/figma-library-structure.w800.webp 800w, ../assets/images/writing/figma-library-structure.w1200.webp 1200w, ../assets/images/writing/figma-library-structure.jpg 1600w" decoding="async"></figure>
+    <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>If people can't find it, they'll rebuild it</b></summary><ol><li><a href="#if-people-can-t-find-it-they-ll-rebuild-it">If people can't find it, they'll rebuild it</a></li><li><a href="#a-structure-that-works">A structure that works</a></li><li><a href="#names-descriptions-and-keywords">Names, descriptions and keywords</a></li><li><a href="#inside-a-component-page">Inside a component page</a></li><li><a href="#a-component-s-life-visible-in-the-library">A component's life, visible in the library</a></li><li><a href="#publishing-and-reading-the-data">Publishing and reading the data</a></li><li><a href="#a-library-health-checklist">A library health checklist</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+    <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>Organise a Figma design system as <b>separate libraries for separate jobs</b>: one for foundations (variables, styles, icons), one for core components, and one per product family for extensions, plus a hidden archive. Inside the component library, group pages the way people think (<b>actions, forms, feedback, navigation, data display</b>), start with a <b>"Start here" page</b>, give every component a <b>one-line description and search keywords</b>, use the <b>same names as code</b>, and keep work in progress out of the published file. Publish on the same rhythm as code releases, with the same notes.</p>
+  <ul>
+    <li>If people can't find a component, they'll rebuild it. Findability is one of the most underrated causes of low adoption.</li>
+    <li>Status belongs in a label, not the name: "Tag v2 NEW" is a cry for help, not a name.</li>
+    <li>Detach data shows where components fail people. Read it monthly.</li>
+  </ul>
+</div>
+
+<h2 id="if-people-can-t-find-it-they-ll-rebuild-it">If people can't find it, they'll rebuild it</h2>
+<p>In year one, the Figma library is small and everyone knows what's in it. By year three it has hundreds of components, abandoned experiments, old versions nobody deleted and names that made sense to whoever created them.</p>
+<p class="scenario-t">An illustration: the designer who couldn't find the right component</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>A new designer needs a tag to show an invoice's status. She searches the library for "tag".</p></div>
+  <div><span class="k">What she finds</span><p>"Tag", "Tag v2", "Chip", "Pill/Status", "Badge (old)", "Label - DO NOT USE", and three more on a page called "WIP". No descriptions. Two look identical.</p></div>
+  <div><span class="k">What happens next</span><p>She picks one at random. It's deprecated. Engineering builds it from scratch because the code version was deleted months ago. The product now has another status tag.</p></div>
+</div>
+
+<h2 id="a-structure-that-works">A structure that works</h2>
+<pre><code>Acme · Foundations            <span class="c">← variables, text styles, effects, icons</span>
+Acme · Components             <span class="c">← the core, used by everyone</span>
+  ├─ Start here               <span class="c">← how to use this library, in two minutes</span>
+  ├─ Actions                  <span class="c">   Button · Icon button · Link</span>
+  ├─ Forms                    <span class="c">   Text field · Select · Checkbox · Radio · Switch</span>
+  ├─ Feedback                 <span class="c">   Alert · Toast · Empty state · Progress</span>
+  ├─ Navigation               <span class="c">   Tabs · Side menu · Breadcrumbs · Pagination</span>
+  ├─ Data display             <span class="c">   Table · Badge · Tag · Avatar</span>
+  └─ Overlays                 <span class="c">   Dialog · Menu · Popover · Tooltip</span>
+Acme · Analytics extensions   <span class="c">← shared by one product family</span>
+Acme · Sandbox                <span class="c">← work in progress, never published</span>
+Archive (hidden from search)  <span class="c">← old versions, kept for reference</span></code></pre>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>File</th><th>Who turns it on</th><th>What's in it</th></tr></thead>
+  <tbody>
+    <tr><td>Foundations</td><td>Everyone</td><td>Variables (colour, spacing, radius, type) with modes for themes and brands; text styles; effects; icons</td></tr>
+    <tr><td>Components</td><td>Everyone</td><td>Stable and beta core components, grouped by job</td></tr>
+    <tr><td>Extensions</td><td>One product family</td><td>Components shared by a few products, built on the core</td></tr>
+    <tr><td>Sandbox</td><td>System team</td><td>Proposals and work in progress. Never published.</td></tr>
+    <tr><td>Archive</td><td>Nobody, by default</td><td>Deprecated and removed versions, hidden from search</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Separate files for separate jobs, so people only switch on what they need and nothing half-finished appears in search. <span class="ev ev--prac">Practitioner view</span></figcaption></figure>
+
+<h2 id="names-descriptions-and-keywords">Names, descriptions and keywords</h2>
+<ul class="checklist">
+  <li><b>Same names everywhere:</b> Figma, code and documentation all say "Text field", not "Input" in one and "TextBox" in another. See <a href="/writing/figma-code-sync">keeping Figma and code in sync</a>.</li>
+  <li><b>No versions or status in names:</b> "Tag v2 NEW" becomes "Tag" with a beta label in the description.</li>
+  <li><b>Properties match code props:</b> "Variant: Primary / Secondary / Danger" in Figma, <code>variant="primary"</code> in code.</li>
+  <li><b>A one-line description:</b> "Tag: a short label showing a status or category."</li>
+  <li><b>Search keywords for the words people actually use:</b> "Also known as: chip, pill, badge, label." That line would have saved the designer in the story half a day.</li>
+  <li><b>A documentation link</b> on every component, to its page on the docs site.</li>
+</ul>
+
+<h2 id="inside-a-component-page">Inside a component page</h2>
+<figure class="w-fig">
+  <div class="anat">
+    <div class="anat-nav"><b>Forms</b><span>Checkbox</span><span>Radio</span><span style="color:var(--accent)">Text field</span><span>Select</span><span>Switch</span></div>
+    <div class="anat-main">
+      <div class="hi"><i>1</i><b>The component</b><span>One main component with variant, boolean, text and instance-swap properties that match the code props.</span></div>
+      <div><i>2</i><b>Every state</b><span>Default, hover, focus, disabled, read-only, error, loading, laid out for review.</span></div>
+      <div><i>3</i><b>Stress test</b><span>Long, short, translated and phone-width content.</span></div>
+      <div><i>4</i><b>Anatomy</b><span>Labelled parts, with names that match the tokens and the code.</span></div>
+      <div><i>5</i><b>Usage</b><span>Two or three do's and don'ts, and a link to the documentation.</span></div>
+    </div>
+  </div>
+  <figcaption>A consistent layout for every component page in the library file. Designers using the library see only the published component; the rest is for reviewers and contributors.</figcaption>
+</figure>
+<p>Use Figma's variables for every colour, size and spacing value in components, so modes (light and dark, brand A and B, density) switch every component at once. Keep the variable names identical to the token names in code. See <a href="/writing/component-tokens">component tokens</a>.</p>
+
+<h2 id="a-component-s-life-visible-in-the-library">A component's life, visible in the library</h2>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Proposed</b><span>In the sandbox, with evidence two teams need it</span></div><i>→</i>
+    <div><b>Beta</b><span>Published, labelled beta; may still change</span></div><i>→</i>
+    <div class="hi"><b>Stable</b><span>Proven in real products; safe everywhere</span></div><i>→</i>
+    <div><b>Deprecated</b><span>Still works; replacement and guide exist</span></div><i>→</i>
+    <div><b>Removed</b><span>Moved to the archive after notice</span></div>
+  </div>
+  <figcaption>Five life-cycle stages. Show the stage in the component description, in code and on the documentation page, so nobody has to ask.</figcaption>
+</figure>
+
+<h2 id="publishing-and-reading-the-data">Publishing and reading the data</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">PUBLISHING</span><h4>On a rhythm, with notes</h4><p>Publish library updates on the same rhythm as code releases, with the same <a href="/writing/design-system-release-notes">release notes</a>. Random, unannounced updates teach designers to ignore update notifications.</p></div>
+  <div class="cell"><span class="k">USAGE DATA</span><h4>Inserts and detaches</h4><p>Library analytics show how often each component is inserted and how often it's detached. A high detach rate means the component doesn't do something people need.</p></div>
+</div>
+<p class="scenario-t">An illustration: what the detach numbers revealed</p>
+<div class="scenario">
+  <div><span class="k">The data</span><p>The alert component is inserted 900 times and detached 310 times.</p></div>
+  <div><span class="k">What they find</span><p>Almost every detached copy adds a second button: "Retry" next to "Dismiss". The component allowed only one.</p></div>
+  <div><span class="k">What they do</span><p>They add an optional second action to both Figma and code, release it as a minor update, and the detach rate falls.</p></div>
+</div>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>At IBM, the Cardinal Health system was built from scratch in Figma: 110 colours in 11 ramps, purpose-named tokens and 40+ components every squad built from. <a href="/work/ibm-cardinal-health">Read the case study</a>.</p></div>
+
+<h2 id="a-library-health-checklist">A library health checklist</h2>
+<ul class="checklist">
+  <li>Separate files for foundations, core, extensions, sandbox and archive.</li>
+  <li>Groups that match how people think, plus a "Start here" page.</li>
+  <li>Same names as code; no versions or status in names.</li>
+  <li>A description, keywords and a docs link on every component.</li>
+  <li>Every value is a variable; modes for themes and brands.</li>
+  <li>Published on a rhythm, with release notes; detach data reviewed monthly.</li>
+</ul>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Separate libraries for foundations, core components and extensions.</li>
+  <li>Group by job, start with a "Start here" page, archive old things.</li>
+  <li>Same names as code, plus descriptions and keywords.</li>
+  <li>Show life-cycle status; keep work in progress out of the published file.</li>
+  <li>Publish with release notes, and treat detaches as feedback.</li>
+</ul></div>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>How should I organise a Figma component library?</summary><div><p>Separate files for foundations, core components and product-family extensions; pages grouped by job (actions, forms, feedback, navigation, data display, overlays); a "Start here" page; and an archive hidden from search.</p></div></details>
+  <details><summary>Should foundations and components be in the same Figma file?</summary><div><p>Usually not, once the system grows. A separate foundations library lets teams use variables and styles without the full component set, and keeps publishing simpler.</p></div></details>
+  <details><summary>What does a high detach rate mean?</summary><div><p>That the component doesn't do something people need. Look at a sample of detached copies to see what they changed, then decide whether to extend the component.</p></div></details>
+  <details><summary>How often should a Figma library be published?</summary><div><p>On the same rhythm as code releases, often every two weeks, with the same release notes.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="/writing/component-tokens">Component tokens</a><span>Variables that match the code, mode by mode.</span></li>
+  <li><a href="/writing/design-system-documentation">Design system documentation</a><span>The page each component links to.</span></li>
+  <li><a href="/writing/figma-code-sync">Keeping Figma and code in sync</a><span>Names, props and tokens on both sides.</span></li>
+</ul>
+</div>
+    <aside class="ed-aside" aria-label="On this page"><nav class="ed-toc"><p>On this page</p><ol><li><a href="#if-people-can-t-find-it-they-ll-rebuild-it">If people can't find it, they'll rebuild it</a></li><li><a href="#a-structure-that-works">A structure that works</a></li><li><a href="#names-descriptions-and-keywords">Names, descriptions and keywords</a></li><li><a href="#inside-a-component-page">Inside a component page</a></li><li><a href="#a-component-s-life-visible-in-the-library">A component's life, visible in the library</a></li><li><a href="#publishing-and-reading-the-data">Publishing and reading the data</a></li><li><a href="#a-library-health-checklist">A library health checklist</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><a class="ed-top" href="#main">Back to top ↑</a></nav></aside>
+  </div>
+  <footer class="ed-end">
+    <section class="ed-more" aria-labelledby="more-h"><h2 class="ed-sec-h" id="more-h">next in tools and twins:</h2><div class="ec-grid"><a class="ec " href="/writing/design-system-tooling" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/design-system-tooling.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-system-tooling.w480.webp 480w, ../assets/images/writing/design-system-tooling.w800.webp 800w, ../assets/images/writing/design-system-tooling.w1200.webp 1200w, ../assets/images/writing/design-system-tooling.jpg 1600w"></span><span class="ec-k">Building a system</span><b class="ec-t">Design system tools by stage</b><span class="ec-d">The design system toolchain mapped: design, tokens, code, docs, quality and insight. The minimum tools for each stage, and what to automate first.</span><span class="ec-f">6 min read</span></a><a class="ec " href="/writing/figma-code-sync" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/figma-code-sync.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/figma-code-sync.w480.webp 480w, ../assets/images/writing/figma-code-sync.w800.webp 800w, ../assets/images/writing/figma-code-sync.w1200.webp 1200w, ../assets/images/writing/figma-code-sync.jpg 1600w"></span><span class="ec-k">Building a system</span><b class="ec-t">Keeping Figma and code in sync: five habits that stop drift</b><span class="ec-d">How to stop Figma and code drifting apart: one vocabulary, one token source, a shared definition of done, a monthly twin check and links between them.</span><span class="ec-f">7 min read</span></a><a class="ec " href="/writing/design-system-documentation" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/design-system-documentation.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-system-documentation.w480.webp 480w, ../assets/images/writing/design-system-documentation.w800.webp 800w, ../assets/images/writing/design-system-documentation.w1200.webp 1200w, ../assets/images/writing/design-system-documentation.jpg 1600w"></span><span class="ec-k">Building a system</span><b class="ec-t">Design system documentation</b><span class="ec-d">What people actually read in design system docs, the sections every component page needs and how to structure the portal. A page template to copy.</span><span class="ec-f">8 min read</span></a></div></section>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Working on this in your own product?</h2><p>Most teams we work with start with a two-week audit: every style, component and token, checked and ranked.</p></div><a href="/pricing">How the audit works <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main><footer class="ed-foot"><div class="ed-foot-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
+  <nav aria-label="Studio"><a href="/work">Work</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/contact">Contact</a><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">LinkedIn</a><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></nav>
+</div></footer><script src="../assets/site.js?v=3de6a9b6" defer></script>
+</body>
+</html>

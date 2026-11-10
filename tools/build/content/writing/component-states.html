@@ -1,0 +1,127 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>Every design system component needs more states than the mock-up shows. Design four groups for every component: <b>interaction states</b> (default, hover, pressed, focus, selected, disabled, read-only), <b>data states</b> (empty, loading, partly loaded, error, success), <b>content extremes</b> (too much, too little, other languages) and <b>context</b> (screen sizes, bigger text and zoom). Then decide which <b>combinations</b> are possible and which should be prevented. Test it all on a "stress test" page with real content, and don't hand the component to engineering until every state has a design.</p>
+  <ul>
+    <li>A component is used in hundreds of places with content you'll never see. The states you forget are the ones that look broken in production.</li>
+    <li>Focus and disabled are the two states most often designed badly; focus must be clearly visible (WCAG 2.4.7).</li>
+    <li>Collect twenty real examples of the content before you design.</li>
+  </ul>
+</div>
+
+<h2>Why states matter more in a system</h2>
+<p>A screen designer designs for one situation. A system designer designs for every situation the component will ever meet, used by people they'll never meet, with content they'll never see. That's why a component that looks perfect in a mock-up can fall apart in a real product within a week.</p>
+<p class="scenario-t">An illustration: the alert that looked perfect until it met real messages</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>A designer creates a clean alert component. In the mock-up, every message is one short line: "Changes saved."</p></div>
+  <div><span class="k">What goes wrong</span><p>In the product, a message reads "Your payment of ₹1,24,000 to Acme Supplies could not be processed because the bank declined the transaction. Try another payment method." The alert wraps onto four lines, the icon floats in the middle and the close button overlaps the text.</p></div>
+  <div><span class="k">What would have helped</span><p>Collecting twenty real alert messages first, and testing the design with the longest, the shortest and the strangest of them.</p></div>
+</div>
+
+<h2>The states, at a glance</h2>
+<figure class="w-fig">
+  <div class="w-states" aria-hidden="true">
+    <div><span class="k">Default</span><i class="ctl">Acme Ltd</i></div>
+    <div><span class="k">Hover</span><i class="ctl hov">Acme Ltd</i></div>
+    <div><span class="k">Focus</span><i class="ctl foc">Acme Ltd</i></div>
+    <div><span class="k">Empty</span><i class="ctl ph">Customer name</i></div>
+    <div><span class="k">Disabled</span><i class="ctl dis">Acme Ltd</i></div>
+    <div><span class="k">Read-only</span><i class="ctl ro">Acme Ltd</i></div>
+    <div><span class="k">Error</span><i class="ctl err">acme@</i><em>Enter a full email address</em></div>
+    <div><span class="k">Loading</span><i class="ctl load"><b></b><b></b></i></div>
+  </div>
+  <figcaption>One text field in eight states. Each needs its own design, its own tokens and its own behaviour, and focus has to be visible against every background it appears on. <span class="ev ev--ill">Illustration</span></figcaption>
+</figure>
+
+<h2>Four groups of states to design</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Group</th><th>States</th><th>Questions to answer</th></tr></thead>
+  <tbody>
+    <tr><td>Interaction</td><td>Default, hover, pressed, focus, selected, disabled, read-only</td><td>What does each look like? Is focus visible on every background? Can people tell disabled from read-only?</td></tr>
+    <tr><td>Data</td><td>Empty, loading, partly loaded, error, success</td><td>What shows while we wait? What if there's nothing to show? What if loading fails?</td></tr>
+    <tr><td>Content extremes</td><td>Very long, very short, many items, other languages</td><td>Does it wrap, truncate with "…" or scroll? Does a one-character name still look intentional? Does it survive right-to-left?</td></tr>
+    <tr><td>Context</td><td>Phone, narrow panel, wide screen, 200% zoom, larger text setting</td><td>Does anything get cut off? Does the layout change, or just the size?</td></tr>
+  </tbody>
+</table></div>
+<figcaption>The state checklist we use for every component. <span class="ev ev--prac">Practitioner view</span></figcaption></figure>
+
+<h3>Interaction states</h3>
+<p>Most teams design default, hover and pressed and stop there. The two that matter most for quality are the ones skipped most often:</p>
+<div class="cols2">
+  <div class="cell"><span class="k">FOCUS</span><h4>Visible, every time</h4><p>Keyboard users need to see where they are. WCAG 2.4.7 requires a visible focus indicator, and WCAG 2.2 adds that it mustn't be hidden by other content. Use a focus ring with at least 3:1 contrast against the surrounding colours, and test it on every surface the component sits on, including dark ones.</p></div>
+  <div class="cell"><span class="k">DISABLED</span><h4>Use it less than you think</h4><p>Disabled controls often can't be focused, so screen reader users may not know they exist, and nobody is told why they can't use them. Where you can, keep the control enabled and explain what's missing when it's used. When you do disable, explain why nearby.</p></div>
+</div>
+<p><b>Read-only</b> is different from disabled and deserves its own design: the value is real and can be selected and copied, it just can't be changed. Treating it as disabled makes important information look greyed-out and unimportant.</p>
+
+<h3>Data states</h3>
+<p>Any component that shows data needs a plan for when the data isn't normal. Decide them once in the system so every team doesn't improvise:</p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Loading</b><span>A skeleton for short waits; progress on the button pressed; a message for long operations</span></div><i>→</i>
+    <div><b>Empty</b><span>What will appear here, and the first step to get it</span></div><i>→</i>
+    <div><b>Partly loaded</b><span>Show what's ready; mark what's still coming</span></div><i>→</i>
+    <div class="hi"><b>Error</b><span>What went wrong, and a way to try again</span></div><i>→</i>
+    <div><b>Success</b><span>A brief confirmation, or simply the result</span></div>
+  </div>
+  <figcaption>The data states for a list, a table or a chart. Error is the one most often missing from designs, and the one users remember. See <a href="/writing/design-system-patterns">design system patterns</a> for the empty-state pattern.</figcaption>
+</figure>
+
+<h3>Content extremes</h3>
+<p>Real content is longer, shorter and stranger than mock-up content. Decide for each text area whether it wraps, truncates or scrolls, and write it down:</p>
+<ul class="checklist">
+  <li><b>Wrap</b> by default for anything people need to read in full: labels, messages, button text.</li>
+  <li><b>Truncate</b> with "…" only where the full text is available another way (a tooltip, a detail page) and never for actions or errors.</li>
+  <li><b>Scroll</b> inside the component for genuinely long content, like a long list in a menu, with a maximum height.</li>
+  <li><b>Plan for translation:</b> many languages need noticeably more space than English. See <a href="/writing/design-system-localization-rtl">localisation and RTL</a>.</li>
+</ul>
+
+<h2>Combinations: allow, prevent or design</h2>
+<p>States combine. A field can be in error and disabled; a row can be selected and loading. For each component, list the combinations and decide which are possible, which should be prevented in code, and which need their own design.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Combination</th><th>Decision</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td>Error + disabled</td><td>Prevent</td><td>People can't fix an error in a field they can't edit</td></tr>
+    <tr><td>Selected + hover</td><td>Design</td><td>Hover should still be visible on a selected item</td></tr>
+    <tr><td>Loading + pressed (button)</td><td>Design</td><td>Show progress on the button pressed, and block a second press</td></tr>
+    <tr><td>Focus + error</td><td>Design</td><td>Both must be visible at once; the focus ring can't hide the error colour</td></tr>
+    <tr><td>Read-only + required</td><td>Prevent</td><td>A required field people can't fill is a dead end</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Combinations for a text field and a button. <span class="ev ev--ill">Illustration</span> Prevented combinations become rules in the component's code, not notes in a design file.</figcaption></figure>
+
+<h2>The stress test page</h2>
+<p>Keep a page next to every component in your design file called "stress test". Put the component there with the longest real content, the shortest, an empty state, an error, a translated version and a phone-width version. Review that page in design critique, not the polished one. It takes about an hour per component and saves weeks of bug reports. <span class="ev ev--prac">Practitioner view</span></p>
+<ol class="w-steps">
+  <li><h3>Collect real content</h3><p>Twenty real examples from the product: the longest, shortest and oddest labels, messages and values.</p></li>
+  <li><h3>Design every state</h3><p>Work through the four groups and the combinations. Every colour and size comes from a token, including states.</p></li>
+  <li><h3>Build the stress test</h3><p>Long, short, empty, error, translated, phone-width and 200% zoom, side by side.</p></li>
+  <li><h3>Review with an engineer</h3><p>Ten minutes now ("can the menu open upwards when there's no space below?") prevents a week of rework.</p></li>
+  <li><h3>Hand over with the states listed</h3><p>The component isn't ready to build until every state has a design and a token.</p></li>
+</ol>
+
+<h2>States need tokens too</h2>
+<p>Every state's colours and sizes should come from tokens, so dark mode and themes change them correctly: <code>action.primary.bg.hover</code>, <code>border.focus</code>, <code>text.disabled</code>. Put the state last in the name. See <a href="/writing/design-token-naming-conventions">token naming conventions</a> and <a href="/writing/component-tokens">component tokens</a>.</p>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>At CARS24, the mobile component system tested look and feel on real screens before anything was built, so states were checked against real listings and prices in every market. <a href="/work/cars24-lego">Read the case study</a>.</p></div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Design four groups: interaction, data, content extremes and context.</li>
+  <li>Focus must always be visible; use disabled sparingly and explain it.</li>
+  <li>Decide which combinations to allow, prevent or design.</li>
+  <li>Review a stress test page with real content, not the polished mock-up.</li>
+  <li>Every state gets a token, with the state last in the name.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>What states should a design system component have?</summary><div><p>Interaction states (default, hover, pressed, focus, selected, disabled, read-only), data states (empty, loading, error, success), content extremes (long, short, translated) and context (screen sizes and zoom), plus any combinations that can occur.</p></div></details>
+  <details><summary>What's the difference between disabled and read-only?</summary><div><p>Read-only shows a real value people can select and copy but not change. Disabled means the control can't be used at all right now. They need different designs.</p></div></details>
+  <details><summary>Should disabled buttons be used?</summary><div><p>Sparingly. They often can't be focused and don't explain why they're unavailable. Prefer an enabled button that explains what's missing when pressed.</p></div></details>
+  <details><summary>How do I test component states?</summary><div><p>A stress test page in the design file, and a story for every state in the component workshop, with visual tests that compare them on every change.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://www.w3.org/WAI/WCAG22/Understanding/focus-visible.html" target="_blank" rel="noopener">Understanding Focus Visible (2.4.7)</a><span>W3C, WCAG 2.2.</span></li>
+  <li><a href="/writing/accessible-design-system">Accessibility in a design system</a><span>What the system covers, and what product teams still own.</span></li>
+  <li><a href="/writing/design-system-testing">Testing a design system</a><span>How states are checked on every change.</span></li>
+</ul>

@@ -1,0 +1,97 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>A design system is the most effective place to make a product accessible: every accessibility problem in a component is copied into every screen that uses it, and every fix is inherited by all of them. Build accessibility in at three levels: <b>foundations</b> (colour contrast, readable type, focus styles, motion), <b>components</b> (keyboard support, focus management, names, roles and states, target sizes, error messages) and <b>patterns</b> (forms, navigation, feedback). Then be honest about the limit: the system makes accessible products <b>easier, not automatic</b>. Product teams still own page structure, headings, alt text, the words they write and the way they combine components.</p>
+  <ul>
+    <li>Aim for WCAG 2.2 AA as the minimum for every component and pattern.</li>
+    <li>For menus, tabs, dialogs and comboboxes, follow the W3C ARIA Authoring Practices Guide rather than inventing keyboard behaviour.</li>
+    <li>Document what each component handles and what the product team must still add.</li>
+  </ul>
+</div>
+
+<h2>Accessible by default, not by audit</h2>
+<p>Accessibility audits at the end of a project find hundreds of issues, most of them repeated: the same unlabelled icon button, the same dialog that traps nobody, the same low-contrast placeholder, on every page. A design system turns that around. Fix the icon button once, and every product inherits the fix.</p>
+<p class="scenario-t">An illustration: the dialog you couldn't escape</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>A team builds its own confirmation dialog. It looks great and works perfectly with a mouse.</p></div>
+  <div><span class="k">What goes wrong</span><p>Keyboard users press Tab and focus goes behind the dialog into the page. Escape doesn't close it. Screen readers don't announce it. It ships in 40 places before anyone notices.</p></div>
+  <div><span class="k">The system fix</span><p>One dialog component with focus kept inside, Escape to close, focus returned afterwards and a proper announcement. Fixed once; every one of the 40 dialogs inherits it.</p></div>
+</div>
+
+<h2>Three levels of accessibility in the system</h2>
+<figure class="w-fig">
+  <div class="stack">
+    <div class="lt"><b>Patterns</b><span>Forms with linked error summaries, navigation with skip links and landmarks, feedback that's announced. How components combine accessibly.</span></div>
+    <div class="hi"><b>Components</b><span>Keyboard support, focus management, accessible names, roles and states, target sizes, error messages connected to fields.</span></div>
+    <div><b>Foundations</b><span>Colour pairs that pass contrast, readable type sizes, a visible focus style, reduced-motion tokens.</span></div>
+  </div>
+  <figcaption>Each level builds on the one below. Get foundations right and components can't fail contrast; get components right and patterns inherit keyboard support.</figcaption>
+</figure>
+
+<h3>Foundations</h3>
+<ul class="checklist">
+  <li><b>Contrast built into the palette:</b> text pairs at 4.5:1, UI parts and focus at 3:1 (WCAG 1.4.3 and 1.4.11). Name colours by job so passing pairs are the obvious choice. See <a href="/writing/color-contrast-design-system">colour contrast in design systems</a>.</li>
+  <li><b>Readable type:</b> a 16px body size, line heights that support reading, and sizes in rem so text respects the reader's settings.</li>
+  <li><b>One focus style:</b> a token-based focus ring, visible on every surface, used by every interactive component.</li>
+  <li><b>Motion tokens that respect "reduce motion":</b> durations that drop to zero or a fade when people ask for less movement.</li>
+  <li><b>Never colour alone:</b> status always has an icon or a word as well. See <a href="/lab/color-contrast-checker">the contrast checker</a> to simulate colour blindness.</li>
+</ul>
+
+<h3>Components</h3>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Everyone can…</th><th>Which means</th><th>WCAG 2.2</th></tr></thead>
+  <tbody>
+    <tr><td>See it</td><td>Text at 4.5:1; edges of fields and buttons at 3:1; never colour alone</td><td>1.4.3, 1.4.11, 1.4.1</td></tr>
+    <tr><td>Use it with a keyboard</td><td>Every action reachable with Tab and triggered with Enter or Space; standard patterns for menus and dialogs</td><td>2.1.1</td></tr>
+    <tr><td>See where they are</td><td>A clear focus indicator that isn't hidden by sticky headers or other content</td><td>2.4.7, 2.4.11</td></tr>
+    <tr><td>Hear what it is</td><td>Screen readers announce its role ("button"), name ("Send invoice") and state ("expanded")</td><td>4.1.2</td></tr>
+    <tr><td>Hit it</td><td>Targets at least 24 × 24px (44–48px on touch screens is better)</td><td>2.5.8</td></tr>
+    <tr><td>Understand errors</td><td>Errors say what's wrong and how to fix it, connected to the field</td><td>3.3.1, 3.3.3</td></tr>
+    <tr><td>Avoid discomfort</td><td>Animation respects the reduce-motion setting</td><td>2.3.3 (AAA), good practice</td></tr>
+  </tbody>
+</table></div>
+<figcaption>The component checklist, in plain words. <span class="ev ev--std">Standard</span> For complex widgets, the W3C ARIA Authoring Practices Guide documents which keys do what; most accessible libraries follow it.</figcaption></figure>
+
+<h3>Patterns</h3>
+<p>Some accessibility only exists in combination: an error summary that links to each field, a page with one main landmark and a skip link, a toast that's announced without stealing focus. Write these into your <a href="/writing/design-system-patterns">patterns</a>, especially <a href="/writing/form-design-patterns">forms</a>.</p>
+
+<h2>What the system covers, and what product teams own</h2>
+<p>Overselling is the most common accessibility mistake design system teams make. "Use our components and you're accessible" isn't true, and teams who believe it stop checking. Be explicit about the split:</p>
+<div class="cols2">
+  <div class="cell"><span class="k">THE SYSTEM HANDLES</span><h4>Inside every component</h4><p>Contrast of its own colours, keyboard behaviour, focus management, roles and states, target sizes, connecting labels, hints and errors, reduced motion.</p></div>
+  <div class="cell cell--accent"><span class="k">PRODUCT TEAMS STILL OWN</span><h4>Everything around them</h4><p>Page titles and headings, landmarks and reading order, alt text for their images, the words in labels, buttons and errors, which component they choose, and testing their own flows.</p></div>
+</div>
+<p>Put a short "What you must add" list on every component's documentation page. For an icon button: "Give it a label that says what it does: <code>aria-label="Delete invoice"</code>, not "Delete" or "Icon"." Those few lines prevent most of the issues audits find in system-built products.</p>
+
+<h2>Making it stick</h2>
+<ol class="w-steps">
+  <li><h3>Set a standard</h3><p>WCAG 2.2 AA as the minimum for every component and pattern, written into the definition of done.</p></li>
+  <li><h3>Automate what can be automated</h3><p>Contrast checks on token changes, automated accessibility rules on every component story, lint rules for missing labels.</p></li>
+  <li><h3>Test the rest by hand</h3><p>A keyboard and screen reader script for every interactive component. See <a href="/writing/design-system-testing">testing a design system</a>.</p></li>
+  <li><h3>Document responsibilities</h3><p>"What this handles" and "What you must add" on every component page.</p></li>
+  <li><h3>Include disabled people in research</h3><p>For complex components, test with assistive technology users. Expert review finds a lot; real use finds more.</p></li>
+</ol>
+<div class="callout callout--warn"><span class="callout-k">Regulation</span><p>Accessibility is increasingly a legal requirement as well as good practice. The European Accessibility Act has applied to many consumer products and services in the EU since June 2025, and public-sector rules in many countries reference WCAG. A system that meets WCAG 2.2 AA by default makes compliance far cheaper across every product.</p></div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Fix accessibility once in the system, and every product inherits it.</li>
+  <li>Build it into foundations, components and patterns.</li>
+  <li>Follow WCAG 2.2 AA and the ARIA Authoring Practices for complex widgets.</li>
+  <li>Be explicit about what product teams still own.</li>
+  <li>Automate checks, test by hand, and include disabled people in research.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Does using a design system make my product accessible?</summary><div><p>It makes it much easier, not automatic. Components can handle keyboard support, focus and contrast, but product teams still own headings, reading order, alt text, wording and how they combine components.</p></div></details>
+  <details><summary>Which WCAG level should a design system meet?</summary><div><p>WCAG 2.2 AA as the minimum for every component and pattern. Some teams go further for specific criteria, like larger touch targets.</p></div></details>
+  <details><summary>How do I make complex components accessible?</summary><div><p>Follow the W3C ARIA Authoring Practices Guide for menus, tabs, dialogs and comboboxes, or use a headless library that already does, and test with a keyboard and screen reader.</p></div></details>
+  <details><summary>What's the minimum touch target size?</summary><div><p>WCAG 2.2 AA asks for at least 24 × 24 CSS pixels, with some exceptions. Platform guidelines recommend 44–48px on touch screens.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noopener">Web Content Accessibility Guidelines (WCAG) 2.2</a><span>W3C.</span></li>
+  <li><a href="https://www.w3.org/WAI/ARIA/apg/" target="_blank" rel="noopener">ARIA Authoring Practices Guide</a><span>W3C. Keyboard and screen reader patterns.</span></li>
+  <li><a href="/writing/headless-component-library-build-vs-buy">Build, borrow or buy</a><span>Using headless libraries for accessible behaviour.</span></li>
+</ul>
