@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cross-Platform Design Systems: Web, iOS, Android | Layer One</title>
+<meta name="description" content="How to run one design system across web, iOS and Android: shared tokens generated for each platform, native components, and what to share or adapt.">
+<meta property="og:title" content="Cross-Platform Design Systems: Web, iOS, Android | Layer One">
+<meta property="og:description" content="How to run one design system across web, iOS and Android: shared tokens generated for each platform, native components, and what to share or adapt.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-14">
+<meta property="article:modified_time" content="2026-11-14">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="Foundations & tokens">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/cross-platform-design-system.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Cross-Platform Design Systems: Web, iOS, Android | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/writing.css?v=69e939a1">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Cross-Platform Design Systems: Web, iOS, Android", "description": "How to run one design system across web, iOS and Android: shared tokens generated for each platform, native components, and what to share or adapt.", "image": "https://www.layerone.co.in/assets/images/writing/cross-platform-design-system.jpg", "datePublished": "2026-11-14", "dateModified": "2026-11-14", "mainEntityOfPage": "https://www.layerone.co.in/writing/cross-platform-design-system", "wordCount": 1090, "articleSection": "Foundations & tokens", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "Foundations & tokens", "item": "https://www.layerone.co.in/writing/topics/foundations-and-tokens"}, {"@type": "ListItem", "position": 3, "name": "Cross-platform design systems", "item": "https://www.layerone.co.in/writing/cross-platform-design-system"}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/cross-platform-design-system">
+<meta property="og:url" content="https://www.layerone.co.in/writing/cross-platform-design-system">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Cross-Platform Design Systems: Web, iOS, Android | Layer One">
+<meta name="twitter:description" content="How to run one design system across web, iOS and Android: shared tokens generated for each platform, native components, and what to share or adapt.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/cross-platform-design-system.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading" title="Light or dark reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button><a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<main id="main" class="ed-wrap"><article class="ed-article">
+  <div class="ed-layout">
+    <aside class="ed-meta" aria-label="About this article"><div class="ed-meta-in">
+      <div class="ed-meta-who"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40"><p><b>Aniket Pandey</b><span>Founder, Layer One</span></p></div>
+      <dl class="ed-meta-dl"><div><dt>Published</dt><dd>14 November 2026</dd></div><div><dt>Reading time</dt><dd>5 minutes</dd></div><div><dt>Topic</dt><dd><a href="/writing/topics/foundations-and-tokens">Foundations & tokens</a></dd></div></dl>
+      <div class="ed-meta-sec"><p class="ed-meta-h">Tokens in practice</p><ol class="ed-steps"><li><a href="/writing/design-tokens">Design tokens</a></li><li><a href="/writing/design-token-naming-conventions">Design token naming conventions</a></li><li><a href="/writing/oklch-color-palette">How to build an accessible colour palette in OKLCH</a></li><li><a href="/writing/dark-mode-design-tokens">Dark mode with design tokens</a></li><li><a href="/writing/multi-brand-design-system">Multi-brand design systems</a></li><li aria-current="step"><a href="/writing/cross-platform-design-system">Cross-platform design systems</a></li></ol></div><div class="ed-meta-sec"><p class="ed-meta-h">Share</p><p class="ed-share"><button type="button" data-copy="https://www.layerone.co.in/writing/cross-platform-design-system">Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.layerone.co.in/writing/cross-platform-design-system" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/intent/post?url=https://www.layerone.co.in/writing/cross-platform-design-system" target="_blank" rel="noopener">X</a></p></div>
+    </div></aside>
+    <header class="ed-head">
+      <p class="ed-crumb"><a href="/writing">Writing</a><span aria-hidden="true">/</span><a href="/writing/topics/foundations-and-tokens">Foundations & tokens</a><span class="ed-crumb-s">Part 6 of 6 in <a href="/writing#tokens-in-practice">Tokens in practice</a></span></p>
+      <h1 class="ed-title">Cross-platform design systems: web, iOS and Android from one source</h1>
+      <p class="ed-dek">Three platforms, three teams, three blues. How to share decisions instead of code: one token source for every platform, components built natively with the same names, and a simple test for what to share and what to adapt.</p>
+      <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>5 min read · 14 November 2026</span></span></p>
+    </header>
+    <figure class="ed-cover"><img src="../assets/images/writing/cross-platform-design-system.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 1024px) calc(100vw - 32px), 760px" fetchpriority="high" srcset="../assets/images/writing/cross-platform-design-system.w480.webp 480w, ../assets/images/writing/cross-platform-design-system.w800.webp 800w, ../assets/images/writing/cross-platform-design-system.w1200.webp 1200w, ../assets/images/writing/cross-platform-design-system.jpg 1600w" decoding="async"></figure>
+    <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>The problem with three separate systems</b></summary><ol><li><a href="#the-problem-with-three-separate-systems">The problem with three separate systems</a></li><li><a href="#one-source-of-decisions-every-platform">One source of decisions, every platform</a></li><li><a href="#share-adapt-or-keep-separate">Share, adapt or keep separate</a></li><li><a href="#organising-the-team-and-the-docs">Organising the team and the docs</a></li><li><a href="#where-to-start">Where to start</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+    <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>A cross-platform design system shares <b>decisions</b>, not code. Write tokens <b>once</b> in a shared format and generate them for every platform (CSS variables, Swift, Kotlin, Figma variables) with a build tool such as Style Dictionary. Build components <b>natively on each platform</b>, with the same names, props and tokens. Then decide, component by component, what to <b>share</b> (brand, foundations, words, component purposes), what to <b>adapt</b> to platform conventions (navigation, date pickers, switches, text sizes) and what to <b>keep separate</b> (things that only exist on one platform). The test: would a regular user of this platform be surprised by how it behaves? If yes, adapt.</p>
+  <ul>
+    <li>People expect an iPhone app to feel like an iPhone app, while still recognising your brand.</li>
+    <li>Each extra platform adds roughly the same component effort again; tokens are the part that scales for free.</li>
+    <li>Keep one set of names and one documentation page per component, with platform tabs.</li>
+  </ul>
+</div>
+
+<h2 id="the-problem-with-three-separate-systems">The problem with three separate systems</h2>
+<p>Most companies end up with a web system, then an iOS one built by the iOS team, then an Android one. Each starts from the same brand guidelines and drifts within a year: three blues, three button heights, three ways to show an error.</p>
+<p class="scenario-t">An illustration: one brand, three blues</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>Web, iOS and Android teams each maintain their own colours and components from a shared brand PDF.</p></div>
+  <div><span class="k">What goes wrong</span><p>A brand refresh means three projects. A contrast fix lands on web and Android but not iOS. Support screenshots look like three different companies.</p></div>
+  <div><span class="k">What a shared source changes</span><p>One set of token files generates colours, type and spacing for all three. The refresh is one change, reviewed once, released everywhere.</p></div>
+</div>
+
+<h2 id="one-source-of-decisions-every-platform">One source of decisions, every platform</h2>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div class="hi"><b>Token files</b><span>Colour, type, spacing, radius, motion, in the DTCG format</span></div><i>→</i>
+    <div><b>Build</b><span>A pipeline such as Style Dictionary transforms names and units</span></div><i>→</i>
+    <div><b>Outputs</b><span>CSS variables · Swift · Kotlin / Compose · Figma variables</span></div><i>→</i>
+    <div><b>Components</b><span>Built natively on each platform; same names, props and tokens</span></div>
+  </div>
+  <figcaption>Tokens are written once and generated for each platform. Components are built per platform. Tokens are the part of a design system that works everywhere, which is why they come first.</figcaption>
+</figure>
+<pre><code><span class="c">// one token…</span>
+{ <span class="s">"color"</span>: { <span class="s">"action"</span>: { <span class="s">"primary"</span>: { <span class="s">"bg"</span>: { <span class="s">"$type"</span>: <span class="s">"color"</span>, <span class="s">"$value"</span>: <span class="s">"{color.brand.600}"</span> } } } } }
+
+<span class="c">// …generated for each platform</span>
+--color-action-primary-bg: #4736fe;                          <span class="c">/* CSS */</span>
+static let colorActionPrimaryBg = Color(hex: 0x4736FE)        <span class="c">// Swift</span>
+val ColorActionPrimaryBg = Color(0xFF4736FE)                  <span class="c">// Kotlin</span></code></pre>
+<p>Units change too: spacing in <code>rem</code> on the web becomes points on iOS and <code>dp</code> on Android; type sizes may map to Dynamic Type styles on iOS. The build tool handles the conversion, so designers and engineers still talk about <code>space.4</code> on every platform.</p>
+
+<h2 id="share-adapt-or-keep-separate">Share, adapt or keep separate</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Decide to…</th><th>Usually</th><th>Examples</th></tr></thead>
+  <tbody>
+    <tr><td><b>Share</b></td><td>Brand, foundations, content, component names and purposes</td><td>Colours, voice, "primary button", error message formulas, icon meanings</td></tr>
+    <tr><td><b>Adapt</b></td><td>Things where the platform has strong conventions</td><td>Navigation (tab bar vs drawer), date and time pickers, switches, sheets, text sizes, haptics, back behaviour</td></tr>
+    <tr><td><b>Keep separate</b></td><td>Things that only exist on one platform</td><td>Widgets, watch faces, desktop keyboard shortcuts, hover-only interactions</td></tr>
+  </tbody>
+</table></div>
+<figcaption>The three choices for every component and pattern. <span class="ev ev--prac">Practitioner view</span> Apple's Human Interface Guidelines and Google's Material Design describe different navigation, controls and text sizes; respect both.</figcaption></figure>
+<div class="cols2">
+  <div class="cell"><span class="k">THE TEST</span><h4>Would a regular user be surprised?</h4><p>If an iPhone user would be surprised by how something behaves, adapt it to iOS. If not, share it. A custom date picker that ignores the platform's own usually fails this test.</p></div>
+  <div class="cell"><span class="k">WHAT STAYS THE SAME</span><h4>Purpose, name and tokens</h4><p>Even an adapted component keeps the same name, the same purpose, the same props where possible and the same tokens. "Primary button" means the same thing everywhere.</p></div>
+</div>
+
+<h2 id="organising-the-team-and-the-docs">Organising the team and the docs</h2>
+<ul class="checklist">
+  <li><b>One component, one page:</b> a single documentation page per component with tabs for web, iOS and Android, so the shared purpose and guidance sit above the platform details.</li>
+  <li><b>Platform specialists in the core team:</b> at least one engineer per platform. Without one, that platform's version lags and teams build their own.</li>
+  <li><b>Same names, mapped props:</b> where platforms differ (<code>onClick</code> vs a SwiftUI action), document the mapping once.</li>
+  <li><b>Coordinated releases:</b> token changes ship to every platform in the same release, even if components follow at different speeds.</li>
+  <li><b>Platform-specific sizes as component tokens:</b> a button's height can map to each platform's guidelines through a component token. See <a href="/writing/component-tokens">component tokens</a>.</li>
+</ul>
+
+<h2 id="where-to-start">Where to start</h2>
+<ol class="w-steps">
+  <li><h3>Move tokens into one source</h3><p>Collect each platform's colours, type and spacing, agree the names, and generate all three from one set of files. This alone removes most visible drift.</p></li>
+  <li><h3>Align names and purposes</h3><p>Make a table of every component on every platform. Same purpose, same name; note where behaviour should differ.</p></li>
+  <li><h3>Decide share, adapt or separate</h3><p>Component by component, starting with the ten used most.</p></li>
+  <li><h3>Bring docs together</h3><p>One page per component with platform tabs, so the guidance is written once.</p></li>
+</ol>
+<p>Each extra platform adds roughly the same component effort again. Budget for it; see <a href="/writing/component-complexity">component complexity</a>.</p>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>At CARS24, a new palette in OKLCH and a four-layer token system carried the rebrand across India, the UAE and Australia. <a href="/work/cars24-tokens">Read the case study</a>.</p></div>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Share decisions, not code: one token source generated for every platform.</li>
+  <li>Build components natively, with the same names, props and tokens.</li>
+  <li>Share brand and purpose; adapt to platform conventions; keep platform-only things separate.</li>
+  <li>One documentation page per component, with platform tabs.</li>
+  <li>Put a specialist for each platform in the core team.</li>
+</ul></div>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Can one design system cover web, iOS and Android?</summary><div><p>Yes, by sharing tokens, names and guidance from one source while building components natively on each platform and adapting where platform conventions differ.</p></div></details>
+  <details><summary>How do you share design tokens across platforms?</summary><div><p>Keep tokens in a shared format such as DTCG JSON and use a build tool like Style Dictionary to generate CSS variables, Swift, Kotlin and Figma variables from the same files.</p></div></details>
+  <details><summary>Should mobile apps follow the brand or the platform?</summary><div><p>Both: brand in colour, type, voice and imagery; platform in navigation, controls and behaviour people already know.</p></div></details>
+  <details><summary>Should we use a cross-platform framework instead?</summary><div><p>Frameworks like React Native or Flutter can share component code. The same principles still apply: shared tokens, and adapting where people expect platform behaviour.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://styledictionary.com/" target="_blank" rel="noopener">Style Dictionary</a><span>Generating tokens for every platform.</span></li>
+  <li><a href="https://developer.apple.com/design/human-interface-guidelines/" target="_blank" rel="noopener">Human Interface Guidelines</a><span>Apple.</span></li>
+  <li><a href="https://m3.material.io/" target="_blank" rel="noopener">Material Design 3</a><span>Google.</span></li>
+  <li><a href="/writing/multi-brand-design-system">Multi-brand design systems</a><span>The other kind of scaling.</span></li>
+</ul>
+</div>
+    <aside class="ed-aside" aria-label="On this page"><nav class="ed-toc"><p>On this page</p><ol><li><a href="#the-problem-with-three-separate-systems">The problem with three separate systems</a></li><li><a href="#one-source-of-decisions-every-platform">One source of decisions, every platform</a></li><li><a href="#share-adapt-or-keep-separate">Share, adapt or keep separate</a></li><li><a href="#organising-the-team-and-the-docs">Organising the team and the docs</a></li><li><a href="#where-to-start">Where to start</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><a class="ed-top" href="#main">Back to top ↑</a></nav></aside>
+  </div>
+  <footer class="ed-end">
+    <section class="ed-more" aria-labelledby="more-h"><h2 class="ed-sec-h" id="more-h">keep reading:</h2><div class="ec-grid"><a class="ec " href="/writing/multi-brand-design-system" data-topic="foundations-and-tokens"><span class="ec-m"><img src="../assets/images/writing/multi-brand-design-system.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/multi-brand-design-system.w480.webp 480w, ../assets/images/writing/multi-brand-design-system.w800.webp 800w, ../assets/images/writing/multi-brand-design-system.w1200.webp 1200w, ../assets/images/writing/multi-brand-design-system.jpg 1600w"></span><span class="ec-k">Foundations & tokens</span><b class="ec-t">Multi-brand design systems: one core, many brands</b><span class="ec-d">How to support several brands, platforms and products from one design system: what to share, what to vary, brand tokens and families of systems.</span><span class="ec-f">5 min read</span></a><a class="ec " href="/writing/design-tokens" data-topic="foundations-and-tokens"><span class="ec-m"><img src="../assets/images/writing/design-tokens.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-tokens.w480.webp 480w, ../assets/images/writing/design-tokens.w800.webp 800w, ../assets/images/writing/design-tokens.w1200.webp 1200w, ../assets/images/writing/design-tokens.jpg 1600w"></span><span class="ec-k">Foundations & tokens</span><b class="ec-t">Design tokens</b><span class="ec-d">What design tokens are, the three tiers, naming, the DTCG 2025.10 format and how tokens reach code. Examples and JSON you can adapt for your system.</span><span class="ec-f">10 min read · Guide</span></a><a class="ec " href="/writing/component-tokens" data-topic="foundations-and-tokens"><span class="ec-m"><img src="../assets/images/writing/component-tokens.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/component-tokens.w480.webp 480w, ../assets/images/writing/component-tokens.w800.webp 800w, ../assets/images/writing/component-tokens.w1200.webp 1200w, ../assets/images/writing/component-tokens.jpg 1600w"></span><span class="ec-k">Foundations & tokens</span><b class="ec-t">Component tokens</b><span class="ec-d">What component tokens are, when a component deserves its own tokens, how to name them from its anatomy, and how to keep them healthy in Figma and code.</span><span class="ec-f">5 min read</span></a></div></section>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Thinking about how your system is run?</h2><p>If you'd like a second opinion on your team or process, a thirty-minute call is a good place to start.</p></div><a href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main><footer class="ed-foot"><div class="ed-foot-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
+  <nav aria-label="Studio"><a href="/work">Work</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/contact">Contact</a><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">LinkedIn</a><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></nav>
+</div></footer><script src="../assets/site.js?v=3de6a9b6" defer></script>
+</body>
+</html>

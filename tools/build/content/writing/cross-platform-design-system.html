@@ -1,0 +1,96 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>A cross-platform design system shares <b>decisions</b>, not code. Write tokens <b>once</b> in a shared format and generate them for every platform (CSS variables, Swift, Kotlin, Figma variables) with a build tool such as Style Dictionary. Build components <b>natively on each platform</b>, with the same names, props and tokens. Then decide, component by component, what to <b>share</b> (brand, foundations, words, component purposes), what to <b>adapt</b> to platform conventions (navigation, date pickers, switches, text sizes) and what to <b>keep separate</b> (things that only exist on one platform). The test: would a regular user of this platform be surprised by how it behaves? If yes, adapt.</p>
+  <ul>
+    <li>People expect an iPhone app to feel like an iPhone app, while still recognising your brand.</li>
+    <li>Each extra platform adds roughly the same component effort again; tokens are the part that scales for free.</li>
+    <li>Keep one set of names and one documentation page per component, with platform tabs.</li>
+  </ul>
+</div>
+
+<h2>The problem with three separate systems</h2>
+<p>Most companies end up with a web system, then an iOS one built by the iOS team, then an Android one. Each starts from the same brand guidelines and drifts within a year: three blues, three button heights, three ways to show an error.</p>
+<p class="scenario-t">An illustration: one brand, three blues</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>Web, iOS and Android teams each maintain their own colours and components from a shared brand PDF.</p></div>
+  <div><span class="k">What goes wrong</span><p>A brand refresh means three projects. A contrast fix lands on web and Android but not iOS. Support screenshots look like three different companies.</p></div>
+  <div><span class="k">What a shared source changes</span><p>One set of token files generates colours, type and spacing for all three. The refresh is one change, reviewed once, released everywhere.</p></div>
+</div>
+
+<h2>One source of decisions, every platform</h2>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div class="hi"><b>Token files</b><span>Colour, type, spacing, radius, motion, in the DTCG format</span></div><i>→</i>
+    <div><b>Build</b><span>A pipeline such as Style Dictionary transforms names and units</span></div><i>→</i>
+    <div><b>Outputs</b><span>CSS variables · Swift · Kotlin / Compose · Figma variables</span></div><i>→</i>
+    <div><b>Components</b><span>Built natively on each platform; same names, props and tokens</span></div>
+  </div>
+  <figcaption>Tokens are written once and generated for each platform. Components are built per platform. Tokens are the part of a design system that works everywhere, which is why they come first.</figcaption>
+</figure>
+<pre><code><span class="c">// one token…</span>
+{ <span class="s">"color"</span>: { <span class="s">"action"</span>: { <span class="s">"primary"</span>: { <span class="s">"bg"</span>: { <span class="s">"$type"</span>: <span class="s">"color"</span>, <span class="s">"$value"</span>: <span class="s">"{color.brand.600}"</span> } } } } }
+
+<span class="c">// …generated for each platform</span>
+--color-action-primary-bg: #4736fe;                          <span class="c">/* CSS */</span>
+static let colorActionPrimaryBg = Color(hex: 0x4736FE)        <span class="c">// Swift</span>
+val ColorActionPrimaryBg = Color(0xFF4736FE)                  <span class="c">// Kotlin</span></code></pre>
+<p>Units change too: spacing in <code>rem</code> on the web becomes points on iOS and <code>dp</code> on Android; type sizes may map to Dynamic Type styles on iOS. The build tool handles the conversion, so designers and engineers still talk about <code>space.4</code> on every platform.</p>
+
+<h2>Share, adapt or keep separate</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Decide to…</th><th>Usually</th><th>Examples</th></tr></thead>
+  <tbody>
+    <tr><td><b>Share</b></td><td>Brand, foundations, content, component names and purposes</td><td>Colours, voice, "primary button", error message formulas, icon meanings</td></tr>
+    <tr><td><b>Adapt</b></td><td>Things where the platform has strong conventions</td><td>Navigation (tab bar vs drawer), date and time pickers, switches, sheets, text sizes, haptics, back behaviour</td></tr>
+    <tr><td><b>Keep separate</b></td><td>Things that only exist on one platform</td><td>Widgets, watch faces, desktop keyboard shortcuts, hover-only interactions</td></tr>
+  </tbody>
+</table></div>
+<figcaption>The three choices for every component and pattern. <span class="ev ev--prac">Practitioner view</span> Apple's Human Interface Guidelines and Google's Material Design describe different navigation, controls and text sizes; respect both.</figcaption></figure>
+<div class="cols2">
+  <div class="cell"><span class="k">THE TEST</span><h4>Would a regular user be surprised?</h4><p>If an iPhone user would be surprised by how something behaves, adapt it to iOS. If not, share it. A custom date picker that ignores the platform's own usually fails this test.</p></div>
+  <div class="cell"><span class="k">WHAT STAYS THE SAME</span><h4>Purpose, name and tokens</h4><p>Even an adapted component keeps the same name, the same purpose, the same props where possible and the same tokens. "Primary button" means the same thing everywhere.</p></div>
+</div>
+
+<h2>Organising the team and the docs</h2>
+<ul class="checklist">
+  <li><b>One component, one page:</b> a single documentation page per component with tabs for web, iOS and Android, so the shared purpose and guidance sit above the platform details.</li>
+  <li><b>Platform specialists in the core team:</b> at least one engineer per platform. Without one, that platform's version lags and teams build their own.</li>
+  <li><b>Same names, mapped props:</b> where platforms differ (<code>onClick</code> vs a SwiftUI action), document the mapping once.</li>
+  <li><b>Coordinated releases:</b> token changes ship to every platform in the same release, even if components follow at different speeds.</li>
+  <li><b>Platform-specific sizes as component tokens:</b> a button's height can map to each platform's guidelines through a component token. See <a href="/writing/component-tokens">component tokens</a>.</li>
+</ul>
+
+<h2>Where to start</h2>
+<ol class="w-steps">
+  <li><h3>Move tokens into one source</h3><p>Collect each platform's colours, type and spacing, agree the names, and generate all three from one set of files. This alone removes most visible drift.</p></li>
+  <li><h3>Align names and purposes</h3><p>Make a table of every component on every platform. Same purpose, same name; note where behaviour should differ.</p></li>
+  <li><h3>Decide share, adapt or separate</h3><p>Component by component, starting with the ten used most.</p></li>
+  <li><h3>Bring docs together</h3><p>One page per component with platform tabs, so the guidance is written once.</p></li>
+</ol>
+<p>Each extra platform adds roughly the same component effort again. Budget for it; see <a href="/writing/component-complexity">component complexity</a>.</p>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>At CARS24, a new palette in OKLCH and a four-layer token system carried the rebrand across India, the UAE and Australia. <a href="/work/cars24-tokens">Read the case study</a>.</p></div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Share decisions, not code: one token source generated for every platform.</li>
+  <li>Build components natively, with the same names, props and tokens.</li>
+  <li>Share brand and purpose; adapt to platform conventions; keep platform-only things separate.</li>
+  <li>One documentation page per component, with platform tabs.</li>
+  <li>Put a specialist for each platform in the core team.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Can one design system cover web, iOS and Android?</summary><div><p>Yes, by sharing tokens, names and guidance from one source while building components natively on each platform and adapting where platform conventions differ.</p></div></details>
+  <details><summary>How do you share design tokens across platforms?</summary><div><p>Keep tokens in a shared format such as DTCG JSON and use a build tool like Style Dictionary to generate CSS variables, Swift, Kotlin and Figma variables from the same files.</p></div></details>
+  <details><summary>Should mobile apps follow the brand or the platform?</summary><div><p>Both: brand in colour, type, voice and imagery; platform in navigation, controls and behaviour people already know.</p></div></details>
+  <details><summary>Should we use a cross-platform framework instead?</summary><div><p>Frameworks like React Native or Flutter can share component code. The same principles still apply: shared tokens, and adapting where people expect platform behaviour.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://styledictionary.com/" target="_blank" rel="noopener">Style Dictionary</a><span>Generating tokens for every platform.</span></li>
+  <li><a href="https://developer.apple.com/design/human-interface-guidelines/" target="_blank" rel="noopener">Human Interface Guidelines</a><span>Apple.</span></li>
+  <li><a href="https://m3.material.io/" target="_blank" rel="noopener">Material Design 3</a><span>Google.</span></li>
+  <li><a href="/writing/multi-brand-design-system">Multi-brand design systems</a><span>The other kind of scaling.</span></li>
+</ul>

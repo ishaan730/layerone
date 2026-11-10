@@ -541,6 +541,138 @@ ART.update({"design-system-patterns": patterns, "form-design-patterns": forms, "
             "design-system-research": research})
 
 
+def states():
+    b = ""
+    labs = [("default", RULE, PAPER), ("hover", MUTED, PAPER), ("focus", SIG, PAPER), ("disabled", RULE, MUTED), ("read-only", RULE, PAPER), ("error", "#ff8a7a", PAPER), ("empty", RULE, MUTED), ("loading", RULE, MUTED)]
+    for i, (t, st, tx) in enumerate(labs):
+        x, y = 130 + (i % 4) * 340, 230 + (i // 4) * 250
+        b += text(x, y, t, 20, SIG if t == "focus" else MUTED)
+        if t == "focus":
+            b += box(x - 6, y + 18, 312, 92, "none", SIG, rx=14, sw=2, extra='opacity=".45"')
+        b += box(x, y + 24, 300, 80, SUNK if t in ("disabled", "read-only") else INK, st, sw=3 if t in ("focus", "error") else 2, extra='stroke-dasharray="8 6"' if t == "read-only" else "")
+        if t == "loading":
+            b += bar(x + 24, y + 58, 150, 12, MUTED, .5) + bar(x + 190, y + 58, 70, 12, MUTED, .35)
+        else:
+            b += text(x + 24, y + 74, "Customer name" if t == "empty" else "Acme Ltd", 24, tx)
+    return frame(INK, b, label="writing / components")
+
+
+def composition():
+    b = box(150, 200, 560, 520, SUNK, RULE)
+    for i in range(9):
+        b += bar(190, 250 + i * 50, 300 + (i % 3) * 60, 14, MUTED, .5) + f'<circle cx="640" cy="{257 + i * 50}" r="10" fill="{SIG if i % 4 == 0 else MUTED}" opacity=".7"/>'
+    b += text(170, 185, "40 settings", 22, MUTED)
+    b += text(800, 470, "→", 60, SIG, anchor="middle")
+    b += box(890, 200, 560, 520, RAISED, SIG, sw=3) + text(910, 185, "slots", 22, SIG)
+    for i, (t, h) in enumerate([("header", 70), ("media", 170), ("body", 110), ("footer", 70)]):
+        y = 230 + sum([70, 170, 110, 70][:i]) + i * 20
+        b += box(920, y, 500, h, SUNK, RULE, extra='stroke-dasharray="10 8"') + text(945, y + 40, t, 22, PAPER)
+    return frame(INK, b, label="writing / components")
+
+
+def comptokens():
+    b = ""
+    tiers = [("primitive", "color.brand.700", SUNK, MUTED), ("semantic", "color.action.primary.bg", SUNK, PAPER), ("component", "button.primary.container.background", RAISED, SIG)]
+    for i, (k, v, f, c) in enumerate(tiers):
+        y = 210 + i * 190
+        b += box(150, y, 1300, 140, f, SIG if i == 2 else RULE, sw=3 if i == 2 else 2) + text(190, y + 56, k, 22, MUTED) + text(190, y + 104, v, 34, c)
+        if i < 2:
+            b += f'<path d="M800 {y + 146}V{y + 184}" stroke="{SIG}" stroke-width="3"/>'
+    return frame(INK, b, label="writing / tokens")
+
+
+def testing():
+    b = ""
+    steps = [("lint", SUNK, PAPER), ("behaviour", SUNK, PAPER), ("visual", SIG, INK), ("a11y auto", SUNK, PAPER), ("manual", SUNK, PAPER)]
+    for i, (t, f, c) in enumerate(steps):
+        x = 120 + i * 280
+        b += box(x, 300, 230, 110, f, RULE if f == SUNK else "none") + text(x + 115, 365, t, 24, c, anchor="middle")
+        if i < 4:
+            b += f'<path d="M{x + 236} 355H{x + 274}" stroke="{SIG}" stroke-width="3"/>'
+    for i in range(6):
+        x = 260 + i * 190
+        b += box(x, 520, 150, 150, RAISED, RULE) + box(x + 25, 580, 100, 34, SIG if i == 3 else PAPER, "none", rx=6, extra=f'opacity="{1 if i == 3 else .8}"')
+    b += box(822, 506, 178, 178, "none", SIG, sw=3, extra='stroke-dasharray="8 6"') + text(911, 720, "diff", 20, SIG, anchor="middle")
+    return frame(INK, b, label="writing / quality")
+
+
+def a11y():
+    b = box(150, 200, 620, 520, RAISED, RULE)
+    b += box(210, 290, 500, 100, INK, SIG, sw=3) + box(200, 280, 520, 120, "none", SIG, rx=14, sw=2, extra='opacity=".45"') + text(240, 352, "Send invoice", 32, PAPER, SANS, weight=600)
+    b += text(210, 470, "role: button", 24, MUTED) + text(210, 520, "name: “Send invoice”", 24, MUTED) + text(210, 570, "focus: visible · 3:1", 24, SIG)
+    b += text(210, 620, "target: 48 × 48", 24, MUTED)
+    for i, (k, v) in enumerate([("text", "4.5:1"), ("ui", "3:1"), ("tab", "↹"), ("esc", "✕")]):
+        y = 220 + i * 128
+        b += box(860, y, 590, 104, SUNK, RULE) + text(900, y + 64, k, 26, MUTED) + text(1410, y + 66, v, 32, SIG if i < 2 else PAPER, anchor="end")
+    return frame(INK, b, label="writing / accessibility")
+
+
+def figlib():
+    b = ""
+    files = [("Foundations", True), ("Components", True), ("Extensions", True), ("Sandbox", False), ("Archive", False)]
+    for i, (t, pub) in enumerate(files):
+        y = 200 + i * 110
+        b += box(140, y, 420, 84, RAISED if pub else "none", SIG if i == 1 else RULE, sw=3 if i == 1 else 2, extra="" if pub else 'stroke-dasharray="10 8"') + text(176, y + 52, t, 26, PAPER if pub else MUTED)
+    pages = ["Start here", "Actions", "Forms", "Feedback", "Navigation", "Data display", "Overlays"]
+    b += f'<path d="M560 352H650" stroke="{SIG}" stroke-width="3"/>' + box(650, 200, 800, 520, SUNK, RULE)
+    for i, t in enumerate(pages):
+        y = 240 + i * 66
+        b += text(700, y + 30, ("★ " if i == 0 else "▸ ") + t, 26, SIG if i == 0 else PAPER) + bar(1100, y + 16, 280 - i * 18, 12, MUTED, .4)
+    return frame(INK, b, label="writing / figma")
+
+
+def platforms():
+    b = box(640, 180, 320, 120, SIG, "none") + text(800, 252, "tokens.json", 28, INK, anchor="middle")
+    for i, (t, sub) in enumerate([("web", "CSS variables"), ("iOS", "Swift"), ("Android", "Kotlin")]):
+        x = 170 + i * 450
+        b += f'<path d="M800 300C800 380 {x + 130} 360 {x + 130} 430" stroke="{SIG}" stroke-width="3" fill="none"/>'
+        b += box(x, 430, 260, 300, RAISED, RULE) + text(x + 130, 490, t, 30, PAPER, anchor="middle") + text(x + 130, 530, sub, 20, MUTED, anchor="middle")
+        b += box(x + 40, 580, 180, 52, SIG, "none", rx=26 if i == 1 else 8) + bar(x + 40, 660, 180, 12, MUTED, .5)
+    return frame(INK, b, label="writing / platforms")
+
+
+def roadmap():
+    b = ""
+    qs = ["Q1 start", "Q2 prove", "Q3 spread", "Q4 settle"]
+    for i, q in enumerate(qs):
+        b += text(330 + i * 300, 210, q, 22, MUTED)
+    rows = [("foundations", [1, 1, .5, .5]), ("components", [.6, 1, 1, 1]), ("operations", [1, .5, .5, 1]), ("adoption", [.4, .6, 1, 1])]
+    for r, (t, v) in enumerate(rows):
+        y = 250 + r * 100
+        b += text(120, y + 44, t, 22, PAPER)
+        for i, a in enumerate(v):
+            b += f'<rect x="{320 + i * 300}" y="{y + 12}" width="{int(280 * a)}" height="50" rx="8" fill="{SIG if a == 1 else MUTED}" opacity="{1 if a == 1 else .45}"/>'
+    for i in range(4):
+        b += f'<path d="M{600 + i * 300} 240V660" stroke="{PAPER}" stroke-width="2" stroke-dasharray="6 8" opacity=".5"/>' + star(588 + i * 300, 676, 24, SIG)
+    return frame(INK, b, label="writing / planning")
+
+
+def failures():
+    b = ""
+    for i in range(10):
+        x, y = 140 + (i % 5) * 270, 230 + (i // 5) * 250
+        bad = i in (0, 1)
+        b += box(x, y, 230, 200, RAISED if bad else SUNK, SIG if bad else RULE, sw=3 if bad else 2) + text(x + 24, y + 60, f"{i + 1:02d}", 40, SIG if bad else MUTED)
+        b += bar(x + 24, y + 110, 160, 12, PAPER if bad else MUTED, .55) + bar(x + 24, y + 140, 110, 12, MUTED, .35)
+    return frame(INK, b, label="writing / fundamentals")
+
+
+def startups():
+    b = ""
+    steps = [("tokens", 1), ("themed library", .8), ("small figma", .65), ("two owners", .5)]
+    for i, (t, a) in enumerate(steps):
+        x, h = 170 + i * 320, 140 + (3 - i) * 0 + i * 110
+        y = 700 - h
+        b += box(x, y, 280, h, SIG if i == 0 else SUNK, "none" if i == 0 else RULE) + text(x + 24, y + 50, t, 26, INK if i == 0 else PAPER)
+    b += text(170, 220, "minimum viable system", 26, MUTED) + text(1430, 220, "add more only when it hurts", 22, SIG, anchor="end")
+    return frame(INK, b, label="writing / fundamentals")
+
+
+ART.update({"component-states": states, "component-composition-slots": composition, "component-tokens": comptokens, "design-system-testing": testing,
+            "accessible-design-system": a11y, "figma-library-structure": figlib, "cross-platform-design-system": platforms,
+            "design-system-roadmap": roadmap, "why-design-systems-fail": failures, "design-system-for-startups": startups})
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     from playwright.sync_api import sync_playwright

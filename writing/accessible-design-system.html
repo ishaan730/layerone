@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accessible Design Systems: WCAG 2.2 in Practice | Layer One</title>
+<meta name="description" content="How to build accessibility into a design system&#x27;s foundations, components and patterns, and what product teams still own. WCAG 2.2 AA in plain words.">
+<meta property="og:title" content="Accessible Design Systems: WCAG 2.2 in Practice | Layer One">
+<meta property="og:description" content="How to build accessibility into a design system&#x27;s foundations, components and patterns, and what product teams still own. WCAG 2.2 AA in plain words.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-14">
+<meta property="article:modified_time" content="2026-11-14">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="Building a system">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/accessible-design-system.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Accessible Design Systems: WCAG 2.2 in Practice | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/writing.css?v=69e939a1">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Accessible Design Systems: WCAG 2.2 in Practice", "description": "How to build accessibility into a design system's foundations, components and patterns, and what product teams still own. WCAG 2.2 AA in plain words.", "image": "https://www.layerone.co.in/assets/images/writing/accessible-design-system.jpg", "datePublished": "2026-11-14", "dateModified": "2026-11-14", "mainEntityOfPage": "https://www.layerone.co.in/writing/accessible-design-system", "wordCount": 1208, "articleSection": "Building a system", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "Building a system", "item": "https://www.layerone.co.in/writing/topics/building"}, {"@type": "ListItem", "position": 3, "name": "Accessibility in a design system", "item": "https://www.layerone.co.in/writing/accessible-design-system"}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/accessible-design-system">
+<meta property="og:url" content="https://www.layerone.co.in/writing/accessible-design-system">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Accessible Design Systems: WCAG 2.2 in Practice | Layer One">
+<meta name="twitter:description" content="How to build accessibility into a design system&#x27;s foundations, components and patterns, and what product teams still own. WCAG 2.2 AA in plain words.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/accessible-design-system.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading" title="Light or dark reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button><a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<main id="main" class="ed-wrap"><article class="ed-article">
+  <div class="ed-layout">
+    <aside class="ed-meta" aria-label="About this article"><div class="ed-meta-in">
+      <div class="ed-meta-who"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40"><p><b>Aniket Pandey</b><span>Founder, Layer One</span></p></div>
+      <dl class="ed-meta-dl"><div><dt>Published</dt><dd>14 November 2026</dd></div><div><dt>Reading time</dt><dd>5 minutes</dd></div><div><dt>Topic</dt><dd><a href="/writing/topics/building">Building a system</a></dd></div></dl>
+      <div class="ed-meta-sec"><p class="ed-meta-h">Building components well</p><ol class="ed-steps"><li><a href="/writing/component-states">Component states</a></li><li><a href="/writing/component-composition-slots">Composition vs configuration</a></li><li><a href="/writing/component-tokens">Component tokens</a></li><li><a href="/writing/design-system-testing">Testing a design system</a></li><li aria-current="step"><a href="/writing/accessible-design-system">Accessibility in a design system</a></li></ol></div><div class="ed-meta-sec"><p class="ed-meta-h">Share</p><p class="ed-share"><button type="button" data-copy="https://www.layerone.co.in/writing/accessible-design-system">Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.layerone.co.in/writing/accessible-design-system" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/intent/post?url=https://www.layerone.co.in/writing/accessible-design-system" target="_blank" rel="noopener">X</a></p></div>
+    </div></aside>
+    <header class="ed-head">
+      <p class="ed-crumb"><a href="/writing">Writing</a><span aria-hidden="true">/</span><a href="/writing/topics/building">Building a system</a><span class="ed-crumb-s">Part 5 of 5 in <a href="/writing#building-components-well">Building components well</a></span></p>
+      <h1 class="ed-title">Accessibility in a design system: what it covers, and what it can't</h1>
+      <p class="ed-dek">Every accessibility problem in a component is copied into every screen that uses it, and every fix is inherited by all of them. How to build accessibility in at three levels, and why overselling it is the most common mistake system teams make.</p>
+      <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>5 min read · 14 November 2026</span></span></p>
+    </header>
+    <figure class="ed-cover"><img src="../assets/images/writing/accessible-design-system.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 1024px) calc(100vw - 32px), 760px" fetchpriority="high" srcset="../assets/images/writing/accessible-design-system.w480.webp 480w, ../assets/images/writing/accessible-design-system.w800.webp 800w, ../assets/images/writing/accessible-design-system.w1200.webp 1200w, ../assets/images/writing/accessible-design-system.jpg 1600w" decoding="async"></figure>
+    <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>Accessible by default, not by audit</b></summary><ol><li><a href="#accessible-by-default-not-by-audit">Accessible by default, not by audit</a></li><li><a href="#three-levels-of-accessibility-in-the-system">Three levels of accessibility in the system</a></li><li><a href="#what-the-system-covers-and-what-product-teams-own">What the system covers, and what product teams own</a></li><li><a href="#making-it-stick">Making it stick</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+    <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>A design system is the most effective place to make a product accessible: every accessibility problem in a component is copied into every screen that uses it, and every fix is inherited by all of them. Build accessibility in at three levels: <b>foundations</b> (colour contrast, readable type, focus styles, motion), <b>components</b> (keyboard support, focus management, names, roles and states, target sizes, error messages) and <b>patterns</b> (forms, navigation, feedback). Then be honest about the limit: the system makes accessible products <b>easier, not automatic</b>. Product teams still own page structure, headings, alt text, the words they write and the way they combine components.</p>
+  <ul>
+    <li>Aim for WCAG 2.2 AA as the minimum for every component and pattern.</li>
+    <li>For menus, tabs, dialogs and comboboxes, follow the W3C ARIA Authoring Practices Guide rather than inventing keyboard behaviour.</li>
+    <li>Document what each component handles and what the product team must still add.</li>
+  </ul>
+</div>
+
+<h2 id="accessible-by-default-not-by-audit">Accessible by default, not by audit</h2>
+<p>Accessibility audits at the end of a project find hundreds of issues, most of them repeated: the same unlabelled icon button, the same dialog that traps nobody, the same low-contrast placeholder, on every page. A design system turns that around. Fix the icon button once, and every product inherits the fix.</p>
+<p class="scenario-t">An illustration: the dialog you couldn't escape</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>A team builds its own confirmation dialog. It looks great and works perfectly with a mouse.</p></div>
+  <div><span class="k">What goes wrong</span><p>Keyboard users press Tab and focus goes behind the dialog into the page. Escape doesn't close it. Screen readers don't announce it. It ships in 40 places before anyone notices.</p></div>
+  <div><span class="k">The system fix</span><p>One dialog component with focus kept inside, Escape to close, focus returned afterwards and a proper announcement. Fixed once; every one of the 40 dialogs inherits it.</p></div>
+</div>
+
+<h2 id="three-levels-of-accessibility-in-the-system">Three levels of accessibility in the system</h2>
+<figure class="w-fig">
+  <div class="stack">
+    <div class="lt"><b>Patterns</b><span>Forms with linked error summaries, navigation with skip links and landmarks, feedback that's announced. How components combine accessibly.</span></div>
+    <div class="hi"><b>Components</b><span>Keyboard support, focus management, accessible names, roles and states, target sizes, error messages connected to fields.</span></div>
+    <div><b>Foundations</b><span>Colour pairs that pass contrast, readable type sizes, a visible focus style, reduced-motion tokens.</span></div>
+  </div>
+  <figcaption>Each level builds on the one below. Get foundations right and components can't fail contrast; get components right and patterns inherit keyboard support.</figcaption>
+</figure>
+
+<h3>Foundations</h3>
+<ul class="checklist">
+  <li><b>Contrast built into the palette:</b> text pairs at 4.5:1, UI parts and focus at 3:1 (WCAG 1.4.3 and 1.4.11). Name colours by job so passing pairs are the obvious choice. See <a href="/writing/color-contrast-design-system">colour contrast in design systems</a>.</li>
+  <li><b>Readable type:</b> a 16px body size, line heights that support reading, and sizes in rem so text respects the reader's settings.</li>
+  <li><b>One focus style:</b> a token-based focus ring, visible on every surface, used by every interactive component.</li>
+  <li><b>Motion tokens that respect "reduce motion":</b> durations that drop to zero or a fade when people ask for less movement.</li>
+  <li><b>Never colour alone:</b> status always has an icon or a word as well. See <a href="/lab/color-contrast-checker">the contrast checker</a> to simulate colour blindness.</li>
+</ul>
+
+<h3>Components</h3>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Everyone can…</th><th>Which means</th><th>WCAG 2.2</th></tr></thead>
+  <tbody>
+    <tr><td>See it</td><td>Text at 4.5:1; edges of fields and buttons at 3:1; never colour alone</td><td>1.4.3, 1.4.11, 1.4.1</td></tr>
+    <tr><td>Use it with a keyboard</td><td>Every action reachable with Tab and triggered with Enter or Space; standard patterns for menus and dialogs</td><td>2.1.1</td></tr>
+    <tr><td>See where they are</td><td>A clear focus indicator that isn't hidden by sticky headers or other content</td><td>2.4.7, 2.4.11</td></tr>
+    <tr><td>Hear what it is</td><td>Screen readers announce its role ("button"), name ("Send invoice") and state ("expanded")</td><td>4.1.2</td></tr>
+    <tr><td>Hit it</td><td>Targets at least 24 × 24px (44–48px on touch screens is better)</td><td>2.5.8</td></tr>
+    <tr><td>Understand errors</td><td>Errors say what's wrong and how to fix it, connected to the field</td><td>3.3.1, 3.3.3</td></tr>
+    <tr><td>Avoid discomfort</td><td>Animation respects the reduce-motion setting</td><td>2.3.3 (AAA), good practice</td></tr>
+  </tbody>
+</table></div>
+<figcaption>The component checklist, in plain words. <span class="ev ev--std">Standard</span> For complex widgets, the W3C ARIA Authoring Practices Guide documents which keys do what; most accessible libraries follow it.</figcaption></figure>
+
+<h3>Patterns</h3>
+<p>Some accessibility only exists in combination: an error summary that links to each field, a page with one main landmark and a skip link, a toast that's announced without stealing focus. Write these into your <a href="/writing/design-system-patterns">patterns</a>, especially <a href="/writing/form-design-patterns">forms</a>.</p>
+
+<h2 id="what-the-system-covers-and-what-product-teams-own">What the system covers, and what product teams own</h2>
+<p>Overselling is the most common accessibility mistake design system teams make. "Use our components and you're accessible" isn't true, and teams who believe it stop checking. Be explicit about the split:</p>
+<div class="cols2">
+  <div class="cell"><span class="k">THE SYSTEM HANDLES</span><h4>Inside every component</h4><p>Contrast of its own colours, keyboard behaviour, focus management, roles and states, target sizes, connecting labels, hints and errors, reduced motion.</p></div>
+  <div class="cell cell--accent"><span class="k">PRODUCT TEAMS STILL OWN</span><h4>Everything around them</h4><p>Page titles and headings, landmarks and reading order, alt text for their images, the words in labels, buttons and errors, which component they choose, and testing their own flows.</p></div>
+</div>
+<p>Put a short "What you must add" list on every component's documentation page. For an icon button: "Give it a label that says what it does: <code>aria-label="Delete invoice"</code>, not "Delete" or "Icon"." Those few lines prevent most of the issues audits find in system-built products.</p>
+
+<h2 id="making-it-stick">Making it stick</h2>
+<ol class="w-steps">
+  <li><h3>Set a standard</h3><p>WCAG 2.2 AA as the minimum for every component and pattern, written into the definition of done.</p></li>
+  <li><h3>Automate what can be automated</h3><p>Contrast checks on token changes, automated accessibility rules on every component story, lint rules for missing labels.</p></li>
+  <li><h3>Test the rest by hand</h3><p>A keyboard and screen reader script for every interactive component. See <a href="/writing/design-system-testing">testing a design system</a>.</p></li>
+  <li><h3>Document responsibilities</h3><p>"What this handles" and "What you must add" on every component page.</p></li>
+  <li><h3>Include disabled people in research</h3><p>For complex components, test with assistive technology users. Expert review finds a lot; real use finds more.</p></li>
+</ol>
+<div class="callout callout--warn"><span class="callout-k">Regulation</span><p>Accessibility is increasingly a legal requirement as well as good practice. The European Accessibility Act has applied to many consumer products and services in the EU since June 2025, and public-sector rules in many countries reference WCAG. A system that meets WCAG 2.2 AA by default makes compliance far cheaper across every product.</p></div>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Fix accessibility once in the system, and every product inherits it.</li>
+  <li>Build it into foundations, components and patterns.</li>
+  <li>Follow WCAG 2.2 AA and the ARIA Authoring Practices for complex widgets.</li>
+  <li>Be explicit about what product teams still own.</li>
+  <li>Automate checks, test by hand, and include disabled people in research.</li>
+</ul></div>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Does using a design system make my product accessible?</summary><div><p>It makes it much easier, not automatic. Components can handle keyboard support, focus and contrast, but product teams still own headings, reading order, alt text, wording and how they combine components.</p></div></details>
+  <details><summary>Which WCAG level should a design system meet?</summary><div><p>WCAG 2.2 AA as the minimum for every component and pattern. Some teams go further for specific criteria, like larger touch targets.</p></div></details>
+  <details><summary>How do I make complex components accessible?</summary><div><p>Follow the W3C ARIA Authoring Practices Guide for menus, tabs, dialogs and comboboxes, or use a headless library that already does, and test with a keyboard and screen reader.</p></div></details>
+  <details><summary>What's the minimum touch target size?</summary><div><p>WCAG 2.2 AA asks for at least 24 × 24 CSS pixels, with some exceptions. Platform guidelines recommend 44–48px on touch screens.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noopener">Web Content Accessibility Guidelines (WCAG) 2.2</a><span>W3C.</span></li>
+  <li><a href="https://www.w3.org/WAI/ARIA/apg/" target="_blank" rel="noopener">ARIA Authoring Practices Guide</a><span>W3C. Keyboard and screen reader patterns.</span></li>
+  <li><a href="/writing/headless-component-library-build-vs-buy">Build, borrow or buy</a><span>Using headless libraries for accessible behaviour.</span></li>
+</ul>
+</div>
+    <aside class="ed-aside" aria-label="On this page"><nav class="ed-toc"><p>On this page</p><ol><li><a href="#accessible-by-default-not-by-audit">Accessible by default, not by audit</a></li><li><a href="#three-levels-of-accessibility-in-the-system">Three levels of accessibility in the system</a></li><li><a href="#what-the-system-covers-and-what-product-teams-own">What the system covers, and what product teams own</a></li><li><a href="#making-it-stick">Making it stick</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><a class="ed-top" href="#main">Back to top ↑</a></nav></aside>
+  </div>
+  <footer class="ed-end">
+    <section class="ed-more" aria-labelledby="more-h"><h2 class="ed-sec-h" id="more-h">keep reading:</h2><div class="ec-grid"><a class="ec " href="/writing/color-contrast-design-system" data-topic="foundations-and-tokens"><span class="ec-m"><img src="../assets/images/writing/color-contrast-design-system.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/color-contrast-design-system.w480.webp 480w, ../assets/images/writing/color-contrast-design-system.w800.webp 800w, ../assets/images/writing/color-contrast-design-system.w1200.webp 1200w, ../assets/images/writing/color-contrast-design-system.jpg 1600w"></span><span class="ec-k">Foundations & tokens</span><b class="ec-t">Colour contrast in design systems</b><span class="ec-d">How to build colour contrast into a design system: WCAG 2.2 ratios, checking pairs not colours, a contrast matrix, pairing rules by step, and APCA.</span><span class="ec-f">6 min read</span></a><a class="ec " href="/writing/component-states" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/component-states.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/component-states.w480.webp 480w, ../assets/images/writing/component-states.w800.webp 800w, ../assets/images/writing/component-states.w1200.webp 1200w, ../assets/images/writing/component-states.jpg 1600w"></span><span class="ec-k">Building a system</span><b class="ec-t">Component states: designing every state before you build</b><span class="ec-d">Every state a design system component needs: interaction, data, content extremes and context, plus combinations and a stress test with real content.</span><span class="ec-f">6 min read</span></a><a class="ec " href="/writing/form-design-patterns" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/form-design-patterns.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/form-design-patterns.w480.webp 480w, ../assets/images/writing/form-design-patterns.w800.webp 800w, ../assets/images/writing/form-design-patterns.w1200.webp 1200w, ../assets/images/writing/form-design-patterns.jpg 1600w"></span><span class="ec-k">Building a system</span><b class="ec-t">Form design patterns: layout, validation and error messages</b><span class="ec-d">Seven form decisions a design system should make once: layout, required fields, when to validate, where errors go, what they say, long forms and buttons.</span><span class="ec-f">7 min read</span></a></div></section>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Check your colours and colour blindness</h2><p>The free contrast checker tests pairs against WCAG 2 and APCA, suggests the nearest colour that passes and simulates colour vision deficiencies.</p></div><a href="/lab/color-contrast-checker">Open the contrast checker <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main><footer class="ed-foot"><div class="ed-foot-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
+  <nav aria-label="Studio"><a href="/work">Work</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/contact">Contact</a><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">LinkedIn</a><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></nav>
+</div></footer><script src="../assets/site.js?v=3de6a9b6" defer></script>
+</body>
+</html>

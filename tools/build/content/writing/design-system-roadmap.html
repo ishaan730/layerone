@@ -1,0 +1,100 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>A realistic first-year design system roadmap runs <b>four workstreams side by side</b> (foundations, components, operations and adoption) across <b>four quarters</b>: <b>start</b> (audit, tokens, the eight everyday components, an owner), <b>prove</b> (containers and feedback components, a request process, champions), <b>spread</b> (data and navigation components, dark mode, the first outside contribution) and <b>settle</b> (the hard components, deprecations, next year's plan). Each quarter ends with a <b>gate</b>: something you can point to that earns the next quarter's funding. And every component is built inside a real product project, never in isolation.</p>
+  <ul>
+    <li>Every quarter should deliver something teams can use immediately, so trust builds as you go.</li>
+    <li>Put the operating rhythms (support, office hours, releases, health checks) in the calendar in the first month.</li>
+    <li>Plan components by complexity, not by count: the hard ones belong in quarter four.</li>
+  </ul>
+</div>
+
+<h2>Why most first-year plans fail</h2>
+<p>The typical first-year plan is a list of components with dates. It fails in a predictable way: the team builds in isolation for two quarters, launches a library nobody asked for, and spends the second half of the year persuading teams to adopt it. Meanwhile leadership asks what they got for the money.</p>
+<p>The plan below fixes that with three ideas: workstreams beyond components, a pilot product for every quarter, and a gate at the end of each quarter. It's written for a mid-sized product company starting from shared styles or basic tokens. Adjust the scope to your size; keep the shape. <span class="ev ev--ill">Illustration</span></p>
+
+<h2>The first twelve months</h2>
+<figure class="w-fig"><div class="gantt-wrap"><div class="gantt">
+  <div class="gantt-row gantt-h"><b></b><span>M1</span><span>M2</span><span>M3</span><span>M4</span><span>M5</span><span>M6</span><span>M7</span><span>M8</span><span>M9</span><span>M10</span><span>M11</span><span>M12</span></div>
+  <div class="gantt-row"><b>Audit and tokens</b><i class="on"></i><i class="on"></i><i class="on"></i><i class="lt"></i><i class="lt"></i><i></i><i class="lt"></i><i class="lt"></i><i></i><i class="lt"></i><i></i><i></i></div>
+  <div class="gantt-row"><b>Core components</b><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div>
+  <div class="gantt-row"><b>Operations</b><i class="on"></i><i class="lt"></i><i class="lt"></i><i class="on"></i><i class="lt"></i><i class="lt"></i><i class="on"></i><i class="lt"></i><i class="lt"></i><i class="on"></i><i class="lt"></i><i class="on"></i></div>
+  <div class="gantt-row"><b>Pilots and adoption</b><i></i><i class="lt"></i><i class="lt"></i><i class="lt"></i><i class="lt"></i><i class="lt"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="lt"></i><i class="lt"></i><i class="lt"></i></div>
+  <div class="gantt-row"><b>Gates</b><i></i><i></i><i class="gate"></i><i></i><i></i><i class="gate"></i><i></i><i></i><i class="gate"></i><i></i><i></i><i class="gate"></i></div>
+</div></div>
+<div class="gantt-k"><span>Focused work</span><span class="lt">Ongoing</span></div>
+<figcaption>Four workstreams across a year, with a gate at the end of each quarter. Components run all year, but inside pilot projects, not on their own.</figcaption></figure>
+
+<figure class="w-fig"><div class="w-tbl w-tbl--dense"><table>
+  <thead><tr><th></th><th>Q1 · Start</th><th>Q2 · Prove</th><th>Q3 · Spread</th><th>Q4 · Settle</th></tr></thead>
+  <tbody>
+    <tr><td>Foundations</td><td>Audit. Colour, type, spacing and layout as tokens. Token pipeline.</td><td>Semantic tokens complete. Contrast checks automated.</td><td>Dark mode as a second theme.</td><td>Density modes. Token audit.</td></tr>
+    <tr><td>Components</td><td>8 basics: button, field, select, checkbox, radio, switch, link, alert.</td><td>Containers and feedback: dialog, card, tabs, toast, menu, empty state.</td><td>Data and navigation: table, pagination, badge, tag, side menu.</td><td>The hard ones: date picker, search, advanced table features.</td></tr>
+    <tr><td>Operations</td><td>Owner named. Who decides what. Versioning rules.</td><td>Request and contribution process. Docs template.</td><td>First outside contribution. Monthly health check.</td><td>First deprecations. Next year's roadmap.</td></tr>
+    <tr><td>Adoption</td><td>Pilot team: a new settings page.</td><td>Second pilot. Champions in each team.</td><td>Second and third teams adopt. Office hours.</td><td>Migration dashboard. Most new work on the system.</td></tr>
+    <tr><td><b>Gate</b></td><td>The pilot ships using only tokens.</td><td>The pilot team is measurably faster or has fewer UI bugs.</td><td>A team adopts without hand-holding.</td><td>Adoption trend and savings reported to leadership.</td></tr>
+  </tbody>
+</table></div>
+<figcaption>The plan, quarter by quarter. <span class="ev ev--ill">Illustration</span> The component order follows <a href="/writing/which-components-to-build-first">which components to build first</a>; the hard ones wait until the team has practice.</figcaption></figure>
+
+<h2>Gates: how each quarter earns the next</h2>
+<p>A gate is a concrete result, agreed with your sponsor at the start of the quarter, that shows the system is working. It turns "trust us" into "here's what happened", and it's what keeps funding coming in stages rather than as one big bet.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">GOOD GATES</span><h4>Observable and owned by product</h4><p>"The settings page shipped using only system tokens." "The onboarding team reported 30% fewer UI bugs than last quarter." "Team C adopted the table without asking us for help."</p></div>
+  <div class="cell"><span class="k">WEAK GATES</span><h4>Output, not outcome</h4><p>"We built 15 components." "The docs site is live." Both can be true while nobody uses the system. Count use and change, not output.</p></div>
+</div>
+<p>Measure against a baseline taken in the first month; see <a href="/writing/design-system-metrics">design system metrics</a>. For the money side, the <a href="/lab/design-system-roi-calculator">ROI calculator</a> shows why year one rarely pays for itself, and why staged funding makes sense.</p>
+
+<h2>Build inside real projects</h2>
+<p>The single biggest predictor of a system people use, in our experience, is that its components are built inside real product work: a pilot team needs a settings page, so the system builds the form components with them, for that page. Dan Mall makes the same argument in <i>Design That Scales</i>. Components built in isolation solve imagined problems; components built in pilots solve real ones and arrive with their first users.</p>
+<ol class="w-steps">
+  <li><h3>Choose a pilot with a deadline</h3><p>A real feature, shipping this quarter, with a team that's willing.</p></li>
+  <li><h3>Build what the pilot needs, as system components</h3><p>Designed for reuse, but proven on one real screen first.</p></li>
+  <li><h3>Release as beta, then stable</h3><p>The pilot uses beta components; once they've survived production, they become stable for everyone.</p></li>
+  <li><h3>Share the story</h3><p>"The billing team shipped two weeks early using the system" persuades where statistics don't.</p></li>
+</ol>
+
+<h2>Rhythms to set up in month one</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>How often</th><th>What</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td>Daily</td><td>Answer the support channel</td><td>Fast answers keep people using the system instead of working around it</td></tr>
+    <tr><td>Weekly</td><td><a href="/writing/design-system-office-hours">Office hours</a>; triage new requests</td><td>Help teams build with the system; decide quickly what's shared</td></tr>
+    <tr><td>Every two weeks</td><td>Release, with <a href="/writing/design-system-release-notes">notes</a></td><td>A predictable rhythm lets teams plan updates</td></tr>
+    <tr><td>Monthly</td><td>Health check; Figma–code twin check; usage and detach data</td><td>Spot drift and problems early</td></tr>
+    <tr><td>Quarterly</td><td>Gate review; token and debt audit; roadmap update</td><td>Keep the plan honest</td></tr>
+    <tr><td>Yearly</td><td>Survey; re-score complexity; budget and staffing review</td><td>Decide the next stage</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Rhythms are much harder to add later. Put them in the calendar before the first component ships. <span class="ev ev--prac">Practitioner view</span></figcaption></figure>
+
+<h2>Adjusting the plan to your size</h2>
+<ul class="checklist">
+  <li><b>Startup:</b> do quarter one only, slowly: tokens, a themed library, one owner. See <a href="/writing/design-system-for-startups">design systems for startups</a>.</li>
+  <li><b>Scale-up:</b> the plan as written, with a designer and one or two engineers.</li>
+  <li><b>Enterprise:</b> the same shape per portfolio, plus a council and a migration plan for legacy products. See <a href="/writing/design-system-migration">migrating legacy products</a>.</li>
+</ul>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>At CARS24, the internal tools system reached 93 component sets in a three-to-four-month runway to a beta for leadership, with tokens and Storybook set up alongside engineers new to design systems. <a href="/work/cars24-internal-tools">Read the case study</a>.</p></div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Four workstreams: foundations, components, operations and adoption.</li>
+  <li>Four quarters: start, prove, spread, settle.</li>
+  <li>A gate at the end of each quarter earns the next quarter's funding.</li>
+  <li>Build every component inside a real pilot project.</li>
+  <li>Set up the rhythms in month one.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>What should a design system roadmap include?</summary><div><p>Foundations, components, operations and adoption, planned together by quarter, with a measurable gate at the end of each quarter and the pilot projects that will use each set of components.</p></div></details>
+  <details><summary>How long does it take to build a design system?</summary><div><p>A useful core (tokens and the everyday components, in real use) takes a mid-sized team about two quarters. A system most new work uses takes about a year. It's never finished; it's run like a product.</p></div></details>
+  <details><summary>What should we build first?</summary><div><p>Tokens, then the components used most often and causing the most inconsistency, usually buttons, fields, selects and alerts. Save complex ones like the date picker for later.</p></div></details>
+  <details><summary>How do we keep leadership's support?</summary><div><p>Agree a gate with your sponsor each quarter, measure against a baseline, and report outcomes (faster delivery, fewer UI bugs, teams adopting) rather than component counts.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://rosenfeldmedia.com/books/design-that-scales/" target="_blank" rel="noopener">Design That Scales</a><span>Dan Mall, on pilots and adoption.</span></li>
+  <li><a href="/writing/how-to-build-a-design-system">How to build a design system</a><span>The steps behind the plan.</span></li>
+  <li><a href="/writing/why-design-systems-fail">Why design systems fail</a><span>The ten ways plans go wrong.</span></li>
+</ul>

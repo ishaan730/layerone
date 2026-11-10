@@ -2755,6 +2755,22 @@ figure { margin: 0; }
 .w-grid-c > i.on { background: var(--accent); color: var(--accent-text); }
 .w-grid-c > i.lt { background: var(--card); color: var(--card-text); }
 @media (max-width: 640px) { .w-grid-r { grid-template-columns: minmax(0, 1fr); gap: 6px; } }
+/* Component state matrix (component-states) */
+.w-states { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px 12px; }
+.w-states > div { display: grid; gap: 6px; align-content: start; min-width: 0; }
+.w-states .k { font-family: var(--font-mono); font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .04em; }
+.w-states .ctl { display: flex; align-items: center; gap: 6px; min-height: 38px; padding-inline: 10px; border-radius: 6px; border: 1.5px solid var(--rule); background: var(--bg); color: var(--text); font-style: normal; font-size: 14px; white-space: nowrap; overflow: hidden; }
+.w-states .hov { border-color: var(--text-muted); }
+.w-states .foc { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 35%, transparent); }
+.w-states .ph { color: var(--text-muted); }
+.w-states .dis { opacity: .45; background: var(--bg-sunken); }
+.w-states .ro { border-style: dashed; background: var(--bg-sunken); }
+.w-states .err { border-color: #ff8a7a; }
+.w-states em { font-style: normal; font-size: 12px; color: #ff8a7a; }
+[data-read="light"] .w-states .err { border-color: #c2341f; } [data-read="light"] .w-states em { color: #c2341f; }
+.w-states .load b { display: block; height: 8px; border-radius: 4px; background: var(--bg-sunken); flex: 1; }
+.w-states .load b + b { flex: .5; }
+@media (max-width: 640px) { .w-states { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 /* Mirrored mock screens (localisation) */
 .w-mock { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .w-mock > div { border: 1px solid var(--rule); border-radius: 8px; padding: 14px; background: var(--bg-raised); display: grid; gap: 10px; align-content: start; }

@@ -1,0 +1,116 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>When a component is used in 400 places, one bug is 400 bugs, so design system components are tested more thoroughly than ordinary product code. Combine five layers: <b>lint rules</b> (no raw values, no primitives), <b>behaviour tests</b> (clicks, typing and keys do the right thing), <b>visual regression tests</b> (a picture of every variant and state, compared on every change), <b>automated accessibility checks</b> (labels, roles, contrast) and <b>manual checks</b> with a keyboard and a screen reader for anything interactive. Run the automated layers on every pull request, and make them part of one definition of done for design and code.</p>
+  <ul>
+    <li>Visual tests catch the "small padding change that broke every layout" before it ships.</li>
+    <li>Automated accessibility tools catch a share of issues, not all of them. Always add a person with a keyboard and a screen reader.</li>
+    <li>Test with real content and real data volumes for complex components like tables.</li>
+  </ul>
+</div>
+
+<h2>Why system components need more testing</h2>
+<p>A bug in a product screen affects that screen. A bug in a system component affects every screen that uses it, in every product, often silently. The upside is the same: fix and test something once in the system and every product gets the fix. Testing is how a design system earns the trust that makes teams willing to update.</p>
+<p class="scenario-t">An illustration: the 2-pixel change</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>An engineer increases the button's vertical padding by 2px to fix a misalignment in one dialog. Code review approves it: it's a tiny change.</p></div>
+  <div><span class="k">What goes wrong</span><p>Buttons grow everywhere. Table rows with inline actions shift, a toolbar wraps onto two lines, and three teams report layout bugs after the next update.</p></div>
+  <div><span class="k">What testing changes</span><p>Visual tests would have shown pictures of every button changing size before merging, and flagged it as the breaking change it was.</p></div>
+</div>
+
+<h2>Five layers of testing</h2>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Lint</b><span>No raw values or primitives in component styles</span></div><i>→</i>
+    <div><b>Behaviour</b><span>Clicks, typing and keys do the right thing</span></div><i>→</i>
+    <div class="hi"><b>Visual</b><span>Every variant and state compared with the last approved picture</span></div><i>→</i>
+    <div><b>Accessibility, automated</b><span>Labels, roles, contrast, ARIA rules</span></div><i>→</i>
+    <div><b>Manual</b><span>A person with a keyboard and a screen reader</span></div>
+  </div>
+  <figcaption>The order a change passes through. The first four run automatically on every pull request; the fifth runs for every new or changed interactive component.</figcaption>
+</figure>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Layer</th><th>What it catches</th><th>How it works, simply</th><th>Typical tools</th></tr></thead>
+  <tbody>
+    <tr><td>Lint</td><td>Hard-coded colours, sizes and spacing; components using primitive tokens</td><td>Rules that read the code and flag anything off-system</td><td>Stylelint, ESLint</td></tr>
+    <tr><td>Behaviour</td><td>A menu that won't open with the keyboard; a field that doesn't clear</td><td>Code that pretends to be a user and checks the result</td><td>Testing Library, Playwright</td></tr>
+    <tr><td>Visual regression</td><td>Unintended changes to how anything looks</td><td>A picture of every story, compared pixel by pixel; differences go to a person</td><td>Storybook with a visual testing service, Playwright screenshots</td></tr>
+    <tr><td>Automated accessibility</td><td>Missing labels, wrong roles, low contrast</td><td>A rule engine scans each rendered component</td><td>axe-core</td></tr>
+    <tr><td>Manual</td><td>Whether a keyboard or screen reader user can actually complete the task</td><td>A person tries it with only a keyboard, then with a screen reader</td><td>VoiceOver, NVDA, TalkBack</td></tr>
+  </tbody>
+</table></div>
+<figcaption>What each layer is for. <span class="ev ev--prac">Practitioner view</span> Tools are examples; the layers matter more than the brands.</figcaption></figure>
+
+<h2>Visual regression tests</h2>
+<p>Visual tests deserve special attention because they catch the problem design systems are most often blamed for: an update that quietly changes how products look. The setup is simple in principle:</p>
+<ol class="w-steps">
+  <li><h3>A story for every variant and state</h3><p>The component workshop (often Storybook) already shows each one. Those stories become the test cases.</p></li>
+  <li><h3>A picture of each, on every change</h3><p>The test takes a screenshot of every story in a consistent browser and compares it with the last approved one.</p></li>
+  <li><h3>A person reviews any difference</h3><p>Intended changes are approved and become the new baseline. Unintended ones are fixed before merging.</p></li>
+  <li><h3>Differences decide the version</h3><p>If a change moves anything in a product, it's at least a minor release with a note, and often a major one. See <a href="/writing/design-system-versioning">versioning</a>.</p></li>
+</ol>
+<div class="callout callout--warn"><span class="callout-k">Watch out</span><p>Visual tests are only as good as their stories. A component tested only in its default state with short text will pass while its error state breaks. Include every state from the <a href="/writing/component-states">state checklist</a>, plus long content and a dark theme.</p></div>
+
+<h2>Accessibility: automated and manual</h2>
+<p>Automated accessibility checks are excellent at finding certain problems: missing labels, invalid roles, poor contrast, duplicate IDs. They can't tell whether a keyboard user can complete a task, whether focus goes somewhere sensible when a dialog closes, or whether a screen reader announcement makes sense. Those need a person.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">AUTOMATED · EVERY CHANGE</span><h4>Run on every story</h4><p>Labels and names, roles and ARIA attributes, contrast, heading order inside the component. Fails the build.</p></div>
+  <div class="cell"><span class="k">MANUAL · EVERY INTERACTIVE COMPONENT</span><h4>A keyboard, then a screen reader</h4><p>Tab order, focus visible and returned, the expected keys from the ARIA Authoring Practices Guide, and what's announced when state changes.</p></div>
+</div>
+<p>A short manual script per component keeps checks consistent: "Tab to the combobox. Type 'ban'. Arrow down twice. Press Enter. Expect 'Bangalore, selected' to be announced and the list to close." More in <a href="/writing/accessible-design-system">accessibility in a design system</a>.</p>
+
+<h2>Match testing to complexity</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Level</th><th>Examples</th><th>Testing</th></tr></thead>
+  <tbody>
+    <tr><td>1 · Elements</td><td>Badge, avatar, divider</td><td>Lint and visual</td></tr>
+    <tr><td>2 · Controls</td><td>Button, text field, checkbox</td><td>Plus behaviour and automated accessibility</td></tr>
+    <tr><td>3 · Composites</td><td>Menu, dialog, combobox, date picker</td><td>Plus manual keyboard and screen reader testing</td></tr>
+    <tr><td>4 · Systems</td><td>Data table, rich text editor</td><td>Plus performance with real data volumes, and testing with assistive technology users</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Testing effort by <a href="/writing/component-complexity">component complexity</a>. Heavyweight testing for a badge wastes time; lightweight testing for a data table ships bugs.</figcaption></figure>
+
+<h2>One definition of done</h2>
+<p>Testing works best as part of a shared definition of done, so neither design nor engineering can call a component finished alone:</p>
+<ul class="checklist">
+  <li>Figma and code components have the same name, props and values.</li>
+  <li>Every variant and state exists in both, and as a story in the workshop.</li>
+  <li>Styles use tokens only; lint passes.</li>
+  <li>Behaviour, visual and automated accessibility tests pass.</li>
+  <li>Keyboard and screen reader behaviour tested by a person.</li>
+  <li>Documentation complete; release note written; Figma library and code package released together.</li>
+</ul>
+
+<h2>Review questions for system changes</h2>
+<ul class="checklist">
+  <li>Does this change any prop, default or visual size? Then which version number changes?</li>
+  <li>Which components and products depend on what's changing?</li>
+  <li>Do the visual test pictures show only the intended changes?</li>
+  <li>Is Figma updated in the same release?</li>
+  <li>Has someone from design reviewed the result in the workshop?</li>
+</ul>
+<div class="callout callout--tip"><span class="callout-k">In practice</span><p>At JPMorgan Chase, two tools point out where a design file or a piece of code doesn't match the design system, so problems are fixed before review. <a href="/work/jpmc-system-checks">See the project</a>.</p></div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Five layers: lint, behaviour, visual, automated accessibility, manual.</li>
+  <li>Run the automated layers on every pull request.</li>
+  <li>Visual tests need a story for every state, with real content.</li>
+  <li>Automated accessibility is necessary, not sufficient: add a keyboard and a screen reader.</li>
+  <li>Match the depth of testing to the component's complexity.</li>
+</ul></div>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>How do you test a design system?</summary><div><p>With lint rules for off-system values, behaviour tests, visual regression tests of every variant and state, automated accessibility checks, and manual keyboard and screen reader checks for interactive components.</p></div></details>
+  <details><summary>What is visual regression testing?</summary><div><p>Taking a screenshot of every component variant and state on each change and comparing it with the last approved version, so unintended visual changes are caught before they ship.</p></div></details>
+  <details><summary>Are automated accessibility tests enough?</summary><div><p>No. They catch many common problems but can't judge whether a task can be completed with a keyboard or whether announcements make sense. Pair them with manual testing.</p></div></details>
+  <details><summary>Who should write the tests?</summary><div><p>System engineers, as part of building the component. Designers review visual test differences and the stories that define each state.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://storybook.js.org/docs/writing-tests" target="_blank" rel="noopener">Testing in Storybook</a><span>Storybook documentation.</span></li>
+  <li><a href="https://github.com/dequelabs/axe-core" target="_blank" rel="noopener">axe-core</a><span>Deque. An open-source accessibility rule engine.</span></li>
+  <li><a href="https://www.w3.org/WAI/ARIA/apg/" target="_blank" rel="noopener">ARIA Authoring Practices Guide</a><span>W3C. The keyboard patterns to test against.</span></li>
+</ul>

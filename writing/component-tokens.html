@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Component Tokens: When You Need Them | Layer One</title>
+<meta name="description" content="What component tokens are, when a component deserves its own tokens, how to name them from its anatomy, and how to keep them healthy in Figma and code.">
+<meta property="og:title" content="Component Tokens: When You Need Them | Layer One">
+<meta property="og:description" content="What component tokens are, when a component deserves its own tokens, how to name them from its anatomy, and how to keep them healthy in Figma and code.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-14">
+<meta property="article:modified_time" content="2026-11-14">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="Foundations & tokens">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/component-tokens.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Component Tokens: When You Need Them | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/writing.css?v=69e939a1">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Component Tokens: When You Need Them", "description": "What component tokens are, when a component deserves its own tokens, how to name them from its anatomy, and how to keep them healthy in Figma and code.", "image": "https://www.layerone.co.in/assets/images/writing/component-tokens.jpg", "datePublished": "2026-11-14", "dateModified": "2026-11-14", "mainEntityOfPage": "https://www.layerone.co.in/writing/component-tokens", "wordCount": 1259, "articleSection": "Foundations & tokens", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "Foundations & tokens", "item": "https://www.layerone.co.in/writing/topics/foundations-and-tokens"}, {"@type": "ListItem", "position": 3, "name": "Component tokens", "item": "https://www.layerone.co.in/writing/component-tokens"}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/component-tokens">
+<meta property="og:url" content="https://www.layerone.co.in/writing/component-tokens">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Component Tokens: When You Need Them | Layer One">
+<meta name="twitter:description" content="What component tokens are, when a component deserves its own tokens, how to name them from its anatomy, and how to keep them healthy in Figma and code.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/component-tokens.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading" title="Light or dark reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button><a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<main id="main" class="ed-wrap"><article class="ed-article">
+  <div class="ed-layout">
+    <aside class="ed-meta" aria-label="About this article"><div class="ed-meta-in">
+      <div class="ed-meta-who"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40"><p><b>Aniket Pandey</b><span>Founder, Layer One</span></p></div>
+      <dl class="ed-meta-dl"><div><dt>Published</dt><dd>14 November 2026</dd></div><div><dt>Reading time</dt><dd>5 minutes</dd></div><div><dt>Topic</dt><dd><a href="/writing/topics/foundations-and-tokens">Foundations & tokens</a></dd></div></dl>
+      <div class="ed-meta-sec"><p class="ed-meta-h">Building components well</p><ol class="ed-steps"><li><a href="/writing/component-states">Component states</a></li><li><a href="/writing/component-composition-slots">Composition vs configuration</a></li><li aria-current="step"><a href="/writing/component-tokens">Component tokens</a></li><li><a href="/writing/design-system-testing">Testing a design system</a></li><li><a href="/writing/accessible-design-system">Accessibility in a design system</a></li></ol></div><div class="ed-meta-sec"><p class="ed-meta-h">Share</p><p class="ed-share"><button type="button" data-copy="https://www.layerone.co.in/writing/component-tokens">Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.layerone.co.in/writing/component-tokens" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/intent/post?url=https://www.layerone.co.in/writing/component-tokens" target="_blank" rel="noopener">X</a></p></div>
+    </div></aside>
+    <header class="ed-head">
+      <p class="ed-crumb"><a href="/writing">Writing</a><span aria-hidden="true">/</span><a href="/writing/topics/foundations-and-tokens">Foundations & tokens</a><span class="ed-crumb-s">Part 3 of 5 in <a href="/writing#building-components-well">Building components well</a></span></p>
+      <h1 class="ed-title">Component tokens: when you need a third tier, and when you don't</h1>
+      <p class="ed-dek">Component tokens are powerful and easy to overdo: ten components with ten tokens each is already a hundred names. When the third tier earns its place, how to map a component's anatomy to tokens, and how to name them.</p>
+      <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>5 min read · 14 November 2026</span></span></p>
+    </header>
+    <figure class="ed-cover"><img src="../assets/images/writing/component-tokens.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 1024px) calc(100vw - 32px), 760px" fetchpriority="high" srcset="../assets/images/writing/component-tokens.w480.webp 480w, ../assets/images/writing/component-tokens.w800.webp 800w, ../assets/images/writing/component-tokens.w1200.webp 1200w, ../assets/images/writing/component-tokens.jpg 1600w" decoding="async"></figure>
+    <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>Where component tokens fit</b></summary><ol><li><a href="#where-component-tokens-fit">Where component tokens fit</a></li><li><a href="#when-a-component-deserves-its-own-tokens">When a component deserves its own tokens</a></li><li><a href="#mapping-a-component-s-anatomy-to-tokens">Mapping a component's anatomy to tokens</a></li><li><a href="#naming-them">Naming them</a></li><li><a href="#how-it-works-in-code-and-in-figma">How it works in code and in Figma</a></li><li><a href="#keeping-them-healthy">Keeping them healthy</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+    <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p><b>Component tokens</b> are the third tier of design tokens: names for one property of one component, like <code>button.primary.container.background</code>, that point to a semantic token like <code>color.action.primary.bg</code>. Most single-brand products with light and dark mode <b>don't need them</b>: components can use semantic tokens directly. Create component tokens when you have a reason: <b>brands that style specific components differently</b>, <b>white-label products</b> where customers adjust components, a component that <b>genuinely departs</b> from the semantic rule, or <b>platform-specific sizes</b>. Then create them only for the properties that vary.</p>
+  <ul>
+    <li>Never let components use primitive tokens or raw values. That's where dark mode breaks first.</li>
+    <li>Name them {component}.{variant}.{part}.{property}.{state}, using the anatomy's part names.</li>
+    <li>Component tokens multiply fast: ten components with ten tokens each is already a hundred names to maintain.</li>
+  </ul>
+</div>
+
+<h2 id="where-component-tokens-fit">Where component tokens fit</h2>
+<figure class="w-fig">
+  <div class="tiers">
+    <div class="tier"><span class="k">Tier 1 · Primitive</span><b>What it is</b><p>Raw values with neutral names. Components never use these directly.</p><code>color.brand.700</code><code>radius.4</code></div>
+    <i>→</i>
+    <div class="tier"><span class="k">Tier 2 · Semantic</span><b>What job it does</b><p>Names a purpose and points to a primitive. Enough for most components.</p><code>color.action.primary.bg</code><code>radius.control</code></div>
+    <i>→</i>
+    <div class="tier" style="outline:1.5px solid var(--accent)"><span class="k">Tier 3 · Component</span><b>Where it's used</b><p>Names one property of one component and points to a semantic token. Optional.</p><code>button.primary.container.background</code><code>button.container.radius</code></div>
+  </div>
+  <figcaption>The three tiers. Component tokens sit on top and only exist where a component needs to vary on its own. See <a href="/writing/design-tokens">design tokens</a> for the first two tiers.</figcaption>
+</figure>
+<p>There are two good ways for a component to get its values, and one bad one:</p>
+<div class="cols3">
+  <div class="cell"><span class="k">GOOD</span><h4>Semantic tokens</h4><p>The button's background is <code>action.primary.bg</code>. Simple, and enough for most single-brand products.</p></div>
+  <div class="cell"><span class="k">GOOD</span><h4>Its own tokens</h4><p>The background is <code>button.primary.container.background</code>, pointing to <code>action.primary.bg</code>. More flexible, more to maintain.</p></div>
+  <div class="cell cell--accent"><span class="k">BAD</span><h4>Primitives or raw values</h4><p>The background is <code>brand.700</code> or <code>#AB2800</code>. Dark mode and theming break here first.</p></div>
+</div>
+<p class="scenario-t">An illustration: dark mode works everywhere except the date picker</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>A product launches dark mode. Every screen looks right except the date picker, whose selected day stays bright orange on a white square.</p></div>
+  <div><span class="k">The cause</span><p>The date picker was built in a hurry using <code>brand.700</code> and <code>neutral.50</code> directly. Those are paints, not jobs, so dark mode had no way of switching them.</p></div>
+  <div><span class="k">The fix</span><p>Point it at job names (<code>action.primary.bg</code>, <code>bg.surface</code>) and add a lint rule that flags any component using primitives. One component fixed; a whole class of bugs prevented.</p></div>
+</div>
+
+<h2 id="when-a-component-deserves-its-own-tokens">When a component deserves its own tokens</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Situation</th><th>Component tokens?</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td>One brand, light and dark mode</td><td>Usually no</td><td>Semantic tokens already switch with the theme</td></tr>
+    <tr><td>Several brands that differ only in colour</td><td>Usually no</td><td>A brand level under the semantic tokens handles it</td></tr>
+    <tr><td>Brands that style specific components differently</td><td><b>Yes</b></td><td>Each brand overrides just those components' tokens</td></tr>
+    <tr><td>White-label products customers can adjust</td><td><b>Yes</b></td><td>A safe, limited list of things customers can change</td></tr>
+    <tr><td>A component that departs from the semantic rule</td><td><b>Yes, for that part</b></td><td>Records the exception in one visible place instead of hiding it in code</td></tr>
+    <tr><td>Native apps with platform-specific sizes</td><td><b>Yes, for sizes</b></td><td>iOS and Android can map sizes to their own guidelines</td></tr>
+  </tbody>
+</table></div>
+<figcaption>A decision guide. <span class="ev ev--prac">Practitioner view</span> Even Nathan Curtis has cautioned that the industry may focus too much on tokens at the expense of the rest of a system. Create them for a reason, not by default.</figcaption></figure>
+<p>A good middle path, used by many teams, is to create component tokens <b>only for the properties that vary</b>. A system might give buttons a <code>button.container.radius</code> token because one brand wants pill-shaped buttons, while the button's colours keep using semantic tokens directly. The token list stays short and every token has a reason.</p>
+
+<h2 id="mapping-a-component-s-anatomy-to-tokens">Mapping a component's anatomy to tokens</h2>
+<p>Start from the component's anatomy. For each part, ask which visual properties could ever change with a theme, a brand, a density or a platform. Those come from tokens. Properties that never change (the label sits above the field) are just part of the design.</p>
+<figure class="w-fig"><div class="w-tbl w-tbl--dense"><table>
+  <thead><tr><th>Part</th><th>Property</th><th>Component token</th><th>Points to</th><th>Changes with</th></tr></thead>
+  <tbody>
+    <tr><td>Label</td><td>Colour</td><td><code>input.label.color</code></td><td><code>text.primary</code></td><td>Theme</td></tr>
+    <tr><td>Container</td><td>Background</td><td><code>input.container.background</code></td><td><code>bg.surface</code></td><td>Theme</td></tr>
+    <tr><td>Container</td><td>Border</td><td><code>input.container.border</code></td><td><code>border.strong</code></td><td>Theme</td></tr>
+    <tr><td>Container</td><td>Border, error</td><td><code>input.container.border.error</code></td><td><code>feedback.danger.text</code></td><td>Theme</td></tr>
+    <tr><td>Container</td><td>Border, focus</td><td><code>input.container.border.focus</code></td><td><code>focus.ring</code></td><td>Theme</td></tr>
+    <tr><td>Container</td><td>Height</td><td><code>input.container.height</code></td><td><code>size.control.height</code></td><td>Density</td></tr>
+    <tr><td>Container</td><td>Corners</td><td><code>input.container.radius</code></td><td><code>radius.control</code></td><td>Brand</td></tr>
+    <tr><td>Helper text</td><td>Colour</td><td><code>input.helper.color</code></td><td><code>text.secondary</code></td><td>Theme</td></tr>
+  </tbody>
+</table></div>
+<figcaption>A text field's anatomy mapped to tokens. Even if you decide not to create component tokens, this map tells you exactly which semantic tokens the component must use.</figcaption></figure>
+
+<h2 id="naming-them">Naming them</h2>
+<pre><code>{component}.{variant}.{part}.{property}.{state}
+
+button.primary.container.background          <span class="c">// default state left out</span>
+button.primary.container.background.hover
+button.primary.label.color
+input.container.border.error                 <span class="c">// no variant needed</span>
+table.row.background.selected</code></pre>
+<ul class="checklist">
+  <li><b>Use the anatomy's part names,</b> so the token, the anatomy diagram and the Figma layer names match.</li>
+  <li><b>Leave out levels that don't apply</b> rather than inventing filler like "default".</li>
+  <li><b>Use the same property words everywhere:</b> if one component says <code>background</code>, none should say <code>bg</code> or <code>fill</code>.</li>
+  <li><b>Test with a newcomer:</b> show someone a component's anatomy and ask them to guess the token for the error border. If they can't, simplify.</li>
+</ul>
+<p>More in <a href="/writing/design-token-naming-conventions">design token naming conventions</a>.</p>
+
+<h2 id="how-it-works-in-code-and-in-figma">How it works in code and in Figma</h2>
+<p>Here's the whole point in one example: a second brand gets pill-shaped buttons by changing one value, and no component code changes.</p>
+<pre><code><span class="c">/* generated from the token files */</span>
+:root {
+  --button-container-radius: var(--radius-control);
+  --button-primary-container-background: var(--color-action-primary-bg);
+}
+<span class="c">/* brand B overrides one component token */</span>
+[data-brand=<span class="s">"b"</span>] { --button-container-radius: 999px; }
+
+<span class="c">/* Button.css never changes */</span>
+.button { border-radius: var(--button-container-radius); }</code></pre>
+<p>In Figma, the same tokens become variables attached to the component's layers, with modes for each brand or theme. When the variable names match the token names, switching a mode restyles every component exactly as the code does. See <a href="/writing/figma-code-sync">keeping Figma and code in sync</a>.</p>
+
+<h2 id="keeping-them-healthy">Keeping them healthy</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Check</th><th>What it finds</th><th>How</th></tr></thead>
+  <tbody>
+    <tr><td>Raw values in components</td><td>Colours or sizes typed directly into component styles</td><td>A lint rule on every change</td></tr>
+    <tr><td>Primitives in components</td><td>The date picker problem</td><td>A lint rule allowing only semantic and component tokens</td></tr>
+    <tr><td>Unused tokens</td><td>Tokens nothing uses any more</td><td>A script comparing the token list with usage</td></tr>
+    <tr><td>Missing tokens</td><td>Properties that should change with themes but don't</td><td>Switch every theme and density in the workshop and look</td></tr>
+    <tr><td>Figma–code mismatch</td><td>Variables that don't match tokens</td><td>Compare the exported variable list with the token source</td></tr>
+  </tbody>
+</table></div>
+<figcaption>A light quarterly audit. Before changing any token, check its blast radius: which components and products use it.</figcaption></figure>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Component tokens are optional; semantic tokens are enough for most products.</li>
+  <li>Create them for brands, white-label, real exceptions or platform sizes, and only for properties that vary.</li>
+  <li>Components must never use primitives or raw values.</li>
+  <li>Name them from the anatomy: component, variant, part, property, state.</li>
+  <li>Audit quarterly for raw values, primitives, unused and missing tokens.</li>
+</ul></div>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>What are component tokens?</summary><div><p>Tokens that name one property of one component, like button.primary.container.background, and point to a semantic token. They're the optional third tier after primitive and semantic tokens.</p></div></details>
+  <details><summary>Do I need component tokens for dark mode?</summary><div><p>Usually not. Semantic tokens switch with the theme. Component tokens help when brands or customers need to restyle specific components.</p></div></details>
+  <details><summary>How many component tokens should a system have?</summary><div><p>As few as possible. Create them only for properties that genuinely vary by brand, customer or platform.</p></div></details>
+  <details><summary>Can component tokens point to primitives?</summary><div><p>Avoid it. Point them to semantic tokens, so themes still work. A component token pointing at a primitive is the date picker problem one level up.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://www.designtokens.org/" target="_blank" rel="noopener">Design Tokens Community Group</a><span>The shared format for tokens.</span></li>
+  <li><a href="/writing/multi-brand-design-system">Multi-brand design systems</a><span>Where component tokens earn their place.</span></li>
+  <li><a href="/writing/dark-mode-design-tokens">Dark mode with design tokens</a><span>Why semantic tokens are usually enough.</span></li>
+</ul>
+</div>
+    <aside class="ed-aside" aria-label="On this page"><nav class="ed-toc"><p>On this page</p><ol><li><a href="#where-component-tokens-fit">Where component tokens fit</a></li><li><a href="#when-a-component-deserves-its-own-tokens">When a component deserves its own tokens</a></li><li><a href="#mapping-a-component-s-anatomy-to-tokens">Mapping a component's anatomy to tokens</a></li><li><a href="#naming-them">Naming them</a></li><li><a href="#how-it-works-in-code-and-in-figma">How it works in code and in Figma</a></li><li><a href="#keeping-them-healthy">Keeping them healthy</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><a class="ed-top" href="#main">Back to top ↑</a></nav></aside>
+  </div>
+  <footer class="ed-end">
+    <section class="ed-more" aria-labelledby="more-h"><h2 class="ed-sec-h" id="more-h">next in building components well:</h2><div class="ec-grid"><a class="ec " href="/writing/design-system-testing" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/design-system-testing.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-system-testing.w480.webp 480w, ../assets/images/writing/design-system-testing.w800.webp 800w, ../assets/images/writing/design-system-testing.w1200.webp 1200w, ../assets/images/writing/design-system-testing.jpg 1600w"></span><span class="ec-k">Building a system</span><b class="ec-t">Testing a design system: visual, behaviour and accessibility</b><span class="ec-d">How to test design system components: lint rules, behaviour tests, visual regression tests, automated accessibility checks and manual keyboard testing.</span><span class="ec-f">6 min read</span></a><a class="ec " href="/writing/design-tokens" data-topic="foundations-and-tokens"><span class="ec-m"><img src="../assets/images/writing/design-tokens.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-tokens.w480.webp 480w, ../assets/images/writing/design-tokens.w800.webp 800w, ../assets/images/writing/design-tokens.w1200.webp 1200w, ../assets/images/writing/design-tokens.jpg 1600w"></span><span class="ec-k">Foundations & tokens</span><b class="ec-t">Design tokens</b><span class="ec-d">What design tokens are, the three tiers, naming, the DTCG 2025.10 format and how tokens reach code. Examples and JSON you can adapt for your system.</span><span class="ec-f">10 min read · Guide</span></a><a class="ec " href="/writing/design-token-naming-conventions" data-topic="foundations-and-tokens"><span class="ec-m"><img src="../assets/images/writing/design-token-naming-conventions.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-token-naming-conventions.w480.webp 480w, ../assets/images/writing/design-token-naming-conventions.w800.webp 800w, ../assets/images/writing/design-token-naming-conventions.w1200.webp 1200w, ../assets/images/writing/design-token-naming-conventions.jpg 1600w"></span><span class="ec-k">Foundations & tokens</span><b class="ec-t">Design token naming conventions: a structure people can guess</b><span class="ec-d">How to name design tokens so people can guess them: the parts of a name, primitive, semantic and component patterns, common mistakes and a checklist.</span><span class="ec-f">5 min read</span></a></div></section>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Check your token names</h2><p>Paste your tokens into the free name checker: it explains every naming problem against a convention you set and suggests a fix.</p></div><a href="/lab/design-token-name-checker">Open the name checker <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main><footer class="ed-foot"><div class="ed-foot-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
+  <nav aria-label="Studio"><a href="/work">Work</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/contact">Contact</a><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">LinkedIn</a><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></nav>
+</div></footer><script src="../assets/site.js?v=3de6a9b6" defer></script>
+</body>
+</html>
