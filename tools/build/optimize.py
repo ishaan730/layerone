@@ -94,7 +94,8 @@ def responsive(html, page, out_dir):
         mid = next((u for w, u in items if w >= 1200), items[-1][1])
         lazy = _attr(tag, "loading") == "lazy"
         tag = _set(tag, "srcset", ", ".join(f"{u} {w}w" for w, u in items))
-        tag = _set(tag, "sizes", "auto, (max-width: 760px) 100vw, 60vw" if lazy else "(max-width: 1280px) 100vw, 1240px")
+        if _attr(tag, "sizes") is None:  # a page may set its own sizes (writing cards do)
+            tag = _set(tag, "sizes", "auto, (max-width: 760px) 100vw, 60vw" if lazy else "(max-width: 1280px) 100vw, 1240px")
         if " data-lightbox" in tag:
             tag = _set(tag, "data-full", src)
         tag = _set(tag, "src", mid)
