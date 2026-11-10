@@ -251,106 +251,125 @@ def article_head(a, depth):
 
 SUN = '<svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>'
 MOON = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>'
-THEME_JS = ("<script>try{var t=localStorage.getItem('l1-read');if(t==='dark'||t==='light')document.documentElement.dataset.read=t;"
-            "else if(matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.dataset.read='dark';}catch(e){}</script>")
+# The site is dark. Readers can switch the writing pages to a light reading theme; the choice is remembered.
+THEME_JS = "<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>"
 
 
 def reader_head(title, desc, depth, og="assets/og/layer-one.jpg", extra=""):
-    """The site's <head>, switched to the reading theme: light by default, dark if the reader chose it or their system is dark."""
-    h = head(title, desc, depth=depth, theme="light", og=og)
-    h = h.replace('<body class="theme-light">', '<body class="reader">')
+    """The site's own <head> and body, plus the reading-theme switch."""
+    h = head(title, desc, depth=depth, og=og)
+    h = h.replace('<body class="theme-dark">', '<body class="theme-dark reader">')
     return h.replace("</head>", THEME_JS + extra + "\n</head>", 1)
 
 
-def reader_bar(p, toc=None):
-    """A quiet bar: the studio's mark, a way back to the library, contents (articles only) and the theme switch."""
-    toc_btn = toc_panel = ""
-    if toc:
-        items = "".join(f'<li><a href="#{i}">{t}</a></li>' for t, i in toc)
-        toc_btn = '<button class="rd-btn" type="button" aria-expanded="false" aria-controls="rd-toc" data-rd-toc>Contents</button>'
-        toc_panel = f'<nav class="rd-toc" id="rd-toc" aria-label="Contents" hidden><p>In this article</p><ol>{items}</ol></nav>'
-    return f'''<header class="rd-bar"><div class="rd-bar-in">
-  <a class="rd-mark" href="{p}index.html" aria-label="Layer One, home">{LOGO}<span>LAYER ONE</span></a>
-  <a class="rd-lib" href="{p}writing.html">Writing</a>
-  <div class="rd-tools">{toc_btn}<button class="rd-btn rd-theme" type="button" data-rd-theme aria-label="Switch between light and dark reading">{SUN}{MOON}</button></div>
-</div>{toc_panel}<div class="rd-progress" aria-hidden="true"><span></span></div></header>
-'''
+def theme_toggle():
+    return (f'<button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading">'
+            f'{SUN}{MOON}<span class="ed-theme-l">Light reading</span><span class="ed-theme-d">Dark reading</span></button>')
 
 
-def reader_foot(p):
-    return f'''<footer class="rd-foot"><div class="rd-foot-in">
-  <a class="rd-mark" href="{p}index.html">{LOGO}<span>LAYER ONE</span></a>
-  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
-  <nav aria-label="Studio"><a href="{p}work.html">Work</a><a href="{p}pricing.html">Pricing</a><a href="{p}lab.html">Lab</a><a href="{p}contact.html">Contact</a><a href="{MEDIUM}" target="_blank" rel="noopener">Medium</a></nav>
-</div></footer>
-<script src="{p}assets/site.js?v={ver("assets/site.js")}" defer></script>
-</body>
-</html>
-'''
+def page(p, depth, rail, content, active="writing"):
+    """Every writing page uses the site's top navigation and its shell grid: a 300px rail on the left
+    (where the home page has its sidebar) and the content column starting on the same grid line."""
+    return (topbar(active, depth)
+            + f'<div class="shell ed-shell"><aside class="ed-rail" aria-label="Writing">{rail}</aside>'
+            + f'<main id="main" class="content ed-main">{content}</main></div>'
+            + close(depth))
+
+
+def meta_line(a):
+    s = series_of(a["slug"])
+    return f'{TOPIC[a["topic"]][0]}', f'{a["minutes"]} min read' + (" · Guide" if a.get("pillar") else "")
+
+
+def ecard(a, p, size="", ext=None, eager=False):
+    """The one article card used everywhere: cover, topic, title, summary, reading time."""
+    lazy = "" if eager else ' loading="lazy"'
+    if ext:
+        u, t, k, m, img = ext
+        return (f'<a class="ec {size}" href="{u}" target="_blank" rel="noopener" data-topic="{k}">'
+                f'<span class="ec-m"><img src="{p}{img}" alt=""{lazy}></span>'
+                f'<span class="ec-k">{TOPIC[k][0]}</span><b class="ec-t">{t}</b>'
+                f'<span class="ec-f">{m} min read · on Medium ↗</span></a>')
+    topic, mins = meta_line(a)
+    return (f'<a class="ec {size}" href="{p}writing/{a["slug"]}.html" data-topic="{a["topic"]}">'
+            f'<span class="ec-m"><img src="{p}{a["cover"]}" alt="" width="1600" height="900"{lazy}></span>'
+            f'<span class="ec-k">{topic}</span><b class="ec-t">{short_title(a)}</b>'
+            f'<span class="ec-d">{a["desc"]}</span><span class="ec-f">{mins}</span></a>')
+
+
+def topic_nav(p, active=None, filt=False):
+    """Topics in the rail. On the library page they filter the list in place; elsewhere they are links."""
+    allc = len(A) + len(MEDIUM_POSTS)
+    def link(href, label, count, key, cur):
+        attrs = ' aria-current="page"' if cur else ""
+        f = f' data-filter="{key}"' if filt else ""
+        return f'<a href="{href}"{attrs}{f}><span>{label}</span><em>{count}</em></a>'
+    out = link(f"{p}writing.html#articles", "All writing", allc, "all", active is None)
+    for k, n, _ in TOPICS:
+        c = sum(1 for a in A if a["topic"] == k) + sum(1 for m in MEDIUM_POSTS if m[2] == k)
+        out += link(f"{p}writing/topics/{k}.html", n, c, k, k == active)
+    return f'<p class="ed-rail-h">Topics</p><nav class="ed-topics" aria-label="Topics">{out}</nav>'
+
+
+def rail_foot():
+    return f'<div class="ed-rail-foot">{theme_toggle()}</div>'
 
 
 NUDGE = {
-    "audit": ("Working on this in your own product?", "Layer One helps product teams build and run design systems. Most teams start with a two-week audit: every style, component and token you have, checked and ranked. $1,500, fixed.", "See how an audit works", "pricing.html"),
-    "lab": ("Want to try this on your own values?", "The Lab is a set of free tools we use ourselves: OKLCH palettes, contrast checks, type and spacing scales, a token name linter and an export kit.", "Open the Lab", "lab.html"),
-    "call": ("Thinking about how your system is run?", "Layer One helps teams set up the people and process side of design systems. A thirty-minute call is a good place to start, with no pitch.", "Book a call", CAL),
-    "next": ("When you're ready to look at your own product", "Layer One helps product teams build and run design systems. Most start with a two-week audit that ends in a ranked plan. $1,500, fixed.", "See how an audit works", "pricing.html"),
+    "audit": ("Working on this in your own product?", "Most teams we work with start with a two-week audit: every style, component and token, checked and ranked.", "How the audit works", "pricing.html"),
+    "lab": ("Try it on your own values", "The Lab has the free tools we use ourselves: OKLCH palettes, contrast checks, scales, a token name linter and an export kit.", "Open the Lab", "lab.html"),
+    "call": ("Thinking about how your system is run?", "If you'd like a second opinion on your team or process, a thirty-minute call is a good place to start.", "Book a call", CAL),
+    "next": ("Looking at your own product next?", "Most teams we work with start with a two-week audit that ends in a ranked plan.", "How the audit works", "pricing.html"),
 }
 
 
 def build_article(a):
     p = "../"
     s = series_of(a["slug"])
-    kicker = f'<a href="{p}writing/topics/{a["topic"]}.html">{TOPIC[a["topic"]][0]}</a>'
-    nxt_html = ""
+    topic = TOPIC[a["topic"]][0]
+    series_line = series_steps = ""
+    nxt = None
     if s:
         i = s[3].index(a["slug"])
-        kicker += f'<span>Part {i + 1} of {len(s[3])} in <a href="{p}writing.html#{s[0]}">{s[1]}</a></span>'
+        series_line = f'<span>Part {i + 1} of {len(s[3])} · <a href="{p}writing.html#{s[0]}">{s[1]}</a></span>'
         nxt = BY[s[3][i + 1]] if i + 1 < len(s[3]) else None
-        if nxt:
-            nxt_html = (f'<a class="rd-next" href="{nxt["slug"]}.html"><span>Next in {s[1]}</span><b>{short_title(nxt)}</b>'
-                        f'<em>{nxt["minutes"]} min read</em></a>')
-    if not nxt_html:
-        r = BY[a["related"][0]]
-        nxt_html = (f'<a class="rd-next" href="{r["slug"]}.html"><span>Read next</span><b>{short_title(r)}</b>'
-                    f'<em>{r["minutes"]} min read</em></a>')
-    more = "".join(f'<li><a href="{BY[r]["slug"]}.html"><b>{short_title(BY[r])}</b><span>{TOPIC[BY[r]["topic"]][0]} · {BY[r]["minutes"]} min</span></a></li>'
-                   for r in a["related"][1:3])
+        steps = "".join(
+            f'<li{" aria-current=" + chr(34) + "step" + chr(34) if x == a["slug"] else ""}><a href="{x}.html">{path_title(BY[x])}</a></li>' for x in s[3])
+        series_steps = f'<div class="ed-rail-sec"><p class="ed-rail-h">{s[1]}</p><ol class="ed-steps">{steps}</ol></div>'
+    toc = "".join(f'<li><a href="#{i}">{t}</a></li>' for t, i in a["toc"])
+    rail = (f'<a class="ed-back" href="{p}writing.html">← All writing</a>'
+            f'<div class="ed-rail-sec"><p class="ed-rail-h">On this page</p><nav class="ed-toc" aria-label="On this page"><ol>{toc}</ol></nav></div>'
+            f'{series_steps}{rail_foot()}')
     nh, nt, nl, nu = NUDGE[a["cta"]]
     ext = nu.startswith("http")
-    nhref = nu if ext else p + nu
     nattr = ' target="_blank" rel="noopener"' if ext else ""
+    nhref = nu if ext else p + nu
+    nexts = ([nxt] if nxt else []) + [BY[r] for r in a["related"] if not nxt or r != nxt["slug"]]
+    nexts = nexts[:3]
+    lead = (f'<p class="ed-end-k">{"Next in " + s[1] if nxt else "Read next"}</p>')
+    cards = "".join(ecard(x, p) for x in nexts)
     upd = f' · Updated {nice_date(a["updated"])}' if a.get("updated") else ""
-    content = f'''<main id="main" class="rd">
-<article class="rd-article">
-  <header class="rd-head rd-grid">
-    <p class="rd-kicker">{kicker}</p>
-    <h1 class="rd-title">{a["h1"]}</h1>
-    <p class="rd-dek">{a["dek"]}</p>
-    <p class="rd-meta"><img src="{p}assets/studio/aniket.jpg" alt="" width="32" height="32"><span>{AUTHOR}</span><span>{a["minutes"]} min read</span><span>{nice_date(a["date"])}{upd}</span></p>
-    <figure class="rd-cover"><img src="{p}{a["cover"]}" alt="" width="1600" height="900"></figure>
+    mtoc = (f'<details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>{a["toc"][0][0] if a["toc"] else ""}</b></summary>'
+            f'<ol>{toc}</ol>{theme_toggle()}</details>')
+    content = f'''<article class="ed-article">
+  <header class="ed-head">
+    <p class="ed-kicker"><a href="{p}writing/topics/{a["topic"]}.html">{topic}</a>{series_line}</p>
+    <h1 class="ed-title">{a["h1"]}</h1>
+    <p class="ed-dek">{a["dek"]}</p>
+    <p class="ed-byline"><img src="{p}assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>{AUTHOR}</b><span>{a["minutes"]} min read · {nice_date(a["date"])}{upd}</span></span></p>
   </header>
-  <div class="rd-body rd-grid post-body">{a["body"]}</div>
-  <footer class="rd-end rd-grid">
-    <p class="rd-fin" aria-hidden="true">{LOGO}</p>
-    <div class="rd-author"><img src="{p}assets/studio/aniket.jpg" alt="" width="48" height="48" loading="lazy"><p>Written by <b>{AUTHOR}</b>, founder of Layer One. He has built and run design systems as an employee at <a href="{p}experience.html">CARS24, IBM and JPMorgan Chase</a>.</p></div>
-    {nxt_html}
-    <ul class="rd-more">{more}</ul>
-    <aside class="rd-nudge" aria-label="About Layer One"><p class="rd-nudge-k">From Layer One</p><h2>{nh}</h2><p>{nt}</p><a href="{nhref}"{nattr}>{nl} {ARROW}</a></aside>
+  {mtoc}
+  <figure class="ed-cover"><img src="{p}{a["cover"]}" alt="" width="1600" height="900"></figure>
+  <div class="ed-body post-body">{a["body"]}</div>
+  <footer class="ed-end">
+    <div class="ed-author"><img src="{p}assets/studio/aniket.jpg" alt="" width="56" height="56" loading="lazy"><p><b>{AUTHOR}</b> is the founder of Layer One. He has built and run design systems as an employee at <a href="{p}experience.html">CARS24, IBM and JPMorgan Chase</a>.</p></div>
+    {lead}
+    <div class="ec-grid ec-grid--3">{cards}</div>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>{nh}</h2><p>{nt}</p></div><a href="{nhref}"{nattr}>{nl} {ARROW}</a></aside>
   </footer>
 </article>
-</main>'''
-    write(f"writing/{a['slug']}.html", article_head(a, 1) + content.join([reader_bar(p, a["toc"]), reader_foot(p)]))
-
-
-def row(a, p, ext=None):
-    """One entry in the article list: a small cover, the title, one line of summary, topic and length."""
-    if ext:
-        u, t, k, m, img = ext
-        return (f'<li data-topic="{k}"><a href="{u}" target="_blank" rel="noopener"><span class="rd-thumb"><img src="{p}{img}" alt="" loading="lazy"></span>'
-                f'<span class="rd-row-t"><b>{t}</b><span class="rd-row-m">{TOPIC[k][0]} · {m} min · on Medium ↗</span></span></a></li>')
-    return (f'<li data-topic="{a["topic"]}"><a href="{p}writing/{a["slug"]}.html"><span class="rd-thumb"><img src="{p}{a["cover"]}" alt="" loading="lazy" width="1600" height="900"></span>'
-            f'<span class="rd-row-t"><b>{short_title(a)}</b><span class="rd-row-d">{a["desc"]}</span>'
-            f'<span class="rd-row-m">{TOPIC[a["topic"]][0]} · {a["minutes"]} min{" · Guide" if a.get("pillar") else ""}</span></span></a></li>')
+<div class="ed-progress" aria-hidden="true"><span></span></div>'''
+    write(f"writing/{a['slug']}.html", article_head(a, 1) + page(p, 1, rail, content))
 
 
 def path_title(a):
@@ -362,46 +381,59 @@ def path_title(a):
     return t
 
 
-def topic_links(p, active=None):
-    allc = len(A) + len(MEDIUM_POSTS)
-    out = f'<a href="{p}writing.html#articles"{" aria-current=" + chr(34) + "page" + chr(34) if active is None else ""}>All <span>{allc}</span></a>'
-    for k, n, _ in TOPICS:
-        c = sum(1 for a in A if a["topic"] == k) + sum(1 for m in MEDIUM_POSTS if m[2] == k)
-        cur = ' aria-current="page"' if k == active else ""
-        out += f'<a href="{p}writing/topics/{k}.html"{cur}>{n} <span>{c}</span></a>'
-    return f'<nav class="rd-topics" aria-label="Topics">{out}</nav>'
+def paths_html(p):
+    out = ""
+    for i, (k, n, d, items) in enumerate(SERIES, 1):
+        mins = sum(BY[s]["minutes"] for s in items)
+        steps = "".join(f'<li><a href="{p}writing/{s}.html"><span class="ep-n">{j}</span><b>{path_title(BY[s])}</b><em>{BY[s]["minutes"]} min</em></a></li>'
+                        for j, s in enumerate(items, 1))
+        out += (f'<section class="ep" id="{k}"><header class="ep-h"><span class="ep-no">Path {i:02d}</span><h3>{n}</h3><p>{d}</p>'
+                f'<span class="ep-meta">{len(items)} articles · {mins} min</span>'
+                f'<a class="ep-start" href="{p}writing/{items[0]}.html">Start the path {ARROW}</a></header><ol class="ep-steps">{steps}</ol></section>')
+    return out
 
 
 def build_hub():
     p = ""
-    start = BY["what-is-a-design-system"]
-    paths = ""
-    for i, (k, n, d, items) in enumerate(SERIES, 1):
-        lis = "".join(f'<li><a href="writing/{s}.html">{path_title(BY[s])}</a></li>' for s in items)
-        paths += f'<section class="rd-path" id="{k}"><p class="rd-path-n">{i:02d}</p><h3>{n}</h3><p>{d}</p><ol>{lis}</ol></section>'
-    order = [a for a in NEW if a is not start] + [BY["librarian-vs-leader"]]
-    rows = "".join(row(a, p) for a in order) + "".join(row(None, p, m) for m in MEDIUM_POSTS)
-    content = f'''<main id="main" class="rd rd-hub">
-  <header class="rd-hub-head">
-    <p class="rd-kicker">Writing</p>
-    <h1>Notes on building and running design systems</h1>
-    <p class="rd-hub-dek">Practical, plain-English guides to design systems: what they are, tokens and colour, components, governance, the teams behind them and how to tell whether it's working. From systems built at CARS24, IBM and JPMorgan Chase.</p>
-  </header>
-  <a class="rd-feature" href="writing/{start["slug"]}.html">
-    <span class="rd-feature-m"><img src="{start["cover"]}" alt="" width="1600" height="900"></span>
-    <span class="rd-feature-t"><span class="rd-kicker">Start here · {start["minutes"]} min read</span><b>{start["h1"]}</b><span>{start["dek"]}</span></span>
-  </a>
-  <section class="rd-sec" id="series" aria-labelledby="paths-h">
-    <h2 id="paths-h">Reading paths</h2>
-    <p class="rd-sec-d">Short, ordered paths through the library. Every article stands on its own.</p>
-    <div class="rd-paths">{paths}</div>
-  </section>
-  <section class="rd-sec" id="articles" aria-labelledby="all-h">
-    <h2 id="all-h">All articles</h2>
-    {topic_links(p)}
-    <ul class="rd-list">{rows}</ul>
-  </section>
-</main>'''
+    lead = BY["what-is-a-design-system"]
+    second = [BY["design-system-operating-model"], BY["design-tokens"]]
+    shown = {lead["slug"]} | {x["slug"] for x in second}
+    rest = [a for a in NEW if a["slug"] not in shown] + [BY["librarian-vs-leader"]]
+    cards = "".join(ecard(a, p) for a in rest) + "".join(ecard(None, p, ext=m) for m in MEDIUM_POSTS)
+    topics = "".join(
+        f'<a class="et" href="writing/topics/{k}.html"><b>{n}</b><span>{d}</span><em>{sum(1 for a in A if a["topic"] == k) + sum(1 for m in MEDIUM_POSTS if m[2] == k)} articles</em></a>'
+        for k, n, d in TOPICS)
+    content = f'''<header class="ed-intro">
+  <p class="ed-kicker"><span>Writing</span></p>
+  <h1>Field notes on design systems</h1>
+  <p>How design systems are built, run and measured: tokens and components, governance and teams, and what actually changes once a system is in use. From work at CARS24, IBM and JPMorgan Chase.</p>
+  <p class="ed-intro-n"><span>{len(A) + len(MEDIUM_POSTS)} articles</span><span>{len(SERIES)} reading paths</span><span>{len(TOPICS)} topics</span></p>
+</header>
+
+<section class="ed-sec ed-sec--first" aria-labelledby="featured-h">
+  <h2 class="ed-sec-h" id="featured-h">featured:</h2>
+  <div class="ed-featured">
+    {ecard(lead, p, "ec--lead", eager=True)}
+    <div class="ed-featured-side">{"".join(ecard(x, p, "ec--side", eager=True) for x in second)}</div>
+  </div>
+</section>
+
+<section class="ed-sec" id="articles" aria-labelledby="latest-h">
+  <div class="ed-sec-row"><h2 class="ed-sec-h" id="latest-h">latest articles:</h2><p class="ed-filter-state" data-filter-state aria-live="polite"></p></div>
+  <div class="ec-grid ec-grid--latest" data-filter-list>{cards}</div>
+</section>
+
+<section class="ed-sec" id="series" aria-labelledby="paths-h">
+  <div class="ed-sec-intro"><h2 class="ed-sec-h" id="paths-h">reading paths:</h2><p>Curated sequences for learning a subject from the start. Read them in order; each article still stands on its own.</p></div>
+  <div class="ep-list">{paths_html(p)}</div>
+</section>
+
+<section class="ed-sec" id="topics" aria-labelledby="topics-h">
+  <h2 class="ed-sec-h" id="topics-h">explore by topic:</h2>
+  <div class="et-grid">{topics}</div>
+  <p class="ed-also">Older essays are on <a href="{MEDIUM}" target="_blank" rel="noopener">Medium</a>.</p>
+</section>'''
+    rail = topic_nav(p, filt=True) + '<div class="ed-rail-sec"><p class="ed-rail-h">On this page</p><nav class="ed-toc ed-toc--static"><ol><li><a href="#featured-h">Featured</a></li><li><a href="#articles">Latest articles</a></li><li><a href="#series">Reading paths</a></li><li><a href="#topics">Explore by topic</a></li></ol></nav></div>' + rail_foot()
     items = [{"@type": "ListItem", "position": i, "url": f"https://www.layerone.co.in/writing/{a['slug']}", "name": short_title(a)} for i, a in enumerate(NEW + [BY["librarian-vs-leader"]], 1)]
     ldj = json.dumps({"@context": "https://schema.org", "@type": "Blog", "name": "Layer One: Writing", "url": "https://www.layerone.co.in/writing",
                       "description": "A practical library on building and running design systems.", "publisher": {"@type": "Organization", "name": "Layer One"},
@@ -409,7 +441,7 @@ def build_hub():
     h = reader_head("Writing: design systems guides | Layer One",
                     "Practical guides on design systems: what they are, tokens and colour, governance, team structure, operating models, metrics and ROI. From Layer One.",
                     0, extra=f'<script type="application/ld+json">{ldj}</script>')
-    write("blog.html", h + reader_bar(p) + content + reader_foot(p))
+    write("blog.html", h + page(p, 0, rail, content))
 
 
 def build_topics():
@@ -417,19 +449,15 @@ def build_topics():
     for k, n, d in TOPICS:
         arts = [a for a in A if a["topic"] == k]
         arts.sort(key=lambda a: not a.get("pillar"))
-        rows = "".join(row(a, p) for a in arts) + "".join(row(None, p, m) for m in MEDIUM_POSTS if m[2] == k)
-        content = f'''<main id="main" class="rd rd-hub">
-  <header class="rd-hub-head">
-    <p class="rd-kicker"><a href="{p}writing.html">Writing</a> · Topic</p>
-    <h1>{n}</h1>
-    <p class="rd-hub-dek">{d}</p>
-  </header>
-  <section class="rd-sec" aria-label="Articles">
-    {topic_links(p, k)}
-    <ul class="rd-list">{rows}</ul>
-  </section>
-</main>'''
-        write(f"writing/topics/{k}.html", reader_head(f"{n}: design systems articles | Layer One", d, 2) + reader_bar(p) + content + reader_foot(p))
+        cards = "".join(ecard(a, p) for a in arts) + "".join(ecard(None, p, ext=m) for m in MEDIUM_POSTS if m[2] == k)
+        content = f'''<header class="ed-intro ed-intro--topic">
+  <p class="ed-kicker"><a href="{p}writing.html">Writing</a><span>Topic</span></p>
+  <h1>{n}</h1>
+  <p>{d}</p>
+</header>
+<section class="ed-sec ed-sec--first" aria-label="Articles"><div class="ec-grid">{cards}</div></section>'''
+        rail = f'<a class="ed-back" href="{p}writing.html">← All writing</a>' + topic_nav(p, k) + rail_foot()
+        write(f"writing/topics/{k}.html", reader_head(f"{n}: design systems articles | Layer One", d, 2) + page(p, 2, rail, content))
 
 
 def _exists(a):
