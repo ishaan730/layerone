@@ -668,6 +668,12 @@
     }, { rootMargin: "-90px 0px -70% 0px" });
     body.querySelectorAll("h2[id]").forEach(function (h) { io.observe(h); });
   }
+  document.querySelectorAll("[data-copy]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var done = function () { var t = b.textContent; b.textContent = "Link copied"; setTimeout(function () { b.textContent = t; }, 1800); };
+      if (navigator.clipboard) navigator.clipboard.writeText(b.dataset.copy).then(done, function () {}); 
+    });
+  });
   if (mtoc) mtoc.addEventListener("click", function (e) { if (e.target.closest("ol a")) mtoc.open = false; });
 
   var list = document.querySelector("[data-filter-list]"), state = document.querySelector("[data-filter-state]");
