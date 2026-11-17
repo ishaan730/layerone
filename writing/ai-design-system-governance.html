@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who Owns AI Rules? Design System Governance for AI Agents | Layer One</title>
+<meta name="description" content="Who owns AGENTS.md, token descriptions and agent output: a decision-rights table, CODEOWNERS for AI rules, a policy for agent work and a feedback loop.">
+<meta property="og:title" content="Who Owns AI Rules? Design System Governance for AI Agents | Layer One">
+<meta property="og:description" content="Who owns AGENTS.md, token descriptions and agent output: a decision-rights table, CODEOWNERS for AI rules, a policy for agent work and a feedback loop.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-18">
+<meta property="article:modified_time" content="2026-11-18">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="AI-ready design systems">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/ai-design-system-governance.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Who Owns AI Rules? Design System Governance for AI Agents | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/writing.css?v=f693a735">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<meta name="keywords" content="AI governance design system, who owns AGENTS.md, AI generated code responsibility, design system contribution AI, CODEOWNERS, AI rules governance">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Who Owns AI Rules? Design System Governance for AI Agents", "description": "Who owns AGENTS.md, token descriptions and agent output: a decision-rights table, CODEOWNERS for AI rules, a policy for agent work and a feedback loop.", "image": "https://www.layerone.co.in/assets/images/writing/ai-design-system-governance.jpg", "datePublished": "2026-11-18", "dateModified": "2026-11-18", "mainEntityOfPage": "https://www.layerone.co.in/writing/ai-design-system-governance", "wordCount": 1769, "articleSection": "AI-ready design systems", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}, "keywords": "AI governance design system, who owns AGENTS.md, AI generated code responsibility, design system contribution AI, CODEOWNERS, AI rules governance", "isPartOf": {"@type": "CreativeWorkSeries", "name": "Making your design system AI-ready", "url": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "AI-ready design systems", "item": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}, {"@type": "ListItem", "position": 3, "name": "Who owns the AI rules? Governance for an AI-ready design system", "item": "https://www.layerone.co.in/writing/ai-design-system-governance"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Who should own AGENTS.md and AI rules for a design system?", "acceptedAnswer": {"@type": "Answer", "text": "The design system team should own the design system section, ideally generated and distributed from the system's repo. Product teams own the repo-specific parts. Changes to either should be reviewed like code."}}, {"@type": "Question", "name": "Who is responsible for AI-generated code?", "acceptedAnswer": {"@type": "Answer", "text": "The person who merges it, exactly as if they had written it. The design system team is responsible for giving agents correct guidance; product teams are responsible for what ships."}}, {"@type": "Question", "name": "Should design systems accept AI-written contributions?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, under the same contribution model and standard as any other contribution, with a named human author who understands the change, a label so reviewers know, and extra scrutiny for accessibility and API consistency."}}, {"@type": "Question", "name": "How do I review changes to AI rules files?", "acceptedAnswer": {"@type": "Answer", "text": "Keep them in the repo, require approval with CODEOWNERS, check new rules against metadata and docs for contradictions, rerun evals for significant changes, and announce behaviour changes in release notes."}}, {"@type": "Question", "name": "How can AI agents help improve a design system?", "acceptedAnswer": {"@type": "Answer", "text": "When rules tell agents to report gaps instead of inventing components, their reports, zero-result searches and repeated mistakes become specific feedback. Route them through the system team's normal intake."}}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/ai-design-system-governance">
+<meta property="og:url" content="https://www.layerone.co.in/writing/ai-design-system-governance">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Who Owns AI Rules? Design System Governance for AI Agents | Layer One">
+<meta name="twitter:description" content="Who owns AGENTS.md, token descriptions and agent output: a decision-rights table, CODEOWNERS for AI rules, a policy for agent work and a feedback loop.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/ai-design-system-governance.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading" title="Light or dark reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button><a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<main id="main" class="ed-wrap"><article class="ed-article">
+  <div class="ed-layout">
+    <aside class="ed-meta" aria-label="About this article"><div class="ed-meta-in">
+      <div class="ed-meta-who"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40"><p><b>Aniket Pandey</b><span>Founder, Layer One</span></p></div>
+      <dl class="ed-meta-dl"><div><dt>Published</dt><dd>18 November 2026</dd></div><div><dt>Reading time</dt><dd>8 minutes</dd></div><div><dt>Topic</dt><dd><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a></dd></div></dl>
+      <div class="ed-meta-sec"><p class="ed-meta-h">Making your design system AI-ready</p><ol class="ed-steps"><li><a href="/writing/ai-ready-design-system">What is an AI-ready design system?</a></li><li><a href="/writing/how-ai-agents-use-design-systems">How AI coding agents use your design system, and where they go wrong</a></li><li><a href="/writing/design-tokens-for-ai-agents">Design tokens for AI agents</a></li><li><a href="/writing/component-metadata-for-ai-agents">Component metadata for AI agents</a></li><li><a href="/writing/design-system-documentation-for-ai">Writing design system documentation AI agents can use, and how retrieval finds it</a></li><li><a href="/writing/agents-md-llms-txt-design-system">AGENTS.md, llms.txt and rules files for design systems</a></li><li><a href="/writing/design-system-mcp-server">Build an MCP server for your design system</a></li><li><a href="/writing/figma-mcp-design-to-code">Figma to code with AI</a></li><li><a href="/writing/ai-generated-ui-guardrails">Guardrails for AI-generated UI</a></li><li><a href="/writing/legacy-design-system-ai-ready">How to make a legacy design system AI-ready</a></li><li><a href="/writing/why-ai-ignores-design-system">Why does AI ignore my design system?</a></li><li><a href="/writing/design-system-context-window">How much design system context does an AI agent need?</a></li><li><a href="/writing/ai-generated-ui-accessibility">Why is AI-generated UI inaccessible, and how can a design system fix it?</a></li><li><a href="/writing/figma-code-token-drift">Figma variables and code tokens out of sync?</a></li><li><a href="/writing/ai-prototyping-tools-design-system">How do I make Figma Make, v0 and Lovable use my design system?</a></li><li><a href="/writing/shadcn-ui-design-system-ai">Is shadcn/ui better for AI?</a></li><li><a href="/writing/designers-ai-ready-design-system">Can designers make a design system AI-ready without coding?</a></li><li aria-current="step"><a href="/writing/ai-design-system-governance">Who owns the AI rules?</a></li><li><a href="/writing/design-system-ai-security">Is it safe to connect your design system to AI tools?</a></li><li><a href="/writing/ai-ready-design-system-roi">How do you prove the ROI of an AI-ready design system?</a></li></ol></div><div class="ed-meta-sec"><p class="ed-meta-h">Tags</p><ul class="ed-tags"><li>Governance</li><li>Ownership</li><li>Process</li><li>Contribution</li></ul></div><div class="ed-meta-sec"><p class="ed-meta-h">Share</p><p class="ed-share"><button type="button" data-copy="https://www.layerone.co.in/writing/ai-design-system-governance">Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.layerone.co.in/writing/ai-design-system-governance" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/intent/post?url=https://www.layerone.co.in/writing/ai-design-system-governance" target="_blank" rel="noopener">X</a></p></div>
+    </div></aside>
+    <header class="ed-head">
+      <p class="ed-crumb"><a href="/writing">Writing</a><span aria-hidden="true">/</span><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a><span class="ed-crumb-s">Part 18 of 20 in <a href="/writing#ai-ready">Making your design system AI-ready</a></span></p>
+      <h1 class="ed-title">Who owns the AI rules? Governance for an AI-ready design system</h1>
+      <p class="ed-dek">AI-readiness creates new artifacts (rules files, metadata, MCP tools, evals) that change what every agent does, and usually nobody owns them. A decision-rights table, review for rules changes, a policy for agent-written work and a loop that turns agent gaps into backlog.</p>
+      <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>8 min read · 18 November 2026</span></span></p>
+    </header>
+    <figure class="ed-cover"><img src="../assets/images/writing/ai-design-system-governance.w1200.webp" alt="Diagram: AI rules artifacts each mapped to an owner and reviewer, with agent gap reports flowing back into the design system backlog." width="1600" height="900" sizes="(max-width: 1024px) calc(100vw - 32px), 760px" fetchpriority="high" srcset="../assets/images/writing/ai-design-system-governance.w480.webp 480w, ../assets/images/writing/ai-design-system-governance.w800.webp 800w, ../assets/images/writing/ai-design-system-governance.w1200.webp 1200w, ../assets/images/writing/ai-design-system-governance.jpg 1600w" decoding="async"></figure>
+    <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>The problem: new artifacts, no owners</b></summary><ol><li><a href="#the-problem-new-artifacts-no-owners">The problem: new artifacts, no owners</a></li><li><a href="#who-owns-what-a-decision-rights-table">Who owns what: a decision-rights table</a></li><li><a href="#reviewing-changes-to-ai-rules">Reviewing changes to AI rules</a></li><li><a href="#a-policy-for-agent-written-contributions">A policy for agent-written contributions</a></li><li><a href="#who-is-accountable-for-agent-output-in-products">Who is accountable for agent output in products?</a></li><li><a href="#turn-agent-mistakes-and-gaps-into-a-backlog">Turn agent mistakes and gaps into a backlog</a></li><li><a href="#keep-a-decision-log">Keep a decision log</a></li><li><a href="#how-governance-scales-with-team-size">How governance scales with team size</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+    <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>The design system team should own the <b>AI rules</b> (the design system section of rules files, token descriptions, component metadata, MCP tools, lint rules and evals), because they are design system decisions in machine-readable form. Product teams own their <b>repo-specific rules</b> and the <b>agent output</b> they merge. Make that explicit with four things: a <b>decision-rights table</b> saying who decides and who reviews each artifact; <b>review for rules changes</b> (CODEOWNERS on the files, release notes for changes); a <b>contribution policy for agent-written work</b> (same standard, same review, clearly labelled); and a <b>feedback loop</b> that turns repeated agent mistakes and reported gaps into backlog items. Keep it light: most changes should take minutes to approve.</p>
+  <ul>
+    <li>A rules-file line can change what hundreds of agent sessions do tomorrow. Review it like a code change.</li>
+    <li>The person who merges agent-written code is accountable for it, as for any code.</li>
+    <li>Part 18 of 20 in the series on AI-ready design systems.</li>
+  </ul>
+</div>
+
+<h2 id="the-problem-new-artifacts-no-owners">The problem: new artifacts, no owners</h2>
+<p>An AI-ready design system creates artifacts that didn't exist before: AGENTS.md sections, token descriptions, metadata files, MCP servers, guidelines for prototyping tools, lint rules, eval tasks. Each one changes what agents do across every product. In most teams, nobody has decided who owns them.</p>
+<p class="scenario-t">An illustration: the helpful edit</p>
+<div class="scenario">
+  <div><span class="k">What happened</span><p>An engineer on the admin team, frustrated that agents kept using <code>Table</code> for a three-row list, added "Prefer DataGrid for all tabular data" to the shared Harbor snippet in their repo's AGENTS.md.</p></div>
+  <div><span class="k">The effect</span><p>Weeks later, someone updating the snippet template in the design system repo copied it from that repo's AGENTS.md. The next release pushed the line to all twelve product repos. Agents started using the heavy DataGrid for simple lists everywhere.</p></div>
+  <div><span class="k">The gap</span><p>No one owned the snippet, nobody reviewed the change, and the line contradicted Table's metadata. Agents got two answers and followed the louder one.</p></div>
+</div>
+<p>The fix isn't a committee. It's clear ownership and the same lightweight review you already use for code. If you're new to design system governance, start with <a href="/writing/design-system-governance">who decides what, and how</a>.</p>
+
+<h2 id="who-owns-what-a-decision-rights-table">Who owns what: a decision-rights table</h2>
+<figure class="w-fig"><div class="w-tbl w-tbl--dense"><table>
+  <thead><tr><th>Artifact</th><th>Decides</th><th>Reviews</th><th>Informed</th></tr></thead>
+  <tbody>
+    <tr><td>Design system section of AGENTS.md (generated snippet)</td><td>Design system team</td><td>A system designer and engineer</td><td>All product teams, via release notes</td></tr>
+    <tr><td>Repo-specific rules (domain, build, testing)</td><td>Product team</td><td>Product team</td><td>System team, if it touches UI</td></tr>
+    <tr><td>Token descriptions</td><td>System designer</td><td>System engineer</td><td>Product designers</td></tr>
+    <tr><td>Component metadata and usage rules</td><td>System designer</td><td>System engineer, accessibility specialist</td><td>Everyone, via docs</td></tr>
+    <tr><td>Pattern pages</td><td>System designer with product designers</td><td>Content designer</td><td>Everyone</td></tr>
+    <tr><td>MCP server and tool descriptions</td><td>System engineer</td><td>System designer</td><td>Product engineers</td></tr>
+    <tr><td>Lint rules and messages</td><td>System engineer</td><td>A product engineering champion</td><td>Product engineers, before rules become errors</td></tr>
+    <tr><td>Guidelines for prototyping tools</td><td>System designer</td><td>System engineer</td><td>Designers</td></tr>
+    <tr><td>Eval tasks and results</td><td>Design system lead</td><td>Designer and engineer pair</td><td>Sponsors, monthly</td></tr>
+    <tr><td>Agent-written code in a product</td><td>Product team</td><td>Normal code review</td><td>–</td></tr>
+  </tbody>
+</table></div>
+<figcaption>A starting point. The principle: whoever owns a decision for people owns it for agents too.</figcaption></figure>
+
+<h2 id="reviewing-changes-to-ai-rules">Reviewing changes to AI rules</h2>
+<p>Rules files, metadata and lint messages are instructions that run in every agent session. Treat changes to them like code changes.</p>
+<ol class="w-steps">
+  <li><h3>Keep them in the repo</h3><p>All AI rules live as files in the design system repo, generated where possible. No rules that only exist in a tool's settings screen.</p></li>
+  <li><h3>Require review with CODEOWNERS</h3><p>GitHub and GitLab can require approval from named owners for changes to specific paths.</p></li>
+  <li><h3>Check for contradictions</h3><p>When a rule changes, check it against the metadata, docs and lint messages that cover the same thing. One decision, one wording, generated into every place.</p></li>
+  <li><h3>Rerun evals for significant changes</h3><p>A new rule should improve the eval tasks it targets without making others worse (<a href="/writing/ai-generated-ui-guardrails">part 9</a>).</p></li>
+  <li><h3>Announce in release notes</h3><p>"Agents will now use ConfirmDialog for all destructive actions" is a behaviour change teams should hear about. See <a href="/writing/design-system-release-notes">release notes</a>.</p></li>
+</ol>
+<pre><code><span class="c"># .github/CODEOWNERS in the design system repo</span>
+/tokens/                      @kestrel/harbor-design @kestrel/harbor-eng
+/src/**/*.meta.json           @kestrel/harbor-design
+/docs/patterns/               @kestrel/harbor-design @kestrel/content-design
+/AGENTS.snippet.template.md   @kestrel/harbor-design @kestrel/harbor-eng
+/mcp/                         @kestrel/harbor-eng
+/lint/                        @kestrel/harbor-eng
+/evals/                       @kestrel/harbor-lead
+
+<span class="c"># .github/CODEOWNERS in a product repo: the generated block is read-only here</span>
+/AGENTS.md                    @kestrel/payroll-leads</code></pre>
+<p>In product repos, the CI check from <a href="/writing/agents-md-llms-txt-design-system">part 6</a> fails if anyone edits the generated block by hand, which is what would have stopped the DataGrid line. Suggestions go to the design system team's front door instead.</p>
+
+<h2 id="a-policy-for-agent-written-contributions">A policy for agent-written contributions</h2>
+<p>Agents now draft design system changes too: new components, documentation, codemods. That's useful, and it needs a clear standard.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Question</th><th>Policy</th></tr></thead>
+  <tbody>
+    <tr><td>Can agent-written code be contributed to the system?</td><td>Yes, under the same contribution model and standard as any other contribution</td></tr>
+    <tr><td>Who is the author?</td><td>The person who opened the pull request. They must understand and stand behind every line</td></tr>
+    <tr><td>How is it labelled?</td><td>An "ai-assisted" label on the pull request, so reviewers know what to look for</td></tr>
+    <tr><td>What gets extra scrutiny?</td><td>Accessibility behaviour, API naming consistency, visual details in dark mode and at other densities, and invented dependencies</td></tr>
+    <tr><td>What can agents never do alone?</td><td>Change tokens, deprecate components, change rules files, or merge anything</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Same standard, clear authorship, extra care where agents are weakest. See <a href="/writing/design-system-contribution-model">the contribution model</a>.</figcaption></figure>
+
+<h2 id="who-is-accountable-for-agent-output-in-products">Who is accountable for agent output in products?</h2>
+<p>A simple rule removes most arguments: <b>the person who merges agent-written code is accountable for it, exactly as if they'd written it.</b> The design system team is accountable for whether the system gave agents correct guidance; the product team is accountable for what ships.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">SYSTEM TEAM</span><h4>Accountable for guidance</h4><ul><li>Rules, metadata and docs are correct and consistent</li><li>Lint catches what it should</li><li>Gaps reported by agents are triaged</li><li>Eval results are shared</li></ul></div>
+  <div class="cell"><span class="k">PRODUCT TEAM</span><h4>Accountable for output</h4><ul><li>Agent code is reviewed before merge</li><li>Checks pass; overrides are justified</li><li>Local exceptions are recorded</li><li>Gaps are reported, not quietly worked around</li></ul></div>
+</div>
+
+<h2 id="turn-agent-mistakes-and-gaps-into-a-backlog">Turn agent mistakes and gaps into a backlog</h2>
+<p>Agents are an unusually honest source of design system feedback. When a rules file says "if no component fits, say so" (<a href="/writing/agents-md-llms-txt-design-system">part 6</a>), every gap gets reported, not quietly worked around. Collect those reports.</p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Signals</b><span>"No component fits" reports, zero-result MCP searches, eval failures, lint overrides</span></div><i>→</i>
+    <div><b>One intake</b><span>The system team's existing front door, tagged "agent"</span></div><i>→</i>
+    <div class="hi"><b>Triage weekly</b><span>Real gap, unclear rule, or wrong expectation?</span></div><i>→</i>
+    <div><b>Act</b><span>New component, sharper rule, or no change with a written reason</span></div><i>→</i>
+    <div><b>Close the loop</b><span>Release note; new eval task</span></div>
+  </div>
+  <figcaption>The agent feedback loop uses the same front door as human requests. Use the same scoring, too: see <a href="/writing/design-system-contribution-model">contribution model</a>.</figcaption>
+</figure>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Signal</th><th>Usually means</th><th>Typical action</th></tr></thead>
+  <tbody>
+    <tr><td>Same "no component fits" from three teams</td><td>A real gap</td><td>Score it as a component request</td></tr>
+    <tr><td>Agents keep choosing the wrong one of two components</td><td>Purposes overlap</td><td>Rewrite both purposes, or merge</td></tr>
+    <tr><td>Searches for "popup" find nothing</td><td>Docs don't use people's words</td><td>Add the word to Dialog's purpose</td></tr>
+    <tr><td>Lint rule overridden often in one product</td><td>The rule is wrong for that case, or a gap</td><td>Talk to the team; adjust the rule or add a component</td></tr>
+  </tbody>
+</table></div></figure>
+
+<h2 id="keep-a-decision-log">Keep a decision log</h2>
+<p>When you decide something about AI and the design system, write it down with the reason. A future person, or an agent reading your docs, will ask why.</p>
+<pre><code>## 2026-11-20 · Agents may not edit files in components/ui
+Decision: Agents must not modify shared component source in product repos.
+Why: Two incidents where an agent edited Button for one screen and changed it everywhere.
+Enforced by: AGENTS.md rule; CODEOWNERS on components/ui; eval task "export spinner".
+Owner: Harbor team. Review: when we move to package-only distribution.</code></pre>
+
+<h2 id="how-governance-scales-with-team-size">How governance scales with team size</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Team</th><th>What's enough</th></tr></thead>
+  <tbody>
+    <tr><td>Startup, one or two people own the system</td><td>One owner for all AI rules; a short decision log; AGENTS.md reviewed in normal pull requests</td></tr>
+    <tr><td>Mid-size, a small system team</td><td>The decision-rights table, CODEOWNERS, an "agent" tag on the front door, monthly eval review</td></tr>
+    <tr><td>Enterprise, many products and a platform team</td><td>All of the above, plus an approved list of AI tools and MCP servers, security review (<a href="/writing/design-system-ai-security">part 19</a>) and quarterly reporting to sponsors</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Add process only when its absence causes problems. See <a href="/writing/design-system-operating-model">the operating model</a>.</figcaption></figure>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">MISTAKE</span><h4>Rules edited in many places</h4><p>The same rule hand-edited in twelve repos becomes twelve rules. Generate one, distribute it, protect it.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>A new committee for AI</h4><p>AI rules are design system decisions. Use the existing governance with a few new artifacts, not a parallel process.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>"The AI did it"</h4><p>Agent output is reviewed and merged by people. Accountability stays with them.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Ignoring agent gap reports</h4><p>They're free, specific feedback. A team that never acts on them teaches everyone to work around the system.</p></div>
+</div>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>The design system team owns AI rules; product teams own repo rules and the agent output they merge.</li>
+  <li>Write a decision-rights table for the new artifacts: rules files, descriptions, metadata, MCP, lint, evals.</li>
+  <li>Review rules changes like code: CODEOWNERS, contradiction checks, evals, release notes.</li>
+  <li>Agent-written contributions meet the same standard, with a named human author and a label.</li>
+  <li>Turn agent gap reports and repeated mistakes into backlog items through your existing front door.</li>
+</ul></div>
+<p>Next: <a href="/writing/design-system-ai-security">Is it safe to connect your design system to AI tools?</a></p>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Who should own AGENTS.md and AI rules for a design system?</summary><div><p>The design system team should own the design system section, ideally generated and distributed from the system's repo. Product teams own the repo-specific parts. Changes to either should be reviewed like code.</p></div></details>
+  <details><summary>Who is responsible for AI-generated code?</summary><div><p>The person who merges it, exactly as if they had written it. The design system team is responsible for giving agents correct guidance; product teams are responsible for what ships.</p></div></details>
+  <details><summary>Should design systems accept AI-written contributions?</summary><div><p>Yes, under the same contribution model and standard as any other contribution, with a named human author who understands the change, a label so reviewers know, and extra scrutiny for accessibility and API consistency.</p></div></details>
+  <details><summary>How do I review changes to AI rules files?</summary><div><p>Keep them in the repo, require approval with CODEOWNERS, check new rules against metadata and docs for contradictions, rerun evals for significant changes, and announce behaviour changes in release notes.</p></div></details>
+  <details><summary>How can AI agents help improve a design system?</summary><div><p>When rules tell agents to report gaps instead of inventing components, their reports, zero-result searches and repeated mistakes become specific feedback. Route them through the system team's normal intake.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners" target="_blank" rel="noopener">GitHub: about code owners</a><span>Requiring review for specific paths.</span></li>
+  <li><a href="/writing/design-system-governance">Design system governance</a><span>Decision rights and lightweight process.</span></li>
+  <li><a href="/writing/design-system-contribution-model">Design system contribution model</a><span>One front door and a scoring formula.</span></li>
+  <li><a href="/writing/design-system-release-notes">Design system release notes</a><span>Announcing behaviour changes.</span></li>
+</ul>
+</div>
+    <aside class="ed-aside" aria-label="On this page"><nav class="ed-toc"><p>On this page</p><ol><li><a href="#the-problem-new-artifacts-no-owners">The problem: new artifacts, no owners</a></li><li><a href="#who-owns-what-a-decision-rights-table">Who owns what: a decision-rights table</a></li><li><a href="#reviewing-changes-to-ai-rules">Reviewing changes to AI rules</a></li><li><a href="#a-policy-for-agent-written-contributions">A policy for agent-written contributions</a></li><li><a href="#who-is-accountable-for-agent-output-in-products">Who is accountable for agent output in products?</a></li><li><a href="#turn-agent-mistakes-and-gaps-into-a-backlog">Turn agent mistakes and gaps into a backlog</a></li><li><a href="#keep-a-decision-log">Keep a decision log</a></li><li><a href="#how-governance-scales-with-team-size">How governance scales with team size</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><a class="ed-top" href="#main">Back to top ↑</a></nav></aside>
+  </div>
+  <footer class="ed-end">
+    <section class="ed-more" aria-labelledby="more-h"><h2 class="ed-sec-h" id="more-h">next in making your design system ai-ready:</h2><div class="ec-grid"><a class="ec " href="/writing/design-system-ai-security" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/design-system-ai-security.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-system-ai-security.w480.webp 480w, ../assets/images/writing/design-system-ai-security.w800.webp 800w, ../assets/images/writing/design-system-ai-security.w1200.webp 1200w, ../assets/images/writing/design-system-ai-security.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">Is it safe to connect your design system to AI tools? Security, privacy and IP</b><span class="ec-d">Security, privacy and IP when connecting a design system to AI tools: what's sensitive, data flows, prompt injection, MCP risks and a policy template.</span><span class="ec-f">8 min read</span></a><a class="ec " href="/writing/design-system-governance" data-topic="governance"><span class="ec-m"><img src="../assets/images/writing/design-system-governance.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-system-governance.w480.webp 480w, ../assets/images/writing/design-system-governance.w800.webp 800w, ../assets/images/writing/design-system-governance.w1200.webp 1200w, ../assets/images/writing/design-system-governance.jpg 1600w"></span><span class="ec-k">Governance</span><b class="ec-t">Design system governance: who decides what, and how</b><span class="ec-d">Governance without bureaucracy: decision rights, a lightweight review process, escalation paths and a decision log. How it should change as you grow.</span><span class="ec-f">9 min read · Guide</span></a><a class="ec " href="/writing/design-system-contribution-model" data-topic="governance"><span class="ec-m"><img src="../assets/images/writing/design-system-contribution-model.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-system-contribution-model.w480.webp 480w, ../assets/images/writing/design-system-contribution-model.w800.webp 800w, ../assets/images/writing/design-system-contribution-model.w1200.webp 1200w, ../assets/images/writing/design-system-contribution-model.jpg 1600w"></span><span class="ec-k">Governance</span><b class="ec-t">Design system contribution model</b><span class="ec-d">A contribution model that scales: one front door, a request form, a scoring formula for priorities, contribution levels and the review flow.</span><span class="ec-f">8 min read</span></a></div></section>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Thinking about how your system is run?</h2><p>If you'd like a second opinion on your team or process, a thirty-minute call is a good place to start.</p></div><a href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main><footer class="ed-foot"><div class="ed-foot-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
+  <nav aria-label="Studio"><a href="/work">Work</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/contact">Contact</a><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">LinkedIn</a><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></nav>
+</div></footer><script src="../assets/site.js?v=3de6a9b6" defer></script>
+</body>
+</html>

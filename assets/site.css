@@ -3065,7 +3065,7 @@ figure { margin: 0; }
 .ep-steps::before { content: ""; position: absolute; left: 13px; top: 26px; bottom: 18px; width: 1px; background: var(--rule); }
 .ep-steps a { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 8px 0; text-decoration: none; position: relative; }
 .ep-n { width: 27px; height: 27px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-variant-numeric: tabular-nums; background: var(--bg-raised); border: 1px solid var(--rule); color: var(--text-muted); }
-.ep--wide .ep-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; grid-auto-flow: column; grid-template-rows: repeat(5, auto); }
+.ep--wide .ep-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; grid-auto-flow: column; grid-template-rows: repeat(var(--rows, 5), auto); }
 .ep--wide .ep-steps::before { display: none; }
 .ep--wide .ep-h p { max-width: 72ch; }
 @media (max-width: 760px) { .ep--wide .ep-steps { grid-template-columns: 1fr; grid-auto-flow: row; grid-template-rows: none; } }

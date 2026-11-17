@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Much Design System Context Does an AI Agent Need? | Layer One</title>
+<meta name="description" content="Why giving AI agents your whole design system makes results worse: context windows, rules file length, too many MCP tools and progressive disclosure.">
+<meta property="og:title" content="How Much Design System Context Does an AI Agent Need? | Layer One">
+<meta property="og:description" content="Why giving AI agents your whole design system makes results worse: context windows, rules file length, too many MCP tools and progressive disclosure.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-18">
+<meta property="article:modified_time" content="2026-11-18">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="AI-ready design systems">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/design-system-context-window.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="How Much Design System Context Does an AI Agent Need? | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/writing.css?v=f693a735">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<meta name="keywords" content="AI agent context window, AGENTS.md too long, too many MCP tools, context engineering, progressive disclosure AI, CLAUDE.md length">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "How Much Design System Context Does an AI Agent Need?", "description": "Why giving AI agents your whole design system makes results worse: context windows, rules file length, too many MCP tools and progressive disclosure.", "image": "https://www.layerone.co.in/assets/images/writing/design-system-context-window.jpg", "datePublished": "2026-11-18", "dateModified": "2026-11-18", "mainEntityOfPage": "https://www.layerone.co.in/writing/design-system-context-window", "wordCount": 1997, "articleSection": "AI-ready design systems", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}, "keywords": "AI agent context window, AGENTS.md too long, too many MCP tools, context engineering, progressive disclosure AI, CLAUDE.md length", "isPartOf": {"@type": "CreativeWorkSeries", "name": "Making your design system AI-ready", "url": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "AI-ready design systems", "item": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}, {"@type": "ListItem", "position": 3, "name": "How much design system context does an AI agent need? Avoiding context overload", "item": "https://www.layerone.co.in/writing/design-system-context-window"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How long should an AGENTS.md or CLAUDE.md file be?", "acceptedAnswer": {"@type": "Answer", "text": "As short as possible while covering what every task needs. Under about 150 lines for the whole file is a good target, with the design system section around 30–80 lines. Link to docs for everything else."}}, {"@type": "Question", "name": "Do too many MCP servers slow down AI agents?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Every connected tool's definition is sent with each request, which uses context and adds cost, and more tools mean more chances to pick the wrong one. Configure only the servers a project needs."}}, {"@type": "Question", "name": "Should I paste my design system docs into the prompt?", "acceptedAnswer": {"@type": "Answer", "text": "No. Give the agent a short map and a way to fetch exactly what it needs, such as a component index or an MCP tool. Pasting everything makes important rules harder to follow."}}, {"@type": "Question", "name": "What is progressive disclosure for AI agents?", "acceptedAnswer": {"@type": "Answer", "text": "Showing the agent a brief summary first (a rules file, a component index, tool names) and loading detail only when the task needs it (one component's props, one pattern page)."}}, {"@type": "Question", "name": "Why does my agent follow a rule sometimes but not always?", "acceptedAnswer": {"@type": "Answer", "text": "Often because the rule is buried in long context, contradicted by code the agent read, or typed in chat early in a long session. Put it near the top of a short rules file and back it with a lint rule."}}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/design-system-context-window">
+<meta property="og:url" content="https://www.layerone.co.in/writing/design-system-context-window">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="How Much Design System Context Does an AI Agent Need? | Layer One">
+<meta name="twitter:description" content="Why giving AI agents your whole design system makes results worse: context windows, rules file length, too many MCP tools and progressive disclosure.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/design-system-context-window.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading" title="Light or dark reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button><a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<main id="main" class="ed-wrap"><article class="ed-article">
+  <div class="ed-layout">
+    <aside class="ed-meta" aria-label="About this article"><div class="ed-meta-in">
+      <div class="ed-meta-who"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40"><p><b>Aniket Pandey</b><span>Founder, Layer One</span></p></div>
+      <dl class="ed-meta-dl"><div><dt>Published</dt><dd>18 November 2026</dd></div><div><dt>Reading time</dt><dd>9 minutes</dd></div><div><dt>Topic</dt><dd><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a></dd></div></dl>
+      <div class="ed-meta-sec"><p class="ed-meta-h">Making your design system AI-ready</p><ol class="ed-steps"><li><a href="/writing/ai-ready-design-system">What is an AI-ready design system?</a></li><li><a href="/writing/how-ai-agents-use-design-systems">How AI coding agents use your design system, and where they go wrong</a></li><li><a href="/writing/design-tokens-for-ai-agents">Design tokens for AI agents</a></li><li><a href="/writing/component-metadata-for-ai-agents">Component metadata for AI agents</a></li><li><a href="/writing/design-system-documentation-for-ai">Writing design system documentation AI agents can use, and how retrieval finds it</a></li><li><a href="/writing/agents-md-llms-txt-design-system">AGENTS.md, llms.txt and rules files for design systems</a></li><li><a href="/writing/design-system-mcp-server">Build an MCP server for your design system</a></li><li><a href="/writing/figma-mcp-design-to-code">Figma to code with AI</a></li><li><a href="/writing/ai-generated-ui-guardrails">Guardrails for AI-generated UI</a></li><li><a href="/writing/legacy-design-system-ai-ready">How to make a legacy design system AI-ready</a></li><li><a href="/writing/why-ai-ignores-design-system">Why does AI ignore my design system?</a></li><li aria-current="step"><a href="/writing/design-system-context-window">How much design system context does an AI agent need?</a></li><li><a href="/writing/ai-generated-ui-accessibility">Why is AI-generated UI inaccessible, and how can a design system fix it?</a></li><li><a href="/writing/figma-code-token-drift">Figma variables and code tokens out of sync?</a></li><li><a href="/writing/ai-prototyping-tools-design-system">How do I make Figma Make, v0 and Lovable use my design system?</a></li><li><a href="/writing/shadcn-ui-design-system-ai">Is shadcn/ui better for AI?</a></li><li><a href="/writing/designers-ai-ready-design-system">Can designers make a design system AI-ready without coding?</a></li><li><a href="/writing/ai-design-system-governance">Who owns the AI rules?</a></li><li><a href="/writing/design-system-ai-security">Is it safe to connect your design system to AI tools?</a></li><li><a href="/writing/ai-ready-design-system-roi">How do you prove the ROI of an AI-ready design system?</a></li></ol></div><div class="ed-meta-sec"><p class="ed-meta-h">Tags</p><ul class="ed-tags"><li>Context</li><li>Rules files</li><li>MCP</li><li>Performance</li></ul></div><div class="ed-meta-sec"><p class="ed-meta-h">Share</p><p class="ed-share"><button type="button" data-copy="https://www.layerone.co.in/writing/design-system-context-window">Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.layerone.co.in/writing/design-system-context-window" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/intent/post?url=https://www.layerone.co.in/writing/design-system-context-window" target="_blank" rel="noopener">X</a></p></div>
+    </div></aside>
+    <header class="ed-head">
+      <p class="ed-crumb"><a href="/writing">Writing</a><span aria-hidden="true">/</span><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a><span class="ed-crumb-s">Part 12 of 20 in <a href="/writing#ai-ready">Making your design system AI-ready</a></span></p>
+      <h1 class="ed-title">How much design system context does an AI agent need? Avoiding context overload</h1>
+      <p class="ed-dek">Teams that give agents everything often get worse results: rules buried in 1,800-line files, a hundred tools to choose from. What fills the context window, a size budget for each layer, and a step-by-step diet for your design system context.</p>
+      <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>9 min read · 18 November 2026</span></span></p>
+    </header>
+    <figure class="ed-cover"><img src="../assets/images/writing/design-system-context-window.w1200.webp" alt="Diagram: a small always-loaded map of rules and tools above larger on-demand layers of component detail and pattern pages." width="1600" height="900" sizes="(max-width: 1024px) calc(100vw - 32px), 760px" fetchpriority="high" srcset="../assets/images/writing/design-system-context-window.w480.webp 480w, ../assets/images/writing/design-system-context-window.w800.webp 800w, ../assets/images/writing/design-system-context-window.w1200.webp 1200w, ../assets/images/writing/design-system-context-window.jpg 1600w" decoding="async"></figure>
+    <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>"We gave it everything, and it got worse"</b></summary><ol><li><a href="#we-gave-it-everything-and-it-got-worse">"We gave it everything, and it got worse"</a></li><li><a href="#what-the-context-window-actually-holds">What the context window actually holds</a></li><li><a href="#how-much-is-enough-a-budget-for-each-layer">How much is enough: a budget for each layer</a></li><li><a href="#too-many-tools-is-a-context-problem-too">Too many tools is a context problem too</a></li><li><a href="#step-by-step-put-your-design-system-context-on-a-diet">Step by step: put your design system context on a diet</a></li><li><a href="#before-and-after-the-rules-file">Before and after: the rules file</a></li><li><a href="#long-tasks-keeping-context-healthy-as-work-goes-on">Long tasks: keeping context healthy as work goes on</a></li><li><a href="#how-to-tell-whether-context-is-the-problem">How to tell whether context is the problem</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+    <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>Less than most teams give it, and more precisely. An agent needs a <b>short map</b> loaded every time (a rules file of roughly 50–150 lines: package, never-use list, token rules, where to look, how to check) and <b>exact answers on demand</b> (one component's props and rules, the tokens for one job, one pattern page). It does <b>not</b> need your whole docs site, every component's full API, or a dozen MCP servers loaded at once. Every extra line and every tool definition takes space in the context window and competes for attention, so too much context makes results <i>less</i> consistent, not more. Measure what's loaded, keep the always-on part small, and load the rest only when the task needs it.</p>
+  <ul>
+    <li>Tool definitions count too: each connected MCP tool's name, description and schema is sent with every request.</li>
+    <li>If an agent ignores a rule you know is written down, first check whether it's buried.</li>
+    <li>Part 12 of 20 in the series on AI-ready design systems.</li>
+  </ul>
+</div>
+
+<h2 id="we-gave-it-everything-and-it-got-worse">"We gave it everything, and it got worse"</h2>
+<p>Once teams learn that agents need context (<a href="/writing/how-ai-agents-use-design-systems">part 2</a>), a common next step is to give them all of it: the full component docs pasted into the rules file, the token file attached to every prompt, every MCP server anyone found useful. Results often get worse.</p>
+<p class="scenario-t">An illustration: the 1,800-line rules file</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>Kestrel's payroll app has an AGENTS.md that grew to 1,800 lines: Harbor's full docs, the brand guide, API conventions, testing guides. Eleven MCP servers are configured.</p></div>
+  <div><span class="k">The symptom</span><p>Agents follow the "never use ui-old" rule in some runs and not others. Simple tasks take noticeably longer to start. The same prompt gives different component choices from one day to the next.</p></div>
+  <div><span class="k">The cause</span><p>The ten rules that matter are on lines 900–910, surrounded by text that's irrelevant to most tasks, and the agent is choosing between around 180 tools on every step.</p></div>
+</div>
+
+<h2 id="what-the-context-window-actually-holds">What the context window actually holds</h2>
+<p>Every time an agent takes a step, the model is sent everything it needs to decide the next one. Understanding what's in that bundle explains why "more" isn't free.</p>
+<figure class="w-fig">
+  <div class="stack">
+    <div><b>System instructions</b><span>From the agent product itself. You don't control these.</span></div>
+    <div class="hi"><b>Tool definitions</b><span>Name, description and input schema of every connected tool, built-in and MCP. Sent with every request.</span></div>
+    <div class="hi"><b>Rules files</b><span>AGENTS.md, CLAUDE.md, matching Cursor or Copilot rules. Loaded at the start.</span></div>
+    <div><b>Conversation so far</b><span>Your prompt, the agent's messages, every tool call and every result: files opened, search output, lint errors.</span></div>
+    <div class="lt"><b>Space left to think and write</b><span>Shrinks as everything above grows.</span></div>
+  </div>
+  <figcaption>The parts of a context window. The two highlighted layers are the ones a design system team controls directly, and they're present on every single step.</figcaption>
+</figure>
+<div class="callout callout--term"><span class="callout-k">New words</span><p><b>Token (in AI models):</b> the unit models count text in, roughly three-quarters of an English word; not the same as a design token. <b>Context window:</b> the maximum number of tokens a model can consider at once. <b>Progressive disclosure:</b> showing a short summary first and loading detail only when it's needed.</p></div>
+<p>Two separate problems come from overfilling it:</p>
+<div class="cols2">
+  <div class="cell"><span class="k">PROBLEM 1</span><h4>Budget</h4><p>Large windows are big, but long tasks fill them: a few big files, long lint output and tool results add up. When space runs out, agents summarise or drop earlier context, and early instructions can be lost. Larger contexts also cost more and run slower.</p></div>
+  <div class="cell"><span class="k">PROBLEM 2</span><h4>Attention</h4><p>Even well within the limit, models use information less reliably when it's buried among lots of other text. Research on long contexts has found that facts in the middle are used less well than facts at the start or end. Ten clear rules beat ten rules inside 1,800 lines.</p></div>
+</div>
+
+<h2 id="how-much-is-enough-a-budget-for-each-layer">How much is enough: a budget for each layer</h2>
+<p>There's no universal number, but these targets work well in practice for design system context.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Layer</th><th>Loaded</th><th>Target size</th><th>Contains</th></tr></thead>
+  <tbody>
+    <tr><td><b>Rules file section</b> for the design system</td><td>Every task</td><td>30–80 lines</td><td>Package, never-use list, token rules, where to look, helpers, check command</td></tr>
+    <tr><td><b>Whole rules file</b></td><td>Every task</td><td>Under ~150 lines</td><td>The design system section plus the repo's own essentials</td></tr>
+    <tr><td><b>Design system MCP tools</b></td><td>Every request (definitions)</td><td>3–6 tools, short descriptions</td><td>Search and get, for components, tokens and patterns</td></tr>
+    <tr><td><b>Component index</b></td><td>When choosing</td><td>One line per component</td><td>Name, status, category, purpose</td></tr>
+    <tr><td><b>One component's detail</b></td><td>When using it</td><td>A few hundred words</td><td>Props, rules, accessibility, one example</td></tr>
+    <tr><td><b>One pattern page</b></td><td>When building that kind of screen</td><td>500–1,500 words</td><td>Decision table, components used, one full example</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Small always-on layers, detail on demand. <span class="ev ev--prac">Practitioner view</span> Targets, not rules: the test is whether the agent follows the essentials in every run.</figcaption></figure>
+
+<h2 id="too-many-tools-is-a-context-problem-too">Too many tools is a context problem too</h2>
+<p>Each MCP server adds its tools' definitions to every request. One design system server with four tools is small. Eleven servers, some with thirty or forty tools each, can add tens of thousands of tokens before the agent reads your prompt, and give the model far more options to choose between on every step. Engineering reports from teams running many servers consistently describe the same pattern: as tool counts grow, the cost rises and the agent picks the wrong tool more often.</p>
+<figure class="w-fig">
+  <div class="cols2">
+    <div class="cell"><span class="k">BEFORE</span><h4>Everything, everywhere</h4><ul><li>11 servers configured for every repo</li><li>~180 tools visible on every step</li><li>Four tools that all "search" something</li><li>Design system tools lost among them</li></ul></div>
+    <div class="cell cell--accent"><span class="k">AFTER</span><h4>Scoped to the work</h4><ul><li>Project config with 3 servers: harbor, figma, the issue tracker</li><li>Others enabled per person, when needed</li><li>Tool names say whose they are: <code>harbor.search_components</code></li><li>Descriptions say when to call them</li></ul></div>
+  </div>
+  <figcaption><span class="ev ev--ill">Illustration</span> Commit only the servers a repo's work needs; let individuals add others for themselves.</figcaption>
+</figure>
+<p>Some agent products now load tool definitions on demand when many are configured, searching for the right tool instead of showing all of them up front. That helps, but it still relies on clear tool names and descriptions to find the right one.</p>
+
+<h2 id="step-by-step-put-your-design-system-context-on-a-diet">Step by step: put your design system context on a diet</h2>
+<ol class="w-steps">
+  <li><h3>Measure what's loaded</h3><p>Count the lines in every rules file that loads for a typical UI task (root AGENTS.md, nested files, CLAUDE.md, tool-specific rules), and list the MCP servers and tool counts. Many agents show context usage directly; Claude Code, for example, has a <code>/context</code> command.</p></li>
+  <li><h3>Sort every rule into three piles</h3><p><b>Every task</b> (never use ui-old), <b>some tasks</b> (how to build a data table), <b>reference</b> (the full list of props). Only the first pile stays in the rules file.</p></li>
+  <li><h3>Move "some tasks" into on-demand places</h3><p>Pattern pages the MCP server can return, scoped rules that only apply to matching files (Cursor and Copilot both support path-scoped rules), or skills that load when the task matches their description.</p></li>
+  <li><h3>Move "reference" into data</h3><p>Prop lists and token values belong in the generated manifests from <a href="/writing/component-metadata-for-ai-agents">part 4</a> and <a href="/writing/design-tokens-for-ai-agents">part 3</a>, fetched one item at a time.</p></li>
+  <li><h3>Trim the tool list</h3><p>Keep project-level MCP config to the servers the repo's work needs. Merge overlapping tools. Shorten descriptions to what the model needs to decide when to call them.</p></li>
+  <li><h3>Shape tool results</h3><p>Return summaries from search tools and detail from get tools. Strip fields agents don't use. Cap results (five components, eight tokens).</p></li>
+  <li><h3>Re-test</h3><p>Run your eval tasks (<a href="/writing/ai-generated-ui-guardrails">part 9</a>) before and after. Consistency between runs is the number to watch.</p></li>
+</ol>
+
+<h2 id="before-and-after-the-rules-file">Before and after: the rules file</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">BEFORE · 1,800 LINES</span><pre><code># Payroll web app
+## About Harbor (copied from docs)
+Harbor was created in 2021 to…
+## Button
+Buttons let users take actions…
+### Props
+| prop | type | default |…
+## Card
+…
+(60 more components)
+## Brand voice
+…
+## Testing philosophy
+…</code></pre><p>Mostly reference material, loaded for every task, including tasks that touch no UI.</p></div>
+  <div class="cell"><span class="k">AFTER · 70 LINES</span><pre><code># Payroll web app
+pnpm dev · pnpm check before finishing
+
+## UI: use Harbor
+- Import from @kestrel/harbor.
+- Look up components with
+  harbor.search_components /
+  get_component before writing UI.
+- Patterns: harbor.get_pattern.
+
+### Never use
+- @kestrel/ui-old, src/legacy/
+- Modal, AlertDialog, BtnPrimary
+
+### Tokens
+- Semantic tokens only;
+  harbor.search_tokens to find one.
+…</code></pre><p>The rules that apply to every UI task, plus where to get everything else.</p></div>
+</div>
+
+<h2 id="long-tasks-keeping-context-healthy-as-work-goes-on">Long tasks: keeping context healthy as work goes on</h2>
+<p>Context also fills up during a task. A long session that builds a whole feature opens dozens of files, runs checks many times, and accumulates output. Three habits help:</p>
+<ul class="checklist">
+  <li><b>One task per session.</b> Start a fresh session for each screen or ticket, so earlier, unrelated context doesn't leak in.</li>
+  <li><b>Quiet checks.</b> Make your check command print only errors, with file, line and message. Pages of passing-test output waste space.</li>
+  <li><b>Put essentials in files, not chat.</b> If agents compact or summarise long conversations, rules typed into chat early on may be summarised away; rules in files are reloaded.</li>
+</ul>
+
+<h2 id="how-to-tell-whether-context-is-the-problem">How to tell whether context is the problem</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Sign</th><th>Likely cause</th></tr></thead>
+  <tbody>
+    <tr><td>A rule is followed in some runs and not others</td><td>Rule buried in a long file, or contradicted by code the agent read</td></tr>
+    <tr><td>The agent calls the wrong tool, or a similar tool from another server</td><td>Too many tools; overlapping names and descriptions</td></tr>
+    <tr><td>Early instructions are forgotten late in a long task</td><td>Session too long; essentials only in chat</td></tr>
+    <tr><td>The agent never looks anything up</td><td>Too <i>little</i> context: no map telling it where to look (see <a href="/writing/why-ai-ignores-design-system">part 11</a>)</td></tr>
+  </tbody>
+</table></div></figure>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">MISTAKE</span><h4>Pasting docs into rules files</h4><p>Docs are reference; rules files are a map. Link to the docs and let the agent fetch the part it needs.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>One giant MCP tool response</h4><p>A <code>get_all_components</code> tool that returns everything fills the context in one call. Search, then get.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Committing everyone's favourite servers</h4><p>Project config applies to everyone. Keep it to what the repo needs; personal tools go in personal config.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Trimming without testing</h4><p>Removing a line can remove a rule that mattered. Rerun your eval tasks after each trim.</p></div>
+</div>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Agents need a short map every time and exact answers on demand, not everything at once.</li>
+  <li>Rules files and tool definitions are present on every step, so keep them small.</li>
+  <li>Sort rules into every-task, some-tasks and reference; only the first stays in the rules file.</li>
+  <li>Configure only the MCP servers a repo needs; shape tool results to be short.</li>
+  <li>Measure consistency across runs before and after trimming.</li>
+</ul></div>
+<p>Next: <a href="/writing/ai-generated-ui-accessibility">Why is AI-generated UI inaccessible, and how can a design system fix it?</a></p>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>How long should an AGENTS.md or CLAUDE.md file be?</summary><div><p>As short as possible while covering what every task needs. Under about 150 lines for the whole file is a good target, with the design system section around 30–80 lines. Link to docs for everything else.</p></div></details>
+  <details><summary>Do too many MCP servers slow down AI agents?</summary><div><p>Yes. Every connected tool's definition is sent with each request, which uses context and adds cost, and more tools mean more chances to pick the wrong one. Configure only the servers a project needs.</p></div></details>
+  <details><summary>Should I paste my design system docs into the prompt?</summary><div><p>No. Give the agent a short map and a way to fetch exactly what it needs, such as a component index or an MCP tool. Pasting everything makes important rules harder to follow.</p></div></details>
+  <details><summary>What is progressive disclosure for AI agents?</summary><div><p>Showing the agent a brief summary first (a rules file, a component index, tool names) and loading detail only when the task needs it (one component's props, one pattern page).</p></div></details>
+  <details><summary>Why does my agent follow a rule sometimes but not always?</summary><div><p>Often because the rule is buried in long context, contradicted by code the agent read, or typed in chat early in a long session. Put it near the top of a short rules file and back it with a lint rule.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents" target="_blank" rel="noopener">Anthropic: Effective context engineering for AI agents</a><span>Why smaller, better-chosen context works.</span></li>
+  <li><a href="https://www.anthropic.com/engineering/writing-tools-for-agents" target="_blank" rel="noopener">Anthropic: Writing effective tools for agents</a><span>Names, descriptions and response sizes.</span></li>
+  <li><a href="https://arxiv.org/abs/2307.03172" target="_blank" rel="noopener">Lost in the Middle (Liu et al.)</a><span>How models use information in long contexts.</span></li>
+  <li><a href="/writing/agents-md-llms-txt-design-system">AGENTS.md, llms.txt and rules files</a><span>What belongs in the always-on layer.</span></li>
+</ul>
+</div>
+    <aside class="ed-aside" aria-label="On this page"><nav class="ed-toc"><p>On this page</p><ol><li><a href="#we-gave-it-everything-and-it-got-worse">"We gave it everything, and it got worse"</a></li><li><a href="#what-the-context-window-actually-holds">What the context window actually holds</a></li><li><a href="#how-much-is-enough-a-budget-for-each-layer">How much is enough: a budget for each layer</a></li><li><a href="#too-many-tools-is-a-context-problem-too">Too many tools is a context problem too</a></li><li><a href="#step-by-step-put-your-design-system-context-on-a-diet">Step by step: put your design system context on a diet</a></li><li><a href="#before-and-after-the-rules-file">Before and after: the rules file</a></li><li><a href="#long-tasks-keeping-context-healthy-as-work-goes-on">Long tasks: keeping context healthy as work goes on</a></li><li><a href="#how-to-tell-whether-context-is-the-problem">How to tell whether context is the problem</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><a class="ed-top" href="#main">Back to top ↑</a></nav></aside>
+  </div>
+  <footer class="ed-end">
+    <section class="ed-more" aria-labelledby="more-h"><h2 class="ed-sec-h" id="more-h">next in making your design system ai-ready:</h2><div class="ec-grid"><a class="ec " href="/writing/ai-generated-ui-accessibility" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/ai-generated-ui-accessibility.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/ai-generated-ui-accessibility.w480.webp 480w, ../assets/images/writing/ai-generated-ui-accessibility.w800.webp 800w, ../assets/images/writing/ai-generated-ui-accessibility.w1200.webp 1200w, ../assets/images/writing/ai-generated-ui-accessibility.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">Why is AI-generated UI inaccessible, and how can a design system fix it?</b><span class="ec-d">Why AI-generated UI fails accessibility, what research shows, and how a design system fixes it: accessible components, rules, lint, axe and keyboard tests.</span><span class="ec-f">8 min read</span></a><a class="ec " href="/writing/agents-md-llms-txt-design-system" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/agents-md-llms-txt-design-system.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/agents-md-llms-txt-design-system.w480.webp 480w, ../assets/images/writing/agents-md-llms-txt-design-system.w800.webp 800w, ../assets/images/writing/agents-md-llms-txt-design-system.w1200.webp 1200w, ../assets/images/writing/agents-md-llms-txt-design-system.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">AGENTS.md, llms.txt and rules files for design systems</b><span class="ec-d">What a design system should put in AGENTS.md, CLAUDE.md, Cursor and Copilot rules, how to sync many repos, and how to write llms.txt for your docs.</span><span class="ec-f">13 min read</span></a><a class="ec " href="/writing/design-system-mcp-server" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/design-system-mcp-server.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-system-mcp-server.w480.webp 480w, ../assets/images/writing/design-system-mcp-server.w800.webp 800w, ../assets/images/writing/design-system-mcp-server.w1200.webp 1200w, ../assets/images/writing/design-system-mcp-server.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">Build an MCP server for your design system</b><span class="ec-d">Build a Model Context Protocol server for your design system: tool design, working code, Storybook and shadcn options, Inspector testing and setup.</span><span class="ec-f">15 min read</span></a></div></section>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Thinking about how your system is run?</h2><p>If you'd like a second opinion on your team or process, a thirty-minute call is a good place to start.</p></div><a href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main><footer class="ed-foot"><div class="ed-foot-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
+  <nav aria-label="Studio"><a href="/work">Work</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/contact">Contact</a><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">LinkedIn</a><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></nav>
+</div></footer><script src="../assets/site.js?v=3de6a9b6" defer></script>
+</body>
+</html>

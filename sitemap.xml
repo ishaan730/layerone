@@ -30,8 +30,12 @@
   <url><loc>https://www.layerone.co.in/writing</loc><lastmod>2026-11-17</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.layerone.co.in/writing/accessible-design-system</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/agents-md-llms-txt-design-system</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.layerone.co.in/writing/ai-design-system-governance</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.layerone.co.in/writing/ai-generated-ui-accessibility</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/ai-generated-ui-guardrails</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/ai-in-design-systems</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.layerone.co.in/writing/ai-prototyping-tools-design-system</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.layerone.co.in/writing/ai-ready-design-system-roi</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/ai-ready-design-system</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/color-contrast-design-system</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/component-complexity</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
@@ -42,8 +46,10 @@
   <url><loc>https://www.layerone.co.in/writing/component-tokens</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/cross-platform-design-system</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/dark-mode-design-tokens</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.layerone.co.in/writing/design-system-ai-security</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/design-system-audit</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/design-system-champions</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.layerone.co.in/writing/design-system-context-window</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/design-system-contribution-model</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/design-system-documentation-for-ai</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/design-system-documentation</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
@@ -70,8 +76,10 @@
   <url><loc>https://www.layerone.co.in/writing/design-token-naming-conventions</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/design-tokens-for-ai-agents</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/design-tokens</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.layerone.co.in/writing/designers-ai-ready-design-system</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/do-you-need-a-design-system</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/figma-code-sync</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.layerone.co.in/writing/figma-code-token-drift</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/figma-library-structure</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/figma-mcp-design-to-code</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/form-design-patterns</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
@@ -83,6 +91,7 @@
   <url><loc>https://www.layerone.co.in/writing/librarian-vs-leader</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/multi-brand-design-system</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/oklch-color-palette</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.layerone.co.in/writing/shadcn-ui-design-system-ai</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/spacing-system-4px-vs-8px</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/topics/ai-ready-design-systems</loc><lastmod>2026-11-17</lastmod><priority>0.6</priority></url>
   <url><loc>https://www.layerone.co.in/writing/topics/building</loc><lastmod>2026-11-17</lastmod><priority>0.6</priority></url>
@@ -95,5 +104,6 @@
   <url><loc>https://www.layerone.co.in/writing/ux-writing-design-system</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/what-is-a-design-system</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/which-components-to-build-first</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
+  <url><loc>https://www.layerone.co.in/writing/why-ai-ignores-design-system</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
   <url><loc>https://www.layerone.co.in/writing/why-design-systems-fail</loc><lastmod>2026-11-17</lastmod><priority>0.8</priority></url>
 </urlset>

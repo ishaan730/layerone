@@ -824,6 +824,124 @@ ART.update({"ai-ready-design-system": ai_ready, "how-ai-agents-use-design-system
             "agents-md-llms-txt-design-system": ai_rules, "design-system-mcp-server": ai_mcp, "figma-mcp-design-to-code": ai_figma,
             "ai-generated-ui-guardrails": ai_guardrails, "legacy-design-system-ai-ready": ai_legacy})
 
+
+# ---------- AI-ready design systems, parts 11–20 (18 November 2026) ----------
+def ai_ignore():
+    b = box(120, 380, 220, 100, SIG, "none") + text(230, 440, "agent", 28, INK, anchor="middle")
+    checks = ["found the system?", "learned from where?", "anything say wrong?"]
+    for i, t in enumerate(checks):
+        x = 420 + i * 300
+        b += arrow(x - 80 if i else 340, 430, x, 430) + box(x, 360, 260, 140, RAISED, RULE) + text(x + 130, 420, t, 20, PAPER, anchor="middle") + text(x + 130, 462, ["causes 1–3", "causes 4–6", "causes 7–8"][i], 18, MUTED, anchor="middle")
+    b += arrow(1320, 430, 1380, 430) + box(1380, 380, 120, 100, "none", SIG, sw=3) + star(1415, 405, 50, SIG)
+    for i in range(10):
+        b += box(160 + i * 130, 620, 100, 56, SIG if i in (0, 3, 7) else SUNK, "none" if i in (0, 3, 7) else RULE) + text(210 + i * 130, 656, f"{i + 1:02d}", 20, INK if i in (0, 3, 7) else MUTED, anchor="middle")
+    return frame(INK, b, label="writing / ai-ready · 11")
+
+
+def ai_context():
+    b = box(560, 150, 480, 110, SIG, "none") + text(800, 200, "always loaded", 22, INK, anchor="middle") + text(800, 236, "rules · tool names", 20, INK, anchor="middle")
+    layers = [("component index", 620), ("one component", 760), ("one pattern page", 900), ("everything else", 1080)]
+    for i, (t, w) in enumerate(layers):
+        y = 300 + i * 115
+        b += box(800 - w // 2, y, w, 90, RAISED if i < 3 else "none", RULE, extra='' if i < 3 else 'stroke-dasharray="10 8"') + text(800, y + 54, t, 22, PAPER if i < 3 else MUTED, anchor="middle")
+    b += text(1440, 760, "on demand", 20, MUTED, anchor="end")
+    return frame(INK, b, label="writing / ai-ready · 12")
+
+
+def ai_a11y():
+    b = box(120, 230, 520, 420, RAISED, RULE) + text(150, 280, "generated", 22, MUTED)
+    b += box(170, 330, 420, 80, "none", SIG, sw=2, extra='stroke-dasharray="8 6"') + text(380, 380, "&lt;div onClick&gt;", 24, SIG, anchor="middle")
+    b += box(170, 450, 420, 80, "none", SIG, sw=2, extra='stroke-dasharray="8 6"') + text(380, 500, "placeholder only", 22, SIG, anchor="middle")
+    b += arrow(640, 440, 760, 440)
+    b += box(760, 230, 720, 420, SUNK, SIG, sw=3) + text(790, 280, "design system", 22, SIG)
+    for i, (k, v) in enumerate([("&lt;Button&gt;", "role · name · focus"), ("label: string", "required"), ("axe", "0 violations"), ("keyboard", "tab · esc · return")]):
+        y = 330 + i * 72
+        b += text(800, y + 30, k, 24, PAPER) + text(1440, y + 30, v, 22, MUTED, anchor="end")
+    return frame(INK, b, label="writing / ai-ready · 13")
+
+
+def ai_drift():
+    rows = [("text.secondary", "#6b7280", "#5a606b", True), ("bg.raised", "#ffffff", "#fafaf8", True), ("bg.surface", "#ffffff", "#ffffff", False), ("chart.1", "—", "#2456d6", True)]
+    b = text(120, 210, "token", 22, MUTED) + text(760, 210, "figma", 22, MUTED) + text(1060, 210, "code", 22, MUTED)
+    for i, (k, f, c, bad) in enumerate(rows):
+        y = 240 + i * 100
+        b += box(100, y, 1400, 80, RAISED if bad else SUNK, SIG if bad else RULE, sw=2)
+        b += text(130, y + 50, k, 24, PAPER) + text(760, y + 50, f, 24, SIG if bad else MUTED) + text(1060, y + 50, c, 24, PAPER)
+        b += text(1460, y + 50, "differs" if bad else "ok", 20, SIG if bad else MUTED, anchor="end")
+    b += box(560, 680, 480, 80, SIG, "none") + text(800, 730, "tokens.json → figma", 24, INK, anchor="middle")
+    return frame(INK, b, label="writing / ai-ready · 14")
+
+
+def ai_proto():
+    b = ""
+    for i, t in enumerate(["tokens", "components", "guidelines"]):
+        y = 230 + i * 160
+        b += box(120, y, 320, 110, SIG if i == 2 else RAISED, "none" if i == 2 else RULE) + text(280, y + 64, t, 26, INK if i == 2 else PAPER, anchor="middle")
+        b += f'<path d="M440 {y + 55}C540 {y + 55} 540 450 620 450" stroke="{SIG}" stroke-width="2" fill="none"/>'
+    for i, t in enumerate(["figma make", "v0", "lovable"]):
+        y = 230 + i * 160
+        b += box(620 if i == 9 else 640, y, 300, 110, SUNK, RULE) + text(790, y + 64, t, 26, PAPER, anchor="middle")
+    b += arrow(940, 450, 1060, 450) + box(1060, 260, 420, 380, RAISED, SIG, sw=3)
+    b += box(1100, 310, 340, 60, SUNK, RULE) + bar(1120, 334, 180, 12, MUTED, .5) + box(1100, 400, 160, 52, SIG, "none") + box(1100, 480, 340, 120, SUNK, RULE)
+    return frame(INK, b, label="writing / ai-ready · 15")
+
+
+def ai_shadcn():
+    b = box(120, 230, 560, 420, RAISED, RULE) + text(150, 280, "package", 22, MUTED) + box(200, 340, 400, 230, SUNK, RULE) + text(400, 470, "? hidden api", 26, MUTED, anchor="middle")
+    b += box(920, 230, 560, 420, RAISED, SIG, sw=3) + text(950, 280, "open code", 22, SIG)
+    for i, t in enumerate(["components/ui/button.tsx", "components/ui/dialog.tsx", "registry.json"]):
+        b += box(960, 330 + i * 95, 480, 70, SUNK, RULE) + text(990, 375 + i * 95, t, 22, SIG if i == 2 else PAPER)
+    b += text(800, 450, "vs", 32, MUTED, anchor="middle")
+    return frame(INK, b, label="writing / ai-ready · 16")
+
+
+def ai_designers():
+    b = box(120, 220, 560, 460, RAISED, SIG, sw=3) + text(150, 270, "designer writes", 22, SIG)
+    for i, t in enumerate(["use for / not for", "use when / avoid when", "one primary per view", "labels above fields"]):
+        b += box(160, 310 + i * 88, 480, 66, SUNK, RULE) + text(190, 352 + i * 88, t, 22, PAPER)
+    b += arrow(680, 450, 800, 450)
+    b += box(800, 300, 300, 300, SUNK, RULE) + text(950, 440, "engineer", 24, PAPER, anchor="middle") + text(950, 476, "wires it in", 20, MUTED, anchor="middle")
+    b += arrow(1100, 450, 1200, 450) + box(1200, 380, 280, 140, SIG, "none") + text(1340, 460, "agents", 28, INK, anchor="middle")
+    return frame(INK, b, label="writing / ai-ready · 17")
+
+
+def ai_governance():
+    rows = [("AGENTS.md section", "system team"), ("token descriptions", "system designer"), ("component rules", "system designer"), ("lint · mcp", "system engineer"), ("agent output", "product team")]
+    b = ""
+    for i, (a, o) in enumerate(rows):
+        y = 200 + i * 104
+        b += box(120, y, 640, 80, RAISED, RULE) + text(150, y + 50, a, 24, PAPER) + arrow(760, y + 40, 880, y + 40) + box(880, y, 600, 80, SIG if i == 4 else SUNK, "none" if i == 4 else RULE) + text(910, y + 50, o, 24, INK if i == 4 else PAPER)
+    b += f'<path d="M1480 650C1540 650 1540 240 1480 240" stroke="{MUTED}" stroke-width="2" stroke-dasharray="8 8" fill="none"/>'
+    return frame(INK, b, label="writing / ai-ready · 18")
+
+
+def ai_security():
+    levels = [("tokens", "low", MUTED), ("components", "low", MUTED), ("unreleased designs", "high", SIG), ("real data", "high", SIG), ("credentials", "critical", SIG)]
+    b = ""
+    for i, (t, l, c) in enumerate(levels):
+        y = 200 + i * 100
+        b += box(120, y, 560, 76, RAISED, RULE) + text(150, y + 48, t, 24, PAPER) + text(650, y + 48, l, 20, c, anchor="end")
+    b += box(820, 230, 660, 440, SUNK, SIG, sw=3) + star(1110, 280, 60, SIG)
+    for i, t in enumerate(["approved tools", "read-only servers", "reviewed content", "people merge"]):
+        b += text(870, 400 + i * 66, "✓ " + t, 26, PAPER)
+    return frame(INK, b, label="writing / ai-ready · 19")
+
+
+def ai_roi():
+    b = f'<path d="M160 720H1480M160 720V180" stroke="{RULE}" stroke-width="2"/>'
+    b += box(240, 300, 160, 420, SUNK, RULE, rx=6) + text(320, 280, "60%", 30, MUTED, anchor="middle")
+    b += box(480, 615, 160, 105, SIG, "none", rx=6) + text(560, 595, "15%", 30, SIG, anchor="middle")
+    b += text(440, 770, "off-system rate", 20, MUTED, anchor="middle")
+    b += f'<path d="M760 640L900 600L1040 520L1180 420L1320 320L1460 230" stroke="{SIG}" stroke-width="4" fill="none"/>'
+    b += f'<path d="M760 560H1460" stroke="{MUTED}" stroke-width="2" stroke-dasharray="8 8"/>' + text(1460, 545, "payback", 20, MUTED, anchor="end")
+    return frame(INK, b, label="writing / ai-ready · 20")
+
+
+ART.update({"why-ai-ignores-design-system": ai_ignore, "design-system-context-window": ai_context, "ai-generated-ui-accessibility": ai_a11y,
+            "figma-code-token-drift": ai_drift, "ai-prototyping-tools-design-system": ai_proto, "shadcn-ui-design-system-ai": ai_shadcn,
+            "designers-ai-ready-design-system": ai_designers, "ai-design-system-governance": ai_governance,
+            "design-system-ai-security": ai_security, "ai-ready-design-system-roi": ai_roi})
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     from playwright.sync_api import sync_playwright

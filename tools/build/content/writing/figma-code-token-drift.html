@@ -1,0 +1,176 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>When Figma variables and code tokens drift apart (different names, different values, tokens that exist on one side only), AI makes it worse: design-to-code agents read Figma's version, coding agents read code's version, and both produce "correct" output that doesn't match. Fix it in four steps. <b>Pick one source of truth</b> (usually the DTCG token files in code). <b>Reconcile once</b>: export both sides, compare them with a script, and decide every difference. <b>Automate one direction</b>: generate Figma variables from the token files, using Figma's DTCG import, a plugin such as Tokens Studio, or the Variables REST API. <b>Check for drift in CI</b>, so any new difference is caught within a day. Never let people edit both sides by hand.</p>
+  <ul>
+    <li>Same structure, different separators: <code>color/bg/surface</code> in Figma, <code>color.bg.surface</code> in tokens, <code>--color-bg-surface</code> in CSS.</li>
+    <li>Check what your sync tool keeps: descriptions and some token types don't survive every export or import.</li>
+    <li>Part 14 of 20 in the series on AI-ready design systems.</li>
+  </ul>
+</div>
+
+<h2>The problem: two sources of truth, two kinds of agent</h2>
+<p>Almost every mature design system has some drift between Figma and code. A designer adjusted a grey in Figma last spring; an engineer added a token for a new chart that never made it into the library; a rename happened on one side only. People work around it. Agents can't, because each kind of agent only sees one side.</p>
+<figure class="w-fig">
+  <div class="w-arch">
+    <div class="w-arch-row"><span class="w-arch-k">Figma</span><div class="w-arch-n"><div class="bad"><b>Text/Subtle</b><span>#6B7280</span></div><div class="bad"><b>Surface/Raised</b><span>#FFFFFF</span></div><div class="dash"><b>(missing)</b><span>no chart tokens</span></div></div></div>
+    <div class="w-arch-link">read by design-to-code agents through the Figma MCP server</div>
+    <div class="w-arch-row"><span class="w-arch-k">Code</span><div class="w-arch-n"><div class="bad"><b>color.text.secondary</b><span>#5A606B</span></div><div class="bad"><b>color.bg.raised</b><span>#FAFAF8</span></div><div><b>color.chart.1–8</b><span>only in code</span></div></div></div>
+    <div class="w-arch-link">read by coding agents through the manifest and MCP tools</div>
+    <div class="w-arch-row"><span class="w-arch-k">Result</span><div class="w-arch-n"><div class="hi"><b>Two "correct" screens that don't match</b><span>One uses #6B7280 copied from Figma; one uses the token</span></div></div></div>
+  </div>
+  <figcaption><span class="ev ev--ill">Illustration</span> Drift in Harbor. Different names stop agents connecting the two sides; different values mean the same name produces different colours.</figcaption>
+</figure>
+<p>There are four kinds of drift, and each causes a different agent failure:</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Kind</th><th>Example</th><th>What agents do</th></tr></thead>
+  <tbody>
+    <tr><td><b>Name drift</b></td><td><code>Text/Subtle</code> vs <code>color.text.secondary</code></td><td>Can't map the Figma variable to a token, so copy the hex value</td></tr>
+    <tr><td><b>Value drift</b></td><td>Same name, #6B7280 vs #5A606B</td><td>Output looks "wrong" to designers even when the agent used the right token</td></tr>
+    <tr><td><b>Missing on one side</b></td><td>Chart colours only in code</td><td>Design-to-code invents colours; designers detach and hard-code</td></tr>
+    <tr><td><b>Structure drift</b></td><td>Modes in Figma (light, dark, compact) don't match themes in code</td><td>Generated code ignores a theme, or applies the wrong one</td></tr>
+  </tbody>
+</table></div></figure>
+
+<h2>Step 1: choose one source of truth</h2>
+<p>The single most important decision. Two-way sync, where people edit both sides and a tool tries to merge, sounds ideal and usually becomes a third source of conflicts. Choose one side people edit, and generate the other.</p>
+<div class="cols2">
+  <div class="cell cell--accent"><span class="k">RECOMMENDED</span><h4>Code is the source</h4><p>DTCG token files in the design system repo. Changes are reviewed in pull requests, versioned with releases, and generate CSS, native platforms, the agent manifest and Figma variables. Best when engineers ship tokens and you need releases to be exact.</p></div>
+  <div class="cell"><span class="k">ALSO WORKS</span><h4>Figma is the source</h4><p>Designers edit variables in Figma; a pipeline exports them to DTCG files, which go through review before release. Best for design-led teams, as long as the export is automated and reviewed, not copied by hand.</p></div>
+</div>
+<p>Either way, the token files in the repo are what ships, what agents read, and what releases version. The question is only where people make edits. More on the wider practice in <a href="/writing/figma-code-sync">keeping Figma and code in sync</a>.</p>
+
+<h2>Step 2: reconcile once, with a script</h2>
+<p>Before automating anything, make the two sides agree. Export both to the same format and compare them mechanically. Comparing by eye misses things.</p>
+<ol class="w-steps">
+  <li><h3>Export Figma variables as DTCG JSON</h3><p>Figma can export variables in the DTCG format natively (export works per mode), and plugins such as Tokens Studio can export too. Save one file per mode, e.g. <code>figma-light.json</code>.</p></li>
+  <li><h3>Build the code tokens for the same mode</h3><p>Resolved values, not aliases, so you compare final colours.</p></li>
+  <li><h3>Normalise names</h3><p>Convert both to dot-separated lowercase (<code>Text/Subtle</code> → <code>text.subtle</code>) and apply a rename map for known differences.</p></li>
+  <li><h3>Compare and list differences</h3><p>Only in Figma, only in code, same name with different values.</p></li>
+  <li><h3>Decide every difference</h3><p>A designer and an engineer go through the list together. Each line gets one decision: keep code, keep Figma, rename, add, or delete.</p></li>
+</ol>
+<pre><code><span class="c">// scripts/token-drift.mjs: node token-drift.mjs figma-light.json dist/tokens-light.json</span>
+<span class="k">import</span> { readFileSync } <span class="k">from</span> <span class="s">"node:fs"</span>;
+
+<span class="k">const</span> RENAME = { <span class="s">"text.subtle"</span>: <span class="s">"color.text.secondary"</span>, <span class="s">"surface.raised"</span>: <span class="s">"color.bg.raised"</span> };
+
+<span class="c">// Flatten DTCG JSON into { "color.bg.surface": "#ffffff", … }</span>
+<span class="k">function</span> flatten(node, path = [], out = {}) {
+  <span class="k">for</span> (<span class="k">const</span> [key, val] <span class="k">of</span> Object.entries(node)) {
+    <span class="k">if</span> (key.startsWith(<span class="s">"$"</span>)) <span class="k">continue</span>;
+    <span class="k">const</span> p = [...path, key.toLowerCase().replace(<span class="s">/\s+/g</span>, <span class="s">"-"</span>)];
+    <span class="k">if</span> (val &amp;&amp; <span class="k">typeof</span> val === <span class="s">"object"</span> &amp;&amp; <span class="s">"$value"</span> <span class="k">in</span> val) out[p.join(<span class="s">"."</span>)] = normalise(val.$value);
+    <span class="k">else if</span> (val &amp;&amp; <span class="k">typeof</span> val === <span class="s">"object"</span>) flatten(val, p, out);
+  }
+  <span class="k">return</span> out;
+}
+<span class="c">// Colours may be hex strings or DTCG colour objects; compare as lowercase hex.</span>
+<span class="k">const</span> normalise = (v) =&gt; (<span class="k">typeof</span> v === <span class="s">"object"</span> &amp;&amp; v?.hex ? v.hex : String(v)).toLowerCase();
+
+<span class="k">const</span> load = (f) =&gt; flatten(JSON.parse(readFileSync(f, <span class="s">"utf8"</span>)));
+<span class="k">const</span> figma = Object.fromEntries(Object.entries(load(process.argv[2])).map(([k, v]) =&gt; [RENAME[k] ?? k, v]));
+<span class="k">const</span> code = load(process.argv[3]);
+
+<span class="k">const</span> rows = [];
+<span class="k">for</span> (<span class="k">const</span> k <span class="k">of</span> <span class="k">new</span> Set([...Object.keys(figma), ...Object.keys(code)])) {
+  <span class="k">if</span> (!(k <span class="k">in</span> code)) rows.push([<span class="s">"only in Figma"</span>, k, figma[k]]);
+  <span class="k">else if</span> (!(k <span class="k">in</span> figma)) rows.push([<span class="s">"only in code"</span>, k, code[k]]);
+  <span class="k">else if</span> (figma[k] !== code[k]) rows.push([<span class="s">"value differs"</span>, k, <span class="s">`${figma[k]} (Figma) vs ${code[k]} (code)`</span>]);
+}
+console.table(rows);
+process.exit(rows.length ? 1 : 0);</code></pre>
+<p>Adjust <code>flatten</code> to match how your exports are nested (some exports put the collection name at the top level). The output is the decision list for the reconciliation meeting, and later the CI check.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Difference</th><th>Token</th><th>Detail</th><th>Decision</th></tr></thead>
+  <tbody>
+    <tr><td>value differs</td><td><code>color.text.secondary</code></td><td>#6b7280 (Figma) vs #5a606b (code)</td><td>Keep code: Figma's fails 4.5:1 on raised surfaces</td></tr>
+    <tr><td>value differs</td><td><code>color.bg.raised</code></td><td>#ffffff vs #fafaf8</td><td>Keep Figma: the change was intended, never shipped</td></tr>
+    <tr><td>only in code</td><td><code>color.chart.1</code>…<code>8</code></td><td>Added for reports</td><td>Add to Figma</td></tr>
+    <tr><td>only in Figma</td><td><code>color.promo.gradient-start</code></td><td>Used on one marketing banner</td><td>Delete; not a system decision</td></tr>
+  </tbody>
+</table></div>
+<figcaption><span class="ev ev--ill">Illustration</span> Every line needs a person's decision. Some differences are mistakes, some are improvements that never shipped.</figcaption></figure>
+
+<h2>Step 3: automate one direction</h2>
+<p>With the sides agreed, set up the pipeline so the generated side can't be edited by hand. For code as the source, there are three common ways to get tokens into Figma variables:</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Method</th><th>How</th><th>Good for</th><th>Check</th></tr></thead>
+  <tbody>
+    <tr><td><b>Figma's native DTCG import</b></td><td>Import token JSON files into a variable collection in Figma</td><td>Simple setups; occasional updates</td><td>Manual step; check which fields and types are kept</td></tr>
+    <tr><td><b>A plugin (e.g. Tokens Studio)</b></td><td>The plugin reads token files from your Git repo and writes variables</td><td>Teams that want Git sync without writing code</td><td>Plugin settings decide naming and modes; review them once</td></tr>
+    <tr><td><b>Figma Variables REST API</b></td><td>A CI job creates and updates variables on release</td><td>Fully automated pipelines</td><td>Requires an Enterprise plan; you maintain the script</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Three sync options. <span class="ev ev--doc">Documented</span> Figma's native import and export follow the DTCG format; community reports suggest some fields (such as descriptions) and composite token types may not round-trip, so test with your own files.</figcaption></figure>
+<p>Whichever you choose, make the generated side clearly read-only for people:</p>
+<ul class="checklist">
+  <li><b>Label the collection</b> in Figma: "Generated from harbor/tokens. Don't edit here; request changes in #harbor."</li>
+  <li><b>Restrict edit access</b> to the variables file to the people who run the sync.</li>
+  <li><b>Set code syntax on every variable</b> as part of the sync, so Dev Mode and agents see <code>var(--color-bg-surface)</code> (<a href="/writing/figma-mcp-design-to-code">part 8</a>).</li>
+  <li><b>Copy descriptions</b> into the variable description field, if your sync method supports it, so designers see the same guidance agents do (<a href="/writing/design-tokens-for-ai-agents">part 3</a>).</li>
+</ul>
+
+<h2>Step 4: catch drift in CI</h2>
+<p>Drift comes back the moment someone edits the wrong side. Make it visible within a day.</p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Nightly job</b><span>Export Figma variables per mode (API or exported files committed by the sync)</span></div><i>→</i>
+    <div><b>Build tokens</b><span>Resolved values per mode from the repo</span></div><i>→</i>
+    <div><b>Compare</b><span>token-drift.mjs</span></div><i>→</i>
+    <div class="hi"><b>Differences?</b><span>Open an issue for the system team with the table</span></div>
+  </div>
+  <figcaption>A drift check. It doesn't fix anything automatically; it tells a person what changed, so they can decide.</figcaption>
+</figure>
+<p>If you can't automate the Figma export, a monthly manual export and a script run is still far better than nothing.</p>
+
+<h2>Name and structure rules that keep both sides aligned</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Concept</th><th>Tokens (DTCG)</th><th>Figma</th><th>CSS</th></tr></thead>
+  <tbody>
+    <tr><td>Hierarchy</td><td>Nested groups: <code>color.bg.surface</code></td><td>Slashes: <code>color/bg/surface</code></td><td>Hyphens: <code>--color-bg-surface</code></td></tr>
+    <tr><td>Themes</td><td>Token sets or resolver contexts: light, dark</td><td>Modes on the semantic collection</td><td><code>[data-theme="dark"]</code></td></tr>
+    <tr><td>Primitives</td><td>A separate file or group, marked as primitive</td><td>A separate collection, hidden from publishing</td><td>Variables used only by semantic ones</td></tr>
+    <tr><td>Descriptions</td><td><code>$description</code></td><td>Variable description</td><td>Agent manifest; docs</td></tr>
+  </tbody>
+</table></div>
+<figcaption>One structure, three spellings. Mode names in Figma should exactly match theme names in code.</figcaption></figure>
+
+<h2>What changes for agents once drift is gone</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">BEFORE</span><h4>Design-to-code</h4><pre><code>color: #6B7280; /* Text/Subtle */</code></pre><p>The agent couldn't map Figma's name to a token, so it copied the value.</p></div>
+  <div class="cell"><span class="k">AFTER</span><h4>Design-to-code</h4><pre><code>color: var(--color-text-secondary);</code></pre><p>The Figma variable's name and code syntax match the token, so the agent writes the token.</p></div>
+</div>
+
+<h2>Common mistakes</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">MISTAKE</span><h4>Two-way sync with two editing sides</h4><p>Conflicts multiply. One side is edited; the other is generated.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Reconciling by eye</h4><p>Two greys a few points apart look identical in a meeting. Compare values with a script.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Assuming every field survives export</h4><p>Descriptions, composite types and aliases may be dropped or flattened. Diff a round trip once before relying on it.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Fixing drift without a check</h4><p>A one-off cleanup drifts again within months. The CI check is what keeps it fixed.</p></div>
+</div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Drift between Figma and code means design-to-code and coding agents produce different "correct" answers.</li>
+  <li>Choose one side people edit; generate the other. Usually DTCG token files in code are the source.</li>
+  <li>Reconcile once with a script, and decide every difference with a designer and an engineer.</li>
+  <li>Automate sync through Figma's DTCG import, a plugin or the Variables API, and make the generated side read-only.</li>
+  <li>Run a drift check on a schedule so new differences surface within a day.</li>
+</ul></div>
+<p>Next: <a href="/writing/ai-prototyping-tools-design-system">How do I make Figma Make, v0 and Lovable use my design system?</a></p>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>How do I keep Figma variables and design tokens in sync?</summary><div><p>Choose one source people edit (usually DTCG token files in code), generate the other with Figma's DTCG import, a plugin such as Tokens Studio or the Variables REST API, and run a scheduled comparison that flags any differences.</p></div></details>
+  <details><summary>Can Figma export variables as DTCG JSON?</summary><div><p>Yes. Figma supports importing and exporting variables in the DTCG format, with export done per mode. Check which fields are kept for your files, as some details may not survive a round trip.</p></div></details>
+  <details><summary>Should Figma or code be the source of truth for tokens?</summary><div><p>Either can work if only one side is edited by people. Code is the more common choice because changes are reviewed, versioned and released together, and agents read the code side.</p></div></details>
+  <details><summary>Why does AI copy hex values from Figma instead of using tokens?</summary><div><p>Usually because the layer isn't bound to a variable, or the variable's name and code syntax don't match a code token, so the agent has no way to map it. Bind values to variables named like your tokens and set code syntax.</p></div></details>
+  <details><summary>How do I find differences between Figma and code tokens?</summary><div><p>Export both to DTCG JSON for the same mode, flatten them to name-value pairs with normalised names, and compare with a script that lists tokens only on one side and values that differ.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://www.designtokens.org/tr/2025.10/" target="_blank" rel="noopener">Design Tokens Technical Reports 2025.10</a><span>The format both sides should share.</span></li>
+  <li><a href="https://docs.tokens.studio/" target="_blank" rel="noopener">Tokens Studio documentation</a><span>Syncing token files in Git with Figma variables.</span></li>
+  <li><a href="https://developers.figma.com/docs/rest-api/variables/" target="_blank" rel="noopener">Figma REST API: variables</a><span>Reading and writing variables programmatically.</span></li>
+  <li><a href="/writing/figma-code-sync">Keeping Figma and code in sync</a><span>The broader practice beyond tokens.</span></li>
+</ul>

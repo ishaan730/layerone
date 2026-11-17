@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Make Figma Make, v0 and Lovable Use Your Design System | Layer One</title>
+<meta name="description" content="Get AI prototyping tools to use your design system: Figma Make kits, v0 design systems and registries, Lovable design system projects, and guidelines that work.">
+<meta property="og:title" content="How to Make Figma Make, v0 and Lovable Use Your Design System | Layer One">
+<meta property="og:description" content="Get AI prototyping tools to use your design system: Figma Make kits, v0 design systems and registries, Lovable design system projects, and guidelines that work.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-18">
+<meta property="article:modified_time" content="2026-11-18">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="AI-ready design systems">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/ai-prototyping-tools-design-system.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="How to Make Figma Make, v0 and Lovable Use Your Design System | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/writing.css?v=f693a735">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<meta name="keywords" content="Figma Make design system, Figma Make kit, v0 custom design system, Lovable design system, AI prototyping design system, Figma Make not using my components">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "How to Make Figma Make, v0 and Lovable Use Your Design System", "description": "Get AI prototyping tools to use your design system: Figma Make kits, v0 design systems and registries, Lovable design system projects, and guidelines that work.", "image": "https://www.layerone.co.in/assets/images/writing/ai-prototyping-tools-design-system.jpg", "datePublished": "2026-11-18", "dateModified": "2026-11-18", "mainEntityOfPage": "https://www.layerone.co.in/writing/ai-prototyping-tools-design-system", "wordCount": 2033, "articleSection": "AI-ready design systems", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}, "keywords": "Figma Make design system, Figma Make kit, v0 custom design system, Lovable design system, AI prototyping design system, Figma Make not using my components", "isPartOf": {"@type": "CreativeWorkSeries", "name": "Making your design system AI-ready", "url": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "AI-ready design systems", "item": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}, {"@type": "ListItem", "position": 3, "name": "How do I make Figma Make, v0 and Lovable use my design system?", "item": "https://www.layerone.co.in/writing/ai-prototyping-tools-design-system"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I use my design system in Figma Make?", "acceptedAnswer": {"@type": "Answer", "text": "Create a Make kit: add your React design system package (public npm, or Figma's private registry on paid plans), add your Figma library's variables and styles, and write guidelines explaining which components to use for which jobs. Then test it with real prompts."}}, {"@type": "Question", "name": "Why does Figma Make not use my components?", "acceptedAnswer": {"@type": "Answer", "text": "Common causes are a package that doesn't build cleanly in Make's React and Vite setup, components without clear exported names and types, and missing guidelines. Make can inspect a package, but it needs guidelines to use it well."}}, {"@type": "Question", "name": "Can v0 use a custom design system?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. v0 supports custom design systems, including components published as a shadcn-compatible registry, and newer features accept other sources such as code repositories. Check v0's documentation for what your plan supports."}}, {"@type": "Question", "name": "How do design systems work in Lovable?", "acceptedAnswer": {"@type": "Answer", "text": "A design system is its own Lovable project. Attaching it to another project copies its components in and adds its knowledge files to the rules Lovable reads on every generation. Wrapping an existing npm package is available on Enterprise plans."}}, {"@type": "Question", "name": "What if my design system is Angular or web components?", "acceptedAnswer": {"@type": "Answer", "text": "Most AI prototyping tools generate React. Provide tokens and written guidelines so prototypes match your look, consider a thin React wrapper for web components, and treat prototypes as intent rather than production code."}}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/ai-prototyping-tools-design-system">
+<meta property="og:url" content="https://www.layerone.co.in/writing/ai-prototyping-tools-design-system">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="How to Make Figma Make, v0 and Lovable Use Your Design System | Layer One">
+<meta name="twitter:description" content="Get AI prototyping tools to use your design system: Figma Make kits, v0 design systems and registries, Lovable design system projects, and guidelines that work.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/ai-prototyping-tools-design-system.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading" title="Light or dark reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button><a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<main id="main" class="ed-wrap"><article class="ed-article">
+  <div class="ed-layout">
+    <aside class="ed-meta" aria-label="About this article"><div class="ed-meta-in">
+      <div class="ed-meta-who"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40"><p><b>Aniket Pandey</b><span>Founder, Layer One</span></p></div>
+      <dl class="ed-meta-dl"><div><dt>Published</dt><dd>18 November 2026</dd></div><div><dt>Reading time</dt><dd>9 minutes</dd></div><div><dt>Topic</dt><dd><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a></dd></div></dl>
+      <div class="ed-meta-sec"><p class="ed-meta-h">Making your design system AI-ready</p><ol class="ed-steps"><li><a href="/writing/ai-ready-design-system">What is an AI-ready design system?</a></li><li><a href="/writing/how-ai-agents-use-design-systems">How AI coding agents use your design system, and where they go wrong</a></li><li><a href="/writing/design-tokens-for-ai-agents">Design tokens for AI agents</a></li><li><a href="/writing/component-metadata-for-ai-agents">Component metadata for AI agents</a></li><li><a href="/writing/design-system-documentation-for-ai">Writing design system documentation AI agents can use, and how retrieval finds it</a></li><li><a href="/writing/agents-md-llms-txt-design-system">AGENTS.md, llms.txt and rules files for design systems</a></li><li><a href="/writing/design-system-mcp-server">Build an MCP server for your design system</a></li><li><a href="/writing/figma-mcp-design-to-code">Figma to code with AI</a></li><li><a href="/writing/ai-generated-ui-guardrails">Guardrails for AI-generated UI</a></li><li><a href="/writing/legacy-design-system-ai-ready">How to make a legacy design system AI-ready</a></li><li><a href="/writing/why-ai-ignores-design-system">Why does AI ignore my design system?</a></li><li><a href="/writing/design-system-context-window">How much design system context does an AI agent need?</a></li><li><a href="/writing/ai-generated-ui-accessibility">Why is AI-generated UI inaccessible, and how can a design system fix it?</a></li><li><a href="/writing/figma-code-token-drift">Figma variables and code tokens out of sync?</a></li><li aria-current="step"><a href="/writing/ai-prototyping-tools-design-system">How do I make Figma Make, v0 and Lovable use my design system?</a></li><li><a href="/writing/shadcn-ui-design-system-ai">Is shadcn/ui better for AI?</a></li><li><a href="/writing/designers-ai-ready-design-system">Can designers make a design system AI-ready without coding?</a></li><li><a href="/writing/ai-design-system-governance">Who owns the AI rules?</a></li><li><a href="/writing/design-system-ai-security">Is it safe to connect your design system to AI tools?</a></li><li><a href="/writing/ai-ready-design-system-roi">How do you prove the ROI of an AI-ready design system?</a></li></ol></div><div class="ed-meta-sec"><p class="ed-meta-h">Tags</p><ul class="ed-tags"><li>Figma Make</li><li>v0</li><li>Lovable</li><li>Prototyping</li></ul></div><div class="ed-meta-sec"><p class="ed-meta-h">Share</p><p class="ed-share"><button type="button" data-copy="https://www.layerone.co.in/writing/ai-prototyping-tools-design-system">Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.layerone.co.in/writing/ai-prototyping-tools-design-system" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/intent/post?url=https://www.layerone.co.in/writing/ai-prototyping-tools-design-system" target="_blank" rel="noopener">X</a></p></div>
+    </div></aside>
+    <header class="ed-head">
+      <p class="ed-crumb"><a href="/writing">Writing</a><span aria-hidden="true">/</span><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a><span class="ed-crumb-s">Part 15 of 20 in <a href="/writing#ai-ready">Making your design system AI-ready</a></span></p>
+      <h1 class="ed-title">How do I make Figma Make, v0 and Lovable use my design system?</h1>
+      <p class="ed-dek">Prototypes that look polished and nothing like your product are the top complaint from designers using AI tools. What each tool needs, how Figma Make kits, v0 and Lovable accept a design system, guidelines to copy, and a test before rollout.</p>
+      <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>9 min read · 18 November 2026</span></span></p>
+    </header>
+    <figure class="ed-cover"><img src="../assets/images/writing/ai-prototyping-tools-design-system.w1200.webp" alt="Diagram: a design system&#x27;s tokens, components and guidelines feed three AI prototyping tools, Figma Make, v0 and Lovable, which output on-brand prototypes." width="1600" height="900" sizes="(max-width: 1024px) calc(100vw - 32px), 760px" fetchpriority="high" srcset="../assets/images/writing/ai-prototyping-tools-design-system.w480.webp 480w, ../assets/images/writing/ai-prototyping-tools-design-system.w800.webp 800w, ../assets/images/writing/ai-prototyping-tools-design-system.w1200.webp 1200w, ../assets/images/writing/ai-prototyping-tools-design-system.jpg 1600w" decoding="async"></figure>
+    <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>"The prototype looks nothing like our product"</b></summary><ol><li><a href="#the-prototype-looks-nothing-like-our-product">"The prototype looks nothing like our product"</a></li><li><a href="#what-every-tool-needs-from-your-design-system">What every tool needs from your design system</a></li><li><a href="#figma-make-make-kits">Figma Make: Make kits</a></li><li><a href="#v0-design-systems">v0: design systems</a></li><li><a href="#lovable-design-system-projects">Lovable: design system projects</a></li><li><a href="#comparing-the-three">Comparing the three</a></li><li><a href="#if-your-design-system-isn-t-react">If your design system isn't React</a></li><li><a href="#a-test-before-you-roll-it-out">A test before you roll it out</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+    <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>AI prototyping tools (Figma Make, v0, Lovable and similar) use your design system when you give them two things: <b>your actual components and tokens, in a form the tool supports</b>, and <b>written guidelines</b> that tell it how to use them. In Figma Make that means a <b>Make kit</b> built from your React package plus library variables and guidelines. In v0 it means a <b>design system</b> set up from your registry or code sources. In Lovable it means a <b>design system project</b> whose components and knowledge files are attached to other projects. Without both parts, these tools fall back to their defaults, usually shadcn/ui-style components and Tailwind colours. Most of the preparation is the same work as the rest of this series: clean tokens, typed components, clear usage rules.</p>
+  <ul>
+    <li>Most of these tools expect React. If your system isn't React, give them tokens and guidelines at minimum.</li>
+    <li>Guidelines matter as much as code: write them as you would onboard a new engineer.</li>
+    <li>Part 15 of 20 in the series on AI-ready design systems.</li>
+  </ul>
+</div>
+
+<h2 id="the-prototype-looks-nothing-like-our-product">"The prototype looks nothing like our product"</h2>
+<p>A designer opens an AI prototyping tool, describes a payroll settings screen, and gets something polished, plausible and completely off-brand: rounded grey cards, a blue primary button, a font that isn't yours. It's often worse when they've already "connected" their library: the tool imports it, then quietly uses its own components anyway.</p>
+<p>This is the most common design system complaint from designers using AI tools, and the reasons are the same as for coding agents (<a href="/writing/why-ai-ignores-design-system">part 11</a>), with one extra: each tool has its own way of accepting a design system, its own supported formats and its own limits. This guide covers the three tools we're asked about most, as of late 2026. They change quickly, so check each tool's documentation for current details.</p>
+<div class="callout callout--term"><span class="callout-k">New words</span><p><b>AI prototyping tool</b> (or app builder): a tool that generates a working interface, usually React code running in the browser, from a prompt, an image or a design. <b>Registry:</b> a published list of components with their source code and dependencies, in a format tools can install from; shadcn/ui popularised the format. <b>Guidelines</b> (or knowledge files): written instructions the tool reads alongside your code.</p></div>
+
+<h2 id="what-every-tool-needs-from-your-design-system">What every tool needs from your design system</h2>
+<figure class="w-fig">
+  <div class="w-arch">
+    <div class="w-arch-row"><span class="w-arch-k">Your system</span><div class="w-arch-n"><div><b>Tokens</b><span>CSS variables or Figma variables</span></div><div><b>Components</b><span>An installable package or registry, with types</span></div><div class="hi"><b>Guidelines</b><span>When to use what; layout and content rules</span></div></div></div>
+    <div class="w-arch-link">imported through each tool's design system feature</div>
+    <div class="w-arch-row"><span class="w-arch-k">Tools</span><div class="w-arch-n"><div><b>Figma Make</b><span>Make kits</span></div><div><b>v0</b><span>Design systems</span></div><div><b>Lovable</b><span>Design system projects</span></div></div></div>
+    <div class="w-arch-link">generate</div>
+    <div class="w-arch-row"><span class="w-arch-k">Output</span><div class="w-arch-n"><div class="lt"><b>Prototypes built from your parts</b><span>Real components, real tokens, your rules</span></div></div></div>
+  </div>
+  <figcaption>Three inputs, three tools. The inputs are the same work described in parts 3–6; each tool just packages them differently.</figcaption>
+</figure>
+
+<h2 id="figma-make-make-kits">Figma Make: Make kits</h2>
+<p>Figma Make generates interactive prototypes and apps inside Figma. To use your design system, you create a <b>Make kit</b>: a reusable bundle of your code package, styles and guidelines that designers in your organisation can start from.</p>
+<ol class="w-steps">
+  <li><h3>Check your package fits</h3><p>Make kits currently support React design system packages. Figma's docs say Make builds with Vite and React 18, so confirm your package builds in that setup. Private packages can be published to Figma's private npm registry for your organisation on paid plans; public npm packages can be imported by anyone.</p></li>
+  <li><h3>Add the package to a kit</h3><p>Import the package so Make can inspect its components. Add your published Figma library's variables and styles too, so colours, type and spacing match.</p></li>
+  <li><h3>Write guidelines</h3><p>Figma's documentation is clear that Make can inspect packages but needs guidelines to use them well. Write them like onboarding notes for a new engineer: which components to use for which jobs, what never to use, how layouts and forms are built. If your system spans several packages, add an overview.</p></li>
+  <li><h3>Test with real prompts</h3><p>Generate five screens your teams actually build. Check whether Make used your components or substituted its own.</p></li>
+</ol>
+<pre><code><span class="c">&lt;!-- Guidelines for Harbor in Figma Make (excerpt) --&gt;</span>
+# Harbor design system
+
+Build every screen with components from @kestrel/harbor. Don't create new
+components or use other UI libraries.
+
+## Layout
+- Pages use PageLayout with a PageHeader. Content sits in Card or StatCard.
+- Spacing comes from tokens: space-inset-md inside cards, space-stack-lg between sections.
+
+## Components for common jobs
+- Actions: Button. One variant="primary" per screen; everything else secondary.
+- Confirming a destructive action: ConfirmDialog with tone="danger".
+- Forms: Form + TextField / Select / Checkbox. Every field has a visible label.
+- Key numbers on dashboards: StatCard (1–4 stats).
+- Lists of records: Table with TableToolbar for search and filters.
+
+## Never
+- Raw colours or pixel values. Use the CSS variables from @kestrel/harbor/tokens.css.
+- Modal (deprecated): use Dialog.</code></pre>
+<div class="callout callout--warn"><span class="callout-k">Watch out</span><p>Community reports describe Make falling back to generic or shadcn-style components when it can't make sense of a library, or when no components are extracted from it. If that happens, check that the package builds cleanly on its own, that components have clear exported names and types, and that the guidelines name the components to use for each job.</p></div>
+
+<h2 id="v0-design-systems">v0: design systems</h2>
+<p>v0, from Vercel, generates React and Next.js interfaces. It has long supported custom design systems through a <b>registry</b>: you publish your components in the shadcn registry format, and v0 can build with them (shadcn/ui's "Open in v0" buttons use the same mechanism). v0's newer design system features also accept other sources of context, such as code repositories and packages. Check v0's design systems documentation for what's currently supported on your plan.</p>
+<p>The registry route is worth understanding because other tools use the same format (<a href="/writing/shadcn-ui-design-system-ai">part 16</a> covers it in detail):</p>
+<pre><code><span class="c">// registry.json: a minimal registry for Harbor</span>
+{
+  <span class="s">"$schema"</span>: <span class="s">"https://ui.shadcn.com/schema/registry.json"</span>,
+  <span class="s">"name"</span>: <span class="s">"harbor"</span>,
+  <span class="s">"homepage"</span>: <span class="s">"https://harbor.kestrel.example"</span>,
+  <span class="s">"items"</span>: [
+    {
+      <span class="s">"name"</span>: <span class="s">"harbor-theme"</span>,
+      <span class="s">"type"</span>: <span class="s">"registry:style"</span>,
+      <span class="s">"description"</span>: <span class="s">"Harbor tokens as CSS variables, light and dark."</span>,
+      <span class="s">"files"</span>: [{ <span class="s">"path"</span>: <span class="s">"registry/harbor/tokens.css"</span>, <span class="s">"type"</span>: <span class="s">"registry:file"</span>, <span class="s">"target"</span>: <span class="s">"app/harbor-tokens.css"</span> }]
+    },
+    {
+      <span class="s">"name"</span>: <span class="s">"stat-card"</span>,
+      <span class="s">"type"</span>: <span class="s">"registry:component"</span>,
+      <span class="s">"title"</span>: <span class="s">"StatCard"</span>,
+      <span class="s">"description"</span>: <span class="s">"Shows 1–4 key figures with an optional action. Use for dashboard summaries."</span>,
+      <span class="s">"registryDependencies"</span>: [<span class="s">"button"</span>],
+      <span class="s">"files"</span>: [{ <span class="s">"path"</span>: <span class="s">"registry/harbor/stat-card.tsx"</span>, <span class="s">"type"</span>: <span class="s">"registry:component"</span> }]
+    }
+  ]
+}</code></pre>
+<p>Notice the <code>description</code> field: it's the same purpose sentence as the component metadata in <a href="/writing/component-metadata-for-ai-agents">part 4</a>. Generate it from there rather than writing it twice.</p>
+
+<h2 id="lovable-design-system-projects">Lovable: design system projects</h2>
+<p>Lovable builds full-stack web apps from prompts. Its design system feature works differently: a design system is a <b>project of its own</b>. When you attach it to another project, its components are copied into that project and its <b>knowledge files</b>, Lovable's word for guidelines, are added to the rules Lovable reads on every generation. Connected projects receive updates from the design system project. According to Lovable's documentation at the time of writing, wrapping an existing npm package as a design system is available on Enterprise plans, and Lovable reads the package's published type definitions to understand its components.</p>
+<ul class="checklist">
+  <li><b>Publish good type definitions,</b> because that's how Lovable sees your package's components and props.</li>
+  <li><b>Write knowledge files like the guidelines above:</b> jobs to components, never-use lists, layout and content rules.</li>
+  <li><b>Use its enforcement:</b> Lovable's docs describe catching raw colours and custom components that deviate from the design system. Treat its warnings like lint errors.</li>
+</ul>
+
+<h2 id="comparing-the-three">Comparing the three</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th></th><th>Figma Make</th><th>v0</th><th>Lovable</th></tr></thead>
+  <tbody>
+    <tr><td><b>How the system arrives</b></td><td>Make kit: npm package plus Figma library styles and variables</td><td>Registry, plus newer design system sources</td><td>Design system project attached to app projects</td></tr>
+    <tr><td><b>Guidelines</b></td><td>Guidelines in the kit</td><td>Instructions and registry descriptions</td><td>Knowledge files</td></tr>
+    <tr><td><b>Framework</b></td><td>React</td><td>React / Next.js</td><td>React</td></tr>
+    <tr><td><b>Private code</b></td><td>Private npm in Figma on paid plans</td><td>See v0's docs for private registries</td><td>Private packages with a token; npm wrapping on Enterprise</td></tr>
+    <tr><td><b>Best for</b></td><td>Designers prototyping inside Figma</td><td>Teams already using shadcn-style registries and Next.js</td><td>Teams building internal tools or full apps from prompts</td></tr>
+  </tbody>
+</table></div>
+<figcaption>As of late 2026. Features and plan limits change often; check each tool's docs before committing.</figcaption></figure>
+
+<h2 id="if-your-design-system-isn-t-react">If your design system isn't React</h2>
+<p>Many design systems are built for Angular, Vue, web components or native platforms. Most AI prototyping tools generate React. You still have useful options:</p>
+<div class="cols3">
+  <div class="cell"><span class="k">MINIMUM</span><h4>Tokens + guidelines</h4><p>Give the tool your tokens as CSS variables and your written rules. Prototypes match your look even if the components are the tool's own.</p></div>
+  <div class="cell"><span class="k">BETTER</span><h4>A thin React layer</h4><p>Web components can be wrapped for React. A small wrapper package can give prototyping tools your real components.</p></div>
+  <div class="cell"><span class="k">BE CLEAR</span><h4>Prototype vs product</h4><p>Agree that prototypes show intent and flow; production code is built with your real framework, by your real pipeline.</p></div>
+</div>
+
+<h2 id="a-test-before-you-roll-it-out">A test before you roll it out</h2>
+<p>Before telling a whole design team "use the kit", check that it works. Score five prompts, the same way as the agent audit in <a href="/writing/how-ai-agents-use-design-systems">part 2</a>:</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Check</th><th>Pass when</th></tr></thead>
+  <tbody>
+    <tr><td>Components</td><td>Every visible component comes from your system</td></tr>
+    <tr><td>Tokens</td><td>No invented colours, radii or spacing; dark mode works if you have it</td></tr>
+    <tr><td>Rules</td><td>One primary action; correct dialog for destructive actions; labelled fields</td></tr>
+    <tr><td>Accessibility</td><td>Keyboard works through the main flow (<a href="/writing/ai-generated-ui-accessibility">part 13</a>)</td></tr>
+    <tr><td>Gaps</td><td>When nothing fits, the tool says so rather than inventing a component</td></tr>
+  </tbody>
+</table></div></figure>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">MISTAKE</span><h4>Importing the package without guidelines</h4><p>The tool sees 60 components and no rules. It guesses, or falls back to defaults. Guidelines are half the setup.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Guidelines that contradict the code</h4><p>Guidelines say "use Dialog" while the package still exports Modal without a deprecation. Clean the package first.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>A different setup per tool</h4><p>Writing separate rules for Make, v0 and Lovable by hand means three versions that drift. Generate them from one source, the same as AGENTS.md.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Shipping prototypes as product</h4><p>Generated prototypes skip your lint, tests and review. Route them through the normal pipeline before they reach customers.</p></div>
+</div>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>AI prototyping tools need your real components and tokens and written guidelines; without both they use their defaults.</li>
+  <li>Figma Make uses Make kits (React packages plus library styles and guidelines); v0 uses design systems and registries; Lovable uses design system projects with knowledge files.</li>
+  <li>Write guidelines like onboarding notes: jobs to components, never-use lists, layout and content rules.</li>
+  <li>If your system isn't React, give tools tokens and guidelines at minimum.</li>
+  <li>Test five real prompts before rolling a kit out, and keep prototypes out of production until they pass your checks.</li>
+</ul></div>
+<p>Next: <a href="/writing/shadcn-ui-design-system-ai">Is shadcn/ui better for AI?</a></p>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>How do I use my design system in Figma Make?</summary><div><p>Create a Make kit: add your React design system package (public npm, or Figma's private registry on paid plans), add your Figma library's variables and styles, and write guidelines explaining which components to use for which jobs. Then test it with real prompts.</p></div></details>
+  <details><summary>Why does Figma Make not use my components?</summary><div><p>Common causes are a package that doesn't build cleanly in Make's React and Vite setup, components without clear exported names and types, and missing guidelines. Make can inspect a package, but it needs guidelines to use it well.</p></div></details>
+  <details><summary>Can v0 use a custom design system?</summary><div><p>Yes. v0 supports custom design systems, including components published as a shadcn-compatible registry, and newer features accept other sources such as code repositories. Check v0's documentation for what your plan supports.</p></div></details>
+  <details><summary>How do design systems work in Lovable?</summary><div><p>A design system is its own Lovable project. Attaching it to another project copies its components in and adds its knowledge files to the rules Lovable reads on every generation. Wrapping an existing npm package is available on Enterprise plans.</p></div></details>
+  <details><summary>What if my design system is Angular or web components?</summary><div><p>Most AI prototyping tools generate React. Provide tokens and written guidelines so prototypes match your look, consider a thin React wrapper for web components, and treat prototypes as intent rather than production code.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://developers.figma.com/docs/code/bring-your-design-system-package" target="_blank" rel="noopener">Figma: bring your design system package</a><span>Make kits, packages and requirements.</span></li>
+  <li><a href="https://developers.figma.com/docs/code/write-design-system-guidelines/" target="_blank" rel="noopener">Figma: write design system guidelines</a><span>How to write guidelines Make can use.</span></li>
+  <li><a href="https://v0.app/docs/design-systems" target="_blank" rel="noopener">v0: design systems</a><span>Custom design systems and registries in v0.</span></li>
+  <li><a href="https://docs.lovable.dev/features/design-systems" target="_blank" rel="noopener">Lovable: design systems</a><span>Design system projects and knowledge files.</span></li>
+  <li><a href="https://ui.shadcn.com/docs/registry" target="_blank" rel="noopener">shadcn/ui: registry</a><span>The registry format several tools share.</span></li>
+</ul>
+</div>
+    <aside class="ed-aside" aria-label="On this page"><nav class="ed-toc"><p>On this page</p><ol><li><a href="#the-prototype-looks-nothing-like-our-product">"The prototype looks nothing like our product"</a></li><li><a href="#what-every-tool-needs-from-your-design-system">What every tool needs from your design system</a></li><li><a href="#figma-make-make-kits">Figma Make: Make kits</a></li><li><a href="#v0-design-systems">v0: design systems</a></li><li><a href="#lovable-design-system-projects">Lovable: design system projects</a></li><li><a href="#comparing-the-three">Comparing the three</a></li><li><a href="#if-your-design-system-isn-t-react">If your design system isn't React</a></li><li><a href="#a-test-before-you-roll-it-out">A test before you roll it out</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><a class="ed-top" href="#main">Back to top ↑</a></nav></aside>
+  </div>
+  <footer class="ed-end">
+    <section class="ed-more" aria-labelledby="more-h"><h2 class="ed-sec-h" id="more-h">next in making your design system ai-ready:</h2><div class="ec-grid"><a class="ec " href="/writing/shadcn-ui-design-system-ai" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/shadcn-ui-design-system-ai.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/shadcn-ui-design-system-ai.w480.webp 480w, ../assets/images/writing/shadcn-ui-design-system-ai.w800.webp 800w, ../assets/images/writing/shadcn-ui-design-system-ai.w1200.webp 1200w, ../assets/images/writing/shadcn-ui-design-system-ai.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">Is shadcn/ui better for AI? Choosing a component library AI agents can use</b><span class="ec-d">Why AI tools favour shadcn/ui, which advantages your own design system can copy, when to switch or stay, and how to publish your components as a registry.</span><span class="ec-f">8 min read</span></a><a class="ec " href="/writing/figma-mcp-design-to-code" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/figma-mcp-design-to-code.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/figma-mcp-design-to-code.w480.webp 480w, ../assets/images/writing/figma-mcp-design-to-code.w800.webp 800w, ../assets/images/writing/figma-mcp-design-to-code.w1200.webp 1200w, ../assets/images/writing/figma-mcp-design-to-code.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">Figma to code with AI</b><span class="ec-d">Get on-system code from Figma: connect the Figma MCP server, match variables to tokens, mirror props in properties and map components with Code Connect.</span><span class="ec-f">12 min read</span></a><a class="ec " href="/writing/designers-ai-ready-design-system" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/designers-ai-ready-design-system.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/designers-ai-ready-design-system.w480.webp 480w, ../assets/images/writing/designers-ai-ready-design-system.w800.webp 800w, ../assets/images/writing/designers-ai-ready-design-system.w1200.webp 1200w, ../assets/images/writing/designers-ai-ready-design-system.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">Can designers make a design system AI-ready without coding?</b><span class="ec-d">What designers can do to make a design system AI-ready without code: token descriptions, usage rules, Figma prep, tool guidelines, templates and prompts.</span><span class="ec-f">8 min read</span></a></div></section>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Working on this in your own product?</h2><p>Most teams we work with start with a two-week audit: every style, component and token, checked and ranked.</p></div><a href="/pricing">How the audit works <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main><footer class="ed-foot"><div class="ed-foot-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
+  <nav aria-label="Studio"><a href="/work">Work</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/contact">Contact</a><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">LinkedIn</a><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></nav>
+</div></footer><script src="../assets/site.js?v=3de6a9b6" defer></script>
+</body>
+</html>

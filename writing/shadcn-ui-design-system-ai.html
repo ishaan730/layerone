@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Is shadcn/ui Better for AI? Choosing a Library for Agents | Layer One</title>
+<meta name="description" content="Why AI tools favour shadcn/ui, which advantages your own design system can copy, when to switch or stay, and how to publish your components as a registry.">
+<meta property="og:title" content="Is shadcn/ui Better for AI? Choosing a Library for Agents | Layer One">
+<meta property="og:description" content="Why AI tools favour shadcn/ui, which advantages your own design system can copy, when to switch or stay, and how to publish your components as a registry.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-18">
+<meta property="article:modified_time" content="2026-11-18">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="AI-ready design systems">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/shadcn-ui-design-system-ai.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Is shadcn/ui Better for AI? Choosing a Library for Agents | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/writing.css?v=f693a735">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<meta name="keywords" content="shadcn ui AI, why AI uses shadcn, shadcn registry, shadcn MCP, component library for AI agents, should I use shadcn for my design system">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Is shadcn/ui Better for AI? Choosing a Library for Agents", "description": "Why AI tools favour shadcn/ui, which advantages your own design system can copy, when to switch or stay, and how to publish your components as a registry.", "image": "https://www.layerone.co.in/assets/images/writing/shadcn-ui-design-system-ai.jpg", "datePublished": "2026-11-18", "dateModified": "2026-11-18", "mainEntityOfPage": "https://www.layerone.co.in/writing/shadcn-ui-design-system-ai", "wordCount": 1749, "articleSection": "AI-ready design systems", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}, "keywords": "shadcn ui AI, why AI uses shadcn, shadcn registry, shadcn MCP, component library for AI agents, should I use shadcn for my design system", "isPartOf": {"@type": "CreativeWorkSeries", "name": "Making your design system AI-ready", "url": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "AI-ready design systems", "item": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}, {"@type": "ListItem", "position": 3, "name": "Is shadcn/ui better for AI? Choosing a component library AI agents can use", "item": "https://www.layerone.co.in/writing/shadcn-ui-design-system-ai"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Why do AI tools use shadcn/ui so often?", "acceptedAnswer": {"@type": "Answer", "text": "Its components are copied into your project as readable source, it's built on React, Tailwind and headless primitives that appear widely in public code, and it has a registry format and MCP server that tools can install from. Many AI app builders are built around it."}}, {"@type": "Question", "name": "Should I rebuild my design system on shadcn/ui for AI?", "acceptedAnswer": {"@type": "Answer", "text": "Usually not if you have a mature system. You can get most of the benefits by publishing a registry, shipping clear types and serving metadata. For a new React and Tailwind product without a system, starting from shadcn/ui is a reasonable choice."}}, {"@type": "Question", "name": "What is a shadcn registry?", "acceptedAnswer": {"@type": "Answer", "text": "A JSON format that lists components, themes and utilities with their source files and dependencies. The shadcn CLI builds and installs from registries, and tools such as v0 and shadcn's MCP server can use them."}}, {"@type": "Question", "name": "Can I use the shadcn MCP server with my own components?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. It works with any shadcn-compatible registry configured in your project's components.json, so agents can search and install your components."}}, {"@type": "Question", "name": "Is shadcn/ui a design system?", "acceptedAnswer": {"@type": "Answer", "text": "Not by itself. It's a set of components. A design system adds tokens, usage rules, patterns, documentation and governance, which is what makes AI output consistent."}}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/shadcn-ui-design-system-ai">
+<meta property="og:url" content="https://www.layerone.co.in/writing/shadcn-ui-design-system-ai">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Is shadcn/ui Better for AI? Choosing a Library for Agents | Layer One">
+<meta name="twitter:description" content="Why AI tools favour shadcn/ui, which advantages your own design system can copy, when to switch or stay, and how to publish your components as a registry.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/shadcn-ui-design-system-ai.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading" title="Light or dark reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button><a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<main id="main" class="ed-wrap"><article class="ed-article">
+  <div class="ed-layout">
+    <aside class="ed-meta" aria-label="About this article"><div class="ed-meta-in">
+      <div class="ed-meta-who"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40"><p><b>Aniket Pandey</b><span>Founder, Layer One</span></p></div>
+      <dl class="ed-meta-dl"><div><dt>Published</dt><dd>18 November 2026</dd></div><div><dt>Reading time</dt><dd>8 minutes</dd></div><div><dt>Topic</dt><dd><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a></dd></div></dl>
+      <div class="ed-meta-sec"><p class="ed-meta-h">Making your design system AI-ready</p><ol class="ed-steps"><li><a href="/writing/ai-ready-design-system">What is an AI-ready design system?</a></li><li><a href="/writing/how-ai-agents-use-design-systems">How AI coding agents use your design system, and where they go wrong</a></li><li><a href="/writing/design-tokens-for-ai-agents">Design tokens for AI agents</a></li><li><a href="/writing/component-metadata-for-ai-agents">Component metadata for AI agents</a></li><li><a href="/writing/design-system-documentation-for-ai">Writing design system documentation AI agents can use, and how retrieval finds it</a></li><li><a href="/writing/agents-md-llms-txt-design-system">AGENTS.md, llms.txt and rules files for design systems</a></li><li><a href="/writing/design-system-mcp-server">Build an MCP server for your design system</a></li><li><a href="/writing/figma-mcp-design-to-code">Figma to code with AI</a></li><li><a href="/writing/ai-generated-ui-guardrails">Guardrails for AI-generated UI</a></li><li><a href="/writing/legacy-design-system-ai-ready">How to make a legacy design system AI-ready</a></li><li><a href="/writing/why-ai-ignores-design-system">Why does AI ignore my design system?</a></li><li><a href="/writing/design-system-context-window">How much design system context does an AI agent need?</a></li><li><a href="/writing/ai-generated-ui-accessibility">Why is AI-generated UI inaccessible, and how can a design system fix it?</a></li><li><a href="/writing/figma-code-token-drift">Figma variables and code tokens out of sync?</a></li><li><a href="/writing/ai-prototyping-tools-design-system">How do I make Figma Make, v0 and Lovable use my design system?</a></li><li aria-current="step"><a href="/writing/shadcn-ui-design-system-ai">Is shadcn/ui better for AI?</a></li><li><a href="/writing/designers-ai-ready-design-system">Can designers make a design system AI-ready without coding?</a></li><li><a href="/writing/ai-design-system-governance">Who owns the AI rules?</a></li><li><a href="/writing/design-system-ai-security">Is it safe to connect your design system to AI tools?</a></li><li><a href="/writing/ai-ready-design-system-roi">How do you prove the ROI of an AI-ready design system?</a></li></ol></div><div class="ed-meta-sec"><p class="ed-meta-h">Tags</p><ul class="ed-tags"><li>shadcn/ui</li><li>Registry</li><li>Components</li><li>React</li></ul></div><div class="ed-meta-sec"><p class="ed-meta-h">Share</p><p class="ed-share"><button type="button" data-copy="https://www.layerone.co.in/writing/shadcn-ui-design-system-ai">Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.layerone.co.in/writing/shadcn-ui-design-system-ai" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/intent/post?url=https://www.layerone.co.in/writing/shadcn-ui-design-system-ai" target="_blank" rel="noopener">X</a></p></div>
+    </div></aside>
+    <header class="ed-head">
+      <p class="ed-crumb"><a href="/writing">Writing</a><span aria-hidden="true">/</span><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a><span class="ed-crumb-s">Part 16 of 20 in <a href="/writing#ai-ready">Making your design system AI-ready</a></span></p>
+      <h1 class="ed-title">Is shadcn/ui better for AI? Choosing a component library AI agents can use</h1>
+      <p class="ed-dek">AI tools reach for shadcn/ui constantly, so teams wonder whether to rebuild on it. What actually makes it agent-friendly, the drift risk of open code, a decision guide for switching or staying, and how to publish your own system as a registry.</p>
+      <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>8 min read · 18 November 2026</span></span></p>
+    </header>
+    <figure class="ed-cover"><img src="../assets/images/writing/shadcn-ui-design-system-ai.w1200.webp" alt="Diagram: a component library as a hidden package compared with open source code in the project, connected to a registry agents can install from." width="1600" height="900" sizes="(max-width: 1024px) calc(100vw - 32px), 760px" fetchpriority="high" srcset="../assets/images/writing/shadcn-ui-design-system-ai.w480.webp 480w, ../assets/images/writing/shadcn-ui-design-system-ai.w800.webp 800w, ../assets/images/writing/shadcn-ui-design-system-ai.w1200.webp 1200w, ../assets/images/writing/shadcn-ui-design-system-ai.jpg 1600w" decoding="async"></figure>
+    <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>Why teams are asking this</b></summary><ol><li><a href="#why-teams-are-asking-this">Why teams are asking this</a></li><li><a href="#what-actually-makes-it-work-well-with-ai">What actually makes it work well with AI</a></li><li><a href="#the-trade-off-nobody-mentions-open-code-drifts">The trade-off nobody mentions: open code drifts</a></li><li><a href="#decision-guide-switch-adopt-or-stay">Decision guide: switch, adopt, or stay</a></li><li><a href="#step-by-step-publish-your-own-system-as-a-registry">Step by step: publish your own system as a registry</a></li><li><a href="#if-you-do-build-on-shadcn-ui-keep-it-a-system">If you do build on shadcn/ui: keep it a system</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+    <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>shadcn/ui works well with AI for three reasons that have nothing to do with how it looks: the <b>component source code lives in your project</b>, so agents can read and edit it instead of guessing a hidden API; it's built on a <b>stack models have seen constantly</b> (React, Tailwind, Radix-style headless primitives); and its <b>registry format and MCP server</b> let tools discover and install components. That doesn't mean you should rebuild your design system on it. If you already have a mature system, you can get most of the same benefits by <b>publishing it as a registry</b>, shipping types and source maps, and serving metadata to agents. Choose shadcn/ui as a foundation when you're starting fresh with React and Tailwind; keep your system when it already works and make it readable.</p>
+  <ul>
+    <li>"Open code" helps agents, but it also means each product can drift from the original. Plan for updates.</li>
+    <li>The registry format is useful even if you never use shadcn/ui's components.</li>
+    <li>Part 16 of 20 in the series on AI-ready design systems.</li>
+  </ul>
+</div>
+
+<h2 id="why-teams-are-asking-this">Why teams are asking this</h2>
+<p>Ask an AI tool for a React interface without further instructions and there's a good chance you'll get shadcn/ui-style components. Many AI app builders are built around it. So design system teams reasonably wonder: should we switch? Would agents work better if our system <i>was</i> shadcn/ui?</p>
+<p>The honest answer is "it depends on where you're starting". To decide well, separate the parts of shadcn/ui that help agents from the parts that are simply popular.</p>
+<div class="callout callout--term"><span class="callout-k">New words</span><p><b>shadcn/ui:</b> a collection of React components you copy into your project with a command-line tool, rather than install as a package. You own and edit the code. <b>Headless primitives:</b> components that provide behaviour and accessibility without styling (Radix UI, React Aria, Base UI). <b>Registry:</b> a published list of components in a JSON format, with their source files and dependencies, that tools can install from.</p></div>
+
+<h2 id="what-actually-makes-it-work-well-with-ai">What actually makes it work well with AI</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Property</th><th>Why it helps agents</th><th>Can your system have it too?</th></tr></thead>
+  <tbody>
+    <tr><td><b>Source in the project</b></td><td>The agent can open <code>components/ui/button.tsx</code> and read exactly what variants exist, instead of guessing from a compiled package</td><td>Partly: ship readable types, JSDoc and source maps; or distribute via a registry</td></tr>
+    <tr><td><b>Familiar stack</b></td><td>React, Tailwind and headless primitives appear in a huge amount of public code, so models write them fluently</td><td>Only if you use that stack; otherwise compensate with clear metadata and examples</td></tr>
+    <tr><td><b>Simple, consistent APIs</b></td><td>Few props, consistent naming (<code>variant</code>, <code>size</code>), composition over configuration</td><td>Yes: see <a href="/writing/component-props-best-practices">props best practices</a></td></tr>
+    <tr><td><b>Registry format</b></td><td>Components are listed with descriptions and dependencies; tools can install them</td><td>Yes: publish your own registry</td></tr>
+    <tr><td><b>MCP server</b></td><td>Agents can search and install from configured registries</td><td>Yes: shadcn's MCP server works with any compatible registry; or build your own (<a href="/writing/design-system-mcp-server">part 7</a>)</td></tr>
+    <tr><td><b>Docs for machines</b></td><td>Markdown docs and llms.txt</td><td>Yes: see <a href="/writing/agents-md-llms-txt-design-system">part 6</a></td></tr>
+  </tbody>
+</table></div>
+<figcaption>Most of the advantages are portable. Only the familiar stack is something you'd have to switch to get.</figcaption></figure>
+<p><span class="ev ev--prac">Practitioner view</span> Much of what's written about "why AI loves shadcn/ui" is anecdotal or comes from vendors building on it. The mechanism is plausible and matches our experience (readable source and familiar patterns beat hidden APIs), but it isn't magic: an agent with shadcn/ui and no rules still invents colours and misuses variants.</p>
+
+<h2 id="the-trade-off-nobody-mentions-open-code-drifts">The trade-off nobody mentions: open code drifts</h2>
+<p>Because shadcn/ui components are copied into each project, each project owns its copy. That's what makes them easy for agents to edit, and it's also a design system risk.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">PACKAGE</span><h4>Installed from npm</h4><ul><li>One version, updated by bumping a dependency</li><li>Agents can't change the component, only use it</li><li>API is hidden unless types and docs are good</li></ul></div>
+  <div class="cell"><span class="k">OPEN CODE</span><h4>Copied into the project</h4><ul><li>Agents can read every line, and edit it</li><li>An agent asked for "a loading state" may edit <code>button.tsx</code> for one screen, changing it for every screen</li><li>Updates need a merge, per project</li></ul></div>
+</div>
+<p class="scenario-t">An illustration: the edited button</p>
+<div class="scenario">
+  <div><span class="k">The request</span><p>"Make the export button show a spinner while the CSV is generating."</p></div>
+  <div><span class="k">What happened</span><p>The agent edited <code>components/ui/button.tsx</code> to add a <code>loading</code> prop with its own spinner and colours. It worked, and quietly changed the shared component in a way the system team never reviewed.</p></div>
+  <div><span class="k">The fix</span><p>A rule in AGENTS.md: "Never edit files in components/ui/. If a component is missing something, say so." Plus CODEOWNERS on that folder so changes need system team review.</p></div>
+</div>
+
+<h2 id="decision-guide-switch-adopt-or-stay">Decision guide: switch, adopt, or stay</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Your situation</th><th>Recommendation</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td>New product, React + Tailwind, no system yet</td><td><b>Start from shadcn/ui</b>, themed with your tokens</td><td>Good behaviour and accessibility from headless primitives, agent-friendly from day one</td></tr>
+    <tr><td>Small system, React + Tailwind, a few components</td><td><b>Consider migrating</b> component by component</td><td>Low cost; you gain the ecosystem and keep your tokens</td></tr>
+    <tr><td>Mature React system, used by many products</td><td><b>Stay; publish a registry</b> and metadata</td><td>Rebuilding costs months and risks regressions; you can get the agent benefits without it</td></tr>
+    <tr><td>Non-React system (Angular, Vue, web components)</td><td><b>Stay</b>; make metadata and docs excellent</td><td>Switching frameworks for AI tools is rarely justified; see <a href="/writing/ai-prototyping-tools-design-system">part 15</a> for prototyping options</td></tr>
+    <tr><td>Multi-brand or white-label system</td><td><b>Stay, or use shadcn/ui as an internal base</b></td><td>Your token architecture is the hard part; components can sit on any base</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Whatever you choose, the AI-readiness work in parts 3–9 still applies.</figcaption></figure>
+
+<h2 id="step-by-step-publish-your-own-system-as-a-registry">Step by step: publish your own system as a registry</h2>
+<p>This gives AI tools a familiar way to discover and install your components, whether or not they're built on shadcn/ui. It's useful for v0 (<a href="/writing/ai-prototyping-tools-design-system">part 15</a>), for shadcn's MCP server, and for teams that prefer open code.</p>
+<ol class="w-steps">
+  <li><h3>Describe each item in <code>registry.json</code></h3><p>One entry per component, theme or utility: name, type, title, description, dependencies, and the files to copy. Generate the descriptions from your component metadata.</p></li>
+  <li><h3>Build the registry</h3><p>The shadcn CLI turns <code>registry.json</code> into one JSON file per item, ready to host.</p></li>
+  <li><h3>Host it</h3><p>Any static host works. Put private registries behind authentication.</p></li>
+  <li><h3>Let projects install from it</h3><p>Projects add your registry under a namespace in <code>components.json</code>, then install items by name, by hand or through an agent.</p></li>
+</ol>
+<pre><code><span class="c">// registry.json (one item shown)</span>
+{
+  <span class="s">"$schema"</span>: <span class="s">"https://ui.shadcn.com/schema/registry.json"</span>,
+  <span class="s">"name"</span>: <span class="s">"harbor"</span>,
+  <span class="s">"homepage"</span>: <span class="s">"https://harbor.kestrel.example"</span>,
+  <span class="s">"items"</span>: [{
+    <span class="s">"name"</span>: <span class="s">"confirm-dialog"</span>,
+    <span class="s">"type"</span>: <span class="s">"registry:component"</span>,
+    <span class="s">"title"</span>: <span class="s">"ConfirmDialog"</span>,
+    <span class="s">"description"</span>: <span class="s">"Asks the user to confirm an action, especially one that deletes data. Use tone=danger for destructive actions."</span>,
+    <span class="s">"registryDependencies"</span>: [<span class="s">"@harbor/button"</span>, <span class="s">"@harbor/dialog"</span>],
+    <span class="s">"files"</span>: [{ <span class="s">"path"</span>: <span class="s">"registry/harbor/confirm-dialog.tsx"</span>, <span class="s">"type"</span>: <span class="s">"registry:component"</span> }]
+  }]
+}</code></pre>
+<pre><code>npx shadcn@latest build        <span class="c"># writes public/r/confirm-dialog.json and the rest</span></code></pre>
+<pre><code><span class="c">// components.json in a product repo: register the namespace</span>
+{
+  <span class="s">"registries"</span>: {
+    <span class="s">"@harbor"</span>: <span class="s">"https://harbor.kestrel.example/r/{name}.json"</span>
+  }
+}</code></pre>
+<pre><code>npx shadcn@latest add @harbor/confirm-dialog
+npx shadcn@latest mcp init --client claude   <span class="c"># lets an agent search and install from configured registries</span></code></pre>
+<p>Check the shadcn documentation for the current CLI options and authentication for private registries.</p>
+
+<h2 id="if-you-do-build-on-shadcn-ui-keep-it-a-system">If you do build on shadcn/ui: keep it a system</h2>
+<p>shadcn/ui gives you components, not a design system. The decisions, rules and governance are still yours to add, and they matter more when agents can edit component code.</p>
+<ul class="checklist">
+  <li><b>Theme with your tokens.</b> Map shadcn/ui's CSS variables (<code>--primary</code>, <code>--muted</code>…) to your semantic tokens, generated from your DTCG source (<a href="/writing/design-tokens-for-ai-agents">part 3</a>).</li>
+  <li><b>Keep a canonical copy.</b> Your own registry holds the reviewed versions; product repos install from it, not from the public defaults.</li>
+  <li><b>Protect the folder.</b> A "never edit components/ui" rule for agents, CODEOWNERS for people, and a drift check that compares product copies with the registry.</li>
+  <li><b>Add your metadata.</b> Usage rules, when-not-to-use and patterns are what turn a component set into a system agents can follow (<a href="/writing/component-metadata-for-ai-agents">part 4</a>).</li>
+  <li><b>Remove what you don't use.</b> An agent will happily use a <code>HoverCard</code> because it exists. Only install components the system supports.</li>
+</ul>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">MISTAKE</span><h4>Rebuilding a working system for AI</h4><p>Months of migration for a benefit you could get with a registry, types and metadata. Make what you have readable first.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Default theme in production</h4><p>Unthemed shadcn/ui looks like every other AI-generated app. Map its variables to your tokens before anything ships.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Letting agents edit shared components</h4><p>Open code invites edits. Make the shared folder off-limits for agents and reviewed for people.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>No update path</h4><p>Copied components don't update themselves. Decide how fixes reach product copies before you have twenty of them.</p></div>
+</div>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>shadcn/ui suits AI because source is in the project, the stack is familiar, and it has a registry format and MCP server.</li>
+  <li>Most of those benefits are portable: publish your own registry, ship readable types, serve metadata.</li>
+  <li>Start from shadcn/ui for new React + Tailwind products; keep a mature system and make it readable.</li>
+  <li>Open code drifts: protect shared components from agent edits and keep a canonical registry.</li>
+  <li>Components aren't a system: tokens, rules and governance still decide whether agents get it right.</li>
+</ul></div>
+<p>Next: <a href="/writing/designers-ai-ready-design-system">Can designers make a design system AI-ready without coding?</a></p>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Why do AI tools use shadcn/ui so often?</summary><div><p>Its components are copied into your project as readable source, it's built on React, Tailwind and headless primitives that appear widely in public code, and it has a registry format and MCP server that tools can install from. Many AI app builders are built around it.</p></div></details>
+  <details><summary>Should I rebuild my design system on shadcn/ui for AI?</summary><div><p>Usually not if you have a mature system. You can get most of the benefits by publishing a registry, shipping clear types and serving metadata. For a new React and Tailwind product without a system, starting from shadcn/ui is a reasonable choice.</p></div></details>
+  <details><summary>What is a shadcn registry?</summary><div><p>A JSON format that lists components, themes and utilities with their source files and dependencies. The shadcn CLI builds and installs from registries, and tools such as v0 and shadcn's MCP server can use them.</p></div></details>
+  <details><summary>Can I use the shadcn MCP server with my own components?</summary><div><p>Yes. It works with any shadcn-compatible registry configured in your project's components.json, so agents can search and install your components.</p></div></details>
+  <details><summary>Is shadcn/ui a design system?</summary><div><p>Not by itself. It's a set of components. A design system adds tokens, usage rules, patterns, documentation and governance, which is what makes AI output consistent.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://ui.shadcn.com/docs" target="_blank" rel="noopener">shadcn/ui documentation</a><span>The open code approach and theming.</span></li>
+  <li><a href="https://ui.shadcn.com/docs/registry" target="_blank" rel="noopener">shadcn/ui: registry</a><span>Building and hosting your own registry.</span></li>
+  <li><a href="https://ui.shadcn.com/docs/mcp" target="_blank" rel="noopener">shadcn MCP server</a><span>Letting agents search and install from registries.</span></li>
+  <li><a href="/writing/headless-component-library-build-vs-buy">Build, borrow or buy</a><span>Headless libraries versus building your own.</span></li>
+</ul>
+</div>
+    <aside class="ed-aside" aria-label="On this page"><nav class="ed-toc"><p>On this page</p><ol><li><a href="#why-teams-are-asking-this">Why teams are asking this</a></li><li><a href="#what-actually-makes-it-work-well-with-ai">What actually makes it work well with AI</a></li><li><a href="#the-trade-off-nobody-mentions-open-code-drifts">The trade-off nobody mentions: open code drifts</a></li><li><a href="#decision-guide-switch-adopt-or-stay">Decision guide: switch, adopt, or stay</a></li><li><a href="#step-by-step-publish-your-own-system-as-a-registry">Step by step: publish your own system as a registry</a></li><li><a href="#if-you-do-build-on-shadcn-ui-keep-it-a-system">If you do build on shadcn/ui: keep it a system</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><a class="ed-top" href="#main">Back to top ↑</a></nav></aside>
+  </div>
+  <footer class="ed-end">
+    <section class="ed-more" aria-labelledby="more-h"><h2 class="ed-sec-h" id="more-h">next in making your design system ai-ready:</h2><div class="ec-grid"><a class="ec " href="/writing/designers-ai-ready-design-system" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/designers-ai-ready-design-system.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/designers-ai-ready-design-system.w480.webp 480w, ../assets/images/writing/designers-ai-ready-design-system.w800.webp 800w, ../assets/images/writing/designers-ai-ready-design-system.w1200.webp 1200w, ../assets/images/writing/designers-ai-ready-design-system.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">Can designers make a design system AI-ready without coding?</b><span class="ec-d">What designers can do to make a design system AI-ready without code: token descriptions, usage rules, Figma prep, tool guidelines, templates and prompts.</span><span class="ec-f">8 min read</span></a><a class="ec " href="/writing/headless-component-library-build-vs-buy" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/headless-component-library-build-vs-buy.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/headless-component-library-build-vs-buy.w480.webp 480w, ../assets/images/writing/headless-component-library-build-vs-buy.w800.webp 800w, ../assets/images/writing/headless-component-library-build-vs-buy.w1200.webp 1200w, ../assets/images/writing/headless-component-library-build-vs-buy.jpg 1600w"></span><span class="ec-k">Building a system</span><b class="ec-t">Build, borrow or buy</b><span class="ec-d">Should you build design system components, use a headless library or theme a styled one? Trade-offs, a decision table and what we usually recommend.</span><span class="ec-f">5 min read</span></a><a class="ec " href="/writing/design-system-mcp-server" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/design-system-mcp-server.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-system-mcp-server.w480.webp 480w, ../assets/images/writing/design-system-mcp-server.w800.webp 800w, ../assets/images/writing/design-system-mcp-server.w1200.webp 1200w, ../assets/images/writing/design-system-mcp-server.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">Build an MCP server for your design system</b><span class="ec-d">Build a Model Context Protocol server for your design system: tool design, working code, Storybook and shadcn options, Inspector testing and setup.</span><span class="ec-f">15 min read</span></a></div></section>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Thinking about how your system is run?</h2><p>If you'd like a second opinion on your team or process, a thirty-minute call is a good place to start.</p></div><a href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main><footer class="ed-foot"><div class="ed-foot-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
+  <nav aria-label="Studio"><a href="/work">Work</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/contact">Contact</a><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">LinkedIn</a><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></nav>
+</div></footer><script src="../assets/site.js?v=3de6a9b6" defer></script>
+</body>
+</html>
