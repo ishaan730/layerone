@@ -121,7 +121,7 @@ fq = "".join(f"<details><summary>{q}</summary><p>{a}</p></details>" for q, a in 
 
 content = f'''
 <header class="pr-head">
-  <h1 class="statement">Fixed prices for design systems work.</h1>
+  <h1 class="statement">Design system services, at fixed prices.</h1>
   <p class="sub muted">Start with an audit, build the foundations, then keep the system running. Every engagement has a fixed price, a fixed timeline and a senior team. Prices in US dollars.</p>
   <div class="pr-toggle" role="group" aria-label="Pricing">
     <button type="button" aria-pressed="true" data-price="full">Standard</button>
@@ -164,5 +164,16 @@ content = f'''
   <div class="btn-row"><a class="pill pill--accent pill--lg" href="contact.html">Start a project {ARROW}</a><a class="pill pill--lg" href="{CAL}" target="_blank" rel="noopener">Book a call</a></div>
 </div>
 '''
-write("pricing.html", head("Pricing — Layer One", "Fixed-price design system engagements: a two-week audit, a six-week foundations build and a monthly system partnership.")
+from optimize import ld, SITE as _SITE, ORG_ID
+PRICE_LD = ld({"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+    {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]}) + ld({
+    "@context": "https://schema.org", "@type": "OfferCatalog", "name": "Design system services", "url": _SITE + "/pricing",
+    "itemListElement": [{"@type": "Offer", "name": p["name"], "price": str(p["price"]), "priceCurrency": "USD",
+                         "description": p["line"] + " " + p["for_"], "url": _SITE + "/pricing#plan-" + p["id"],
+                         "seller": {"@id": ORG_ID},
+                         "itemOffered": {"@type": "Service", "name": {"audit": "Design system audit", "foundations": "Design system development", "partner": "Design system consulting"}[p["id"]],
+                                         "url": _SITE + {"audit": "/services/design-system-audit", "foundations": "/services/design-system-development", "partner": "/services/design-system-consulting"}[p["id"]]},
+                         **({"priceSpecification": {"@type": "UnitPriceSpecification", "price": str(p["price"]), "priceCurrency": "USD", "unitText": "MONTH"}} if p["per"] != "fixed" else {})}
+                        for p in plans]})
+write("pricing.html", head("Design System Services & Pricing | Layer One", "Fixed-price design system services: a two-week audit ($1,500), a six-week foundations build ($5,900) and a monthly design system partnership ($2,900).").replace("</head>", PRICE_LD + "\n</head>", 1)
       + shell("pricing", [("Plans", "#main"), ("Includes", "#inc-h"), ("Compare", "#cmp-h"), ("Find your plan", "#finder-h"), ("Founding partners", "#founding"), ("Add-ons", "#add-h"), ("Questions", "#pfaq-h")], content, card="bar"))

@@ -25,13 +25,47 @@ html = html.replace("<head>", '<head>\n<meta name="robots" content="noindex">', 
 open(f, "w").write(html)
 
 # sitemap.xml and robots.txt
+# lastmod is the date a page's content last changed, not the build date: Google ignores lastmod values that
+# change on every build. Each page's content is hashed (ignoring cache-busting ?v= strings); the hash and date
+# are kept in lastmod.json, which is committed. A new page, or one without an entry, takes the date of its last
+# commit if its content matches the committed version, and today otherwise. <priority> is left out: Google ignores it.
+import hashlib, json, re, subprocess
+
 today = datetime.date.today().isoformat()
+LASTMOD = os.path.join(os.path.dirname(os.path.abspath(__file__)), "lastmod.json")
+cache = json.load(open(LASTMOD)) if os.path.exists(LASTMOD) else {}
+
+
+def _norm(html):
+    return hashlib.sha1(re.sub(r"\?v=[0-9a-f]{8}", "", html).encode()).hexdigest()
+
+
+def _git(*args):
+    try:
+        return subprocess.run(["git", *args], cwd=OUT, capture_output=True, text=True, check=True).stdout
+    except Exception:
+        return ""
+
+
 pages = sorted(p for p in (os.path.relpath(x, OUT) for x in glob.glob(os.path.join(OUT, "*.html")) + glob.glob(os.path.join(OUT, "work", "*.html"))
                                                        + glob.glob(os.path.join(OUT, "writing", "*.html")) + glob.glob(os.path.join(OUT, "writing", "topics", "*.html"))
-                                                       + glob.glob(os.path.join(OUT, "lab", "*.html")))
+                                                       + glob.glob(os.path.join(OUT, "lab", "*.html")) + glob.glob(os.path.join(OUT, "services", "*.html")))
                if p != "404.html")
-prio = {"/": "1.0", "/work": "0.9", "/pricing": "0.9", "/contact": "0.8", "/lab": "0.7"}
-urls = "".join(f"  <url><loc>{SITE}{url_path(p)}</loc><lastmod>{today}</lastmod><priority>{prio.get(url_path(p), '0.8' if p.startswith(('work/', 'writing/', 'lab/')) and 'topics' not in p else '0.6')}</priority></url>\n" for p in pages)
+urls = ""
+for p in pages:
+    h = _norm(open(os.path.join(OUT, p)).read())
+    entry = cache.get(p)
+    if entry and entry["hash"] == h:
+        date = entry["date"]
+    elif entry:
+        date = today
+    else:
+        committed = _git("show", f"HEAD:{p}")
+        date = (_git("log", "-1", "--format=%cs", "--", p).strip() or today) if committed and _norm(committed) == h else today
+    cache[p] = {"hash": h, "date": date}
+    urls += f"  <url><loc>{SITE}{url_path(p)}</loc><lastmod>{date}</lastmod></url>\n"
+cache = {k: v for k, v in sorted(cache.items()) if k in pages}
+json.dump(cache, open(LASTMOD, "w"), indent=1)
 open(os.path.join(OUT, "sitemap.xml"), "w").write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n')
 open(os.path.join(OUT, "robots.txt"), "w").write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n")
 print("wrote sitemap.xml", len(pages), "pages; robots.txt")

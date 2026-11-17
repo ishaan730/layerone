@@ -90,3 +90,35 @@ python3 tools/serve.py
 - **Share card:** `assets/og/layer-one.jpg` (1200 × 630), drawn in `tools/covers/og.html` and rendered with `node tools/covers/render_og.js`.
 
 `tools/` and this README are excluded from the deployment by `.vercelignore`.
+
+## SEO
+
+What's built in, and what has to happen outside the code. Background: the November 2026 SEO audit.
+
+**In the code**
+
+- **One domain setting.** Every absolute URL (canonical, `og:image`, JSON-LD, sitemap) comes from `SITE` in `tools/build/optimize.py`, which reads `LAYERONE_SITE` if set.
+- **Titles and descriptions use what buyers search for.** Core pages say "design system agency", "consultancy", "services", "audit". Keep titles under about 60 characters and descriptions under 160. Case study search titles live in `SEO` in `tools/build/common.py`.
+- **Service pages.** `/services` plus one page per service (`tools/build/services.py`), each with Service, FAQPage and BreadcrumbList data. Prices must match `pricing.py`. Articles end with a link to the service that matches their topic (`TOPIC_SERVICE` in `writing.py`).
+- **Structured data.** The home page carries the full ProfessionalService (address in Bengaluru, `areaServed` listing target markets, offer catalogue) and WebSite. Every other page references the organisation. Case studies get CreativeWork and breadcrumbs, studio gets the founder as a Person, pricing gets FAQPage and OfferCatalog (`page_ld()` in `optimize.py`).
+- **Bangalore is the base, not the boundary.** Copy says "based in Bangalore, India, working with product teams worldwide". Studio has a time-zone section (`#worldwide`). Don't create one page per country: Google treats those as doorway pages.
+- **Sitemap dates are real.** `lastmod` is the date a page's content last changed, tracked in `tools/build/lastmod.json` (commit it). No `<priority>`.
+
+**Moving off `.co.in` (recommended if global clients are the goal)**
+
+A country-code domain tells Google the site is for India. To move to a generic domain (`.com`, `.studio`, `.design`):
+
+1. Register the domain and add it to the Vercel project.
+2. Set `SITE` in `tools/build/optimize.py` to the new origin and rebuild, so canonicals, structured data and the sitemap use it.
+3. In Vercel, permanently redirect every `www.layerone.co.in/*` path to the same path on the new domain (one-to-one, not to the home page).
+4. Verify both domains in Google Search Console and use **Change of address**. Submit the new sitemap. Do the same in Bing Webmaster Tools.
+5. Update the LinkedIn, X and Medium profile links, directory listings and email signatures. Expect a few weeks of fluctuation.
+
+**Outside the code (do these by hand)**
+
+- Google Search Console and Bing Webmaster Tools: verify, submit `sitemap.xml`, and review queries monthly.
+- Google Business Profile as a service-area business in Bengaluru.
+- Profiles on Clutch, GoodFirms, DesignRush and Sortlist, with the same name, description and links everywhere.
+- Pitch "best design system agencies" round-ups, design system newsletters and podcasts, using the Lab tools and the AI-ready course as the hook.
+- Republish articles on Medium with a canonical link to the original on this site.
+- Publish the first studio client case studies and add real testimonials when they exist.

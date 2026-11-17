@@ -117,7 +117,7 @@ def page(key, spec):
     i = cases.index(proj)
     others = [cases[(i + 1) % len(cases)], cases[(i + 2) % len(cases)]]  # the next two, like Hex's "More Work"
     nxt = "".join(f'''<a class="nx" href="{p["slug"]}.html" style="--f:{p["f"]};--ft:{p["ft"]}"><img src="../{p["cover"]}" alt="" loading="lazy"><span>{p["kind"]}</span><h3>{p["title"].split(": ", 1)[1][0].upper() + p["title"].split(": ", 1)[1][1:]}</h3></a>''' for p in others)
-    html = (head(f"{proj['title']} — Layer One", proj["blurb"], depth=1, og=proj["cover"])
+    html = (seo_head(proj)
             + topbar("work", depth=1) + f'''<main id="main" class="cs" style="--f:{proj["f"]}">
   <header class="cs-hero">
     <p class="crumb"><a href="../work.html">Work</a> / {proj["client"]}</p>
@@ -141,7 +141,7 @@ def page(key, spec):
   <section class="cs-wrap cs-end">
     <p class="cs-credit">{spec["credits"]}</p>
     <div class="cs-cta"><div><h2>Need this for your product?</h2><p>We do this work for product teams now. Start with a two-week audit.</p></div>
-      <div class="btn-row"><a class="pill pill--accent" href="../pricing.html">See pricing</a><a class="pill" href="../contact.html">Start a project</a></div></div>
+      <div class="btn-row"><a class="pill pill--accent" href="../services/design-system-audit.html">How the audit works</a><a class="pill" href="../contact.html">Start a project</a></div></div>
     <h2 class="nx-h">Next case studies</h2>
     <div class="nxs">{nxt}</div>
   </section>

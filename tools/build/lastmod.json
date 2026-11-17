@@ -1,0 +1,446 @@
+{
+ "contact.html": {
+  "hash": "d41f42c51ecb24f8b11594519369397da9a0a34b",
+  "date": "2026-11-17"
+ },
+ "experience.html": {
+  "hash": "db0faf117ebdc88e9f72a96c2cf00370805ec87d",
+  "date": "2026-11-17"
+ },
+ "index.html": {
+  "hash": "718cf12f1159af0ad497c2fdc942c3c753e4c712",
+  "date": "2026-11-17"
+ },
+ "lab.html": {
+  "hash": "3e97a25709c85f850ac6075a26073b90efec8ebc",
+  "date": "2026-11-17"
+ },
+ "lab/color-contrast-checker.html": {
+  "hash": "6bb433bf3315b94249db27a198b85fd3474e5d32",
+  "date": "2026-11-17"
+ },
+ "lab/component-request-scorecard.html": {
+  "hash": "1e465505df22d8cbb9029df132132edd9c747073",
+  "date": "2026-11-17"
+ },
+ "lab/design-system-roi-calculator.html": {
+  "hash": "de44b1202a81488251d3cd55c01706e2237d9997",
+  "date": "2026-11-17"
+ },
+ "lab/design-token-generator.html": {
+  "hash": "1e22e324afd71a68338851b27c81cd6720229611",
+  "date": "2026-11-17"
+ },
+ "lab/design-token-name-checker.html": {
+  "hash": "e17925e9ab357695e06847a0d3ec2ca162c4509e",
+  "date": "2026-11-17"
+ },
+ "lab/layout-grid-calculator.html": {
+  "hash": "b281929a6b4996036b74760c3d76d3d63f65cf7f",
+  "date": "2026-11-17"
+ },
+ "lab/oklch-palette-generator.html": {
+  "hash": "0e4f7e595e9c03f7cf332adab3428492b47378a8",
+  "date": "2026-11-17"
+ },
+ "lab/spacing-scale-generator.html": {
+  "hash": "b15bcc8de4de4bcd18cd93c60a618b1bb55efaa0",
+  "date": "2026-11-17"
+ },
+ "lab/type-scale-generator.html": {
+  "hash": "44ea09853178ad05be83b8b3cabcd298c809646d",
+  "date": "2026-11-17"
+ },
+ "pricing.html": {
+  "hash": "a9fb243179aa37d8ef17dd19c59ae5908b6eb203",
+  "date": "2026-11-17"
+ },
+ "services.html": {
+  "hash": "484de174de900823467db515f70bbff896886501",
+  "date": "2026-11-17"
+ },
+ "services/ai-ready-design-system.html": {
+  "hash": "a82b5f698f0a8978b9ec12ccde8f165cd4cc5a14",
+  "date": "2026-11-17"
+ },
+ "services/design-system-audit.html": {
+  "hash": "59d56b7576b293898519b5520b6d50e8b945feb8",
+  "date": "2026-11-17"
+ },
+ "services/design-system-consulting.html": {
+  "hash": "d1f0cdddc340da60f1d3ee40fb3b16c5ff1e89ed",
+  "date": "2026-11-17"
+ },
+ "services/design-system-development.html": {
+  "hash": "0a6add87c753b5a68daef14564e5a1497631d9e7",
+  "date": "2026-11-17"
+ },
+ "studio.html": {
+  "hash": "61b040306b8fb3e34a5d8712fb1c703252859a0b",
+  "date": "2026-11-17"
+ },
+ "work.html": {
+  "hash": "476f3cbb5ed42f4daa50d2c817ad703292f5ba2a",
+  "date": "2026-11-17"
+ },
+ "work/cars24-governance.html": {
+  "hash": "94a98f2f82a7ea9df252e80bd58e9209ee9cd3ce",
+  "date": "2026-11-17"
+ },
+ "work/cars24-internal-tools.html": {
+  "hash": "c6bc25fc1e836972dfa7fb64335e812955f559c1",
+  "date": "2026-11-17"
+ },
+ "work/cars24-lego.html": {
+  "hash": "d237ee299bd25f714084e1c9ffa4ecc7e1f0c446",
+  "date": "2026-11-17"
+ },
+ "work/cars24-pattern-library.html": {
+  "hash": "c9c7bc1e80e02565ac0498b711a9407dac5a6891",
+  "date": "2026-11-17"
+ },
+ "work/cars24-tokens.html": {
+  "hash": "04a5fbe8293a0d3b47db6d7b497bba8c756e8e13",
+  "date": "2026-11-17"
+ },
+ "work/ibm-cardinal-health.html": {
+  "hash": "f8bbc28ce3011e0aab35a018f216295034a51a96",
+  "date": "2026-11-17"
+ },
+ "work/ibm-design-systems.html": {
+  "hash": "fc395ad7a1a68d1dfcd13941037118d184ceb37d",
+  "date": "2026-11-17"
+ },
+ "work/ibm-riyadh-air-ops.html": {
+  "hash": "fa9f9059bd874ad3eeb0f90fdcb3ca45f6c4699e",
+  "date": "2026-11-17"
+ },
+ "work/ibm-riyadh-air.html": {
+  "hash": "dabc990ebca5a9586d3b382435ef5832154e6664",
+  "date": "2026-11-17"
+ },
+ "work/jpmc-patterns.html": {
+  "hash": "25f61dacd2d2bedf8ff5ea1743c2514ca0357325",
+  "date": "2026-11-17"
+ },
+ "work/jpmc-system-checks.html": {
+  "hash": "596e741cadd173bad3c5a69aaea8fd939d06c8a8",
+  "date": "2026-11-17"
+ },
+ "writing.html": {
+  "hash": "14ee2e00d3edc7ef3e6617fd0735d64703512bc4",
+  "date": "2026-11-17"
+ },
+ "writing/accessible-design-system.html": {
+  "hash": "d6179b75c601ed30d5c9825f7afadf70aa35cf16",
+  "date": "2026-11-17"
+ },
+ "writing/agents-md-llms-txt-design-system.html": {
+  "hash": "062f23e8f4adca3e9f5d9803fa7e8eb97481ab54",
+  "date": "2026-11-17"
+ },
+ "writing/ai-design-system-governance.html": {
+  "hash": "15052d96dfbde2e1f26d0e5fb7d8fb8ce8e34945",
+  "date": "2026-11-17"
+ },
+ "writing/ai-generated-ui-accessibility.html": {
+  "hash": "72a02b182276824ecbdba160df7abc8bb26615f1",
+  "date": "2026-11-17"
+ },
+ "writing/ai-generated-ui-guardrails.html": {
+  "hash": "8dd79e98d89772ac678d1f88dae19ad60b1fc22d",
+  "date": "2026-11-17"
+ },
+ "writing/ai-in-design-systems.html": {
+  "hash": "65ca48e286781ce0eb5ef66d7b7f0ce16dc36115",
+  "date": "2026-11-17"
+ },
+ "writing/ai-prototyping-tools-design-system.html": {
+  "hash": "24523ab90a529179da1f869df7764bc5ba03c42c",
+  "date": "2026-11-17"
+ },
+ "writing/ai-ready-design-system-roi.html": {
+  "hash": "539e3336c5812bea0c178ebb81b6dbce82d31c68",
+  "date": "2026-11-17"
+ },
+ "writing/ai-ready-design-system.html": {
+  "hash": "dec62f78854ad1b9c295ab45b56fef886c679c64",
+  "date": "2026-11-17"
+ },
+ "writing/color-contrast-design-system.html": {
+  "hash": "e7ce7275f4edd15ef9c8e709bde1255baf4c9d0b",
+  "date": "2026-11-17"
+ },
+ "writing/component-complexity.html": {
+  "hash": "a09c03540db0ee2764b72091c2e20ad667ef8930",
+  "date": "2026-11-17"
+ },
+ "writing/component-composition-slots.html": {
+  "hash": "3c71997faaa7f695831661617d017e93f3cbd317",
+  "date": "2026-11-17"
+ },
+ "writing/component-metadata-for-ai-agents.html": {
+  "hash": "8e3eddd58c3ae66a79a346c041b21239a4372a04",
+  "date": "2026-11-17"
+ },
+ "writing/component-props-best-practices.html": {
+  "hash": "28cfc87bc70e4fa3615456ba707f6b4316e60788",
+  "date": "2026-11-17"
+ },
+ "writing/component-states.html": {
+  "hash": "06d67ad0f12f73ba29668325e2bcbd24f7329532",
+  "date": "2026-11-17"
+ },
+ "writing/component-tokens.html": {
+  "hash": "3e6410effd8f44353a2a3287ca4c3b3f9120f3ef",
+  "date": "2026-11-17"
+ },
+ "writing/cross-platform-design-system.html": {
+  "hash": "7e979227dbaa21a1764a5e06549c9c23210afab0",
+  "date": "2026-11-17"
+ },
+ "writing/dark-mode-design-tokens.html": {
+  "hash": "ead6b7db914d228cee7b35448cd00808c3b24a54",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-ai-security.html": {
+  "hash": "2e28cee4b66062c06f1a9ff6007cba06ca5c10ca",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-audit.html": {
+  "hash": "66168179af4116992f3dcead5dfde8fd62be71d3",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-champions.html": {
+  "hash": "47a1a141c1ed9b71b6898e699d729e5aa0d75d1d",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-context-window.html": {
+  "hash": "72f8bd4f89676f81d5acd42fb706195c4d58dc05",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-contribution-model.html": {
+  "hash": "4934008b0316f9f963e281d9a7859dc090dce0cb",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-documentation-for-ai.html": {
+  "hash": "1da0fc68dc668ed2fad9078f037023d1c478e510",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-documentation.html": {
+  "hash": "c973ee3e39b2960b97379ca5fb5ddd7b3f6be90a",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-for-startups.html": {
+  "hash": "c60ddb0d8e15d69f7f1185c69caf8c6929547bd2",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-governance.html": {
+  "hash": "a3c4fb92c6ea2c9c4d4a2bc8d1b0ef07448fe9ec",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-localization-rtl.html": {
+  "hash": "0c313675290d13c87d25f00bd3faaa5614db85cd",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-maturity-model.html": {
+  "hash": "21bef3ed730fc802307fa7fb8a256e49273f77c3",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-mcp-server.html": {
+  "hash": "f99340fac844b89f3cd6c006dd7b18004fb5da35",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-metrics.html": {
+  "hash": "339b25330100efaaed3c865b935cce3fafef7a25",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-migration.html": {
+  "hash": "c811f22b4a1688df6b888d625a59fbd6eb3e298d",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-office-hours.html": {
+  "hash": "ed0790ac2c519122dc9da73b21f4a0a8bb40b476",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-onboarding.html": {
+  "hash": "008fcbec082d37b4b5c1ba580b1a3bed74fbe73f",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-operating-model.html": {
+  "hash": "dc059906ca7ec1432258eabaa951ae3a0b55919e",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-patterns.html": {
+  "hash": "a8570ed3da605b714d34d13dbd4357915a109f00",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-release-notes.html": {
+  "hash": "084eee6d7309e8aad6219dd15e9c0206465fe5ac",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-research.html": {
+  "hash": "f41dbea0bb58ca7e2c2ccc5f0435f1980d616d47",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-roadmap.html": {
+  "hash": "94826f01b8944fb1aee4832fbf863edd6b3eb940",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-roi.html": {
+  "hash": "b3c16d5755316af7c6a755a9e583c35596651114",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-team-structure.html": {
+  "hash": "7b51e07d47d4abedf72731616c32b13008b4585b",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-testing.html": {
+  "hash": "26aa6234454a3522793e50e9b35fa9b6d53b7459",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-tooling.html": {
+  "hash": "d6679467387d39baf6a5ea0eda4511b6a7fa0f4a",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-versioning.html": {
+  "hash": "d9aa1364c56b1cb8da925b0da0ec39888ab7a82a",
+  "date": "2026-11-17"
+ },
+ "writing/design-system-vs-style-guide-vs-component-library.html": {
+  "hash": "f851d7a9b06255c6204c52fb4afd9f7325ef27bb",
+  "date": "2026-11-17"
+ },
+ "writing/design-token-naming-conventions.html": {
+  "hash": "524bbf0b998977cde58870431b17cab8ff0805b5",
+  "date": "2026-11-17"
+ },
+ "writing/design-tokens-for-ai-agents.html": {
+  "hash": "fa27e8bb5874edf10d3d6fbe47f13e0c3fc446d7",
+  "date": "2026-11-17"
+ },
+ "writing/design-tokens.html": {
+  "hash": "196489e795b0703d1b3e93b0df0645d59985457c",
+  "date": "2026-11-17"
+ },
+ "writing/designers-ai-ready-design-system.html": {
+  "hash": "e0f6b096031dce92e313c9cc51ab1232ae06da67",
+  "date": "2026-11-17"
+ },
+ "writing/do-you-need-a-design-system.html": {
+  "hash": "4ccd30866dd2be3a87136ad4e0225077e3fbedf3",
+  "date": "2026-11-17"
+ },
+ "writing/figma-code-sync.html": {
+  "hash": "a9ad99db5fbf0344a5794139675ee583a1820e8e",
+  "date": "2026-11-17"
+ },
+ "writing/figma-code-token-drift.html": {
+  "hash": "ec1ff3384b4ca6a4649e87c6df77c036d887f34d",
+  "date": "2026-11-17"
+ },
+ "writing/figma-library-structure.html": {
+  "hash": "97a3c5290e94f448813f3fa14b6f58bd9e86d48f",
+  "date": "2026-11-17"
+ },
+ "writing/figma-mcp-design-to-code.html": {
+  "hash": "ec811d1cc461103d887d9521786b56f303cae30d",
+  "date": "2026-11-17"
+ },
+ "writing/form-design-patterns.html": {
+  "hash": "c4af0eb4df5f401c499f098e19086a5b778f16c0",
+  "date": "2026-11-17"
+ },
+ "writing/headless-component-library-build-vs-buy.html": {
+  "hash": "cabf7eec97c7547942c7acbd94abd55633bab32a",
+  "date": "2026-11-17"
+ },
+ "writing/how-ai-agents-use-design-systems.html": {
+  "hash": "f27a7fdbef9748c25393de89a97a80a528a126e9",
+  "date": "2026-11-17"
+ },
+ "writing/how-to-build-a-design-system.html": {
+  "hash": "f2610060ff0dba72360429b6f80b7103048273fd",
+  "date": "2026-11-17"
+ },
+ "writing/layout-grid-breakpoints.html": {
+  "hash": "d79157d0f9d125f9d0871183368f51336cd66cb1",
+  "date": "2026-11-17"
+ },
+ "writing/legacy-design-system-ai-ready.html": {
+  "hash": "c5875733e53ad90499aa3242e1202d7d6b1b70b9",
+  "date": "2026-11-17"
+ },
+ "writing/librarian-vs-leader.html": {
+  "hash": "40bba29456092aa881add470546e43c38c27f286",
+  "date": "2026-11-17"
+ },
+ "writing/multi-brand-design-system.html": {
+  "hash": "f5fe1409983f3ee1e201aa504675cdc4c83f6bfa",
+  "date": "2026-11-17"
+ },
+ "writing/oklch-color-palette.html": {
+  "hash": "3a9f3ec4a99943311645b49db6f12c71a1bc938e",
+  "date": "2026-11-17"
+ },
+ "writing/shadcn-ui-design-system-ai.html": {
+  "hash": "7d150edea4535b6f85d4b6ea7ef0a0f20164ecf8",
+  "date": "2026-11-17"
+ },
+ "writing/spacing-system-4px-vs-8px.html": {
+  "hash": "87f9291a834bf7b15fe0f2bc58ec982837c1ae08",
+  "date": "2026-11-17"
+ },
+ "writing/topics/ai-ready-design-systems.html": {
+  "hash": "e82209f1e8951efe8208d2bc2dc2f370e0c20ea6",
+  "date": "2026-11-17"
+ },
+ "writing/topics/building.html": {
+  "hash": "3bb7d03e35c94e1d8e5c7a6e9600b5bc2b034202",
+  "date": "2026-11-17"
+ },
+ "writing/topics/business-case.html": {
+  "hash": "4ca8ce2c563ff88f1c5fe1f5908d87bf5aaf1c71",
+  "date": "2026-11-17"
+ },
+ "writing/topics/foundations-and-tokens.html": {
+  "hash": "5a8dc295c75039bb97aafea4307f817693b438d6",
+  "date": "2026-11-17"
+ },
+ "writing/topics/fundamentals.html": {
+  "hash": "a7f962d3749e006d515c986c3e3554851c5ef88d",
+  "date": "2026-11-17"
+ },
+ "writing/topics/governance.html": {
+  "hash": "158d4f87ec0ddbde2afbb3de9bc394b468016c98",
+  "date": "2026-11-17"
+ },
+ "writing/topics/operations.html": {
+  "hash": "e00d40e4bfa9f023c389b3a5d2718e3259ca93dd",
+  "date": "2026-11-17"
+ },
+ "writing/type-scale-design-system.html": {
+  "hash": "becfcc6e7373c9ad349e40353b64a2f3d5a71c2f",
+  "date": "2026-11-17"
+ },
+ "writing/ux-writing-design-system.html": {
+  "hash": "d7a060f9a69cc26c45877989b7721bec9b3d0cff",
+  "date": "2026-11-17"
+ },
+ "writing/what-is-a-design-system.html": {
+  "hash": "2b5e35b288d5d3d3080cc3587212e071c511a684",
+  "date": "2026-11-17"
+ },
+ "writing/which-components-to-build-first.html": {
+  "hash": "15f61b535440bf4c460dc125372cee95aa87aaab",
+  "date": "2026-11-17"
+ },
+ "writing/why-ai-ignores-design-system.html": {
+  "hash": "f96b48053ba7fbe1bf6fc879ee106696bd9f24ca",
+  "date": "2026-11-17"
+ },
+ "writing/why-design-systems-fail.html": {
+  "hash": "acb2233b3eb2efc2e26563fac23d8fa41326ee91",
+  "date": "2026-11-17"
+ }
+}
