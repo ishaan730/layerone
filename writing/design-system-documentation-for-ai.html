@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design System Documentation for AI Agents and RAG | Layer One</title>
+<meta name="description" content="How to write design system docs for AI agents and RAG: self-contained sections, a page template, Markdown frontmatter, chunking, hybrid search and tests.">
+<meta property="og:title" content="Design System Documentation for AI Agents and RAG | Layer One">
+<meta property="og:description" content="How to write design system docs for AI agents and RAG: self-contained sections, a page template, Markdown frontmatter, chunking, hybrid search and tests.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-17">
+<meta property="article:modified_time" content="2026-11-17">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="AI-ready design systems">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/design-system-documentation-for-ai.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Design System Documentation for AI Agents and RAG | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/writing.css?v=2098cc1f">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<meta name="keywords" content="design system documentation for AI, RAG design system, AI-readable documentation, chunking documentation, vector database docs, semantic search, Markdown documentation">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Design System Documentation for AI Agents and RAG", "description": "How to write design system docs for AI agents and RAG: self-contained sections, a page template, Markdown frontmatter, chunking, hybrid search and tests.", "image": "https://www.layerone.co.in/assets/images/writing/design-system-documentation-for-ai.jpg", "datePublished": "2026-11-17", "dateModified": "2026-11-17", "mainEntityOfPage": "https://www.layerone.co.in/writing/design-system-documentation-for-ai", "wordCount": 2895, "articleSection": "AI-ready design systems", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}, "keywords": "design system documentation for AI, RAG design system, AI-readable documentation, chunking documentation, vector database docs, semantic search, Markdown documentation", "isPartOf": {"@type": "CreativeWorkSeries", "name": "Making your design system AI-ready", "url": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "AI-ready design systems", "item": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}, {"@type": "ListItem", "position": 3, "name": "Writing design system documentation AI agents can use, and how retrieval finds it", "item": "https://www.layerone.co.in/writing/design-system-documentation-for-ai"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How should design system documentation be written for AI?", "acceptedAnswer": {"@type": "Answer", "text": "In self-contained sections: name the component or pattern in every heading, put the rule first, include when not to use it, show a working example, and avoid references like \"as mentioned above\". Keep a consistent template with frontmatter for status and review dates."}}, {"@type": "Question", "name": "What is RAG in simple terms?", "acceptedAnswer": {"@type": "Answer", "text": "Retrieval-augmented generation: before answering, the system searches a knowledge base for the most relevant passages and gives only those to the model. The model answers using them, instead of relying on what it learned in training."}}, {"@type": "Question", "name": "Do I need a vector database for my design system docs?", "acceptedAnswer": {"@type": "Answer", "text": "Not always. Small doc sets in Markdown can be searched directly by coding agents or with keyword search. Embeddings and a vector store help when you have hundreds of pages and people ask in everyday words that don't match your terms."}}, {"@type": "Question", "name": "Is Markdown or MDX better for AI-readable docs?", "acceptedAnswer": {"@type": "Answer", "text": "Both work as a source. Plain Markdown is read most reliably. If you use MDX, make sure custom components like props tables are rendered to text in the version agents read."}}, {"@type": "Question", "name": "How do I stop AI using outdated documentation?", "acceptedAnswer": {"@type": "Answer", "text": "Mark every page with a status and review date in frontmatter, exclude deprecated pages from search indexes, delete pages that are no longer true, and generate facts like prop tables from code."}}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/design-system-documentation-for-ai">
+<meta property="og:url" content="https://www.layerone.co.in/writing/design-system-documentation-for-ai">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Design System Documentation for AI Agents and RAG | Layer One">
+<meta name="twitter:description" content="How to write design system docs for AI agents and RAG: self-contained sections, a page template, Markdown frontmatter, chunking, hybrid search and tests.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/design-system-documentation-for-ai.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading" title="Light or dark reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button><a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<main id="main" class="ed-wrap"><article class="ed-article">
+  <div class="ed-layout">
+    <aside class="ed-meta" aria-label="About this article"><div class="ed-meta-in">
+      <div class="ed-meta-who"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40"><p><b>Aniket Pandey</b><span>Founder, Layer One</span></p></div>
+      <dl class="ed-meta-dl"><div><dt>Published</dt><dd>17 November 2026</dd></div><div><dt>Reading time</dt><dd>13 minutes</dd></div><div><dt>Topic</dt><dd><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a></dd></div></dl>
+      <div class="ed-meta-sec"><p class="ed-meta-h">Making your design system AI-ready</p><ol class="ed-steps"><li><a href="/writing/ai-ready-design-system">What is an AI-ready design system?</a></li><li><a href="/writing/how-ai-agents-use-design-systems">How AI coding agents use your design system, and where they go wrong</a></li><li><a href="/writing/design-tokens-for-ai-agents">Design tokens for AI agents</a></li><li><a href="/writing/component-metadata-for-ai-agents">Component metadata for AI agents</a></li><li aria-current="step"><a href="/writing/design-system-documentation-for-ai">Writing design system documentation AI agents can use, and how retrieval finds it</a></li><li><a href="/writing/agents-md-llms-txt-design-system">AGENTS.md, llms.txt and rules files for design systems</a></li><li><a href="/writing/design-system-mcp-server">Build an MCP server for your design system</a></li><li><a href="/writing/figma-mcp-design-to-code">Figma to code with AI</a></li><li><a href="/writing/ai-generated-ui-guardrails">Guardrails for AI-generated UI</a></li><li><a href="/writing/legacy-design-system-ai-ready">How to make a legacy design system AI-ready</a></li></ol></div><div class="ed-meta-sec"><p class="ed-meta-h">Tags</p><ul class="ed-tags"><li>Documentation</li><li>RAG</li><li>Search</li><li>Markdown</li></ul></div><div class="ed-meta-sec"><p class="ed-meta-h">Share</p><p class="ed-share"><button type="button" data-copy="https://www.layerone.co.in/writing/design-system-documentation-for-ai">Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.layerone.co.in/writing/design-system-documentation-for-ai" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/intent/post?url=https://www.layerone.co.in/writing/design-system-documentation-for-ai" target="_blank" rel="noopener">X</a></p></div>
+    </div></aside>
+    <header class="ed-head">
+      <p class="ed-crumb"><a href="/writing">Writing</a><span aria-hidden="true">/</span><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a><span class="ed-crumb-s">Part 5 of 10 in <a href="/writing#ai-ready">Making your design system AI-ready</a></span></p>
+      <h1 class="ed-title">Writing design system documentation AI agents can use, and how retrieval finds it</h1>
+      <p class="ed-dek">Agents read documentation in pieces chosen by search, not page by page. Write every section so it stands alone, keep docs next to the code, and test retrieval with real questions. Includes a component page template and a minimal hybrid search index.</p>
+      <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>13 min read · 17 November 2026</span></span></p>
+    </header>
+    <figure class="ed-cover"><img src="../assets/images/writing/design-system-documentation-for-ai.w1200.webp" alt="Diagram: documentation pages split into self-contained chunks, embedded and indexed, with the best-matching chunks retrieved for an agent&#x27;s question." width="1600" height="900" sizes="(max-width: 1024px) calc(100vw - 32px), 760px" fetchpriority="high" srcset="../assets/images/writing/design-system-documentation-for-ai.w480.webp 480w, ../assets/images/writing/design-system-documentation-for-ai.w800.webp 800w, ../assets/images/writing/design-system-documentation-for-ai.w1200.webp 1200w, ../assets/images/writing/design-system-documentation-for-ai.jpg 1600w" decoding="async"></figure>
+    <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>The problem: the right page, the wrong section</b></summary><ol><li><a href="#the-problem-the-right-page-the-wrong-section">The problem: the right page, the wrong section</a></li><li><a href="#how-agents-read-documentation">How agents read documentation</a></li><li><a href="#seven-rules-for-documentation-that-retrieves-well">Seven rules for documentation that retrieves well</a></li><li><a href="#before-and-after-rewriting-one-section">Before and after: rewriting one section</a></li><li><a href="#a-component-page-template-built-for-both-readers">A component page template built for both readers</a></li><li><a href="#which-format-to-write-docs-in">Which format to write docs in</a></li><li><a href="#keeping-docs-current">Keeping docs current</a></li><li><a href="#do-you-need-a-vector-database">Do you need a vector database?</a></li><li><a href="#how-to-test-your-docs-with-real-questions">How to test your docs with real questions</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+    <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>AI agents read documentation in <b>pieces</b>, not pages. A search step (often called retrieval, or RAG) finds the few sections that best match the task and puts only those in front of the model. So write docs where <b>every section makes sense on its own</b>: name the component or pattern in each heading, put the answer first, always include "when to use" and "when not to use", show a real code example, and avoid "as mentioned above". Keep the source in <b>Markdown or MDX with a consistent template and frontmatter</b> (status, version, last reviewed), generate prop tables from code so they can't go stale, and remove or clearly mark old pages. Then test retrieval with real questions your team has asked.</p>
+  <ul>
+    <li>Docs hold what metadata can't: patterns, content rules and the reasoning behind decisions.</li>
+    <li>Small doc sets don't need a vector database. Clean Markdown that agents can search often works better.</li>
+    <li>Part 5 of 10 in the series on AI-ready design systems.</li>
+  </ul>
+</div>
+
+<h2 id="the-problem-the-right-page-the-wrong-section">The problem: the right page, the wrong section</h2>
+<p><a href="/writing/component-metadata-for-ai-agents">Part 4</a> turned facts about each component into data. But much of a design system's value is knowledge that doesn't fit in a field: how to lay out a settings page, what to write in an empty state, why tables use inline editing in one place and a side panel in another. That lives in documentation, and agents read documentation very differently from people.</p>
+<p class="scenario-t">An illustration: the empty table</p>
+<div class="scenario">
+  <div><span class="k">The task</span><p>An agent building Harbor's employee list asks Kestrel's docs assistant: "What should a table show when a search returns no results?"</p></div>
+  <div><span class="k">What it retrieved</span><p>Two chunks. One from the 2023 "Tables" page: "Show the illustration and a 'Create' button." One from the 2025 "Empty states" page: "For no search results, don't show an illustration; say what was searched and offer to clear filters." The first says nothing about being outdated.</p></div>
+  <div><span class="k">What happened</span><p>The agent followed the first chunk, because it mentioned tables. It added a big illustration and a "Create employee" button to a search with no matches, which is exactly what the 2025 guideline was written to stop.</p></div>
+</div>
+<p>Two things went wrong, and both are documentation problems: an outdated page was still searchable and looked current, and the newer guidance was split between pages so neither chunk alone told the whole story.</p>
+
+<h2 id="how-agents-read-documentation">How agents read documentation</h2>
+<p>When an agent (or a "chat with our docs" assistant) needs information from a large body of documentation, it can't load all of it. Instead, a retrieval system works in two phases. You don't need to build one to benefit from this section. Knowing how it works tells you how to write.</p>
+<figure class="w-fig">
+  <div class="w-arch">
+    <div class="w-arch-row"><span class="w-arch-k">Ahead of time</span><div class="w-arch-n"><div><b>1 · Split</b><span>Each page is cut into chunks, usually by heading</span></div><div><b>2 · Embed</b><span>Each chunk becomes a list of numbers representing its meaning</span></div><div><b>3 · Store</b><span>Chunks, numbers and metadata go into an index</span></div></div></div>
+    <div class="w-arch-link">when a question arrives</div>
+    <div class="w-arch-row"><span class="w-arch-k">At question time</span><div class="w-arch-n"><div><b>4 · Embed the question</b><span>Same method, same kind of numbers</span></div><div><b>5 · Find nearest</b><span>Chunks whose meaning is closest, plus keyword matches</span></div><div class="hi"><b>6 · Answer</b><span>Top 3–8 chunks are placed in the model's context</span></div></div></div>
+  </div>
+  <figcaption>Retrieval-augmented generation (RAG) in two phases. The model only ever sees the chunks chosen in step 5, never the whole page.</figcaption>
+</figure>
+<div class="callout callout--term"><span class="callout-k">New words</span><p><b>Chunk:</b> a piece of a document, typically one section, stored and retrieved on its own. <b>Embedding:</b> a list of numbers produced by an AI model that captures what a piece of text means, so texts with similar meanings get similar numbers. <b>Vector database:</b> a store that can quickly find the embeddings nearest to a given one. <b>Semantic search:</b> searching by meaning ("no results" also finds "nothing matched") rather than exact words. <b>Hybrid search:</b> combining semantic and keyword search, which usually works best.</p></div>
+<p>The consequence is simple and important: <b>each section of your docs will be read alone, out of order, next to sections from other pages.</b> Write for that.</p>
+
+<h2 id="seven-rules-for-documentation-that-retrieves-well">Seven rules for documentation that retrieves well</h2>
+<ol class="w-steps">
+  <li><h3>One topic per section</h3><p>A section titled "Usage" that covers sizes, icons, loading states and destructive actions becomes one blurry chunk. Split it into sections with specific headings, so each chunk is about one thing.</p></li>
+  <li><h3>Name the subject in every heading</h3><p>"When to use" means nothing in isolation. "When to use ConfirmDialog" carries its context with it. It feels repetitive to a person reading top to bottom; it's essential for a chunk read alone.</p></li>
+  <li><h3>Answer first, explain after</h3><p>Start each section with the rule in one sentence, then the reasoning and examples. If the chunk is cut short, the answer survives.</p></li>
+  <li><h3>No "as mentioned above"</h3><p>References to other sections break when the chunk is read alone. Repeat the key fact, or link to it by name.</p></li>
+  <li><h3>Always include when not to use</h3><p>Agents over-apply whatever they find. Every component and pattern section should say what to use instead in the common wrong cases.</p></li>
+  <li><h3>Put the meaning in text, not pictures</h3><p>Rules shown only in a do/don't image are invisible to text retrieval. Keep the image, and write the rule in the caption or body.</p></li>
+  <li><h3>Mark status and date on every page</h3><p>Frontmatter like <code>status: deprecated</code> and <code>reviewed: 2026-10</code> lets the retrieval system filter out old pages and lets the agent weigh what it finds.</p></li>
+</ol>
+
+<h2 id="before-and-after-rewriting-one-section">Before and after: rewriting one section</h2>
+<p>Here's a real-world-style section from Harbor's old Tables page, and the same guidance rewritten to the rules above.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">BEFORE · RETRIEVES BADLY</span><pre><code>## Empty
+
+As mentioned above, tables can
+be empty. In this case use the
+second option from the image
+below. See also the guidance in
+the patterns section.
+
+[image: three empty states]</code></pre><p>No subject in the heading, a reference to "above", the actual rule is in an image, and "the patterns section" isn't a link.</p></div>
+  <div class="cell"><span class="k">AFTER · RETRIEVES WELL</span><pre><code>## Empty states in Table
+
+When a Table has no rows, show
+TableEmpty instead of an empty
+grid. What it says depends on why:
+
+- No data yet: explain what will
+  appear and offer the main action
+  ("Add employee").
+- No search or filter results:
+  name what was searched and offer
+  "Clear filters". No illustration,
+  no create action.
+- No permission: say who can
+  grant access.
+
+See: Empty states pattern.</code></pre><p>The heading names the component; the answer is first; each case is spelled out; the link is named.</p></div>
+</div>
+
+<h2 id="a-component-page-template-built-for-both-readers">A component page template built for both readers</h2>
+<p>Consistency matters as much as quality. When every page has the same sections in the same order, both people and retrieval systems learn where to look. Here's the Markdown template Kestrel's team adopted. The frontmatter at the top is data; the body is for reading.</p>
+<pre><code>---
+title: ConfirmDialog
+component: ConfirmDialog
+package: "@kestrel/harbor"
+status: stable            <span class="c"># stable | beta | deprecated</span>
+since: "5.2.0"
+replaces: [Modal, AlertDialog]
+category: feedback
+reviewed: 2026-10-14
+owner: harbor-team
+---
+
+# ConfirmDialog
+
+Asks the user to confirm an action before it happens, especially
+one that deletes data or can't be undone.
+
+## When to use ConfirmDialog
+- Deleting, removing or cancelling something.
+- Actions that affect other people, such as running payroll.
+
+## When not to use ConfirmDialog
+- The action is easy to undo: use a Toast with an Undo action.
+- You need form fields: use Dialog.
+
+## How to write ConfirmDialog content
+- Title is a question naming the action: "Remove Ana Silva from payroll?"
+- Confirm label repeats the verb: "Remove". Never "OK" or "Yes".
+- Description says what happens and what is kept.
+
+## ConfirmDialog example: removing a person
+```tsx
+&lt;ConfirmDialog tone="danger" title="Remove Ana Silva from payroll?"
+  confirmLabel="Remove" onConfirm={remove} onCancel={close} /&gt;
+```
+
+## ConfirmDialog props
+&lt;!-- generated from types: do not edit by hand --&gt;
+
+## ConfirmDialog accessibility
+- Renders role="alertdialog" and traps focus.
+- Cancel receives focus first, so Enter doesn't confirm by accident.</code></pre>
+<p>Compare with the general <a href="/writing/design-system-documentation">design system documentation template</a>: the sections are the same, but the headings repeat the component name and the frontmatter carries machine-readable status.</p>
+
+<h3>Pattern pages need the same care</h3>
+<p>Patterns, such as forms, empty states, bulk actions and settings pages, are where agents most need help, because they combine many components and no single component's metadata covers them. Give each pattern page:</p>
+<ul class="checklist">
+  <li><b>The user problem it solves,</b> in one sentence ("People need to find an employee among hundreds").</li>
+  <li><b>The components it uses,</b> by exact name, linking to their pages.</li>
+  <li><b>A decision table</b> for variations ("fewer than 10 options: radio group; more: Select with search").</li>
+  <li><b>One complete code example</b> of the most common version, not fragments.</li>
+  <li><b>Content rules</b> for the words on screen. See <a href="/writing/ux-writing-design-system">UX writing in a design system</a>.</li>
+</ul>
+
+<h2 id="which-format-to-write-docs-in">Which format to write docs in</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Format</th><th>Good for</th><th>Watch out for</th><th>Verdict</th></tr></thead>
+  <tbody>
+    <tr><td><b>Markdown</b></td><td>Easy to write, diff and review; models read it very well; headings make natural chunks</td><td>Limited layout for live examples</td><td>Best default source</td></tr>
+    <tr><td><b>MDX</b></td><td>Markdown plus live components; used by Storybook and many docs sites</td><td>Custom components (<code>&lt;PropsTable/&gt;</code>) are empty when read as text; render them to Markdown for agents</td><td>Good, if you publish a plain-Markdown version</td></tr>
+    <tr><td><b>HTML docs site</b></td><td>Polished reading for people</td><td>Navigation, tabs and scripts add noise; content hidden in tabs may be missed</td><td>Publish, but offer <code>.md</code> versions too</td></tr>
+    <tr><td><b>Confluence or Notion</b></td><td>Easy for non-engineers to edit</td><td>Hard to keep next to code; versioning is weak; exports are messy</td><td>Move component docs next to the code</td></tr>
+    <tr><td><b>JSON</b></td><td>Facts: props, tokens, status</td><td>Poor for explanations and reasoning</td><td>For metadata (part 4), not prose</td></tr>
+  </tbody>
+</table></div>
+<figcaption>A practical recommendation: Markdown or MDX next to the code, a docs site for people, and a plain-Markdown version of every page for agents. Part 6 shows how to list those for agents with llms.txt.</figcaption></figure>
+
+<h2 id="keeping-docs-current">Keeping docs current</h2>
+<p>Out-of-date docs are worse for agents than for people. A person notices that a screenshot looks old; an agent treats a 2023 page and a 2026 page as equally true. Four habits keep docs honest:</p>
+<div class="cols2">
+  <div class="cell"><span class="k">GENERATE</span><h4>Never hand-write facts code knows</h4><p>Prop tables, token values and component lists come from the build (parts 3 and 4). People write the judgement; machines write the facts.</p></div>
+  <div class="cell"><span class="k">TEST</span><h4>Type-check the examples</h4><p>Extract code blocks from docs in CI and compile them against the current package. A renamed prop then breaks the build instead of misleading an agent.</p></div>
+  <div class="cell"><span class="k">REVIEW</span><h4>A reviewed date with a limit</h4><p>Every page has <code>reviewed:</code>. A monthly script lists pages older than six months for their owners.</p></div>
+  <div class="cell"><span class="k">RETIRE</span><h4>Remove, or mark and exclude</h4><p>Deprecated pages either go, or carry <code>status: deprecated</code> and a pointer to the replacement, and the search index skips them.</p></div>
+</div>
+
+<h2 id="do-you-need-a-vector-database">Do you need a vector database?</h2>
+<p>Not necessarily. It depends mostly on how much documentation you have and who's asking.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Situation</th><th>Approach</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td>Under ~200 pages, used by coding agents in your repos</td><td>Markdown files the agent can search itself, plus a good index in the rules file</td><td>Coding agents already search files well; nothing extra to run or keep in sync</td></tr>
+    <tr><td>Same, but you want precise answers through MCP</td><td>Keyword search (for example BM25) over chunks, inside your MCP server</td><td>Design system vocabulary is distinctive ("ConfirmDialog", "inset"), so keyword search works very well</td></tr>
+    <tr><td>Hundreds of pages, plus non-technical askers using everyday words</td><td>Hybrid search: embeddings in a vector store plus keyword search</td><td>People ask "popup" when your docs say "Dialog"; semantic search bridges the gap</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Start with the simplest option that works. Retrieval quality depends far more on how the docs are written than on which database stores them.</figcaption></figure>
+
+<h3>A minimal hybrid index, step by step</h3>
+<p>If you do need retrieval, here's a compact version using PostgreSQL with the pgvector extension, which many teams already run. The embedding step calls whichever embeddings API your company has approved; we leave it as a function so the example isn't tied to a provider.</p>
+<pre><code><span class="c">// 1. Split Markdown pages into chunks at each "## " heading</span>
+<span class="k">import</span> matter <span class="k">from</span> <span class="s">"gray-matter"</span>;
+
+<span class="k">export function</span> chunkPage(path, text) {
+  <span class="k">const</span> { data, content } = matter(text);             <span class="c">// frontmatter → data</span>
+  <span class="k">return</span> content.split(<span class="s">/\n(?=## )/</span>).map((section) =&gt; ({
+    page: data.title,
+    status: data.status ?? <span class="s">"stable"</span>,
+    reviewed: data.reviewed,
+    heading: section.match(<span class="s">/^## (.*)/</span>)?.[1] ?? data.title,
+    url: path.replace(<span class="s">/\.mdx?$/</span>, <span class="s">""</span>),
+    content: section.trim(),
+  }));
+}</code></pre>
+<pre><code><span class="c">-- 2. A table for chunks (the vector size must match your embedding model)</span>
+CREATE EXTENSION IF NOT EXISTS vector;
+CREATE TABLE doc_chunks (
+  id        bigserial PRIMARY KEY,
+  page      text, heading text, url text, status text, reviewed date,
+  content   text,
+  embedding vector(1024),
+  tsv       tsvector GENERATED ALWAYS AS (to_tsvector('english', heading || ' ' || content)) STORED
+);
+
+<span class="c">-- 3. At question time: nearest by meaning, skipping deprecated pages</span>
+SELECT page, heading, url, content
+FROM doc_chunks
+WHERE status &lt;&gt; 'deprecated'
+ORDER BY embedding &lt;=&gt; $1      <span class="c">-- $1 = the question's embedding; &lt;=&gt; is cosine distance</span>
+LIMIT 8;
+
+<span class="c">-- 4. And by keyword, for exact names like "ConfirmDialog"</span>
+SELECT page, heading, url, content
+FROM doc_chunks
+WHERE status &lt;&gt; 'deprecated' AND tsv @@ websearch_to_tsquery('english', $2)
+ORDER BY ts_rank(tsv, websearch_to_tsquery('english', $2)) DESC
+LIMIT 8;</code></pre>
+<p>Merge the two result lists (a common method is reciprocal rank fusion: score each chunk by 1/(60 + its rank) in each list and add the scores), keep the top five, and return them with their URLs so the agent can cite where guidance came from. The <code>status</code> filter is what fixes the empty-table scenario: the 2023 page never reaches the model.</p>
+
+<h2 id="how-to-test-your-docs-with-real-questions">How to test your docs with real questions</h2>
+<ol class="w-steps">
+  <li><h3>Collect 30 real questions</h3><p>Take them from Slack, office hours and support tickets: "Can I put a button in a table cell?", "What's the error message format?". Real wording matters; people don't use your component names.</p></li>
+  <li><h3>Write the expected answer source</h3><p>For each, note the page and section that should answer it. Where none exists, you've found a documentation gap.</p></li>
+  <li><h3>Check retrieval</h3><p>Run each question through your search (or ask a coding agent to find the answer in the docs folder). Is the expected section in the top five? That percentage is your <b>retrieval hit rate</b>.</p></li>
+  <li><h3>Fix the misses by rewriting</h3><p>Most misses are fixed by headings that name the subject, by splitting mixed sections, or by adding the words people actually use ("popup" in the Dialog page's intro).</p></li>
+</ol>
+<p class="scenario-t">An illustration: Harbor's first test</p>
+<div class="stats">
+  <div><b>53%</b><span>Hit rate on 30 questions before rewriting: the right section was in the top five about half the time</span></div>
+  <div><b>87%</b><span>After two weeks of rewrites: headings with names, split sections, deprecated pages excluded</span></div>
+  <div><b>6</b><span>Questions with no answering page at all, which became the docs backlog</span></div>
+</div>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">MISTAKE</span><h4>Indexing everything</h4><p>Old RFCs, meeting notes and abandoned proposals in the same index as the docs. Agents can't tell a proposal from a decision. Index published docs only.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Huge or tiny chunks</h4><p>Whole pages as chunks bury the answer; single sentences lose context. A section under one heading, a few hundred words, is a good default.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Rules hidden in tabs and images</h4><p>Content inside JavaScript tabs or only in images is often missing from the text the index sees. Check what your pages look like as plain text.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Building a chatbot before fixing docs</h4><p>A retrieval system over contradictory docs gives confident, contradictory answers. Fix the content first; the tooling is the easy part.</p></div>
+</div>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Agents read docs in chunks chosen by search, so every section must stand alone.</li>
+  <li>Name the subject in each heading, answer first, include when not to use, avoid "as mentioned above".</li>
+  <li>Write in Markdown or MDX next to the code, with frontmatter for status and review dates.</li>
+  <li>Generate facts from code, type-check examples, and exclude deprecated pages from search.</li>
+  <li>Test with 30 real questions; you may not need a vector database at all.</li>
+</ul></div>
+<p>Next: <a href="/writing/agents-md-llms-txt-design-system">AGENTS.md, llms.txt and rules files</a>, the short files that tell every agent where all of this lives.</p>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>How should design system documentation be written for AI?</summary><div><p>In self-contained sections: name the component or pattern in every heading, put the rule first, include when not to use it, show a working example, and avoid references like "as mentioned above". Keep a consistent template with frontmatter for status and review dates.</p></div></details>
+  <details><summary>What is RAG in simple terms?</summary><div><p>Retrieval-augmented generation: before answering, the system searches a knowledge base for the most relevant passages and gives only those to the model. The model answers using them, instead of relying on what it learned in training.</p></div></details>
+  <details><summary>Do I need a vector database for my design system docs?</summary><div><p>Not always. Small doc sets in Markdown can be searched directly by coding agents or with keyword search. Embeddings and a vector store help when you have hundreds of pages and people ask in everyday words that don't match your terms.</p></div></details>
+  <details><summary>Is Markdown or MDX better for AI-readable docs?</summary><div><p>Both work as a source. Plain Markdown is read most reliably. If you use MDX, make sure custom components like props tables are rendered to text in the version agents read.</p></div></details>
+  <details><summary>How do I stop AI using outdated documentation?</summary><div><p>Mark every page with a status and review date in frontmatter, exclude deprecated pages from search indexes, delete pages that are no longer true, and generate facts like prop tables from code.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://www.anthropic.com/news/contextual-retrieval" target="_blank" rel="noopener">Anthropic: Contextual retrieval</a><span>Why chunks lose context, and techniques to restore it.</span></li>
+  <li><a href="https://github.com/pgvector/pgvector" target="_blank" rel="noopener">pgvector</a><span>Vector similarity search for PostgreSQL.</span></li>
+  <li><a href="https://www.postgresql.org/docs/current/textsearch.html" target="_blank" rel="noopener">PostgreSQL full text search</a><span>Keyword search used in the hybrid example.</span></li>
+  <li><a href="/writing/design-system-documentation">Design system documentation: what to include</a><span>The general component page template.</span></li>
+  <li><a href="/writing/design-system-patterns">Design system patterns</a><span>What belongs on a pattern page.</span></li>
+</ul>
+</div>
+    <aside class="ed-aside" aria-label="On this page"><nav class="ed-toc"><p>On this page</p><ol><li><a href="#the-problem-the-right-page-the-wrong-section">The problem: the right page, the wrong section</a></li><li><a href="#how-agents-read-documentation">How agents read documentation</a></li><li><a href="#seven-rules-for-documentation-that-retrieves-well">Seven rules for documentation that retrieves well</a></li><li><a href="#before-and-after-rewriting-one-section">Before and after: rewriting one section</a></li><li><a href="#a-component-page-template-built-for-both-readers">A component page template built for both readers</a></li><li><a href="#which-format-to-write-docs-in">Which format to write docs in</a></li><li><a href="#keeping-docs-current">Keeping docs current</a></li><li><a href="#do-you-need-a-vector-database">Do you need a vector database?</a></li><li><a href="#how-to-test-your-docs-with-real-questions">How to test your docs with real questions</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><a class="ed-top" href="#main">Back to top ↑</a></nav></aside>
+  </div>
+  <footer class="ed-end">
+    <section class="ed-more" aria-labelledby="more-h"><h2 class="ed-sec-h" id="more-h">next in making your design system ai-ready:</h2><div class="ec-grid"><a class="ec " href="/writing/agents-md-llms-txt-design-system" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/agents-md-llms-txt-design-system.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/agents-md-llms-txt-design-system.w480.webp 480w, ../assets/images/writing/agents-md-llms-txt-design-system.w800.webp 800w, ../assets/images/writing/agents-md-llms-txt-design-system.w1200.webp 1200w, ../assets/images/writing/agents-md-llms-txt-design-system.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">AGENTS.md, llms.txt and rules files for design systems</b><span class="ec-d">What a design system should put in AGENTS.md, CLAUDE.md, Cursor and Copilot rules, how to sync many repos, and how to write llms.txt for your docs.</span><span class="ec-f">13 min read</span></a><a class="ec " href="/writing/design-system-documentation" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/design-system-documentation.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-system-documentation.w480.webp 480w, ../assets/images/writing/design-system-documentation.w800.webp 800w, ../assets/images/writing/design-system-documentation.w1200.webp 1200w, ../assets/images/writing/design-system-documentation.jpg 1600w"></span><span class="ec-k">Building a system</span><b class="ec-t">Design system documentation</b><span class="ec-d">What people actually read in design system docs, the sections every component page needs and how to structure the portal. A page template to copy.</span><span class="ec-f">8 min read</span></a><a class="ec " href="/writing/design-system-patterns" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/design-system-patterns.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-system-patterns.w480.webp 480w, ../assets/images/writing/design-system-patterns.w800.webp 800w, ../assets/images/writing/design-system-patterns.w1200.webp 1200w, ../assets/images/writing/design-system-patterns.jpg 1600w"></span><span class="ec-k">Building a system</span><b class="ec-t">Design system patterns: when components aren't enough</b><span class="ec-d">What design system patterns are, how they differ from components, the four pattern families to start with, and a template for documenting them.</span><span class="ec-f">9 min read</span></a></div></section>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Working on this in your own product?</h2><p>Most teams we work with start with a two-week audit: every style, component and token, checked and ranked.</p></div><a href="/pricing">How the audit works <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main><footer class="ed-foot"><div class="ed-foot-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
+  <nav aria-label="Studio"><a href="/work">Work</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/contact">Contact</a><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">LinkedIn</a><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></nav>
+</div></footer><script src="../assets/site.js?v=3de6a9b6" defer></script>
+</body>
+</html>

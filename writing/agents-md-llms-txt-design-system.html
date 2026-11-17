@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AGENTS.md, llms.txt & Rules Files for Design Systems | Layer One</title>
+<meta name="description" content="What a design system should put in AGENTS.md, CLAUDE.md, Cursor and Copilot rules, how to sync many repos, and how to write llms.txt for your docs.">
+<meta property="og:title" content="AGENTS.md, llms.txt & Rules Files for Design Systems | Layer One">
+<meta property="og:description" content="What a design system should put in AGENTS.md, CLAUDE.md, Cursor and Copilot rules, how to sync many repos, and how to write llms.txt for your docs.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-17">
+<meta property="article:modified_time" content="2026-11-17">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="AI-ready design systems">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/agents-md-llms-txt-design-system.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="AGENTS.md, llms.txt & Rules Files for Design Systems | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/writing.css?v=2098cc1f">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<meta name="keywords" content="AGENTS.md, llms.txt, CLAUDE.md, Cursor rules design system, Copilot instructions, AI coding rules file, Agent Skills">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "AGENTS.md, llms.txt & Rules Files for Design Systems", "description": "What a design system should put in AGENTS.md, CLAUDE.md, Cursor and Copilot rules, how to sync many repos, and how to write llms.txt for your docs.", "image": "https://www.layerone.co.in/assets/images/writing/agents-md-llms-txt-design-system.jpg", "datePublished": "2026-11-17", "dateModified": "2026-11-17", "mainEntityOfPage": "https://www.layerone.co.in/writing/agents-md-llms-txt-design-system", "wordCount": 2945, "articleSection": "AI-ready design systems", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}, "keywords": "AGENTS.md, llms.txt, CLAUDE.md, Cursor rules design system, Copilot instructions, AI coding rules file, Agent Skills", "isPartOf": {"@type": "CreativeWorkSeries", "name": "Making your design system AI-ready", "url": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "AI-ready design systems", "item": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}, {"@type": "ListItem", "position": 3, "name": "AGENTS.md, llms.txt and rules files for design systems", "item": "https://www.layerone.co.in/writing/agents-md-llms-txt-design-system"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is AGENTS.md?", "acceptedAnswer": {"@type": "Answer", "text": "An open format for giving instructions to AI coding agents: a Markdown file at the root of a repository (and optionally in subfolders) that agents such as Codex, Cursor, GitHub Copilot and Gemini CLI read automatically. It's stewarded by the Agentic AI Foundation under the Linux Foundation."}}, {"@type": "Question", "name": "What's the difference between AGENTS.md and CLAUDE.md?", "acceptedAnswer": {"@type": "Answer", "text": "They serve the same purpose. CLAUDE.md is read by Claude Code; AGENTS.md is the cross-tool convention. A common setup keeps content in AGENTS.md and imports it from CLAUDE.md with a line containing @AGENTS.md."}}, {"@type": "Question", "name": "What is llms.txt?", "acceptedAnswer": {"@type": "Answer", "text": "A proposed standard for a Markdown file at /llms.txt on a website that summarises the site for language models and links to clean text versions of its pages. Support varies by tool, but it's cheap to add and useful for docs sites."}}, {"@type": "Question", "name": "What should a design system put in AGENTS.md?", "acceptedAnswer": {"@type": "Answer", "text": "Which package to import, what never to use (with replacements), how tokens work, where to look up components and tokens, which helpers already exist, and the commands that check the work. Keep it short and link to everything else."}}, {"@type": "Question", "name": "How long should AGENTS.md be?", "acceptedAnswer": {"@type": "Answer", "text": "As short as possible while covering the essentials. Under about 150 lines is a good target. Move long procedures into skills and detailed guidance into docs that the file links to."}}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/agents-md-llms-txt-design-system">
+<meta property="og:url" content="https://www.layerone.co.in/writing/agents-md-llms-txt-design-system">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="AGENTS.md, llms.txt & Rules Files for Design Systems | Layer One">
+<meta name="twitter:description" content="What a design system should put in AGENTS.md, CLAUDE.md, Cursor and Copilot rules, how to sync many repos, and how to write llms.txt for your docs.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/agents-md-llms-txt-design-system.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading" title="Light or dark reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button><a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<main id="main" class="ed-wrap"><article class="ed-article">
+  <div class="ed-layout">
+    <aside class="ed-meta" aria-label="About this article"><div class="ed-meta-in">
+      <div class="ed-meta-who"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40"><p><b>Aniket Pandey</b><span>Founder, Layer One</span></p></div>
+      <dl class="ed-meta-dl"><div><dt>Published</dt><dd>17 November 2026</dd></div><div><dt>Reading time</dt><dd>13 minutes</dd></div><div><dt>Topic</dt><dd><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a></dd></div></dl>
+      <div class="ed-meta-sec"><p class="ed-meta-h">Making your design system AI-ready</p><ol class="ed-steps"><li><a href="/writing/ai-ready-design-system">What is an AI-ready design system?</a></li><li><a href="/writing/how-ai-agents-use-design-systems">How AI coding agents use your design system, and where they go wrong</a></li><li><a href="/writing/design-tokens-for-ai-agents">Design tokens for AI agents</a></li><li><a href="/writing/component-metadata-for-ai-agents">Component metadata for AI agents</a></li><li><a href="/writing/design-system-documentation-for-ai">Writing design system documentation AI agents can use, and how retrieval finds it</a></li><li aria-current="step"><a href="/writing/agents-md-llms-txt-design-system">AGENTS.md, llms.txt and rules files for design systems</a></li><li><a href="/writing/design-system-mcp-server">Build an MCP server for your design system</a></li><li><a href="/writing/figma-mcp-design-to-code">Figma to code with AI</a></li><li><a href="/writing/ai-generated-ui-guardrails">Guardrails for AI-generated UI</a></li><li><a href="/writing/legacy-design-system-ai-ready">How to make a legacy design system AI-ready</a></li></ol></div><div class="ed-meta-sec"><p class="ed-meta-h">Tags</p><ul class="ed-tags"><li>AGENTS.md</li><li>llms.txt</li><li>Rules files</li><li>Skills</li></ul></div><div class="ed-meta-sec"><p class="ed-meta-h">Share</p><p class="ed-share"><button type="button" data-copy="https://www.layerone.co.in/writing/agents-md-llms-txt-design-system">Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.layerone.co.in/writing/agents-md-llms-txt-design-system" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/intent/post?url=https://www.layerone.co.in/writing/agents-md-llms-txt-design-system" target="_blank" rel="noopener">X</a></p></div>
+    </div></aside>
+    <header class="ed-head">
+      <p class="ed-crumb"><a href="/writing">Writing</a><span aria-hidden="true">/</span><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a><span class="ed-crumb-s">Part 6 of 10 in <a href="/writing#ai-ready">Making your design system AI-ready</a></span></p>
+      <h1 class="ed-title">AGENTS.md, llms.txt and rules files for design systems: what to write and where</h1>
+      <p class="ed-dek">Every agent session starts from zero, and the files it loads first are the most reliable way to guide it. Which files each tool reads, a complete design system section to copy, how to ship it in your package, llms.txt for your docs site, and skills for longer procedures.</p>
+      <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>13 min read · 17 November 2026</span></span></p>
+    </header>
+    <figure class="ed-cover"><img src="../assets/images/writing/agents-md-llms-txt-design-system.w1200.webp" alt="Diagram: one AGENTS.md section generated by the design system and inserted into every product repo, with CLAUDE.md, Cursor and Copilot files pointing to it." width="1600" height="900" sizes="(max-width: 1024px) calc(100vw - 32px), 760px" fetchpriority="high" srcset="../assets/images/writing/agents-md-llms-txt-design-system.w480.webp 480w, ../assets/images/writing/agents-md-llms-txt-design-system.w800.webp 800w, ../assets/images/writing/agents-md-llms-txt-design-system.w1200.webp 1200w, ../assets/images/writing/agents-md-llms-txt-design-system.jpg 1600w" decoding="async"></figure>
+    <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>The problem: every session starts from zero</b></summary><ol><li><a href="#the-problem-every-session-starts-from-zero">The problem: every session starts from zero</a></li><li><a href="#which-file-does-what">Which file does what</a></li><li><a href="#where-rules-files-go-in-a-design-system-setup">Where rules files go in a design system setup</a></li><li><a href="#what-to-put-in-a-product-repo-s-rules-file">What to put in a product repo's rules file</a></li><li><a href="#keeping-many-repos-in-sync">Keeping many repos in sync</a></li><li><a href="#tool-specific-files-without-duplicating-content">Tool-specific files, without duplicating content</a></li><li><a href="#the-design-system-repo-s-own-agents-md">The design system repo's own AGENTS.md</a></li><li><a href="#llms-txt-for-your-docs-website">llms.txt for your docs website</a></li><li><a href="#packaging-procedures-as-skills">Packaging procedures as skills</a></li><li><a href="#writing-instructions-agents-follow">Writing instructions agents follow</a></li><li><a href="#how-to-check-your-rules-file-works">How to check your rules file works</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+    <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p><b>Rules files</b> are plain-text instructions that coding agents load automatically at the start of every task. <b>AGENTS.md</b> is the open, cross-tool format (read by Codex, Cursor, GitHub Copilot, Gemini CLI and many others); Claude Code reads <b>CLAUDE.md</b>, which can import AGENTS.md; Cursor and Copilot also have their own scoped rule files. For a design system, put a short section in every product repo that says <b>which package to use</b>, <b>what never to use</b>, <b>how tokens work</b>, <b>where to look things up</b> and <b>how to check the work</b>. On your public docs site, add an <b>llms.txt</b> file: a Markdown index of your docs written for language models. Keep all of these short, and generate the parts that change (like the deprecated list) from your metadata.</p>
+  <ul>
+    <li>A rules file is a map, not an encyclopedia. Under 150 lines is a good target.</li>
+    <li>Ship the design system's section inside the package, so every repo stays in sync.</li>
+    <li>Part 6 of 10 in the series on AI-ready design systems.</li>
+  </ul>
+</div>
+
+<h2 id="the-problem-every-session-starts-from-zero">The problem: every session starts from zero</h2>
+<p>In <a href="/writing/how-ai-agents-use-design-systems">part 2</a> we saw that agents don't remember anything between sessions, and that the files loaded at the start of a task are the most reliable way to guide them. Without a rules file, here's what working with an agent looks like at Kestrel:</p>
+<p class="scenario-t">An illustration: the repeated reminder</p>
+<div class="scenario">
+  <div><span class="k">The habit</span><p>Engineers who've been burned type "use @kestrel/harbor, not ui-old, and use tokens" at the end of every prompt. Some remember; most don't; nobody types the same thing twice.</p></div>
+  <div><span class="k">The result</span><p>Agent output depends on who's asking. The engineer who knows the system gets on-system UI. The new hire gets the legacy button. Review catches some of it.</p></div>
+  <div><span class="k">The fix</span><p>Write the reminder once, in a file every agent reads automatically, and keep it current from the design system's own data.</p></div>
+</div>
+
+<h2 id="which-file-does-what">Which file does what</h2>
+<p>There are several file conventions, and the landscape keeps moving. Here's what each is for as of late 2026. You'll likely use two or three of them.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>File</th><th>Read by</th><th>Lives in</th><th>Use it for</th></tr></thead>
+  <tbody>
+    <tr><td><b><code>AGENTS.md</code></b></td><td>Codex, Cursor, GitHub Copilot, Gemini CLI, Jules, Amp and many more</td><td>Repo root, plus optional nested files in subfolders</td><td>The main, tool-neutral instructions for any repo</td></tr>
+    <tr><td><b><code>CLAUDE.md</code></b></td><td>Claude Code</td><td>Repo root and subfolders; also user-level</td><td>Claude-specific notes; can import AGENTS.md with <code>@AGENTS.md</code></td></tr>
+    <tr><td><b><code>.cursor/rules/*.mdc</code></b></td><td>Cursor</td><td>Repo</td><td>Rules applied only to matching files (e.g. <code>*.tsx</code>)</td></tr>
+    <tr><td><b><code>.github/copilot-instructions.md</code></b>, <code>.github/instructions/*.instructions.md</code></td><td>GitHub Copilot</td><td>Repo</td><td>Copilot-wide or path-scoped instructions</td></tr>
+    <tr><td><b><code>SKILL.md</code></b> (Agent Skills)</td><td>Claude and a growing number of other agents</td><td>A skills folder, or a plugin</td><td>Step-by-step procedures loaded only when relevant ("migrate Modal to Dialog")</td></tr>
+    <tr><td><b><code>llms.txt</code></b></td><td>Agents and tools that read websites</td><td>Root of your docs website</td><td>An index of your docs for language models</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Rules-file conventions. <span class="ev ev--doc">Documented</span> AGENTS.md is stewarded by the Agentic AI Foundation under the Linux Foundation; llms.txt is a community proposal from 2024 whose support varies by tool. Check each tool's docs, as these change often.</figcaption></figure>
+<div class="callout callout--term"><span class="callout-k">New words</span><p><b>Rules file</b> (also "instructions file" or "memory file"): Markdown that an agent adds to its context automatically, before your prompt. <b>Scoped rule:</b> a rule that applies only to certain files or folders. <b>Skill:</b> a packaged set of instructions (and optionally scripts) that an agent loads only when the task matches its description, which keeps everyday context small.</p></div>
+
+<h2 id="where-rules-files-go-in-a-design-system-setup">Where rules files go in a design system setup</h2>
+<p>A design system touches three kinds of place, and each needs different instructions.</p>
+<figure class="w-fig">
+  <div class="w-arch">
+    <div class="w-arch-row"><span class="w-arch-k">Design system repo</span><div class="w-arch-n"><div class="hi"><b>AGENTS.md for maintainers</b><span>How to add a component: files, metadata, stories, tests</span></div><div class="lt"><b>harbor/AGENTS.snippet.md</b><span>The consumer section, generated, shipped in the npm package</span></div></div></div>
+    <div class="w-arch-link">published with every release</div>
+    <div class="w-arch-row"><span class="w-arch-k">Product repos</span><div class="w-arch-n"><div><b>Payroll web app</b><span>AGENTS.md includes the Harbor snippet</span></div><div><b>Admin console</b><span>Same snippet, plus local rules</span></div><div><b>Marketing site</b><span>Same snippet</span></div></div></div>
+    <div class="w-arch-link">for agents outside your repos</div>
+    <div class="w-arch-row"><span class="w-arch-k">Docs website</span><div class="w-arch-n"><div><b>/llms.txt</b><span>Index of docs pages for language models</span></div><div><b>/components/button.md</b><span>Plain-Markdown version of each page</span></div></div></div>
+  </div>
+  <figcaption>Three audiences: people building the system, people building with it, and agents reading the public docs.</figcaption>
+</figure>
+
+<h2 id="what-to-put-in-a-product-repo-s-rules-file">What to put in a product repo's rules file</h2>
+<p>The design system section of a product repo's AGENTS.md should answer six questions. Anything else belongs in the docs or metadata, which the file points to.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Question</th><th>Why the agent needs it</th></tr></thead>
+  <tbody>
+    <tr><td>Which package and import path?</td><td>Stops it copying lookalikes from old folders</td></tr>
+    <tr><td>What must never be used?</td><td>Deprecated packages, folders and components it will otherwise find and copy</td></tr>
+    <tr><td>How do tokens work here?</td><td>Prevents hard-coded values and Tailwind defaults</td></tr>
+    <tr><td>Where do I look things up?</td><td>The component index, token manifest, docs folder or MCP tools</td></tr>
+    <tr><td>Which helpers already exist?</td><td>Stops it writing its own currency formatter or date helper</td></tr>
+    <tr><td>How do I check my work?</td><td>The exact commands that run lint, types and tests</td></tr>
+  </tbody>
+</table></div></figure>
+
+<h3>A complete example</h3>
+<p>Here's the section Kestrel's payroll app ended up with. Notice it's mostly short, imperative lines, each specific enough to check.</p>
+<pre><code><span class="c">&lt;!-- AGENTS.md (payroll-web) --&gt;</span>
+# Payroll web app
+
+React 19 + TypeScript. Run `pnpm dev` to start, `pnpm check` before finishing.
+
+&lt;!-- harbor:start (generated by `npx harbor agents`; edit in the harbor repo) --&gt;
+## UI: use the Harbor design system
+
+- Build all UI with `@kestrel/harbor`. Import from the package root:
+  `import { Button, StatCard } from "@kestrel/harbor"`.
+- Before writing UI, look the component up. Prefer the `harbor` MCP tools
+  (`search_components`, `get_component`, `search_tokens`). Without them, read
+  `node_modules/@kestrel/harbor/dist/components.agent.json`.
+- If no component fits, say so in your reply. Don't build a new one.
+
+### Never use
+- `@kestrel/ui-old` and anything in `src/legacy/`. They are being removed.
+- `Modal` and `AlertDialog`: use `Dialog`, or `ConfirmDialog` for confirmations.
+- `BtnPrimary`: use `&lt;Button variant="primary"&gt;`.
+- Raw colours, pixel spacing or font sizes in styles or `className`.
+
+### Tokens
+- Styles use semantic tokens only: `var(--color-text-secondary)`, `var(--space-inset-md)`.
+- Tailwind classes use Harbor's theme (`bg-surface`, `text-danger`). Default
+  Tailwind colours like `bg-blue-600` don't exist in this build.
+- Never write theme-specific styles (`[data-theme="dark"]`). Tokens switch themes.
+- Token list: `node_modules/@kestrel/harbor/dist/tokens.agent.json`.
+
+### Existing helpers
+- Money: `formatMoney(amount, currency)` from `@kestrel/harbor/format`.
+- Dates: `formatDate()` from the same module. Never call `toLocaleString` directly.
+
+### Check your work
+- `pnpm lint` flags deprecated imports and raw values.
+- `pnpm typecheck` checks props against Harbor's types.
+- Stories for new screens go in `src/**/*.stories.tsx`.
+&lt;!-- harbor:end --&gt;
+
+## Payroll domain
+- Amounts are integers in minor units (cents). Never use floats for money.
+…</code></pre>
+<div class="callout callout--tip"><span class="callout-k">Tip</span><p>"If no component fits, say so" is one of the most valuable lines you can add. Without it, agents quietly build a new component, and you discover a fourth date picker in review. With it, you get a clear signal about gaps in your system.</p></div>
+
+<h2 id="keeping-many-repos-in-sync">Keeping many repos in sync</h2>
+<p>A rules file copied by hand into twelve repos will be twelve different files within a quarter. Instead, treat the design system section as a release artifact.</p>
+<ol class="w-steps">
+  <li><h3>Generate the snippet in the design system build</h3><p>The "Never use" list comes from components with <code>status: deprecated</code> in their metadata (<a href="/writing/component-metadata-for-ai-agents">part 4</a>). The helpers list comes from the package's exports. So the snippet updates itself when you deprecate something.</p></li>
+  <li><h3>Ship it in the package</h3><p>Publish it as <code>AGENTS.snippet.md</code> inside <code>@kestrel/harbor</code>. Every product repo already depends on the package, so every repo already has the right version.</p></li>
+  <li><h3>Insert it between markers</h3><p>A small command (<code>npx harbor agents</code>) replaces whatever sits between <code>harbor:start</code> and <code>harbor:end</code> in the repo's AGENTS.md, and leaves the rest of the file alone. Run it after every upgrade, or in a post-install script.</p></li>
+  <li><h3>Check it in CI</h3><p>A CI step runs the command and fails if the file changed, which means someone upgraded Harbor without refreshing the instructions.</p></li>
+</ol>
+<pre><code><span class="c">// bin/harbor-agents.mjs: replace the marked block in ./AGENTS.md</span>
+<span class="k">import</span> { readFileSync, writeFileSync, existsSync } <span class="k">from</span> <span class="s">"node:fs"</span>;
+<span class="k">import</span> { createRequire } <span class="k">from</span> <span class="s">"node:module"</span>;
+
+<span class="k">const</span> require = createRequire(import.meta.url);
+<span class="k">const</span> snippet = readFileSync(require.resolve(<span class="s">"@kestrel/harbor/AGENTS.snippet.md"</span>), <span class="s">"utf8"</span>).trim();
+<span class="k">const</span> start = <span class="s">"&lt;!-- harbor:start"</span>, end = <span class="s">"&lt;!-- harbor:end --&gt;"</span>;
+<span class="k">const</span> file = existsSync(<span class="s">"AGENTS.md"</span>) ? readFileSync(<span class="s">"AGENTS.md"</span>, <span class="s">"utf8"</span>) : <span class="s">""</span>;
+<span class="k">const</span> block = snippet + <span class="s">"\n"</span> + end;     <span class="c">// the snippet starts with its own start marker</span>
+<span class="k">const</span> i = file.indexOf(start), j = file.indexOf(end);
+<span class="k">const</span> next = i &gt;= 0 &amp;&amp; j &gt; i
+  ? file.slice(0, i) + block + file.slice(j + end.length)
+  : file + (file ? <span class="s">"\n\n"</span> : <span class="s">""</span>) + block + <span class="s">"\n"</span>;
+writeFileSync(<span class="s">"AGENTS.md"</span>, next);</code></pre>
+<p>(The package must list the snippet in its <code>exports</code> field for <code>require.resolve</code> to find it.)</p>
+
+<h2 id="tool-specific-files-without-duplicating-content">Tool-specific files, without duplicating content</h2>
+<p>Keep AGENTS.md as the one place where content lives, and make the other files point to it, so you never have to edit the same rule in four places.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">CLAUDE CODE</span><h4>CLAUDE.md imports AGENTS.md</h4><pre><code># CLAUDE.md
+@AGENTS.md
+
+Claude-specific notes, if any,
+go below the import.</code></pre><p>The <code>@path</code> syntax pulls the other file into Claude Code's context.</p></div>
+  <div class="cell"><span class="k">CURSOR</span><h4>A scoped rule for UI files</h4><pre><code>---
+description: Harbor UI rules
+globs: ["src/**/*.tsx", "src/**/*.css"]
+alwaysApply: false
+---
+Follow the "UI: use the Harbor
+design system" section of
+AGENTS.md for every UI change.</code></pre><p>Cursor reads AGENTS.md too; a scoped rule adds emphasis only where UI is written.</p></div>
+  <div class="cell"><span class="k">GITHUB COPILOT</span><h4>Path-specific instructions</h4><pre><code>---
+applyTo: "src/**/*.tsx"
+---
+Follow the Harbor section of
+AGENTS.md. Never import from
+@kestrel/ui-old or src/legacy.</code></pre><p>Saved as <code>.github/instructions/ui.instructions.md</code>.</p></div>
+  <div class="cell"><span class="k">NESTED FILES</span><h4>Closer rules for special folders</h4><pre><code>src/legacy/AGENTS.md
+
+This folder is being removed.
+Do not copy patterns from here.
+Do not add new files here.</code></pre><p>Agents that support nesting read the nearest AGENTS.md for the files they're editing.</p></div>
+</div>
+
+<h2 id="the-design-system-repo-s-own-agents-md">The design system repo's own AGENTS.md</h2>
+<p>Agents also help maintain the system itself: drafting new components, writing stories, migrating props. Those tasks need different instructions, focused on the contribution standard.</p>
+<pre><code># Harbor design system
+
+## Adding or changing a component
+Every component lives in `src/&lt;Name&gt;/` with exactly these files:
+- `&lt;Name&gt;.tsx`: union types for every option prop; JSDoc on the component and every prop.
+- `&lt;Name&gt;.meta.json`: purpose, useWhen, avoidWhen, rules. Must validate against
+  `schema/component-meta.schema.json` (`pnpm validate:meta`).
+- `&lt;Name&gt;.stories.tsx`: one story per variant and per state in the docs page.
+- `&lt;Name&gt;.test.tsx`: behaviour and accessibility (axe) tests.
+- `docs/&lt;name&gt;.md`: from `docs/_template.md`. Headings repeat the component name.
+
+## Rules
+- Styles use semantic tokens only. New tokens need a `$description`.
+- Never remove a prop: deprecate it with `@deprecated Use X` and keep it working.
+- Default variant must be the lowest-emphasis option.
+
+## Before finishing
+`pnpm check` (lint, types, tests, meta validation, docs examples).</code></pre>
+
+<h2 id="llms-txt-for-your-docs-website">llms.txt for your docs website</h2>
+<p><b>llms.txt</b> is a proposal from 2024 for websites to offer a Markdown file at <code>/llms.txt</code> that tells language models what's on the site and where the clean, text versions of pages are. Not every tool reads it automatically, but it costs little, and it's useful whenever an agent (or a person pasting a URL into a chat) needs your docs and can't reach your repo.</p>
+<p>The format is simple Markdown: a title, a one-paragraph summary in a blockquote, optional notes, then sections of links with short descriptions. A section called "Optional" marks links that can be skipped when space is short.</p>
+<pre><code># Harbor design system
+
+&gt; Harbor is Kestrel's design system for React: components, design tokens and
+&gt; patterns for payroll and HR products. Package: @kestrel/harbor.
+
+Use semantic tokens only. Components marked deprecated must not be used in new code.
+
+## Start here
+- [Getting started](https://harbor.kestrel.example/start.md): install, providers, theming
+- [Component index](https://harbor.kestrel.example/components.agent.json): every component with status and purpose
+- [Token list](https://harbor.kestrel.example/tokens.agent.json): semantic tokens with descriptions
+
+## Components
+- [Button](https://harbor.kestrel.example/components/button.md): actions on the current page
+- [ConfirmDialog](https://harbor.kestrel.example/components/confirm-dialog.md): confirming destructive actions
+- [StatCard](https://harbor.kestrel.example/components/stat-card.md): 1–4 key figures with an optional action
+
+## Patterns
+- [Forms](https://harbor.kestrel.example/patterns/forms.md): layout, validation and errors
+- [Empty states](https://harbor.kestrel.example/patterns/empty-states.md): no data, no results, no access
+
+## Optional
+- [Changelog](https://harbor.kestrel.example/changelog.md)
+- [Migration from ui-old](https://harbor.kestrel.example/migrate/ui-old.md)</code></pre>
+<ul class="checklist">
+  <li><b>Link to <code>.md</code> versions of pages,</b> not the HTML, so agents get clean text without navigation and scripts.</li>
+  <li><b>Generate it from your docs' frontmatter,</b> skipping deprecated pages, so it stays current.</li>
+  <li><b>Consider an <code>llms-full.txt</code>,</b> a common companion that concatenates all pages into one file, for tools that prefer to load everything.</li>
+  <li><b>Keep private docs private.</b> If your docs are internal, put llms.txt behind the same login, or rely on repo files and MCP instead.</li>
+</ul>
+
+<h2 id="packaging-procedures-as-skills">Packaging procedures as skills</h2>
+<p>Some knowledge is a procedure, not a rule: "how to migrate a screen from Modal to Dialog" or "how to build a settings page with Harbor". These are too long for a rules file, which is loaded every time. Agent Skills solve this: a folder with a <code>SKILL.md</code> whose short description is always visible to the agent, and whose full instructions load only when the task matches.</p>
+<pre><code>---
+name: harbor-migrate-modal
+description: Migrate a screen from the deprecated Harbor Modal to Dialog or
+  ConfirmDialog. Use when a file imports Modal from @kestrel/harbor or ui-old.
+---
+
+# Migrating Modal to Dialog
+
+1. Decide the replacement: confirmation of an action → ConfirmDialog;
+   anything with form fields or free content → Dialog.
+2. Map props: `isOpen` → `open`, `onRequestClose` → `onOpenChange(false)`,
+   `header` → `title`. `footer` becomes Dialog.Actions children.
+3. Run `pnpm codemod modal-to-dialog &lt;file&gt;` for the mechanical part,
+   then review focus order and the confirm button's label.
+4. Run `pnpm check`.</code></pre>
+<p>This keeps the always-loaded rules file short (the map) while the detailed steps are one hop away (the guide), which is the progressive disclosure idea from part 2 again.</p>
+
+<h2 id="writing-instructions-agents-follow">Writing instructions agents follow</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Instead of…</th><th>Write…</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td>"Try to use the design system where possible"</td><td>"Build all UI with @kestrel/harbor"</td><td>Hedged rules are treated as optional</td></tr>
+    <tr><td>"Follow our token conventions"</td><td>"Styles use semantic tokens only, e.g. var(--color-text-secondary)"</td><td>A concrete example shows the exact form</td></tr>
+    <tr><td>"Don't use old components"</td><td>"Never use Modal; use Dialog or ConfirmDialog"</td><td>The agent needs names and replacements</td></tr>
+    <tr><td>A page of design philosophy</td><td>A link to the principles page</td><td>Long prose dilutes the rules that matter</td></tr>
+    <tr><td>"Make sure it works"</td><td>"Run pnpm check before finishing"</td><td>An exact command can actually be run</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Imperative, specific and checkable. A short reason after a rule helps the agent handle edge cases ("…they are being removed").</figcaption></figure>
+
+<h2 id="how-to-check-your-rules-file-works">How to check your rules file works</h2>
+<ol class="w-steps">
+  <li><h3>Ask the agent to repeat it</h3><p>In a fresh session: "Before we start, what are the rules for building UI in this repo?" If its answer misses the never-use list, the file is too long or the section is buried.</p></li>
+  <li><h3>Rerun the baseline tasks</h3><p>Use the three tasks from your agent's-eye audit in part 2. Deprecated imports and hard-coded values should drop sharply. This is usually the biggest single improvement in the whole series.</p></li>
+  <li><h3>Test across tools</h3><p>If teams use different agents, run one task in each. A file that works in one tool but not another is often in the wrong place or format for the second.</p></li>
+  <li><h3>Watch the length</h3><p>Every time someone adds a line, ask what it replaces. When the file passes about 150 lines, move procedures into skills and details into docs.</p></li>
+</ol>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">MISTAKE</span><h4>Pasting the whole docs site</h4><p>A 2,000-line rules file loads every time and hides the ten rules that matter. Link instead.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Hand-maintained deprecated lists</h4><p>They fall behind the code within a release. Generate the list from metadata.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Contradicting the codebase</h4><p>If the file says "never use ui-old" but 60% of files import it, agents get mixed signals. Add lint (part 9) and a nested AGENTS.md in legacy folders.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Secrets and internal URLs in public files</h4><p>Rules files are often committed to public repos, and llms.txt is public by design. Keep tokens, internal hostnames and credentials out.</p></div>
+</div>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Rules files load automatically, so they're the cheapest, most reliable way to guide agents.</li>
+  <li>Use AGENTS.md as the single source; point CLAUDE.md, Cursor and Copilot files at it.</li>
+  <li>Answer six questions: package, never-use, tokens, where to look, helpers, how to check.</li>
+  <li>Generate the design system section, ship it in the package and insert it between markers.</li>
+  <li>Add llms.txt and .md pages to your docs site; package long procedures as skills.</li>
+</ul></div>
+<p>Next: <a href="/writing/design-system-mcp-server">Build an MCP server for your design system</a>, so agents can look up exactly the component or token they need instead of searching files.</p>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>What is AGENTS.md?</summary><div><p>An open format for giving instructions to AI coding agents: a Markdown file at the root of a repository (and optionally in subfolders) that agents such as Codex, Cursor, GitHub Copilot and Gemini CLI read automatically. It's stewarded by the Agentic AI Foundation under the Linux Foundation.</p></div></details>
+  <details><summary>What's the difference between AGENTS.md and CLAUDE.md?</summary><div><p>They serve the same purpose. CLAUDE.md is read by Claude Code; AGENTS.md is the cross-tool convention. A common setup keeps content in AGENTS.md and imports it from CLAUDE.md with a line containing @AGENTS.md.</p></div></details>
+  <details><summary>What is llms.txt?</summary><div><p>A proposed standard for a Markdown file at /llms.txt on a website that summarises the site for language models and links to clean text versions of its pages. Support varies by tool, but it's cheap to add and useful for docs sites.</p></div></details>
+  <details><summary>What should a design system put in AGENTS.md?</summary><div><p>Which package to import, what never to use (with replacements), how tokens work, where to look up components and tokens, which helpers already exist, and the commands that check the work. Keep it short and link to everything else.</p></div></details>
+  <details><summary>How long should AGENTS.md be?</summary><div><p>As short as possible while covering the essentials. Under about 150 lines is a good target. Move long procedures into skills and detailed guidance into docs that the file links to.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://agents.md/" target="_blank" rel="noopener">AGENTS.md</a><span>The format, examples and list of supporting tools.</span></li>
+  <li><a href="https://llmstxt.org/" target="_blank" rel="noopener">llms.txt</a><span>The proposal and the file format.</span></li>
+  <li><a href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">Claude Code: memory and CLAUDE.md</a><span>How CLAUDE.md files and imports work.</span></li>
+  <li><a href="https://docs.github.com/en/copilot/customizing-copilot/adding-repository-custom-instructions-for-github-copilot" target="_blank" rel="noopener">GitHub Copilot: repository instructions</a><span>Repo-wide and path-specific instruction files.</span></li>
+  <li><a href="https://agentskills.io/" target="_blank" rel="noopener">Agent Skills</a><span>The open format for packaged agent procedures.</span></li>
+</ul>
+</div>
+    <aside class="ed-aside" aria-label="On this page"><nav class="ed-toc"><p>On this page</p><ol><li><a href="#the-problem-every-session-starts-from-zero">The problem: every session starts from zero</a></li><li><a href="#which-file-does-what">Which file does what</a></li><li><a href="#where-rules-files-go-in-a-design-system-setup">Where rules files go in a design system setup</a></li><li><a href="#what-to-put-in-a-product-repo-s-rules-file">What to put in a product repo's rules file</a></li><li><a href="#keeping-many-repos-in-sync">Keeping many repos in sync</a></li><li><a href="#tool-specific-files-without-duplicating-content">Tool-specific files, without duplicating content</a></li><li><a href="#the-design-system-repo-s-own-agents-md">The design system repo's own AGENTS.md</a></li><li><a href="#llms-txt-for-your-docs-website">llms.txt for your docs website</a></li><li><a href="#packaging-procedures-as-skills">Packaging procedures as skills</a></li><li><a href="#writing-instructions-agents-follow">Writing instructions agents follow</a></li><li><a href="#how-to-check-your-rules-file-works">How to check your rules file works</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><a class="ed-top" href="#main">Back to top ↑</a></nav></aside>
+  </div>
+  <footer class="ed-end">
+    <section class="ed-more" aria-labelledby="more-h"><h2 class="ed-sec-h" id="more-h">next in making your design system ai-ready:</h2><div class="ec-grid"><a class="ec " href="/writing/design-system-mcp-server" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/design-system-mcp-server.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-system-mcp-server.w480.webp 480w, ../assets/images/writing/design-system-mcp-server.w800.webp 800w, ../assets/images/writing/design-system-mcp-server.w1200.webp 1200w, ../assets/images/writing/design-system-mcp-server.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">Build an MCP server for your design system</b><span class="ec-d">Build a Model Context Protocol server for your design system: tool design, working code, Storybook and shadcn options, Inspector testing and setup.</span><span class="ec-f">15 min read</span></a><a class="ec " href="/writing/how-ai-agents-use-design-systems" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/how-ai-agents-use-design-systems.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/how-ai-agents-use-design-systems.w480.webp 480w, ../assets/images/writing/how-ai-agents-use-design-systems.w800.webp 800w, ../assets/images/writing/how-ai-agents-use-design-systems.w1200.webp 1200w, ../assets/images/writing/how-ai-agents-use-design-systems.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">How AI coding agents use your design system, and where they go wrong</b><span class="ec-d">What Claude Code, Cursor, Copilot and Codex read when they build UI, why they copy legacy code and hard-code values, and a one-hour audit to run.</span><span class="ec-f">12 min read</span></a><a class="ec " href="/writing/design-system-documentation-for-ai" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/design-system-documentation-for-ai.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-system-documentation-for-ai.w480.webp 480w, ../assets/images/writing/design-system-documentation-for-ai.w800.webp 800w, ../assets/images/writing/design-system-documentation-for-ai.w1200.webp 1200w, ../assets/images/writing/design-system-documentation-for-ai.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">Writing design system documentation AI agents can use, and how retrieval finds it</b><span class="ec-d">How to write design system docs for AI agents and RAG: self-contained sections, a page template, Markdown frontmatter, chunking, hybrid search and tests.</span><span class="ec-f">13 min read</span></a></div></section>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Working on this in your own product?</h2><p>Most teams we work with start with a two-week audit: every style, component and token, checked and ranked.</p></div><a href="/pricing">How the audit works <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main><footer class="ed-foot"><div class="ed-foot-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
+  <nav aria-label="Studio"><a href="/work">Work</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/contact">Contact</a><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">LinkedIn</a><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></nav>
+</div></footer><script src="../assets/site.js?v=3de6a9b6" defer></script>
+</body>
+</html>

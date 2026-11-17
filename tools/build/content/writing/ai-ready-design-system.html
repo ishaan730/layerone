@@ -1,0 +1,194 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>An <b>AI-ready design system</b> is one an AI agent can find, read and follow without a person explaining it. In practice that means four things: <b>one source of truth</b> for tokens, components and docs; <b>machine-readable formats</b> (DTCG token JSON, component metadata, structured docs); <b>a way for agents to reach it</b> (rules files like AGENTS.md, and often an MCP server); and <b>checks that catch mistakes</b> (lint rules, tests and evals). Most teams don't need new technology to start. They need to fix the ambiguity people have been working around for years: duplicate components, unexplained tokens, out-of-date docs.</p>
+  <ul>
+    <li>If a new engineer can't tell which of three buttons to use, an agent can't either. It will just guess faster.</li>
+    <li>Start by writing things down and removing duplicates. Add MCP servers and retrieval later.</li>
+    <li>This is part 1 of a 10-part series. Each part covers one layer in depth.</li>
+  </ul>
+</div>
+
+<h2>Why this matters now</h2>
+<p>Until recently, everyone who used a design system was a person. People are good at filling gaps. When the docs say nothing about which button to use on a confirmation dialog, a designer asks on Slack, checks a similar screen, or remembers what the system lead said last quarter. A design system can survive a lot of ambiguity because its users absorb it.</p>
+<p>That's changing. Engineers now ask coding assistants such as Claude Code, Cursor, GitHub Copilot and Codex to build screens. Designers use tools that generate UI from a prompt or a Figma frame. Product managers prototype with AI app builders. Each of these tools is a new user of your design system. It's a user that reads everything literally, can't ask a colleague, forgets everything between sessions, and works very fast.</p>
+<p class="scenario-t">An illustration: the same request, two systems</p>
+<div class="scenario">
+  <div><span class="k">The request</span><p>An engineer asks a coding agent: "Add a settings page with a form for the company's name, payroll currency and a save button. Use our design system."</p></div>
+  <div><span class="k">System A: not ready</span><p>The agent searches the repo and finds <code>Button</code>, <code>BtnPrimary</code> and <code>LegacyButton</code>. It picks the one that appears most often, which is the deprecated one. It hard-codes <code>#2563EB</code> because it saw it in an old file, and invents a currency dropdown.</p></div>
+  <div><span class="k">System B: ready</span><p>The agent reads the repo's AGENTS.md, which points it to the component list. It asks the design system's MCP server for "form", gets the <code>Form</code>, <code>TextField</code> and <code>Select</code> components with their props and examples, uses <code>color.action.primary.bg</code>, and the lint check passes on the first try.</p></div>
+</div>
+<p>The difference isn't the AI model. It's the system. That's the most important idea in this series: <b>agents amplify whatever your design system already is.</b> A clear, consistent system becomes faster to use. An ambiguous one produces wrong UI faster than any human could.</p>
+<div class="callout callout--term"><span class="callout-k">New words</span><p><b>AI agent:</b> a program built around a large language model (LLM) that can take actions in a loop: read files, run commands, call tools, look at the results, and decide what to do next. A chatbot only answers; an agent does work. <b>Coding agent:</b> an agent that works in a code repository, like Claude Code, Cursor's agent, GitHub Copilot's agent mode or OpenAI Codex.</p></div>
+
+<h2>The running example used in this series</h2>
+<p>To keep things concrete, all ten articles follow one made-up design system through the work of becoming AI-ready. It is an illustration, but every problem in it is one we've seen in real systems.</p>
+<figure class="w-fig">
+  <div class="cols2">
+    <div class="cell"><span class="k">THE COMPANY</span><h4>Kestrel, a payroll SaaS</h4><p>Four product teams, about 40 engineers and 9 designers. A web app in React, an admin console, and a marketing site.</p></div>
+    <div class="cell"><span class="k">THE SYSTEM</span><h4>Harbor, five years old</h4><p>Published as <code>@kestrel/harbor</code>. A Figma library, a Storybook, docs in Confluence, tokens in a SCSS file. Two part-time maintainers.</p></div>
+    <div class="cell"><span class="k">WHAT'S MESSY</span><h4>The usual history</h4><ul><li>Three button components from three eras</li><li>14 blues, 6 of them named</li><li>Figma components called "Card copy 2"</li><li>Docs last updated in 2024</li></ul></div>
+    <div class="cell cell--accent"><span class="k">THE GOAL</span><h4>Agents build on-system UI</h4><p>An engineer or designer asking an agent for a screen should get one built from Harbor's real parts, using real tokens, that passes review.</p></div>
+  </div>
+  <figcaption><span class="ev ev--ill">Illustration</span> Harbor and Kestrel are made up. Numbers are illustrative.</figcaption>
+</figure>
+
+<h2>What "AI-ready" actually means</h2>
+<p>"AI-ready" gets used loosely, so here is a definition you can check against. A design system is AI-ready when an agent with no prior knowledge of it can do four things reliably:</p>
+<ol class="w-steps">
+  <li><h3>Find the right thing</h3><p>Given a task ("a destructive confirmation dialog"), it can discover which components, tokens and patterns apply, <b>without</b> stumbling onto deprecated or duplicate versions first.</p></li>
+  <li><h3>Understand how to use it</h3><p>It can read each part's purpose, its props and allowed values, when to use it and when not to, and see a correct example.</p></li>
+  <li><h3>Use it correctly</h3><p>It produces code (or a design) that uses those parts the way the system intends: correct variants, semantic tokens, accessible markup.</p></li>
+  <li><h3>Know when it got it wrong</h3><p>Automated checks tell it, and the person reviewing, when the output drifts off-system, so it can fix the problem before anyone else sees it.</p></li>
+</ol>
+<p>Notice that none of these mention a specific AI product. Tools change every few months. These four abilities stay the same. They're also exactly what a new human team member needs, which is why work on AI-readiness almost always improves the system for people too.</p>
+
+<h2>The architecture of an AI-ready design system</h2>
+<p>Here's the whole picture in one diagram. Read it from the top: a person asks for something, an agent does the work, and the agent reaches into the design system through a few well-defined doors. Everything below the agent is your design system, arranged so a machine can use it.</p>
+<figure class="w-fig">
+  <div class="w-arch">
+    <div class="w-arch-row"><span class="w-arch-k">Person</span><div class="w-arch-n"><div class="lt"><b>Designer, engineer or PM</b><span>"Build a payroll settings page using Harbor"</span></div></div></div>
+    <div class="w-arch-link">a prompt, a ticket or a Figma link</div>
+    <div class="w-arch-row"><span class="w-arch-k">Agent</span><div class="w-arch-n"><div class="hi"><b>Coding or design agent</b><span>Claude Code, Cursor, Copilot, Codex, Figma's tools</span></div></div></div>
+    <div class="w-arch-link both">reads instructions, calls tools, retrieves docs</div>
+    <div class="w-arch-row"><span class="w-arch-k">Access layer</span><div class="w-arch-n"><div><b>Rules files</b><span>AGENTS.md, CLAUDE.md, Cursor rules · part 6</span></div><div><b>MCP servers</b><span>Your own, Storybook's, Figma's · parts 7–8</span></div><div><b>Retrieval</b><span>Search over the docs · part 5</span></div></div></div>
+    <div class="w-arch-link">all read from one place</div>
+    <div class="w-arch-row"><span class="w-arch-k">Source of truth</span><div class="w-arch-n"><div><b>Tokens</b><span>DTCG JSON with descriptions · part 3</span></div><div><b>Component metadata</b><span>Props, variants, rules · part 4</span></div><div><b>Docs</b><span>Structured, current · part 5</span></div><div><b>Figma library</b><span>Variables, Code Connect · part 8</span></div></div></div>
+    <div class="w-arch-link up">output is checked against the source</div>
+    <div class="w-arch-row"><span class="w-arch-k">Guardrails</span><div class="w-arch-n"><div class="dash"><b>Lint · tests · evals</b><span>Catch off-system output before review · part 9</span></div></div></div>
+  </div>
+  <figcaption>An AI-ready design system, layer by layer. Each layer is covered by one article in this series; part 10 shows how to get an existing system there in phases.</figcaption>
+</figure>
+<p>Three things about this diagram are worth noticing:</p>
+<ul class="checklist">
+  <li><b>The source of truth is at the bottom, not the AI.</b> If the tokens, metadata and docs disagree with each other, no amount of clever tooling on top will make the agent reliable.</li>
+  <li><b>The access layer is thin.</b> Rules files are plain text. An MCP server is usually a few hundred lines of code that reads the files below it. Neither should contain design decisions of its own.</li>
+  <li><b>Guardrails close the loop.</b> Without checks, you find out the agent used the wrong button when a customer does.</li>
+</ul>
+
+<h2>How agents get information: a five-minute primer</h2>
+<p>You don't need to know how language models work inside to make a system AI-ready. You need four ideas, because every decision in this series follows from them. We'll go deeper in <a href="/writing/how-ai-agents-use-design-systems">part 2</a>.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Idea</th><th>In plain words</th><th>What it means for your system</th></tr></thead>
+  <tbody>
+    <tr><td><b>Context window</b></td><td>The text the model can "see" at one time: the prompt, files it opened, tool results. Everything else might as well not exist.</td><td>Your system has to be found and loaded into that window. Clear, compact information wins over long, rambling pages.</td></tr>
+    <tr><td><b>Training data</b></td><td>What the model learned before you ever used it: public code, docs, websites.</td><td>The model knows Material UI and Tailwind well. It has never seen your private system. Without guidance, it falls back to what it knows.</td></tr>
+    <tr><td><b>Tool calling</b></td><td>The model can ask the program running it to do something, like "read this file" or "search the component list", and get the result back.</td><td>You can give agents tools that answer design system questions exactly, instead of hoping they find the right file. This is what MCP standardises.</td></tr>
+    <tr><td><b>Retrieval (RAG)</b></td><td>Searching a knowledge base for the passages most relevant to a question, then putting just those into the context window.</td><td>Your docs need to be split into self-contained sections that make sense when read alone.</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Four ideas that explain almost every agent behaviour. <span class="ev ev--doc">Documented</span> See Anthropic's and OpenAI's tool-use guides in further reading.</figcaption></figure>
+<div class="callout callout--term"><span class="callout-k">New words</span><p><b>MCP (Model Context Protocol):</b> an open standard, first published by Anthropic in November 2024 and now stewarded by the Linux Foundation's Agentic AI Foundation, for connecting AI tools to data and actions. Write one MCP server for your design system and any MCP-capable agent can use it. <b>RAG (retrieval-augmented generation):</b> look up relevant information first, then generate an answer using it.</p></div>
+
+<h2>The six most common reasons agents go off-system</h2>
+<p>When teams first try agents on their design system, the same failures appear again and again. Each one traces back to something in the system, not the model. Use this table to diagnose what you're seeing.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>What you see</th><th>The real cause</th><th>The fix</th><th>Article</th></tr></thead>
+  <tbody>
+    <tr><td>Agent uses a deprecated component</td><td>Old and new versions both look valid; nothing marks one as retired</td><td>Deprecation metadata, rules file "never use" list, lint</td><td>4, 6, 9</td></tr>
+    <tr><td>Hard-coded colours and spacing</td><td>Tokens have no descriptions, or the agent can't find the token list</td><td>DTCG tokens with <code>$description</code>, a token lookup tool</td><td>3, 7</td></tr>
+    <tr><td>Wrong variant (primary button for "Delete")</td><td>The docs show variants but don't say when to use each</td><td>Usage rules in component metadata</td><td>4, 5</td></tr>
+    <tr><td>Invented components or props</td><td>The agent never saw the real list, so it fell back on training data</td><td>An inventory the agent can query; type-checking</td><td>4, 7, 9</td></tr>
+    <tr><td>Correct parts, wrong layout</td><td>Patterns (forms, empty states) aren't written down</td><td>Pattern docs with examples, retrievable by task</td><td>5</td></tr>
+    <tr><td>Figma-to-code output ignores the system</td><td>Figma layers use raw values; no mapping from Figma components to code</td><td>Variables, clean names, Code Connect</td><td>8</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Diagnose before you buy tools. <span class="ev ev--prac">Practitioner view</span> In our experience the first two rows account for most of the problems teams report.</figcaption></figure>
+
+<h2>A readiness self-assessment</h2>
+<p>Before changing anything, score your system. Give each statement 0 (not true), 1 (partly) or 2 (true). Be honest; the point is to find your weakest layer, because that's where an agent will fail first.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Layer</th><th>Statement</th><th>Score</th></tr></thead>
+  <tbody>
+    <tr><td rowspan="2">Tokens</td><td>All colours, spacing, type and radius in code come from named tokens, stored in one source file</td><td>0–2</td></tr>
+    <tr><td>Semantic tokens have a written description of their job</td><td>0–2</td></tr>
+    <tr><td rowspan="2">Components</td><td>There is exactly one current component for each job; old ones are marked deprecated</td><td>0–2</td></tr>
+    <tr><td>Each component's props, variants and allowed values are available as data (types, JSON), not only prose</td><td>0–2</td></tr>
+    <tr><td rowspan="2">Docs</td><td>Every component page says when to use it and when not to</td><td>0–2</td></tr>
+    <tr><td>Docs are generated from, or checked against, the code, so they can't silently go stale</td><td>0–2</td></tr>
+    <tr><td rowspan="2">Access</td><td>Product repos have a rules file (AGENTS.md or similar) that points to the design system</td><td>0–2</td></tr>
+    <tr><td>Agents can query components and tokens through a tool (MCP or similar)</td><td>0–2</td></tr>
+    <tr><td rowspan="2">Figma</td><td>Library components use variables, not raw values, and have clear names</td><td>0–2</td></tr>
+    <tr><td>Figma components are mapped to code components (Code Connect or equivalent)</td><td>0–2</td></tr>
+    <tr><td rowspan="2">Guardrails</td><td>Lint rules flag hard-coded values and deprecated imports</td><td>0–2</td></tr>
+    <tr><td>You have a repeatable test of how well agents build with the system</td><td>0–2</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Twelve statements, 24 points. Under 8: start with the foundations (parts 3–5). 8–16: add access and guardrails (parts 6–9). Over 16: you're ready to measure and tune.</figcaption></figure>
+
+<h2>Four levels of AI-readiness</h2>
+<p>You don't need to reach the top level in one go. Most teams move up one level at a time, and each level is useful on its own.</p>
+<figure class="w-fig">
+  <div class="stairs stairs--4">
+    <div><span class="n">0</span><b>Human-only</b><span>Knowledge lives in people's heads, Slack threads and old files. Agents guess.</span></div>
+    <div><span class="n">1</span><b>Written down</b><span>One current component per job. Tokens named and described. A rules file in each repo.</span></div>
+    <div class="on"><span class="n">2</span><b>Machine-readable</b><span>DTCG tokens, component metadata, structured docs. Agents can query them through MCP.</span></div>
+    <div><span class="n">3</span><b>Verified</b><span>Lint, tests and evals measure how often agents stay on-system, and the numbers improve over time.</span></div>
+  </div>
+  <figcaption>Most teams can reach level 1 in a few weeks of cleanup. Level 2 is where agents start to be reliably useful.</figcaption>
+</figure>
+
+<h2>Where to start: a 30-day plan</h2>
+<p>If you only do one thing after reading this, do this sequence. It's ordered so each step makes the next one easier, and so you get value even if you stop halfway.</p>
+<ol class="w-steps">
+  <li><h3>Week 1: watch an agent fail</h3><p>Pick three real tasks from your backlog (a form, a table, a dialog). Ask a coding agent to build each with your design system and save the results. Note every off-system choice. This is your baseline, and it tells you which layer to fix first.</p></li>
+  <li><h3>Week 1: write a rules file</h3><p>Add an <code>AGENTS.md</code> to one product repo with the package name, the "never use" list of deprecated components, and where tokens live. It takes an hour and usually fixes the worst failures. See <a href="/writing/agents-md-llms-txt-design-system">part 6</a>.</p></li>
+  <li><h3>Week 2: describe your semantic tokens</h3><p>Add a one-sentence <code>$description</code> to every semantic token: what it's for and when not to use it. See <a href="/writing/design-tokens-for-ai-agents">part 3</a>.</p></li>
+  <li><h3>Week 3: mark what's deprecated</h3><p>Every old component gets a <code>@deprecated</code> tag pointing to its replacement, and a lint rule blocks new imports of it. See <a href="/writing/component-metadata-for-ai-agents">part 4</a> and <a href="/writing/ai-generated-ui-guardrails">part 9</a>.</p></li>
+  <li><h3>Week 4: rerun the three tasks</h3><p>Same prompts, same agent. Compare. If things improved, you have your case for investing in metadata, an MCP server and Figma cleanup next.</p></li>
+</ol>
+<div class="callout callout--tip"><span class="callout-k">Tip</span><p>Keep the three baseline prompts and outputs in a folder in your design system repo. They become your first evaluation set in <a href="/writing/ai-generated-ui-guardrails">part 9</a>, and they're the most convincing evidence you can show a sponsor.</p></div>
+
+<h2>Common misconceptions</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">MYTH</span><h4>"We need to fine-tune a model on our design system"</h4><p>Almost never. Fine-tuning is expensive and goes stale with every release. Giving the agent your current system at the moment it works (through files, tools and retrieval) is cheaper and always up to date.</p></div>
+  <div class="cell"><span class="k">MYTH</span><h4>"An MCP server will fix it"</h4><p>An MCP server is a door. If what's behind it is three conflicting button docs, the agent gets three conflicting answers, faster. Clean the source first.</p></div>
+  <div class="cell"><span class="k">MYTH</span><h4>"AI-ready means writing docs for robots"</h4><p>The structure that helps agents (clear purpose, when-not-to-use, examples, one version) is what people have always needed. You write it once, for both.</p></div>
+  <div class="cell"><span class="k">MYTH</span><h4>"Agents will replace the design system team"</h4><p>Agents make the system's decisions more important, not less: every unclear decision now gets copied at machine speed. Someone has to own those decisions.</p></div>
+</div>
+
+<h2>The series, in order</h2>
+<p>Each article stands on its own, but they're written to be read in sequence. Earlier parts explain ideas later parts build on.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Part</th><th>Article</th><th>You'll be able to…</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>What is an AI-ready design system? (this article)</td><td>Explain the goal and score your system</td></tr>
+    <tr><td>2</td><td><a href="/writing/how-ai-agents-use-design-systems">How AI coding agents use your design system</a></td><td>Predict what an agent will read and where it will go wrong</td></tr>
+    <tr><td>3</td><td><a href="/writing/design-tokens-for-ai-agents">Design tokens for AI agents</a></td><td>Write DTCG tokens an agent can choose between correctly</td></tr>
+    <tr><td>4</td><td><a href="/writing/component-metadata-for-ai-agents">Component metadata for AI agents</a></td><td>Describe each component as data an agent can check against</td></tr>
+    <tr><td>5</td><td><a href="/writing/design-system-documentation-for-ai">Documentation AI agents can use</a></td><td>Structure docs so search and retrieval return the right section</td></tr>
+    <tr><td>6</td><td><a href="/writing/agents-md-llms-txt-design-system">AGENTS.md, llms.txt and rules files</a></td><td>Give every agent the essentials before it starts</td></tr>
+    <tr><td>7</td><td><a href="/writing/design-system-mcp-server">Build an MCP server for your design system</a></td><td>Let agents query components and tokens directly</td></tr>
+    <tr><td>8</td><td><a href="/writing/figma-mcp-design-to-code">Figma to code with AI</a></td><td>Prepare your Figma library for agents</td></tr>
+    <tr><td>9</td><td><a href="/writing/ai-generated-ui-guardrails">Guardrails for AI-generated UI</a></td><td>Catch and measure off-system output</td></tr>
+    <tr><td>10</td><td><a href="/writing/legacy-design-system-ai-ready">Make a legacy design system AI-ready</a></td><td>Plan the whole change for an existing system</td></tr>
+  </tbody>
+</table></div></figure>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>An AI-ready design system is one an agent can find, understand, use correctly and get checked against.</li>
+  <li>Agents amplify what your system already is: clarity becomes speed; ambiguity becomes fast mistakes.</li>
+  <li>The layers: one source of truth, machine-readable formats, an access layer (rules files, MCP, retrieval), and guardrails.</li>
+  <li>Start by watching an agent fail on three real tasks, then fix the cheapest causes: a rules file, token descriptions, deprecations.</li>
+  <li>Everything that helps agents also helps new people on your team.</li>
+</ul></div>
+<p>Next: <a href="/writing/how-ai-agents-use-design-systems">How AI coding agents use your design system</a>, a step-by-step look at what an agent actually does when you ask it to build a screen.</p>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>What is an AI-ready design system?</summary><div><p>A design system that AI agents can discover, understand and use correctly without human help: one source of truth for tokens, components and docs, stored in machine-readable formats, reachable through rules files or an MCP server, and backed by automated checks.</p></div></details>
+  <details><summary>Do I need an MCP server to make my design system AI-ready?</summary><div><p>Not to start. A rules file such as AGENTS.md, described tokens and clear deprecations fix most early failures. An MCP server becomes worthwhile when you have many components, several repos, or want agents to look things up precisely rather than search files.</p></div></details>
+  <details><summary>Should we fine-tune a model on our design system?</summary><div><p>Rarely. Fine-tuning is costly and goes out of date with every release. Supplying current information at the time of the task, through files, tools and retrieval, is cheaper and stays accurate.</p></div></details>
+  <details><summary>How long does it take to make a design system AI-ready?</summary><div><p>A first useful level (a rules file, token descriptions, deprecations) takes a few weeks. Machine-readable metadata, an MCP server and Figma cleanup typically take one to three months for a mid-sized system, done in phases alongside normal work.</p></div></details>
+  <details><summary>Does making a design system AI-ready help human users too?</summary><div><p>Yes. Clear purposes, when-not-to-use guidance, one current version of each component and automated checks are what new designers and engineers need as well.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://modelcontextprotocol.io/" target="_blank" rel="noopener">Model Context Protocol</a><span>The official specification and guides for MCP.</span></li>
+  <li><a href="https://www.designtokens.org/" target="_blank" rel="noopener">Design Tokens Community Group</a><span>The DTCG format, stable since version 2025.10.</span></li>
+  <li><a href="https://agents.md/" target="_blank" rel="noopener">AGENTS.md</a><span>The open format for instructions to coding agents.</span></li>
+  <li><a href="https://docs.claude.com/en/docs/agents-and-tools/tool-use/overview" target="_blank" rel="noopener">Anthropic: tool use</a><span>How models call tools, from the model provider's side.</span></li>
+  <li><a href="/writing/ai-in-design-systems">AI in design systems: where it helps, and where to keep a human</a><span>Our earlier, broader look at AI in design system work.</span></li>
+  <li><a href="/writing/design-tokens">Design tokens: the complete guide</a><span>The basics of tokens, if they're new to you.</span></li>
+</ul>

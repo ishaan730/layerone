@@ -1,0 +1,338 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>An <b>MCP server</b> for your design system is a small program that gives AI agents a few precise tools, such as <code>search_components</code>, <code>get_component</code> and <code>search_tokens</code>, so they can ask your system questions instead of searching files and guessing. MCP (Model Context Protocol) is an open standard, so one server works with Claude Code, Cursor, VS Code with Copilot, Codex and other MCP clients. You can start with a ready-made server (<b>Storybook's MCP addon</b> for React, <b>shadcn's</b> for registry-based systems) or build your own in about 150 lines with the official SDK, reading the token and component manifests from parts 3 and 4. Keep it <b>read-only</b>, keep tools <b>few and task-shaped</b>, write tool descriptions as carefully as docs, and run it from the installed package so its answers match the version each repo uses.</p>
+  <ul>
+    <li>The server shouldn't hold design decisions. It serves the manifests your build already makes.</li>
+    <li>Three to six tools is plenty. Every extra tool is something the agent has to choose between.</li>
+    <li>Part 7 of 10 in the series on AI-ready design systems.</li>
+  </ul>
+</div>
+
+<h2>The problem: searching is guessing</h2>
+<p>With a rules file (<a href="/writing/agents-md-llms-txt-design-system">part 6</a>), an agent knows your component index exists. But it still has to find the right file, open it, scan a long JSON list and decide. That works for small systems. With 90 components, 300 tokens and 40 pattern pages, an agent reading files will miss things, load too much, or skip the lookup altogether when it's in a hurry.</p>
+<p>An MCP server replaces "go and find it" with "ask and get one clear answer". Here's the difference for a single question.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">WITHOUT MCP</span><h4>Five steps, 40,000 tokens</h4><p>Search the repo for "date" → open a 2,000-line component index → open DatePicker.tsx → open DateRangePicker.tsx → open an old story that imports the legacy picker. Choose based on what it read last.</p></div>
+  <div class="cell cell--accent"><span class="k">WITH MCP</span><h4>Two calls, 1,500 tokens</h4><p><code>search_components("pick a date range for a report")</code> → DateRangePicker, with purpose. <code>get_component("DateRangePicker")</code> → props, rules and an example. Deprecated pickers never appear.</p></div>
+</div>
+<p class="scenario-t"><span class="ev ev--ill">Illustration</span> Token counts are illustrative; the shape of the difference is typical.</p>
+
+<h2>MCP in plain words</h2>
+<p>The <b>Model Context Protocol</b> is an open standard for connecting AI applications to data and actions. Anthropic introduced it in November 2024; it's now stewarded by the Agentic AI Foundation under the Linux Foundation, and supported by most major AI coding tools. The idea is the same as a USB port: build one connector and it works with every device that has the port.</p>
+<figure class="w-fig">
+  <div class="w-arch">
+    <div class="w-arch-row"><span class="w-arch-k">Host</span><div class="w-arch-n"><div class="lt"><b>The AI application</b><span>Claude Code, Cursor, VS Code, Codex…</span></div></div></div>
+    <div class="w-arch-link">contains one MCP client per connected server</div>
+    <div class="w-arch-row"><span class="w-arch-k">Clients</span><div class="w-arch-n"><div><b>Client → harbor</b><span>Your design system</span></div><div><b>Client → figma</b><span>Figma's server · part 8</span></div><div><b>Client → github</b><span>Any other server</span></div></div></div>
+    <div class="w-arch-link both">JSON-RPC messages over stdio (local) or Streamable HTTP (remote)</div>
+    <div class="w-arch-row"><span class="w-arch-k">Your server</span><div class="w-arch-n"><div class="hi"><b>Tools</b><span>Functions the model can call: search_components</span></div><div><b>Resources</b><span>Data the app can read: harbor://tokens</span></div><div><b>Prompts</b><span>Reusable templates a person can pick: "Build a screen with Harbor"</span></div></div></div>
+    <div class="w-arch-link">reads</div>
+    <div class="w-arch-row"><span class="w-arch-k">Source of truth</span><div class="w-arch-n"><div><b>tokens.agent.json</b><span>Part 3</span></div><div><b>components.agent.json + detail files</b><span>Part 4</span></div><div><b>docs/*.md</b><span>Part 5</span></div></div></div>
+  </div>
+  <figcaption>MCP's architecture. Your server offers three kinds of capability; the host decides when to use them.</figcaption>
+</figure>
+<div class="callout callout--term"><span class="callout-k">New words</span><p><b>Tool:</b> a function the model decides to call, with a name, a description and typed inputs. <b>Resource:</b> read-only data identified by a URI, usually attached by the app or the user rather than chosen by the model. <b>Prompt:</b> a template a person picks from a menu. <b>stdio:</b> the server runs as a local process and talks through standard input and output. <b>Streamable HTTP:</b> the server runs at a URL, so it can be hosted centrally.</p></div>
+<p>For design systems, <b>tools do almost all of the work</b>, because they're what the model can reach for on its own in the middle of a task.</p>
+
+<h2>Use a ready-made server, or build your own?</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Option</th><th>What it gives agents</th><th>Best when</th><th>Limits</th></tr></thead>
+  <tbody>
+    <tr><td><b>Storybook MCP addon</b> (<code>@storybook/addon-mcp</code>)</td><td>Tools to list documented components and get their props, docs and story examples from Storybook's component manifest</td><td>React system with good stories and Storybook 10.3+</td><td>React-first at the time of writing; knows what's in Storybook, not your tokens or patterns</td></tr>
+    <tr><td><b>shadcn MCP</b></td><td>Browse, search and install items from shadcn-compatible registries</td><td>Your system is distributed as a shadcn registry</td><td>Built for installing source code, not for usage rules</td></tr>
+    <tr><td><b>Figma MCP server</b></td><td>Design context, variables and Code Connect mappings from Figma files</td><td>Design-to-code from Figma frames</td><td>About the design file, not your code package; see part 8</td></tr>
+    <tr><td><b>Your own server</b></td><td>Exactly the tools you design, over your manifests, docs and rules</td><td>Several frameworks, rich usage rules, tokens and patterns you want served together</td><td>You maintain it (but it's small)</td></tr>
+  </tbody>
+</table></div>
+<figcaption>These combine well: many teams run Storybook's or Figma's server alongside a small custom one for tokens and patterns.</figcaption></figure>
+<p>If you use Storybook with React, try its addon first. It takes minutes:</p>
+<pre><code>npx storybook add @storybook/addon-mcp
+<span class="c"># then, with Storybook running, the server is at http://localhost:6006/mcp</span></code></pre>
+<p>Its documentation tools (at the time of writing, <code>list-all-documentation</code> and <code>get-documentation</code>) are only as good as your stories and JSDoc, which is another reason the work in <a href="/writing/component-metadata-for-ai-agents">part 4</a> pays off. The rest of this article builds a custom server, which also teaches you what to look for in any ready-made one.</p>
+
+<h2>Step 1: design the tools before writing code</h2>
+<p>The most important decisions are which tools to offer and how to describe them. Tool descriptions are, in effect, instructions to the model: it reads them to decide whether and when to call each tool. Design them around the <b>questions agents actually have</b>, not around your data structures.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Tool</th><th>Question it answers</th><th>Input</th><th>Returns</th></tr></thead>
+  <tbody>
+    <tr><td><code>search_components</code></td><td>"Which component fits this need?"</td><td>A plain-language need</td><td>Up to 5 current components: name, purpose, category</td></tr>
+    <tr><td><code>get_component</code></td><td>"How do I use it correctly?"</td><td>An exact name</td><td>Props, usage rules, accessibility, one example; or its replacement if deprecated</td></tr>
+    <tr><td><code>search_tokens</code></td><td>"Which token for this job?"</td><td>A need, optional type filter</td><td>Up to 8 semantic tokens: name, CSS variable, description</td></tr>
+    <tr><td><code>get_pattern</code></td><td>"How do we build this kind of screen?"</td><td>A pattern name or need</td><td>The pattern page as Markdown</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Four tools for Harbor. Each matches one question from the agent loop in part 2. A tool that checks code against the system can come later (part 9).</figcaption></figure>
+<ul class="checklist">
+  <li><b>Describe when to call it, not just what it does.</b> "Call this before writing any UI" changes behaviour; "Returns components" doesn't.</li>
+  <li><b>Return little, return clean.</b> Five good matches beat fifty. Strip fields the agent doesn't need.</li>
+  <li><b>Hide what shouldn't be used.</b> Search never returns deprecated components; get_component on a deprecated name returns the replacement.</li>
+  <li><b>Fail helpfully.</b> "No component named Datepicker. Did you mean DatePicker or DateRangePicker?" lets the agent recover in one step.</li>
+</ul>
+
+<h2>Step 2: set up the project</h2>
+<p>The server lives in the design system repo and ships inside the package, so each product repo runs the version it has installed. We'll write it in plain JavaScript modules so there's no build step. The code follows version 1.x of the official TypeScript SDK; check the SDK's README if you're on a later major version, as APIs may differ.</p>
+<pre><code><span class="c"># in the harbor package</span>
+npm install @modelcontextprotocol/sdk zod</code></pre>
+<pre><code><span class="c">// package.json (excerpt)</span>
+{
+  <span class="s">"name"</span>: <span class="s">"@kestrel/harbor"</span>,
+  <span class="s">"type"</span>: <span class="s">"module"</span>,
+  <span class="s">"bin"</span>: { <span class="s">"harbor-mcp"</span>: <span class="s">"./mcp/server.mjs"</span> },
+  <span class="s">"files"</span>: [<span class="s">"dist"</span>, <span class="s">"mcp"</span>, <span class="s">"docs"</span>, <span class="s">"AGENTS.snippet.md"</span>]
+}</code></pre>
+
+<h2>Step 3: write the server</h2>
+<p>Here's the complete server. Read the comments: most lines are descriptions and data handling, which is the point. The protocol itself is handled by the SDK.</p>
+<pre><code><span class="c">#!/usr/bin/env node
+// mcp/server.mjs: Harbor's MCP server. Read-only. Serves the manifests built in dist/.</span>
+<span class="k">import</span> { McpServer } <span class="k">from</span> <span class="s">"@modelcontextprotocol/sdk/server/mcp.js"</span>;
+<span class="k">import</span> { StdioServerTransport } <span class="k">from</span> <span class="s">"@modelcontextprotocol/sdk/server/stdio.js"</span>;
+<span class="k">import</span> { z } <span class="k">from</span> <span class="s">"zod"</span>;
+<span class="k">import</span> { readFileSync, existsSync } <span class="k">from</span> <span class="s">"node:fs"</span>;
+<span class="k">import</span> { fileURLToPath } <span class="k">from</span> <span class="s">"node:url"</span>;
+
+<span class="k">const</span> root = fileURLToPath(<span class="k">new</span> URL(<span class="s">"../"</span>, import.meta.url));      <span class="c">// the installed package</span>
+<span class="k">const</span> read = (p) =&gt; readFileSync(root + p, <span class="s">"utf8"</span>);
+<span class="k">const</span> index = JSON.parse(read(<span class="s">"dist/components.agent.json"</span>));
+<span class="k">const</span> { tokens } = JSON.parse(read(<span class="s">"dist/tokens.agent.json"</span>));
+
+<span class="c">// Simple keyword scoring. Design system vocabulary is distinctive, so this goes a long way.</span>
+<span class="k">const</span> words = (s) =&gt; s.toLowerCase().split(<span class="s">/[^a-z0-9]+/</span>).filter((w) =&gt; w.length &gt; 2);
+<span class="k">function</span> rank(items, query, text, limit) {
+  <span class="k">const</span> q = words(query);
+  <span class="k">return</span> items
+    .map((item) =&gt; ({ item, score: q.filter((w) =&gt; text(item).toLowerCase().includes(w)).length }))
+    .filter((r) =&gt; r.score &gt; 0)
+    .sort((a, b) =&gt; b.score - a.score)
+    .slice(0, limit)
+    .map((r) =&gt; r.item);
+}
+<span class="k">const</span> json = (data) =&gt; ({ content: [{ type: <span class="s">"text"</span>, text: JSON.stringify(data, <span class="k">null</span>, 2) }] });
+<span class="k">const</span> fail = (message) =&gt; ({ content: [{ type: <span class="s">"text"</span>, text: message }], isError: <span class="k">true</span> });
+
+<span class="k">const</span> server = <span class="k">new</span> McpServer({ name: <span class="s">"harbor"</span>, version: index.version });
+
+server.registerTool(<span class="s">"search_components"</span>, {
+  title: <span class="s">"Search Harbor components"</span>,
+  description:
+    <span class="s">"Find Harbor design system components for a UI need. Call this before writing any UI "</span> +
+    <span class="s">"in a Kestrel product, then call get_component for the one you choose. "</span> +
+    <span class="s">"Only current components are returned."</span>,
+  inputSchema: {
+    need: z.string().describe(<span class="s">"What the UI must do, in plain words, e.g. 'confirm before deleting'"</span>),
+  },
+  annotations: { readOnlyHint: <span class="k">true</span> },
+}, <span class="k">async</span> ({ need }) =&gt; {
+  <span class="k">const</span> current = index.components.filter((c) =&gt; c.status !== <span class="s">"deprecated"</span>);
+  <span class="k">const</span> hits = rank(current, need, (c) =&gt; <span class="s">`${c.name} ${c.category} ${c.purpose}`</span>, 5);
+  <span class="k">return</span> hits.length
+    ? json(hits.map(({ name, category, purpose, status }) =&gt; ({ name, category, purpose, status })))
+    : fail(<span class="s">"No matching component. Categories: "</span> + [...<span class="k">new</span> Set(current.map((c) =&gt; c.category))].join(<span class="s">", "</span>) +
+           <span class="s">". If nothing fits, tell the user instead of building a new component."</span>);
+});
+
+server.registerTool(<span class="s">"get_component"</span>, {
+  title: <span class="s">"Get a Harbor component"</span>,
+  description:
+    <span class="s">"Get props, usage rules, accessibility requirements and an example for one Harbor component. "</span> +
+    <span class="s">"Follow its rules exactly. If the component is deprecated, the replacement is returned instead."</span>,
+  inputSchema: { name: z.string().describe(<span class="s">"Exact component name, e.g. 'ConfirmDialog'"</span>) },
+  annotations: { readOnlyHint: <span class="k">true</span> },
+}, <span class="k">async</span> ({ name }) =&gt; {
+  <span class="k">const</span> entry = index.components.find((c) =&gt; c.name.toLowerCase() === name.toLowerCase());
+  <span class="k">if</span> (!entry) {
+    <span class="k">const</span> close = rank(index.components, name, (c) =&gt; c.name, 3).map((c) =&gt; c.name);
+    <span class="k">return</span> fail(<span class="s">`No component named ${name}.`</span> + (close.length ? <span class="s">` Did you mean ${close.join(" or ")}?`</span> : <span class="s">""</span>));
+  }
+  <span class="k">if</span> (entry.status === <span class="s">"deprecated"</span>) {
+    <span class="k">return</span> fail(<span class="s">`${entry.name} is deprecated. Use ${entry.replacedBy} instead; call get_component for it.`</span>);
+  }
+  <span class="k">const</span> file = <span class="s">`dist/components/${entry.name}.json`</span>;
+  <span class="k">return</span> existsSync(root + file) ? json(JSON.parse(read(file))) : fail(<span class="s">`Details for ${entry.name} are missing.`</span>);
+});
+
+server.registerTool(<span class="s">"search_tokens"</span>, {
+  title: <span class="s">"Search Harbor design tokens"</span>,
+  description:
+    <span class="s">"Find the semantic design token for a styling job (colour, spacing, radius, type). "</span> +
+    <span class="s">"Never hard-code values; use the returned cssVar, e.g. var(--color-text-secondary)."</span>,
+  inputSchema: {
+    need: z.string().describe(<span class="s">"The job, e.g. 'helper text under a field' or 'padding inside a card'"</span>),
+    type: z.enum([<span class="s">"color"</span>, <span class="s">"dimension"</span>, <span class="s">"typography"</span>, <span class="s">"shadow"</span>, <span class="s">"duration"</span>]).optional(),
+  },
+  annotations: { readOnlyHint: <span class="k">true</span> },
+}, <span class="k">async</span> ({ need, type }) =&gt; {
+  <span class="k">const</span> pool = tokens.filter((t) =&gt; !t.deprecated &amp;&amp; (!type || t.type === type));
+  <span class="k">const</span> hits = rank(pool, need, (t) =&gt; <span class="s">`${t.name} ${t.description ?? ""}`</span>, 8);
+  <span class="k">return</span> hits.length
+    ? json(hits.map(({ name, cssVar, type, description }) =&gt; ({ name, cssVar, type, description })))
+    : fail(<span class="s">"No matching token. Try describing the job differently, e.g. 'border of an input'."</span>);
+});
+
+server.registerTool(<span class="s">"get_pattern"</span>, {
+  title: <span class="s">"Get a Harbor pattern"</span>,
+  description: <span class="s">"Get guidance for a kind of screen or interaction: forms, empty states, tables, "</span> +
+    <span class="s">"settings pages, bulk actions. Call this when a task combines several components."</span>,
+  inputSchema: { pattern: z.enum(index.patterns) },
+  annotations: { readOnlyHint: <span class="k">true</span> },
+}, <span class="k">async</span> ({ pattern }) =&gt; ({ content: [{ type: <span class="s">"text"</span>, text: read(<span class="s">`docs/patterns/${pattern}.md`</span>) }] }));
+
+<span class="c">// A resource: the full token list, for apps that let users attach it.</span>
+server.registerResource(<span class="s">"tokens"</span>, <span class="s">"harbor://tokens"</span>, {
+  title: <span class="s">"Harbor semantic tokens"</span>,
+  description: <span class="s">"Every semantic token with its CSS variable and description."</span>,
+  mimeType: <span class="s">"application/json"</span>,
+}, <span class="k">async</span> (uri) =&gt; ({ contents: [{ uri: uri.href, mimeType: <span class="s">"application/json"</span>, text: read(<span class="s">"dist/tokens.agent.json"</span>) }] }));
+
+<span class="c">// A prompt: a template people can pick from their tool's menu.</span>
+server.registerPrompt(<span class="s">"build_screen"</span>, {
+  title: <span class="s">"Build a screen with Harbor"</span>,
+  description: <span class="s">"Start a UI task with Harbor's workflow."</span>,
+  argsSchema: { screen: z.string().describe(<span class="s">"What the screen is for"</span>) },
+}, ({ screen }) =&gt; ({
+  messages: [{ role: <span class="s">"user"</span>, content: { type: <span class="s">"text"</span>, text:
+    <span class="s">`Build: ${screen}. First call get_pattern if a pattern applies, then search_components and `</span> +
+    <span class="s">`get_component for each part, and search_tokens for any styling. Run pnpm check before finishing.`</span> } }],
+}));
+
+<span class="k">await</span> server.connect(<span class="k">new</span> StdioServerTransport());
+console.error(<span class="s">`harbor MCP server ${index.version} ready`</span>);   <span class="c">// stderr: stdout carries the protocol</span></code></pre>
+<p>(The index's <code>patterns</code> field is a list of pattern names, such as <code>["forms", "empty-states", "tables"]</code>, added by the build alongside the component list.)</p>
+<div class="callout callout--warn"><span class="callout-k">Watch out</span><p>With the stdio transport, <b>never write to standard output</b> (<code>console.log</code>) from the server. Standard output carries the protocol messages; a stray log line corrupts them and the client disconnects with a confusing error. Log to standard error (<code>console.error</code>) instead.</p></div>
+
+<h2>Step 4: test it with the MCP Inspector</h2>
+<p>Before connecting any agent, try the server in the <b>MCP Inspector</b>, the official visual testing tool. It lists your tools, shows their descriptions as the model will see them, and lets you call each one by hand.</p>
+<pre><code>npx @modelcontextprotocol/inspector node mcp/server.mjs</code></pre>
+<ol class="w-steps">
+  <li><h3>Check the listing</h3><p>All four tools appear, with titles, descriptions and input fields. Read each description as if you were the model: is it clear when to call it?</p></li>
+  <li><h3>Call each tool with real needs</h3><p>Try "confirm before deleting", "show key numbers on a dashboard", "helper text colour". Are the top results right?</p></li>
+  <li><h3>Try the edge cases</h3><p>A misspelled name, a deprecated component, a need with no match. Each should return a helpful message, not a crash or an empty list.</p></li>
+</ol>
+
+<h2>Step 5: connect it to your agents</h2>
+<p>Each product repo adds a small project-level config. Because the command is <code>npx harbor-mcp</code>, it runs the server from that repo's installed version of Harbor, so an app still on version 6.2 gets 6.2's components, not the latest.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">CLAUDE CODE</span><h4><code>.mcp.json</code> at the repo root</h4><pre><code>{
+  "mcpServers": {
+    "harbor": {
+      "command": "npx",
+      "args": ["harbor-mcp"]
+    }
+  }
+}</code></pre></div>
+  <div class="cell"><span class="k">CURSOR</span><h4><code>.cursor/mcp.json</code></h4><pre><code>{
+  "mcpServers": {
+    "harbor": {
+      "command": "npx",
+      "args": ["harbor-mcp"]
+    }
+  }
+}</code></pre></div>
+  <div class="cell"><span class="k">VS CODE (COPILOT)</span><h4><code>.vscode/mcp.json</code></h4><pre><code>{
+  "servers": {
+    "harbor": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["harbor-mcp"]
+    }
+  }
+}</code></pre></div>
+  <div class="cell"><span class="k">REMOTE (OPTIONAL)</span><h4>A hosted URL</h4><pre><code>{
+  "mcpServers": {
+    "harbor": {
+      "type": "http",
+      "url": "https://mcp.harbor
+        .kestrel.example/mcp"
+    }
+  }
+}</code></pre></div>
+</div>
+<p>Commit these files so everyone on the team gets the server automatically. Most tools ask each person to approve a project's MCP servers the first time, which is a sensible security default. Then update the rules file's lookup line (part 6) to name the tools.</p>
+
+<h2>What it looks like in use</h2>
+<figure class="w-fig">
+  <div class="w-chat">
+    <div class="u"><span class="k">Engineer</span>Add a filter bar above the employees table: search by name, a department dropdown, and a "Clear filters" link.</div>
+    <div class="t"><span class="k">Tool call · harbor.get_pattern</span>{ "pattern": "tables" }</div>
+    <div class="r"><span class="k">Result</span>## Filtering a Table
+Put filters in a TableToolbar above the Table. Search first, then up to 3 Select filters, then "Clear filters" as a Button variant="ghost"…</div>
+    <div class="t"><span class="k">Tool call · harbor.get_component</span>{ "name": "TableToolbar" }</div>
+    <div class="r"><span class="k">Result</span>{ "props": { "children": …, "align": "start | between" }, "rules": ["Search field comes first", "Max 3 filters before 'More filters'"], … }</div>
+    <div class="t"><span class="k">Tool call · harbor.get_component</span>{ "name": "Dropdown" }</div>
+    <div class="r"><span class="k">Result</span>Dropdown is deprecated. Use Select instead; call get_component for it.</div>
+    <div class="t"><span class="k">Tool call · harbor.get_component</span>{ "name": "Select" }</div>
+    <div class="r"><span class="k">Result</span>{ "props": { "label": "string (required)", "options": …, "placeholder": … }, … }</div>
+    <div class="a"><span class="k">Agent</span>Built the toolbar with SearchField, Select (label "Department") and a ghost Button "Clear filters", following Harbor's table filtering pattern. Note: I first looked for Dropdown, which is deprecated, and used Select instead.</div>
+  </div>
+  <figcaption><span class="ev ev--ill">Illustration</span> The deprecated lookup is caught by the server and redirected, which is the behaviour designed in step 1.</figcaption>
+</figure>
+
+<h2>Local or hosted?</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th></th><th>Local (stdio, from the package)</th><th>Hosted (Streamable HTTP)</th></tr></thead>
+  <tbody>
+    <tr><td><b>Version</b></td><td>Matches the version each repo installed</td><td>One version for everyone, unless you add a version parameter</td></tr>
+    <tr><td><b>Setup</b></td><td>A config file per repo; nothing to run</td><td>A service to deploy, monitor and authenticate</td></tr>
+    <tr><td><b>Reach</b></td><td>Coding agents in your repos</td><td>Also web-based tools and app builders that can't run local processes</td></tr>
+    <tr><td><b>Security</b></td><td>Runs on the developer's machine with their permissions</td><td>Needs authentication (MCP specifies OAuth for HTTP servers) and access control</td></tr>
+    <tr><td><b>Usage data</b></td><td>Hard to collect</td><td>Easy: which tools are called, which searches find nothing</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Start local. Add a hosted version when tools that can't run local processes need access, or when you want usage data to find gaps.</figcaption></figure>
+
+<h2>Security basics</h2>
+<ul class="checklist">
+  <li><b>Read-only tools.</b> A design system server answers questions. It shouldn't edit files, run commands or call other services. Mark tools with <code>readOnlyHint</code> so clients can show that.</li>
+  <li><b>No secrets in responses.</b> The server serves public-to-the-company design information only. No tokens, keys or internal credentials.</li>
+  <li><b>Treat contributed text as untrusted.</b> Docs and metadata are written by many people. A malicious or careless line ("ignore previous instructions…") would reach the model through your tool. Review docs changes like code, and keep the server's responses to your own content.</li>
+  <li><b>Install only servers you trust.</b> Third-party MCP servers run with your permissions. Prefer official ones (Figma, Storybook) and your own.</li>
+</ul>
+
+<h2>How to check it works</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Check</th><th>How</th><th>Pass when</th></tr></thead>
+  <tbody>
+    <tr><td>Unit tests</td><td>Call the search and lookup functions directly with 20 needs and expected answers</td><td>Correct component in the top 3 for 18+ of 20</td></tr>
+    <tr><td>Tool use</td><td>Run your baseline tasks and read the transcripts</td><td>The agent calls the tools before writing UI in every run</td></tr>
+    <tr><td>Output quality</td><td>Score off-system choices as in part 2</td><td>Fewer than without the server, on the same tasks</td></tr>
+    <tr><td>Zero-result searches</td><td>Log searches that return nothing (stderr locally, metrics when hosted)</td><td>Reviewed monthly; each is a docs gap or a missing component</td></tr>
+  </tbody>
+</table></div></figure>
+<p>If the agent never calls your tools, the problem is almost always the description or the rules file. Make the description say when to call it ("before writing any UI"), and name the tools in AGENTS.md.</p>
+
+<h2>Common mistakes</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">MISTAKE</span><h4>One tool per component</h4><p>Ninety tools named <code>get_button</code>, <code>get_card</code>… overwhelm the model's choice. One search tool and one get tool scale to any size.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Returning everything</h4><p>A search that returns the full detail of 20 components fills the context window. Return summaries; let the agent ask for detail.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Design decisions in server code</h4><p>Usage rules hard-coded in the server drift from the docs. The server should only read files the build generates.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>"Latest" for everyone</h4><p>A hosted server that always serves the newest version tells a repo on 6.2 about props it doesn't have yet. Run locally, or accept a version.</p></div>
+</div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>An MCP server lets agents ask your design system precise questions through a standard any MCP client understands.</li>
+  <li>Try Storybook's MCP addon (React) or shadcn's (registries) first; build your own for tokens, patterns and rules.</li>
+  <li>Design three to six task-shaped tools; their descriptions are instructions to the model.</li>
+  <li>Serve the manifests your build already makes; hide deprecated items and fail with helpful suggestions.</li>
+  <li>Test in the MCP Inspector, ship it in the package, run it locally with <code>npx</code>, keep it read-only.</li>
+</ul></div>
+<p>Next: <a href="/writing/figma-mcp-design-to-code">Figma to code with AI</a>, the design side: preparing your Figma library for the Figma MCP server and Code Connect.</p>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>What is an MCP server for a design system?</summary><div><p>A small program that exposes your design system to AI agents through the Model Context Protocol: tools to search components and tokens and get their usage rules, so agents look things up precisely instead of searching files and guessing.</p></div></details>
+  <details><summary>Does Storybook have an MCP server?</summary><div><p>Yes. The @storybook/addon-mcp addon serves a Storybook's component manifest to agents, with tools to list documented components and get their props, docs and examples. At the time of writing it supports React-based Storybooks, version 10.3 and later.</p></div></details>
+  <details><summary>Which tools should a design system MCP server have?</summary><div><p>A few task-shaped ones: search components by need, get one component's props and rules, search tokens by job, and get pattern guidance. Avoid one tool per component.</p></div></details>
+  <details><summary>Should a design system MCP server run locally or be hosted?</summary><div><p>Start locally, run from the installed package, so each repo gets answers for the version it uses. Host one over Streamable HTTP, with authentication, when web-based tools need access or you want usage data.</p></div></details>
+  <details><summary>How do I test an MCP server?</summary><div><p>Use the official MCP Inspector (npx @modelcontextprotocol/inspector) to list and call tools by hand, unit-test the search functions with real needs, and check agent transcripts to confirm the tools are called before UI is written.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://modelcontextprotocol.io/docs/learn/architecture" target="_blank" rel="noopener">MCP: architecture overview</a><span>Hosts, clients, servers, and the three kinds of capability.</span></li>
+  <li><a href="https://github.com/modelcontextprotocol/typescript-sdk" target="_blank" rel="noopener">MCP TypeScript SDK</a><span>The official SDK used in this guide.</span></li>
+  <li><a href="https://github.com/modelcontextprotocol/inspector" target="_blank" rel="noopener">MCP Inspector</a><span>The visual tool for testing servers.</span></li>
+  <li><a href="https://storybook.js.org/docs/ai/mcp/overview" target="_blank" rel="noopener">Storybook MCP</a><span>Storybook's addon and its tools.</span></li>
+  <li><a href="https://ui.shadcn.com/docs/mcp" target="_blank" rel="noopener">shadcn MCP server</a><span>For systems distributed as registries.</span></li>
+  <li><a href="https://www.anthropic.com/engineering/writing-tools-for-agents" target="_blank" rel="noopener">Anthropic: Writing effective tools for agents</a><span>How to name, describe and shape tools.</span></li>
+</ul>
