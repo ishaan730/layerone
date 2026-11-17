@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How AI Agents Use Design Systems: A Step-by-Step Look | Layer One</title>
+<meta name="description" content="What Claude Code, Cursor, Copilot and Codex read when they build UI, why they copy legacy code and hard-code values, and a one-hour audit to run.">
+<meta property="og:title" content="How AI Agents Use Design Systems: A Step-by-Step Look | Layer One">
+<meta property="og:description" content="What Claude Code, Cursor, Copilot and Codex read when they build UI, why they copy legacy code and hard-code values, and a one-hour audit to run.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-17">
+<meta property="article:modified_time" content="2026-11-17">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="AI-ready design systems">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/how-ai-agents-use-design-systems.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="How AI Agents Use Design Systems: A Step-by-Step Look | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/writing.css?v=f693a735">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<meta name="keywords" content="how AI agents use design systems, AI coding agent design system, Claude Code design system, Cursor design system components, AI generated UI off-system, context window">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "How AI Agents Use Design Systems: A Step-by-Step Look", "description": "What Claude Code, Cursor, Copilot and Codex read when they build UI, why they copy legacy code and hard-code values, and a one-hour audit to run.", "image": "https://www.layerone.co.in/assets/images/writing/how-ai-agents-use-design-systems.jpg", "datePublished": "2026-11-17", "dateModified": "2026-11-17", "mainEntityOfPage": "https://www.layerone.co.in/writing/how-ai-agents-use-design-systems", "wordCount": 2713, "articleSection": "AI-ready design systems", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}, "keywords": "how AI agents use design systems, AI coding agent design system, Claude Code design system, Cursor design system components, AI generated UI off-system, context window", "isPartOf": {"@type": "CreativeWorkSeries", "name": "Making your design system AI-ready", "url": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "AI-ready design systems", "item": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}, {"@type": "ListItem", "position": 3, "name": "How AI coding agents use your design system, and where they go wrong", "item": "https://www.layerone.co.in/writing/how-ai-agents-use-design-systems"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do AI coding agents find components in a design system?", "acceptedAnswer": {"@type": "Answer", "text": "They read rules files loaded at the start of a task, search the repository, open files that look relevant, and call any tools they've been given, such as an MCP server. If none of these surface your system clearly, they copy nearby code or fall back on popular libraries from their training data."}}, {"@type": "Question", "name": "Why does an AI agent use deprecated components?", "acceptedAnswer": {"@type": "Answer", "text": "Usually because deprecated code is easy to find (it's used in many files) and nothing marks it as deprecated. Add @deprecated tags, a \"never use\" list in the rules file, and a lint rule blocking new imports."}}, {"@type": "Question", "name": "Why does AI generate hard-coded colours instead of design tokens?", "acceptedAnswer": {"@type": "Answer", "text": "The agent didn't find your tokens, or found them without explanations and couldn't choose. It falls back on values it saw nearby or on Tailwind defaults it knows from training. Describe tokens, point to them in the rules file and add a lint rule for raw values."}}, {"@type": "Question", "name": "Is a bigger context window enough to solve this?", "acceptedAnswer": {"@type": "Answer", "text": "No. Large contexts full of conflicting or outdated information make mistakes more likely. Short, current, specific information retrieved when needed works better."}}, {"@type": "Question", "name": "Do AI agents remember our design system between sessions?", "acceptedAnswer": {"@type": "Answer", "text": "Generally not, unless the product has a memory feature. Assume every session starts from zero, which is why rules files and tools matter: they give the same starting knowledge every time."}}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/how-ai-agents-use-design-systems">
+<meta property="og:url" content="https://www.layerone.co.in/writing/how-ai-agents-use-design-systems">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="How AI Agents Use Design Systems: A Step-by-Step Look | Layer One">
+<meta name="twitter:description" content="What Claude Code, Cursor, Copilot and Codex read when they build UI, why they copy legacy code and hard-code values, and a one-hour audit to run.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/how-ai-agents-use-design-systems.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading" title="Light or dark reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button><a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<main id="main" class="ed-wrap"><article class="ed-article">
+  <div class="ed-layout">
+    <aside class="ed-meta" aria-label="About this article"><div class="ed-meta-in">
+      <div class="ed-meta-who"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40"><p><b>Aniket Pandey</b><span>Founder, Layer One</span></p></div>
+      <dl class="ed-meta-dl"><div><dt>Published</dt><dd>17 November 2026</dd></div><div><dt>Reading time</dt><dd>12 minutes</dd></div><div><dt>Topic</dt><dd><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a></dd></div></dl>
+      <div class="ed-meta-sec"><p class="ed-meta-h">Making your design system AI-ready</p><ol class="ed-steps"><li><a href="/writing/ai-ready-design-system">What is an AI-ready design system?</a></li><li aria-current="step"><a href="/writing/how-ai-agents-use-design-systems">How AI coding agents use your design system, and where they go wrong</a></li><li><a href="/writing/design-tokens-for-ai-agents">Design tokens for AI agents</a></li><li><a href="/writing/component-metadata-for-ai-agents">Component metadata for AI agents</a></li><li><a href="/writing/design-system-documentation-for-ai">Writing design system documentation AI agents can use, and how retrieval finds it</a></li><li><a href="/writing/agents-md-llms-txt-design-system">AGENTS.md, llms.txt and rules files for design systems</a></li><li><a href="/writing/design-system-mcp-server">Build an MCP server for your design system</a></li><li><a href="/writing/figma-mcp-design-to-code">Figma to code with AI</a></li><li><a href="/writing/ai-generated-ui-guardrails">Guardrails for AI-generated UI</a></li><li><a href="/writing/legacy-design-system-ai-ready">How to make a legacy design system AI-ready</a></li><li><a href="/writing/why-ai-ignores-design-system">Why does AI ignore my design system?</a></li><li><a href="/writing/design-system-context-window">How much design system context does an AI agent need?</a></li><li><a href="/writing/ai-generated-ui-accessibility">Why is AI-generated UI inaccessible, and how can a design system fix it?</a></li><li><a href="/writing/figma-code-token-drift">Figma variables and code tokens out of sync?</a></li><li><a href="/writing/ai-prototyping-tools-design-system">How do I make Figma Make, v0 and Lovable use my design system?</a></li><li><a href="/writing/shadcn-ui-design-system-ai">Is shadcn/ui better for AI?</a></li><li><a href="/writing/designers-ai-ready-design-system">Can designers make a design system AI-ready without coding?</a></li><li><a href="/writing/ai-design-system-governance">Who owns the AI rules?</a></li><li><a href="/writing/design-system-ai-security">Is it safe to connect your design system to AI tools?</a></li><li><a href="/writing/ai-ready-design-system-roi">How do you prove the ROI of an AI-ready design system?</a></li></ol></div><div class="ed-meta-sec"><p class="ed-meta-h">Tags</p><ul class="ed-tags"><li>AI agents</li><li>Coding agents</li><li>Context</li><li>Audit</li></ul></div><div class="ed-meta-sec"><p class="ed-meta-h">Share</p><p class="ed-share"><button type="button" data-copy="https://www.layerone.co.in/writing/how-ai-agents-use-design-systems">Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.layerone.co.in/writing/how-ai-agents-use-design-systems" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/intent/post?url=https://www.layerone.co.in/writing/how-ai-agents-use-design-systems" target="_blank" rel="noopener">X</a></p></div>
+    </div></aside>
+    <header class="ed-head">
+      <p class="ed-crumb"><a href="/writing">Writing</a><span aria-hidden="true">/</span><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a><span class="ed-crumb-s">Part 2 of 20 in <a href="/writing#ai-ready">Making your design system AI-ready</a></span></p>
+      <h1 class="ed-title">How AI coding agents use your design system, and where they go wrong</h1>
+      <p class="ed-dek">Ask a coding agent to build a screen and it reads, searches, opens files, writes code and runs checks, in a loop. Follow one real task through that loop, see exactly where design systems lose control of the result, and learn how to watch your own agents.</p>
+      <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>12 min read · 17 November 2026</span></span></p>
+    </header>
+    <figure class="ed-cover"><img src="../assets/images/writing/how-ai-agents-use-design-systems.w1200.webp" alt="Diagram of the agent loop: read, plan, act, observe, write and check, with the design system&#x27;s rules files, types and tools feeding the loop." width="1600" height="900" sizes="(max-width: 1024px) calc(100vw - 32px), 760px" fetchpriority="high" srcset="../assets/images/writing/how-ai-agents-use-design-systems.w480.webp 480w, ../assets/images/writing/how-ai-agents-use-design-systems.w800.webp 800w, ../assets/images/writing/how-ai-agents-use-design-systems.w1200.webp 1200w, ../assets/images/writing/how-ai-agents-use-design-systems.jpg 1600w" decoding="async"></figure>
+    <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>The agent loop, in plain words</b></summary><ol><li><a href="#the-agent-loop-in-plain-words">The agent loop, in plain words</a></li><li><a href="#a-real-task-step-by-step">A real task, step by step</a></li><li><a href="#where-an-agent-gets-design-system-knowledge">Where an agent gets design system knowledge</a></li><li><a href="#the-context-window-and-why-less-is-more">The context window, and why less is more</a></li><li><a href="#six-failure-modes-and-what-causes-each">Six failure modes and what causes each</a></li><li><a href="#the-same-task-with-an-ai-ready-harbor">The same task, with an AI-ready Harbor</a></li><li><a href="#not-all-agents-are-coding-agents">Not all agents are coding agents</a></li><li><a href="#try-it-an-agent-s-eye-audit-in-one-hour">Try it: an "agent's-eye" audit in one hour</a></li><li><a href="#common-questions-when-teams-start">Common questions when teams start</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+    <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>A coding agent builds UI in a loop: it <b>reads instructions</b> (your prompt plus any rules files), <b>searches</b> the repository, <b>opens</b> the files that look relevant, <b>writes</b> code, and <b>runs checks</b> such as the type checker. It only knows your design system through what it finds during that loop. If it can't find something quickly and unambiguously, it falls back on what it learned in training, which means generic Tailwind classes, Material UI habits and invented props. To steer it, put the right information where the agent looks first: <b>a rules file</b>, <b>typed component APIs</b>, <b>tools that answer design system questions</b>, and <b>checks that fail loudly</b>.</p>
+  <ul>
+    <li>Agents trust whatever they find first. Deprecated code that's easy to find gets copied.</li>
+    <li>Types and lint errors are the clearest feedback an agent gets. Use them.</li>
+    <li>Part 2 of 20 in the series on AI-ready design systems.</li>
+  </ul>
+</div>
+
+<h2 id="the-agent-loop-in-plain-words">The agent loop, in plain words</h2>
+<p>In <a href="/writing/ai-ready-design-system">part 1</a> we described an AI agent as a language model that can take actions in a loop. Here's what that loop looks like when you ask a coding agent to build a screen. Every agent product implements it differently, but the shape is the same in Claude Code, Cursor, GitHub Copilot's agent mode and OpenAI Codex.</p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div class="hi"><b>1 · Read</b><span>Your prompt, the system instructions, and rules files like AGENTS.md</span></div><i>→</i>
+    <div><b>2 · Plan</b><span>Decide what to look for: "a card component, the currency formatter, the page layout"</span></div><i>→</i>
+    <div><b>3 · Act</b><span>Call a tool: search files, open a file, query an MCP server, run a command</span></div><i>→</i>
+    <div><b>4 · Observe</b><span>Read the result. Does it answer the question? Is more needed?</span></div><i>→</i>
+    <div><b>5 · Write</b><span>Edit code, then run type checks, lint and tests</span></div><i>→</i>
+    <div><b>6 · Repeat or finish</b><span>Errors go back into step 4. No errors: report back</span></div>
+  </div>
+  <figcaption>The agent loop. Steps 3–5 repeat many times on a single task. Your design system influences the result only at the points where it appears in steps 1, 3 and 5.</figcaption>
+</figure>
+<div class="callout callout--term"><span class="callout-k">New words</span><p><b>Tool:</b> an action the agent can ask for, described to the model by a name, a short description and the inputs it takes. "Read file", "search for text" and "run a terminal command" are built-in tools. <b>Context:</b> everything the model can see while it decides the next step. Each file it opens and each tool result is added to it, until the window fills up.</p></div>
+
+<h2 id="a-real-task-step-by-step">A real task, step by step</h2>
+<p>Let's follow one task through Harbor, the made-up design system from part 1. An engineer at Kestrel types this into a coding agent in the payroll web app's repository:</p>
+<pre><code>Add a "Pay run summary" card to the dashboard. It should show the
+next pay date, total gross pay and number of employees, with a
+"Review pay run" button. Use our design system.</code></pre>
+<p>Below is a simplified transcript of what the agent does in the repo as it was before any AI-readiness work. Tool names are generic; every product names them a little differently.</p>
+<figure class="w-fig">
+  <div class="w-chat">
+    <div class="a"><span class="k">Agent · thinking</span>I need a card component, a button, and a way to format currency. "Our design system" probably means a package. Let me search.</div>
+    <div class="t"><span class="k">Tool call · search</span>grep -r "Card" src/ --include=*.tsx -l</div>
+    <div class="r"><span class="k">Result</span>src/legacy/components/Card.tsx
+src/features/billing/BillingCard.tsx
+src/features/team/TeamCard.tsx
+… 31 more files</div>
+    <div class="t"><span class="k">Tool call · read file</span>src/features/team/TeamCard.tsx</div>
+    <div class="r"><span class="k">Result</span>import { Card } from "../../legacy/components/Card";
+import { BtnPrimary } from "@kestrel/ui-old";
+…
+&lt;div style={{ color: "#1D4ED8", padding: 20 }}&gt;</div>
+    <div class="x"><span class="k">What went wrong</span>The agent learned the codebase's conventions from the first example it opened. That example happened to use the legacy Card, the old button package and a hard-coded blue.</div>
+    <div class="a"><span class="k">Agent · writes code</span>Creates PayRunCard.tsx using legacy Card, BtnPrimary, a hard-coded #1D4ED8 and its own formatCurrency() helper.</div>
+    <div class="t"><span class="k">Tool call · run</span>npm run typecheck</div>
+    <div class="r"><span class="k">Result</span>✓ No errors</div>
+    <div class="a"><span class="k">Agent · reports</span>"Done. I added a Pay run summary card using the existing Card and button components, following the patterns in TeamCard."</div>
+  </div>
+  <figcaption><span class="ev ev--ill">Illustration</span> The agent did exactly what a reasonable newcomer would: copy the nearest example. Every check passed, so it had no reason to doubt itself.</figcaption>
+</figure>
+<p>Nothing here is a model failure. The agent searched, read a real file, followed the code it found, and verified its work with the only check available. The design system failed it in three ways:</p>
+<ul class="checklist">
+  <li><b>Nothing told the agent which package was current.</b> <code>@kestrel/harbor</code> and <code>@kestrel/ui-old</code> both exist, and the old one is used more often.</li>
+  <li><b>The legacy code was easy to find and looked legitimate.</b> No <code>@deprecated</code> tag, no lint warning, no comment.</li>
+  <li><b>The checks didn't check the design system.</b> Type checking passed because the legacy code is valid TypeScript. Nothing flagged the hard-coded colour.</li>
+</ul>
+
+<h2 id="where-an-agent-gets-design-system-knowledge">Where an agent gets design system knowledge</h2>
+<p>An agent can learn about your system from six places. They differ a lot in how reliably the agent sees them and how much you control them. This ranking is the single most useful thing to understand when deciding where to invest.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Source</th><th>When the agent sees it</th><th>Your control</th><th>Typical problem</th></tr></thead>
+  <tbody>
+    <tr><td><b>Rules files</b> (AGENTS.md, CLAUDE.md, Cursor rules)</td><td>Loaded automatically at the start of every task</td><td>Full</td><td>Too long, so key rules get lost; or missing entirely</td></tr>
+    <tr><td><b>Type definitions</b> (<code>.d.ts</code>, prop types)</td><td>When it opens a component or when the type checker runs</td><td>Full</td><td>Props typed as <code>string</code> instead of a list of allowed values</td></tr>
+    <tr><td><b>Tool results</b> (MCP servers)</td><td>When the agent decides to call the tool</td><td>Full</td><td>Tool descriptions so vague the agent doesn't know when to call it</td></tr>
+    <tr><td><b>Existing code</b> in the repo</td><td>When search happens to surface it</td><td>Partial</td><td>Old patterns outnumber new ones, so they get copied</td></tr>
+    <tr><td><b>Web docs</b></td><td>Only if the agent can browse and chooses to</td><td>Partial</td><td>Private docs can't be reached; public ones may be outdated</td></tr>
+    <tr><td><b>Training data</b></td><td>Always, as a fallback</td><td>None</td><td>Knows popular open-source libraries, not yours</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Sources ranked from most to least reliable. Invest at the top of the table first: rules files, types and tools are always seen and fully under your control.</figcaption></figure>
+<div class="callout callout--warn"><span class="callout-k">Watch out</span><p>Existing code is the source agents rely on most and the one teams think about least. In a repo where 70% of buttons are the legacy one, an agent copying "the codebase's conventions" will choose the legacy one 70% of the time. Retiring or clearly marking legacy code is AI-readiness work.</p></div>
+
+<h2 id="the-context-window-and-why-less-is-more">The context window, and why less is more</h2>
+<p>Every file the agent opens takes up space in its context window. Modern models have large windows (hundreds of thousands of tokens, where a token is roughly three-quarters of a word), but bigger isn't the same as better. Research and practical experience both show models pay less attention to information buried in the middle of long contexts, and every irrelevant file is a chance to copy the wrong thing.</p>
+<figure class="w-fig">
+  <div class="cols2">
+    <div class="cell"><span class="k">EXPENSIVE</span><h4>Dumping everything</h4><p>Pasting your whole 300-page docs site, or a 6,000-line token file, into the prompt. The agent has to find the needle itself, and old pages compete with new ones.</p><ul><li>~150,000 tokens used</li><li>Contradictions are all visible at once</li></ul></div>
+    <div class="cell cell--accent"><span class="k">EFFECTIVE</span><h4>Just enough, on demand</h4><p>A short rules file that says where things are, then tools the agent calls for exactly the component or token it needs.</p><ul><li>~3,000 tokens used</li><li>Only current information arrives</li></ul></div>
+  </div>
+  <figcaption><span class="ev ev--ill">Illustration</span> Token counts are illustrative. The principle holds whatever the model: give the agent a map and a way to ask, not the whole library.</figcaption>
+</figure>
+<p>This principle, sometimes called <b>progressive disclosure</b>, shapes the rest of this series. Rules files (part 6) are the map. Component metadata (part 4), token files (part 3) and docs (part 5) are what the agent asks for. MCP servers (part 7) are a precise way to ask.</p>
+
+<h2 id="six-failure-modes-and-what-causes-each">Six failure modes and what causes each</h2>
+<p>Once you know the loop, agent mistakes become predictable. Here are the ones we see most, with the step of the loop where each goes wrong.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Failure</th><th>Example</th><th>Loop step</th><th>Root cause</th></tr></thead>
+  <tbody>
+    <tr><td><b>Copying the nearest example</b></td><td>Legacy Card copied from TeamCard</td><td>3 · Act</td><td>Search returns old code first; nothing marks it as old</td></tr>
+    <tr><td><b>Training-data fallback</b></td><td><code>className="bg-blue-600 rounded-lg"</code></td><td>2 · Plan</td><td>Agent never found your tokens, so it used what it knows</td></tr>
+    <tr><td><b>Invented API</b></td><td><code>&lt;Button variant="destructive"&gt;</code> when the value is <code>danger</code></td><td>5 · Write</td><td>Agent guessed the value; the prop was typed as <code>string</code>, so nothing caught it</td></tr>
+    <tr><td><b>Wrong variant</b></td><td>Primary button for "Delete account"</td><td>5 · Write</td><td>The variant exists; the rule for when to use it isn't written anywhere the agent looked</td></tr>
+    <tr><td><b>Reinventing helpers</b></td><td>A new <code>formatCurrency()</code> beside the system's <code>formatMoney()</code></td><td>2 · Plan</td><td>Utilities aren't listed with the components</td></tr>
+    <tr><td><b>Silent success</b></td><td>"Done!" with off-system UI</td><td>6 · Finish</td><td>No check failed, so the agent had no signal</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Each failure points to a specific fix. Silent success is the most damaging, because it hides all the others.</figcaption></figure>
+
+<h2 id="the-same-task-with-an-ai-ready-harbor">The same task, with an AI-ready Harbor</h2>
+<p>Now the same prompt, after Kestrel's team completed the work described in this series: an AGENTS.md in the repo, typed and described components, a small design system MCP server, and lint rules. Watch where each change shows up.</p>
+<figure class="w-fig">
+  <div class="w-chat">
+    <div class="a"><span class="k">Agent · reads AGENTS.md (automatic)</span>"UI must use @kestrel/harbor. Never import from @kestrel/ui-old or src/legacy. Look up components with the harbor MCP tools before writing UI. Format money with formatMoney() from @kestrel/harbor/format."</div>
+    <div class="t"><span class="k">Tool call · harbor.search_components</span>{ "query": "card with summary stats and an action" }</div>
+    <div class="r"><span class="k">Result</span>StatCard: "Shows 1–4 key figures with an optional action. Use for dashboard summaries." · Card: "Generic container. Prefer StatCard for figures."</div>
+    <div class="t"><span class="k">Tool call · harbor.get_component</span>{ "name": "StatCard" }</div>
+    <div class="r"><span class="k">Result</span>props: title (string, required), stats (Stat[] 1–4), action (ReactNode) …
+usage: "One primary action at most. Use Button variant=secondary unless it's the page's main task."
+example: &lt;StatCard title="…" stats={[…]} action={&lt;Button variant="secondary"&gt;…&lt;/Button&gt;} /&gt;</div>
+    <div class="a"><span class="k">Agent · writes code</span>Creates PayRunCard.tsx with StatCard, Button variant="secondary" and formatMoney().</div>
+    <div class="t"><span class="k">Tool call · run</span>npm run lint &amp;&amp; npm run typecheck</div>
+    <div class="r"><span class="k">Result</span>✓ No errors</div>
+    <div class="a"><span class="k">Agent · reports</span>"Added PayRunCard using Harbor's StatCard (recommended for dashboard summaries) and a secondary Button, since the card's action isn't the page's main task."</div>
+  </div>
+  <figcaption><span class="ev ev--ill">Illustration</span> Same model, same prompt. The difference: the rules file pointed the agent at the right package, a tool returned one clear answer with a usage rule, and lint would have caught a regression.</figcaption>
+</figure>
+<p>Notice that the agent's final message now explains <i>why</i> it chose the secondary variant. That happened because the usage rule was in the tool result. When the reasoning behind a decision is written down where agents can reach it, agents repeat it, and reviewers can check it.</p>
+
+<h2 id="not-all-agents-are-coding-agents">Not all agents are coding agents</h2>
+<p>"AI agent" covers several kinds of tool, and each one reaches your design system differently. Know which ones your teams use, because the preparation differs.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Kind</th><th>Examples</th><th>What it reads from your system</th><th>Prepare by</th></tr></thead>
+  <tbody>
+    <tr><td><b>Coding agents</b></td><td>Claude Code, Cursor, Copilot, Codex</td><td>Repo files, rules files, types, MCP tools, terminal output</td><td>Rules files, types, MCP server, lint (parts 4, 6, 7, 9)</td></tr>
+    <tr><td><b>Design-to-code</b></td><td>Figma's MCP server used from a coding agent</td><td>Figma layers, variables, component names, Code Connect mappings</td><td>Variables, naming, Code Connect (part 8)</td></tr>
+    <tr><td><b>AI app builders</b></td><td>v0, Lovable, Bolt, Figma Make</td><td>Usually a component registry or uploaded package and a prompt</td><td>A registry or package with clear docs; check each tool's import options</td></tr>
+    <tr><td><b>Docs assistants</b></td><td>"Ask the design system" chatbots</td><td>Your docs through search and retrieval</td><td>Structured, chunkable docs (part 5)</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Four kinds of agent. The source of truth underneath is the same for all of them; only the door differs.</figcaption></figure>
+
+<h2 id="try-it-an-agent-s-eye-audit-in-one-hour">Try it: an "agent's-eye" audit in one hour</h2>
+<p>The fastest way to learn how agents use your system is to watch one. You don't need any setup beyond a coding agent and a product repo.</p>
+<ol class="w-steps">
+  <li><h3>Pick three everyday tasks</h3><p>Choose tasks your teams actually do: a form with validation, a data table with a filter, a confirmation dialog for a destructive action. Write each as a one-paragraph prompt ending with "use our design system".</p></li>
+  <li><h3>Run each in a fresh session</h3><p>Start a new conversation for each so earlier context doesn't leak in. Don't help the agent. You're watching how it finds things on its own.</p></li>
+  <li><h3>Read the transcript, not just the code</h3><p>Most agents show their tool calls. Write down every file it opened and every search it ran. Which design system files did it never find?</p></li>
+  <li><h3>Ask it to explain its sources</h3><p>Follow up with: "List every design system component, token and helper you used, and where you learned about each." Agents are usually honest about this, and the answers are revealing.</p></li>
+  <li><h3>Score the output</h3><p>Count: off-system components, hard-coded values, wrong variants, invented props. Keep the numbers. They're your baseline for <a href="/writing/ai-generated-ui-guardrails">part 9</a>.</p></li>
+</ol>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Task</th><th>Off-system components</th><th>Hard-coded values</th><th>Wrong variants</th><th>Invented props</th><th>Found the system?</th></tr></thead>
+  <tbody>
+    <tr><td>Settings form</td><td>1</td><td>4</td><td>0</td><td>2</td><td>Partly</td></tr>
+    <tr><td>Employees table</td><td>2</td><td>7</td><td>1</td><td>0</td><td>No</td></tr>
+    <tr><td>Delete dialog</td><td>0</td><td>1</td><td>1</td><td>1</td><td>Yes</td></tr>
+  </tbody>
+</table></div>
+<figcaption><span class="ev ev--ill">Illustration</span> A baseline scorecard from Harbor's first audit. The "Found the system?" column usually explains the rest.</figcaption></figure>
+
+<h2 id="common-questions-when-teams-start">Common questions when teams start</h2>
+<div class="cols2">
+  <div class="cell"><h4>"Can't we just tell it in the prompt?"</h4><p>You can, and it helps for one task. But people forget, phrase it differently each time, and can't remember fifty components. Rules files and tools make the guidance automatic and consistent.</p></div>
+  <div class="cell"><h4>"Which model is best at design systems?"</h4><p>Newer models follow instructions and use tools better, but no model can use information it never sees. The system-side work in this series pays off with every model.</p></div>
+  <div class="cell"><h4>"Should agents read our Storybook?"</h4><p>Storybook stories are excellent examples. Storybook now offers an MCP addon that exposes a component manifest to agents (React first). We cover it in part 7.</p></div>
+  <div class="cell"><h4>"Why did it work yesterday and not today?"</h4><p>Agents aren't deterministic: the same prompt can take a different search path. That's why one good run proves little, and why part 9 runs each task several times.</p></div>
+</div>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Agents work in a loop: read, plan, act, observe, write, check. Your system only matters where it appears in that loop.</li>
+  <li>Rules files, types and tool results are seen reliably; existing code and training data are where off-system habits come from.</li>
+  <li>Give the agent a short map and a precise way to ask, not your entire docs site.</li>
+  <li>Most failures trace to something findable: unmarked legacy code, undescribed tokens, unwritten usage rules, missing checks.</li>
+  <li>Watch an agent do three real tasks before you change anything.</li>
+</ul></div>
+<p>Next: <a href="/writing/design-tokens-for-ai-agents">Design tokens for AI agents</a>, where we fix the most common failure of all: hard-coded values.</p>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>How do AI coding agents find components in a design system?</summary><div><p>They read rules files loaded at the start of a task, search the repository, open files that look relevant, and call any tools they've been given, such as an MCP server. If none of these surface your system clearly, they copy nearby code or fall back on popular libraries from their training data.</p></div></details>
+  <details><summary>Why does an AI agent use deprecated components?</summary><div><p>Usually because deprecated code is easy to find (it's used in many files) and nothing marks it as deprecated. Add @deprecated tags, a "never use" list in the rules file, and a lint rule blocking new imports.</p></div></details>
+  <details><summary>Why does AI generate hard-coded colours instead of design tokens?</summary><div><p>The agent didn't find your tokens, or found them without explanations and couldn't choose. It falls back on values it saw nearby or on Tailwind defaults it knows from training. Describe tokens, point to them in the rules file and add a lint rule for raw values.</p></div></details>
+  <details><summary>Is a bigger context window enough to solve this?</summary><div><p>No. Large contexts full of conflicting or outdated information make mistakes more likely. Short, current, specific information retrieved when needed works better.</p></div></details>
+  <details><summary>Do AI agents remember our design system between sessions?</summary><div><p>Generally not, unless the product has a memory feature. Assume every session starts from zero, which is why rules files and tools matter: they give the same starting knowledge every time.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noopener">Anthropic: Building effective agents</a><span>How agent loops and tool use are put together.</span></li>
+  <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents" target="_blank" rel="noopener">Anthropic: Effective context engineering for AI agents</a><span>Why less, better-chosen context works.</span></li>
+  <li><a href="https://arxiv.org/abs/2307.03172" target="_blank" rel="noopener">Lost in the Middle (Liu et al.)</a><span>Research on how models use information in long contexts.</span></li>
+  <li><a href="https://storybook.js.org/docs/ai" target="_blank" rel="noopener">Storybook: AI</a><span>Storybook's MCP addon and component manifests.</span></li>
+  <li><a href="/writing/design-system-migration">Design system migration</a><span>Retiring the legacy code agents keep copying.</span></li>
+</ul>
+</div>
+    <aside class="ed-aside" aria-label="On this page"><nav class="ed-toc"><p>On this page</p><ol><li><a href="#the-agent-loop-in-plain-words">The agent loop, in plain words</a></li><li><a href="#a-real-task-step-by-step">A real task, step by step</a></li><li><a href="#where-an-agent-gets-design-system-knowledge">Where an agent gets design system knowledge</a></li><li><a href="#the-context-window-and-why-less-is-more">The context window, and why less is more</a></li><li><a href="#six-failure-modes-and-what-causes-each">Six failure modes and what causes each</a></li><li><a href="#the-same-task-with-an-ai-ready-harbor">The same task, with an AI-ready Harbor</a></li><li><a href="#not-all-agents-are-coding-agents">Not all agents are coding agents</a></li><li><a href="#try-it-an-agent-s-eye-audit-in-one-hour">Try it: an "agent's-eye" audit in one hour</a></li><li><a href="#common-questions-when-teams-start">Common questions when teams start</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><a class="ed-top" href="#main">Back to top ↑</a></nav></aside>
+  </div>
+  <footer class="ed-end">
+    <section class="ed-more" aria-labelledby="more-h"><h2 class="ed-sec-h" id="more-h">next in making your design system ai-ready:</h2><div class="ec-grid"><a class="ec " href="/writing/design-tokens-for-ai-agents" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/design-tokens-for-ai-agents.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-tokens-for-ai-agents.w480.webp 480w, ../assets/images/writing/design-tokens-for-ai-agents.w800.webp 800w, ../assets/images/writing/design-tokens-for-ai-agents.w1200.webp 1200w, ../assets/images/writing/design-tokens-for-ai-agents.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">Design tokens for AI agents</b><span class="ec-d">Make design tokens usable by AI agents: DTCG 2025.10 JSON, semantic names, $description and $deprecated, an agent manifest from Style Dictionary, and checks.</span><span class="ec-f">13 min read</span></a><a class="ec " href="/writing/ai-ready-design-system" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/ai-ready-design-system.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/ai-ready-design-system.w480.webp 480w, ../assets/images/writing/ai-ready-design-system.w800.webp 800w, ../assets/images/writing/ai-ready-design-system.w1200.webp 1200w, ../assets/images/writing/ai-ready-design-system.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">What is an AI-ready design system? A complete guide for design system teams</b><span class="ec-d">What makes a design system AI-ready: one source of truth, machine-readable tokens and components, agent access via AGENTS.md and MCP, and guardrails.</span><span class="ec-f">14 min read · Guide</span></a><a class="ec " href="/writing/agents-md-llms-txt-design-system" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/agents-md-llms-txt-design-system.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/agents-md-llms-txt-design-system.w480.webp 480w, ../assets/images/writing/agents-md-llms-txt-design-system.w800.webp 800w, ../assets/images/writing/agents-md-llms-txt-design-system.w1200.webp 1200w, ../assets/images/writing/agents-md-llms-txt-design-system.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">AGENTS.md, llms.txt and rules files for design systems</b><span class="ec-d">What a design system should put in AGENTS.md, CLAUDE.md, Cursor and Copilot rules, how to sync many repos, and how to write llms.txt for your docs.</span><span class="ec-f">13 min read</span></a></div></section>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Working on this in your own product?</h2><p>Most teams we work with start with a two-week audit: every style, component and token, checked and ranked.</p></div><a href="/pricing">How the audit works <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main><footer class="ed-foot"><div class="ed-foot-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
+  <nav aria-label="Studio"><a href="/work">Work</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/contact">Contact</a><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">LinkedIn</a><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></nav>
+</div></footer><script src="../assets/site.js?v=3de6a9b6" defer></script>
+</body>
+</html>

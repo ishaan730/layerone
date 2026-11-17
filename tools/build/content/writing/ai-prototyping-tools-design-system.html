@@ -1,0 +1,161 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>AI prototyping tools (Figma Make, v0, Lovable and similar) use your design system when you give them two things: <b>your actual components and tokens, in a form the tool supports</b>, and <b>written guidelines</b> that tell it how to use them. In Figma Make that means a <b>Make kit</b> built from your React package plus library variables and guidelines. In v0 it means a <b>design system</b> set up from your registry or code sources. In Lovable it means a <b>design system project</b> whose components and knowledge files are attached to other projects. Without both parts, these tools fall back to their defaults, usually shadcn/ui-style components and Tailwind colours. Most of the preparation is the same work as the rest of this series: clean tokens, typed components, clear usage rules.</p>
+  <ul>
+    <li>Most of these tools expect React. If your system isn't React, give them tokens and guidelines at minimum.</li>
+    <li>Guidelines matter as much as code: write them as you would onboard a new engineer.</li>
+    <li>Part 15 of 20 in the series on AI-ready design systems.</li>
+  </ul>
+</div>
+
+<h2>"The prototype looks nothing like our product"</h2>
+<p>A designer opens an AI prototyping tool, describes a payroll settings screen, and gets something polished, plausible and completely off-brand: rounded grey cards, a blue primary button, a font that isn't yours. It's often worse when they've already "connected" their library: the tool imports it, then quietly uses its own components anyway.</p>
+<p>This is the most common design system complaint from designers using AI tools, and the reasons are the same as for coding agents (<a href="/writing/why-ai-ignores-design-system">part 11</a>), with one extra: each tool has its own way of accepting a design system, its own supported formats and its own limits. This guide covers the three tools we're asked about most, as of late 2026. They change quickly, so check each tool's documentation for current details.</p>
+<div class="callout callout--term"><span class="callout-k">New words</span><p><b>AI prototyping tool</b> (or app builder): a tool that generates a working interface, usually React code running in the browser, from a prompt, an image or a design. <b>Registry:</b> a published list of components with their source code and dependencies, in a format tools can install from; shadcn/ui popularised the format. <b>Guidelines</b> (or knowledge files): written instructions the tool reads alongside your code.</p></div>
+
+<h2>What every tool needs from your design system</h2>
+<figure class="w-fig">
+  <div class="w-arch">
+    <div class="w-arch-row"><span class="w-arch-k">Your system</span><div class="w-arch-n"><div><b>Tokens</b><span>CSS variables or Figma variables</span></div><div><b>Components</b><span>An installable package or registry, with types</span></div><div class="hi"><b>Guidelines</b><span>When to use what; layout and content rules</span></div></div></div>
+    <div class="w-arch-link">imported through each tool's design system feature</div>
+    <div class="w-arch-row"><span class="w-arch-k">Tools</span><div class="w-arch-n"><div><b>Figma Make</b><span>Make kits</span></div><div><b>v0</b><span>Design systems</span></div><div><b>Lovable</b><span>Design system projects</span></div></div></div>
+    <div class="w-arch-link">generate</div>
+    <div class="w-arch-row"><span class="w-arch-k">Output</span><div class="w-arch-n"><div class="lt"><b>Prototypes built from your parts</b><span>Real components, real tokens, your rules</span></div></div></div>
+  </div>
+  <figcaption>Three inputs, three tools. The inputs are the same work described in parts 3–6; each tool just packages them differently.</figcaption>
+</figure>
+
+<h2>Figma Make: Make kits</h2>
+<p>Figma Make generates interactive prototypes and apps inside Figma. To use your design system, you create a <b>Make kit</b>: a reusable bundle of your code package, styles and guidelines that designers in your organisation can start from.</p>
+<ol class="w-steps">
+  <li><h3>Check your package fits</h3><p>Make kits currently support React design system packages. Figma's docs say Make builds with Vite and React 18, so confirm your package builds in that setup. Private packages can be published to Figma's private npm registry for your organisation on paid plans; public npm packages can be imported by anyone.</p></li>
+  <li><h3>Add the package to a kit</h3><p>Import the package so Make can inspect its components. Add your published Figma library's variables and styles too, so colours, type and spacing match.</p></li>
+  <li><h3>Write guidelines</h3><p>Figma's documentation is clear that Make can inspect packages but needs guidelines to use them well. Write them like onboarding notes for a new engineer: which components to use for which jobs, what never to use, how layouts and forms are built. If your system spans several packages, add an overview.</p></li>
+  <li><h3>Test with real prompts</h3><p>Generate five screens your teams actually build. Check whether Make used your components or substituted its own.</p></li>
+</ol>
+<pre><code><span class="c">&lt;!-- Guidelines for Harbor in Figma Make (excerpt) --&gt;</span>
+# Harbor design system
+
+Build every screen with components from @kestrel/harbor. Don't create new
+components or use other UI libraries.
+
+## Layout
+- Pages use PageLayout with a PageHeader. Content sits in Card or StatCard.
+- Spacing comes from tokens: space-inset-md inside cards, space-stack-lg between sections.
+
+## Components for common jobs
+- Actions: Button. One variant="primary" per screen; everything else secondary.
+- Confirming a destructive action: ConfirmDialog with tone="danger".
+- Forms: Form + TextField / Select / Checkbox. Every field has a visible label.
+- Key numbers on dashboards: StatCard (1–4 stats).
+- Lists of records: Table with TableToolbar for search and filters.
+
+## Never
+- Raw colours or pixel values. Use the CSS variables from @kestrel/harbor/tokens.css.
+- Modal (deprecated): use Dialog.</code></pre>
+<div class="callout callout--warn"><span class="callout-k">Watch out</span><p>Community reports describe Make falling back to generic or shadcn-style components when it can't make sense of a library, or when no components are extracted from it. If that happens, check that the package builds cleanly on its own, that components have clear exported names and types, and that the guidelines name the components to use for each job.</p></div>
+
+<h2>v0: design systems</h2>
+<p>v0, from Vercel, generates React and Next.js interfaces. It has long supported custom design systems through a <b>registry</b>: you publish your components in the shadcn registry format, and v0 can build with them (shadcn/ui's "Open in v0" buttons use the same mechanism). v0's newer design system features also accept other sources of context, such as code repositories and packages. Check v0's design systems documentation for what's currently supported on your plan.</p>
+<p>The registry route is worth understanding because other tools use the same format (<a href="/writing/shadcn-ui-design-system-ai">part 16</a> covers it in detail):</p>
+<pre><code><span class="c">// registry.json: a minimal registry for Harbor</span>
+{
+  <span class="s">"$schema"</span>: <span class="s">"https://ui.shadcn.com/schema/registry.json"</span>,
+  <span class="s">"name"</span>: <span class="s">"harbor"</span>,
+  <span class="s">"homepage"</span>: <span class="s">"https://harbor.kestrel.example"</span>,
+  <span class="s">"items"</span>: [
+    {
+      <span class="s">"name"</span>: <span class="s">"harbor-theme"</span>,
+      <span class="s">"type"</span>: <span class="s">"registry:style"</span>,
+      <span class="s">"description"</span>: <span class="s">"Harbor tokens as CSS variables, light and dark."</span>,
+      <span class="s">"files"</span>: [{ <span class="s">"path"</span>: <span class="s">"registry/harbor/tokens.css"</span>, <span class="s">"type"</span>: <span class="s">"registry:file"</span>, <span class="s">"target"</span>: <span class="s">"app/harbor-tokens.css"</span> }]
+    },
+    {
+      <span class="s">"name"</span>: <span class="s">"stat-card"</span>,
+      <span class="s">"type"</span>: <span class="s">"registry:component"</span>,
+      <span class="s">"title"</span>: <span class="s">"StatCard"</span>,
+      <span class="s">"description"</span>: <span class="s">"Shows 1–4 key figures with an optional action. Use for dashboard summaries."</span>,
+      <span class="s">"registryDependencies"</span>: [<span class="s">"button"</span>],
+      <span class="s">"files"</span>: [{ <span class="s">"path"</span>: <span class="s">"registry/harbor/stat-card.tsx"</span>, <span class="s">"type"</span>: <span class="s">"registry:component"</span> }]
+    }
+  ]
+}</code></pre>
+<p>Notice the <code>description</code> field: it's the same purpose sentence as the component metadata in <a href="/writing/component-metadata-for-ai-agents">part 4</a>. Generate it from there rather than writing it twice.</p>
+
+<h2>Lovable: design system projects</h2>
+<p>Lovable builds full-stack web apps from prompts. Its design system feature works differently: a design system is a <b>project of its own</b>. When you attach it to another project, its components are copied into that project and its <b>knowledge files</b>, Lovable's word for guidelines, are added to the rules Lovable reads on every generation. Connected projects receive updates from the design system project. According to Lovable's documentation at the time of writing, wrapping an existing npm package as a design system is available on Enterprise plans, and Lovable reads the package's published type definitions to understand its components.</p>
+<ul class="checklist">
+  <li><b>Publish good type definitions,</b> because that's how Lovable sees your package's components and props.</li>
+  <li><b>Write knowledge files like the guidelines above:</b> jobs to components, never-use lists, layout and content rules.</li>
+  <li><b>Use its enforcement:</b> Lovable's docs describe catching raw colours and custom components that deviate from the design system. Treat its warnings like lint errors.</li>
+</ul>
+
+<h2>Comparing the three</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th></th><th>Figma Make</th><th>v0</th><th>Lovable</th></tr></thead>
+  <tbody>
+    <tr><td><b>How the system arrives</b></td><td>Make kit: npm package plus Figma library styles and variables</td><td>Registry, plus newer design system sources</td><td>Design system project attached to app projects</td></tr>
+    <tr><td><b>Guidelines</b></td><td>Guidelines in the kit</td><td>Instructions and registry descriptions</td><td>Knowledge files</td></tr>
+    <tr><td><b>Framework</b></td><td>React</td><td>React / Next.js</td><td>React</td></tr>
+    <tr><td><b>Private code</b></td><td>Private npm in Figma on paid plans</td><td>See v0's docs for private registries</td><td>Private packages with a token; npm wrapping on Enterprise</td></tr>
+    <tr><td><b>Best for</b></td><td>Designers prototyping inside Figma</td><td>Teams already using shadcn-style registries and Next.js</td><td>Teams building internal tools or full apps from prompts</td></tr>
+  </tbody>
+</table></div>
+<figcaption>As of late 2026. Features and plan limits change often; check each tool's docs before committing.</figcaption></figure>
+
+<h2>If your design system isn't React</h2>
+<p>Many design systems are built for Angular, Vue, web components or native platforms. Most AI prototyping tools generate React. You still have useful options:</p>
+<div class="cols3">
+  <div class="cell"><span class="k">MINIMUM</span><h4>Tokens + guidelines</h4><p>Give the tool your tokens as CSS variables and your written rules. Prototypes match your look even if the components are the tool's own.</p></div>
+  <div class="cell"><span class="k">BETTER</span><h4>A thin React layer</h4><p>Web components can be wrapped for React. A small wrapper package can give prototyping tools your real components.</p></div>
+  <div class="cell"><span class="k">BE CLEAR</span><h4>Prototype vs product</h4><p>Agree that prototypes show intent and flow; production code is built with your real framework, by your real pipeline.</p></div>
+</div>
+
+<h2>A test before you roll it out</h2>
+<p>Before telling a whole design team "use the kit", check that it works. Score five prompts, the same way as the agent audit in <a href="/writing/how-ai-agents-use-design-systems">part 2</a>:</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Check</th><th>Pass when</th></tr></thead>
+  <tbody>
+    <tr><td>Components</td><td>Every visible component comes from your system</td></tr>
+    <tr><td>Tokens</td><td>No invented colours, radii or spacing; dark mode works if you have it</td></tr>
+    <tr><td>Rules</td><td>One primary action; correct dialog for destructive actions; labelled fields</td></tr>
+    <tr><td>Accessibility</td><td>Keyboard works through the main flow (<a href="/writing/ai-generated-ui-accessibility">part 13</a>)</td></tr>
+    <tr><td>Gaps</td><td>When nothing fits, the tool says so rather than inventing a component</td></tr>
+  </tbody>
+</table></div></figure>
+
+<h2>Common mistakes</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">MISTAKE</span><h4>Importing the package without guidelines</h4><p>The tool sees 60 components and no rules. It guesses, or falls back to defaults. Guidelines are half the setup.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Guidelines that contradict the code</h4><p>Guidelines say "use Dialog" while the package still exports Modal without a deprecation. Clean the package first.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>A different setup per tool</h4><p>Writing separate rules for Make, v0 and Lovable by hand means three versions that drift. Generate them from one source, the same as AGENTS.md.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Shipping prototypes as product</h4><p>Generated prototypes skip your lint, tests and review. Route them through the normal pipeline before they reach customers.</p></div>
+</div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>AI prototyping tools need your real components and tokens and written guidelines; without both they use their defaults.</li>
+  <li>Figma Make uses Make kits (React packages plus library styles and guidelines); v0 uses design systems and registries; Lovable uses design system projects with knowledge files.</li>
+  <li>Write guidelines like onboarding notes: jobs to components, never-use lists, layout and content rules.</li>
+  <li>If your system isn't React, give tools tokens and guidelines at minimum.</li>
+  <li>Test five real prompts before rolling a kit out, and keep prototypes out of production until they pass your checks.</li>
+</ul></div>
+<p>Next: <a href="/writing/shadcn-ui-design-system-ai">Is shadcn/ui better for AI?</a></p>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>How do I use my design system in Figma Make?</summary><div><p>Create a Make kit: add your React design system package (public npm, or Figma's private registry on paid plans), add your Figma library's variables and styles, and write guidelines explaining which components to use for which jobs. Then test it with real prompts.</p></div></details>
+  <details><summary>Why does Figma Make not use my components?</summary><div><p>Common causes are a package that doesn't build cleanly in Make's React and Vite setup, components without clear exported names and types, and missing guidelines. Make can inspect a package, but it needs guidelines to use it well.</p></div></details>
+  <details><summary>Can v0 use a custom design system?</summary><div><p>Yes. v0 supports custom design systems, including components published as a shadcn-compatible registry, and newer features accept other sources such as code repositories. Check v0's documentation for what your plan supports.</p></div></details>
+  <details><summary>How do design systems work in Lovable?</summary><div><p>A design system is its own Lovable project. Attaching it to another project copies its components in and adds its knowledge files to the rules Lovable reads on every generation. Wrapping an existing npm package is available on Enterprise plans.</p></div></details>
+  <details><summary>What if my design system is Angular or web components?</summary><div><p>Most AI prototyping tools generate React. Provide tokens and written guidelines so prototypes match your look, consider a thin React wrapper for web components, and treat prototypes as intent rather than production code.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://developers.figma.com/docs/code/bring-your-design-system-package" target="_blank" rel="noopener">Figma: bring your design system package</a><span>Make kits, packages and requirements.</span></li>
+  <li><a href="https://developers.figma.com/docs/code/write-design-system-guidelines/" target="_blank" rel="noopener">Figma: write design system guidelines</a><span>How to write guidelines Make can use.</span></li>
+  <li><a href="https://v0.app/docs/design-systems" target="_blank" rel="noopener">v0: design systems</a><span>Custom design systems and registries in v0.</span></li>
+  <li><a href="https://docs.lovable.dev/features/design-systems" target="_blank" rel="noopener">Lovable: design systems</a><span>Design system projects and knowledge files.</span></li>
+  <li><a href="https://ui.shadcn.com/docs/registry" target="_blank" rel="noopener">shadcn/ui: registry</a><span>The registry format several tools share.</span></li>
+</ul>

@@ -28,8 +28,14 @@ TOPICS = [
     ("governance", "Governance", "Who decides what, how requests and contributions flow, and how to keep decisions fast and fair."),
     ("operations", "Operating model & teams", "How design systems are staffed and run day to day, from a startup's part-time owners to an enterprise team."),
     ("business-case", "Business case & measurement", "What a design system costs, what it returns, and how to measure whether it's working."),
+    ("ai-ready-design-systems", "AI-ready design systems", "A twenty-part, step-by-step course on making a design system that AI agents can find, understand and use correctly: tokens, component metadata, docs, rules files, MCP servers, Figma and guardrails, then the problems teams hit most, answered one by one."),
 ]
 TOPIC = {k: (n, d) for k, n, d in TOPICS}
+
+AI_PATH = ['ai-ready-design-system', 'how-ai-agents-use-design-systems', 'design-tokens-for-ai-agents', 'component-metadata-for-ai-agents', 'design-system-documentation-for-ai', 'agents-md-llms-txt-design-system', 'design-system-mcp-server', 'figma-mcp-design-to-code', 'ai-generated-ui-guardrails', 'legacy-design-system-ai-ready',
+           'why-ai-ignores-design-system', 'design-system-context-window', 'ai-generated-ui-accessibility', 'figma-code-token-drift',
+           'ai-prototyping-tools-design-system', 'shadcn-ui-design-system-ai', 'designers-ai-ready-design-system', 'ai-design-system-governance',
+           'design-system-ai-security', 'ai-ready-design-system-roi']
 
 SERIES = [
     ("design-systems-101", "Design Systems 101", "The basics, for anyone new to design systems.",
@@ -58,6 +64,8 @@ SERIES = [
      ["design-system-for-startups", "design-system-roadmap", "why-design-systems-fail"]),
     ("proving-value", "Proving value", "Metrics and money: how to show a design system is working.",
      ["design-system-metrics", "design-system-roi"]),
+    ("ai-ready", "Making your design system AI-ready", "Twenty parts, from what agents need to a phased plan, then the questions teams ask most.",
+     AI_PATH),
 ]
 
 
@@ -242,7 +250,7 @@ A = [
          title="AI in Design Systems: Practical Uses and Cautions",
          desc="Where AI genuinely helps design system teams today (docs, release notes, checks, migrations) and the cautions that matter when mistakes spread to every product.",
          dek="AI tools are changing design system work quickly, and it's easy to overhype or dismiss them. A grounded view: where they help today, where a human must stay in the loop, and why a well-structured system is the best preparation for using AI well.",
-         cta="call", related=["design-system-documentation", "design-system-release-notes", "design-token-naming-conventions"]),
+         cta="call", related=["ai-ready-design-system", "design-system-documentation", "design-system-release-notes"]),
     dict(slug="design-system-patterns", date="2026-11-12", topic="building",
          h1="Design system patterns: when components aren't enough",
          title="Design System Patterns: Beyond Components",
@@ -363,6 +371,188 @@ A = [
          desc="What a startup actually needs from a design system: tokens in code, a themed component library, a small Figma library, two owners, and when to add more.",
          dek="A startup that copies a tech giant's design system process drowns in it. The minimum viable system that survives every pivot, what not to do yet, and the signals that tell you it's time to add the next piece.",
          cta="lab", related=["do-you-need-a-design-system", "design-system-maturity-model", "headless-component-library-build-vs-buy"]),
+    # AI-ready design systems: a ten-part course (17 November 2026). Order = AI_PATH.
+    dict(slug="ai-ready-design-system", date="2026-11-17", topic="ai-ready-design-systems", pillar=True,
+         h1="What is an AI-ready design system? A complete guide for design system teams",
+         title="AI-Ready Design System: What It Is and How to Build One",
+         desc="What makes a design system AI-ready: one source of truth, machine-readable tokens and components, agent access via AGENTS.md and MCP, and guardrails.",
+         dek="AI agents are now some of your design system's busiest users. They read literally, can't ask questions and copy whatever they find first. What AI-ready actually means, the architecture behind it, a readiness score and a 30-day plan to start.",
+         cta="audit", related=["how-ai-agents-use-design-systems", "legacy-design-system-ai-ready", "ai-in-design-systems"],
+         keywords=["AI-ready design system", "design system for AI agents", "agentic design system", "AI design system architecture", "MCP design system", "design system readiness"],
+         tags=["AI agents", "Architecture", "Readiness", "MCP"],
+         cover_alt="Diagram: a person's request flows to an AI agent, which reads rules files, MCP servers and docs built on one source of truth of tokens, components and Figma, checked by guardrails."),
+    dict(slug="how-ai-agents-use-design-systems", date="2026-11-17", topic="ai-ready-design-systems",
+         h1="How AI coding agents use your design system, and where they go wrong",
+         title="How AI Agents Use Design Systems: A Step-by-Step Look",
+         desc="What Claude Code, Cursor, Copilot and Codex read when they build UI, why they copy legacy code and hard-code values, and a one-hour audit to run.",
+         dek="Ask a coding agent to build a screen and it reads, searches, opens files, writes code and runs checks, in a loop. Follow one real task through that loop, see exactly where design systems lose control of the result, and learn how to watch your own agents.",
+         cta="audit", related=["ai-ready-design-system", "design-tokens-for-ai-agents", "agents-md-llms-txt-design-system"],
+         keywords=["how AI agents use design systems", "AI coding agent design system", "Claude Code design system", "Cursor design system components", "AI generated UI off-system", "context window"],
+         tags=["AI agents", "Coding agents", "Context", "Audit"],
+         cover_alt="Diagram of the agent loop: read, plan, act, observe, write and check, with the design system's rules files, types and tools feeding the loop."),
+    dict(slug="design-tokens-for-ai-agents", date="2026-11-17", topic="ai-ready-design-systems",
+         h1="Design tokens for AI agents: DTCG format, descriptions and naming machines can follow",
+         title="Design Tokens for AI Agents: DTCG, Descriptions and Naming",
+         desc="Make design tokens usable by AI agents: DTCG 2025.10 JSON, semantic names, $description and $deprecated, an agent manifest from Style Dictionary, and checks.",
+         dek="Hard-coded colours are the most common way AI-generated UI drifts off-system. The cause is usually tokens an agent can't tell apart. A step-by-step method: DTCG format, job-based names, descriptions that encode decisions, an agent manifest and a semantic-only Tailwind theme.",
+         cta="lab", related=["component-metadata-for-ai-agents", "design-tokens", "design-token-naming-conventions"],
+         keywords=["design tokens for AI", "DTCG format", "design tokens JSON", "$description design tokens", "Style Dictionary DTCG", "Tailwind semantic tokens", "AI hard-coded colors"],
+         tags=["Design tokens", "DTCG", "Style Dictionary", "Tailwind"],
+         cover_alt="Diagram: a vague token list of similar blues becomes a described semantic token, color.feedback.info.bg, with its CSS variable and a description an agent can match."),
+    dict(slug="component-metadata-for-ai-agents", date="2026-11-17", topic="ai-ready-design-systems",
+         h1="Component metadata for AI agents: a machine-readable contract for every component",
+         title="Component Metadata & Schemas for AI Agents (With Examples)",
+         desc="Describe components so AI agents use them correctly: typed props, JSDoc, react-docgen, Storybook manifests, Custom Elements Manifest and usage schemas.",
+         dek="Agents pick the wrong variant, invent props and miss the component built for the job, because the knowledge lives in people's heads. Turn each component into a contract: precise types, extracted props, a schema-validated usage file and a two-level inventory agents can query.",
+         cta="audit", related=["design-system-documentation-for-ai", "component-props-best-practices", "design-system-mcp-server"],
+         keywords=["component metadata", "design system component schema", "react-docgen-typescript", "Storybook component manifest", "Custom Elements Manifest", "JSON Schema components", "AI component selection"],
+         tags=["Components", "Metadata", "JSON Schema", "Storybook"],
+         cover_alt="Diagram: a component's types, usage file and stories merge into one machine-readable entry listing status, purpose, props, rules and an example."),
+    dict(slug="design-system-documentation-for-ai", date="2026-11-17", topic="ai-ready-design-systems",
+         h1="Writing design system documentation AI agents can use, and how retrieval finds it",
+         title="Design System Documentation for AI Agents and RAG",
+         desc="How to write design system docs for AI agents and RAG: self-contained sections, a page template, Markdown frontmatter, chunking, hybrid search and tests.",
+         dek="Agents read documentation in pieces chosen by search, not page by page. Write every section so it stands alone, keep docs next to the code, and test retrieval with real questions. Includes a component page template and a minimal hybrid search index.",
+         cta="audit", related=["agents-md-llms-txt-design-system", "design-system-documentation", "design-system-patterns"],
+         keywords=["design system documentation for AI", "RAG design system", "AI-readable documentation", "chunking documentation", "vector database docs", "semantic search", "Markdown documentation"],
+         tags=["Documentation", "RAG", "Search", "Markdown"],
+         cover_alt="Diagram: documentation pages split into self-contained chunks, embedded and indexed, with the best-matching chunks retrieved for an agent's question."),
+    dict(slug="agents-md-llms-txt-design-system", date="2026-11-17", topic="ai-ready-design-systems",
+         h1="AGENTS.md, llms.txt and rules files for design systems: what to write and where",
+         title="AGENTS.md, llms.txt & Rules Files for Design Systems",
+         desc="What a design system should put in AGENTS.md, CLAUDE.md, Cursor and Copilot rules, how to sync many repos, and how to write llms.txt for your docs.",
+         dek="Every agent session starts from zero, and the files it loads first are the most reliable way to guide it. Which files each tool reads, a complete design system section to copy, how to ship it in your package, llms.txt for your docs site, and skills for longer procedures.",
+         cta="audit", related=["design-system-mcp-server", "how-ai-agents-use-design-systems", "design-system-documentation-for-ai"],
+         keywords=["AGENTS.md", "llms.txt", "CLAUDE.md", "Cursor rules design system", "Copilot instructions", "AI coding rules file", "Agent Skills"],
+         tags=["AGENTS.md", "llms.txt", "Rules files", "Skills"],
+         cover_alt="Diagram: one AGENTS.md section generated by the design system and inserted into every product repo, with CLAUDE.md, Cursor and Copilot files pointing to it."),
+    dict(slug="design-system-mcp-server", date="2026-11-17", topic="ai-ready-design-systems",
+         h1="Build an MCP server for your design system: a step-by-step guide",
+         title="Design System MCP Server: How to Build One (Step by Step)",
+         desc="Build a Model Context Protocol server for your design system: tool design, working code, Storybook and shadcn options, Inspector testing and setup.",
+         dek="An MCP server lets any MCP-capable agent ask your design system precise questions instead of searching files. What MCP is, when a ready-made server is enough, and a complete, read-only server with four tools, tested in the Inspector and connected to Claude Code, Cursor and VS Code.",
+         cta="call", related=["figma-mcp-design-to-code", "component-metadata-for-ai-agents", "agents-md-llms-txt-design-system"],
+         keywords=["design system MCP server", "Model Context Protocol", "MCP server tutorial", "Storybook MCP", "shadcn MCP", "MCP Inspector", "tool calling"],
+         tags=["MCP", "Tool calling", "Storybook", "TypeScript"],
+         cover_alt="Diagram: an AI app's MCP client calls a design system server's tools, search_components, get_component and search_tokens, which read the token and component manifests."),
+    dict(slug="figma-mcp-design-to-code", date="2026-11-17", topic="ai-ready-design-systems",
+         h1="Figma to code with AI: preparing your library for the Figma MCP server and Code Connect",
+         title="Figma MCP Server and Code Connect: AI Design-to-Code Setup",
+         desc="Get on-system code from Figma: connect the Figma MCP server, match variables to tokens, mirror props in properties and map components with Code Connect.",
+         dek="Design-to-code agents convert what the Figma file says. Detached instances and raw values become hard-coded divs; variables and Code Connect become your real components and tokens. A six-step setup, with a before-and-after from the same frame.",
+         cta="audit", related=["ai-generated-ui-guardrails", "figma-code-sync", "figma-library-structure"],
+         keywords=["Figma MCP server", "Figma to code AI", "Code Connect", "Figma variables design tokens", "Figma Dev Mode MCP", "design to code"],
+         tags=["Figma", "Code Connect", "Variables", "Design to code"],
+         cover_alt="Diagram: a Figma frame's variables and Code Connect mappings pass through the Figma MCP server to a coding agent, which writes code with real components and tokens."),
+    dict(slug="ai-generated-ui-guardrails", date="2026-11-17", topic="ai-ready-design-systems",
+         h1="Guardrails for AI-generated UI: lint rules, tests and evals that keep agents on-system",
+         title="AI-Generated UI Guardrails: Lint, Tests and Evals",
+         desc="Keep AI-generated UI on-system: ESLint and Stylelint rules with fix-it messages, axe and visual tests, one check command, and evals that track progress.",
+         dek="Agents produce more UI than reviewers can check by eye. Layered guardrails catch off-system output automatically and tell the agent how to fix it, and evals show whether your design system work is paying off. Configs, scripts and a scoring method included.",
+         cta="audit", related=["legacy-design-system-ai-ready", "design-system-testing", "design-system-metrics"],
+         keywords=["AI generated UI guardrails", "design system lint rules", "no-restricted-imports", "stylelint design tokens", "axe accessibility testing", "AI evals", "design system compliance"],
+         tags=["Guardrails", "Lint", "Testing", "Evals"],
+         cover_alt="Diagram of six guardrail layers: types, lint, tests, review, evals and telemetry, catching off-system output at different stages."),
+    dict(slug="legacy-design-system-ai-ready", date="2026-11-17", topic="ai-ready-design-systems",
+         h1="How to make a legacy design system AI-ready: a phased migration plan",
+         title="Make a Legacy Design System AI-Ready: A Migration Plan",
+         desc="A phased plan to make an existing design system AI-ready without a rewrite: baseline, one source of truth, metadata, AGENTS.md, MCP, Figma and codemods.",
+         dek="Almost nobody starts from a blank page. A phased plan for a five-year-old system that stays in use: measure, consolidate into one source of truth, make it machine-readable, add access, align Figma, and migrate old code with codemods and a lint ratchet.",
+         cta="audit", related=["ai-ready-design-system", "design-system-migration", "design-system-audit"],
+         keywords=["legacy design system AI", "migrate design system", "make design system AI-ready", "design system migration plan", "codemods", "jscodeshift", "source of truth"],
+         tags=["Migration", "Legacy", "Codemods", "Planning"],
+         cover_alt="Diagram: a legacy system's conflicting token files, packages and docs consolidate into one source of truth that generates every output."),
+    # AI-ready design systems, parts 11–20: the questions teams ask most (18 November 2026).
+    dict(slug="why-ai-ignores-design-system", date="2026-11-18", topic="ai-ready-design-systems",
+         h1="Why does AI ignore my design system? 10 causes and how to fix each",
+         title="Why Does AI Ignore My Design System? 10 Causes and Fixes",
+         desc="Why Cursor, Claude Code, Copilot and AI prototyping tools ignore your components and tokens: ten causes, how to diagnose each in minutes, and the fixes.",
+         dek="Generic buttons, Tailwind blues, a pile of divs from a Figma link. When AI tools ignore your design system, the cause is almost never the model. A ten-minute diagnosis, ten causes with their symptoms and fixes, and a one-week rescue plan.",
+         cta="audit", related=["design-system-context-window", "how-ai-agents-use-design-systems", "agents-md-llms-txt-design-system"],
+         keywords=["AI ignores design system", "Cursor not using my components", "Claude Code design system components", "AI uses Tailwind default colors", "AI generated UI off-brand", "fix AI design system"],
+         tags=["Troubleshooting", "AI agents", "Coding agents", "Lint"],
+         cover_alt="Diagram: an agent's request passes three checks (did it find the system, where did it learn, did anything say it was wrong) before reaching on-system UI."),
+    dict(slug="design-system-context-window", date="2026-11-18", topic="ai-ready-design-systems",
+         h1="How much design system context does an AI agent need? Avoiding context overload",
+         title="How Much Design System Context Does an AI Agent Need?",
+         desc="Why giving AI agents your whole design system makes results worse: context windows, rules file length, too many MCP tools and progressive disclosure.",
+         dek="Teams that give agents everything often get worse results: rules buried in 1,800-line files, a hundred tools to choose from. What fills the context window, a size budget for each layer, and a step-by-step diet for your design system context.",
+         cta="call", related=["ai-generated-ui-accessibility", "agents-md-llms-txt-design-system", "design-system-mcp-server"],
+         keywords=["AI agent context window", "AGENTS.md too long", "too many MCP tools", "context engineering", "progressive disclosure AI", "CLAUDE.md length"],
+         tags=["Context", "Rules files", "MCP", "Performance"],
+         cover_alt="Diagram: a small always-loaded map of rules and tools above larger on-demand layers of component detail and pattern pages."),
+    dict(slug="ai-generated-ui-accessibility", date="2026-11-18", topic="ai-ready-design-systems",
+         h1="Why is AI-generated UI inaccessible, and how can a design system fix it?",
+         title="Why AI-Generated UI Fails Accessibility (and How to Fix It)",
+         desc="Why AI-generated UI fails accessibility, what research shows, and how a design system fixes it: accessible components, rules, lint, axe and keyboard tests.",
+         dek="It looks finished, and the review finds clickable divs, unlabelled fields and dialogs that trap nobody's focus. Why AI-generated UI repeats inaccessible patterns, and how components, metadata, lint and tests make accessibility the default.",
+         cta="audit", related=["figma-code-token-drift", "accessible-design-system", "ai-generated-ui-guardrails"],
+         keywords=["AI generated UI accessibility", "is AI generated code accessible", "accessible AI prototypes", "jsx-a11y", "axe-core Playwright", "WCAG AI code"],
+         tags=["Accessibility", "Components", "Testing", "WCAG"],
+         cover_alt="Diagram: a hand-built clickable div is replaced by an accessible Button with required label, focus handling and an axe check passing."),
+    dict(slug="figma-code-token-drift", date="2026-11-18", topic="ai-ready-design-systems",
+         h1="Figma variables and code tokens out of sync? How to fix token drift before AI copies it",
+         title="Figma Variables Out of Sync with Code Tokens? Fix the Drift",
+         desc="Fix drift between Figma variables and code tokens: pick a source of truth, reconcile with a script, sync via DTCG import or Tokens Studio, check in CI.",
+         dek="Design-to-code agents read Figma; coding agents read code. When the two disagree, both produce \"correct\" screens that don't match. Choose one source, reconcile every difference with a script, automate one direction and catch new drift within a day.",
+         cta="lab", related=["ai-prototyping-tools-design-system", "figma-code-sync", "design-tokens-for-ai-agents"],
+         keywords=["Figma variables out of sync", "sync Figma variables with code", "design token drift", "Figma DTCG export", "Tokens Studio sync", "single source of truth tokens"],
+         tags=["Figma", "Design tokens", "Sync", "DTCG"],
+         cover_alt="Diagram: Figma variables and code tokens compared line by line, with differences flagged, then a one-way sync from the token files to Figma."),
+    dict(slug="ai-prototyping-tools-design-system", date="2026-11-18", topic="ai-ready-design-systems",
+         h1="How do I make Figma Make, v0 and Lovable use my design system?",
+         title="How to Make Figma Make, v0 and Lovable Use Your Design System",
+         desc="Get AI prototyping tools to use your design system: Figma Make kits, v0 design systems and registries, Lovable design system projects, and guidelines that work.",
+         dek="Prototypes that look polished and nothing like your product are the top complaint from designers using AI tools. What each tool needs, how Figma Make kits, v0 and Lovable accept a design system, guidelines to copy, and a test before rollout.",
+         cta="audit", related=["shadcn-ui-design-system-ai", "figma-mcp-design-to-code", "designers-ai-ready-design-system"],
+         keywords=["Figma Make design system", "Figma Make kit", "v0 custom design system", "Lovable design system", "AI prototyping design system", "Figma Make not using my components"],
+         tags=["Figma Make", "v0", "Lovable", "Prototyping"],
+         cover_alt="Diagram: a design system's tokens, components and guidelines feed three AI prototyping tools, Figma Make, v0 and Lovable, which output on-brand prototypes."),
+    dict(slug="shadcn-ui-design-system-ai", date="2026-11-18", topic="ai-ready-design-systems",
+         h1="Is shadcn/ui better for AI? Choosing a component library AI agents can use",
+         title="Is shadcn/ui Better for AI? Choosing a Library for Agents",
+         desc="Why AI tools favour shadcn/ui, which advantages your own design system can copy, when to switch or stay, and how to publish your components as a registry.",
+         dek="AI tools reach for shadcn/ui constantly, so teams wonder whether to rebuild on it. What actually makes it agent-friendly, the drift risk of open code, a decision guide for switching or staying, and how to publish your own system as a registry.",
+         cta="call", related=["designers-ai-ready-design-system", "headless-component-library-build-vs-buy", "design-system-mcp-server"],
+         keywords=["shadcn ui AI", "why AI uses shadcn", "shadcn registry", "shadcn MCP", "component library for AI agents", "should I use shadcn for my design system"],
+         tags=["shadcn/ui", "Registry", "Components", "React"],
+         cover_alt="Diagram: a component library as a hidden package compared with open source code in the project, connected to a registry agents can install from."),
+    dict(slug="designers-ai-ready-design-system", date="2026-11-18", topic="ai-ready-design-systems",
+         h1="Can designers make a design system AI-ready without coding?",
+         title="Can Designers Make a Design System AI-Ready Without Code?",
+         desc="What designers can do to make a design system AI-ready without code: token descriptions, usage rules, Figma prep, tool guidelines, templates and prompts.",
+         dek="It looks like an engineering project, but most agent mistakes are design decisions nobody wrote down. Six things designers own, how to split the work with engineers, a template to fill in, rules agents can follow, and a two-hour weekly routine.",
+         cta="audit", related=["ai-design-system-governance", "design-tokens-for-ai-agents", "ai-prototyping-tools-design-system"],
+         keywords=["designers AI design system", "design system AI without coding", "how designers prepare design system for AI", "design guidelines for AI", "zeroheight MCP", "designer role AI agents"],
+         tags=["Designers", "Documentation", "Figma", "Guidelines"],
+         cover_alt="Diagram: designers write decisions in a shared template, engineers wire them into files and checks, and agents use them to build on-system UI."),
+    dict(slug="ai-design-system-governance", date="2026-11-18", topic="ai-ready-design-systems",
+         h1="Who owns the AI rules? Governance for an AI-ready design system",
+         title="Who Owns AI Rules? Design System Governance for AI Agents",
+         desc="Who owns AGENTS.md, token descriptions and agent output: a decision-rights table, CODEOWNERS for AI rules, a policy for agent work and a feedback loop.",
+         dek="AI-readiness creates new artifacts (rules files, metadata, MCP tools, evals) that change what every agent does, and usually nobody owns them. A decision-rights table, review for rules changes, a policy for agent-written work and a loop that turns agent gaps into backlog.",
+         cta="call", related=["design-system-ai-security", "design-system-governance", "design-system-contribution-model"],
+         keywords=["AI governance design system", "who owns AGENTS.md", "AI generated code responsibility", "design system contribution AI", "CODEOWNERS", "AI rules governance"],
+         tags=["Governance", "Ownership", "Process", "Contribution"],
+         cover_alt="Diagram: AI rules artifacts each mapped to an owner and reviewer, with agent gap reports flowing back into the design system backlog."),
+    dict(slug="design-system-ai-security", date="2026-11-18", topic="ai-ready-design-systems",
+         h1="Is it safe to connect your design system to AI tools? Security, privacy and IP",
+         title="Is It Safe to Connect Your Design System to AI Tools?",
+         desc="Security, privacy and IP when connecting a design system to AI tools: what's sensitive, data flows, prompt injection, MCP risks and a policy template.",
+         dek="Security and legal will ask whether you're sending your design system to an AI company. What's actually sensitive, where data flows, why prompt injection is the new risk, the controls that address each risk, and a one-page policy to adapt.",
+         cta="call", related=["ai-ready-design-system-roi", "design-system-mcp-server", "ai-design-system-governance"],
+         keywords=["AI tools design system security", "is Figma Make safe", "MCP security", "prompt injection", "AI data privacy design", "AI training on our data"],
+         tags=["Security", "Privacy", "MCP", "Policy"],
+         cover_alt="Diagram: design system content classified by sensitivity, flowing through approved tools with read-only servers, reviewed content and human review."),
+    dict(slug="ai-ready-design-system-roi", date="2026-11-18", topic="ai-ready-design-systems",
+         h1="How do you prove the ROI of an AI-ready design system?",
+         title="How to Prove the ROI of an AI-Ready Design System",
+         desc="Build a business case for an AI-ready design system from your own numbers: baseline evals, rework and review savings, a payback model and ranges.",
+         dek="Leadership asks what it costs, what you get and when. A model you can defend with your own data: where the value comes from, how to measure a baseline, a worked payback example, ranges instead of promises, and a one-page business case.",
+         cta="lab", related=["ai-ready-design-system", "design-system-roi", "design-system-metrics"],
+         keywords=["AI-ready design system ROI", "design system AI business case", "measure AI impact design system", "AI productivity design system", "design system ROI AI agents"],
+         tags=["ROI", "Business case", "Metrics", "Evals"],
+         cover_alt="Diagram: off-system rate falling from 60% to 15% after AI-readiness work, converted into hours saved and a payback line crossing zero at about six months."),
     dict(slug="librarian-vs-leader", topic="operations", legacy=True, date="2026-02-27",
          h1="Most design system leads are just librarians",
          title="Most Design System Leads Are Just Librarians",
@@ -460,11 +650,33 @@ def ld(a):
             "author": {"@type": "Person", "name": AUTHOR, "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"},
             "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/",
                           "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}
+    if a.get("keywords"):
+        post["keywords"] = ", ".join(a["keywords"])
+    s = series_of(a["slug"])
+    if s:
+        post["isPartOf"] = {"@type": "CreativeWorkSeries", "name": s[1], "url": f"https://www.layerone.co.in/writing#{s[0]}"}
+        if a["topic"] == "ai-ready-design-systems":
+            post["isPartOf"]["url"] = "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"
     crumbs = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"},
         {"@type": "ListItem", "position": 2, "name": TOPIC[a["topic"]][0], "item": f"https://www.layerone.co.in/writing/topics/{a['topic']}"},
         {"@type": "ListItem", "position": 3, "name": short_title(a), "item": url}]}
-    return "".join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>' for x in (post, crumbs))
+    out = [post, crumbs]
+    faq = faq_ld(a["body"])
+    if faq:
+        out.append(faq)
+    return "".join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>' for x in out)
+
+
+def faq_ld(body):
+    """FAQPage data from the article's own visible FAQ (the .w-faq block), so the markup always matches the page."""
+    m = re.search(r'<div class="w-faq">(.*?)\n</div>', body, re.S)
+    if not m:
+        return None
+    qa = re.findall(r"<details><summary>(.*?)</summary><div>(.*?)</div></details>", m.group(1), re.S)
+    plain = lambda t: H.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", t))).strip()
+    return {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+        {"@type": "Question", "name": plain(q), "acceptedAnswer": {"@type": "Answer", "text": plain(ans)}} for q, ans in qa]} if qa else None
 
 
 def article_head(a, depth):
@@ -473,6 +685,8 @@ def article_head(a, depth):
                   f'<meta property="og:type" content="article">\n<meta property="article:published_time" content="{a["date"]}">'
                   f'\n<meta property="article:modified_time" content="{a.get("updated", a["date"])}">\n<meta property="article:author" content="{AUTHOR}">'
                   f'\n<meta property="article:section" content="{TOPIC[a["topic"]][0]}">')
+    if a.get("keywords"):
+        h = h.replace("</head>", f'<meta name="keywords" content="{H.escape(", ".join(a["keywords"]), quote=True)}">\n</head>', 1)
     return h.replace("</head>", ld(a) + "\n</head>", 1)
 
 
@@ -538,7 +752,7 @@ def ecard(a, p, size="", ext=None, eager=False):
             f'<span class="ec-d">{desc}</span><span class="ec-f">{mins}</span>{go}</a>')
 
 
-SHORT_TOPIC = {"building": "Building", "foundations-and-tokens": "Foundations & tokens", "operations": "Operations & teams", "business-case": "Value & metrics"}
+SHORT_TOPIC = {"ai-ready-design-systems": "AI-ready", "building": "Building", "foundations-and-tokens": "Foundations & tokens", "operations": "Operations & teams", "business-case": "Value & metrics"}
 
 
 def topic_count(k):
@@ -566,6 +780,9 @@ TOOL_FOR = {
     "spacing-system-4px-vs-8px": ("Try a 4px or 8px scale", "The free spacing generator builds a scale on any base, tries it on a real card and exports tokens.", "Open the spacing generator", "lab/spacing-scale-generator.html"),
     "layout-grid-breakpoints": ("Plan your own grid", "The free layout grid calculator shows columns, gutters and breakpoints at any screen width and exports CSS or tokens.", "Open the grid calculator", "lab/layout-grid-calculator.html"),
     "design-token-naming-conventions": ("Check your token names", "Paste your tokens into the free name checker: it explains every problem and suggests a fix.", "Open the name checker", "lab/design-token-name-checker.html"),
+    "ai-ready-design-system-roi": ("Run the numbers for your team", "The free ROI calculator models value, cost and payback from your own team sizes, using the same honest approach as this article.", "Open the ROI calculator", "lab/design-system-roi-calculator.html"),
+    "figma-code-token-drift": ("Generate a clean token file", "The free token generator outputs DTCG JSON, CSS and Tailwind from one set of decisions, a good starting point for a single source of truth.", "Open the token generator", "lab/design-token-generator.html"),
+    "design-tokens-for-ai-agents": ("Check your token names", "Paste your tokens into the free name checker: it flags names an agent would struggle to match and suggests a fix.", "Open the name checker", "lab/design-token-name-checker.html"),
     "design-tokens": ("Generate a token file", "The free token generator combines a palette, type, spacing and grid into CSS, Tailwind, SCSS or DTCG JSON.", "Open the token generator", "lab/design-token-generator.html"),
     "design-system-contribution-model": ("Score your own requests", "The free request scorecard ranks component requests with the same four questions and exports the backlog.", "Open the scorecard", "lab/component-request-scorecard.html"),
     "which-components-to-build-first": ("Rank your requests", "The free request scorecard turns four questions into a ranked backlog you can share.", "Open the scorecard", "lab/component-request-scorecard.html"),
@@ -610,6 +827,10 @@ def build_article(a):
     if s:
         steps = "".join(f'<li{" aria-current=" + chr(34) + "step" + chr(34) if x == a["slug"] else ""}><a href="{x}.html">{path_title(BY[x])}</a></li>' for x in s[3])
         steps = f'<div class="ed-meta-sec"><p class="ed-meta-h">{s[1]}</p><ol class="ed-steps">{steps}</ol></div>'
+    tags = ""
+    if a.get("tags"):
+        tags = "".join(f"<li>{H.escape(t)}</li>" for t in a["tags"])
+        tags = f'<div class="ed-meta-sec"><p class="ed-meta-h">Tags</p><ul class="ed-tags">{tags}</ul></div>'
     url = f"https://www.layerone.co.in/writing/{a['slug']}"
     share = (f'<div class="ed-meta-sec"><p class="ed-meta-h">Share</p><p class="ed-share">'
              f'<button type="button" data-copy="{url}">Copy link</button>'
@@ -620,7 +841,7 @@ def build_article(a):
     <aside class="ed-meta" aria-label="About this article"><div class="ed-meta-in">
       <div class="ed-meta-who"><img src="{p}assets/studio/aniket.jpg" alt="" width="40" height="40"><p><b>{AUTHOR}</b><span>Founder, Layer One</span></p></div>
       <dl class="ed-meta-dl"><div><dt>Published</dt><dd>{nice_date(a["date"])}{upd}</dd></div><div><dt>Reading time</dt><dd>{a["minutes"]} minutes</dd></div><div><dt>Topic</dt><dd><a href="{p}writing/topics/{a["topic"]}.html">{topic}</a></dd></div></dl>
-      {steps}{share}
+      {steps}{tags}{share}
     </div></aside>
     <header class="ed-head">
       <p class="ed-crumb"><a href="{p}writing.html">Writing</a><span aria-hidden="true">/</span><a href="{p}writing/topics/{a["topic"]}.html">{topic}</a>{series_line}</p>
@@ -628,7 +849,7 @@ def build_article(a):
       <p class="ed-dek">{a["dek"]}</p>
       <p class="ed-byline"><img src="{p}assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>{AUTHOR}</b><span>{a["minutes"]} min read · {nice_date(a["date"])}{upd}</span></span></p>
     </header>
-    <figure class="ed-cover"><img src="{p}{a["cover"]}" alt="" width="1600" height="900" sizes="(max-width: 1024px) calc(100vw - 32px), 760px" fetchpriority="high"></figure>
+    <figure class="ed-cover"><img src="{p}{a["cover"]}" alt="{H.escape(a.get("cover_alt", ""), quote=True)}" width="1600" height="900" sizes="(max-width: 1024px) calc(100vw - 32px), 760px" fetchpriority="high"></figure>
     {mtoc}
     <div class="ed-body post-body">{a["body"]}</div>
     <aside class="ed-aside" aria-label="On this page"><nav class="ed-toc"><p>On this page</p><ol>{toc}</ol><a class="ed-top" href="#main">Back to top ↑</a></nav></aside>
@@ -689,6 +910,8 @@ def build_hub():
   </div>
 </section>
 
+{course_block(p)}
+
 <section class="ed-sec" id="articles" aria-labelledby="latest-h">
   <div class="ed-sec-bar">
     <h2 class="ed-sec-h" id="latest-h">latest articles:</h2>
@@ -717,9 +940,82 @@ def build_hub():
     write("blog.html", h + page(p, 0, content))
 
 
+AI_STAGES = [
+    ("Understand", "What AI-ready means, and how agents actually read a design system.", 0, 2),
+    ("Structure", "Tokens, components and docs in formats machines can follow.", 2, 5),
+    ("Connect", "Rules files, an MCP server and Figma: the doors agents come through.", 5, 8),
+    ("Prove and apply", "Guardrails that measure progress, and a phased plan for an existing system.", 8, 10),
+    ("Fix common problems", "Agents ignoring the system, context overload, inaccessible output and Figma–code drift.", 10, 14),
+    ("Choose your tools", "AI prototyping tools and whether shadcn/ui is the right base.", 14, 16),
+    ("People, risk and value", "Designers' role, ownership, security and proving the return.", 16, 20),
+]
+
+
+def course_block(p):
+    """The AI-ready course on the library page: ten parts in two columns, with a link to its own page."""
+    items = [BY[x] for x in AI_PATH if x in BY]
+    if not items:
+        return ""
+    mins = sum(a["minutes"] for a in items)
+    steps = "".join(f'<li><a href="{p}writing/{a["slug"]}.html"><span class="ep-n">{j}</span><b>{path_title(a)}</b><em>{a["minutes"]} min</em></a></li>'
+                    for j, a in enumerate(items, 1))
+    return f'''<section class="ed-sec" id="ai-ready-course" aria-labelledby="course-h">
+  <div class="ed-sec-bar"><h2 class="ed-sec-h" id="course-h">new course:</h2><p class="ed-sec-d">A twenty-part, step-by-step guide. Start at part 1, or jump to the question you have.</p></div>
+  <div class="ep ep--wide"><header class="ep-h"><span class="ep-no">{len(items)} parts · {mins} min · for designers and engineers</span><h3>Making your design system AI-ready</h3>
+  <p>How AI agents read a design system, and how to give them what they need: described tokens, component metadata, docs built for retrieval, AGENTS.md and llms.txt, an MCP server, a Figma library ready for Code Connect, guardrails and evals, and a phased plan for an existing system. Then the questions teams ask most: why AI ignores a system, context overload, accessibility, token drift, prototyping tools, shadcn/ui, designers' role, ownership, security and ROI.</p></header>
+  <ol class="ep-steps" style="--rows:{(len(items) + 1) // 2}">{steps}</ol>
+  <a class="ep-start" href="{p}writing/topics/ai-ready-design-systems.html">See the whole course {ARROW}</a></div>
+</section>'''
+
+
+def build_ai_topic(k, n, d):
+    """The course's own category page: the ten parts grouped into four stages, in reading order."""
+    p = "../../"
+    out = ""
+    for i, (name, blurb, a0, a1) in enumerate(AI_STAGES, 1):
+        cards = ""
+        for j, slug in enumerate(AI_PATH[a0:a1], a0 + 1):
+            if slug not in BY:
+                continue
+            c = ecard(BY[slug], p, eager=j <= 3)
+            cards += c.replace(f'<span class="ec-k">{n}</span>', f'<span class="ec-k">Part {j} of {len(AI_PATH)}</span>', 1)
+        out += (f'<section class="ed-sec{" ed-sec--first" if i == 1 else ""}" aria-labelledby="st{i}-h">'
+                f'<div class="ed-sec-bar"><h2 class="ed-sec-h" id="st{i}-h">stage {i} · {name.lower()}:</h2><p class="ed-sec-d">{blurb}</p></div>'
+                f'<div class="ec-grid">{cards}</div></section>')
+    more = [x for x in ("ai-in-design-systems", "design-tokens", "figma-code-sync") if x in BY]
+    more_cards = "".join(ecard(BY[x], p) for x in more)
+    start = BY.get(AI_PATH[0])
+    content = f'''<header class="ed-intro">
+  <div>
+    <p class="ed-crumb"><a href="{p}writing.html">Writing</a><span aria-hidden="true">/</span><span>Course</span></p>
+    <h1>{n}: a practical course</h1>
+  </div>
+  <div class="ed-intro-r">
+    <p>{d}</p>
+    <p>Written for product designers, design system designers, design technologists and engineers with an existing system and no background in AI agents. Every part explains the terms it uses, follows one realistic system from problem to working setup, and ends with checks you can run.</p>
+    <p class="ed-intro-n"><span>{len(AI_PATH)} parts</span><span>{sum(BY[x]["minutes"] for x in AI_PATH if x in BY)} min in total</span><span>{len(AI_STAGES)} stages</span></p>
+    {f'<p><a class="ep-start" href="{p}writing/{start["slug"]}.html">Start with part 1 {ARROW}</a></p>' if start else ""}
+  </div>
+</header>
+{out}
+<section class="ed-sec" aria-labelledby="rel-h"><div class="ed-sec-bar"><h2 class="ed-sec-h" id="rel-h">background reading:</h2>{filter_bar(p, k)}</div><div class="ec-grid">{more_cards}</div></section>'''
+    items = [{"@type": "ListItem", "position": i, "url": f"https://www.layerone.co.in/writing/{x}", "name": short_title(BY[x])} for i, x in enumerate(AI_PATH, 1) if x in BY]
+    ldj = json.dumps({"@context": "https://schema.org", "@type": "CollectionPage", "name": f"{n}: a practical course",
+                      "url": f"https://www.layerone.co.in/writing/topics/{k}", "description": d,
+                      "publisher": {"@type": "Organization", "name": "Layer One"},
+                      "mainEntity": {"@type": "ItemList", "itemListOrder": "https://schema.org/ItemListOrderAscending", "itemListElement": items}}, ensure_ascii=False)
+    h = reader_head(f"AI-Ready Design Systems: A {len(AI_PATH)}-Part Course | Layer One",
+                    "A 20-part course on making your design system usable by AI agents: tokens, metadata, docs, AGENTS.md, MCP, Figma, guardrails, and the problems teams hit most.",
+                    2, extra=f'<script type="application/ld+json">{ldj}</script>')
+    write(f"writing/topics/{k}.html", h + page(p, 2, content))
+
+
 def build_topics():
     p = "../../"
     for k, n, d in TOPICS:
+        if k == "ai-ready-design-systems":
+            build_ai_topic(k, n, d)
+            continue
         arts = [a for a in A if a["topic"] == k]
         arts.sort(key=lambda a: not a.get("pillar"))
         cards = "".join(ecard(a, p, eager=i < 3) for i, a in enumerate(arts)) + "".join(ecard(None, p, ext=m) for m in MEDIUM_POSTS if m[2] == k)

@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why Does AI Ignore My Design System? 10 Causes and Fixes | Layer One</title>
+<meta name="description" content="Why Cursor, Claude Code, Copilot and AI prototyping tools ignore your components and tokens: ten causes, how to diagnose each in minutes, and the fixes.">
+<meta property="og:title" content="Why Does AI Ignore My Design System? 10 Causes and Fixes | Layer One">
+<meta property="og:description" content="Why Cursor, Claude Code, Copilot and AI prototyping tools ignore your components and tokens: ten causes, how to diagnose each in minutes, and the fixes.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-18">
+<meta property="article:modified_time" content="2026-11-18">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="AI-ready design systems">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/why-ai-ignores-design-system.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Why Does AI Ignore My Design System? 10 Causes and Fixes | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/writing.css?v=f693a735">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<meta name="keywords" content="AI ignores design system, Cursor not using my components, Claude Code design system components, AI uses Tailwind default colors, AI generated UI off-brand, fix AI design system">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Why Does AI Ignore My Design System? 10 Causes and Fixes", "description": "Why Cursor, Claude Code, Copilot and AI prototyping tools ignore your components and tokens: ten causes, how to diagnose each in minutes, and the fixes.", "image": "https://www.layerone.co.in/assets/images/writing/why-ai-ignores-design-system.jpg", "datePublished": "2026-11-18", "dateModified": "2026-11-18", "mainEntityOfPage": "https://www.layerone.co.in/writing/why-ai-ignores-design-system", "wordCount": 2269, "articleSection": "AI-ready design systems", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}, "keywords": "AI ignores design system, Cursor not using my components, Claude Code design system components, AI uses Tailwind default colors, AI generated UI off-brand, fix AI design system", "isPartOf": {"@type": "CreativeWorkSeries", "name": "Making your design system AI-ready", "url": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "AI-ready design systems", "item": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}, {"@type": "ListItem", "position": 3, "name": "Why does AI ignore my design system? 10 causes and how to fix each", "item": "https://www.layerone.co.in/writing/why-ai-ignores-design-system"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Why does AI ignore my design system?", "acceptedAnswer": {"@type": "Answer", "text": "Usually because it never found the system, found legacy code first, couldn't tell similar tokens or components apart, had no usage rules to follow, or received no error when it went off-system. The model is rarely the cause."}}, {"@type": "Question", "name": "Why does Cursor or Claude Code not use my components?", "acceptedAnswer": {"@type": "Answer", "text": "Check the transcript. If it never opened your package, add a rules file (AGENTS.md or CLAUDE.md) naming the package and how to look components up. If it copied old components from nearby files, mark them deprecated and add a lint rule blocking new imports."}}, {"@type": "Question", "name": "How do I stop AI using Tailwind default colours?", "acceptedAnswer": {"@type": "Answer", "text": "Remove the default palette from your Tailwind theme so only semantic colour names exist, and add a lint rule that flags default palette classes with a message naming the semantic alternative."}}, {"@type": "Question", "name": "Will a better AI model fix this?", "acceptedAnswer": {"@type": "Answer", "text": "Partly at best. Better models follow instructions more reliably, but every model depends on the information and feedback it receives. System-side fixes help with every model."}}, {"@type": "Question", "name": "What's the fastest way to get AI to use my design system?", "acceptedAnswer": {"@type": "Answer", "text": "Add a short AGENTS.md section with your package name, a never-use list and a check command, then add lint rules for deprecated imports and raw values. Most teams see a clear improvement within a day or two."}}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/why-ai-ignores-design-system">
+<meta property="og:url" content="https://www.layerone.co.in/writing/why-ai-ignores-design-system">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Why Does AI Ignore My Design System? 10 Causes and Fixes | Layer One">
+<meta name="twitter:description" content="Why Cursor, Claude Code, Copilot and AI prototyping tools ignore your components and tokens: ten causes, how to diagnose each in minutes, and the fixes.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/why-ai-ignores-design-system.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading" title="Light or dark reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button><a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<main id="main" class="ed-wrap"><article class="ed-article">
+  <div class="ed-layout">
+    <aside class="ed-meta" aria-label="About this article"><div class="ed-meta-in">
+      <div class="ed-meta-who"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40"><p><b>Aniket Pandey</b><span>Founder, Layer One</span></p></div>
+      <dl class="ed-meta-dl"><div><dt>Published</dt><dd>18 November 2026</dd></div><div><dt>Reading time</dt><dd>10 minutes</dd></div><div><dt>Topic</dt><dd><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a></dd></div></dl>
+      <div class="ed-meta-sec"><p class="ed-meta-h">Making your design system AI-ready</p><ol class="ed-steps"><li><a href="/writing/ai-ready-design-system">What is an AI-ready design system?</a></li><li><a href="/writing/how-ai-agents-use-design-systems">How AI coding agents use your design system, and where they go wrong</a></li><li><a href="/writing/design-tokens-for-ai-agents">Design tokens for AI agents</a></li><li><a href="/writing/component-metadata-for-ai-agents">Component metadata for AI agents</a></li><li><a href="/writing/design-system-documentation-for-ai">Writing design system documentation AI agents can use, and how retrieval finds it</a></li><li><a href="/writing/agents-md-llms-txt-design-system">AGENTS.md, llms.txt and rules files for design systems</a></li><li><a href="/writing/design-system-mcp-server">Build an MCP server for your design system</a></li><li><a href="/writing/figma-mcp-design-to-code">Figma to code with AI</a></li><li><a href="/writing/ai-generated-ui-guardrails">Guardrails for AI-generated UI</a></li><li><a href="/writing/legacy-design-system-ai-ready">How to make a legacy design system AI-ready</a></li><li aria-current="step"><a href="/writing/why-ai-ignores-design-system">Why does AI ignore my design system?</a></li><li><a href="/writing/design-system-context-window">How much design system context does an AI agent need?</a></li><li><a href="/writing/ai-generated-ui-accessibility">Why is AI-generated UI inaccessible, and how can a design system fix it?</a></li><li><a href="/writing/figma-code-token-drift">Figma variables and code tokens out of sync?</a></li><li><a href="/writing/ai-prototyping-tools-design-system">How do I make Figma Make, v0 and Lovable use my design system?</a></li><li><a href="/writing/shadcn-ui-design-system-ai">Is shadcn/ui better for AI?</a></li><li><a href="/writing/designers-ai-ready-design-system">Can designers make a design system AI-ready without coding?</a></li><li><a href="/writing/ai-design-system-governance">Who owns the AI rules?</a></li><li><a href="/writing/design-system-ai-security">Is it safe to connect your design system to AI tools?</a></li><li><a href="/writing/ai-ready-design-system-roi">How do you prove the ROI of an AI-ready design system?</a></li></ol></div><div class="ed-meta-sec"><p class="ed-meta-h">Tags</p><ul class="ed-tags"><li>Troubleshooting</li><li>AI agents</li><li>Coding agents</li><li>Lint</li></ul></div><div class="ed-meta-sec"><p class="ed-meta-h">Share</p><p class="ed-share"><button type="button" data-copy="https://www.layerone.co.in/writing/why-ai-ignores-design-system">Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.layerone.co.in/writing/why-ai-ignores-design-system" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/intent/post?url=https://www.layerone.co.in/writing/why-ai-ignores-design-system" target="_blank" rel="noopener">X</a></p></div>
+    </div></aside>
+    <header class="ed-head">
+      <p class="ed-crumb"><a href="/writing">Writing</a><span aria-hidden="true">/</span><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a><span class="ed-crumb-s">Part 11 of 20 in <a href="/writing#ai-ready">Making your design system AI-ready</a></span></p>
+      <h1 class="ed-title">Why does AI ignore my design system? 10 causes and how to fix each</h1>
+      <p class="ed-dek">Generic buttons, Tailwind blues, a pile of divs from a Figma link. When AI tools ignore your design system, the cause is almost never the model. A ten-minute diagnosis, ten causes with their symptoms and fixes, and a one-week rescue plan.</p>
+      <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>10 min read · 18 November 2026</span></span></p>
+    </header>
+    <figure class="ed-cover"><img src="../assets/images/writing/why-ai-ignores-design-system.w1200.webp" alt="Diagram: an agent&#x27;s request passes three checks (did it find the system, where did it learn, did anything say it was wrong) before reaching on-system UI." width="1600" height="900" sizes="(max-width: 1024px) calc(100vw - 32px), 760px" fetchpriority="high" srcset="../assets/images/writing/why-ai-ignores-design-system.w480.webp 480w, ../assets/images/writing/why-ai-ignores-design-system.w800.webp 800w, ../assets/images/writing/why-ai-ignores-design-system.w1200.webp 1200w, ../assets/images/writing/why-ai-ignores-design-system.jpg 1600w" decoding="async"></figure>
+    <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>"It just doesn't use our components"</b></summary><ol><li><a href="#it-just-doesn-t-use-our-components">"It just doesn't use our components"</a></li><li><a href="#first-diagnose-three-questions-in-ten-minutes">First, diagnose: three questions in ten minutes</a></li><li><a href="#the-ten-causes-at-a-glance">The ten causes at a glance</a></li><li><a href="#discovery-problems">Discovery problems</a></li><li><a href="#wrong-source-problems">Wrong-source problems</a></li><li><a href="#missing-guidance-and-feedback-problems">Missing-guidance and feedback problems</a></li><li><a href="#context-and-tool-problems">Context and tool problems</a></li><li><a href="#a-one-week-rescue-plan">A one-week rescue plan</a></li><li><a href="#common-mistakes-when-troubleshooting">Common mistakes when troubleshooting</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+    <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>AI tools "ignore" a design system for one of ten reasons, and almost none of them are about the model. The agent <b>never found the system</b> (no rules file, no tools), <b>found the wrong version first</b> (legacy code outnumbers new code), <b>couldn't tell options apart</b> (undescribed tokens, overlapping components), <b>had nothing to follow</b> (no usage rules or patterns), <b>got no feedback</b> (no lint, loose types), or <b>was drowned in context</b>. Diagnose before fixing: read the agent's transcript, ask it where it learned each choice, and match the symptom to the cause in the table below. Each fix takes between an hour and a few weeks.</p>
+  <ul>
+    <li>The fastest single fix is usually a short AGENTS.md with your package name and a "never use" list.</li>
+    <li>If the agent's checks all pass on off-system code, the problem is the checks, not the agent.</li>
+    <li>Part 11 of 20 in the series on AI-ready design systems. Parts 11–20 answer the questions teams ask most.</li>
+  </ul>
+</div>
+
+<h2 id="it-just-doesn-t-use-our-components">"It just doesn't use our components"</h2>
+<p>This is the complaint we hear more than any other. A designer prototypes in an AI tool and gets generic shadcn-style buttons. An engineer asks a coding agent for a settings page and gets <code>bg-blue-600</code> everywhere. Someone pastes a Figma link and gets a pile of <code>&lt;div&gt;</code>s. The natural conclusion is that "AI doesn't work with design systems". The real story is more useful: an agent follows the path of least resistance through whatever information it can reach, and something on that path is pointing it away from your system.</p>
+<p><a href="/writing/how-ai-agents-use-design-systems">Part 2</a> explained the agent loop: read instructions, search, open files, write, check. This article turns that into a troubleshooting guide. It follows Harbor, the made-up design system at a made-up payroll company, Kestrel, that we've used throughout the series.</p>
+
+<h2 id="first-diagnose-three-questions-in-ten-minutes">First, diagnose: three questions in ten minutes</h2>
+<p>Don't start fixing until you know which of the ten causes you're dealing with. You can usually tell in ten minutes.</p>
+<ol class="w-steps">
+  <li><h3>What did it read?</h3><p>Open the agent's transcript or activity log. List every file it opened and every tool it called. Did any of them belong to the design system? If not, the problem is <b>discovery</b> (causes 1–3).</p></li>
+  <li><h3>Where did each choice come from?</h3><p>Ask in the same session: "For each component, token and helper you used, tell me where you learned about it." Answers like "I followed TeamCard.tsx" or "I used standard Tailwind colours" point to <b>wrong sources</b> (causes 4–6).</p></li>
+  <li><h3>Did anything tell it it was wrong?</h3><p>Run your lint and type check on its output. If they pass while the UI is clearly off-system, the problem is <b>missing feedback</b> (causes 7–8).</p></li>
+</ol>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Agent ignored the system</b><span>Start here</span></div><i>→</i>
+    <div><b>Opened any system file?</b><span>No → discovery: 1, 2, 3</span></div><i>→</i>
+    <div><b>Learned from the wrong place?</b><span>Yes → sources: 4, 5, 6</span></div><i>→</i>
+    <div><b>Checks passed anyway?</b><span>Yes → feedback: 7, 8</span></div><i>→</i>
+    <div class="hi"><b>Still wrong?</b><span>Context and tools: 9, 10</span></div>
+  </div>
+  <figcaption>A diagnostic path. Work left to right; most teams find their main cause in the first two boxes.</figcaption>
+</figure>
+
+<h2 id="the-ten-causes-at-a-glance">The ten causes at a glance</h2>
+<figure class="w-fig"><div class="w-tbl w-tbl--dense"><table>
+  <thead><tr><th>#</th><th>Cause</th><th>Typical symptom</th><th>Fix</th><th>Effort</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>No instructions at the start</td><td>Output depends on who wrote the prompt</td><td>AGENTS.md section in every repo</td><td>1 hour</td></tr>
+    <tr><td>2</td><td>System not reachable</td><td>Agent never opens anything from your package</td><td>Point to manifests; add MCP tools</td><td>1 day</td></tr>
+    <tr><td>3</td><td>Tool doesn't support your stack</td><td>Prototyping tool swaps in shadcn or generic components</td><td>Use the tool's design system import, or a supported package</td><td>1–5 days</td></tr>
+    <tr><td>4</td><td>Legacy code outnumbers new</td><td>Copies old components from nearby files</td><td>Deprecations, nested rules, lint, codemods</td><td>Weeks</td></tr>
+    <tr><td>5</td><td>Options can't be told apart</td><td>Picks the wrong blue or the wrong dialog</td><td>Token descriptions; sharper component purposes</td><td>Days</td></tr>
+    <tr><td>6</td><td>Training data wins</td><td>Tailwind defaults, Material habits, invented props</td><td>Semantic-only theme; precise types</td><td>Days</td></tr>
+    <tr><td>7</td><td>No usage rules or patterns</td><td>Right parts, wrong combination or variant</td><td>Metadata rules; pattern pages</td><td>Weeks</td></tr>
+    <tr><td>8</td><td>No feedback</td><td>"Done!" with off-system UI</td><td>Lint with fix-it messages; one check command</td><td>1–2 days</td></tr>
+    <tr><td>9</td><td>Too much context</td><td>Inconsistent results; ignores rules that exist</td><td>Shorter rules; fewer tools; progressive disclosure</td><td>Days</td></tr>
+    <tr><td>10</td><td>Figma file doesn't identify the system</td><td>Design-to-code makes divs and hex values</td><td>Variables, attached instances, Code Connect</td><td>Weeks</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Symptom → cause → fix. Effort is a rough guide for a mid-sized system.</figcaption></figure>
+
+<h2 id="discovery-problems">Discovery problems</h2>
+<h3>Cause 1: nothing tells the agent your system exists</h3>
+<p>Every agent session starts from zero. If nobody types "use Harbor" and no file says so, the agent has no reason to look. <b>Fix:</b> add a design system section to each product repo's AGENTS.md (or CLAUDE.md, or the tool's own rules file) naming the package, the "never use" list and the check command. The full template is in <a href="/writing/agents-md-llms-txt-design-system">part 6</a>. In AI prototyping tools, the equivalent is the tool's "guidelines" or "knowledge" feature (<a href="/writing/ai-prototyping-tools-design-system">part 15</a>).</p>
+<h3>Cause 2: the agent knows about the system but can't reach it</h3>
+<p>The rules file says "use Harbor", but the component list is a 4,000-line source folder, the docs are behind a login, and the tokens are in a SCSS file with no comments. The agent gives up and guesses. <b>Fix:</b> give it compact, reachable data: a component index and token manifest in the installed package (<a href="/writing/component-metadata-for-ai-agents">part 4</a>, <a href="/writing/design-tokens-for-ai-agents">part 3</a>), and ideally an MCP server that answers questions directly (<a href="/writing/design-system-mcp-server">part 7</a>).</p>
+<h3>Cause 3: the tool can't use your stack</h3>
+<p>Some AI tools only work with certain frameworks or package formats. Figma Make's design system kits, for instance, currently support React packages; many app builders are built around React, Tailwind and shadcn/ui. If your system is Angular, Vue or web components, a tool may quietly substitute its defaults. <b>Fix:</b> check each tool's supported formats before blaming the output. Where your stack isn't supported, give the tool your tokens and written guidelines at minimum, so the look is right even if the components aren't.</p>
+
+<h2 id="wrong-source-problems">Wrong-source problems</h2>
+<h3>Cause 4: legacy code is easier to find than the system</h3>
+<p>This is the most common cause in established products. If 60% of files import the old button, an agent searching for examples will find the old button first and copy it, because that's what "following the codebase's conventions" means.</p>
+<p class="scenario-t">An illustration: the copied card</p>
+<div class="scenario">
+  <div><span class="k">Symptom</span><p>Kestrel's agents keep producing <code>LegacyCard</code> even after AGENTS.md says to use Harbor.</p></div>
+  <div><span class="k">Diagnosis</span><p>The transcript shows the agent searched for "Card", opened three feature files, and all three used <code>LegacyCard</code>. Code it read beat the rule it was told.</p></div>
+  <div><span class="k">Fix</span><p>A nested AGENTS.md in <code>src/legacy/</code> ("being removed; don't copy"), a lint error on new imports with the replacement named, and a codemod for the 40 most-copied files.</p></div>
+</div>
+<p><b>Fix:</b> mark old code as old where the agent will see it (deprecation tags, nested rules files), make new imports of it fail lint, and migrate the most-copied files first. See <a href="/writing/legacy-design-system-ai-ready">part 10</a>.</p>
+<h3>Cause 5: the agent can't tell your options apart</h3>
+<p>Six pale blues with no descriptions, or <code>Modal</code>, <code>Dialog</code> and <code>Sheet</code> with purposes that overlap. The agent picks one, often the wrong one. <b>Fix:</b> a <code>$description</code> on every semantic token ("Use for… Not for… Use instead…") and component purposes that don't overlap, each with "avoid when" pointing to the alternative. If you can't write purposes that don't overlap, merge the components.</p>
+<h3>Cause 6: training data wins</h3>
+<p>Models have seen millions of files using Tailwind's default palette and popular component libraries. When your system is unclear or absent, those habits fill the gap: <code>rounded-lg shadow-md bg-white</code>, <code>&lt;Button variant="destructive"&gt;</code>, <code>size="large"</code>. <b>Fix:</b> make the defaults impossible or loudly wrong. Remove Tailwind's default palette from your theme so only semantic classes exist; type every option prop as a union so invented values fail to compile. Details in parts <a href="/writing/design-tokens-for-ai-agents">3</a> and <a href="/writing/component-metadata-for-ai-agents">4</a>.</p>
+
+<h2 id="missing-guidance-and-feedback-problems">Missing-guidance and feedback problems</h2>
+<h3>Cause 7: the parts are there, the rules aren't</h3>
+<p>The agent uses Harbor's real components but builds a settings page with three primary buttons, a table where a list would do, and an empty state with an illustration for a search that found nothing. Each part is correct; the combination isn't. <b>Fix:</b> write usage rules into component metadata ("one primary per view") and write pattern pages for the screens you build often (forms, tables, empty states, settings). Agents retrieve them when the docs are structured for retrieval (<a href="/writing/design-system-documentation-for-ai">part 5</a>).</p>
+<h3>Cause 8: nothing says "wrong"</h3>
+<p>If lint and type checks pass on off-system code, the agent reports success, and so would a person. This is the cause that hides all the others. <b>Fix:</b> lint rules for deprecated imports, raw colours and Tailwind defaults, each with a message naming the replacement; one <code>check</code> command; and a line in AGENTS.md telling the agent to run it. Agents read error messages and fix their own work (<a href="/writing/ai-generated-ui-guardrails">part 9</a>).</p>
+<figure class="w-fig">
+  <div class="w-chat">
+    <div class="t"><span class="k">Tool call · run</span>pnpm check</div>
+    <div class="r"><span class="k">Result</span>SettingsPage.tsx 18:5 error  Raw colour in style. Use a semantic token, e.g. var(--color-text-secondary).
+SettingsPage.tsx 3:10 error  Modal is deprecated. Use Dialog, or ConfirmDialog to confirm an action.</div>
+    <div class="a"><span class="k">Agent</span>Replaced the hex value with var(--color-text-secondary) and Modal with ConfirmDialog. All checks pass.</div>
+  </div>
+  <figcaption><span class="ev ev--ill">Illustration</span> Feedback turns "ignored the system" into "corrected itself" in the same session.</figcaption>
+</figure>
+
+<h2 id="context-and-tool-problems">Context and tool problems</h2>
+<h3>Cause 9: too much information</h3>
+<p>The opposite of cause 2. A 1,500-line rules file, twelve MCP servers, and a prompt with the whole docs site pasted in. The rules you care about are buried and the agent applies them inconsistently. <b>Fix:</b> a short rules file that links out, a handful of task-shaped tools, and details loaded only when needed. <a href="/writing/design-system-context-window">Part 12</a> covers this in depth.</p>
+<h3>Cause 10: the Figma file doesn't say which system it uses</h3>
+<p>Design-to-code tools convert what the file says. Detached instances, raw hex fills and frames named "Frame 4182" carry no link to your components or tokens. <b>Fix:</b> variables named like your tokens, attached library instances, auto layout, and Code Connect for your most-used components (<a href="/writing/figma-mcp-design-to-code">part 8</a>). If variables and tokens have drifted apart, start with <a href="/writing/figma-code-token-drift">part 14</a>.</p>
+
+<h2 id="a-one-week-rescue-plan">A one-week rescue plan</h2>
+<p>If agents are ignoring your system today and you need visible improvement quickly, this order gives the most improvement per hour:</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Day</th><th>Do</th><th>Fixes causes</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Run three real tasks with an agent; save transcripts; score the output</td><td>Diagnosis</td></tr>
+    <tr><td>1</td><td>Add the AGENTS.md section to the busiest product repo</td><td>1, 4 (partly)</td></tr>
+    <tr><td>2</td><td>Add <code>no-restricted-imports</code> for legacy packages and a raw-colour rule, as errors on changed files</td><td>4, 8</td></tr>
+    <tr><td>3</td><td>Write descriptions for the 30 most-used semantic tokens; remove Tailwind's default palette</td><td>5, 6</td></tr>
+    <tr><td>4</td><td>Write purpose and "avoid when" for the 10 most-used components; fix overlapping ones</td><td>5, 7</td></tr>
+    <tr><td>5</td><td>Rerun the three tasks; compare scores; decide what's next</td><td>Measure</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Five days, no new infrastructure. MCP servers, metadata files and Figma work come next, once you know which causes remain.</figcaption></figure>
+
+<h2 id="common-mistakes-when-troubleshooting">Common mistakes when troubleshooting</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">MISTAKE</span><h4>Switching models first</h4><p>A newer model may follow instructions better, but it can't use information it never sees. Fix the system, then compare models on the same tasks.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Longer and longer prompts</h4><p>Each failure adds a sentence to everyone's prompt. Move the rule into a file or a lint rule so it applies automatically.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Judging from one run</h4><p>Agents vary between runs. Run each test task several times before deciding something worked.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Fixing the code, not the cause</h4><p>Correcting the agent's output by hand fixes one screen. Correcting the description, rule or lint message fixes every future screen.</p></div>
+</div>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>AI "ignores" design systems because of discovery, wrong sources, missing rules, missing feedback, context overload or unprepared Figma files.</li>
+  <li>Diagnose with three questions: what did it read, where did each choice come from, did anything say it was wrong?</li>
+  <li>The quickest wins: an AGENTS.md section, lint with fix-it messages, token descriptions and a semantic-only theme.</li>
+  <li>Legacy code that outnumbers new code is the most common cause in older products.</li>
+  <li>Fix the source of each mistake, not just the output.</li>
+</ul></div>
+<p>Next: <a href="/writing/design-system-context-window">How much design system context does an AI agent need?</a></p>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Why does AI ignore my design system?</summary><div><p>Usually because it never found the system, found legacy code first, couldn't tell similar tokens or components apart, had no usage rules to follow, or received no error when it went off-system. The model is rarely the cause.</p></div></details>
+  <details><summary>Why does Cursor or Claude Code not use my components?</summary><div><p>Check the transcript. If it never opened your package, add a rules file (AGENTS.md or CLAUDE.md) naming the package and how to look components up. If it copied old components from nearby files, mark them deprecated and add a lint rule blocking new imports.</p></div></details>
+  <details><summary>How do I stop AI using Tailwind default colours?</summary><div><p>Remove the default palette from your Tailwind theme so only semantic colour names exist, and add a lint rule that flags default palette classes with a message naming the semantic alternative.</p></div></details>
+  <details><summary>Will a better AI model fix this?</summary><div><p>Partly at best. Better models follow instructions more reliably, but every model depends on the information and feedback it receives. System-side fixes help with every model.</p></div></details>
+  <details><summary>What's the fastest way to get AI to use my design system?</summary><div><p>Add a short AGENTS.md section with your package name, a never-use list and a check command, then add lint rules for deprecated imports and raw values. Most teams see a clear improvement within a day or two.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="/writing/how-ai-agents-use-design-systems">How AI coding agents use your design system</a><span>The agent loop behind every cause in this article.</span></li>
+  <li><a href="/writing/ai-generated-ui-guardrails">Guardrails for AI-generated UI</a><span>Lint, tests and evals in detail.</span></li>
+  <li><a href="https://agents.md/" target="_blank" rel="noopener">AGENTS.md</a><span>The open format for agent instructions.</span></li>
+  <li><a href="https://tailwindcss.com/docs/theme" target="_blank" rel="noopener">Tailwind CSS: theme variables</a><span>Resetting default namespaces in v4.</span></li>
+</ul>
+</div>
+    <aside class="ed-aside" aria-label="On this page"><nav class="ed-toc"><p>On this page</p><ol><li><a href="#it-just-doesn-t-use-our-components">"It just doesn't use our components"</a></li><li><a href="#first-diagnose-three-questions-in-ten-minutes">First, diagnose: three questions in ten minutes</a></li><li><a href="#the-ten-causes-at-a-glance">The ten causes at a glance</a></li><li><a href="#discovery-problems">Discovery problems</a></li><li><a href="#wrong-source-problems">Wrong-source problems</a></li><li><a href="#missing-guidance-and-feedback-problems">Missing-guidance and feedback problems</a></li><li><a href="#context-and-tool-problems">Context and tool problems</a></li><li><a href="#a-one-week-rescue-plan">A one-week rescue plan</a></li><li><a href="#common-mistakes-when-troubleshooting">Common mistakes when troubleshooting</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><a class="ed-top" href="#main">Back to top ↑</a></nav></aside>
+  </div>
+  <footer class="ed-end">
+    <section class="ed-more" aria-labelledby="more-h"><h2 class="ed-sec-h" id="more-h">next in making your design system ai-ready:</h2><div class="ec-grid"><a class="ec " href="/writing/design-system-context-window" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/design-system-context-window.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-system-context-window.w480.webp 480w, ../assets/images/writing/design-system-context-window.w800.webp 800w, ../assets/images/writing/design-system-context-window.w1200.webp 1200w, ../assets/images/writing/design-system-context-window.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">How much design system context does an AI agent need? Avoiding context overload</b><span class="ec-d">Why giving AI agents your whole design system makes results worse: context windows, rules file length, too many MCP tools and progressive disclosure.</span><span class="ec-f">9 min read</span></a><a class="ec " href="/writing/how-ai-agents-use-design-systems" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/how-ai-agents-use-design-systems.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/how-ai-agents-use-design-systems.w480.webp 480w, ../assets/images/writing/how-ai-agents-use-design-systems.w800.webp 800w, ../assets/images/writing/how-ai-agents-use-design-systems.w1200.webp 1200w, ../assets/images/writing/how-ai-agents-use-design-systems.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">How AI coding agents use your design system, and where they go wrong</b><span class="ec-d">What Claude Code, Cursor, Copilot and Codex read when they build UI, why they copy legacy code and hard-code values, and a one-hour audit to run.</span><span class="ec-f">12 min read</span></a><a class="ec " href="/writing/agents-md-llms-txt-design-system" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/agents-md-llms-txt-design-system.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/agents-md-llms-txt-design-system.w480.webp 480w, ../assets/images/writing/agents-md-llms-txt-design-system.w800.webp 800w, ../assets/images/writing/agents-md-llms-txt-design-system.w1200.webp 1200w, ../assets/images/writing/agents-md-llms-txt-design-system.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">AGENTS.md, llms.txt and rules files for design systems</b><span class="ec-d">What a design system should put in AGENTS.md, CLAUDE.md, Cursor and Copilot rules, how to sync many repos, and how to write llms.txt for your docs.</span><span class="ec-f">13 min read</span></a></div></section>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Working on this in your own product?</h2><p>Most teams we work with start with a two-week audit: every style, component and token, checked and ranked.</p></div><a href="/pricing">How the audit works <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main><footer class="ed-foot"><div class="ed-foot-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
+  <nav aria-label="Studio"><a href="/work">Work</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/contact">Contact</a><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">LinkedIn</a><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></nav>
+</div></footer><script src="../assets/site.js?v=3de6a9b6" defer></script>
+</body>
+</html>

@@ -1,0 +1,299 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p><b>Component metadata</b> is a machine-readable description of each component: its <b>status</b> (stable, beta, deprecated), <b>purpose</b>, <b>props</b> with types, allowed values and defaults, <b>variants and when to use each</b>, <b>composition rules</b> (what it must sit inside, what it accepts as children), <b>accessibility requirements</b>, <b>alternatives</b> and <b>examples</b>. Generate everything you can from code (TypeScript types and JSDoc, extracted by tools such as react-docgen-typescript, Storybook's component manifest or the Custom Elements Manifest), and add a small hand-written file for the judgement that types can't hold. Agents use this metadata to pick the right component, use the right variant, and catch their own mistakes.</p>
+  <ul>
+    <li>Types are the strongest metadata: a union of allowed values turns an invented prop into a compile error.</li>
+    <li>Usage rules ("one primary button per view") need words, so they go in a metadata file.</li>
+    <li>Part 4 of 20 in the series on AI-ready design systems.</li>
+  </ul>
+</div>
+
+<h2>The problem: the right component, the wrong way</h2>
+<p>In <a href="/writing/design-tokens-for-ai-agents">part 3</a> we fixed how agents choose tokens. Components are harder, because choosing is only the start. The agent also has to pick a variant, pass valid props, nest it correctly, and meet accessibility rules. Here's a typical failure in Harbor, the made-up system we follow through this series.</p>
+<p class="scenario-t">An illustration: removing an employee</p>
+<div class="scenario">
+  <div><span class="k">The task</span><p>"Add a 'Remove from payroll' action to the employee page. Ask for confirmation first."</p></div>
+  <div><span class="k">What the agent wrote</span><p><code>&lt;Modal&gt;</code> from the legacy folder, a <code>&lt;Button variant="destructive"&gt;</code> (Harbor's value is <code>danger</code>), and a primary "Cancel" button. Harbor's <code>ConfirmDialog</code>, built for exactly this job, was never considered.</p></div>
+  <div><span class="k">Why</span><p>Harbor has <code>Modal</code>, <code>Dialog</code>, <code>AlertDialog</code> and <code>ConfirmDialog</code>. Their docs pages show what each looks like but not when to use which. <code>Button</code>'s <code>variant</code> prop is typed as <code>string</code>, so nothing caught <code>"destructive"</code>; the button silently rendered with no styles.</p></div>
+</div>
+<p>A designer at Kestrel would know that "confirming a destructive action" means <code>ConfirmDialog</code> with <code>tone="danger"</code>. That knowledge is real, it's just stored in people. Component metadata is where you write it down so an agent can use it.</p>
+<div class="callout callout--term"><span class="callout-k">New words</span><p><b>Metadata:</b> data that describes something else. Here, structured facts about a component, as opposed to the component's code itself. <b>Schema:</b> a formal description of what valid data looks like, such as "<code>variant</code> must be one of primary, secondary or danger". <b>JSON Schema</b> is a widely used standard for writing schemas for JSON data.</p></div>
+
+<h2>What component metadata should contain</h2>
+<p>Think of metadata as the answers to every question a careful new engineer would ask before using a component. Here are the fields we recommend, why each matters to an agent, and where its value should come from.</p>
+<figure class="w-fig"><div class="w-tbl w-tbl--dense"><table>
+  <thead><tr><th>Field</th><th>Example (Harbor's Button)</th><th>Why agents need it</th><th>Source</th></tr></thead>
+  <tbody>
+    <tr><td><b>name, import</b></td><td><code>Button</code> from <code>@kestrel/harbor</code></td><td>Exact import path, so it doesn't import a lookalike</td><td>Code</td></tr>
+    <tr><td><b>status</b></td><td>stable · beta · deprecated</td><td>Avoids retired components; treats beta with care</td><td>Code (<code>@deprecated</code>) + meta</td></tr>
+    <tr><td><b>purpose</b></td><td>"Triggers an action. For navigation use Link."</td><td>Matching a task to a component</td><td>JSDoc</td></tr>
+    <tr><td><b>props</b></td><td><code>variant: "primary" | "secondary" | "danger"</code></td><td>Valid props and values; no invented APIs</td><td>Types</td></tr>
+    <tr><td><b>usage rules</b></td><td>"At most one primary per view."</td><td>Choosing the right variant</td><td>Meta file</td></tr>
+    <tr><td><b>composition</b></td><td>"Inside a Form, use type=submit."</td><td>Nesting things correctly</td><td>Meta file</td></tr>
+    <tr><td><b>accessibility</b></td><td>"Icon-only buttons require aria-label."</td><td>Output people can actually use</td><td>Meta file + types</td></tr>
+    <tr><td><b>alternatives</b></td><td>Link, IconButton, MenuItem</td><td>Recovering from a wrong first choice</td><td>Meta file</td></tr>
+    <tr><td><b>examples</b></td><td>Story code for each common case</td><td>Copyable, correct starting points</td><td>Stories</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Nine fields. Generate the first four from code; write the next four by hand; take examples from stories you already have.</figcaption></figure>
+
+<h2>Layer 1: make the code describe itself</h2>
+<p>The best metadata can't go out of date because it <i>is</i> the code. Start by making your component types as precise as possible and adding JSDoc comments, which tools can extract.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">BEFORE</span><h4>Loose types, no comments</h4><pre><code>type ButtonProps = {
+  variant?: string;
+  size?: string;
+  icon?: any;
+  onClick?: () =&gt; void;
+};</code></pre><p>Any string passes. <code>variant="destructive"</code> compiles fine and renders an unstyled button. Nothing tells the agent it guessed wrong.</p></div>
+  <div class="cell"><span class="k">AFTER</span><h4>Precise types, documented</h4><pre><code>type ButtonProps = {
+  /** Visual weight. One primary
+   *  per view. Use danger only for
+   *  destructive actions. */
+  variant?: "primary" | "secondary"
+    | "ghost" | "danger";
+  /** @default "md" */
+  size?: "sm" | "md";
+  …
+};</code></pre><p>Wrong values are compile errors, and the agent sees the rule when it opens the file.</p></div>
+</div>
+<p>Here's the full component file Kestrel's team ended up with. Note the <code>@deprecated</code> tag on the old export: TypeScript editors and many agents show it, and lint rules can enforce it.</p>
+<pre><code><span class="c">// packages/harbor/src/Button/Button.tsx</span>
+<span class="k">import</span> * <span class="k">as</span> React <span class="k">from</span> <span class="s">"react"</span>;
+
+<span class="k">export type</span> ButtonProps = Omit&lt;React.ButtonHTMLAttributes&lt;HTMLButtonElement&gt;, <span class="s">"type"</span>&gt; &amp; {
+  <span class="c">/**
+   * Visual weight of the button.
+   * - primary: the single main action in a view. Never more than one.
+   * - secondary: any other action. The default choice.
+   * - ghost: low-emphasis actions in toolbars and table rows.
+   * - danger: actions that delete or remove data. Pair with ConfirmDialog.
+   * @default "secondary"
+   */</span>
+  variant?: <span class="s">"primary"</span> | <span class="s">"secondary"</span> | <span class="s">"ghost"</span> | <span class="s">"danger"</span>;
+  <span class="c">/** @default "md". Use "sm" only inside dense tables and toolbars. */</span>
+  size?: <span class="s">"sm"</span> | <span class="s">"md"</span>;
+  <span class="c">/** Shows a spinner and blocks clicks. Keep the label unchanged. */</span>
+  loading?: boolean;
+  <span class="c">/** Use "submit" when the button submits a Form. @default "button" */</span>
+  type?: <span class="s">"button"</span> | <span class="s">"submit"</span>;
+  children: React.ReactNode;
+};
+
+<span class="c">/**
+ * Triggers an action on the current page.
+ * For moving to another page use Link; for icon-only actions use IconButton.
+ */</span>
+<span class="k">export function</span> Button({ variant = <span class="s">"secondary"</span>, size = <span class="s">"md"</span>, type = <span class="s">"button"</span>, ...rest }: ButtonProps) { <span class="c">/* … */</span> }
+
+<span class="c">/** @deprecated Use Button with variant="primary". Removed in Harbor 7.0. */</span>
+<span class="k">export const</span> BtnPrimary = (p: Omit&lt;ButtonProps, <span class="s">"variant"</span>&gt;) =&gt; &lt;Button variant=<span class="s">"primary"</span> {...p} /&gt;;</code></pre>
+<div class="callout callout--tip"><span class="callout-k">Tip</span><p>Make <code>secondary</code> the default variant, not <code>primary</code>. When an agent omits the prop, the safe, low-emphasis choice wins, and primary becomes a deliberate decision rather than an accident repeated on every button.</p></div>
+
+<h2>Layer 2: extract it into data</h2>
+<p>Agents can read source files, but reading forty component files to find the right one fills the context window (see <a href="/writing/how-ai-agents-use-design-systems">part 2</a>). It's better to extract the types and comments into one compact JSON document per component. There are several established tools for this; which one you use depends on your stack.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Tool</th><th>For</th><th>What it produces</th><th>Choose it when</th></tr></thead>
+  <tbody>
+    <tr><td><b>react-docgen-typescript</b></td><td>React + TypeScript</td><td>Component descriptions, props, types, allowed values, defaults</td><td>You want full control and a simple build step</td></tr>
+    <tr><td><b>Storybook component manifest</b></td><td>Storybook 10.3+ with React</td><td>Names, descriptions, props and usage examples from stories, served by the MCP addon</td><td>You already have good stories; you want an MCP server with little code</td></tr>
+    <tr><td><b>Custom Elements Manifest</b></td><td>Web components</td><td><code>custom-elements.json</code>: attributes, properties, events, slots, CSS parts</td><td>Your system is built with Lit, Stencil or plain custom elements</td></tr>
+    <tr><td><b>Hand-written schema</b></td><td>Anything</td><td>Exactly the fields you design</td><td>You support several frameworks, or need fields no tool extracts</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Four ways to get component data. Most teams combine one extractor with a hand-written usage file.</figcaption></figure>
+<p>Here's a short extraction script using react-docgen-typescript. The option <code>shouldExtractLiteralValuesFromEnum</code> turns a union like <code>"primary" | "secondary"</code> into a list of allowed values, which is exactly what an agent needs.</p>
+<pre><code><span class="c">// scripts/extract-props.mjs</span>
+<span class="k">import</span> { withDefaultConfig } <span class="k">from</span> <span class="s">"react-docgen-typescript"</span>;
+<span class="k">import</span> { globSync, writeFileSync } <span class="k">from</span> <span class="s">"node:fs"</span>;
+
+<span class="k">const</span> parser = withDefaultConfig({
+  shouldExtractLiteralValuesFromEnum: <span class="k">true</span>,
+  shouldRemoveUndefinedFromOptional: <span class="k">true</span>,
+  propFilter: (prop) =&gt; !prop.parent?.fileName.includes(<span class="s">"node_modules"</span>), <span class="c">// skip inherited HTML props</span>
+});
+
+<span class="k">const</span> docs = parser.parse(globSync(<span class="s">"src/*/[A-Z]*.tsx"</span>));
+writeFileSync(<span class="s">"dist/props.json"</span>, JSON.stringify(docs, <span class="k">null</span>, 2));</code></pre>
+<p>(<code>globSync</code> from <code>node:fs</code> needs Node 22 or later; on older versions use the <code>glob</code> package.) The <code>propFilter</code> matters: without it, every button inherits around 250 HTML attributes, burying the four props that matter.</p>
+
+<h2>Layer 3: write down the judgement</h2>
+<p>Types say what's <i>allowed</i>. They can't say what's <i>right</i>: one primary per view, use ConfirmDialog for destructive actions, put help text below a field and not in a tooltip. That judgement goes in a small metadata file next to each component, written by the system team and reviewed like code.</p>
+<pre><code><span class="c">// packages/harbor/src/ConfirmDialog/ConfirmDialog.meta.json</span>
+{
+  <span class="s">"$schema"</span>: <span class="s">"../../schema/component-meta.schema.json"</span>,
+  <span class="s">"name"</span>: <span class="s">"ConfirmDialog"</span>,
+  <span class="s">"status"</span>: <span class="s">"stable"</span>,
+  <span class="s">"category"</span>: <span class="s">"feedback"</span>,
+  <span class="s">"purpose"</span>: <span class="s">"Asks the user to confirm an action before it happens, especially one that deletes data or can't be undone."</span>,
+  <span class="s">"useWhen"</span>: [
+    <span class="s">"Deleting, removing or cancelling something"</span>,
+    <span class="s">"An action affects other people (e.g. running payroll)"</span>
+  ],
+  <span class="s">"avoidWhen"</span>: [
+    { <span class="s">"case"</span>: <span class="s">"The action is easy to undo"</span>, <span class="s">"use"</span>: <span class="s">"Toast with an Undo action"</span> },
+    { <span class="s">"case"</span>: <span class="s">"You need a form inside the dialog"</span>, <span class="s">"use"</span>: <span class="s">"Dialog"</span> }
+  ],
+  <span class="s">"rules"</span>: [
+    <span class="s">"Title is a question naming the action: 'Remove Ana Silva from payroll?'"</span>,
+    <span class="s">"Confirm label repeats the verb: 'Remove', never 'OK' or 'Yes'"</span>,
+    <span class="s">"Use tone='danger' for destructive actions; the confirm button then renders as variant='danger'"</span>,
+    <span class="s">"Cancel is always secondary and receives focus first"</span>
+  ],
+  <span class="s">"accessibility"</span>: [
+    <span class="s">"Renders role='alertdialog' and traps focus; don't wrap it in another Dialog"</span>
+  ],
+  <span class="s">"alternatives"</span>: [<span class="s">"Dialog"</span>, <span class="s">"Toast"</span>],
+  <span class="s">"replaces"</span>: [<span class="s">"Modal (legacy)"</span>, <span class="s">"AlertDialog"</span>],
+  <span class="s">"examples"</span>: [<span class="s">"ConfirmDialog.stories.tsx#DestructiveRemove"</span>]
+}</code></pre>
+<p>Keep these files short. If a rule needs a paragraph of explanation, it belongs in the docs (see <a href="/writing/design-system-documentation-for-ai">part 5</a>), and the metadata can link to it.</p>
+
+<h3>A schema for the metadata itself</h3>
+<p>If forty people write metadata files by hand, they'll invent forty shapes. A JSON Schema for the metadata file makes editors autocomplete the fields and lets CI reject malformed files. Here's a compact version:</p>
+<pre><code>{
+  <span class="s">"$schema"</span>: <span class="s">"https://json-schema.org/draft/2020-12/schema"</span>,
+  <span class="s">"$id"</span>: <span class="s">"https://harbor.kestrel.example/schema/component-meta.json"</span>,
+  <span class="s">"type"</span>: <span class="s">"object"</span>,
+  <span class="s">"required"</span>: [<span class="s">"name"</span>, <span class="s">"status"</span>, <span class="s">"purpose"</span>, <span class="s">"useWhen"</span>],
+  <span class="s">"additionalProperties"</span>: <span class="k">false</span>,
+  <span class="s">"properties"</span>: {
+    <span class="s">"$schema"</span>: { <span class="s">"type"</span>: <span class="s">"string"</span> },
+    <span class="s">"name"</span>: { <span class="s">"type"</span>: <span class="s">"string"</span>, <span class="s">"pattern"</span>: <span class="s">"^[A-Z][A-Za-z]+$"</span> },
+    <span class="s">"status"</span>: { <span class="s">"enum"</span>: [<span class="s">"stable"</span>, <span class="s">"beta"</span>, <span class="s">"deprecated"</span>] },
+    <span class="s">"category"</span>: { <span class="s">"enum"</span>: [<span class="s">"actions"</span>, <span class="s">"forms"</span>, <span class="s">"feedback"</span>, <span class="s">"navigation"</span>, <span class="s">"data-display"</span>, <span class="s">"layout"</span>, <span class="s">"overlays"</span>] },
+    <span class="s">"purpose"</span>: { <span class="s">"type"</span>: <span class="s">"string"</span>, <span class="s">"minLength"</span>: 20, <span class="s">"maxLength"</span>: 240 },
+    <span class="s">"useWhen"</span>: { <span class="s">"type"</span>: <span class="s">"array"</span>, <span class="s">"items"</span>: { <span class="s">"type"</span>: <span class="s">"string"</span> }, <span class="s">"minItems"</span>: 1 },
+    <span class="s">"avoidWhen"</span>: { <span class="s">"type"</span>: <span class="s">"array"</span>, <span class="s">"items"</span>: {
+      <span class="s">"type"</span>: <span class="s">"object"</span>, <span class="s">"required"</span>: [<span class="s">"case"</span>, <span class="s">"use"</span>],
+      <span class="s">"properties"</span>: { <span class="s">"case"</span>: { <span class="s">"type"</span>: <span class="s">"string"</span> }, <span class="s">"use"</span>: { <span class="s">"type"</span>: <span class="s">"string"</span> } } } },
+    <span class="s">"rules"</span>: { <span class="s">"type"</span>: <span class="s">"array"</span>, <span class="s">"items"</span>: { <span class="s">"type"</span>: <span class="s">"string"</span> } },
+    <span class="s">"accessibility"</span>: { <span class="s">"type"</span>: <span class="s">"array"</span>, <span class="s">"items"</span>: { <span class="s">"type"</span>: <span class="s">"string"</span> } },
+    <span class="s">"alternatives"</span>: { <span class="s">"type"</span>: <span class="s">"array"</span>, <span class="s">"items"</span>: { <span class="s">"type"</span>: <span class="s">"string"</span> } },
+    <span class="s">"replaces"</span>: { <span class="s">"type"</span>: <span class="s">"array"</span>, <span class="s">"items"</span>: { <span class="s">"type"</span>: <span class="s">"string"</span> } },
+    <span class="s">"replacedBy"</span>: { <span class="s">"type"</span>: <span class="s">"string"</span> },
+    <span class="s">"examples"</span>: { <span class="s">"type"</span>: <span class="s">"array"</span>, <span class="s">"items"</span>: { <span class="s">"type"</span>: <span class="s">"string"</span> } }
+  },
+  <span class="s">"if"</span>: { <span class="s">"properties"</span>: { <span class="s">"status"</span>: { <span class="s">"const"</span>: <span class="s">"deprecated"</span> } } },
+  <span class="s">"then"</span>: { <span class="s">"required"</span>: [<span class="s">"replacedBy"</span>] }
+}</code></pre>
+<p>The last two lines encode a rule worth enforcing: <b>a deprecated component must name its replacement.</b> That's the single field that most often rescues an agent that found the old component first.</p>
+
+<h2>Putting it together: one inventory for agents</h2>
+<p>The build combines the three layers into a single file: a short entry per component for discovery, and full detail available on request. This is what your rules file points to (<a href="/writing/agents-md-llms-txt-design-system">part 6</a>) and what an MCP server serves (<a href="/writing/design-system-mcp-server">part 7</a>).</p>
+<figure class="w-fig">
+  <div class="w-arch">
+    <div class="w-arch-row"><span class="w-arch-k">Inputs</span><div class="w-arch-n"><div><b>Button.tsx</b><span>Types + JSDoc</span></div><div><b>Button.meta.json</b><span>Usage rules</span></div><div><b>Button.stories.tsx</b><span>Examples</span></div></div></div>
+    <div class="w-arch-link">build script: extract, validate against the schema, merge</div>
+    <div class="w-arch-row"><span class="w-arch-k">Output</span><div class="w-arch-n"><div class="hi"><b>components.agent.json</b><span>Index: name, status, category, purpose for every component</span></div><div class="lt"><b>components/Button.json</b><span>Full detail: props, rules, accessibility, examples</span></div></div></div>
+    <div class="w-arch-link">served to</div>
+    <div class="w-arch-row"><span class="w-arch-k">Agents</span><div class="w-arch-n"><div><b>Read the index first</b><span>Small enough to load every time</span></div><div><b>Then one detail file</b><span>Only for the component chosen</span></div></div></div>
+  </div>
+  <figcaption>Two levels: a short index for choosing, and a detail file for using. This keeps the agent's context small, as described in part 2.</figcaption>
+</figure>
+<pre><code><span class="c">// dist/components.agent.json (the index, abridged)</span>
+{
+  <span class="s">"package"</span>: <span class="s">"@kestrel/harbor"</span>,
+  <span class="s">"version"</span>: <span class="s">"6.4.0"</span>,
+  <span class="s">"components"</span>: [
+    { <span class="s">"name"</span>: <span class="s">"Button"</span>, <span class="s">"status"</span>: <span class="s">"stable"</span>, <span class="s">"category"</span>: <span class="s">"actions"</span>,
+      <span class="s">"purpose"</span>: <span class="s">"Triggers an action on the current page. For navigation use Link."</span> },
+    { <span class="s">"name"</span>: <span class="s">"ConfirmDialog"</span>, <span class="s">"status"</span>: <span class="s">"stable"</span>, <span class="s">"category"</span>: <span class="s">"feedback"</span>,
+      <span class="s">"purpose"</span>: <span class="s">"Asks the user to confirm an action, especially one that deletes data."</span> },
+    { <span class="s">"name"</span>: <span class="s">"Modal"</span>, <span class="s">"status"</span>: <span class="s">"deprecated"</span>, <span class="s">"replacedBy"</span>: <span class="s">"Dialog or ConfirmDialog"</span> }
+  ]
+}</code></pre>
+
+<h2>How an agent discovers and selects a component</h2>
+<p>With the inventory in place, here's the "Remove from payroll" task again, step by step. The agent's choices are now driven by your written rules rather than by whichever file it opened first.</p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>1 · Task</b><span>"Confirm before removing an employee"</span></div><i>→</i>
+    <div><b>2 · Scan index</b><span>Match "confirm", "removing" against purpose: ConfirmDialog, Dialog</span></div><i>→</i>
+    <div><b>3 · Load detail</b><span>ConfirmDialog.useWhen includes "Deleting, removing…"</span></div><i>→</i>
+    <div><b>4 · Apply rules</b><span>Title as a question; confirm label "Remove"; tone="danger"</span></div><i>→</i>
+    <div class="hi"><b>5 · Write and check</b><span>Types reject invalid props; lint rejects Modal</span></div>
+  </div>
+  <figcaption>Component selection, from task to verified code. Each step uses one layer of metadata: the index, the meta file, the types.</figcaption>
+</figure>
+<pre><code><span class="c">// What the agent writes</span>
+&lt;ConfirmDialog
+  open={confirming}
+  tone=<span class="s">"danger"</span>
+  title={<span class="s">`Remove ${employee.name} from payroll?`</span>}
+  description=<span class="s">"They won't be included in future pay runs. Past payslips are kept."</span>
+  confirmLabel=<span class="s">"Remove"</span>
+  onConfirm={removeEmployee}
+  onCancel={() =&gt; setConfirming(<span class="k">false</span>)}
+/&gt;</code></pre>
+
+<h2>Composition and dependencies</h2>
+<p>Many agent mistakes aren't about one component but about how components fit together: a <code>TextField</code> outside a <code>FormField</code> loses its label association; a <code>Tab</code> outside <code>Tabs</code> does nothing. Write these relationships down, and, where possible, enforce them in code.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Relationship</th><th>Example</th><th>Write it as</th><th>Enforce it with</th></tr></thead>
+  <tbody>
+    <tr><td>Must be inside</td><td><code>Tab</code> inside <code>Tabs</code></td><td><code>"rules": ["Only inside Tabs"]</code></td><td>A runtime error in development if context is missing</td></tr>
+    <tr><td>Accepts only</td><td><code>Menu</code> accepts <code>MenuItem</code></td><td>A rule, plus a typed <code>children</code></td><td>Compound components (<code>Menu.Item</code>) that make the right thing obvious</td></tr>
+    <tr><td>Requires a prop when</td><td>Icon-only <code>IconButton</code> needs <code>aria-label</code></td><td>An accessibility rule</td><td>Make <code>aria-label</code> required in the type</td></tr>
+    <tr><td>Peer dependency</td><td>Toasts need <code>&lt;ToastProvider&gt;</code> at the app root</td><td>A setup note in the index</td><td>A clear error message naming the provider</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Prefer enforcement over description. An error message an agent reads during a type check is worth ten rules it might skip. See <a href="/writing/component-composition-slots">composition and slots</a>.</figcaption></figure>
+
+<h2>How to check your metadata works</h2>
+<ol class="w-steps">
+  <li><h3>Validate every file in CI</h3><p>Compile the schema with a validator such as Ajv and fail the build if any <code>.meta.json</code> is invalid or any exported component has no metadata file.</p></li>
+  <li><h3>Check coverage</h3><p>Every stable component has a purpose, at least one <code>useWhen</code>, and an example. Every deprecated one has <code>replacedBy</code>.</p></li>
+  <li><h3>Run a selection test</h3><p>Write 20 short tasks ("show three key figures with an action", "pick one date") with the expected component for each. Give an agent only the index and ask it to choose. Aim for 18 or more correct.</p></li>
+  <li><h3>Look for near-misses</h3><p>When the selection test picks wrongly, compare the two components' purposes. Usually they overlap. Sharpen the wording, or merge the components.</p></li>
+</ol>
+<pre><code><span class="c">// scripts/validate-meta.mjs</span>
+<span class="k">import</span> Ajv2020 <span class="k">from</span> <span class="s">"ajv/dist/2020.js"</span>;
+<span class="k">import</span> { readFileSync, globSync } <span class="k">from</span> <span class="s">"node:fs"</span>;
+
+<span class="k">const</span> ajv = <span class="k">new</span> Ajv2020({ allErrors: <span class="k">true</span> });
+<span class="k">const</span> validate = ajv.compile(JSON.parse(readFileSync(<span class="s">"schema/component-meta.schema.json"</span>, <span class="s">"utf8"</span>)));
+<span class="k">let</span> failed = <span class="k">false</span>;
+<span class="k">for</span> (<span class="k">const</span> file <span class="k">of</span> globSync(<span class="s">"src/**/*.meta.json"</span>)) {
+  <span class="k">if</span> (!validate(JSON.parse(readFileSync(file, <span class="s">"utf8"</span>)))) {
+    failed = <span class="k">true</span>;
+    console.error(file, validate.errors);
+  }
+}
+process.exit(failed ? 1 : 0);</code></pre>
+
+<h2>Common mistakes</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">MISTAKE</span><h4>Metadata that repeats the types</h4><p>Hand-writing prop lists that the code already declares means two sources that will disagree. Generate props; hand-write only judgement.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Purposes that describe looks</h4><p>"A rounded box with a shadow" doesn't help an agent choose. "Groups related content about one subject" does.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Overlapping components left alone</h4><p>If you can't write purposes for Dialog and Modal that don't overlap, you have one component too many. Metadata work often surfaces this.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Huge index entries</h4><p>If the index includes every prop of every component, it's too big to load each time. Keep the index to a line per component.</p></div>
+</div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Component metadata answers: what is it for, is it current, what props are valid, when to use which variant, how it fits with others.</li>
+  <li>Make code describe itself first: precise union types, JSDoc, <code>@deprecated</code> with a replacement.</li>
+  <li>Extract types into data with react-docgen-typescript, Storybook's manifest or the Custom Elements Manifest.</li>
+  <li>Hand-write judgement in a small, schema-validated metadata file per component.</li>
+  <li>Publish a short index for choosing and a detail file for using, and test that agents choose correctly.</li>
+</ul></div>
+<p>Next: <a href="/writing/design-system-documentation-for-ai">Writing documentation AI agents can use</a>, for the knowledge that's too rich for metadata: patterns, content guidelines and the reasoning behind decisions.</p>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>What is component metadata in a design system?</summary><div><p>Structured, machine-readable facts about each component: its status, purpose, props and allowed values, usage rules, composition rules, accessibility requirements, alternatives and examples. It lets tools and AI agents choose and use components correctly without reading every source file.</p></div></details>
+  <details><summary>How do AI agents know which component variant to use?</summary><div><p>Only if the rule is written somewhere they read: in JSDoc on the prop, in a metadata file, or in a tool result. Precise union types tell them which variants exist; usage rules tell them which one fits the task.</p></div></details>
+  <details><summary>Should I use JSON Schema for component props?</summary><div><p>You can, but if your components are written in TypeScript, the types are already a schema. Extract them with a tool such as react-docgen-typescript, and use JSON Schema to validate your hand-written metadata files instead.</p></div></details>
+  <details><summary>What is a Custom Elements Manifest?</summary><div><p>A community standard JSON file, custom-elements.json, that describes web components: their attributes, properties, events, slots and CSS parts. Tools generate it from source code, and it's a ready-made metadata source for web component design systems.</p></div></details>
+  <details><summary>How do I mark a component as deprecated for AI agents?</summary><div><p>Add a JSDoc @deprecated tag naming the replacement, set status to deprecated with replacedBy in its metadata, list it in your rules file's "never use" section, and add a lint rule that blocks new imports.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://github.com/styleguidist/react-docgen-typescript" target="_blank" rel="noopener">react-docgen-typescript</a><span>Extracts component and prop documentation from TypeScript.</span></li>
+  <li><a href="https://storybook.js.org/docs/ai/manifests" target="_blank" rel="noopener">Storybook: component manifests</a><span>Storybook's structured description of documented components.</span></li>
+  <li><a href="https://custom-elements-manifest.open-wc.org/" target="_blank" rel="noopener">Custom Elements Manifest</a><span>The metadata standard and analyzer for web components.</span></li>
+  <li><a href="https://json-schema.org/learn/getting-started-step-by-step" target="_blank" rel="noopener">JSON Schema: getting started</a><span>A step-by-step introduction to writing schemas.</span></li>
+  <li><a href="/writing/component-props-best-practices">Component props best practices</a><span>Designing APIs that are hard to misuse, for people and agents.</span></li>
+</ul>

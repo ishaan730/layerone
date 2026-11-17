@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Figma MCP Server and Code Connect: AI Design-to-Code Setup | Layer One</title>
+<meta name="description" content="Get on-system code from Figma: connect the Figma MCP server, match variables to tokens, mirror props in properties and map components with Code Connect.">
+<meta property="og:title" content="Figma MCP Server and Code Connect: AI Design-to-Code Setup | Layer One">
+<meta property="og:description" content="Get on-system code from Figma: connect the Figma MCP server, match variables to tokens, mirror props in properties and map components with Code Connect.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-17">
+<meta property="article:modified_time" content="2026-11-17">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="AI-ready design systems">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/figma-mcp-design-to-code.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Figma MCP Server and Code Connect: AI Design-to-Code Setup | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/writing.css?v=f693a735">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<meta name="keywords" content="Figma MCP server, Figma to code AI, Code Connect, Figma variables design tokens, Figma Dev Mode MCP, design to code">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Figma MCP Server and Code Connect: AI Design-to-Code Setup", "description": "Get on-system code from Figma: connect the Figma MCP server, match variables to tokens, mirror props in properties and map components with Code Connect.", "image": "https://www.layerone.co.in/assets/images/writing/figma-mcp-design-to-code.jpg", "datePublished": "2026-11-17", "dateModified": "2026-11-17", "mainEntityOfPage": "https://www.layerone.co.in/writing/figma-mcp-design-to-code", "wordCount": 2750, "articleSection": "AI-ready design systems", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}, "keywords": "Figma MCP server, Figma to code AI, Code Connect, Figma variables design tokens, Figma Dev Mode MCP, design to code", "isPartOf": {"@type": "CreativeWorkSeries", "name": "Making your design system AI-ready", "url": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "AI-ready design systems", "item": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}, {"@type": "ListItem", "position": 3, "name": "Figma to code with AI", "item": "https://www.layerone.co.in/writing/figma-mcp-design-to-code"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the Figma MCP server?", "acceptedAnswer": {"@type": "Answer", "text": "Figma's official Model Context Protocol server. It lets AI coding agents read design context from Figma files (layer structure, variables, component names, screenshots and Code Connect mappings) so they can implement designs in code. It's available as a remote server hosted by Figma and as a desktop server."}}, {"@type": "Question", "name": "What is Figma Code Connect?", "acceptedAnswer": {"@type": "Answer", "text": "A Figma feature that links design components to the real code components, including how Figma properties map to props. Dev Mode and the Figma MCP server can then show your actual component code instead of generated approximations. It's available on Organization and Enterprise plans."}}, {"@type": "Question", "name": "Why does Figma-to-code AI ignore my design system?", "acceptedAnswer": {"@type": "Answer", "text": "Usually because the file doesn't identify the system: detached instances, raw values instead of variables, components without Code Connect, and properties that don't match code props. The agent converts what it sees."}}, {"@type": "Question", "name": "Should Figma variable names match design token names?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Use the same structure (color/bg/surface in Figma, color.bg.surface in tokens, --color-bg-surface in CSS), set code syntax on each variable, and generate variables from the token source so they can't drift."}}, {"@type": "Question", "name": "Do I need to clean up every Figma file for AI?", "acceptedAnswer": {"@type": "Answer", "text": "No. Get the library right first, then apply a short \"ready for build\" checklist to frames that will be implemented: attached instances, auto layout, bound variables and meaningful frame names."}}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/figma-mcp-design-to-code">
+<meta property="og:url" content="https://www.layerone.co.in/writing/figma-mcp-design-to-code">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Figma MCP Server and Code Connect: AI Design-to-Code Setup | Layer One">
+<meta name="twitter:description" content="Get on-system code from Figma: connect the Figma MCP server, match variables to tokens, mirror props in properties and map components with Code Connect.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/figma-mcp-design-to-code.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading" title="Light or dark reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button><a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<main id="main" class="ed-wrap"><article class="ed-article">
+  <div class="ed-layout">
+    <aside class="ed-meta" aria-label="About this article"><div class="ed-meta-in">
+      <div class="ed-meta-who"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40"><p><b>Aniket Pandey</b><span>Founder, Layer One</span></p></div>
+      <dl class="ed-meta-dl"><div><dt>Published</dt><dd>17 November 2026</dd></div><div><dt>Reading time</dt><dd>12 minutes</dd></div><div><dt>Topic</dt><dd><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a></dd></div></dl>
+      <div class="ed-meta-sec"><p class="ed-meta-h">Making your design system AI-ready</p><ol class="ed-steps"><li><a href="/writing/ai-ready-design-system">What is an AI-ready design system?</a></li><li><a href="/writing/how-ai-agents-use-design-systems">How AI coding agents use your design system, and where they go wrong</a></li><li><a href="/writing/design-tokens-for-ai-agents">Design tokens for AI agents</a></li><li><a href="/writing/component-metadata-for-ai-agents">Component metadata for AI agents</a></li><li><a href="/writing/design-system-documentation-for-ai">Writing design system documentation AI agents can use, and how retrieval finds it</a></li><li><a href="/writing/agents-md-llms-txt-design-system">AGENTS.md, llms.txt and rules files for design systems</a></li><li><a href="/writing/design-system-mcp-server">Build an MCP server for your design system</a></li><li aria-current="step"><a href="/writing/figma-mcp-design-to-code">Figma to code with AI</a></li><li><a href="/writing/ai-generated-ui-guardrails">Guardrails for AI-generated UI</a></li><li><a href="/writing/legacy-design-system-ai-ready">How to make a legacy design system AI-ready</a></li><li><a href="/writing/why-ai-ignores-design-system">Why does AI ignore my design system?</a></li><li><a href="/writing/design-system-context-window">How much design system context does an AI agent need?</a></li><li><a href="/writing/ai-generated-ui-accessibility">Why is AI-generated UI inaccessible, and how can a design system fix it?</a></li><li><a href="/writing/figma-code-token-drift">Figma variables and code tokens out of sync?</a></li><li><a href="/writing/ai-prototyping-tools-design-system">How do I make Figma Make, v0 and Lovable use my design system?</a></li><li><a href="/writing/shadcn-ui-design-system-ai">Is shadcn/ui better for AI?</a></li><li><a href="/writing/designers-ai-ready-design-system">Can designers make a design system AI-ready without coding?</a></li><li><a href="/writing/ai-design-system-governance">Who owns the AI rules?</a></li><li><a href="/writing/design-system-ai-security">Is it safe to connect your design system to AI tools?</a></li><li><a href="/writing/ai-ready-design-system-roi">How do you prove the ROI of an AI-ready design system?</a></li></ol></div><div class="ed-meta-sec"><p class="ed-meta-h">Tags</p><ul class="ed-tags"><li>Figma</li><li>Code Connect</li><li>Variables</li><li>Design to code</li></ul></div><div class="ed-meta-sec"><p class="ed-meta-h">Share</p><p class="ed-share"><button type="button" data-copy="https://www.layerone.co.in/writing/figma-mcp-design-to-code">Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.layerone.co.in/writing/figma-mcp-design-to-code" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/intent/post?url=https://www.layerone.co.in/writing/figma-mcp-design-to-code" target="_blank" rel="noopener">X</a></p></div>
+    </div></aside>
+    <header class="ed-head">
+      <p class="ed-crumb"><a href="/writing">Writing</a><span aria-hidden="true">/</span><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a><span class="ed-crumb-s">Part 8 of 20 in <a href="/writing#ai-ready">Making your design system AI-ready</a></span></p>
+      <h1 class="ed-title">Figma to code with AI: preparing your library for the Figma MCP server and Code Connect</h1>
+      <p class="ed-dek">Design-to-code agents convert what the Figma file says. Detached instances and raw values become hard-coded divs; variables and Code Connect become your real components and tokens. A six-step setup, with a before-and-after from the same frame.</p>
+      <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>12 min read · 17 November 2026</span></span></p>
+    </header>
+    <figure class="ed-cover"><img src="../assets/images/writing/figma-mcp-design-to-code.w1200.webp" alt="Diagram: a Figma frame&#x27;s variables and Code Connect mappings pass through the Figma MCP server to a coding agent, which writes code with real components and tokens." width="1600" height="900" sizes="(max-width: 1024px) calc(100vw - 32px), 760px" fetchpriority="high" srcset="../assets/images/writing/figma-mcp-design-to-code.w480.webp 480w, ../assets/images/writing/figma-mcp-design-to-code.w800.webp 800w, ../assets/images/writing/figma-mcp-design-to-code.w1200.webp 1200w, ../assets/images/writing/figma-mcp-design-to-code.jpg 1600w" decoding="async"></figure>
+    <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>The problem: the agent can only see what the file says</b></summary><ol><li><a href="#the-problem-the-agent-can-only-see-what-the-file-says">The problem: the agent can only see what the file says</a></li><li><a href="#how-the-figma-mcp-server-works">How the Figma MCP server works</a></li><li><a href="#step-1-connect-the-server">Step 1: connect the server</a></li><li><a href="#step-2-make-variables-match-your-tokens">Step 2: make variables match your tokens</a></li><li><a href="#step-3-make-component-properties-mirror-code-props">Step 3: make component properties mirror code props</a></li><li><a href="#step-4-clean-product-files-where-it-matters">Step 4: clean product files where it matters</a></li><li><a href="#step-5-connect-components-with-code-connect">Step 5: connect components with Code Connect</a></li><li><a href="#step-6-generate-a-design-system-rules-file">Step 6: generate a design-system rules file</a></li><li><a href="#before-and-after-the-payslip-card">Before and after: the payslip card</a></li><li><a href="#how-to-prompt-from-a-figma-frame">How to prompt from a Figma frame</a></li><li><a href="#how-to-check-it-works">How to check it works</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+    <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>Figma's <b>MCP server</b> lets coding agents read a Figma frame's structure, variables, component names and screenshots, so they can turn designs into code. What they produce depends on how the file is built. To get code that uses your real design system: use <b>variables</b> for every colour, spacing and radius, named to match your code tokens and with code syntax set; build components with <b>properties that mirror code props</b> (Variant = primary, secondary, danger); write <b>component descriptions</b>; keep instances <b>attached</b> and layouts in <b>auto layout</b>; and connect Figma components to code components with <b>Code Connect</b>, so the agent sees your real import and props instead of a description of rectangles. Then generate a design system rules file and prompt with a link to a specific frame.</p>
+  <ul>
+    <li>Without Code Connect, the agent sees what a button looks like. With it, it sees <code>&lt;Button variant="danger"&gt;</code>.</li>
+    <li>If a designer used a raw hex instead of a variable, the variable tools have nothing to return.</li>
+    <li>Part 8 of 20 in the series on AI-ready design systems.</li>
+  </ul>
+</div>
+
+<h2 id="the-problem-the-agent-can-only-see-what-the-file-says">The problem: the agent can only see what the file says</h2>
+<p>So far this series has prepared the code side: tokens (<a href="/writing/design-tokens-for-ai-agents">part 3</a>), component metadata (part 4), docs (part 5), rules files (part 6) and an MCP server (<a href="/writing/design-system-mcp-server">part 7</a>). But many UI tasks start in Figma: "build this screen". When an agent reads a Figma frame, it gets layers, properties and values. If the file is messy, the code will be too.</p>
+<p class="scenario-t">An illustration: the payslip screen</p>
+<div class="scenario">
+  <div><span class="k">The frame</span><p>A designer's payslip screen. Half the buttons are detached instances. The card is a frame called "Frame 4182" with a hard-coded <code>#F6F8FB</code> fill. Spacing is a mix of 14, 16 and 18px. The table is grouped rectangles.</p></div>
+  <div><span class="k">What the agent wrote</span><p>A new <code>PayslipCard</code> with inline styles, three hard-coded colours, a hand-built table with <code>&lt;div&gt;</code>s, and buttons styled to look like Harbor's but not actually Harbor's.</p></div>
+  <div><span class="k">Why</span><p>The agent faithfully converted what it saw. Detached instances and raw values carry no link to the system, so there was nothing to tell it "this is Harbor's Button" or "this is <code>bg.surface.subtle</code>".</p></div>
+</div>
+
+<h2 id="how-the-figma-mcp-server-works">How the Figma MCP server works</h2>
+<p>Figma offers an official MCP server in two forms: a <b>remote server</b> hosted by Figma at <code>https://mcp.figma.com/mcp</code>, which Figma recommends for most people, and a <b>desktop server</b> that runs through the Figma desktop app for specific organisational needs. With the remote server you give the agent a link to a frame or layer; the desktop server can also work from your current selection.</p>
+<figure class="w-fig">
+  <div class="w-arch">
+    <div class="w-arch-row"><span class="w-arch-k">Figma file</span><div class="w-arch-n"><div><b>Frame</b><span>Layers, auto layout, instances</span></div><div><b>Variables</b><span>Names, values, modes, code syntax</span></div><div><b>Library components</b><span>Names, properties, descriptions</span></div><div class="hi"><b>Code Connect</b><span>Figma component → code component</span></div></div></div>
+    <div class="w-arch-link">Figma MCP server: design context, variable definitions, screenshot, Code Connect map</div>
+    <div class="w-arch-row"><span class="w-arch-k">Coding agent</span><div class="w-arch-n"><div class="lt"><b>Combines</b><span>Figma's context + your rules file + your Harbor MCP tools</span></div></div></div>
+    <div class="w-arch-link">writes</div>
+    <div class="w-arch-row"><span class="w-arch-k">Code</span><div class="w-arch-n"><div><b>Real imports</b><span><code>import { Button } from "@kestrel/harbor"</code></span></div><div><b>Real tokens</b><span><code>var(--color-bg-surface-subtle)</code></span></div></div></div>
+  </div>
+  <figcaption>Figma-to-code-to-agent architecture. Figma's server explains the design; your server and rules explain the code. The agent needs both.</figcaption>
+</figure>
+<p>At the time of writing, the server's tools include, among others:</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Tool</th><th>What it returns</th><th>Depends on in your file</th></tr></thead>
+  <tbody>
+    <tr><td><code>get_design_context</code></td><td>The main design-to-code context for a layer or selection; defaults to React and Tailwind, adaptable by prompt</td><td>Auto layout, instance names, variables, Code Connect</td></tr>
+    <tr><td><code>get_variable_defs</code></td><td>The variables and styles used in a selection (colours, spacing, type)</td><td>Values bound to variables, not typed in</td></tr>
+    <tr><td><code>get_metadata</code></td><td>A lightweight outline of the layer tree (names, types, positions)</td><td>Meaningful layer names</td></tr>
+    <tr><td><code>get_screenshot</code></td><td>An image of the selection, so the layout stays accurate</td><td>Nothing; it's always useful</td></tr>
+    <tr><td><code>get_code_connect_map</code></td><td>Which Figma components map to which code components</td><td>Code Connect set up for the library</td></tr>
+    <tr><td><code>create_design_system_rules</code></td><td>A rules file to guide agents turning designs into code for your system</td><td>A well-structured library</td></tr>
+  </tbody>
+</table></div>
+<figcaption><span class="ev ev--doc">Documented</span> Figma adds and renames tools regularly, and some features depend on your plan and seat type. Check Figma's MCP documentation, or the tool list your client shows, for the current set.</figcaption></figure>
+<div class="callout callout--term"><span class="callout-k">New words</span><p><b>Variable:</b> Figma's name for a stored value (colour, number, string, boolean) that layers can be bound to, with modes such as light and dark: Figma's equivalent of a design token. <b>Code syntax:</b> a setting on a variable that records its name in code, such as <code>var(--color-bg-surface)</code>. <b>Code Connect:</b> Figma's way of linking a design component to the real code component and showing a code snippet for it. <b>Detached instance:</b> a copy of a component that's been disconnected from the library, so it no longer updates and no longer identifies as that component.</p></div>
+
+<h2 id="step-1-connect-the-server">Step 1: connect the server</h2>
+<p>Setup takes a few minutes. For Claude Code with the remote server:</p>
+<pre><code>claude mcp add --transport http figma https://mcp.figma.com/mcp
+<span class="c"># then run /mcp inside Claude Code and sign in to Figma when prompted</span></code></pre>
+<p>Other clients (Cursor, VS Code, Codex) add the same URL in their MCP settings. Figma's docs list the exact steps for each. Commit nothing secret: the sign-in happens per person through OAuth.</p>
+
+<h2 id="step-2-make-variables-match-your-tokens">Step 2: make variables match your tokens</h2>
+<p>This is the most important step. When a frame's values are bound to variables whose names match your code tokens, the agent can write <code>var(--color-feedback-info-bg)</code> directly. When they're raw values, it can only copy the hex.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Code token (DTCG)</th><th>Figma variable</th><th>Code syntax (Web)</th></tr></thead>
+  <tbody>
+    <tr><td><code>color.bg.surface</code></td><td><code>color/bg/surface</code></td><td><code>var(--color-bg-surface)</code></td></tr>
+    <tr><td><code>color.feedback.info.bg</code></td><td><code>color/feedback/info/bg</code></td><td><code>var(--color-feedback-info-bg)</code></td></tr>
+    <tr><td><code>space.inset.md</code></td><td><code>space/inset/md</code></td><td><code>var(--space-inset-md)</code></td></tr>
+    <tr><td><code>radius.control</code></td><td><code>radius/control</code></td><td><code>var(--radius-control)</code></td></tr>
+  </tbody>
+</table></div>
+<figcaption>One name, three spellings. Slashes in Figma create groups; dots in tokens; hyphens in CSS. The structure is identical, so a tool can convert between them.</figcaption></figure>
+<ol class="w-steps">
+  <li><h3>Generate Figma variables from the token source</h3><p>Keep the DTCG files as the source (part 3) and sync them into Figma with a plugin such as Tokens Studio, or with Figma's Variables REST API (available on Enterprise plans). Hand-maintaining both sides guarantees drift.</p></li>
+  <li><h3>Hide primitives from publishing</h3><p>Put primitive colours in a separate collection and hide them from publishing, so designers bind layers to semantic variables only, just as product code uses semantic tokens only.</p></li>
+  <li><h3>Set code syntax on every semantic variable</h3><p>In the variable's settings, add the Web code syntax (<code>var(--color-bg-surface)</code>). Dev Mode then shows the CSS name, and tools working from the file can use it.</p></li>
+  <li><h3>Add descriptions</h3><p>Variables have a description field. Copy each token's <code>$description</code> into it as part of the sync, so designers see the same "Use for… Not for…" guidance that agents do.</p></li>
+</ol>
+
+<h2 id="step-3-make-component-properties-mirror-code-props">Step 3: make component properties mirror code props</h2>
+<p>A Figma component's properties should be the same decisions as the code component's props, with the same names and values wherever possible. Then a mapping (step 5) is mechanical, and anyone, person or agent, can move between the two.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">BEFORE</span><h4>Figma organised by appearance</h4><pre><code>Button
+  Type: Filled / Outline / Text / Red
+  State: Default / Hover / Disabled
+  Has icon: Yes / No
+  Size: 32 / 40</code></pre><p>"Red" is a colour, not a job; "Outline" doesn't exist in code; sizes are pixel values.</p></div>
+  <div class="cell"><span class="k">AFTER</span><h4>Figma organised like the code</h4><pre><code>Button
+  Variant: Primary / Secondary / Ghost / Danger
+  Size: Small / Medium
+  Disabled: true / false     (boolean)
+  Loading: true / false      (boolean)
+  Label: "Save changes"      (text)
+  Icon start: ⟨instance swap⟩</code></pre><p>The same four variants as the <code>variant</code> prop. Hover is shown in the playground, not as a variant to pick.</p></div>
+</div>
+<ul class="checklist">
+  <li><b>Use text properties for labels,</b> so the agent receives "Remove from payroll" as data, not as a layer named "Label".</li>
+  <li><b>Use boolean properties for on/off props,</b> and instance-swap properties for slots like icons.</li>
+  <li><b>Fill in the component description</b> with the same purpose sentence as the code metadata: "Triggers an action on the current page. For navigation use Link."</li>
+  <li><b>Link the description to the docs page</b> using the component's documentation link field.</li>
+</ul>
+<p>More on library organisation in <a href="/writing/figma-library-structure">organising a Figma library</a>.</p>
+
+<h2 id="step-4-clean-product-files-where-it-matters">Step 4: clean product files where it matters</h2>
+<p>The library can be perfect and a product file can still confuse an agent. You don't need to clean every file. Focus on frames that will be handed to agents, and ask designers to follow four habits:</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Habit</th><th>Why it matters to the agent</th></tr></thead>
+  <tbody>
+    <tr><td><b>Use library instances; don't detach</b></td><td>An attached instance says "this is Harbor's Button, variant Danger". A detached one is anonymous rectangles.</td></tr>
+    <tr><td><b>Use auto layout</b></td><td>Auto layout converts naturally into flex and grid layouts with gaps from spacing variables. Absolute positioning turns into brittle coordinates.</td></tr>
+    <tr><td><b>Name meaningful frames</b></td><td>"Payslip summary" and "Deductions table" become component and section names. "Frame 4182" becomes <code>Frame4182</code>.</td></tr>
+    <tr><td><b>Bind every value to a variable</b></td><td>No variable, no token. Library analytics and linting plugins can find raw values.</td></tr>
+  </tbody>
+</table></div></figure>
+<div class="callout callout--tip"><span class="callout-k">Tip</span><p>Make a "ready for build" checklist part of design handoff: instances attached, auto layout, variables bound, frames named. It's the same checklist good engineering handoff always needed. Agents just make the cost of skipping it visible immediately.</p></div>
+
+<h2 id="step-5-connect-components-with-code-connect">Step 5: connect components with Code Connect</h2>
+<p><b>Code Connect</b> links each Figma component to its code component, including how Figma properties map to props. Once it's set up, the Figma MCP server can give the agent your actual component and props instead of a description of what the design looks like. It's available on Figma's Organization and Enterprise plans.</p>
+<p>There are two ways to set it up: <b>Code Connect UI</b>, mapping components inside Figma without code, and the <b>Code Connect CLI</b>, which keeps mappings as files in your repo. The CLI version is more precise and is reviewed like code, so it's what we recommend for design system teams.</p>
+<pre><code><span class="c">// packages/harbor/src/Button/Button.figma.tsx</span>
+<span class="k">import</span> figma <span class="k">from</span> <span class="s">"@figma/code-connect"</span>;
+<span class="k">import</span> { Button } <span class="k">from</span> <span class="s">"./Button"</span>;
+
+figma.connect(Button, <span class="s">"https://www.figma.com/design/AbC123/Harbor?node-id=12-345"</span>, {
+  props: {
+    label: figma.string(<span class="s">"Label"</span>),
+    variant: figma.enum(<span class="s">"Variant"</span>, {
+      Primary: <span class="s">"primary"</span>,
+      Secondary: <span class="s">"secondary"</span>,
+      Ghost: <span class="s">"ghost"</span>,
+      Danger: <span class="s">"danger"</span>,
+    }),
+    size: figma.enum(<span class="s">"Size"</span>, { Small: <span class="s">"sm"</span>, Medium: <span class="s">"md"</span> }),
+    disabled: figma.boolean(<span class="s">"Disabled"</span>),
+    loading: figma.boolean(<span class="s">"Loading"</span>),
+  },
+  example: ({ label, variant, size, disabled, loading }) =&gt; (
+    &lt;Button variant={variant} size={size} disabled={disabled} loading={loading}&gt;
+      {label}
+    &lt;/Button&gt;
+  ),
+});</code></pre>
+<pre><code><span class="c">// figma.config.json at the package root</span>
+{ <span class="s">"codeConnect"</span>: { <span class="s">"include"</span>: [<span class="s">"src/**/*.figma.tsx"</span>] } }</code></pre>
+<pre><code>npm install --save-dev @figma/code-connect
+npx figma connect publish     <span class="c"># needs a Figma access token with Code Connect write access</span></code></pre>
+<p>Publish from CI on each release, so the mappings always match the version in the library. Start with your 10 most-used components; they cover most of any screen.</p>
+
+<h2 id="step-6-generate-a-design-system-rules-file">Step 6: generate a design-system rules file</h2>
+<p>Figma's server includes a tool, <code>create_design_system_rules</code>, that drafts a rules file describing how designs in your files should become code in your project. Run it once, then edit it and merge it into the AGENTS.md from <a href="/writing/agents-md-llms-txt-design-system">part 6</a>, so there's one set of rules rather than two that disagree.</p>
+<pre><code><span class="c">&lt;!-- AGENTS.md: added section --&gt;</span>
+## Implementing Figma designs
+- Use the Figma MCP server for design context and a screenshot of the linked frame.
+- When Code Connect returns a component, use exactly that component and its props.
+- When it doesn't, call harbor.search_components before writing anything new.
+- Map Figma variables to CSS variables by name (color/bg/surface → var(--color-bg-surface)).
+- Never copy hex values or pixel sizes from Figma output. If a value has no variable,
+  call harbor.search_tokens and mention the unbound value in your reply.
+- Don't add Tailwind defaults or new components to match a design.</code></pre>
+
+<h2 id="before-and-after-the-payslip-card">Before and after: the payslip card</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">FROM A MESSY FRAME</span><pre><code>export function Frame4182() {
+  return (
+    &lt;div style={{ background: "#F6F8FB",
+      padding: 18, borderRadius: 10 }}&gt;
+      &lt;div style={{ fontSize: 15,
+        color: "#5A6270" }}&gt;Net pay&lt;/div&gt;
+      &lt;div style={{ fontSize: 28 }}&gt;
+        ₹84,250&lt;/div&gt;
+      &lt;button className="bg-blue-600
+        text-white rounded-lg px-4"&gt;
+        Download payslip&lt;/button&gt;
+    &lt;/div&gt;
+  );
+}</code></pre></div>
+  <div class="cell"><span class="k">FROM A READY FRAME</span><pre><code>import { StatCard, Button } from
+  "@kestrel/harbor";
+import { formatMoney } from
+  "@kestrel/harbor/format";
+
+export function PayslipSummary({ payslip }) {
+  return (
+    &lt;StatCard
+      title="Net pay"
+      stats={[{ label: "This month",
+        value: formatMoney(payslip.net,
+          "INR") }]}
+      action={&lt;Button variant="secondary"&gt;
+        Download payslip&lt;/Button&gt;}
+    /&gt;
+  );
+}</code></pre></div>
+</div>
+<p>Same design, same agent. The second result came from attached instances with Code Connect, bound variables, a named frame, and the rules above.</p>
+
+<h2 id="how-to-prompt-from-a-figma-frame">How to prompt from a Figma frame</h2>
+<p>Even with a clean file, the prompt matters. Link to a specific frame, not a whole page, and say what to reuse.</p>
+<figure class="w-fig">
+  <div class="w-chat">
+    <div class="u"><span class="k">A good prompt</span>Implement this frame as PayslipSummary in src/features/payslips: https://www.figma.com/design/AbC123/Payroll?node-id=210-88. Use Code Connect components where available, Harbor's tokens for every value, and existing helpers for money and dates. Don't create new components; if something doesn't map, list it.</div>
+    <div class="t"><span class="k">Tool call · figma.get_design_context</span>{ "nodeId": "210:88", … }</div>
+    <div class="t"><span class="k">Tool call · figma.get_screenshot</span>{ "nodeId": "210:88" }</div>
+    <div class="r"><span class="k">Result (abridged)</span>StatCard (Code Connect: @kestrel/harbor) · Button variant="secondary" (Code Connect) · fill: color/bg/surface/subtle …</div>
+    <div class="a"><span class="k">Agent</span>Built PayslipSummary with StatCard and Button from Harbor. All values use tokens. One unmapped item: the "Tax regime" badge uses a detached instance with a custom colour. I used Badge tone="neutral"; please confirm.</div>
+  </div>
+  <figcaption><span class="ev ev--ill">Illustration</span> The final line is what you want: the agent flags what it couldn't map instead of inventing a colour.</figcaption>
+</figure>
+
+<h2 id="how-to-check-it-works">How to check it works</h2>
+<ol class="w-steps">
+  <li><h3>Pick five representative frames</h3><p>A form, a table, a dashboard card, a dialog, an empty state, from real product files.</p></li>
+  <li><h3>Generate code for each and score it</h3><p>Count non-Harbor components, raw values and invented helpers, as in the part 2 audit. Note which came from library problems and which from product file problems.</p></li>
+  <li><h3>Check Code Connect coverage</h3><p>What share of instances in those frames have a mapping? Prioritise mapping the components that appear most.</p></li>
+  <li><h3>Watch detach rates</h3><p>Figma's library analytics show how often components are detached. High detach rates point to components that don't meet designers' needs, which is useful feedback for the system team as well as for agents.</p></li>
+</ol>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">MISTAKE</span><h4>Different names in Figma and code</h4><p>"Info/Background" in Figma, <code>feedback.info.bg</code> in code. The agent can't connect them, and neither can a new hire.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Visual states as variants</h4><p>Hover and pressed as variants make the property list longer than the props. Keep variants for decisions people make.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Linking whole pages</h4><p>A link to a page with 40 frames floods the context. Link the frame you want built.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Trusting generated code because it looks right</h4><p>A pixel-perfect result can still be off-system or inaccessible. Lint, type checks and tests in part 9 apply to design-to-code output too.</p></div>
+</div>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>The Figma MCP server gives agents a frame's structure, variables, screenshot and Code Connect mappings.</li>
+  <li>Variables named like your tokens, with code syntax set, turn into real CSS variables.</li>
+  <li>Component properties should mirror code props; Code Connect links them for the agent.</li>
+  <li>Attached instances, auto layout, named frames and bound values make product files usable.</li>
+  <li>Generate a rules file with Figma's tool, merge it into AGENTS.md, and prompt with a specific frame.</li>
+</ul></div>
+<p>Next: <a href="/writing/ai-generated-ui-guardrails">Guardrails for AI-generated UI</a>, the checks that catch whatever still slips through, and how to measure improvement.</p>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>What is the Figma MCP server?</summary><div><p>Figma's official Model Context Protocol server. It lets AI coding agents read design context from Figma files (layer structure, variables, component names, screenshots and Code Connect mappings) so they can implement designs in code. It's available as a remote server hosted by Figma and as a desktop server.</p></div></details>
+  <details><summary>What is Figma Code Connect?</summary><div><p>A Figma feature that links design components to the real code components, including how Figma properties map to props. Dev Mode and the Figma MCP server can then show your actual component code instead of generated approximations. It's available on Organization and Enterprise plans.</p></div></details>
+  <details><summary>Why does Figma-to-code AI ignore my design system?</summary><div><p>Usually because the file doesn't identify the system: detached instances, raw values instead of variables, components without Code Connect, and properties that don't match code props. The agent converts what it sees.</p></div></details>
+  <details><summary>Should Figma variable names match design token names?</summary><div><p>Yes. Use the same structure (color/bg/surface in Figma, color.bg.surface in tokens, --color-bg-surface in CSS), set code syntax on each variable, and generate variables from the token source so they can't drift.</p></div></details>
+  <details><summary>Do I need to clean up every Figma file for AI?</summary><div><p>No. Get the library right first, then apply a short "ready for build" checklist to frames that will be implemented: attached instances, auto layout, bound variables and meaningful frame names.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://developers.figma.com/docs/figma-mcp-server/" target="_blank" rel="noopener">Figma MCP server documentation</a><span>Setup, tools and prompts for the remote and desktop servers.</span></li>
+  <li><a href="https://developers.figma.com/docs/code-connect/" target="_blank" rel="noopener">Figma Code Connect</a><span>Code Connect CLI and UI, with the property helpers used above.</span></li>
+  <li><a href="https://github.com/figma/mcp-server-guide" target="_blank" rel="noopener">Figma MCP server guide (GitHub)</a><span>Figma's own guide and examples.</span></li>
+  <li><a href="https://docs.tokens.studio/" target="_blank" rel="noopener">Tokens Studio documentation</a><span>Syncing DTCG tokens with Figma variables.</span></li>
+  <li><a href="/writing/figma-code-sync">Keeping Figma and code in sync</a><span>The broader practice behind this setup.</span></li>
+</ul>
+</div>
+    <aside class="ed-aside" aria-label="On this page"><nav class="ed-toc"><p>On this page</p><ol><li><a href="#the-problem-the-agent-can-only-see-what-the-file-says">The problem: the agent can only see what the file says</a></li><li><a href="#how-the-figma-mcp-server-works">How the Figma MCP server works</a></li><li><a href="#step-1-connect-the-server">Step 1: connect the server</a></li><li><a href="#step-2-make-variables-match-your-tokens">Step 2: make variables match your tokens</a></li><li><a href="#step-3-make-component-properties-mirror-code-props">Step 3: make component properties mirror code props</a></li><li><a href="#step-4-clean-product-files-where-it-matters">Step 4: clean product files where it matters</a></li><li><a href="#step-5-connect-components-with-code-connect">Step 5: connect components with Code Connect</a></li><li><a href="#step-6-generate-a-design-system-rules-file">Step 6: generate a design-system rules file</a></li><li><a href="#before-and-after-the-payslip-card">Before and after: the payslip card</a></li><li><a href="#how-to-prompt-from-a-figma-frame">How to prompt from a Figma frame</a></li><li><a href="#how-to-check-it-works">How to check it works</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><a class="ed-top" href="#main">Back to top ↑</a></nav></aside>
+  </div>
+  <footer class="ed-end">
+    <section class="ed-more" aria-labelledby="more-h"><h2 class="ed-sec-h" id="more-h">next in making your design system ai-ready:</h2><div class="ec-grid"><a class="ec " href="/writing/ai-generated-ui-guardrails" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/ai-generated-ui-guardrails.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/ai-generated-ui-guardrails.w480.webp 480w, ../assets/images/writing/ai-generated-ui-guardrails.w800.webp 800w, ../assets/images/writing/ai-generated-ui-guardrails.w1200.webp 1200w, ../assets/images/writing/ai-generated-ui-guardrails.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">Guardrails for AI-generated UI</b><span class="ec-d">Keep AI-generated UI on-system: ESLint and Stylelint rules with fix-it messages, axe and visual tests, one check command, and evals that track progress.</span><span class="ec-f">11 min read</span></a><a class="ec " href="/writing/figma-code-sync" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/figma-code-sync.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/figma-code-sync.w480.webp 480w, ../assets/images/writing/figma-code-sync.w800.webp 800w, ../assets/images/writing/figma-code-sync.w1200.webp 1200w, ../assets/images/writing/figma-code-sync.jpg 1600w"></span><span class="ec-k">Building a system</span><b class="ec-t">Keeping Figma and code in sync: five habits that stop drift</b><span class="ec-d">How to stop Figma and code drifting apart: one vocabulary, one token source, a shared definition of done, a monthly twin check and links between them.</span><span class="ec-f">7 min read</span></a><a class="ec " href="/writing/figma-library-structure" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/figma-library-structure.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/figma-library-structure.w480.webp 480w, ../assets/images/writing/figma-library-structure.w800.webp 800w, ../assets/images/writing/figma-library-structure.w1200.webp 1200w, ../assets/images/writing/figma-library-structure.jpg 1600w"></span><span class="ec-k">Building a system</span><b class="ec-t">How to organise a Figma design system library people can use</b><span class="ec-d">How to structure a Figma design system: separate libraries, pages grouped by job, names that match code, descriptions, life-cycle status and detach data.</span><span class="ec-f">6 min read</span></a></div></section>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Working on this in your own product?</h2><p>Most teams we work with start with a two-week audit: every style, component and token, checked and ranked.</p></div><a href="/pricing">How the audit works <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main><footer class="ed-foot"><div class="ed-foot-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
+  <nav aria-label="Studio"><a href="/work">Work</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/contact">Contact</a><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">LinkedIn</a><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></nav>
+</div></footer><script src="../assets/site.js?v=3de6a9b6" defer></script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>Make a legacy design system AI-ready in <b>phases, without a rewrite</b>, while it stays in use. <b>Phase 0:</b> measure how agents do today. <b>Phase 1:</b> establish one source of truth: tokens in DTCG JSON, one current component per job, deprecations marked. <b>Phase 2:</b> make it machine-readable: token descriptions, component metadata, structured docs. <b>Phase 3:</b> give agents access: rules files in every repo, then an MCP server. <b>Phase 4:</b> align Figma: variables, component properties, Code Connect. <b>Phase 5, throughout:</b> guardrails and migration: lint that ratchets, codemods for the mechanical work, evals to prove progress. Each phase is useful on its own, and the order matters: access before cleanup just helps agents find the mess faster.</p>
+  <ul>
+    <li>A mid-sized system can reach "reliably useful" in about three months of part-time work. The full migration of old code takes longer, and that's fine.</li>
+    <li>Prioritise by usage: the 20 components and 50 tokens agents touch most cover most screens.</li>
+    <li>Part 10 of 20 in the series on AI-ready design systems.</li>
+  </ul>
+</div>
+
+<h2>The situation most teams are in</h2>
+<p>If you've read the first nine parts, you know what an AI-ready design system looks like. But almost nobody starts from a blank page. Most teams have a system that's five or more years old, used by every product, with history baked in. That's where Kestrel's Harbor, our running example, started. Here's its starting point, drawn the same way as the target architecture in <a href="/writing/ai-ready-design-system">part 1</a>.</p>
+<figure class="w-fig">
+  <div class="w-arch">
+    <div class="w-arch-row"><span class="w-arch-k">Tokens</span><div class="w-arch-n"><div class="bad"><b>_colors.scss</b><span>212 variables, no descriptions</span></div><div class="bad"><b>Figma styles</b><span>Hand-made, different names</span></div><div class="bad"><b>Tailwind config</b><span>Default palette plus extras</span></div></div></div>
+    <div class="w-arch-row"><span class="w-arch-k">Components</span><div class="w-arch-n"><div><b>@kestrel/harbor</b><span>Current, 61 components</span></div><div class="bad"><b>@kestrel/ui-old</b><span>Still in 40% of files</span></div><div class="bad"><b>src/legacy/</b><span>Copied components in each app</span></div></div></div>
+    <div class="w-arch-row"><span class="w-arch-k">Docs</span><div class="w-arch-n"><div class="bad"><b>Confluence</b><span>Last major update 2024</span></div><div><b>Storybook</b><span>Stories for 70% of components</span></div></div></div>
+    <div class="w-arch-row"><span class="w-arch-k">Access</span><div class="w-arch-n"><div class="dash"><b>Nothing</b><span>Engineers paste reminders into prompts</span></div></div></div>
+    <div class="w-arch-row"><span class="w-arch-k">Checks</span><div class="w-arch-n"><div class="dash"><b>Types only</b><span>Loose prop types; no design system lint</span></div></div></div>
+  </div>
+  <figcaption>Before. <span class="ev ev--ill">Illustration</span> Outlined boxes are sources that disagree with each other or with the code. Every one is a place an agent can pick up the wrong answer.</figcaption>
+</figure>
+<p>And here's where it ended up after the work in this article. Nothing was rewritten from scratch. Most of the change is in <b>where things live</b> and <b>what's generated from what</b>.</p>
+<figure class="w-fig">
+  <div class="w-arch">
+    <div class="w-arch-row"><span class="w-arch-k">Source</span><div class="w-arch-n"><div class="hi"><b>tokens/*.json</b><span>DTCG, described · part 3</span></div><div class="hi"><b>src/&lt;Name&gt;/</b><span>Typed component, meta.json, stories, docs · parts 4–5</span></div></div></div>
+    <div class="w-arch-link">one build, in CI, on every change</div>
+    <div class="w-arch-row"><span class="w-arch-k">Generated</span><div class="w-arch-n"><div><b>CSS, Tailwind theme, Figma variables</b><span>Same names everywhere</span></div><div><b>Agent manifests</b><span>tokens / components .agent.json</span></div><div><b>AGENTS.snippet.md, lint config</b><span>From deprecations</span></div><div><b>Docs site, llms.txt</b><span>From docs/*.md</span></div></div></div>
+    <div class="w-arch-link">served by</div>
+    <div class="w-arch-row"><span class="w-arch-k">Access</span><div class="w-arch-n"><div><b>AGENTS.md in every repo</b><span>Part 6</span></div><div><b>harbor MCP server</b><span>Part 7</span></div><div><b>Figma MCP + Code Connect</b><span>Part 8</span></div></div></div>
+    <div class="w-arch-link up">checked by</div>
+    <div class="w-arch-row"><span class="w-arch-k">Guardrails</span><div class="w-arch-n"><div class="lt"><b>Lint · tests · evals · telemetry</b><span>Part 9</span></div></div></div>
+  </div>
+  <figcaption>After. Two kinds of source that people edit; everything else is generated, so nothing can silently disagree.</figcaption>
+</figure>
+
+<h2>Four principles for the migration</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">1</span><h4>Don't rewrite; re-home</h4><p>Most legacy knowledge is fine; it's just in the wrong place. Move tokens into JSON, docs next to code, rules into metadata. Rewrites stall; moves finish.</p></div>
+  <div class="cell"><span class="k">2</span><h4>One truth before many doors</h4><p>An MCP server over three conflicting token files serves conflicts. Fix the source of truth (phase 1) before adding access (phase 3).</p></div>
+  <div class="cell"><span class="k">3</span><h4>New code first, old code later</h4><p>Hold new code, including all agent code, to the standard immediately. Migrate old code gradually, with codemods and a lint ratchet.</p></div>
+  <div class="cell"><span class="k">4</span><h4>Measure every phase</h4><p>Run the same evals before and after each phase. The numbers decide what's next, and they're what keeps sponsors interested.</p></div>
+</div>
+
+<h2>The phased plan at a glance</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Phase</th><th>Weeks</th><th>Main work</th><th>Done when</th></tr></thead>
+  <tbody>
+    <tr><td><b>0 · Baseline</b></td><td>1–2</td><td>Agent's-eye audit, inventory, eval set</td><td>Scores recorded for 10–15 tasks</td></tr>
+    <tr><td><b>1 · One source of truth</b></td><td>2–6</td><td>Tokens to DTCG, duplicates resolved, deprecations marked</td><td>Every job has one token and one component; old ones say what replaces them</td></tr>
+    <tr><td><b>2 · Machine-readable</b></td><td>5–10</td><td>Token descriptions, component metadata, docs moved and restructured</td><td>Manifests build in CI; coverage checks pass for the top 20 components</td></tr>
+    <tr><td><b>3 · Access</b></td><td>8–12</td><td>AGENTS.md snippet in all repos, MCP server, llms.txt</td><td>Agents call the tools in every eval run</td></tr>
+    <tr><td><b>4 · Figma</b></td><td>8–14</td><td>Variables synced from tokens, properties mirror props, Code Connect for top components</td><td>Five sample frames generate on-system code</td></tr>
+    <tr><td><b>5 · Guardrails &amp; migration</b></td><td>Start week 3, ongoing</td><td>Lint on new code, codemods, ratchet, monthly evals</td><td>Deprecated usage falls every month; pass rates hold</td></tr>
+  </tbody>
+</table></div>
+<figcaption><span class="ev ev--ill">Illustration</span> Timings for a system the size of Harbor (about 60 components, 200 tokens) with two part-time maintainers and help from champions. Phases overlap on purpose.</figcaption></figure>
+<figure class="w-fig"><div class="gantt-wrap"><div class="gantt">
+  <div class="gantt-row gantt-h"><b></b><span>W1</span><span>W2</span><span>W3</span><span>W4</span><span>W5</span><span>W6</span><span>W7</span><span>W8</span><span>W9</span><span>W10</span><span>W11</span><span>W12</span></div>
+  <div class="gantt-row"><b>0 · Baseline</b><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="gantt-row"><b>1 · Source of truth</b><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="gantt-row"><b>2 · Machine-readable</b><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div>
+  <div class="gantt-row"><b>3 · Access</b><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+  <div class="gantt-row"><b>4 · Figma</b><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+  <div class="gantt-row"><b>5 · Guardrails</b><i></i><i></i><i class="lt"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+</div></div>
+  <figcaption>The same plan over the first 12 weeks. Figma work and guardrails continue after week 12. Guardrails start early (lighter cell: warnings only), because every week without them adds more off-system code to migrate later.</figcaption>
+</figure>
+
+<h2>Phase 0: baseline (weeks 1–2)</h2>
+<p>You can't show improvement without a starting number, and you can't prioritise without knowing where agents fail.</p>
+<ol class="w-steps">
+  <li><h3>Run the agent's-eye audit</h3><p>Three tasks, fresh sessions, transcripts saved, as in <a href="/writing/how-ai-agents-use-design-systems">part 2</a>. Note which files the agent found and which it never did.</p></li>
+  <li><h3>Inventory duplicates and drift</h3><p>List every component and its lookalikes across packages and legacy folders, with how often each is imported. List every token and where its values also appear raw. A <a href="/writing/design-system-audit">design system audit</a> covers the method.</p></li>
+  <li><h3>Build the eval set</h3><p>10–15 golden tasks from real tickets, scored with the script in <a href="/writing/ai-generated-ui-guardrails">part 9</a>. Run each three times. Save the results with the date.</p></li>
+  <li><h3>Score readiness</h3><p>Use the 12-statement self-assessment in part 1. The lowest-scoring layer is usually where phase 1 should focus.</p></li>
+</ol>
+<div class="stats">
+  <div><b>38%</b><span>Harbor's baseline: eval runs passing lint and types</span></div>
+  <div><b>3</b><span>Buttons, 4 dialogs and 2 date pickers in active use</span></div>
+  <div><b>4.6</b><span>Hard-coded colours per agent run, on average</span></div>
+</div>
+<p class="scenario-t"><span class="ev ev--ill">Illustration</span> Harbor's numbers are made up but typical.</p>
+
+<h2>Phase 1: one source of truth (weeks 2–6)</h2>
+<p>This phase has the biggest effect on agents and on people, and it's mostly decisions, not code.</p>
+<h3>Decide where each kind of knowledge lives</h3>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Knowledge</th><th>Lives in (edited by people)</th><th>Generated from it</th></tr></thead>
+  <tbody>
+    <tr><td>Token values and descriptions</td><td><code>tokens/*.json</code> (DTCG)</td><td>CSS, Tailwind theme, Figma variables, agent manifest</td></tr>
+    <tr><td>Component API</td><td>TypeScript types and JSDoc</td><td>Props tables, metadata props, Storybook controls</td></tr>
+    <tr><td>Usage judgement</td><td><code>&lt;Name&gt;.meta.json</code></td><td>Agent detail files, "Never use" list, lint config</td></tr>
+    <tr><td>Patterns and explanations</td><td><code>docs/**/*.md</code></td><td>Docs site, <code>.md</code> pages, llms.txt</td></tr>
+    <tr><td>Examples</td><td>Stories</td><td>Docs examples, metadata examples, visual tests</td></tr>
+    <tr><td>Figma ↔ code mapping</td><td><code>*.figma.tsx</code> (Code Connect)</td><td>Dev Mode snippets, Figma MCP context</td></tr>
+  </tbody>
+</table></div>
+<figcaption>The source-of-truth map. Write it down and share it: half the arguments in a design system team are about where something should be changed.</figcaption></figure>
+<h3>Resolve duplicates with a simple decision</h3>
+<p>For each group of lookalike components (three buttons, four dialogs), decide once and record the decision in the metadata:</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Component</th><th>Imports</th><th>Decision</th><th>Replacement</th></tr></thead>
+  <tbody>
+    <tr><td><code>Button</code> (harbor)</td><td>1,240</td><td>Keep</td><td>–</td></tr>
+    <tr><td><code>BtnPrimary</code> (harbor)</td><td>310</td><td>Deprecate, keep as wrapper</td><td><code>Button variant="primary"</code></td></tr>
+    <tr><td><code>Button</code> (ui-old)</td><td>890</td><td>Deprecate; codemod</td><td><code>Button</code> (harbor)</td></tr>
+    <tr><td><code>Modal</code> (harbor)</td><td>205</td><td>Deprecate</td><td><code>Dialog</code> or <code>ConfirmDialog</code></td></tr>
+    <tr><td><code>AlertDialog</code> (harbor)</td><td>48</td><td>Merge into ConfirmDialog</td><td><code>ConfirmDialog</code></td></tr>
+  </tbody>
+</table></div>
+<figcaption><span class="ev ev--ill">Illustration</span> Deprecate means the old component keeps working, warns, and names its replacement, as in <a href="/writing/design-system-versioning">versioning and deprecation</a>.</figcaption></figure>
+<h3>Move tokens into DTCG</h3>
+<p>Convert the SCSS variables to DTCG JSON, keeping the old names as deprecated aliases so nothing breaks (the steps are in <a href="/writing/design-tokens-for-ai-agents">part 3</a>). Make the generated CSS the only place product code gets values from. Then delete the old Tailwind palette and replace it with the semantic theme.</p>
+<h3>Tell agents to stay out of legacy folders now</h3>
+<p>Before any metadata exists, add a nested <code>AGENTS.md</code> in each legacy folder ("This folder is being removed. Don't copy patterns from here.") and the deprecated list in each repo's root AGENTS.md. This is an hour's work that stops agents spreading old code while the rest of the migration happens.</p>
+
+<h2>Phase 2: machine-readable (weeks 5–10)</h2>
+<p>Now make the single source of truth readable by machines. Work through the system <b>in order of usage</b>, not alphabetically: the 20 most-imported components and the 50 most-used tokens cover most screens.</p>
+<ol class="w-steps">
+  <li><h3>Describe semantic tokens</h3><p>"Use for… Not for… Use instead…" for every semantic token. Draft with an AI assistant from usage data, then have a designer review. CI fails on missing descriptions. (Part 3.)</p></li>
+  <li><h3>Tighten component types</h3><p>Union types for every option prop, JSDoc on every component and prop, safe defaults, <code>@deprecated</code> tags. (Part 4.)</p></li>
+  <li><h3>Write metadata files</h3><p>Purpose, useWhen, avoidWhen and rules for the top 20 components, validated against the schema. Merge duplicates you couldn't distinguish. (Part 4.)</p></li>
+  <li><h3>Move and restructure docs</h3><p>Move component docs from Confluence into <code>docs/</code> next to the code, rewrite them to the template with self-contained sections, and delete or mark the old pages. (Part 5.)</p></li>
+  <li><h3>Build the manifests</h3><p>Add the agent-manifest outputs to the build and coverage checks to CI. From now on, deprecating something updates every output in one release.</p></li>
+</ol>
+
+<h2>Phase 3: access (weeks 8–12)</h2>
+<ol class="w-steps">
+  <li><h3>Ship the AGENTS.md snippet</h3><p>Generate it from metadata, ship it in the package, and insert it into every product repo with the marker command. Add CLAUDE.md, Cursor and Copilot pointers where teams use those tools. (Part 6.)</p></li>
+  <li><h3>Add the MCP server</h3><p>If you're on React with good stories, try Storybook's MCP addon. Either way, add the small custom server for tokens, patterns and usage rules, and commit the MCP configs. (Part 7.)</p></li>
+  <li><h3>Publish llms.txt</h3><p>Add <code>.md</code> versions of docs pages and a generated llms.txt to the docs site, if it's reachable by the tools your teams use. (Part 6.)</p></li>
+  <li><h3>Rerun the evals</h3><p>This is usually where the biggest jump appears. Check transcripts: agents should call the tools before writing UI.</p></li>
+</ol>
+
+<h2>Phase 4: Figma (weeks 8–14)</h2>
+<p>Run this in parallel with phase 3, led by the system designer.</p>
+<ol class="w-steps">
+  <li><h3>Sync variables from tokens</h3><p>Replace hand-made styles with variables generated from the DTCG source, with code syntax and descriptions set; hide primitives from publishing. (Part 8.)</p></li>
+  <li><h3>Rename properties to mirror props</h3><p>Variant values and boolean properties named like code, for the top 20 components first. This is a breaking change for Figma files, so announce it and give designers a swap guide.</p></li>
+  <li><h3>Add Code Connect</h3><p>Mappings for the top 10–20 components, published from CI with each release.</p></li>
+  <li><h3>Introduce the "ready for build" checklist</h3><p>Attached instances, auto layout, bound variables, named frames, for frames that will be implemented.</p></li>
+</ol>
+
+<h2>Phase 5: guardrails and migrating old code (from week 3, ongoing)</h2>
+<p>Start guardrails early and keep them going. The migration of old code is the longest part of the work, and it doesn't need to finish before agents are useful. It needs to move steadily in the right direction.</p>
+<h3>The lint ratchet</h3>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Week 3</b><span>Rules on, as warnings everywhere; count recorded</span></div><i>→</i>
+    <div class="hi"><b>Week 4</b><span>Errors on changed files: all new code must pass</span></div><i>→</i>
+    <div><b>Monthly</b><span>CI fails if the total count rises above last month's</span></div><i>→</i>
+    <div><b>Codemods</b><span>Bulk fixes cut the count in steps</span></div><i>→</i>
+    <div><b>Finish</b><span>Errors everywhere; old package removed</span></div>
+  </div>
+  <figcaption>A ratchet only turns one way. New code is held to the standard immediately; the old count can only go down.</figcaption>
+</figure>
+<h3>Codemods for the mechanical part</h3>
+<p>A <b>codemod</b> is a script that rewrites code automatically. For renames and simple replacements it's faster and more reliable than either people or agents doing it file by file. Here's one, using jscodeshift, that replaces Harbor's deprecated <code>BtnPrimary</code> with <code>Button variant="primary"</code>:</p>
+<pre><code><span class="c">// codemods/btn-primary.js
+// Run: npx jscodeshift -t codemods/btn-primary.js src --parser=tsx --extensions=tsx</span>
+<span class="k">export default function</span> transformer(file, api) {
+  <span class="k">const</span> j = api.jscodeshift;
+  <span class="k">const</span> root = j(file.source);
+  <span class="k">const</span> uses = root.findJSXElements(<span class="s">"BtnPrimary"</span>);
+  <span class="k">if</span> (uses.length === 0) <span class="k">return</span> file.source;
+
+  <span class="c">// &lt;BtnPrimary …&gt; → &lt;Button variant="primary" …&gt;</span>
+  uses.forEach((path) =&gt; {
+    <span class="k">const</span> { openingElement, closingElement } = path.node;
+    openingElement.name = j.jsxIdentifier(<span class="s">"Button"</span>);
+    openingElement.attributes.unshift(j.jsxAttribute(j.jsxIdentifier(<span class="s">"variant"</span>), j.stringLiteral(<span class="s">"primary"</span>)));
+    <span class="k">if</span> (closingElement) closingElement.name = j.jsxIdentifier(<span class="s">"Button"</span>);
+  });
+
+  <span class="c">// import { BtnPrimary } from "@kestrel/harbor" → import { Button } …</span>
+  root.find(j.ImportDeclaration, { source: { value: <span class="s">"@kestrel/harbor"</span> } }).forEach((decl) =&gt; {
+    <span class="k">const</span> specs = decl.node.specifiers;
+    <span class="k">const</span> hasButton = specs.some((s) =&gt; s.imported?.name === <span class="s">"Button"</span>);
+    decl.node.specifiers = specs
+      .filter((s) =&gt; !(hasButton &amp;&amp; s.imported?.name === <span class="s">"BtnPrimary"</span>))
+      .map((s) =&gt; (s.imported?.name === <span class="s">"BtnPrimary"</span> ? j.importSpecifier(j.identifier(<span class="s">"Button"</span>)) : s));
+  });
+  <span class="k">return</span> root.toSource();
+}</code></pre>
+<p>Run it on a branch, review the diff, run the check command, and merge. Then ship the codemod in the design system package (<code>npx harbor codemod btn-primary</code>) so product teams can run it themselves. Agents are good at the judgement cases codemods can't handle, such as choosing between Dialog and ConfirmDialog for each old Modal, especially with a skill that explains the decision (<a href="/writing/agents-md-llms-txt-design-system">part 6</a>). Review those changes like any other. More in <a href="/writing/design-system-migration">design system migration</a>.</p>
+
+<h2>Who does what</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Role</th><th>Owns</th><th>Time, roughly</th></tr></thead>
+  <tbody>
+    <tr><td><b>Design system lead</b></td><td>Decisions on duplicates and deprecations; the plan; reporting eval results to sponsors</td><td>20–30% for the duration</td></tr>
+    <tr><td><b>Design technologist or system engineer</b></td><td>Token pipeline, manifests, MCP server, lint, codemods, evals</td><td>50–80% for phases 1–3</td></tr>
+    <tr><td><b>System designer</b></td><td>Token descriptions, usage rules, Figma variables and properties, Code Connect review</td><td>40–60% for phases 2 and 4</td></tr>
+    <tr><td><b>Champions in product teams</b></td><td>Running codemods, reviewing agent output in their area, reporting gaps</td><td>A few hours a month</td></tr>
+  </tbody>
+</table></div>
+<figcaption><span class="ev ev--ill">Illustration</span> A starting point for planning. Small systems can do this with one person part-time; see <a href="/writing/design-system-team-structure">team structure</a>.</figcaption></figure>
+
+<h2>Troubleshooting</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Symptom</th><th>Likely cause</th><th>What to do</th></tr></thead>
+  <tbody>
+    <tr><td>Agents still use legacy components after phase 3</td><td>Legacy code vastly outnumbers new code, so search keeps surfacing it</td><td>Nested AGENTS.md in legacy folders; lint errors on changed files; prioritise codemods for the most-imported legacy items</td></tr>
+    <tr><td>Agents ignore the MCP tools</td><td>Descriptions don't say when to call them; rules file doesn't name them</td><td>"Call before writing any UI" in the description; name the tools in AGENTS.md</td></tr>
+    <tr><td>Agents pick the wrong one of two similar components</td><td>Purposes overlap</td><td>Rewrite both purposes with avoidWhen pointing at each other; consider merging</td></tr>
+    <tr><td>Token choices still wrong for some jobs</td><td>Missing or vague descriptions for near-identical tokens</td><td>Run the choice test from part 3; sharpen or merge</td></tr>
+    <tr><td>Figma-to-code ignores the system</td><td>Detached instances, raw values, no Code Connect for those components</td><td>Ready-for-build checklist; Code Connect for the components in that frame</td></tr>
+    <tr><td>Eval scores jump around between runs</td><td>Too few runs; tasks too vague</td><td>Run each task more times; make the expected result specific</td></tr>
+    <tr><td>Teams see the lint rules as blockers</td><td>Errors on old code they didn't touch</td><td>Errors on changed files only; give them codemods, not just errors</td></tr>
+  </tbody>
+</table></div></figure>
+
+<h2>The final checklist</h2>
+<p>When these are true, your system is AI-ready in the sense defined in <a href="/writing/ai-ready-design-system">part 1</a>: agents can find the right thing, understand it, use it correctly, and know when they got it wrong.</p>
+<ul class="checklist">
+  <li><b>One source of truth</b> for tokens (DTCG JSON) and components (one current component per job), with everything else generated.</li>
+  <li><b>Every semantic token described</b>, and primitives hidden from product code, agents and Figma publishing.</li>
+  <li><b>Every stable component has metadata</b>: precise types, purpose, when to use, when not to, rules, example. Every deprecated one names its replacement.</li>
+  <li><b>Docs live next to the code</b>, follow the template, and old pages are gone or excluded from search.</li>
+  <li><b>Every product repo has the generated AGENTS.md section</b> and the MCP config.</li>
+  <li><b>Figma variables and properties match code</b>, and the most-used components have Code Connect.</li>
+  <li><b>Lint, types and tests run in the agent's loop and in CI</b>, with fix-it messages.</li>
+  <li><b>Evals run monthly</b>, and the results are shared.</li>
+</ul>
+
+<h2>The whole series in one paragraph</h2>
+<p>AI agents amplify whatever your design system already is. They read literally, can't ask, forget everything between sessions, and copy what they find first. So write your decisions down where machines can read them (described tokens, typed and annotated components, self-contained docs), point every agent at them (rules files, MCP servers, Figma's server with Code Connect), and check the result automatically (lint with fix-it messages, tests and evals). Do it in phases, starting with one source of truth, and measure each step. The same work makes the system clearer for every person who uses it.</p>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Migrate in phases, without a rewrite: baseline, one source of truth, machine-readable, access, Figma, with guardrails throughout.</li>
+  <li>Fix the source of truth before adding doors to it.</li>
+  <li>Prioritise by usage: the most-used components and tokens first.</li>
+  <li>Hold new code to the standard now; migrate old code with codemods and a lint ratchet.</li>
+  <li>Measure every phase with the same evals, and share the numbers.</li>
+</ul></div>
+<p>Next: parts 11–20 answer the questions teams ask most, starting with <a href="/writing/why-ai-ignores-design-system">Why does AI ignore my design system?</a> Or see the whole collection under <a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a>.</p>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>How do I make an existing design system AI-ready?</summary><div><p>In phases: measure how agents do today, establish one source of truth (DTCG tokens, one current component per job, deprecations), make it machine-readable (descriptions, metadata, structured docs), add access (AGENTS.md, an MCP server), align Figma (variables, Code Connect), and add guardrails and codemods throughout.</p></div></details>
+  <details><summary>Do I need to rebuild my design system for AI?</summary><div><p>No. Most of the work is moving knowledge into the right places and formats, resolving duplicates, and adding generated outputs and checks. Rewrites tend to stall; phased changes keep the system in use while it improves.</p></div></details>
+  <details><summary>How long does it take to make a legacy design system AI-ready?</summary><div><p>For a system of around 60 components and 200 tokens with two part-time maintainers, about three months to reach the point where agents are reliably useful. Migrating all old code to the new standard takes longer and can continue gradually.</p></div></details>
+  <details><summary>What should I do first?</summary><div><p>Run three real tasks with a coding agent and record what goes wrong, then add an AGENTS.md with your package name and a "never use" list. It takes about a day and usually fixes the worst failures.</p></div></details>
+  <details><summary>How do I migrate legacy components safely?</summary><div><p>Deprecate rather than delete: keep old components working with a warning that names the replacement, use codemods for mechanical changes, have people or agents handle judgement cases with review, and use a lint ratchet so the count of old usages can only go down.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://github.com/facebook/jscodeshift" target="_blank" rel="noopener">jscodeshift</a><span>The codemod toolkit used in the example.</span></li>
+  <li><a href="https://www.designtokens.org/" target="_blank" rel="noopener">Design Tokens Community Group</a><span>The DTCG format used for the token source.</span></li>
+  <li><a href="https://modelcontextprotocol.io/" target="_blank" rel="noopener">Model Context Protocol</a><span>The standard behind design system and Figma MCP servers.</span></li>
+  <li><a href="/writing/design-system-migration">Design system migration</a><span>Bringing older products along, in general.</span></li>
+  <li><a href="/writing/design-system-audit">Design system audit</a><span>The inventory method for phase 0.</span></li>
+</ul>

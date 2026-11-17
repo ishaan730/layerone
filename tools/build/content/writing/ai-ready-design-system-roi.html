@@ -1,0 +1,188 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>Prove it with your own before-and-after numbers, not industry claims. The value of an AI-ready design system comes mainly from <b>less rework</b> on agent-built UI (fewer off-system screens to fix), <b>faster review</b> (fewer design system comments per pull request), <b>fewer accessibility and consistency defects</b> reaching production, and <b>prototypes that become production code</b> with less rebuilding. Measure a baseline with the eval tasks and pull-request data you already have, make the changes, measure again, and convert the difference into hours with a simple model. Compare that with the cost: mostly people's time, plus tools. Present it as a range with your assumptions visible. A defensible, modest number persuades leadership more than a dramatic one.</p>
+  <ul>
+    <li>The first evidence is cheap: rerun three tasks before and after an AGENTS.md and a few lint rules.</li>
+    <li>Separate what your work changed from what a new model version changed: run both against the same tasks.</li>
+    <li>Part 20 of 20 in the series on AI-ready design systems.</li>
+  </ul>
+</div>
+
+<h2>The problem: "Why should we invest in this?"</h2>
+<p>Design system teams are good at explaining why AI-readiness matters to other designers and engineers. Leadership asks a different question: what does it cost, what do we get, and when? Answers like "agents will be 10× faster" or "everyone is doing it" don't survive a finance review. This article gives you a model you can defend, using numbers from your own teams. It builds on our general <a href="/writing/design-system-roi">design system ROI model</a>, which is worth reading first.</p>
+
+<h2>Where the value actually comes from</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Value</th><th>What changes</th><th>How to measure it</th><th>Strength of evidence</th></tr></thead>
+  <tbody>
+    <tr><td><b>Less rework</b></td><td>Fewer agent-built screens need fixing for off-system components, tokens or variants</td><td>Eval pass rates; fix time per off-system task</td><td>Strong: directly measurable</td></tr>
+    <tr><td><b>Faster review</b></td><td>Fewer "use the system component" comments; less back-and-forth</td><td>Design-system-related review comments per PR; time to approve</td><td>Good: from PR data</td></tr>
+    <tr><td><b>Fewer defects</b></td><td>Fewer accessibility and consistency bugs reach QA or production</td><td>Bug counts tagged "a11y" or "design system", before and after</td><td>Good over a quarter or more</td></tr>
+    <tr><td><b>Prototype reuse</b></td><td>Prototypes built from real components need less rebuilding</td><td>Share of prototype code kept in production; rebuild time</td><td>Moderate: harder to attribute</td></tr>
+    <tr><td><b>Faster migration</b></td><td>Codemods and agents with clear rules move legacy code faster</td><td>Deprecated usage over time; engineer hours per migrated screen</td><td>Good, if tracked</td></tr>
+    <tr><td><b>Design system team leverage</b></td><td>Fewer repeated questions; gaps reported by agents arrive specific and early</td><td>Support questions per month; time to triage requests</td><td>Moderate</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Lead with the first two: they're measurable within weeks and hard to argue with.</figcaption></figure>
+
+<h2>Step 1: measure a baseline before changing anything</h2>
+<p>Every number in your business case depends on knowing where you started. Most of this data already exists.</p>
+<ol class="w-steps">
+  <li><h3>Eval tasks</h3><p>Run 10–15 real UI tasks with your teams' agent, several times each, and score them: lint and type pass, expected components used, raw values, deprecated imports (<a href="/writing/ai-generated-ui-guardrails">part 9</a>). This gives you an <b>off-system rate</b>.</p></li>
+  <li><h3>Fix time</h3><p>For a handful of off-system results, time how long an engineer takes to bring them on-system. This gives you <b>minutes per fix</b>.</p></li>
+  <li><h3>Volume</h3><p>Estimate how many UI tasks per month are done with agents. Ask teams, or count pull requests labelled "ai-assisted" (<a href="/writing/ai-design-system-governance">part 18</a>).</p></li>
+  <li><h3>Review data</h3><p>Sample 30 recent UI pull requests and count design-system-related review comments and review rounds.</p></li>
+  <li><h3>Defects</h3><p>Count accessibility and design consistency bugs from the last quarter.</p></li>
+</ol>
+
+<h2>Step 2: a simple model</h2>
+<p>Keep the model small enough to explain on one slide. The core is rework avoided:</p>
+<pre><code>rework hours saved per month =
+    agent UI tasks per month
+  × (off-system rate before − off-system rate after)
+  × fix time per off-system task (hours)
+
+review hours saved per month =
+    UI pull requests per month
+  × review minutes saved per PR ÷ 60
+
+monthly value = (rework hours + review hours) × loaded hourly cost
+payback (months) = one-time cost ÷ (monthly value − monthly running cost)</code></pre>
+<p class="scenario-t">An illustration: Harbor's business case</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Input</th><th>Value</th><th>Source</th></tr></thead>
+  <tbody>
+    <tr><td>Agent UI tasks per month</td><td>400</td><td>Team survey, checked against labelled PRs</td></tr>
+    <tr><td>Off-system rate before → after</td><td>60% → 15%</td><td>Eval runs before the work and after phase 3</td></tr>
+    <tr><td>Fix time per off-system task</td><td>25 minutes</td><td>Timed on 12 samples</td></tr>
+    <tr><td>UI pull requests per month</td><td>220</td><td>Repository data</td></tr>
+    <tr><td>Review time saved per PR</td><td>5 minutes</td><td>Fewer design system comments and rounds, sampled</td></tr>
+    <tr><td>Loaded hourly cost</td><td>$60</td><td>Finance's figure</td></tr>
+    <tr><td>One-time cost</td><td>12 person-weeks ≈ 480 hours ≈ $28,800</td><td>Plan in part 10</td></tr>
+    <tr><td>Running cost</td><td>8 hours per month ≈ $480</td><td>Upkeep of rules, metadata, evals</td></tr>
+  </tbody>
+</table></div>
+<figcaption><span class="ev ev--ill">Illustration</span> Every number is made up for the example. Replace each with your own and keep the source column; it's what makes the case credible.</figcaption></figure>
+<div class="stats">
+  <div><b>75 h</b><span>Rework saved per month: 400 × 45% × 25 min</span></div>
+  <div><b>18 h</b><span>Review time saved per month: 220 × 5 min</span></div>
+  <div><b>$5,580</b><span>Monthly value at $60 an hour (93 hours)</span></div>
+  <div><b>~6 months</b><span>Payback: $28,800 ÷ ($5,580 − $480)</span></div>
+</div>
+<p>Notice what's <i>not</i> in the model: defects avoided, prototype reuse, faster migration, the team's leverage. Leave them out of the headline number and list them as additional, unquantified benefits. That keeps the case conservative, which makes it more believable. If you'd like to model the wider design system alongside this, the <a href="/lab/design-system-roi-calculator">ROI calculator in the Lab</a> uses the same approach.</p>
+
+<h2>Step 3: present a range, not a point</h2>
+<p>Every input is an estimate. Show what happens if you're wrong.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Scenario</th><th>Off-system rate after</th><th>Tasks per month</th><th>Monthly value</th><th>Payback</th></tr></thead>
+  <tbody>
+    <tr><td>Cautious</td><td>30%</td><td>250</td><td>~$3,000</td><td>~12 months</td></tr>
+    <tr><td>Expected</td><td>15%</td><td>400</td><td>~$5,600</td><td>~6 months</td></tr>
+    <tr><td>Optimistic</td><td>10%</td><td>600</td><td>~$8,600</td><td>~4 months</td></tr>
+  </tbody>
+</table></div>
+<figcaption><span class="ev ev--ill">Illustration</span> Approximate, using the formulas above with review savings held constant. If even the cautious case pays back within a year, say so; that's your strongest argument.</figcaption></figure>
+
+<h2>Step 4: attribute honestly</h2>
+<p>AI tools improve every few months. If results improve, leadership will reasonably ask how much came from your work and how much from a better model. Answer it before they ask:</p>
+<ul class="checklist">
+  <li><b>Run the same eval tasks with the old setup and the new model.</b> The difference between "new model, old system" and "new model, new system" is your contribution.</li>
+  <li><b>Change one thing at a time</b> where you can, and record which change moved which number.</li>
+  <li><b>Keep a held-out set of tasks</b> you never tune against, so improvements aren't just teaching to the test.</li>
+  <li><b>Report the parts that didn't improve.</b> It makes the parts that did more believable.</li>
+</ul>
+
+<h2>Leading and lagging indicators</h2>
+<p>Some benefits take a quarter to show up. Give leadership something to watch in the meantime.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">LEADING · WEEKS</span><h4>Shows the work is landing</h4><ul><li>Eval pass rate</li><li>Repos with the AGENTS.md section</li><li>Semantic tokens with descriptions</li><li>Components with metadata</li><li>Deprecated imports per week</li></ul></div>
+  <div class="cell"><span class="k">LAGGING · QUARTERS</span><h4>Shows the outcome</h4><ul><li>Rework hours per month</li><li>Review comments per UI pull request</li><li>Accessibility and consistency defects</li><li>Share of UI imports from the system</li><li>Team survey: trust in agent output</li></ul></div>
+</div>
+<p>More on choosing measures in <a href="/writing/design-system-metrics">design system metrics</a>.</p>
+
+<h2>A one-page business case template</h2>
+<pre><code># Making Harbor AI-ready: business case
+
+## The problem (with our numbers)
+- 60% of agent-built UI tasks need fixing to match Harbor (eval, 15 tasks × 4 runs).
+- Each fix takes about 25 minutes. About 400 tasks a month use agents.
+- Design system comments appear in 1 in 3 UI pull requests.
+
+## The proposal
+Phases 0–3 of the plan (12 weeks, ~12 person-weeks): rules files, token
+descriptions, component metadata, an MCP server, lint rules, monthly evals.
+
+## Expected value (cautious / expected / optimistic)
+~$3,000 / ~$5,600 / ~$8,600 per month. Payback in ~12 / ~6 / ~4 months.
+Not counted: fewer accessibility defects, faster migration, prototype reuse.
+
+## How we'll know
+Eval pass rate monthly; review comments per UI PR quarterly; defects quarterly.
+Checkpoint at week 6: if the eval pass rate hasn't improved, we stop and review.
+
+## The ask
+Two engineers at 50% and one designer at 40% for 12 weeks.</code></pre>
+<div class="callout callout--tip"><span class="callout-k">Tip</span><p>The checkpoint line matters more than it looks. Offering a point where you'll stop if it isn't working makes the investment easier to approve, and the early phases (rules files, lint) usually show results by then.</p></div>
+
+<h2>Common mistakes</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">MISTAKE</span><h4>Quoting industry productivity claims</h4><p>"Teams are 55% faster with AI" invites the question "which teams, measured how?". Use your own numbers.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Counting every benefit</h4><p>A model with eight value streams looks inflated. Lead with two you can measure; list the rest.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>No baseline</h4><p>Without a before measurement, every improvement is an opinion. Measure first, even roughly.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Forgetting running costs</h4><p>Rules, metadata and evals need upkeep. Include a monthly cost; it makes the payback honest.</p></div>
+</div>
+
+<h2>The series in twenty lines</h2>
+<p>That's the end of the series. If you've read it in order, you've gone from what an AI-ready design system is to how to fund one. One line per part, to come back to:</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Part</th><th>The one thing to remember</th></tr></thead>
+  <tbody>
+    <tr><td><a href="/writing/ai-ready-design-system">1</a></td><td>Agents amplify whatever your system already is.</td></tr>
+    <tr><td><a href="/writing/how-ai-agents-use-design-systems">2</a></td><td>Agents copy what they find first; control what they find.</td></tr>
+    <tr><td><a href="/writing/design-tokens-for-ai-agents">3</a></td><td>Describe every semantic token: use for, not for, use instead.</td></tr>
+    <tr><td><a href="/writing/component-metadata-for-ai-agents">4</a></td><td>Types say what's allowed; metadata says what's right.</td></tr>
+    <tr><td><a href="/writing/design-system-documentation-for-ai">5</a></td><td>Every docs section must make sense on its own.</td></tr>
+    <tr><td><a href="/writing/agents-md-llms-txt-design-system">6</a></td><td>A short rules file in every repo is the cheapest big win.</td></tr>
+    <tr><td><a href="/writing/design-system-mcp-server">7</a></td><td>A few task-shaped, read-only tools beat searching files.</td></tr>
+    <tr><td><a href="/writing/figma-mcp-design-to-code">8</a></td><td>Variables and Code Connect turn Figma into real components.</td></tr>
+    <tr><td><a href="/writing/ai-generated-ui-guardrails">9</a></td><td>Lint messages are instructions agents follow.</td></tr>
+    <tr><td><a href="/writing/legacy-design-system-ai-ready">10</a></td><td>One source of truth before many doors.</td></tr>
+    <tr><td><a href="/writing/why-ai-ignores-design-system">11</a></td><td>Diagnose from the transcript before fixing anything.</td></tr>
+    <tr><td><a href="/writing/design-system-context-window">12</a></td><td>A short map every time; detail on demand.</td></tr>
+    <tr><td><a href="/writing/ai-generated-ui-accessibility">13</a></td><td>Make accessibility a property of components, not prompts.</td></tr>
+    <tr><td><a href="/writing/figma-code-token-drift">14</a></td><td>One side edited, the other generated, and a drift check.</td></tr>
+    <tr><td><a href="/writing/ai-prototyping-tools-design-system">15</a></td><td>Prototyping tools need your code and your guidelines.</td></tr>
+    <tr><td><a href="/writing/shadcn-ui-design-system-ai">16</a></td><td>Make your system readable before considering a rebuild.</td></tr>
+    <tr><td><a href="/writing/designers-ai-ready-design-system">17</a></td><td>Most agent mistakes are unwritten design decisions.</td></tr>
+    <tr><td><a href="/writing/ai-design-system-governance">18</a></td><td>Whoever owns a decision for people owns it for agents.</td></tr>
+    <tr><td><a href="/writing/design-system-ai-security">19</a></td><td>Anything an agent reads is an input; review it.</td></tr>
+    <tr><td>20</td><td>Prove value with your own before-and-after numbers.</td></tr>
+  </tbody>
+</table></div></figure>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Value comes mainly from less rework and faster review; both are measurable within weeks.</li>
+  <li>Measure a baseline first: eval pass rate, fix time, volume, review comments, defects.</li>
+  <li>Use a small model: rework hours plus review hours, times hourly cost, against one-time and running costs.</li>
+  <li>Present cautious, expected and optimistic cases, with sources for every input.</li>
+  <li>Separate your work's effect from model improvements by running the same tasks both ways.</li>
+</ul></div>
+<p>Back to the start: <a href="/writing/ai-ready-design-system">What is an AI-ready design system?</a>, or see all twenty parts on the <a href="/writing/topics/ai-ready-design-systems">course page</a>.</p>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>What is the ROI of making a design system AI-ready?</summary><div><p>It depends on your volume of agent-built UI and how often it needs fixing today. The main value is less rework and faster review. Measure your own off-system rate and fix time before and after, convert the difference into hours, and compare with the effort involved.</p></div></details>
+  <details><summary>How do I measure the impact of AI on a design system?</summary><div><p>Run a fixed set of real UI tasks with agents before and after changes and score them, track design-system-related review comments per pull request, and count accessibility and consistency defects over time.</p></div></details>
+  <details><summary>How long does it take to see a return?</summary><div><p>Early changes such as a rules file, token descriptions and lint rules usually show measurable improvement within weeks. Payback on a full programme depends on volume; modelling cautious, expected and optimistic cases gives a defensible range.</p></div></details>
+  <details><summary>How do I separate our improvements from better AI models?</summary><div><p>Run the same evaluation tasks with the new model against both the old and new setup. The difference between them is your contribution. Keep some tasks aside that you never tune against.</p></div></details>
+  <details><summary>What should a business case for an AI-ready design system include?</summary><div><p>The problem in your own numbers, the proposed work and cost, expected value as a range, the measures you'll track, a checkpoint where you'd stop if it isn't working, and the specific people and time you need.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="/writing/design-system-roi">Design system ROI: an honest model</a><span>The general model this one builds on.</span></li>
+  <li><a href="/lab/design-system-roi-calculator">Design system ROI calculator</a><span>Run the numbers with your own team sizes.</span></li>
+  <li><a href="/writing/design-system-metrics">Design system metrics</a><span>Choosing measures at each stage.</span></li>
+  <li><a href="/writing/ai-generated-ui-guardrails">Guardrails for AI-generated UI</a><span>The eval method behind the baseline.</span></li>
+</ul>

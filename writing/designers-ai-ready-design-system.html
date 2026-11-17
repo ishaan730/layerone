@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Can Designers Make a Design System AI-Ready Without Code? | Layer One</title>
+<meta name="description" content="What designers can do to make a design system AI-ready without code: token descriptions, usage rules, Figma prep, tool guidelines, templates and prompts.">
+<meta property="og:title" content="Can Designers Make a Design System AI-Ready Without Code? | Layer One">
+<meta property="og:description" content="What designers can do to make a design system AI-ready without code: token descriptions, usage rules, Figma prep, tool guidelines, templates and prompts.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-18">
+<meta property="article:modified_time" content="2026-11-18">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="AI-ready design systems">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/designers-ai-ready-design-system.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Can Designers Make a Design System AI-Ready Without Code? | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/writing.css?v=f693a735">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<meta name="keywords" content="designers AI design system, design system AI without coding, how designers prepare design system for AI, design guidelines for AI, zeroheight MCP, designer role AI agents">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Can Designers Make a Design System AI-Ready Without Code?", "description": "What designers can do to make a design system AI-ready without code: token descriptions, usage rules, Figma prep, tool guidelines, templates and prompts.", "image": "https://www.layerone.co.in/assets/images/writing/designers-ai-ready-design-system.jpg", "datePublished": "2026-11-18", "dateModified": "2026-11-18", "mainEntityOfPage": "https://www.layerone.co.in/writing/designers-ai-ready-design-system", "wordCount": 1860, "articleSection": "AI-ready design systems", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}, "keywords": "designers AI design system, design system AI without coding, how designers prepare design system for AI, design guidelines for AI, zeroheight MCP, designer role AI agents", "isPartOf": {"@type": "CreativeWorkSeries", "name": "Making your design system AI-ready", "url": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "AI-ready design systems", "item": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}, {"@type": "ListItem", "position": 3, "name": "Can designers make a design system AI-ready without coding?", "item": "https://www.layerone.co.in/writing/designers-ai-ready-design-system"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can designers make a design system AI-ready without coding?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Designers can write token descriptions, component usage rules and pattern guidance, prepare the Figma library, write guidelines for AI prototyping tools and define test tasks. Engineers then turn those into files, pipelines and checks."}}, {"@type": "Question", "name": "What should designers do to prepare a design system for AI?", "acceptedAnswer": {"@type": "Answer", "text": "Write down the decisions agents get wrong: which token for which job, which component and variant for which situation, how common patterns are built, and the content rules. Then clean up the Figma library so variables, properties and descriptions match code."}}, {"@type": "Question", "name": "Do designers need to learn JSON or MCP?", "acceptedAnswer": {"@type": "Answer", "text": "No. A shared template, such as a spreadsheet, is enough. Understanding what JSON and MCP are helps conversations with engineers, but writing them isn't necessary."}}, {"@type": "Question", "name": "How do I write design guidelines AI can follow?", "acceptedAnswer": {"@type": "Answer", "text": "Make each rule specific, checkable and name the alternative: \"At most one primary button per view; everything else secondary\" rather than \"use primary buttons sparingly\"."}}, {"@type": "Question", "name": "Do design documentation tools support AI agents?", "acceptedAnswer": {"@type": "Answer", "text": "Several do. zeroheight and Supernova, among others, offer MCP servers so AI tools can read the documentation maintained in them. Check each vendor's plans and limits."}}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/designers-ai-ready-design-system">
+<meta property="og:url" content="https://www.layerone.co.in/writing/designers-ai-ready-design-system">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Can Designers Make a Design System AI-Ready Without Code? | Layer One">
+<meta name="twitter:description" content="What designers can do to make a design system AI-ready without code: token descriptions, usage rules, Figma prep, tool guidelines, templates and prompts.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/designers-ai-ready-design-system.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading" title="Light or dark reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button><a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<main id="main" class="ed-wrap"><article class="ed-article">
+  <div class="ed-layout">
+    <aside class="ed-meta" aria-label="About this article"><div class="ed-meta-in">
+      <div class="ed-meta-who"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40"><p><b>Aniket Pandey</b><span>Founder, Layer One</span></p></div>
+      <dl class="ed-meta-dl"><div><dt>Published</dt><dd>18 November 2026</dd></div><div><dt>Reading time</dt><dd>8 minutes</dd></div><div><dt>Topic</dt><dd><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a></dd></div></dl>
+      <div class="ed-meta-sec"><p class="ed-meta-h">Making your design system AI-ready</p><ol class="ed-steps"><li><a href="/writing/ai-ready-design-system">What is an AI-ready design system?</a></li><li><a href="/writing/how-ai-agents-use-design-systems">How AI coding agents use your design system, and where they go wrong</a></li><li><a href="/writing/design-tokens-for-ai-agents">Design tokens for AI agents</a></li><li><a href="/writing/component-metadata-for-ai-agents">Component metadata for AI agents</a></li><li><a href="/writing/design-system-documentation-for-ai">Writing design system documentation AI agents can use, and how retrieval finds it</a></li><li><a href="/writing/agents-md-llms-txt-design-system">AGENTS.md, llms.txt and rules files for design systems</a></li><li><a href="/writing/design-system-mcp-server">Build an MCP server for your design system</a></li><li><a href="/writing/figma-mcp-design-to-code">Figma to code with AI</a></li><li><a href="/writing/ai-generated-ui-guardrails">Guardrails for AI-generated UI</a></li><li><a href="/writing/legacy-design-system-ai-ready">How to make a legacy design system AI-ready</a></li><li><a href="/writing/why-ai-ignores-design-system">Why does AI ignore my design system?</a></li><li><a href="/writing/design-system-context-window">How much design system context does an AI agent need?</a></li><li><a href="/writing/ai-generated-ui-accessibility">Why is AI-generated UI inaccessible, and how can a design system fix it?</a></li><li><a href="/writing/figma-code-token-drift">Figma variables and code tokens out of sync?</a></li><li><a href="/writing/ai-prototyping-tools-design-system">How do I make Figma Make, v0 and Lovable use my design system?</a></li><li><a href="/writing/shadcn-ui-design-system-ai">Is shadcn/ui better for AI?</a></li><li aria-current="step"><a href="/writing/designers-ai-ready-design-system">Can designers make a design system AI-ready without coding?</a></li><li><a href="/writing/ai-design-system-governance">Who owns the AI rules?</a></li><li><a href="/writing/design-system-ai-security">Is it safe to connect your design system to AI tools?</a></li><li><a href="/writing/ai-ready-design-system-roi">How do you prove the ROI of an AI-ready design system?</a></li></ol></div><div class="ed-meta-sec"><p class="ed-meta-h">Tags</p><ul class="ed-tags"><li>Designers</li><li>Documentation</li><li>Figma</li><li>Guidelines</li></ul></div><div class="ed-meta-sec"><p class="ed-meta-h">Share</p><p class="ed-share"><button type="button" data-copy="https://www.layerone.co.in/writing/designers-ai-ready-design-system">Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.layerone.co.in/writing/designers-ai-ready-design-system" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/intent/post?url=https://www.layerone.co.in/writing/designers-ai-ready-design-system" target="_blank" rel="noopener">X</a></p></div>
+    </div></aside>
+    <header class="ed-head">
+      <p class="ed-crumb"><a href="/writing">Writing</a><span aria-hidden="true">/</span><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a><span class="ed-crumb-s">Part 17 of 20 in <a href="/writing#ai-ready">Making your design system AI-ready</a></span></p>
+      <h1 class="ed-title">Can designers make a design system AI-ready without coding?</h1>
+      <p class="ed-dek">It looks like an engineering project, but most agent mistakes are design decisions nobody wrote down. Six things designers own, how to split the work with engineers, a template to fill in, rules agents can follow, and a two-hour weekly routine.</p>
+      <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>8 min read · 18 November 2026</span></span></p>
+    </header>
+    <figure class="ed-cover"><img src="../assets/images/writing/designers-ai-ready-design-system.w1200.webp" alt="Diagram: designers write decisions in a shared template, engineers wire them into files and checks, and agents use them to build on-system UI." width="1600" height="900" sizes="(max-width: 1024px) calc(100vw - 32px), 760px" fetchpriority="high" srcset="../assets/images/writing/designers-ai-ready-design-system.w480.webp 480w, ../assets/images/writing/designers-ai-ready-design-system.w800.webp 800w, ../assets/images/writing/designers-ai-ready-design-system.w1200.webp 1200w, ../assets/images/writing/designers-ai-ready-design-system.jpg 1600w" decoding="async"></figure>
+    <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>"I'm a designer. Is this even my job?"</b></summary><ol><li><a href="#i-m-a-designer-is-this-even-my-job">"I'm a designer. Is this even my job?"</a></li><li><a href="#six-things-designers-own">Six things designers own</a></li><li><a href="#how-designers-and-engineers-split-the-work">How designers and engineers split the work</a></li><li><a href="#a-template-designers-can-fill-in">A template designers can fill in</a></li><li><a href="#writing-rules-an-agent-can-follow">Writing rules an agent can follow</a></li><li><a href="#preparing-figma-without-help-from-engineers">Preparing Figma without help from engineers</a></li><li><a href="#documentation-tools-that-reach-agents-without-code">Documentation tools that reach agents without code</a></li><li><a href="#prompt-templates-for-designers">Prompt templates for designers</a></li><li><a href="#a-weekly-routine">A weekly routine</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+    <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>Yes, and designers own the most important part. Making a design system AI-ready is mostly about <b>writing decisions down clearly</b>, and those decisions are design decisions. Without writing code, a designer can: write <b>token descriptions</b> ("Use for… Not for…"), write <b>component purposes and usage rules</b>, prepare the <b>Figma library</b> (variables, properties, descriptions, attached instances), write <b>guidelines</b> for AI prototyping tools, define the <b>test tasks</b> that measure whether agents get it right, and <b>review</b> agent output for judgement that automated checks miss. Engineers then wire these into files, pipelines and tools. Many docs platforms now offer MCP servers too, so documentation written in a no-code editor can reach agents directly.</p>
+  <ul>
+    <li>Most AI failures in this series trace back to an unwritten design decision. Designers are best placed to write them.</li>
+    <li>You don't need to learn JSON. You need a shared template and an engineer who generates files from it.</li>
+    <li>Part 17 of 20 in the series on AI-ready design systems.</li>
+  </ul>
+</div>
+
+<h2 id="i-m-a-designer-is-this-even-my-job">"I'm a designer. Is this even my job?"</h2>
+<p>The first sixteen parts of this series are full of JSON, TypeScript and terminal commands, so it's easy to conclude that AI-readiness is an engineering project. It isn't. Look at what actually goes wrong when agents build UI:</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Agent mistake</th><th>The missing decision</th><th>Whose decision?</th></tr></thead>
+  <tbody>
+    <tr><td>Picked the wrong pale blue</td><td>Which blue is for info banners, and which for selection?</td><td>Design</td></tr>
+    <tr><td>Primary button on "Delete account"</td><td>Which variant for destructive actions?</td><td>Design</td></tr>
+    <tr><td>Illustration on a "no search results" state</td><td>What does each kind of empty state look like?</td><td>Design and content</td></tr>
+    <tr><td>Used Dialog where ConfirmDialog was right</td><td>When to use each overlay?</td><td>Design</td></tr>
+    <tr><td>Hard-coded a hex from a Figma frame</td><td>Was the layer bound to a variable?</td><td>Design</td></tr>
+    <tr><td>Imported the legacy package</td><td>Is it blocked by lint?</td><td>Engineering</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Most agent mistakes are design decisions that were never written down. The engineering fixes matter, but they deliver decisions someone has to make first.</figcaption></figure>
+<p>Designers already make these decisions every day. What changes is that they now have to be written somewhere a machine can read, in words precise enough to follow without asking.</p>
+
+<h2 id="six-things-designers-own">Six things designers own</h2>
+<ol class="w-steps">
+  <li><h3>Token descriptions</h3><p>For each semantic token: what it's for, what it's not for, what to use instead. You know why <code>text.secondary</code> exists; write that down. See <a href="/writing/design-tokens-for-ai-agents">part 3</a>.</p></li>
+  <li><h3>Component purposes and usage rules</h3><p>One sentence of purpose, "use when", "avoid when", and the rules people learn in reviews ("one primary per view"). See <a href="/writing/component-metadata-for-ai-agents">part 4</a>.</p></li>
+  <li><h3>Pattern pages</h3><p>How forms, tables, empty states and settings pages are built, with a decision table for variations. See <a href="/writing/design-system-documentation-for-ai">part 5</a>.</p></li>
+  <li><h3>The Figma library</h3><p>Variables named like tokens, properties that mirror code props, component descriptions, and the "ready for build" habits in product files. See <a href="/writing/figma-mcp-design-to-code">part 8</a>.</p></li>
+  <li><h3>Guidelines for AI prototyping tools</h3><p>The written instructions for Figma Make kits, v0 or Lovable. See <a href="/writing/ai-prototyping-tools-design-system">part 15</a>.</p></li>
+  <li><h3>Test tasks and review</h3><p>The real tasks agents are measured on, what "correct" looks like for each, and reviewing output for judgement: right pattern, right words. See <a href="/writing/ai-generated-ui-guardrails">part 9</a>.</p></li>
+</ol>
+
+<h2 id="how-designers-and-engineers-split-the-work">How designers and engineers split the work</h2>
+<figure class="w-fig">
+  <div class="w-arch">
+    <div class="w-arch-row"><span class="w-arch-k">Designers write</span><div class="w-arch-n"><div class="hi"><b>Decisions in plain language</b><span>Token descriptions, component rules, patterns, guidelines, test tasks</span></div><div><b>Figma library</b><span>Variables, properties, descriptions</span></div></div></div>
+    <div class="w-arch-link">in a shared template: a spreadsheet, a docs tool or Markdown</div>
+    <div class="w-arch-row"><span class="w-arch-k">Engineers wire</span><div class="w-arch-n"><div><b>Into files</b><span>$description, meta.json, docs/*.md</span></div><div><b>Into pipelines</b><span>Manifests, AGENTS.md, Figma sync</span></div><div><b>Into checks</b><span>Lint rules, tests, evals</span></div></div></div>
+    <div class="w-arch-link">agents use them; results come back to both</div>
+    <div class="w-arch-row"><span class="w-arch-k">Together</span><div class="w-arch-n"><div class="lt"><b>Review results</b><span>Eval scores and agent output, monthly</span></div></div></div>
+  </div>
+  <figcaption>A split that works. Designers don't need to edit JSON; engineers don't need to make design decisions.</figcaption>
+</figure>
+
+<h2 id="a-template-designers-can-fill-in">A template designers can fill in</h2>
+<p>The easiest way to start is a shared spreadsheet or table with one row per token or component. An engineer writes a small script that turns it into the files agents read. Here's the component version:</p>
+<figure class="w-fig"><div class="w-tbl w-tbl--dense"><table>
+  <thead><tr><th>Component</th><th>Purpose (one sentence)</th><th>Use when</th><th>Avoid when → use instead</th><th>Rules</th></tr></thead>
+  <tbody>
+    <tr><td>ConfirmDialog</td><td>Asks the user to confirm an action before it happens, especially one that deletes data.</td><td>Deleting, removing, cancelling; actions affecting other people</td><td>Easy to undo → Toast with Undo. Needs a form → Dialog</td><td>Title is a question naming the action. Confirm label repeats the verb.</td></tr>
+    <tr><td>StatCard</td><td>Shows 1–4 key figures with an optional action.</td><td>Dashboard summaries</td><td>More than 4 figures → Table. Trends → Chart</td><td>At most one action, secondary unless it's the page's main task.</td></tr>
+    <tr><td>Toast</td><td>Briefly confirms something that just happened.</td><td>Saved, sent, copied; undoable actions</td><td>Errors that need action → InlineAlert. Anything important → not a toast</td><td>Disappears after 5s; never the only place information appears.</td></tr>
+  </tbody>
+</table></div>
+<figcaption>A fill-in template. Each column becomes a field in the component metadata from part 4. The same idea works for tokens: name, use for, not for, use instead.</figcaption></figure>
+<div class="callout callout--tip"><span class="callout-k">Tip</span><p>Write each rule as if explaining it to a new designer on their first day who can't ask any follow-up questions. If you find yourself writing "it depends", write down what it depends on. That's the rule.</p></div>
+
+<h2 id="writing-rules-an-agent-can-follow">Writing rules an agent can follow</h2>
+<p>Designers often write guidance that makes sense to other designers but is too vague for an agent. The difference is specificity.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Too vague</th><th>Followable</th></tr></thead>
+  <tbody>
+    <tr><td>"Use primary buttons sparingly."</td><td>"At most one primary button per view. Everything else is secondary or ghost."</td></tr>
+    <tr><td>"Keep forms simple."</td><td>"One column. Labels above fields. Group related fields under a heading. Submit button bottom-left."</td></tr>
+    <tr><td>"Use appropriate spacing."</td><td>"space.inset.md inside cards; space.stack.lg between page sections."</td></tr>
+    <tr><td>"Errors should be helpful."</td><td>"Say what went wrong and how to fix it: 'Enter a date after 1 April 2026.' Never 'Invalid input'."</td></tr>
+    <tr><td>"Follow the brand."</td><td>"Use only Harbor tokens. No gradients. Illustrations only on empty states with no data yet."</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Followable rules are specific, checkable and name the alternative. They're also better for people.</figcaption></figure>
+
+<h2 id="preparing-figma-without-help-from-engineers">Preparing Figma without help from engineers</h2>
+<p>Most of the Figma work in <a href="/writing/figma-mcp-design-to-code">part 8</a> is design work:</p>
+<ul class="checklist">
+  <li><b>Name variables like tokens:</b> <code>color/feedback/info/bg</code>, matching what engineers use in code. Ask for the token list if you don't have it.</li>
+  <li><b>Fill in descriptions</b> on variables and components, using the same sentences as your template.</li>
+  <li><b>Make properties mirror props:</b> Variant = Primary / Secondary / Ghost / Danger, booleans for on/off, text properties for labels.</li>
+  <li><b>Hide primitives from publishing</b> so designers bind layers to semantic variables only.</li>
+  <li><b>Teach the "ready for build" habits:</b> attached instances, auto layout, bound variables, named frames.</li>
+  <li><b>Find raw values:</b> use a linting plugin or library analytics to find hard-coded colours and detached instances in key files.</li>
+</ul>
+
+<h2 id="documentation-tools-that-reach-agents-without-code">Documentation tools that reach agents without code</h2>
+<p>If your team writes docs in a dedicated documentation platform, check whether it offers an MCP server. Several do: zeroheight and Supernova, for example, both offer MCP servers that let tools such as Claude, Cursor and Copilot read the design system documentation you maintain there, and Storybook, Knapsack and others offer their own. Availability, write access and usage limits depend on the vendor and plan.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">GOOD FOR</span><h4>Designer-maintained docs</h4><p>Guidelines, patterns and content rules written in a visual editor reach agents without a docs-as-code pipeline.</p></div>
+  <div class="cell"><span class="k">WATCH FOR</span><h4>Two sources of truth</h4><p>If component facts live in the docs tool and in code, they'll drift. Let the docs tool hold judgement; let code hold props and tokens.</p></div>
+</div>
+
+<h2 id="prompt-templates-for-designers">Prompt templates for designers</h2>
+<p>When designers use AI tools directly, a few reusable prompts make results more consistent. Save them where your team can find them.</p>
+<figure class="w-fig">
+  <div class="w-chat">
+    <div class="u"><span class="k">Prototype a screen</span>Build [screen] for [user] who needs to [job]. Use only Harbor components and tokens. Follow the [pattern] pattern. If something needs a component Harbor doesn't have, list it instead of inventing one.</div>
+    <div class="u"><span class="k">Check a design against the system</span>Review this frame against Harbor's guidelines. List: components that aren't from the library, colours or spacing not bound to variables, and any rule broken (one primary per view, labelled fields, empty state type).</div>
+    <div class="u"><span class="k">Draft token descriptions</span>Here are our semantic tokens with their values and where each is used. For each, draft "Use for… Not for… Use instead…" in one or two sentences. Mark any token that seems to do two jobs.</div>
+  </div>
+  <figcaption>Three reusable prompts. The third one produces drafts; a designer reviews and edits every description.</figcaption>
+</figure>
+
+<h2 id="a-weekly-routine">A weekly routine</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>When</th><th>What</th><th>Time</th></tr></thead>
+  <tbody>
+    <tr><td>Monday</td><td>Read the gaps agents reported ("no component fits…") and zero-result searches; add to the backlog</td><td>20 min</td></tr>
+    <tr><td>Mid-week</td><td>Write or sharpen rules for the two components or tokens agents got wrong most often</td><td>1 hour</td></tr>
+    <tr><td>Friday</td><td>Review three agent-built screens with an engineer: right pattern, right words, right variant</td><td>30 min</td></tr>
+    <tr><td>Monthly</td><td>Look at eval results together; pick next month's focus</td><td>45 min</td></tr>
+  </tbody>
+</table></div>
+<figcaption>About two hours a week. Small, regular improvements beat a one-off documentation sprint.</figcaption></figure>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">MISTAKE</span><h4>Waiting for engineering to start</h4><p>Descriptions, rules and Figma cleanup can start today in a spreadsheet and the library. The pipeline can come later.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Rules only in Figma comments</h4><p>Guidance on canvas sticky notes doesn't reach agents. Put it in descriptions and the shared template.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Accepting AI drafts unread</h4><p>AI-drafted descriptions sound confident and are sometimes wrong. A designer approves every one.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Judging only how it looks</h4><p>Agent output that looks right can still use the wrong pattern, words or accessibility. Review behaviour, not just pixels.</p></div>
+</div>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Most agent mistakes are unwritten design decisions, so designers own the most important part of AI-readiness.</li>
+  <li>Designers write token descriptions, component rules, patterns, Figma descriptions, tool guidelines and test tasks.</li>
+  <li>Use a shared template; engineers turn it into files, pipelines and checks.</li>
+  <li>Write rules that are specific, checkable and name the alternative.</li>
+  <li>Docs platforms with MCP servers can carry designer-written docs to agents without code.</li>
+</ul></div>
+<p>Next: <a href="/writing/ai-design-system-governance">Who owns the AI rules? Governance for an AI-ready design system.</a></p>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Can designers make a design system AI-ready without coding?</summary><div><p>Yes. Designers can write token descriptions, component usage rules and pattern guidance, prepare the Figma library, write guidelines for AI prototyping tools and define test tasks. Engineers then turn those into files, pipelines and checks.</p></div></details>
+  <details><summary>What should designers do to prepare a design system for AI?</summary><div><p>Write down the decisions agents get wrong: which token for which job, which component and variant for which situation, how common patterns are built, and the content rules. Then clean up the Figma library so variables, properties and descriptions match code.</p></div></details>
+  <details><summary>Do designers need to learn JSON or MCP?</summary><div><p>No. A shared template, such as a spreadsheet, is enough. Understanding what JSON and MCP are helps conversations with engineers, but writing them isn't necessary.</p></div></details>
+  <details><summary>How do I write design guidelines AI can follow?</summary><div><p>Make each rule specific, checkable and name the alternative: "At most one primary button per view; everything else secondary" rather than "use primary buttons sparingly".</p></div></details>
+  <details><summary>Do design documentation tools support AI agents?</summary><div><p>Several do. zeroheight and Supernova, among others, offer MCP servers so AI tools can read the documentation maintained in them. Check each vendor's plans and limits.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://help.zeroheight.com/hc/en-us/articles/43780251357979-Using-the-remote-zeroheight-MCP-server" target="_blank" rel="noopener">zeroheight: using the remote MCP server</a><span>Connecting zeroheight docs to AI tools.</span></li>
+  <li><a href="https://learn.supernova.io/latest/design-systems/features/mcp-for-design-system-LIHAMhjr-LIHAMhjr" target="_blank" rel="noopener">Supernova: MCP for design system</a><span>Supernova's MCP server for documentation.</span></li>
+  <li><a href="https://developers.figma.com/docs/code/write-design-system-guidelines/" target="_blank" rel="noopener">Figma: write design system guidelines</a><span>Guidance written for Figma Make, useful everywhere.</span></li>
+  <li><a href="/writing/ux-writing-design-system">UX writing in a design system</a><span>Content rules agents can follow.</span></li>
+</ul>
+</div>
+    <aside class="ed-aside" aria-label="On this page"><nav class="ed-toc"><p>On this page</p><ol><li><a href="#i-m-a-designer-is-this-even-my-job">"I'm a designer. Is this even my job?"</a></li><li><a href="#six-things-designers-own">Six things designers own</a></li><li><a href="#how-designers-and-engineers-split-the-work">How designers and engineers split the work</a></li><li><a href="#a-template-designers-can-fill-in">A template designers can fill in</a></li><li><a href="#writing-rules-an-agent-can-follow">Writing rules an agent can follow</a></li><li><a href="#preparing-figma-without-help-from-engineers">Preparing Figma without help from engineers</a></li><li><a href="#documentation-tools-that-reach-agents-without-code">Documentation tools that reach agents without code</a></li><li><a href="#prompt-templates-for-designers">Prompt templates for designers</a></li><li><a href="#a-weekly-routine">A weekly routine</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><a class="ed-top" href="#main">Back to top ↑</a></nav></aside>
+  </div>
+  <footer class="ed-end">
+    <section class="ed-more" aria-labelledby="more-h"><h2 class="ed-sec-h" id="more-h">next in making your design system ai-ready:</h2><div class="ec-grid"><a class="ec " href="/writing/ai-design-system-governance" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/ai-design-system-governance.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/ai-design-system-governance.w480.webp 480w, ../assets/images/writing/ai-design-system-governance.w800.webp 800w, ../assets/images/writing/ai-design-system-governance.w1200.webp 1200w, ../assets/images/writing/ai-design-system-governance.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">Who owns the AI rules? Governance for an AI-ready design system</b><span class="ec-d">Who owns AGENTS.md, token descriptions and agent output: a decision-rights table, CODEOWNERS for AI rules, a policy for agent work and a feedback loop.</span><span class="ec-f">8 min read</span></a><a class="ec " href="/writing/design-tokens-for-ai-agents" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/design-tokens-for-ai-agents.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-tokens-for-ai-agents.w480.webp 480w, ../assets/images/writing/design-tokens-for-ai-agents.w800.webp 800w, ../assets/images/writing/design-tokens-for-ai-agents.w1200.webp 1200w, ../assets/images/writing/design-tokens-for-ai-agents.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">Design tokens for AI agents</b><span class="ec-d">Make design tokens usable by AI agents: DTCG 2025.10 JSON, semantic names, $description and $deprecated, an agent manifest from Style Dictionary, and checks.</span><span class="ec-f">13 min read</span></a><a class="ec " href="/writing/ai-prototyping-tools-design-system" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/ai-prototyping-tools-design-system.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/ai-prototyping-tools-design-system.w480.webp 480w, ../assets/images/writing/ai-prototyping-tools-design-system.w800.webp 800w, ../assets/images/writing/ai-prototyping-tools-design-system.w1200.webp 1200w, ../assets/images/writing/ai-prototyping-tools-design-system.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">How do I make Figma Make, v0 and Lovable use my design system?</b><span class="ec-d">Get AI prototyping tools to use your design system: Figma Make kits, v0 design systems and registries, Lovable design system projects, and guidelines that work.</span><span class="ec-f">9 min read</span></a></div></section>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Working on this in your own product?</h2><p>Most teams we work with start with a two-week audit: every style, component and token, checked and ranked.</p></div><a href="/pricing">How the audit works <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main><footer class="ed-foot"><div class="ed-foot-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
+  <nav aria-label="Studio"><a href="/work">Work</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/contact">Contact</a><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">LinkedIn</a><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></nav>
+</div></footer><script src="../assets/site.js?v=3de6a9b6" defer></script>
+</body>
+</html>

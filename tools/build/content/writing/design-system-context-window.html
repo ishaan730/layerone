@@ -1,0 +1,164 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>Less than most teams give it, and more precisely. An agent needs a <b>short map</b> loaded every time (a rules file of roughly 50–150 lines: package, never-use list, token rules, where to look, how to check) and <b>exact answers on demand</b> (one component's props and rules, the tokens for one job, one pattern page). It does <b>not</b> need your whole docs site, every component's full API, or a dozen MCP servers loaded at once. Every extra line and every tool definition takes space in the context window and competes for attention, so too much context makes results <i>less</i> consistent, not more. Measure what's loaded, keep the always-on part small, and load the rest only when the task needs it.</p>
+  <ul>
+    <li>Tool definitions count too: each connected MCP tool's name, description and schema is sent with every request.</li>
+    <li>If an agent ignores a rule you know is written down, first check whether it's buried.</li>
+    <li>Part 12 of 20 in the series on AI-ready design systems.</li>
+  </ul>
+</div>
+
+<h2>"We gave it everything, and it got worse"</h2>
+<p>Once teams learn that agents need context (<a href="/writing/how-ai-agents-use-design-systems">part 2</a>), a common next step is to give them all of it: the full component docs pasted into the rules file, the token file attached to every prompt, every MCP server anyone found useful. Results often get worse.</p>
+<p class="scenario-t">An illustration: the 1,800-line rules file</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>Kestrel's payroll app has an AGENTS.md that grew to 1,800 lines: Harbor's full docs, the brand guide, API conventions, testing guides. Eleven MCP servers are configured.</p></div>
+  <div><span class="k">The symptom</span><p>Agents follow the "never use ui-old" rule in some runs and not others. Simple tasks take noticeably longer to start. The same prompt gives different component choices from one day to the next.</p></div>
+  <div><span class="k">The cause</span><p>The ten rules that matter are on lines 900–910, surrounded by text that's irrelevant to most tasks, and the agent is choosing between around 180 tools on every step.</p></div>
+</div>
+
+<h2>What the context window actually holds</h2>
+<p>Every time an agent takes a step, the model is sent everything it needs to decide the next one. Understanding what's in that bundle explains why "more" isn't free.</p>
+<figure class="w-fig">
+  <div class="stack">
+    <div><b>System instructions</b><span>From the agent product itself. You don't control these.</span></div>
+    <div class="hi"><b>Tool definitions</b><span>Name, description and input schema of every connected tool, built-in and MCP. Sent with every request.</span></div>
+    <div class="hi"><b>Rules files</b><span>AGENTS.md, CLAUDE.md, matching Cursor or Copilot rules. Loaded at the start.</span></div>
+    <div><b>Conversation so far</b><span>Your prompt, the agent's messages, every tool call and every result: files opened, search output, lint errors.</span></div>
+    <div class="lt"><b>Space left to think and write</b><span>Shrinks as everything above grows.</span></div>
+  </div>
+  <figcaption>The parts of a context window. The two highlighted layers are the ones a design system team controls directly, and they're present on every single step.</figcaption>
+</figure>
+<div class="callout callout--term"><span class="callout-k">New words</span><p><b>Token (in AI models):</b> the unit models count text in, roughly three-quarters of an English word; not the same as a design token. <b>Context window:</b> the maximum number of tokens a model can consider at once. <b>Progressive disclosure:</b> showing a short summary first and loading detail only when it's needed.</p></div>
+<p>Two separate problems come from overfilling it:</p>
+<div class="cols2">
+  <div class="cell"><span class="k">PROBLEM 1</span><h4>Budget</h4><p>Large windows are big, but long tasks fill them: a few big files, long lint output and tool results add up. When space runs out, agents summarise or drop earlier context, and early instructions can be lost. Larger contexts also cost more and run slower.</p></div>
+  <div class="cell"><span class="k">PROBLEM 2</span><h4>Attention</h4><p>Even well within the limit, models use information less reliably when it's buried among lots of other text. Research on long contexts has found that facts in the middle are used less well than facts at the start or end. Ten clear rules beat ten rules inside 1,800 lines.</p></div>
+</div>
+
+<h2>How much is enough: a budget for each layer</h2>
+<p>There's no universal number, but these targets work well in practice for design system context.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Layer</th><th>Loaded</th><th>Target size</th><th>Contains</th></tr></thead>
+  <tbody>
+    <tr><td><b>Rules file section</b> for the design system</td><td>Every task</td><td>30–80 lines</td><td>Package, never-use list, token rules, where to look, helpers, check command</td></tr>
+    <tr><td><b>Whole rules file</b></td><td>Every task</td><td>Under ~150 lines</td><td>The design system section plus the repo's own essentials</td></tr>
+    <tr><td><b>Design system MCP tools</b></td><td>Every request (definitions)</td><td>3–6 tools, short descriptions</td><td>Search and get, for components, tokens and patterns</td></tr>
+    <tr><td><b>Component index</b></td><td>When choosing</td><td>One line per component</td><td>Name, status, category, purpose</td></tr>
+    <tr><td><b>One component's detail</b></td><td>When using it</td><td>A few hundred words</td><td>Props, rules, accessibility, one example</td></tr>
+    <tr><td><b>One pattern page</b></td><td>When building that kind of screen</td><td>500–1,500 words</td><td>Decision table, components used, one full example</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Small always-on layers, detail on demand. <span class="ev ev--prac">Practitioner view</span> Targets, not rules: the test is whether the agent follows the essentials in every run.</figcaption></figure>
+
+<h2>Too many tools is a context problem too</h2>
+<p>Each MCP server adds its tools' definitions to every request. One design system server with four tools is small. Eleven servers, some with thirty or forty tools each, can add tens of thousands of tokens before the agent reads your prompt, and give the model far more options to choose between on every step. Engineering reports from teams running many servers consistently describe the same pattern: as tool counts grow, the cost rises and the agent picks the wrong tool more often.</p>
+<figure class="w-fig">
+  <div class="cols2">
+    <div class="cell"><span class="k">BEFORE</span><h4>Everything, everywhere</h4><ul><li>11 servers configured for every repo</li><li>~180 tools visible on every step</li><li>Four tools that all "search" something</li><li>Design system tools lost among them</li></ul></div>
+    <div class="cell cell--accent"><span class="k">AFTER</span><h4>Scoped to the work</h4><ul><li>Project config with 3 servers: harbor, figma, the issue tracker</li><li>Others enabled per person, when needed</li><li>Tool names say whose they are: <code>harbor.search_components</code></li><li>Descriptions say when to call them</li></ul></div>
+  </div>
+  <figcaption><span class="ev ev--ill">Illustration</span> Commit only the servers a repo's work needs; let individuals add others for themselves.</figcaption>
+</figure>
+<p>Some agent products now load tool definitions on demand when many are configured, searching for the right tool instead of showing all of them up front. That helps, but it still relies on clear tool names and descriptions to find the right one.</p>
+
+<h2>Step by step: put your design system context on a diet</h2>
+<ol class="w-steps">
+  <li><h3>Measure what's loaded</h3><p>Count the lines in every rules file that loads for a typical UI task (root AGENTS.md, nested files, CLAUDE.md, tool-specific rules), and list the MCP servers and tool counts. Many agents show context usage directly; Claude Code, for example, has a <code>/context</code> command.</p></li>
+  <li><h3>Sort every rule into three piles</h3><p><b>Every task</b> (never use ui-old), <b>some tasks</b> (how to build a data table), <b>reference</b> (the full list of props). Only the first pile stays in the rules file.</p></li>
+  <li><h3>Move "some tasks" into on-demand places</h3><p>Pattern pages the MCP server can return, scoped rules that only apply to matching files (Cursor and Copilot both support path-scoped rules), or skills that load when the task matches their description.</p></li>
+  <li><h3>Move "reference" into data</h3><p>Prop lists and token values belong in the generated manifests from <a href="/writing/component-metadata-for-ai-agents">part 4</a> and <a href="/writing/design-tokens-for-ai-agents">part 3</a>, fetched one item at a time.</p></li>
+  <li><h3>Trim the tool list</h3><p>Keep project-level MCP config to the servers the repo's work needs. Merge overlapping tools. Shorten descriptions to what the model needs to decide when to call them.</p></li>
+  <li><h3>Shape tool results</h3><p>Return summaries from search tools and detail from get tools. Strip fields agents don't use. Cap results (five components, eight tokens).</p></li>
+  <li><h3>Re-test</h3><p>Run your eval tasks (<a href="/writing/ai-generated-ui-guardrails">part 9</a>) before and after. Consistency between runs is the number to watch.</p></li>
+</ol>
+
+<h2>Before and after: the rules file</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">BEFORE · 1,800 LINES</span><pre><code># Payroll web app
+## About Harbor (copied from docs)
+Harbor was created in 2021 to…
+## Button
+Buttons let users take actions…
+### Props
+| prop | type | default |…
+## Card
+…
+(60 more components)
+## Brand voice
+…
+## Testing philosophy
+…</code></pre><p>Mostly reference material, loaded for every task, including tasks that touch no UI.</p></div>
+  <div class="cell"><span class="k">AFTER · 70 LINES</span><pre><code># Payroll web app
+pnpm dev · pnpm check before finishing
+
+## UI: use Harbor
+- Import from @kestrel/harbor.
+- Look up components with
+  harbor.search_components /
+  get_component before writing UI.
+- Patterns: harbor.get_pattern.
+
+### Never use
+- @kestrel/ui-old, src/legacy/
+- Modal, AlertDialog, BtnPrimary
+
+### Tokens
+- Semantic tokens only;
+  harbor.search_tokens to find one.
+…</code></pre><p>The rules that apply to every UI task, plus where to get everything else.</p></div>
+</div>
+
+<h2>Long tasks: keeping context healthy as work goes on</h2>
+<p>Context also fills up during a task. A long session that builds a whole feature opens dozens of files, runs checks many times, and accumulates output. Three habits help:</p>
+<ul class="checklist">
+  <li><b>One task per session.</b> Start a fresh session for each screen or ticket, so earlier, unrelated context doesn't leak in.</li>
+  <li><b>Quiet checks.</b> Make your check command print only errors, with file, line and message. Pages of passing-test output waste space.</li>
+  <li><b>Put essentials in files, not chat.</b> If agents compact or summarise long conversations, rules typed into chat early on may be summarised away; rules in files are reloaded.</li>
+</ul>
+
+<h2>How to tell whether context is the problem</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Sign</th><th>Likely cause</th></tr></thead>
+  <tbody>
+    <tr><td>A rule is followed in some runs and not others</td><td>Rule buried in a long file, or contradicted by code the agent read</td></tr>
+    <tr><td>The agent calls the wrong tool, or a similar tool from another server</td><td>Too many tools; overlapping names and descriptions</td></tr>
+    <tr><td>Early instructions are forgotten late in a long task</td><td>Session too long; essentials only in chat</td></tr>
+    <tr><td>The agent never looks anything up</td><td>Too <i>little</i> context: no map telling it where to look (see <a href="/writing/why-ai-ignores-design-system">part 11</a>)</td></tr>
+  </tbody>
+</table></div></figure>
+
+<h2>Common mistakes</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">MISTAKE</span><h4>Pasting docs into rules files</h4><p>Docs are reference; rules files are a map. Link to the docs and let the agent fetch the part it needs.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>One giant MCP tool response</h4><p>A <code>get_all_components</code> tool that returns everything fills the context in one call. Search, then get.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Committing everyone's favourite servers</h4><p>Project config applies to everyone. Keep it to what the repo needs; personal tools go in personal config.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Trimming without testing</h4><p>Removing a line can remove a rule that mattered. Rerun your eval tasks after each trim.</p></div>
+</div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Agents need a short map every time and exact answers on demand, not everything at once.</li>
+  <li>Rules files and tool definitions are present on every step, so keep them small.</li>
+  <li>Sort rules into every-task, some-tasks and reference; only the first stays in the rules file.</li>
+  <li>Configure only the MCP servers a repo needs; shape tool results to be short.</li>
+  <li>Measure consistency across runs before and after trimming.</li>
+</ul></div>
+<p>Next: <a href="/writing/ai-generated-ui-accessibility">Why is AI-generated UI inaccessible, and how can a design system fix it?</a></p>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>How long should an AGENTS.md or CLAUDE.md file be?</summary><div><p>As short as possible while covering what every task needs. Under about 150 lines for the whole file is a good target, with the design system section around 30–80 lines. Link to docs for everything else.</p></div></details>
+  <details><summary>Do too many MCP servers slow down AI agents?</summary><div><p>Yes. Every connected tool's definition is sent with each request, which uses context and adds cost, and more tools mean more chances to pick the wrong one. Configure only the servers a project needs.</p></div></details>
+  <details><summary>Should I paste my design system docs into the prompt?</summary><div><p>No. Give the agent a short map and a way to fetch exactly what it needs, such as a component index or an MCP tool. Pasting everything makes important rules harder to follow.</p></div></details>
+  <details><summary>What is progressive disclosure for AI agents?</summary><div><p>Showing the agent a brief summary first (a rules file, a component index, tool names) and loading detail only when the task needs it (one component's props, one pattern page).</p></div></details>
+  <details><summary>Why does my agent follow a rule sometimes but not always?</summary><div><p>Often because the rule is buried in long context, contradicted by code the agent read, or typed in chat early in a long session. Put it near the top of a short rules file and back it with a lint rule.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents" target="_blank" rel="noopener">Anthropic: Effective context engineering for AI agents</a><span>Why smaller, better-chosen context works.</span></li>
+  <li><a href="https://www.anthropic.com/engineering/writing-tools-for-agents" target="_blank" rel="noopener">Anthropic: Writing effective tools for agents</a><span>Names, descriptions and response sizes.</span></li>
+  <li><a href="https://arxiv.org/abs/2307.03172" target="_blank" rel="noopener">Lost in the Middle (Liu et al.)</a><span>How models use information in long contexts.</span></li>
+  <li><a href="/writing/agents-md-llms-txt-design-system">AGENTS.md, llms.txt and rules files</a><span>What belongs in the always-on layer.</span></li>
+</ul>

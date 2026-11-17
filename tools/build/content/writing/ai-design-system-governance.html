@@ -1,0 +1,156 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>The design system team should own the <b>AI rules</b> (the design system section of rules files, token descriptions, component metadata, MCP tools, lint rules and evals), because they are design system decisions in machine-readable form. Product teams own their <b>repo-specific rules</b> and the <b>agent output</b> they merge. Make that explicit with four things: a <b>decision-rights table</b> saying who decides and who reviews each artifact; <b>review for rules changes</b> (CODEOWNERS on the files, release notes for changes); a <b>contribution policy for agent-written work</b> (same standard, same review, clearly labelled); and a <b>feedback loop</b> that turns repeated agent mistakes and reported gaps into backlog items. Keep it light: most changes should take minutes to approve.</p>
+  <ul>
+    <li>A rules-file line can change what hundreds of agent sessions do tomorrow. Review it like a code change.</li>
+    <li>The person who merges agent-written code is accountable for it, as for any code.</li>
+    <li>Part 18 of 20 in the series on AI-ready design systems.</li>
+  </ul>
+</div>
+
+<h2>The problem: new artifacts, no owners</h2>
+<p>An AI-ready design system creates artifacts that didn't exist before: AGENTS.md sections, token descriptions, metadata files, MCP servers, guidelines for prototyping tools, lint rules, eval tasks. Each one changes what agents do across every product. In most teams, nobody has decided who owns them.</p>
+<p class="scenario-t">An illustration: the helpful edit</p>
+<div class="scenario">
+  <div><span class="k">What happened</span><p>An engineer on the admin team, frustrated that agents kept using <code>Table</code> for a three-row list, added "Prefer DataGrid for all tabular data" to the shared Harbor snippet in their repo's AGENTS.md.</p></div>
+  <div><span class="k">The effect</span><p>Weeks later, someone updating the snippet template in the design system repo copied it from that repo's AGENTS.md. The next release pushed the line to all twelve product repos. Agents started using the heavy DataGrid for simple lists everywhere.</p></div>
+  <div><span class="k">The gap</span><p>No one owned the snippet, nobody reviewed the change, and the line contradicted Table's metadata. Agents got two answers and followed the louder one.</p></div>
+</div>
+<p>The fix isn't a committee. It's clear ownership and the same lightweight review you already use for code. If you're new to design system governance, start with <a href="/writing/design-system-governance">who decides what, and how</a>.</p>
+
+<h2>Who owns what: a decision-rights table</h2>
+<figure class="w-fig"><div class="w-tbl w-tbl--dense"><table>
+  <thead><tr><th>Artifact</th><th>Decides</th><th>Reviews</th><th>Informed</th></tr></thead>
+  <tbody>
+    <tr><td>Design system section of AGENTS.md (generated snippet)</td><td>Design system team</td><td>A system designer and engineer</td><td>All product teams, via release notes</td></tr>
+    <tr><td>Repo-specific rules (domain, build, testing)</td><td>Product team</td><td>Product team</td><td>System team, if it touches UI</td></tr>
+    <tr><td>Token descriptions</td><td>System designer</td><td>System engineer</td><td>Product designers</td></tr>
+    <tr><td>Component metadata and usage rules</td><td>System designer</td><td>System engineer, accessibility specialist</td><td>Everyone, via docs</td></tr>
+    <tr><td>Pattern pages</td><td>System designer with product designers</td><td>Content designer</td><td>Everyone</td></tr>
+    <tr><td>MCP server and tool descriptions</td><td>System engineer</td><td>System designer</td><td>Product engineers</td></tr>
+    <tr><td>Lint rules and messages</td><td>System engineer</td><td>A product engineering champion</td><td>Product engineers, before rules become errors</td></tr>
+    <tr><td>Guidelines for prototyping tools</td><td>System designer</td><td>System engineer</td><td>Designers</td></tr>
+    <tr><td>Eval tasks and results</td><td>Design system lead</td><td>Designer and engineer pair</td><td>Sponsors, monthly</td></tr>
+    <tr><td>Agent-written code in a product</td><td>Product team</td><td>Normal code review</td><td>–</td></tr>
+  </tbody>
+</table></div>
+<figcaption>A starting point. The principle: whoever owns a decision for people owns it for agents too.</figcaption></figure>
+
+<h2>Reviewing changes to AI rules</h2>
+<p>Rules files, metadata and lint messages are instructions that run in every agent session. Treat changes to them like code changes.</p>
+<ol class="w-steps">
+  <li><h3>Keep them in the repo</h3><p>All AI rules live as files in the design system repo, generated where possible. No rules that only exist in a tool's settings screen.</p></li>
+  <li><h3>Require review with CODEOWNERS</h3><p>GitHub and GitLab can require approval from named owners for changes to specific paths.</p></li>
+  <li><h3>Check for contradictions</h3><p>When a rule changes, check it against the metadata, docs and lint messages that cover the same thing. One decision, one wording, generated into every place.</p></li>
+  <li><h3>Rerun evals for significant changes</h3><p>A new rule should improve the eval tasks it targets without making others worse (<a href="/writing/ai-generated-ui-guardrails">part 9</a>).</p></li>
+  <li><h3>Announce in release notes</h3><p>"Agents will now use ConfirmDialog for all destructive actions" is a behaviour change teams should hear about. See <a href="/writing/design-system-release-notes">release notes</a>.</p></li>
+</ol>
+<pre><code><span class="c"># .github/CODEOWNERS in the design system repo</span>
+/tokens/                      @kestrel/harbor-design @kestrel/harbor-eng
+/src/**/*.meta.json           @kestrel/harbor-design
+/docs/patterns/               @kestrel/harbor-design @kestrel/content-design
+/AGENTS.snippet.template.md   @kestrel/harbor-design @kestrel/harbor-eng
+/mcp/                         @kestrel/harbor-eng
+/lint/                        @kestrel/harbor-eng
+/evals/                       @kestrel/harbor-lead
+
+<span class="c"># .github/CODEOWNERS in a product repo: the generated block is read-only here</span>
+/AGENTS.md                    @kestrel/payroll-leads</code></pre>
+<p>In product repos, the CI check from <a href="/writing/agents-md-llms-txt-design-system">part 6</a> fails if anyone edits the generated block by hand, which is what would have stopped the DataGrid line. Suggestions go to the design system team's front door instead.</p>
+
+<h2>A policy for agent-written contributions</h2>
+<p>Agents now draft design system changes too: new components, documentation, codemods. That's useful, and it needs a clear standard.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Question</th><th>Policy</th></tr></thead>
+  <tbody>
+    <tr><td>Can agent-written code be contributed to the system?</td><td>Yes, under the same contribution model and standard as any other contribution</td></tr>
+    <tr><td>Who is the author?</td><td>The person who opened the pull request. They must understand and stand behind every line</td></tr>
+    <tr><td>How is it labelled?</td><td>An "ai-assisted" label on the pull request, so reviewers know what to look for</td></tr>
+    <tr><td>What gets extra scrutiny?</td><td>Accessibility behaviour, API naming consistency, visual details in dark mode and at other densities, and invented dependencies</td></tr>
+    <tr><td>What can agents never do alone?</td><td>Change tokens, deprecate components, change rules files, or merge anything</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Same standard, clear authorship, extra care where agents are weakest. See <a href="/writing/design-system-contribution-model">the contribution model</a>.</figcaption></figure>
+
+<h2>Who is accountable for agent output in products?</h2>
+<p>A simple rule removes most arguments: <b>the person who merges agent-written code is accountable for it, exactly as if they'd written it.</b> The design system team is accountable for whether the system gave agents correct guidance; the product team is accountable for what ships.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">SYSTEM TEAM</span><h4>Accountable for guidance</h4><ul><li>Rules, metadata and docs are correct and consistent</li><li>Lint catches what it should</li><li>Gaps reported by agents are triaged</li><li>Eval results are shared</li></ul></div>
+  <div class="cell"><span class="k">PRODUCT TEAM</span><h4>Accountable for output</h4><ul><li>Agent code is reviewed before merge</li><li>Checks pass; overrides are justified</li><li>Local exceptions are recorded</li><li>Gaps are reported, not quietly worked around</li></ul></div>
+</div>
+
+<h2>Turn agent mistakes and gaps into a backlog</h2>
+<p>Agents are an unusually honest source of design system feedback. When a rules file says "if no component fits, say so" (<a href="/writing/agents-md-llms-txt-design-system">part 6</a>), every gap gets reported, not quietly worked around. Collect those reports.</p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Signals</b><span>"No component fits" reports, zero-result MCP searches, eval failures, lint overrides</span></div><i>→</i>
+    <div><b>One intake</b><span>The system team's existing front door, tagged "agent"</span></div><i>→</i>
+    <div class="hi"><b>Triage weekly</b><span>Real gap, unclear rule, or wrong expectation?</span></div><i>→</i>
+    <div><b>Act</b><span>New component, sharper rule, or no change with a written reason</span></div><i>→</i>
+    <div><b>Close the loop</b><span>Release note; new eval task</span></div>
+  </div>
+  <figcaption>The agent feedback loop uses the same front door as human requests. Use the same scoring, too: see <a href="/writing/design-system-contribution-model">contribution model</a>.</figcaption>
+</figure>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Signal</th><th>Usually means</th><th>Typical action</th></tr></thead>
+  <tbody>
+    <tr><td>Same "no component fits" from three teams</td><td>A real gap</td><td>Score it as a component request</td></tr>
+    <tr><td>Agents keep choosing the wrong one of two components</td><td>Purposes overlap</td><td>Rewrite both purposes, or merge</td></tr>
+    <tr><td>Searches for "popup" find nothing</td><td>Docs don't use people's words</td><td>Add the word to Dialog's purpose</td></tr>
+    <tr><td>Lint rule overridden often in one product</td><td>The rule is wrong for that case, or a gap</td><td>Talk to the team; adjust the rule or add a component</td></tr>
+  </tbody>
+</table></div></figure>
+
+<h2>Keep a decision log</h2>
+<p>When you decide something about AI and the design system, write it down with the reason. A future person, or an agent reading your docs, will ask why.</p>
+<pre><code>## 2026-11-20 · Agents may not edit files in components/ui
+Decision: Agents must not modify shared component source in product repos.
+Why: Two incidents where an agent edited Button for one screen and changed it everywhere.
+Enforced by: AGENTS.md rule; CODEOWNERS on components/ui; eval task "export spinner".
+Owner: Harbor team. Review: when we move to package-only distribution.</code></pre>
+
+<h2>How governance scales with team size</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Team</th><th>What's enough</th></tr></thead>
+  <tbody>
+    <tr><td>Startup, one or two people own the system</td><td>One owner for all AI rules; a short decision log; AGENTS.md reviewed in normal pull requests</td></tr>
+    <tr><td>Mid-size, a small system team</td><td>The decision-rights table, CODEOWNERS, an "agent" tag on the front door, monthly eval review</td></tr>
+    <tr><td>Enterprise, many products and a platform team</td><td>All of the above, plus an approved list of AI tools and MCP servers, security review (<a href="/writing/design-system-ai-security">part 19</a>) and quarterly reporting to sponsors</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Add process only when its absence causes problems. See <a href="/writing/design-system-operating-model">the operating model</a>.</figcaption></figure>
+
+<h2>Common mistakes</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">MISTAKE</span><h4>Rules edited in many places</h4><p>The same rule hand-edited in twelve repos becomes twelve rules. Generate one, distribute it, protect it.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>A new committee for AI</h4><p>AI rules are design system decisions. Use the existing governance with a few new artifacts, not a parallel process.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>"The AI did it"</h4><p>Agent output is reviewed and merged by people. Accountability stays with them.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Ignoring agent gap reports</h4><p>They're free, specific feedback. A team that never acts on them teaches everyone to work around the system.</p></div>
+</div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>The design system team owns AI rules; product teams own repo rules and the agent output they merge.</li>
+  <li>Write a decision-rights table for the new artifacts: rules files, descriptions, metadata, MCP, lint, evals.</li>
+  <li>Review rules changes like code: CODEOWNERS, contradiction checks, evals, release notes.</li>
+  <li>Agent-written contributions meet the same standard, with a named human author and a label.</li>
+  <li>Turn agent gap reports and repeated mistakes into backlog items through your existing front door.</li>
+</ul></div>
+<p>Next: <a href="/writing/design-system-ai-security">Is it safe to connect your design system to AI tools?</a></p>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Who should own AGENTS.md and AI rules for a design system?</summary><div><p>The design system team should own the design system section, ideally generated and distributed from the system's repo. Product teams own the repo-specific parts. Changes to either should be reviewed like code.</p></div></details>
+  <details><summary>Who is responsible for AI-generated code?</summary><div><p>The person who merges it, exactly as if they had written it. The design system team is responsible for giving agents correct guidance; product teams are responsible for what ships.</p></div></details>
+  <details><summary>Should design systems accept AI-written contributions?</summary><div><p>Yes, under the same contribution model and standard as any other contribution, with a named human author who understands the change, a label so reviewers know, and extra scrutiny for accessibility and API consistency.</p></div></details>
+  <details><summary>How do I review changes to AI rules files?</summary><div><p>Keep them in the repo, require approval with CODEOWNERS, check new rules against metadata and docs for contradictions, rerun evals for significant changes, and announce behaviour changes in release notes.</p></div></details>
+  <details><summary>How can AI agents help improve a design system?</summary><div><p>When rules tell agents to report gaps instead of inventing components, their reports, zero-result searches and repeated mistakes become specific feedback. Route them through the system team's normal intake.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners" target="_blank" rel="noopener">GitHub: about code owners</a><span>Requiring review for specific paths.</span></li>
+  <li><a href="/writing/design-system-governance">Design system governance</a><span>Decision rights and lightweight process.</span></li>
+  <li><a href="/writing/design-system-contribution-model">Design system contribution model</a><span>One front door and a scoring formula.</span></li>
+  <li><a href="/writing/design-system-release-notes">Design system release notes</a><span>Announcing behaviour changes.</span></li>
+</ul>

@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI-Generated UI Guardrails: Lint, Tests and Evals | Layer One</title>
+<meta name="description" content="Keep AI-generated UI on-system: ESLint and Stylelint rules with fix-it messages, axe and visual tests, one check command, and evals that track progress.">
+<meta property="og:title" content="AI-Generated UI Guardrails: Lint, Tests and Evals | Layer One">
+<meta property="og:description" content="Keep AI-generated UI on-system: ESLint and Stylelint rules with fix-it messages, axe and visual tests, one check command, and evals that track progress.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-17">
+<meta property="article:modified_time" content="2026-11-17">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="AI-ready design systems">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/ai-generated-ui-guardrails.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="AI-Generated UI Guardrails: Lint, Tests and Evals | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/writing.css?v=f693a735">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<meta name="keywords" content="AI generated UI guardrails, design system lint rules, no-restricted-imports, stylelint design tokens, axe accessibility testing, AI evals, design system compliance">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "AI-Generated UI Guardrails: Lint, Tests and Evals", "description": "Keep AI-generated UI on-system: ESLint and Stylelint rules with fix-it messages, axe and visual tests, one check command, and evals that track progress.", "image": "https://www.layerone.co.in/assets/images/writing/ai-generated-ui-guardrails.jpg", "datePublished": "2026-11-17", "dateModified": "2026-11-17", "mainEntityOfPage": "https://www.layerone.co.in/writing/ai-generated-ui-guardrails", "wordCount": 2624, "articleSection": "AI-ready design systems", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}, "keywords": "AI generated UI guardrails, design system lint rules, no-restricted-imports, stylelint design tokens, axe accessibility testing, AI evals, design system compliance", "isPartOf": {"@type": "CreativeWorkSeries", "name": "Making your design system AI-ready", "url": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "AI-ready design systems", "item": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}, {"@type": "ListItem", "position": 3, "name": "Guardrails for AI-generated UI", "item": "https://www.layerone.co.in/writing/ai-generated-ui-guardrails"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I stop AI from generating off-system UI?", "acceptedAnswer": {"@type": "Answer", "text": "Combine guidance with enforcement: rules files, described tokens and component metadata guide the agent; strict types and lint rules with clear fix-it messages catch what slips through; accessibility and visual tests check the result. Agents read error messages and fix their own work."}}, {"@type": "Question", "name": "What lint rules should a design system have for AI-generated code?", "acceptedAnswer": {"@type": "Answer", "text": "At minimum: block imports from deprecated packages and components (no-restricted-imports), block raw colours in styles and default Tailwind palette classes (no-restricted-syntax), and require tokens for colours, spacing and type in CSS (stylelint-declaration-strict-value)."}}, {"@type": "Question", "name": "What is an eval for a design system?", "acceptedAnswer": {"@type": "Answer", "text": "A repeatable test of how well AI agents build with your system: a fixed set of realistic tasks, each run several times, with results scored automatically for things like lint errors, deprecated imports, raw values and expected components."}}, {"@type": "Question", "name": "Can automated tests check accessibility of AI-generated UI?", "acceptedAnswer": {"@type": "Answer", "text": "Partly. Tools like axe-core catch many issues (missing labels, contrast, invalid ARIA) but not all. Keyboard behaviour and screen reader experience still need human checks."}}, {"@type": "Question", "name": "How do I measure whether AI agents use my design system?", "acceptedAnswer": {"@type": "Answer", "text": "Track the share of UI imports from the system, deprecated imports and raw values over time, new local components in product repos, and pass rates on a regular eval run."}}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/ai-generated-ui-guardrails">
+<meta property="og:url" content="https://www.layerone.co.in/writing/ai-generated-ui-guardrails">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="AI-Generated UI Guardrails: Lint, Tests and Evals | Layer One">
+<meta name="twitter:description" content="Keep AI-generated UI on-system: ESLint and Stylelint rules with fix-it messages, axe and visual tests, one check command, and evals that track progress.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/ai-generated-ui-guardrails.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading" title="Light or dark reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button><a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<main id="main" class="ed-wrap"><article class="ed-article">
+  <div class="ed-layout">
+    <aside class="ed-meta" aria-label="About this article"><div class="ed-meta-in">
+      <div class="ed-meta-who"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40"><p><b>Aniket Pandey</b><span>Founder, Layer One</span></p></div>
+      <dl class="ed-meta-dl"><div><dt>Published</dt><dd>17 November 2026</dd></div><div><dt>Reading time</dt><dd>11 minutes</dd></div><div><dt>Topic</dt><dd><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a></dd></div></dl>
+      <div class="ed-meta-sec"><p class="ed-meta-h">Making your design system AI-ready</p><ol class="ed-steps"><li><a href="/writing/ai-ready-design-system">What is an AI-ready design system?</a></li><li><a href="/writing/how-ai-agents-use-design-systems">How AI coding agents use your design system, and where they go wrong</a></li><li><a href="/writing/design-tokens-for-ai-agents">Design tokens for AI agents</a></li><li><a href="/writing/component-metadata-for-ai-agents">Component metadata for AI agents</a></li><li><a href="/writing/design-system-documentation-for-ai">Writing design system documentation AI agents can use, and how retrieval finds it</a></li><li><a href="/writing/agents-md-llms-txt-design-system">AGENTS.md, llms.txt and rules files for design systems</a></li><li><a href="/writing/design-system-mcp-server">Build an MCP server for your design system</a></li><li><a href="/writing/figma-mcp-design-to-code">Figma to code with AI</a></li><li aria-current="step"><a href="/writing/ai-generated-ui-guardrails">Guardrails for AI-generated UI</a></li><li><a href="/writing/legacy-design-system-ai-ready">How to make a legacy design system AI-ready</a></li><li><a href="/writing/why-ai-ignores-design-system">Why does AI ignore my design system?</a></li><li><a href="/writing/design-system-context-window">How much design system context does an AI agent need?</a></li><li><a href="/writing/ai-generated-ui-accessibility">Why is AI-generated UI inaccessible, and how can a design system fix it?</a></li><li><a href="/writing/figma-code-token-drift">Figma variables and code tokens out of sync?</a></li><li><a href="/writing/ai-prototyping-tools-design-system">How do I make Figma Make, v0 and Lovable use my design system?</a></li><li><a href="/writing/shadcn-ui-design-system-ai">Is shadcn/ui better for AI?</a></li><li><a href="/writing/designers-ai-ready-design-system">Can designers make a design system AI-ready without coding?</a></li><li><a href="/writing/ai-design-system-governance">Who owns the AI rules?</a></li><li><a href="/writing/design-system-ai-security">Is it safe to connect your design system to AI tools?</a></li><li><a href="/writing/ai-ready-design-system-roi">How do you prove the ROI of an AI-ready design system?</a></li></ol></div><div class="ed-meta-sec"><p class="ed-meta-h">Tags</p><ul class="ed-tags"><li>Guardrails</li><li>Lint</li><li>Testing</li><li>Evals</li></ul></div><div class="ed-meta-sec"><p class="ed-meta-h">Share</p><p class="ed-share"><button type="button" data-copy="https://www.layerone.co.in/writing/ai-generated-ui-guardrails">Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.layerone.co.in/writing/ai-generated-ui-guardrails" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/intent/post?url=https://www.layerone.co.in/writing/ai-generated-ui-guardrails" target="_blank" rel="noopener">X</a></p></div>
+    </div></aside>
+    <header class="ed-head">
+      <p class="ed-crumb"><a href="/writing">Writing</a><span aria-hidden="true">/</span><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a><span class="ed-crumb-s">Part 9 of 20 in <a href="/writing#ai-ready">Making your design system AI-ready</a></span></p>
+      <h1 class="ed-title">Guardrails for AI-generated UI: lint rules, tests and evals that keep agents on-system</h1>
+      <p class="ed-dek">Agents produce more UI than reviewers can check by eye. Layered guardrails catch off-system output automatically and tell the agent how to fix it, and evals show whether your design system work is paying off. Configs, scripts and a scoring method included.</p>
+      <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>11 min read · 17 November 2026</span></span></p>
+    </header>
+    <figure class="ed-cover"><img src="../assets/images/writing/ai-generated-ui-guardrails.w1200.webp" alt="Diagram of six guardrail layers: types, lint, tests, review, evals and telemetry, catching off-system output at different stages." width="1600" height="900" sizes="(max-width: 1024px) calc(100vw - 32px), 760px" fetchpriority="high" srcset="../assets/images/writing/ai-generated-ui-guardrails.w480.webp 480w, ../assets/images/writing/ai-generated-ui-guardrails.w800.webp 800w, ../assets/images/writing/ai-generated-ui-guardrails.w1200.webp 1200w, ../assets/images/writing/ai-generated-ui-guardrails.jpg 1600w" decoding="async"></figure>
+    <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>The problem: silent success at scale</b></summary><ol><li><a href="#the-problem-silent-success-at-scale">The problem: silent success at scale</a></li><li><a href="#defence-in-depth-six-layers">Defence in depth: six layers</a></li><li><a href="#layer-1-types-that-refuse-wrong-answers">Layer 1: types that refuse wrong answers</a></li><li><a href="#layer-2-lint-rules-that-explain-the-fix">Layer 2: lint rules that explain the fix</a></li><li><a href="#layer-3-tests-that-check-what-lint-can-t">Layer 3: tests that check what lint can't</a></li><li><a href="#one-check-command">One check command</a></li><li><a href="#layer-4-what-people-should-still-review">Layer 4: what people should still review</a></li><li><a href="#layer-5-evals-measuring-agents-on-your-system">Layer 5: evals, measuring agents on your system</a></li><li><a href="#layer-6-telemetry-across-every-repo">Layer 6: telemetry across every repo</a></li><li><a href="#close-the-loop-fix-the-system-not-just-the-code">Close the loop: fix the system, not just the code</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+    <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>Guardrails for AI-generated UI are automated checks that catch off-system output <b>before a person has to</b>, and tell the agent exactly how to fix it. Layer them: <b>strict types</b> reject invalid props; <b>lint rules</b> (ESLint, Stylelint) block deprecated imports, raw colours, pixel values and Tailwind defaults, with error messages that name the replacement; <b>tests</b> check accessibility (axe) and appearance (visual regression); one <b>check command</b> runs everything so agents run it before finishing; and <b>evals</b> (a fixed set of real tasks, run repeatedly and scored automatically) measure how often agents stay on-system as you improve tokens, metadata, docs and tools. Treat every failure as feedback about the system, not just the code.</p>
+  <ul>
+    <li>A lint message is an instruction the agent will follow: "Use Select from @kestrel/harbor" beats "Import not allowed".</li>
+    <li>Run each eval task several times. Agents vary, and one good run proves little.</li>
+    <li>Part 9 of 20 in the series on AI-ready design systems.</li>
+  </ul>
+</div>
+
+<h2 id="the-problem-silent-success-at-scale">The problem: silent success at scale</h2>
+<p>In <a href="/writing/how-ai-agents-use-design-systems">part 2</a>, the agent's first attempt passed every check and reported "Done!" with a legacy card, a hard-coded blue and its own currency formatter. That's the most damaging failure, because it moves the work of checking onto reviewers, and reviewers miss things, especially when agents produce several times more code than before.</p>
+<p class="scenario-t">An illustration: review fatigue</p>
+<div class="scenario">
+  <div><span class="k">The situation</span><p>Three months after Kestrel's engineers adopted coding agents, the number of UI pull requests has roughly doubled. Reviewers skim. The two Harbor maintainers can't look at everything.</p></div>
+  <div><span class="k">What slips through</span><p>A Harbor audit finds 140 new hard-coded colours, 22 new imports from <code>@kestrel/ui-old</code>, and four new date pickers, all merged since the agents arrived.</p></div>
+  <div><span class="k">What works</span><p>Make the machine say no, clearly, every time: lint rules with fix-it messages, a check command agents run before finishing, and a weekly eval that shows whether things are getting better.</p></div>
+</div>
+
+<h2 id="defence-in-depth-six-layers">Defence in depth: six layers</h2>
+<p>No single check catches everything. Stack cheap, fast checks first and slower, broader ones later. Each layer catches what the previous one can't.</p>
+<figure class="w-fig">
+  <div class="w-arch">
+    <div class="w-arch-row"><span class="w-arch-k">While writing</span><div class="w-arch-n"><div><b>1 · Types</b><span>Invalid props and values fail to compile</span></div><div><b>2 · Lint</b><span>Deprecated imports, raw values, Tailwind defaults</span></div></div></div>
+    <div class="w-arch-link">the agent runs <code>pnpm check</code> before finishing</div>
+    <div class="w-arch-row"><span class="w-arch-k">Before merge</span><div class="w-arch-n"><div><b>3 · Tests</b><span>Accessibility (axe), visual regression, behaviour</span></div><div><b>4 · Review</b><span>A person checks judgement: right pattern, right words</span></div></div></div>
+    <div class="w-arch-link">on a schedule</div>
+    <div class="w-arch-row"><span class="w-arch-k">Over time</span><div class="w-arch-n"><div class="hi"><b>5 · Evals</b><span>Real tasks, run repeatedly, scored automatically</span></div><div class="lt"><b>6 · Telemetry</b><span>Adoption metrics across every repo</span></div></div></div>
+  </div>
+  <figcaption>Guardrail layers. Layers 1–3 stop individual mistakes; layers 5–6 show whether the system as a whole is getting easier for agents to use.</figcaption>
+</figure>
+
+<h2 id="layer-1-types-that-refuse-wrong-answers">Layer 1: types that refuse wrong answers</h2>
+<p>Covered in <a href="/writing/component-metadata-for-ai-agents">part 4</a>: union types for every option prop, required props where the component can't work without them (an icon-only button's <code>aria-label</code>), and <code>@deprecated</code> tags. Make sure the type checker actually runs in the agent's loop: put it in the check command, and say so in AGENTS.md. Also make sure your <code>tsconfig</code> is strict enough to catch mistakes; <code>"strict": true</code> is the baseline.</p>
+
+<h2 id="layer-2-lint-rules-that-explain-the-fix">Layer 2: lint rules that explain the fix</h2>
+<p>Lint is the most valuable guardrail for agents, for a simple reason: <b>agents read error messages and act on them.</b> A rule that says what to do instead turns a failure into a correction in the same session, with no person involved.</p>
+
+<h3>Block deprecated imports</h3>
+<pre><code><span class="c">// eslint.config.js (flat config)</span>
+<span class="k">export default</span> [
+  {
+    files: [<span class="s">"src/**/*.{ts,tsx}"</span>],
+    rules: {
+      <span class="s">"no-restricted-imports"</span>: [<span class="s">"error"</span>, {
+        paths: [
+          { name: <span class="s">"@kestrel/ui-old"</span>,
+            message: <span class="s">"ui-old is being removed. Use @kestrel/harbor. Look components up with harbor.search_components."</span> },
+          { name: <span class="s">"@kestrel/harbor"</span>, importNames: [<span class="s">"Modal"</span>, <span class="s">"AlertDialog"</span>],
+            message: <span class="s">"Deprecated. Use Dialog, or ConfirmDialog to confirm an action."</span> },
+          { name: <span class="s">"@kestrel/harbor"</span>, importNames: [<span class="s">"BtnPrimary"</span>],
+            message: <span class="s">"Deprecated. Use &lt;Button variant=\"primary\"&gt;."</span> },
+        ],
+        patterns: [
+          { group: [<span class="s">"**/legacy/**"</span>], message: <span class="s">"Don't import from legacy folders. Use @kestrel/harbor."</span> },
+        ],
+      }],
+    },
+  },
+];</code></pre>
+<div class="callout callout--tip"><span class="callout-k">Tip</span><p>Generate the deprecated-component part of this config from your component metadata (every entry with <code>status: deprecated</code> and its <code>replacedBy</code>), the same way the rules file's "Never use" list is generated in <a href="/writing/agents-md-llms-txt-design-system">part 6</a>. Then deprecating a component updates the docs, the rules file and the lint rule in one release.</p></div>
+
+<h3>Block raw values in JSX</h3>
+<p>ESLint's built-in <code>no-restricted-syntax</code> rule matches code patterns using selectors, including regular expressions. Two selectors catch the most common agent habits: hex colours in inline styles, and Tailwind's default palette in class names.</p>
+<pre><code>{
+  rules: {
+    <span class="s">"no-restricted-syntax"</span>: [<span class="s">"error"</span>,
+      {
+        selector: <span class="s">"JSXAttribute[name.name='style'] Literal[value=/#[0-9a-fA-F]{3,8}\\b|rgba?\\(/]"</span>,
+        message: <span class="s">"Raw colour in style. Use a semantic token, e.g. var(--color-text-secondary). Find one with harbor.search_tokens."</span>,
+      },
+      {
+        selector: <span class="s">"JSXAttribute[name.name='className'] Literal[value=/\\b(bg|text|border|ring)-(slate|gray|zinc|red|orange|amber|yellow|green|emerald|teal|sky|blue|indigo|violet|purple|pink|rose)-\\d{2,3}\\b/]"</span>,
+        message: <span class="s">"Tailwind default colour. Use Harbor theme classes such as bg-surface or text-danger."</span>,
+      },
+    ],
+  },
+}</code></pre>
+
+<h3>Block raw values in CSS</h3>
+<p>For stylesheets, the Stylelint plugin <code>stylelint-declaration-strict-value</code> requires chosen properties to use variables or functions instead of literal values:</p>
+<pre><code><span class="c">// stylelint.config.mjs</span>
+<span class="k">export default</span> {
+  plugins: [<span class="s">"stylelint-declaration-strict-value"</span>],
+  rules: {
+    <span class="s">"scale-unlimited/declaration-strict-value"</span>: [
+      [<span class="s">"/color$/"</span>, <span class="s">"background"</span>, <span class="s">"fill"</span>, <span class="s">"stroke"</span>, <span class="s">"/^padding/"</span>, <span class="s">"/^margin/"</span>, <span class="s">"gap"</span>, <span class="s">"border-radius"</span>, <span class="s">"font-size"</span>],
+      {
+        ignoreValues: [<span class="s">"inherit"</span>, <span class="s">"transparent"</span>, <span class="s">"currentColor"</span>, <span class="s">"0"</span>, <span class="s">"auto"</span>, <span class="s">"none"</span>],
+        message: <span class="s">"Use a Harbor token (var(--…)) for ${property}. Find one with harbor.search_tokens."</span>,
+      },
+    ],
+  },
+};</code></pre>
+<figure class="w-fig">
+  <div class="w-chat">
+    <div class="t"><span class="k">Tool call · run</span>pnpm check</div>
+    <div class="r"><span class="k">Result</span>src/features/payslips/PayslipSummary.tsx
+  4:10  error  ui-old is being removed. Use @kestrel/harbor. Look components up with harbor.search_components.
+ 12:22  error  Raw colour in style. Use a semantic token, e.g. var(--color-text-secondary).</div>
+    <div class="t"><span class="k">Tool call · harbor.search_tokens</span>{ "need": "secondary text for a label", "type": "color" }</div>
+    <div class="a"><span class="k">Agent</span>Replaced the ui-old import with StatCard from Harbor and the hex value with var(--color-text-secondary). Lint and types now pass.</div>
+  </div>
+  <figcaption><span class="ev ev--ill">Illustration</span> The lint message names the tool to call, so the agent fixes its own work within the same task.</figcaption>
+</figure>
+
+<h3>Roll out lint without blocking everyone</h3>
+<p>An existing codebase will have hundreds of violations. Don't let that stop you:</p>
+<ol class="w-steps">
+  <li><h3>Start as warnings on existing code</h3><p>Report everything; fail nothing yet. The count becomes your baseline.</p></li>
+  <li><h3>Errors on changed lines only</h3><p>Run lint as errors on files changed in each pull request, so new code (including all agent code) is held to the standard while old code waits.</p></li>
+  <li><h3>Burn down with codemods</h3><p>Fix the mechanical cases in bulk (renamed imports, known colour-to-token swaps), then switch the rules to errors everywhere. See <a href="/writing/legacy-design-system-ai-ready">part 10</a>.</p></li>
+</ol>
+
+<h2 id="layer-3-tests-that-check-what-lint-can-t">Layer 3: tests that check what lint can't</h2>
+<p>Lint reads code; tests look at the result. Two kinds matter most for AI-generated UI.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">ACCESSIBILITY</span><h4>Automated axe checks</h4><pre><code>import { test, expect } from
+  "@playwright/test";
+import AxeBuilder from
+  "@axe-core/playwright";
+
+test("payslip page is accessible",
+  async ({ page }) =&gt; {
+  await page.goto("/payslips/2026-10");
+  const { violations } =
+    await new AxeBuilder({ page })
+      .analyze();
+  expect(violations).toEqual([]);
+});</code></pre><p>Catches missing labels, low contrast and invalid ARIA. It finds a portion of accessibility issues, not all; keyboard and screen reader checks still need people.</p></div>
+  <div class="cell"><span class="k">APPEARANCE</span><h4>Visual regression</h4><pre><code>test("payslip summary", async ({ page }) =&gt; {
+  await page.goto(
+    "/storybook/iframe.html" +
+    "?id=payslips-summary--default");
+  await expect(page)
+    .toHaveScreenshot();
+});</code></pre><p>Compares screenshots with approved ones. Catches a component that "works" but looks wrong in dark mode. Hosted services such as Chromatic do the same at scale for Storybook.</p></div>
+</div>
+<p>More on testing components in <a href="/writing/design-system-testing">design system testing</a> and <a href="/writing/accessible-design-system">accessibility in a design system</a>.</p>
+
+<h2 id="one-check-command">One check command</h2>
+<p>Agents follow instructions like "run <code>pnpm check</code> before finishing" very reliably. Give them one command that runs everything relevant and prints clear output.</p>
+<pre><code><span class="c">// package.json</span>
+{
+  <span class="s">"scripts"</span>: {
+    <span class="s">"lint"</span>: <span class="s">"eslint . &amp;&amp; stylelint \"src/**/*.css\""</span>,
+    <span class="s">"typecheck"</span>: <span class="s">"tsc --noEmit"</span>,
+    <span class="s">"test:ui"</span>: <span class="s">"playwright test --project=a11y"</span>,
+    <span class="s">"check"</span>: <span class="s">"pnpm lint &amp;&amp; pnpm typecheck &amp;&amp; pnpm test:ui"</span>
+  }
+}</code></pre>
+<p>Some agents can also run a command automatically after every edit (Claude Code's hooks are one example), which catches problems even earlier. Either way, run the same command in CI, so nothing merges without passing it.</p>
+
+<h2 id="layer-4-what-people-should-still-review">Layer 4: what people should still review</h2>
+<p>Automation handles the mechanical checks so people can focus on judgement. A short checklist for reviewing AI-generated UI:</p>
+<ul class="checklist">
+  <li><b>Right pattern for the job?</b> A table where a list would be clearer; a dialog where an inline edit would do.</li>
+  <li><b>Right words?</b> Labels, errors and empty states follow the content guidelines. See <a href="/writing/ux-writing-design-system">UX writing</a>.</li>
+  <li><b>Did it build something new?</b> Any new component or helper needs a reason. Often a system component already does the job.</li>
+  <li><b>Did it flag what it couldn't map?</b> Read the agent's summary. Gaps it reports are design system backlog items.</li>
+  <li><b>Keyboard and screen reader basics</b> on anything interactive: tab order, focus, announcements.</li>
+</ul>
+
+<h2 id="layer-5-evals-measuring-agents-on-your-system">Layer 5: evals, measuring agents on your system</h2>
+<p>Everything above checks one change at a time. An <b>eval</b> (short for evaluation) answers a different question: across realistic tasks, how often does an agent build on-system UI with our design system, and is that number going up? It's how you know whether the work in parts 3 to 8 is paying off, and which part to improve next.</p>
+<div class="callout callout--term"><span class="callout-k">New words</span><p><b>Eval:</b> a repeatable test of an AI system: fixed inputs, run several times, scored the same way each time. <b>Golden task:</b> one of those inputs, with a known good outcome. <b>Pass rate:</b> the share of runs that meet the scoring criteria.</p></div>
+<ol class="w-steps">
+  <li><h3>Write 10–20 golden tasks</h3><p>Use real work: the baseline tasks from part 2 plus tasks from recent tickets. For each, write the prompt and what a correct result must contain ("uses ConfirmDialog with tone=danger", "no new components").</p></li>
+  <li><h3>Run each task several times</h3><p>Start each run from a clean copy of a sample repo, in a fresh session, using the agent's non-interactive mode (for example <code>claude -p</code> or <code>codex exec</code>). Three to five runs per task shows how consistent the agent is.</p></li>
+  <li><h3>Score automatically</h3><p>A script inspects each run's changes: lint and type results, deprecated imports, raw values, whether expected components appear, axe violations. People spot-check a sample.</p></li>
+  <li><h3>Track the numbers over time</h3><p>Rerun after every change to tokens, metadata, docs, rules or the MCP server, and on each new agent or model version.</p></li>
+</ol>
+<pre><code><span class="c">// evals/score.mjs: score one run from its diff (simplified)</span>
+<span class="k">import</span> { execSync } <span class="k">from</span> <span class="s">"node:child_process"</span>;
+
+<span class="k">export function</span> score(runDir, task) {
+  <span class="k">const</span> sh = (cmd) =&gt; { <span class="k">try</span> { execSync(cmd, { cwd: runDir, stdio: <span class="s">"pipe"</span> }); <span class="k">return true</span>; } <span class="k">catch</span> { <span class="k">return false</span>; } };
+  <span class="k">const</span> diff = execSync(<span class="s">"git diff HEAD"</span>, { cwd: runDir, encoding: <span class="s">"utf8"</span> });
+  <span class="k">const</span> added = diff.split(<span class="s">"\n"</span>).filter((l) =&gt; l.startsWith(<span class="s">"+"</span>) &amp;&amp; !l.startsWith(<span class="s">"+++"</span>)).join(<span class="s">"\n"</span>);
+  <span class="k">return</span> {
+    task: task.id,
+    lint: sh(<span class="s">"pnpm -s lint"</span>),
+    types: sh(<span class="s">"pnpm -s typecheck"</span>),
+    deprecatedImports: (added.match(<span class="s">/@kestrel\/ui-old|\/legacy\//g</span>) ?? []).length,
+    rawColours: (added.match(<span class="s">/#[0-9a-fA-F]{6}\b/g</span>) ?? []).length,
+    expectedComponents: task.expect.every((name) =&gt; added.includes(<span class="s">`&lt;${name}`</span>)),
+    newComponentFiles: (diff.match(<span class="s">/^\+\+\+ b\/src\/components\//gm</span>) ?? []).length,
+  };
+}</code></pre>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Stage of Harbor's work</th><th>Runs passing lint + types</th><th>Expected components used</th><th>Raw colours per run</th></tr></thead>
+  <tbody>
+    <tr><td>Baseline (part 2)</td><td>38%</td><td>41%</td><td>4.6</td></tr>
+    <tr><td>+ AGENTS.md (part 6)</td><td>61%</td><td>58%</td><td>2.1</td></tr>
+    <tr><td>+ token descriptions and Tailwind theme (part 3)</td><td>70%</td><td>60%</td><td>0.4</td></tr>
+    <tr><td>+ metadata and MCP server (parts 4, 7)</td><td>84%</td><td>83%</td><td>0.3</td></tr>
+    <tr><td>+ lint with fix-it messages (this part)</td><td>96%</td><td>87%</td><td>0.0</td></tr>
+  </tbody>
+</table></div>
+<figcaption><span class="ev ev--ill">Illustration</span> Numbers are made up to show the shape of a typical eval history across 15 tasks × 4 runs. Your order of steps, and your results, will differ. The point is to measure each step.</figcaption></figure>
+<div class="callout callout--warn"><span class="callout-k">Watch out</span><p>Don't tune your docs to the eval tasks until the numbers look good: that's teaching to the test. Keep a few tasks aside that you never look at when making changes, and refresh the task set every quarter from recent real work.</p></div>
+
+<h2 id="layer-6-telemetry-across-every-repo">Layer 6: telemetry across every repo</h2>
+<p>The same measures that track design system adoption track agent behaviour, because agent code is now a large share of all code. Count these weekly across product repos:</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Measure</th><th>How</th><th>Tells you</th></tr></thead>
+  <tbody>
+    <tr><td>Share of UI imports from Harbor</td><td>Static analysis of imports</td><td>Whether new code uses the system</td></tr>
+    <tr><td>Deprecated imports, trend</td><td>The lint rule's count, per week</td><td>Whether migration is moving or going backwards</td></tr>
+    <tr><td>Raw values, trend</td><td>The lint and Stylelint counts</td><td>Token adoption</td></tr>
+    <tr><td>New local components</td><td>Files added under <code>components/</code> in product repos</td><td>Gaps in the system, or agents ignoring it</td></tr>
+    <tr><td>Zero-result MCP searches</td><td>Server logs (hosted) or eval transcripts</td><td>What people ask for that you don't have</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Agent-era adoption metrics. See <a href="/writing/design-system-metrics">design system metrics</a> for the wider set.</figcaption></figure>
+
+<h2 id="close-the-loop-fix-the-system-not-just-the-code">Close the loop: fix the system, not just the code</h2>
+<p>When a guardrail catches a mistake, it's tempting to fix the code and move on. The bigger win is asking why the agent made it, and fixing the cause in the design system.</p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Failure</b><span>Eval: agent used Dialog for a delete confirmation</span></div><i>→</i>
+    <div><b>Diagnose</b><span>Dialog's purpose says "confirm or edit"; overlaps ConfirmDialog</span></div><i>→</i>
+    <div class="hi"><b>Fix the source</b><span>Sharpen Dialog's purpose; add avoidWhen → ConfirmDialog</span></div><i>→</i>
+    <div><b>Guard</b><span>Add a golden task for it</span></div><i>→</i>
+    <div><b>Verify</b><span>Rerun evals; pass rate up</span></div>
+  </div>
+  <figcaption>The feedback loop. Every repeated agent mistake points to a token, component, doc or rule that people were also probably finding confusing.</figcaption>
+</figure>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">MISTAKE</span><h4>Error messages without a fix</h4><p>"Restricted import" makes the agent guess. Name the replacement and the tool to find it.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Checks that only run in CI</h4><p>If the agent never runs them, it finishes with errors and someone else has to fix them. Put the command in AGENTS.md.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Judging from one run</h4><p>Agents vary run to run. Decide from several runs per task, not a lucky demo.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Treating evals as a one-off</h4><p>Models, agents and your system all change. An eval that isn't rerun stops telling you anything within a quarter.</p></div>
+</div>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Layer guardrails: types, lint, tests, review, evals, telemetry.</li>
+  <li>Write lint messages as instructions: the replacement, and the tool to find it.</li>
+  <li>Give agents one check command and tell them to run it; run the same in CI.</li>
+  <li>Measure with evals: real tasks, several runs each, scored automatically, rerun after every change.</li>
+  <li>When a check fails repeatedly, fix the design system's source, not only the code.</li>
+</ul></div>
+<p>Next: <a href="/writing/legacy-design-system-ai-ready">How to make a legacy design system AI-ready</a>, putting all of this into a phased plan for a system that's already in use.</p>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>How do I stop AI from generating off-system UI?</summary><div><p>Combine guidance with enforcement: rules files, described tokens and component metadata guide the agent; strict types and lint rules with clear fix-it messages catch what slips through; accessibility and visual tests check the result. Agents read error messages and fix their own work.</p></div></details>
+  <details><summary>What lint rules should a design system have for AI-generated code?</summary><div><p>At minimum: block imports from deprecated packages and components (no-restricted-imports), block raw colours in styles and default Tailwind palette classes (no-restricted-syntax), and require tokens for colours, spacing and type in CSS (stylelint-declaration-strict-value).</p></div></details>
+  <details><summary>What is an eval for a design system?</summary><div><p>A repeatable test of how well AI agents build with your system: a fixed set of realistic tasks, each run several times, with results scored automatically for things like lint errors, deprecated imports, raw values and expected components.</p></div></details>
+  <details><summary>Can automated tests check accessibility of AI-generated UI?</summary><div><p>Partly. Tools like axe-core catch many issues (missing labels, contrast, invalid ARIA) but not all. Keyboard behaviour and screen reader experience still need human checks.</p></div></details>
+  <details><summary>How do I measure whether AI agents use my design system?</summary><div><p>Track the share of UI imports from the system, deprecated imports and raw values over time, new local components in product repos, and pass rates on a regular eval run.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://eslint.org/docs/latest/rules/no-restricted-imports" target="_blank" rel="noopener">ESLint: no-restricted-imports</a><span>Paths, import names, patterns and custom messages.</span></li>
+  <li><a href="https://eslint.org/docs/latest/extend/selectors" target="_blank" rel="noopener">ESLint: selectors</a><span>How the no-restricted-syntax patterns work.</span></li>
+  <li><a href="https://github.com/AndyOGo/stylelint-declaration-strict-value" target="_blank" rel="noopener">stylelint-declaration-strict-value</a><span>Requiring variables for chosen CSS properties.</span></li>
+  <li><a href="https://playwright.dev/docs/accessibility-testing" target="_blank" rel="noopener">Playwright: accessibility testing</a><span>Using axe with Playwright.</span></li>
+  <li><a href="https://docs.claude.com/en/docs/test-and-evaluate/develop-tests" target="_blank" rel="noopener">Anthropic: Create strong empirical evaluations</a><span>How to design test cases and grade them.</span></li>
+</ul>
+</div>
+    <aside class="ed-aside" aria-label="On this page"><nav class="ed-toc"><p>On this page</p><ol><li><a href="#the-problem-silent-success-at-scale">The problem: silent success at scale</a></li><li><a href="#defence-in-depth-six-layers">Defence in depth: six layers</a></li><li><a href="#layer-1-types-that-refuse-wrong-answers">Layer 1: types that refuse wrong answers</a></li><li><a href="#layer-2-lint-rules-that-explain-the-fix">Layer 2: lint rules that explain the fix</a></li><li><a href="#layer-3-tests-that-check-what-lint-can-t">Layer 3: tests that check what lint can't</a></li><li><a href="#one-check-command">One check command</a></li><li><a href="#layer-4-what-people-should-still-review">Layer 4: what people should still review</a></li><li><a href="#layer-5-evals-measuring-agents-on-your-system">Layer 5: evals, measuring agents on your system</a></li><li><a href="#layer-6-telemetry-across-every-repo">Layer 6: telemetry across every repo</a></li><li><a href="#close-the-loop-fix-the-system-not-just-the-code">Close the loop: fix the system, not just the code</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><a class="ed-top" href="#main">Back to top ↑</a></nav></aside>
+  </div>
+  <footer class="ed-end">
+    <section class="ed-more" aria-labelledby="more-h"><h2 class="ed-sec-h" id="more-h">next in making your design system ai-ready:</h2><div class="ec-grid"><a class="ec " href="/writing/legacy-design-system-ai-ready" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/legacy-design-system-ai-ready.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/legacy-design-system-ai-ready.w480.webp 480w, ../assets/images/writing/legacy-design-system-ai-ready.w800.webp 800w, ../assets/images/writing/legacy-design-system-ai-ready.w1200.webp 1200w, ../assets/images/writing/legacy-design-system-ai-ready.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">How to make a legacy design system AI-ready</b><span class="ec-d">A phased plan to make an existing design system AI-ready without a rewrite: baseline, one source of truth, metadata, AGENTS.md, MCP, Figma and codemods.</span><span class="ec-f">13 min read</span></a><a class="ec " href="/writing/design-system-testing" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/design-system-testing.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-system-testing.w480.webp 480w, ../assets/images/writing/design-system-testing.w800.webp 800w, ../assets/images/writing/design-system-testing.w1200.webp 1200w, ../assets/images/writing/design-system-testing.jpg 1600w"></span><span class="ec-k">Building a system</span><b class="ec-t">Testing a design system: visual, behaviour and accessibility</b><span class="ec-d">How to test design system components: lint rules, behaviour tests, visual regression tests, automated accessibility checks and manual keyboard testing.</span><span class="ec-f">6 min read</span></a><a class="ec " href="/writing/design-system-metrics" data-topic="business-case"><span class="ec-m"><img src="../assets/images/writing/design-system-metrics.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-system-metrics.w480.webp 480w, ../assets/images/writing/design-system-metrics.w800.webp 800w, ../assets/images/writing/design-system-metrics.w1200.webp 1200w, ../assets/images/writing/design-system-metrics.jpg 1600w"></span><span class="ec-k">Business case & measurement</span><b class="ec-t">How to measure design system success</b><span class="ec-d">Which design system metrics to track at each stage: adoption, coverage, detach rate, satisfaction, time saved. With a dashboard layout and survey questions.</span><span class="ec-f">7 min read</span></a></div></section>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Working on this in your own product?</h2><p>Most teams we work with start with a two-week audit: every style, component and token, checked and ranked.</p></div><a href="/pricing">How the audit works <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main><footer class="ed-foot"><div class="ed-foot-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
+  <nav aria-label="Studio"><a href="/work">Work</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/contact">Contact</a><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">LinkedIn</a><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></nav>
+</div></footer><script src="../assets/site.js?v=3de6a9b6" defer></script>
+</body>
+</html>

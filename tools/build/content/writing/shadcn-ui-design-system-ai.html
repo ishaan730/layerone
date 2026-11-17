@@ -1,0 +1,133 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>shadcn/ui works well with AI for three reasons that have nothing to do with how it looks: the <b>component source code lives in your project</b>, so agents can read and edit it instead of guessing a hidden API; it's built on a <b>stack models have seen constantly</b> (React, Tailwind, Radix-style headless primitives); and its <b>registry format and MCP server</b> let tools discover and install components. That doesn't mean you should rebuild your design system on it. If you already have a mature system, you can get most of the same benefits by <b>publishing it as a registry</b>, shipping types and source maps, and serving metadata to agents. Choose shadcn/ui as a foundation when you're starting fresh with React and Tailwind; keep your system when it already works and make it readable.</p>
+  <ul>
+    <li>"Open code" helps agents, but it also means each product can drift from the original. Plan for updates.</li>
+    <li>The registry format is useful even if you never use shadcn/ui's components.</li>
+    <li>Part 16 of 20 in the series on AI-ready design systems.</li>
+  </ul>
+</div>
+
+<h2>Why teams are asking this</h2>
+<p>Ask an AI tool for a React interface without further instructions and there's a good chance you'll get shadcn/ui-style components. Many AI app builders are built around it. So design system teams reasonably wonder: should we switch? Would agents work better if our system <i>was</i> shadcn/ui?</p>
+<p>The honest answer is "it depends on where you're starting". To decide well, separate the parts of shadcn/ui that help agents from the parts that are simply popular.</p>
+<div class="callout callout--term"><span class="callout-k">New words</span><p><b>shadcn/ui:</b> a collection of React components you copy into your project with a command-line tool, rather than install as a package. You own and edit the code. <b>Headless primitives:</b> components that provide behaviour and accessibility without styling (Radix UI, React Aria, Base UI). <b>Registry:</b> a published list of components in a JSON format, with their source files and dependencies, that tools can install from.</p></div>
+
+<h2>What actually makes it work well with AI</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Property</th><th>Why it helps agents</th><th>Can your system have it too?</th></tr></thead>
+  <tbody>
+    <tr><td><b>Source in the project</b></td><td>The agent can open <code>components/ui/button.tsx</code> and read exactly what variants exist, instead of guessing from a compiled package</td><td>Partly: ship readable types, JSDoc and source maps; or distribute via a registry</td></tr>
+    <tr><td><b>Familiar stack</b></td><td>React, Tailwind and headless primitives appear in a huge amount of public code, so models write them fluently</td><td>Only if you use that stack; otherwise compensate with clear metadata and examples</td></tr>
+    <tr><td><b>Simple, consistent APIs</b></td><td>Few props, consistent naming (<code>variant</code>, <code>size</code>), composition over configuration</td><td>Yes: see <a href="/writing/component-props-best-practices">props best practices</a></td></tr>
+    <tr><td><b>Registry format</b></td><td>Components are listed with descriptions and dependencies; tools can install them</td><td>Yes: publish your own registry</td></tr>
+    <tr><td><b>MCP server</b></td><td>Agents can search and install from configured registries</td><td>Yes: shadcn's MCP server works with any compatible registry; or build your own (<a href="/writing/design-system-mcp-server">part 7</a>)</td></tr>
+    <tr><td><b>Docs for machines</b></td><td>Markdown docs and llms.txt</td><td>Yes: see <a href="/writing/agents-md-llms-txt-design-system">part 6</a></td></tr>
+  </tbody>
+</table></div>
+<figcaption>Most of the advantages are portable. Only the familiar stack is something you'd have to switch to get.</figcaption></figure>
+<p><span class="ev ev--prac">Practitioner view</span> Much of what's written about "why AI loves shadcn/ui" is anecdotal or comes from vendors building on it. The mechanism is plausible and matches our experience (readable source and familiar patterns beat hidden APIs), but it isn't magic: an agent with shadcn/ui and no rules still invents colours and misuses variants.</p>
+
+<h2>The trade-off nobody mentions: open code drifts</h2>
+<p>Because shadcn/ui components are copied into each project, each project owns its copy. That's what makes them easy for agents to edit, and it's also a design system risk.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">PACKAGE</span><h4>Installed from npm</h4><ul><li>One version, updated by bumping a dependency</li><li>Agents can't change the component, only use it</li><li>API is hidden unless types and docs are good</li></ul></div>
+  <div class="cell"><span class="k">OPEN CODE</span><h4>Copied into the project</h4><ul><li>Agents can read every line, and edit it</li><li>An agent asked for "a loading state" may edit <code>button.tsx</code> for one screen, changing it for every screen</li><li>Updates need a merge, per project</li></ul></div>
+</div>
+<p class="scenario-t">An illustration: the edited button</p>
+<div class="scenario">
+  <div><span class="k">The request</span><p>"Make the export button show a spinner while the CSV is generating."</p></div>
+  <div><span class="k">What happened</span><p>The agent edited <code>components/ui/button.tsx</code> to add a <code>loading</code> prop with its own spinner and colours. It worked, and quietly changed the shared component in a way the system team never reviewed.</p></div>
+  <div><span class="k">The fix</span><p>A rule in AGENTS.md: "Never edit files in components/ui/. If a component is missing something, say so." Plus CODEOWNERS on that folder so changes need system team review.</p></div>
+</div>
+
+<h2>Decision guide: switch, adopt, or stay</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Your situation</th><th>Recommendation</th><th>Why</th></tr></thead>
+  <tbody>
+    <tr><td>New product, React + Tailwind, no system yet</td><td><b>Start from shadcn/ui</b>, themed with your tokens</td><td>Good behaviour and accessibility from headless primitives, agent-friendly from day one</td></tr>
+    <tr><td>Small system, React + Tailwind, a few components</td><td><b>Consider migrating</b> component by component</td><td>Low cost; you gain the ecosystem and keep your tokens</td></tr>
+    <tr><td>Mature React system, used by many products</td><td><b>Stay; publish a registry</b> and metadata</td><td>Rebuilding costs months and risks regressions; you can get the agent benefits without it</td></tr>
+    <tr><td>Non-React system (Angular, Vue, web components)</td><td><b>Stay</b>; make metadata and docs excellent</td><td>Switching frameworks for AI tools is rarely justified; see <a href="/writing/ai-prototyping-tools-design-system">part 15</a> for prototyping options</td></tr>
+    <tr><td>Multi-brand or white-label system</td><td><b>Stay, or use shadcn/ui as an internal base</b></td><td>Your token architecture is the hard part; components can sit on any base</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Whatever you choose, the AI-readiness work in parts 3–9 still applies.</figcaption></figure>
+
+<h2>Step by step: publish your own system as a registry</h2>
+<p>This gives AI tools a familiar way to discover and install your components, whether or not they're built on shadcn/ui. It's useful for v0 (<a href="/writing/ai-prototyping-tools-design-system">part 15</a>), for shadcn's MCP server, and for teams that prefer open code.</p>
+<ol class="w-steps">
+  <li><h3>Describe each item in <code>registry.json</code></h3><p>One entry per component, theme or utility: name, type, title, description, dependencies, and the files to copy. Generate the descriptions from your component metadata.</p></li>
+  <li><h3>Build the registry</h3><p>The shadcn CLI turns <code>registry.json</code> into one JSON file per item, ready to host.</p></li>
+  <li><h3>Host it</h3><p>Any static host works. Put private registries behind authentication.</p></li>
+  <li><h3>Let projects install from it</h3><p>Projects add your registry under a namespace in <code>components.json</code>, then install items by name, by hand or through an agent.</p></li>
+</ol>
+<pre><code><span class="c">// registry.json (one item shown)</span>
+{
+  <span class="s">"$schema"</span>: <span class="s">"https://ui.shadcn.com/schema/registry.json"</span>,
+  <span class="s">"name"</span>: <span class="s">"harbor"</span>,
+  <span class="s">"homepage"</span>: <span class="s">"https://harbor.kestrel.example"</span>,
+  <span class="s">"items"</span>: [{
+    <span class="s">"name"</span>: <span class="s">"confirm-dialog"</span>,
+    <span class="s">"type"</span>: <span class="s">"registry:component"</span>,
+    <span class="s">"title"</span>: <span class="s">"ConfirmDialog"</span>,
+    <span class="s">"description"</span>: <span class="s">"Asks the user to confirm an action, especially one that deletes data. Use tone=danger for destructive actions."</span>,
+    <span class="s">"registryDependencies"</span>: [<span class="s">"@harbor/button"</span>, <span class="s">"@harbor/dialog"</span>],
+    <span class="s">"files"</span>: [{ <span class="s">"path"</span>: <span class="s">"registry/harbor/confirm-dialog.tsx"</span>, <span class="s">"type"</span>: <span class="s">"registry:component"</span> }]
+  }]
+}</code></pre>
+<pre><code>npx shadcn@latest build        <span class="c"># writes public/r/confirm-dialog.json and the rest</span></code></pre>
+<pre><code><span class="c">// components.json in a product repo: register the namespace</span>
+{
+  <span class="s">"registries"</span>: {
+    <span class="s">"@harbor"</span>: <span class="s">"https://harbor.kestrel.example/r/{name}.json"</span>
+  }
+}</code></pre>
+<pre><code>npx shadcn@latest add @harbor/confirm-dialog
+npx shadcn@latest mcp init --client claude   <span class="c"># lets an agent search and install from configured registries</span></code></pre>
+<p>Check the shadcn documentation for the current CLI options and authentication for private registries.</p>
+
+<h2>If you do build on shadcn/ui: keep it a system</h2>
+<p>shadcn/ui gives you components, not a design system. The decisions, rules and governance are still yours to add, and they matter more when agents can edit component code.</p>
+<ul class="checklist">
+  <li><b>Theme with your tokens.</b> Map shadcn/ui's CSS variables (<code>--primary</code>, <code>--muted</code>…) to your semantic tokens, generated from your DTCG source (<a href="/writing/design-tokens-for-ai-agents">part 3</a>).</li>
+  <li><b>Keep a canonical copy.</b> Your own registry holds the reviewed versions; product repos install from it, not from the public defaults.</li>
+  <li><b>Protect the folder.</b> A "never edit components/ui" rule for agents, CODEOWNERS for people, and a drift check that compares product copies with the registry.</li>
+  <li><b>Add your metadata.</b> Usage rules, when-not-to-use and patterns are what turn a component set into a system agents can follow (<a href="/writing/component-metadata-for-ai-agents">part 4</a>).</li>
+  <li><b>Remove what you don't use.</b> An agent will happily use a <code>HoverCard</code> because it exists. Only install components the system supports.</li>
+</ul>
+
+<h2>Common mistakes</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">MISTAKE</span><h4>Rebuilding a working system for AI</h4><p>Months of migration for a benefit you could get with a registry, types and metadata. Make what you have readable first.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Default theme in production</h4><p>Unthemed shadcn/ui looks like every other AI-generated app. Map its variables to your tokens before anything ships.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Letting agents edit shared components</h4><p>Open code invites edits. Make the shared folder off-limits for agents and reviewed for people.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>No update path</h4><p>Copied components don't update themselves. Decide how fixes reach product copies before you have twenty of them.</p></div>
+</div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>shadcn/ui suits AI because source is in the project, the stack is familiar, and it has a registry format and MCP server.</li>
+  <li>Most of those benefits are portable: publish your own registry, ship readable types, serve metadata.</li>
+  <li>Start from shadcn/ui for new React + Tailwind products; keep a mature system and make it readable.</li>
+  <li>Open code drifts: protect shared components from agent edits and keep a canonical registry.</li>
+  <li>Components aren't a system: tokens, rules and governance still decide whether agents get it right.</li>
+</ul></div>
+<p>Next: <a href="/writing/designers-ai-ready-design-system">Can designers make a design system AI-ready without coding?</a></p>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Why do AI tools use shadcn/ui so often?</summary><div><p>Its components are copied into your project as readable source, it's built on React, Tailwind and headless primitives that appear widely in public code, and it has a registry format and MCP server that tools can install from. Many AI app builders are built around it.</p></div></details>
+  <details><summary>Should I rebuild my design system on shadcn/ui for AI?</summary><div><p>Usually not if you have a mature system. You can get most of the benefits by publishing a registry, shipping clear types and serving metadata. For a new React and Tailwind product without a system, starting from shadcn/ui is a reasonable choice.</p></div></details>
+  <details><summary>What is a shadcn registry?</summary><div><p>A JSON format that lists components, themes and utilities with their source files and dependencies. The shadcn CLI builds and installs from registries, and tools such as v0 and shadcn's MCP server can use them.</p></div></details>
+  <details><summary>Can I use the shadcn MCP server with my own components?</summary><div><p>Yes. It works with any shadcn-compatible registry configured in your project's components.json, so agents can search and install your components.</p></div></details>
+  <details><summary>Is shadcn/ui a design system?</summary><div><p>Not by itself. It's a set of components. A design system adds tokens, usage rules, patterns, documentation and governance, which is what makes AI output consistent.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://ui.shadcn.com/docs" target="_blank" rel="noopener">shadcn/ui documentation</a><span>The open code approach and theming.</span></li>
+  <li><a href="https://ui.shadcn.com/docs/registry" target="_blank" rel="noopener">shadcn/ui: registry</a><span>Building and hosting your own registry.</span></li>
+  <li><a href="https://ui.shadcn.com/docs/mcp" target="_blank" rel="noopener">shadcn MCP server</a><span>Letting agents search and install from registries.</span></li>
+  <li><a href="/writing/headless-component-library-build-vs-buy">Build, borrow or buy</a><span>Headless libraries versus building your own.</span></li>
+</ul>

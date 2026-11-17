@@ -1,0 +1,280 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>To make design tokens usable by AI agents, store them in the <b>W3C DTCG format</b> (stable since version 2025.10), <b>name semantic tokens by their job</b> (<code>color.feedback.danger.text</code>, not <code>red-600</code>), give every semantic token a one-sentence <b><code>$description</code></b> that says what it's for and what to use instead, mark retired tokens with <b><code>$deprecated</code></b>, and <b>keep primitives out of product code</b>. Then generate an agent-friendly token list from the same source, and restrict what agents can write (for example, a Tailwind theme with only semantic colours). Agents pick tokens by matching your words to their task. Give them words worth matching.</p>
+  <ul>
+    <li>A good description: "Use for X. Don't use for Y; use Z instead."</li>
+    <li>Agents should only ever see and use semantic tokens. Primitives are for the system team.</li>
+    <li>Part 3 of 20 in the series on AI-ready design systems.</li>
+  </ul>
+</div>
+
+<h2>The problem: fourteen blues and no explanations</h2>
+<p>Hard-coded values are the most common way AI-generated UI drifts off-system. In <a href="/writing/how-ai-agents-use-design-systems">part 2</a> we saw why: if an agent can't find your tokens, or finds them but can't tell them apart, it uses a raw value it saw nearby or a Tailwind default it knows from training. Here's what that looks like in Harbor, the made-up system we follow through this series.</p>
+<p class="scenario-t">An illustration: the info banner</p>
+<div class="scenario">
+  <div><span class="k">The task</span><p>"Add an info banner above the payroll table saying the next pay run is locked." The agent opens Harbor's <code>_colors.scss</code> to find a background colour for the banner.</p></div>
+  <div><span class="k">What it finds</span><p><code>$blue-50</code>, <code>$blue-100</code> … <code>$blue-900</code>, <code>$primary</code>, <code>$brand-main</code>, <code>$link-color</code>, <code>$highlight</code>, <code>$info-light</code>, <code>$selected-bg</code>. No comments. Six of them are almost the same pale blue.</p></div>
+  <div><span class="k">What it does</span><p>It chooses <code>$blue-50</code> because the name looks like "a light blue", which is a primitive. When dark mode ships, the banner stays pale blue on a dark page. Nobody notices until a customer does.</p></div>
+</div>
+<p>A human designer would have asked "which one is for info banners?". The agent can't ask, so the answer has to be written down, next to the token, in a format the agent will read.</p>
+<div class="callout callout--term"><span class="callout-k">New words</span><p><b>Design token:</b> a named design decision, such as a colour, a spacing value or a font size, stored once and used everywhere. <b>Primitive token:</b> a raw value with a neutral name (<code>blue.600</code>). <b>Semantic token:</b> a name for a job that points to a primitive (<code>color.action.primary.bg → blue.600</code>). If tokens are new to you, start with <a href="/writing/design-tokens">our design tokens guide</a>.</p></div>
+
+<h2>Why tokens matter even more to agents</h2>
+<p>For people, tokens are a convenience. For agents, they're the vocabulary. An agent chooses a token by matching words: the task says "error message", the token is called <code>feedback.danger.text</code> and its description says "Text for error messages", so it's a match. Three properties of your tokens decide whether that matching works:</p>
+<div class="cols3">
+  <div class="cell"><span class="k">1 · NAMES</span><h4>Say the job</h4><p><code>color.feedback.info.bg</code> matches "info banner". <code>blue-50</code> matches nothing except "blue".</p></div>
+  <div class="cell"><span class="k">2 · DESCRIPTIONS</span><h4>Say when, and when not</h4><p>Names can't hold every rule. A sentence can: "Background for neutral information messages. Not for selected states."</p></div>
+  <div class="cell"><span class="k">3 · FORMAT</span><h4>Be parseable</h4><p>JSON with predictable fields can be read by any tool, converted for any platform and served by an MCP server.</p></div>
+</div>
+
+<h2>The DTCG format, explained</h2>
+<p>The <b>Design Tokens Community Group (DTCG)</b>, a W3C community group, publishes a vendor-neutral JSON format for tokens. Its first stable version, 2025.10, was released in October 2025, and tools such as Style Dictionary, Tokens Studio and Terrazzo support it. Using it means your tokens aren't tied to any single tool, and agents (which have seen the format in public code) can read it without explanation.</p>
+<p>Here's what a token looks like. Each property starting with <code>$</code> is defined by the format:</p>
+<pre><code>{
+  <span class="s">"color"</span>: {
+    <span class="s">"feedback"</span>: {
+      <span class="s">"info"</span>: {
+        <span class="s">"bg"</span>: {
+          <span class="s">"$type"</span>: <span class="s">"color"</span>,
+          <span class="s">"$value"</span>: <span class="s">"{color.palette.blue.50}"</span>,
+          <span class="s">"$description"</span>: <span class="s">"Background for neutral information messages and banners. Not for selected rows or active states; use color.selection.bg."</span>
+        }
+      }
+    }
+  }
+}</code></pre>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Property</th><th>What it does</th><th>Why agents care</th></tr></thead>
+  <tbody>
+    <tr><td><code>$value</code></td><td>The value, or a reference to another token in curly braces</td><td>References show the relationship between semantic and primitive tokens</td></tr>
+    <tr><td><code>$type</code></td><td>What kind of value: <code>color</code>, <code>dimension</code>, <code>fontFamily</code>, <code>shadow</code>, <code>typography</code>…</td><td>Lets a tool filter: "give me only spacing tokens"</td></tr>
+    <tr><td><code>$description</code></td><td>Plain-language explanation</td><td>The single most useful field for an agent choosing between similar tokens</td></tr>
+    <tr><td><code>$deprecated</code></td><td><code>true</code>, or a string explaining what to use instead</td><td>Stops agents copying retired tokens; the string gives them the replacement</td></tr>
+    <tr><td><code>$extensions</code></td><td>Tool-specific extra data, under a reverse-domain key</td><td>A place for your own metadata, like "not for direct use"</td></tr>
+  </tbody>
+</table></div>
+<figcaption>The DTCG properties that matter most here. <span class="ev ev--std">Standard</span> Groups (nested objects without <code>$value</code>) can also carry <code>$type</code> and <code>$description</code>, which tokens inside inherit.</figcaption></figure>
+<div class="callout callout--term"><span class="callout-k">New words</span><p><b>Alias (or reference):</b> a token whose value is another token, written as <code>{group.token}</code>. <b>Resolving</b> an alias means following the chain to the final value. The DTCG <b>Resolver Module</b>, published alongside 2025.10, describes how to combine token sets for contexts such as light and dark mode.</p></div>
+
+<h2>Step by step: making Harbor's tokens agent-ready</h2>
+<p>Here's the full process Kestrel's team followed, from a SCSS file of unexplained variables to tokens an agent can choose between. Each step is something you can do in your own system.</p>
+
+<h3>Step 1: Inventory and classify every token</h3>
+<p>List every token, then mark each as a <b>primitive</b> (a raw value), a <b>semantic</b> token (a job), or <b>unclear</b>. For Harbor that produced 212 tokens: 140 primitives, 38 semantic, 34 unclear. The unclear ones (<code>$highlight</code>, <code>$brand-main</code>) are exactly the ones agents choose wrongly, because their names promise a job without saying which.</p>
+
+<h3>Step 2: Give every job one semantic name</h3>
+<p>For each unclear token, find where it's used and decide what job it's doing. Some tokens turn out to do two jobs (<code>$highlight</code> was used for both search matches and selected rows); split them. Some jobs turn out to have three tokens; merge them.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Before (SCSS)</th><th>Used for</th><th>After (DTCG semantic name)</th></tr></thead>
+  <tbody>
+    <tr><td><code>$primary</code>, <code>$brand-main</code></td><td>Main action buttons</td><td><code>color.action.primary.bg</code></td></tr>
+    <tr><td><code>$link-color</code></td><td>Inline links</td><td><code>color.text.link</code></td></tr>
+    <tr><td><code>$highlight</code></td><td>Search matches <i>and</i> selected rows</td><td><code>color.highlight.match</code> and <code>color.selection.bg</code></td></tr>
+    <tr><td><code>$info-light</code>, <code>$blue-50</code> (in banners)</td><td>Info messages</td><td><code>color.feedback.info.bg</code></td></tr>
+    <tr><td><code>$selected-bg</code></td><td>Selected rows</td><td>merged into <code>color.selection.bg</code></td></tr>
+  </tbody>
+</table></div>
+<figcaption>Unclear tokens mapped to jobs. Names follow the pattern in <a href="/writing/design-token-naming-conventions">token naming conventions</a>: category, concept, role, state.</figcaption></figure>
+
+<h3>Step 3: Write a description for every semantic token</h3>
+<p>This is the step with the biggest payoff, and the one most teams skip. A good description has up to three parts: <b>what it's for</b>, <b>what it's not for</b>, and <b>what to use instead</b>. Keep it to one or two sentences. Write it for a new team member who has never seen your product.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Token</th><th>Weak description</th><th>Strong description</th></tr></thead>
+  <tbody>
+    <tr><td><code>color.action.primary.bg</code></td><td>"Primary colour"</td><td>"Background of the single main action on a screen. Not for destructive actions; use color.action.danger.bg."</td></tr>
+    <tr><td><code>color.text.secondary</code></td><td>"Grey text"</td><td>"Supporting text: helper text, metadata, timestamps. Meets 4.5:1 on bg.surface. Not for disabled text; use color.text.disabled."</td></tr>
+    <tr><td><code>space.inset.md</code></td><td>"16px"</td><td>"Default padding inside cards, dialogs and panels. Use space.inset.sm for dense tables."</td></tr>
+    <tr><td><code>color.border.strong</code></td><td>"Dark border"</td><td>"Borders of form inputs and other interactive outlines (3:1 contrast). For dividers use color.border.subtle."</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Weak descriptions repeat the name or the value. Strong ones encode the decision a designer would otherwise explain in person.</figcaption></figure>
+<div class="callout callout--tip"><span class="callout-k">Tip</span><p>You can use an AI assistant to draft descriptions: give it each token's name, value and a list of files where it's used, and ask for "Use for… Not for…" sentences. Then have a designer review every one. The usage list makes the drafts surprisingly accurate; the review catches the cases where usage was itself wrong.</p></div>
+
+<h3>Step 4: Mark primitives as off-limits</h3>
+<p>Primitives are building blocks for the system team, not for product code. Say so in the group's description and in an extension, so tools (and the agent manifest in step 6) can filter them out.</p>
+<pre><code>{
+  <span class="s">"color"</span>: {
+    <span class="s">"palette"</span>: {
+      <span class="s">"$description"</span>: <span class="s">"Primitive colours. Never use directly in product code; use a semantic color token."</span>,
+      <span class="s">"$extensions"</span>: { <span class="s">"com.kestrel.harbor"</span>: { <span class="s">"tier"</span>: <span class="s">"primitive"</span> } },
+      <span class="s">"blue"</span>: {
+        <span class="s">"50"</span>:  { <span class="s">"$type"</span>: <span class="s">"color"</span>, <span class="s">"$value"</span>: <span class="s">"#EEF4FF"</span> },
+        <span class="s">"600"</span>: { <span class="s">"$type"</span>: <span class="s">"color"</span>, <span class="s">"$value"</span>: <span class="s">"#2456D6"</span> }
+      }
+    }
+  }
+}</code></pre>
+<p>The DTCG 2025.10 format also defines richer structured colour values (a colour space plus components), which you may prefer; hex strings remain common and are fine for this purpose.</p>
+
+<h3>Step 5: Deprecate, don't delete</h3>
+<p>Old token names are scattered through the codebase, so agents will keep finding them. Keep them for a release or two, pointing at the new name, with a <code>$deprecated</code> string that says what to do:</p>
+<pre><code><span class="s">"brand-main"</span>: {
+  <span class="s">"$type"</span>: <span class="s">"color"</span>,
+  <span class="s">"$value"</span>: <span class="s">"{color.action.primary.bg}"</span>,
+  <span class="s">"$deprecated"</span>: <span class="s">"Use color.action.primary.bg. Will be removed in Harbor 7.0."</span>
+}</code></pre>
+<p>The string matters. A plain <code>true</code> tells an agent not to use the token; the string tells it what to use instead, so it can fix the code rather than just avoid it. See <a href="/writing/design-system-versioning">design system versioning</a> for how to schedule removals.</p>
+
+<h3>Step 6: Generate an agent manifest from the same source</h3>
+<p>Your token JSON is the source of truth, but it's nested and full of references, and the agent ultimately needs to know <b>what to type in code</b>. So the build generates, alongside CSS and other platform outputs, a flat list of just the tokens an agent should use, with the exact CSS variable name.</p>
+<figure class="w-fig">
+  <div class="w-arch">
+    <div class="w-arch-row"><span class="w-arch-k">Source</span><div class="w-arch-n"><div class="hi"><b>tokens/*.json</b><span>DTCG, with descriptions · the only file people edit</span></div></div></div>
+    <div class="w-arch-link">Style Dictionary build (in CI, on every change)</div>
+    <div class="w-arch-row"><span class="w-arch-k">Outputs</span><div class="w-arch-n"><div><b>tokens.css</b><span>CSS custom properties for the web</span></div><div><b>theme.css</b><span>Tailwind v4 theme, semantic only</span></div><div><b>iOS / Android</b><span>Swift, Kotlin</span></div><div class="lt"><b>tokens.agent.json</b><span>Flat list for agents and MCP</span></div></div></div>
+    <div class="w-arch-link">read by</div>
+    <div class="w-arch-row"><span class="w-arch-k">Consumers</span><div class="w-arch-n"><div><b>Product code</b><span>Uses CSS variables</span></div><div><b>Rules files</b><span>Point to the manifest</span></div><div><b>MCP server</b><span>Searches the manifest · part 7</span></div></div></div>
+  </div>
+  <figcaption>One source, many outputs. The agent manifest is just another platform, so it can never drift from the CSS.</figcaption>
+</figure>
+<p>Here's a working Style Dictionary (version 4 or later) configuration with a custom format that writes the agent manifest. It reads DTCG files, skips primitives, and keeps each token's description, deprecation and alias.</p>
+<pre><code><span class="c">// build-tokens.mjs · run with: node build-tokens.mjs</span>
+<span class="k">import</span> StyleDictionary <span class="k">from</span> <span class="s">"style-dictionary"</span>;
+
+StyleDictionary.registerFormat({
+  name: <span class="s">"harbor/agent-manifest"</span>,
+  format: ({ dictionary }) =&gt; {
+    <span class="k">const</span> tokens = dictionary.allTokens
+      .filter((t) =&gt; !t.filePath.includes(<span class="s">"primitives"</span>))   <span class="c">// semantic only</span>
+      .map((t) =&gt; ({
+        name: t.path.join(<span class="s">"."</span>),                 <span class="c">// color.feedback.info.bg</span>
+        cssVar: <span class="s">`--${t.name}`</span>,                    <span class="c">// --color-feedback-info-bg</span>
+        type: t.$type,
+        value: t.$value,                               <span class="c">// resolved: #EEF4FF</span>
+        aliasOf: t.original.$value,                    <span class="c">// {color.palette.blue.50}</span>
+        description: t.$description ?? <span class="k">null</span>,
+        deprecated: t.$deprecated ?? <span class="k">false</span>,
+      }));
+    <span class="k">return</span> JSON.stringify({ version: <span class="s">"6.4.0"</span>, tokens }, <span class="k">null</span>, 2);
+  },
+});
+
+<span class="k">const</span> sd = <span class="k">new</span> StyleDictionary({
+  source: [<span class="s">"tokens/**/*.json"</span>],
+  platforms: {
+    css: {
+      transformGroup: <span class="s">"css"</span>,
+      buildPath: <span class="s">"dist/"</span>,
+      files: [{ destination: <span class="s">"tokens.css"</span>, format: <span class="s">"css/variables"</span>, options: { outputReferences: <span class="k">true</span> } }],
+    },
+    agent: {
+      transformGroup: <span class="s">"css"</span>,                  <span class="c">// same names as the CSS output</span>
+      buildPath: <span class="s">"dist/"</span>,
+      files: [{ destination: <span class="s">"tokens.agent.json"</span>, format: <span class="s">"harbor/agent-manifest"</span> }],
+    },
+  },
+});
+
+<span class="k">await</span> sd.buildAllPlatforms();</code></pre>
+<p>And one entry of the result:</p>
+<pre><code>{
+  <span class="s">"name"</span>: <span class="s">"color.feedback.info.bg"</span>,
+  <span class="s">"cssVar"</span>: <span class="s">"--color-feedback-info-bg"</span>,
+  <span class="s">"type"</span>: <span class="s">"color"</span>,
+  <span class="s">"value"</span>: <span class="s">"#EEF4FF"</span>,
+  <span class="s">"aliasOf"</span>: <span class="s">"{color.palette.blue.50}"</span>,
+  <span class="s">"description"</span>: <span class="s">"Background for neutral information messages and banners. Not for selected rows or active states; use color.selection.bg."</span>,
+  <span class="s">"deprecated"</span>: <span class="k">false</span>
+}</code></pre>
+<div class="callout callout--warn"><span class="callout-k">Watch out</span><p>Style Dictionary's property names have shifted between major versions (for example <code>value</code> versus <code>$value</code> on tokens, and how the original token is exposed). The code above follows version 4 conventions with DTCG source files. Check the migration notes for the version you install, and test the output once by eye.</p></div>
+
+<h3>Step 7: Limit what agents can write</h3>
+<p>Descriptions help an agent choose. Restrictions stop it choosing badly. If your product uses Tailwind, its default palette (<code>bg-blue-600</code> and friends) is exactly what agents reach for from training. In Tailwind v4 you can remove the defaults and expose only semantic names:</p>
+<pre><code><span class="c">/* theme.css: generated from tokens, Tailwind v4 */</span>
+@import <span class="s">"tailwindcss"</span>;
+@import <span class="s">"@kestrel/harbor/tokens.css"</span>;
+
+@theme {
+  --color-*: initial;   <span class="c">/* remove Tailwind's default palette */</span>
+  --color-surface: var(--color-bg-surface);
+  --color-info: var(--color-feedback-info-bg);
+  --color-primary: var(--color-action-primary-bg);
+  <span class="c">/* … one line per semantic colour */</span>
+}</code></pre>
+<p>Now <code>bg-blue-50</code> simply doesn't exist in the build, while <code>bg-info</code> does. Agents that try the default classes get no styles, which shows up in visual review, and lint can flag unknown classes. Without Tailwind, the equivalent is a lint rule that rejects raw colour values; see <a href="/writing/ai-generated-ui-guardrails">part 9</a>.</p>
+
+<h2>How an agent finds the right token</h2>
+<p>With the work above done, here's what happens when an agent needs the info banner's background. The same flow works whether the agent reads the manifest file directly or asks an MCP server.</p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Need</b><span>"background for an info banner"</span></div><i>→</i>
+    <div><b>Search</b><span>Match words against names and descriptions in tokens.agent.json</span></div><i>→</i>
+    <div><b>Candidates</b><span>color.feedback.info.bg · color.selection.bg</span></div><i>→</i>
+    <div><b>Choose</b><span>Description says "info messages and banners"; selection.bg says "selected rows"</span></div><i>→</i>
+    <div class="hi"><b>Write</b><span>background: var(--color-feedback-info-bg)</span></div>
+  </div>
+  <figcaption>Token resolution from the agent's side. Descriptions turn a guess between two pale blues into a clear match.</figcaption>
+</figure>
+<p>Compare this with the original scenario. The agent still never "understands" colour. It matches words. The difference is that the words now carry the design decision.</p>
+
+<h2>Modes and themes: what the agent needs to know</h2>
+<p>Light and dark mode, brands and densities are handled by giving the <b>same semantic token different values</b> in different contexts. The agent doesn't need to know any of those values. It needs to know one rule: <b>use semantic tokens and never branch on the theme in component code.</b></p>
+<div class="cols2">
+  <div class="cell"><span class="k">AGENT WRITES</span><h4>Theme-proof</h4><pre><code>.banner {
+  background: var(--color-feedback-info-bg);
+  color: var(--color-feedback-info-text);
+}</code></pre></div>
+  <div class="cell"><span class="k">AGENT SHOULD NEVER WRITE</span><h4>Theme-aware</h4><pre><code>.banner { background: #EEF4FF; }
+[data-theme="dark"] .banner {
+  background: #10243F;
+}</code></pre></div>
+</div>
+<p>Put that rule in your rules file. If you use the DTCG Resolver Module or a tool such as Tokens Studio to manage themes, keep that complexity in the build; the agent manifest should list each semantic token once, perhaps with its value per mode for reference. More in <a href="/writing/dark-mode-design-tokens">dark mode with design tokens</a>.</p>
+
+<h2>How to check it works</h2>
+<p>Don't assume the descriptions help; test it. Three checks, from quickest to most thorough:</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Check</th><th>How</th><th>Pass when</th></tr></thead>
+  <tbody>
+    <tr><td><b>Coverage</b></td><td>A script in CI that fails if any semantic token has no <code>$description</code>, or any alias points to a missing token</td><td>100% of semantic tokens described; zero broken aliases</td></tr>
+    <tr><td><b>Choice test</b></td><td>Give an agent the manifest and 20 plain-language needs ("disabled button text", "divider between list items"); compare its picks with a designer's answers</td><td>18 or more of 20 match</td></tr>
+    <tr><td><b>Build test</b></td><td>Rerun your baseline tasks from part 2 and count hard-coded values</td><td>The count drops to zero, or every remaining one is flagged by lint</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Three checks. The choice test is quick to run and is the best way to find descriptions that are ambiguous.</figcaption></figure>
+<pre><code><span class="c">// check-token-descriptions.mjs: fail CI when a semantic token isn't described</span>
+<span class="k">import</span> { readFileSync } <span class="k">from</span> <span class="s">"node:fs"</span>;
+<span class="k">const</span> { tokens } = JSON.parse(readFileSync(<span class="s">"dist/tokens.agent.json"</span>, <span class="s">"utf8"</span>));
+<span class="k">const</span> missing = tokens.filter((t) =&gt; !t.deprecated &amp;&amp; (!t.description || t.description.length &lt; 20));
+<span class="k">if</span> (missing.length) {
+  console.error(<span class="s">"Tokens need a description:\n"</span> + missing.map((t) =&gt; <span class="s">"  "</span> + t.name).join(<span class="s">"\n"</span>));
+  process.exit(1);
+}</code></pre>
+
+<h2>Common mistakes</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">MISTAKE</span><h4>Describing the value, not the job</h4><p>"#2456D6, blue" adds nothing the agent can't read from <code>$value</code>. Describe when to use it.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Exposing primitives to agents</h4><p>If the manifest lists <code>blue.50</code> alongside <code>feedback.info.bg</code>, agents will sometimes pick the primitive. Filter primitives out.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Descriptions in a separate doc</h4><p>Token explanations in Confluence drift from the tokens within months. Keep them in <code>$description</code>, next to the value.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Deleting old names overnight</h4><p>Agents keep copying old names from existing code. Deprecate with a replacement first, then remove after a migration.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Too many near-identical tokens</h4><p>Five greys for five slightly different jobs confuse people and agents alike. Merge where the difference isn't a real decision.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Figma variables named differently</h4><p>If Figma says <code>Info/Background</code> and code says <code>feedback.info.bg</code>, design-to-code agents can't connect them. See <a href="/writing/figma-mcp-design-to-code">part 8</a>.</p></div>
+</div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Store tokens in DTCG JSON: <code>$value</code>, <code>$type</code>, <code>$description</code>, <code>$deprecated</code>.</li>
+  <li>Name semantic tokens by job, and describe each: what it's for, what it's not for, what to use instead.</li>
+  <li>Keep primitives out of product code and out of what agents see.</li>
+  <li>Generate a flat agent manifest from the same source as your CSS, so it can't drift.</li>
+  <li>Restrict what can be written (semantic-only Tailwind theme, lint), and test token choice with real needs.</li>
+</ul></div>
+<p>Next: <a href="/writing/component-metadata-for-ai-agents">Component metadata for AI agents</a>, where we do the same for components: props, variants and usage rules as data.</p>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>What format should design tokens be in for AI agents?</summary><div><p>The W3C Design Tokens Community Group (DTCG) JSON format, stable since version 2025.10. It's vendor-neutral, widely supported by token tools, and includes fields for descriptions and deprecation that agents use to choose tokens correctly.</p></div></details>
+  <details><summary>What should a design token description say?</summary><div><p>What the token is for, what it isn't for, and what to use instead, in one or two sentences. For example: "Background of the single main action on a screen. Not for destructive actions; use color.action.danger.bg."</p></div></details>
+  <details><summary>Should AI agents use primitive tokens?</summary><div><p>No. Product code, whether written by people or agents, should use semantic tokens so themes and modes work. Hide primitives from agent-facing manifests and flag them with lint.</p></div></details>
+  <details><summary>How do I stop AI from using Tailwind's default colours?</summary><div><p>In Tailwind v4, reset the default palette in your theme with <code>--color-*: initial;</code> and define only semantic colour names. Default classes like bg-blue-600 then no longer exist in the build.</p></div></details>
+  <details><summary>How do I mark a design token as deprecated?</summary><div><p>In DTCG, add <code>$deprecated</code> with either true or, better, a string naming the replacement, such as "Use color.action.primary.bg". Keep the old token pointing at the new one until products have migrated.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://www.designtokens.org/tr/2025.10/" target="_blank" rel="noopener">Design Tokens Technical Reports 2025.10</a><span>The stable Format, Color and Resolver modules.</span></li>
+  <li><a href="https://styledictionary.com/" target="_blank" rel="noopener">Style Dictionary</a><span>The open-source build tool used in the example, with DTCG support.</span></li>
+  <li><a href="https://tailwindcss.com/docs/theme" target="_blank" rel="noopener">Tailwind CSS: theme variables</a><span>How <code>@theme</code> and resetting namespaces work in v4.</span></li>
+  <li><a href="/writing/design-tokens">Design tokens: the complete guide</a><span>The three tiers and how tokens reach code.</span></li>
+  <li><a href="/writing/design-token-naming-conventions">Design token naming conventions</a><span>A naming structure people, and agents, can guess.</span></li>
+</ul>

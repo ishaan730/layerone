@@ -1,0 +1,188 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>A coding agent builds UI in a loop: it <b>reads instructions</b> (your prompt plus any rules files), <b>searches</b> the repository, <b>opens</b> the files that look relevant, <b>writes</b> code, and <b>runs checks</b> such as the type checker. It only knows your design system through what it finds during that loop. If it can't find something quickly and unambiguously, it falls back on what it learned in training, which means generic Tailwind classes, Material UI habits and invented props. To steer it, put the right information where the agent looks first: <b>a rules file</b>, <b>typed component APIs</b>, <b>tools that answer design system questions</b>, and <b>checks that fail loudly</b>.</p>
+  <ul>
+    <li>Agents trust whatever they find first. Deprecated code that's easy to find gets copied.</li>
+    <li>Types and lint errors are the clearest feedback an agent gets. Use them.</li>
+    <li>Part 2 of 20 in the series on AI-ready design systems.</li>
+  </ul>
+</div>
+
+<h2>The agent loop, in plain words</h2>
+<p>In <a href="/writing/ai-ready-design-system">part 1</a> we described an AI agent as a language model that can take actions in a loop. Here's what that loop looks like when you ask a coding agent to build a screen. Every agent product implements it differently, but the shape is the same in Claude Code, Cursor, GitHub Copilot's agent mode and OpenAI Codex.</p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div class="hi"><b>1 · Read</b><span>Your prompt, the system instructions, and rules files like AGENTS.md</span></div><i>→</i>
+    <div><b>2 · Plan</b><span>Decide what to look for: "a card component, the currency formatter, the page layout"</span></div><i>→</i>
+    <div><b>3 · Act</b><span>Call a tool: search files, open a file, query an MCP server, run a command</span></div><i>→</i>
+    <div><b>4 · Observe</b><span>Read the result. Does it answer the question? Is more needed?</span></div><i>→</i>
+    <div><b>5 · Write</b><span>Edit code, then run type checks, lint and tests</span></div><i>→</i>
+    <div><b>6 · Repeat or finish</b><span>Errors go back into step 4. No errors: report back</span></div>
+  </div>
+  <figcaption>The agent loop. Steps 3–5 repeat many times on a single task. Your design system influences the result only at the points where it appears in steps 1, 3 and 5.</figcaption>
+</figure>
+<div class="callout callout--term"><span class="callout-k">New words</span><p><b>Tool:</b> an action the agent can ask for, described to the model by a name, a short description and the inputs it takes. "Read file", "search for text" and "run a terminal command" are built-in tools. <b>Context:</b> everything the model can see while it decides the next step. Each file it opens and each tool result is added to it, until the window fills up.</p></div>
+
+<h2>A real task, step by step</h2>
+<p>Let's follow one task through Harbor, the made-up design system from part 1. An engineer at Kestrel types this into a coding agent in the payroll web app's repository:</p>
+<pre><code>Add a "Pay run summary" card to the dashboard. It should show the
+next pay date, total gross pay and number of employees, with a
+"Review pay run" button. Use our design system.</code></pre>
+<p>Below is a simplified transcript of what the agent does in the repo as it was before any AI-readiness work. Tool names are generic; every product names them a little differently.</p>
+<figure class="w-fig">
+  <div class="w-chat">
+    <div class="a"><span class="k">Agent · thinking</span>I need a card component, a button, and a way to format currency. "Our design system" probably means a package. Let me search.</div>
+    <div class="t"><span class="k">Tool call · search</span>grep -r "Card" src/ --include=*.tsx -l</div>
+    <div class="r"><span class="k">Result</span>src/legacy/components/Card.tsx
+src/features/billing/BillingCard.tsx
+src/features/team/TeamCard.tsx
+… 31 more files</div>
+    <div class="t"><span class="k">Tool call · read file</span>src/features/team/TeamCard.tsx</div>
+    <div class="r"><span class="k">Result</span>import { Card } from "../../legacy/components/Card";
+import { BtnPrimary } from "@kestrel/ui-old";
+…
+&lt;div style={{ color: "#1D4ED8", padding: 20 }}&gt;</div>
+    <div class="x"><span class="k">What went wrong</span>The agent learned the codebase's conventions from the first example it opened. That example happened to use the legacy Card, the old button package and a hard-coded blue.</div>
+    <div class="a"><span class="k">Agent · writes code</span>Creates PayRunCard.tsx using legacy Card, BtnPrimary, a hard-coded #1D4ED8 and its own formatCurrency() helper.</div>
+    <div class="t"><span class="k">Tool call · run</span>npm run typecheck</div>
+    <div class="r"><span class="k">Result</span>✓ No errors</div>
+    <div class="a"><span class="k">Agent · reports</span>"Done. I added a Pay run summary card using the existing Card and button components, following the patterns in TeamCard."</div>
+  </div>
+  <figcaption><span class="ev ev--ill">Illustration</span> The agent did exactly what a reasonable newcomer would: copy the nearest example. Every check passed, so it had no reason to doubt itself.</figcaption>
+</figure>
+<p>Nothing here is a model failure. The agent searched, read a real file, followed the code it found, and verified its work with the only check available. The design system failed it in three ways:</p>
+<ul class="checklist">
+  <li><b>Nothing told the agent which package was current.</b> <code>@kestrel/harbor</code> and <code>@kestrel/ui-old</code> both exist, and the old one is used more often.</li>
+  <li><b>The legacy code was easy to find and looked legitimate.</b> No <code>@deprecated</code> tag, no lint warning, no comment.</li>
+  <li><b>The checks didn't check the design system.</b> Type checking passed because the legacy code is valid TypeScript. Nothing flagged the hard-coded colour.</li>
+</ul>
+
+<h2>Where an agent gets design system knowledge</h2>
+<p>An agent can learn about your system from six places. They differ a lot in how reliably the agent sees them and how much you control them. This ranking is the single most useful thing to understand when deciding where to invest.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Source</th><th>When the agent sees it</th><th>Your control</th><th>Typical problem</th></tr></thead>
+  <tbody>
+    <tr><td><b>Rules files</b> (AGENTS.md, CLAUDE.md, Cursor rules)</td><td>Loaded automatically at the start of every task</td><td>Full</td><td>Too long, so key rules get lost; or missing entirely</td></tr>
+    <tr><td><b>Type definitions</b> (<code>.d.ts</code>, prop types)</td><td>When it opens a component or when the type checker runs</td><td>Full</td><td>Props typed as <code>string</code> instead of a list of allowed values</td></tr>
+    <tr><td><b>Tool results</b> (MCP servers)</td><td>When the agent decides to call the tool</td><td>Full</td><td>Tool descriptions so vague the agent doesn't know when to call it</td></tr>
+    <tr><td><b>Existing code</b> in the repo</td><td>When search happens to surface it</td><td>Partial</td><td>Old patterns outnumber new ones, so they get copied</td></tr>
+    <tr><td><b>Web docs</b></td><td>Only if the agent can browse and chooses to</td><td>Partial</td><td>Private docs can't be reached; public ones may be outdated</td></tr>
+    <tr><td><b>Training data</b></td><td>Always, as a fallback</td><td>None</td><td>Knows popular open-source libraries, not yours</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Sources ranked from most to least reliable. Invest at the top of the table first: rules files, types and tools are always seen and fully under your control.</figcaption></figure>
+<div class="callout callout--warn"><span class="callout-k">Watch out</span><p>Existing code is the source agents rely on most and the one teams think about least. In a repo where 70% of buttons are the legacy one, an agent copying "the codebase's conventions" will choose the legacy one 70% of the time. Retiring or clearly marking legacy code is AI-readiness work.</p></div>
+
+<h2>The context window, and why less is more</h2>
+<p>Every file the agent opens takes up space in its context window. Modern models have large windows (hundreds of thousands of tokens, where a token is roughly three-quarters of a word), but bigger isn't the same as better. Research and practical experience both show models pay less attention to information buried in the middle of long contexts, and every irrelevant file is a chance to copy the wrong thing.</p>
+<figure class="w-fig">
+  <div class="cols2">
+    <div class="cell"><span class="k">EXPENSIVE</span><h4>Dumping everything</h4><p>Pasting your whole 300-page docs site, or a 6,000-line token file, into the prompt. The agent has to find the needle itself, and old pages compete with new ones.</p><ul><li>~150,000 tokens used</li><li>Contradictions are all visible at once</li></ul></div>
+    <div class="cell cell--accent"><span class="k">EFFECTIVE</span><h4>Just enough, on demand</h4><p>A short rules file that says where things are, then tools the agent calls for exactly the component or token it needs.</p><ul><li>~3,000 tokens used</li><li>Only current information arrives</li></ul></div>
+  </div>
+  <figcaption><span class="ev ev--ill">Illustration</span> Token counts are illustrative. The principle holds whatever the model: give the agent a map and a way to ask, not the whole library.</figcaption>
+</figure>
+<p>This principle, sometimes called <b>progressive disclosure</b>, shapes the rest of this series. Rules files (part 6) are the map. Component metadata (part 4), token files (part 3) and docs (part 5) are what the agent asks for. MCP servers (part 7) are a precise way to ask.</p>
+
+<h2>Six failure modes and what causes each</h2>
+<p>Once you know the loop, agent mistakes become predictable. Here are the ones we see most, with the step of the loop where each goes wrong.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Failure</th><th>Example</th><th>Loop step</th><th>Root cause</th></tr></thead>
+  <tbody>
+    <tr><td><b>Copying the nearest example</b></td><td>Legacy Card copied from TeamCard</td><td>3 · Act</td><td>Search returns old code first; nothing marks it as old</td></tr>
+    <tr><td><b>Training-data fallback</b></td><td><code>className="bg-blue-600 rounded-lg"</code></td><td>2 · Plan</td><td>Agent never found your tokens, so it used what it knows</td></tr>
+    <tr><td><b>Invented API</b></td><td><code>&lt;Button variant="destructive"&gt;</code> when the value is <code>danger</code></td><td>5 · Write</td><td>Agent guessed the value; the prop was typed as <code>string</code>, so nothing caught it</td></tr>
+    <tr><td><b>Wrong variant</b></td><td>Primary button for "Delete account"</td><td>5 · Write</td><td>The variant exists; the rule for when to use it isn't written anywhere the agent looked</td></tr>
+    <tr><td><b>Reinventing helpers</b></td><td>A new <code>formatCurrency()</code> beside the system's <code>formatMoney()</code></td><td>2 · Plan</td><td>Utilities aren't listed with the components</td></tr>
+    <tr><td><b>Silent success</b></td><td>"Done!" with off-system UI</td><td>6 · Finish</td><td>No check failed, so the agent had no signal</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Each failure points to a specific fix. Silent success is the most damaging, because it hides all the others.</figcaption></figure>
+
+<h2>The same task, with an AI-ready Harbor</h2>
+<p>Now the same prompt, after Kestrel's team completed the work described in this series: an AGENTS.md in the repo, typed and described components, a small design system MCP server, and lint rules. Watch where each change shows up.</p>
+<figure class="w-fig">
+  <div class="w-chat">
+    <div class="a"><span class="k">Agent · reads AGENTS.md (automatic)</span>"UI must use @kestrel/harbor. Never import from @kestrel/ui-old or src/legacy. Look up components with the harbor MCP tools before writing UI. Format money with formatMoney() from @kestrel/harbor/format."</div>
+    <div class="t"><span class="k">Tool call · harbor.search_components</span>{ "query": "card with summary stats and an action" }</div>
+    <div class="r"><span class="k">Result</span>StatCard: "Shows 1–4 key figures with an optional action. Use for dashboard summaries." · Card: "Generic container. Prefer StatCard for figures."</div>
+    <div class="t"><span class="k">Tool call · harbor.get_component</span>{ "name": "StatCard" }</div>
+    <div class="r"><span class="k">Result</span>props: title (string, required), stats (Stat[] 1–4), action (ReactNode) …
+usage: "One primary action at most. Use Button variant=secondary unless it's the page's main task."
+example: &lt;StatCard title="…" stats={[…]} action={&lt;Button variant="secondary"&gt;…&lt;/Button&gt;} /&gt;</div>
+    <div class="a"><span class="k">Agent · writes code</span>Creates PayRunCard.tsx with StatCard, Button variant="secondary" and formatMoney().</div>
+    <div class="t"><span class="k">Tool call · run</span>npm run lint &amp;&amp; npm run typecheck</div>
+    <div class="r"><span class="k">Result</span>✓ No errors</div>
+    <div class="a"><span class="k">Agent · reports</span>"Added PayRunCard using Harbor's StatCard (recommended for dashboard summaries) and a secondary Button, since the card's action isn't the page's main task."</div>
+  </div>
+  <figcaption><span class="ev ev--ill">Illustration</span> Same model, same prompt. The difference: the rules file pointed the agent at the right package, a tool returned one clear answer with a usage rule, and lint would have caught a regression.</figcaption>
+</figure>
+<p>Notice that the agent's final message now explains <i>why</i> it chose the secondary variant. That happened because the usage rule was in the tool result. When the reasoning behind a decision is written down where agents can reach it, agents repeat it, and reviewers can check it.</p>
+
+<h2>Not all agents are coding agents</h2>
+<p>"AI agent" covers several kinds of tool, and each one reaches your design system differently. Know which ones your teams use, because the preparation differs.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Kind</th><th>Examples</th><th>What it reads from your system</th><th>Prepare by</th></tr></thead>
+  <tbody>
+    <tr><td><b>Coding agents</b></td><td>Claude Code, Cursor, Copilot, Codex</td><td>Repo files, rules files, types, MCP tools, terminal output</td><td>Rules files, types, MCP server, lint (parts 4, 6, 7, 9)</td></tr>
+    <tr><td><b>Design-to-code</b></td><td>Figma's MCP server used from a coding agent</td><td>Figma layers, variables, component names, Code Connect mappings</td><td>Variables, naming, Code Connect (part 8)</td></tr>
+    <tr><td><b>AI app builders</b></td><td>v0, Lovable, Bolt, Figma Make</td><td>Usually a component registry or uploaded package and a prompt</td><td>A registry or package with clear docs; check each tool's import options</td></tr>
+    <tr><td><b>Docs assistants</b></td><td>"Ask the design system" chatbots</td><td>Your docs through search and retrieval</td><td>Structured, chunkable docs (part 5)</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Four kinds of agent. The source of truth underneath is the same for all of them; only the door differs.</figcaption></figure>
+
+<h2>Try it: an "agent's-eye" audit in one hour</h2>
+<p>The fastest way to learn how agents use your system is to watch one. You don't need any setup beyond a coding agent and a product repo.</p>
+<ol class="w-steps">
+  <li><h3>Pick three everyday tasks</h3><p>Choose tasks your teams actually do: a form with validation, a data table with a filter, a confirmation dialog for a destructive action. Write each as a one-paragraph prompt ending with "use our design system".</p></li>
+  <li><h3>Run each in a fresh session</h3><p>Start a new conversation for each so earlier context doesn't leak in. Don't help the agent. You're watching how it finds things on its own.</p></li>
+  <li><h3>Read the transcript, not just the code</h3><p>Most agents show their tool calls. Write down every file it opened and every search it ran. Which design system files did it never find?</p></li>
+  <li><h3>Ask it to explain its sources</h3><p>Follow up with: "List every design system component, token and helper you used, and where you learned about each." Agents are usually honest about this, and the answers are revealing.</p></li>
+  <li><h3>Score the output</h3><p>Count: off-system components, hard-coded values, wrong variants, invented props. Keep the numbers. They're your baseline for <a href="/writing/ai-generated-ui-guardrails">part 9</a>.</p></li>
+</ol>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Task</th><th>Off-system components</th><th>Hard-coded values</th><th>Wrong variants</th><th>Invented props</th><th>Found the system?</th></tr></thead>
+  <tbody>
+    <tr><td>Settings form</td><td>1</td><td>4</td><td>0</td><td>2</td><td>Partly</td></tr>
+    <tr><td>Employees table</td><td>2</td><td>7</td><td>1</td><td>0</td><td>No</td></tr>
+    <tr><td>Delete dialog</td><td>0</td><td>1</td><td>1</td><td>1</td><td>Yes</td></tr>
+  </tbody>
+</table></div>
+<figcaption><span class="ev ev--ill">Illustration</span> A baseline scorecard from Harbor's first audit. The "Found the system?" column usually explains the rest.</figcaption></figure>
+
+<h2>Common questions when teams start</h2>
+<div class="cols2">
+  <div class="cell"><h4>"Can't we just tell it in the prompt?"</h4><p>You can, and it helps for one task. But people forget, phrase it differently each time, and can't remember fifty components. Rules files and tools make the guidance automatic and consistent.</p></div>
+  <div class="cell"><h4>"Which model is best at design systems?"</h4><p>Newer models follow instructions and use tools better, but no model can use information it never sees. The system-side work in this series pays off with every model.</p></div>
+  <div class="cell"><h4>"Should agents read our Storybook?"</h4><p>Storybook stories are excellent examples. Storybook now offers an MCP addon that exposes a component manifest to agents (React first). We cover it in part 7.</p></div>
+  <div class="cell"><h4>"Why did it work yesterday and not today?"</h4><p>Agents aren't deterministic: the same prompt can take a different search path. That's why one good run proves little, and why part 9 runs each task several times.</p></div>
+</div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>Agents work in a loop: read, plan, act, observe, write, check. Your system only matters where it appears in that loop.</li>
+  <li>Rules files, types and tool results are seen reliably; existing code and training data are where off-system habits come from.</li>
+  <li>Give the agent a short map and a precise way to ask, not your entire docs site.</li>
+  <li>Most failures trace to something findable: unmarked legacy code, undescribed tokens, unwritten usage rules, missing checks.</li>
+  <li>Watch an agent do three real tasks before you change anything.</li>
+</ul></div>
+<p>Next: <a href="/writing/design-tokens-for-ai-agents">Design tokens for AI agents</a>, where we fix the most common failure of all: hard-coded values.</p>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>How do AI coding agents find components in a design system?</summary><div><p>They read rules files loaded at the start of a task, search the repository, open files that look relevant, and call any tools they've been given, such as an MCP server. If none of these surface your system clearly, they copy nearby code or fall back on popular libraries from their training data.</p></div></details>
+  <details><summary>Why does an AI agent use deprecated components?</summary><div><p>Usually because deprecated code is easy to find (it's used in many files) and nothing marks it as deprecated. Add @deprecated tags, a "never use" list in the rules file, and a lint rule blocking new imports.</p></div></details>
+  <details><summary>Why does AI generate hard-coded colours instead of design tokens?</summary><div><p>The agent didn't find your tokens, or found them without explanations and couldn't choose. It falls back on values it saw nearby or on Tailwind defaults it knows from training. Describe tokens, point to them in the rules file and add a lint rule for raw values.</p></div></details>
+  <details><summary>Is a bigger context window enough to solve this?</summary><div><p>No. Large contexts full of conflicting or outdated information make mistakes more likely. Short, current, specific information retrieved when needed works better.</p></div></details>
+  <details><summary>Do AI agents remember our design system between sessions?</summary><div><p>Generally not, unless the product has a memory feature. Assume every session starts from zero, which is why rules files and tools matter: they give the same starting knowledge every time.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://www.anthropic.com/engineering/building-effective-agents" target="_blank" rel="noopener">Anthropic: Building effective agents</a><span>How agent loops and tool use are put together.</span></li>
+  <li><a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents" target="_blank" rel="noopener">Anthropic: Effective context engineering for AI agents</a><span>Why less, better-chosen context works.</span></li>
+  <li><a href="https://arxiv.org/abs/2307.03172" target="_blank" rel="noopener">Lost in the Middle (Liu et al.)</a><span>Research on how models use information in long contexts.</span></li>
+  <li><a href="https://storybook.js.org/docs/ai" target="_blank" rel="noopener">Storybook: AI</a><span>Storybook's MCP addon and component manifests.</span></li>
+  <li><a href="/writing/design-system-migration">Design system migration</a><span>Retiring the legacy code agents keep copying.</span></li>
+</ul>

@@ -1,0 +1,181 @@
+<div class="answer">
+  <p class="k">The short answer</p>
+  <p>AI-generated UI is often inaccessible because models reproduce the most common code they've seen, and a lot of web code is inaccessible: clickable <code>&lt;div&gt;</code>s, inputs without labels, missing focus handling, ARIA used wrongly. Studies from 2025 and 2026 find that asking for accessibility in the prompt helps but doesn't solve it, and results vary with the prompt and the model. A design system fixes most of this structurally: <b>build accessibility into components</b> so agents can't easily get it wrong (labels required by type, focus handled inside dialogs, correct roles built in), <b>write accessibility rules into metadata</b> agents read, <b>steer agents to system components</b> instead of hand-built markup, and <b>test every output</b> with automated checks plus people for keyboard and screen reader behaviour.</p>
+  <ul>
+    <li>The most reliable accessibility fix for agents is a component that's accessible by default and hard to misuse.</li>
+    <li>Automated tools find a meaningful share of issues, not all. Keep human checks.</li>
+    <li>Part 13 of 20 in the series on AI-ready design systems.</li>
+  </ul>
+</div>
+
+<h2>Why AI-generated UI so often fails accessibility</h2>
+<p>A designer generates a prototype in an AI tool, it looks finished, and an accessibility review finds a dozen problems: the "button" is a <code>&lt;div&gt;</code> with a click handler, the form fields have placeholder text but no labels, the modal doesn't trap focus, and the error message is red text with nothing announced to screen readers. None of this is visible in a screenshot, which is exactly why it slips through.</p>
+<p>The reasons are structural:</p>
+<div class="cols2">
+  <div class="cell"><span class="k">1 · TRAINING DATA</span><h4>Models copy what's common</h4><p>Much of the web's code has accessibility problems, and models learn from it. Without guidance, the most common pattern wins, not the correct one.</p></div>
+  <div class="cell"><span class="k">2 · INVISIBLE</span><h4>Problems don't show in screenshots</h4><p>Agents and reviewers judge UI visually. Missing labels, roles and focus order look identical to correct code.</p></div>
+  <div class="cell"><span class="k">3 · HAND-BUILT</span><h4>Agents rebuild what exists</h4><p>When an agent doesn't find your accessible Dialog, it builds a new one, and complex widgets are where accessibility is hardest.</p></div>
+  <div class="cell"><span class="k">4 · NO FEEDBACK</span><h4>Nothing fails</h4><p>Type checks and visual review pass. Without an accessibility check in the loop, the agent has no reason to change anything.</p></div>
+</div>
+<p><span class="ev ev--std">Research</span> Recent peer-reviewed work supports this picture. A W4A 2025 study of LLM-generated interfaces found that explicitly asking for accessibility made a large difference but wasn't sufficient on its own; a CHI 2026 paper analysing hundreds of LLM-generated web UIs found recurring semantic problems such as heading and label mismatches; and an ASSETS 2026 benchmark found accessibility in generated code varied with how the prompt was written and the circumstances of generation, so it can't be treated as a stable capability. The exact rates differ by model and method; the direction is consistent.</p>
+
+<h2>Where the design system can help, and where it can't</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Issue</th><th>Can the design system prevent it?</th><th>How</th></tr></thead>
+  <tbody>
+    <tr><td>Clickable divs instead of buttons</td><td><b>Mostly</b></td><td>Agents use <code>Button</code> and <code>Link</code>; lint flags click handlers on non-interactive elements</td></tr>
+    <tr><td>Inputs without labels</td><td><b>Yes</b></td><td>Make <code>label</code> a required prop; render it correctly inside the component</td></tr>
+    <tr><td>Low colour contrast</td><td><b>Yes</b></td><td>Semantic tokens whose pairs are checked; no raw colours</td></tr>
+    <tr><td>Dialogs without focus trap or Escape</td><td><b>Yes</b></td><td>Behaviour built into <code>Dialog</code>; agents never build their own</td></tr>
+    <tr><td>Errors not announced</td><td><b>Mostly</b></td><td>Form components wire error messages with <code>aria-describedby</code> and live regions</td></tr>
+    <tr><td>Icon-only buttons without names</td><td><b>Yes</b></td><td><code>IconButton</code> requires <code>aria-label</code> in its type</td></tr>
+    <tr><td>Wrong heading order</td><td><b>Partly</b></td><td>Page patterns state heading levels; a rule in the pattern page</td></tr>
+    <tr><td>Meaningless link text, poor alt text</td><td><b>Partly</b></td><td>Content guidelines; review</td></tr>
+    <tr><td>Confusing flows, unclear instructions</td><td><b>No</b></td><td>Design and research; human review</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Most common failures can be designed out at the component level. Content and flow still need people.</figcaption></figure>
+
+<h2>Step 1: make components accessible by default and hard to misuse</h2>
+<p>For agents, the strongest accessibility rule is one enforced by the component's API. An agent that forgets a label gets a type error; a component that handles focus can't have focus handled wrongly.</p>
+<div class="cols2">
+  <div class="cell"><span class="k">EASY TO MISUSE</span><pre><code>type TextFieldProps = {
+  label?: string;
+  placeholder?: string;
+  error?: string;
+};
+
+type IconButtonProps = {
+  icon: ReactNode;
+  "aria-label"?: string;
+};</code></pre><p>An agent can render a field with only a placeholder and an icon button with no name, and nothing complains.</p></div>
+  <div class="cell"><span class="k">HARD TO MISUSE</span><pre><code>type TextFieldProps = {
+  /** Visible label. Required. Use
+   *  hideLabel only in search bars. */
+  label: string;
+  hideLabel?: boolean;
+  /** Shown below the field and
+   *  announced to screen readers. */
+  error?: string;
+};
+
+type IconButtonProps = {
+  icon: ReactNode;
+  /** Required: the action, e.g.
+   *  "Delete payslip". */
+  "aria-label": string;
+};</code></pre><p>Required props turn a missing label into a compile error, which the agent sees and fixes.</p></div>
+</div>
+<p>Inside the component, the system team handles the parts agents get wrong most often: associating labels with inputs, wiring error text with <code>aria-describedby</code>, trapping and restoring focus in dialogs, Escape to close, roving focus in menus and tabs. Headless libraries can provide much of this behaviour; see <a href="/writing/headless-component-library-build-vs-buy">build, borrow or buy</a>.</p>
+
+<h2>Step 2: write accessibility rules where agents read them</h2>
+<p>Some requirements can't be enforced by types. Put them in the component's metadata (<a href="/writing/component-metadata-for-ai-agents">part 4</a>) so they reach the agent with the props:</p>
+<pre><code><span class="c">// Dialog.meta.json (excerpt)</span>
+<span class="s">"accessibility"</span>: [
+  <span class="s">"Always pass title; it becomes the dialog's accessible name."</span>,
+  <span class="s">"Focus moves into the dialog on open and returns to the trigger on close. Don't manage focus yourself."</span>,
+  <span class="s">"Put the primary action last in Dialog.Actions so keyboard order matches reading order."</span>,
+  <span class="s">"Never open a Dialog from another Dialog. Use a step inside the same Dialog."</span>
+]</code></pre>
+<p>And add a short, universal accessibility section to the AGENTS.md design system block (<a href="/writing/agents-md-llms-txt-design-system">part 6</a>):</p>
+<pre><code>### Accessibility
+- Never put click handlers on div or span. Use Button or Link from Harbor.
+- Every form field uses Harbor's field components with a visible label.
+- Don't add ARIA attributes to Harbor components unless their docs say to.
+- Images: meaningful alt text, or alt="" if decorative.
+- Run pnpm check: it includes accessibility tests.</code></pre>
+<div class="callout callout--warn"><span class="callout-k">Watch out</span><p>"Don't add ARIA unless the docs say to" matters. Models often sprinkle ARIA attributes to look accessible: <code>role="button"</code> on a real button, <code>aria-label</code> that replaces a visible label with different words, <code>aria-hidden</code> on focusable elements. Incorrect ARIA can be worse than none.</p></div>
+
+<h2>Step 3: steer agents to system components, not hand-built markup</h2>
+<p>Every hand-built widget is an accessibility risk. The work in earlier parts, finding components (<a href="/writing/design-system-mcp-server">part 7</a>) and blocking legacy ones (<a href="/writing/ai-generated-ui-guardrails">part 9</a>), is also accessibility work. Add lint rules that catch the most common hand-built patterns. The <code>eslint-plugin-jsx-a11y</code> plugin has rules for many of them:</p>
+<pre><code><span class="c">// eslint.config.js (excerpt)</span>
+<span class="k">import</span> jsxA11y <span class="k">from</span> <span class="s">"eslint-plugin-jsx-a11y"</span>;
+
+<span class="k">export default</span> [
+  jsxA11y.flatConfigs.recommended,
+  {
+    rules: {
+      <span class="s">"jsx-a11y/click-events-have-key-events"</span>: <span class="s">"error"</span>,
+      <span class="s">"jsx-a11y/no-static-element-interactions"</span>: <span class="s">"error"</span>,
+      <span class="s">"jsx-a11y/label-has-associated-control"</span>: <span class="s">"error"</span>,
+    },
+  },
+];</code></pre>
+
+<h2>Step 4: test every output</h2>
+<p>Automated checks in the agent's loop catch a meaningful portion of problems and give the agent something to fix. People catch the rest.</p>
+<figure class="w-fig">
+  <div class="w-arch">
+    <div class="w-arch-row"><span class="w-arch-k">While writing</span><div class="w-arch-n"><div><b>Types</b><span>Required labels and names</span></div><div><b>Lint</b><span>jsx-a11y rules; no clickable divs</span></div></div></div>
+    <div class="w-arch-link">pnpm check</div>
+    <div class="w-arch-row"><span class="w-arch-k">Rendered</span><div class="w-arch-n"><div><b>axe-core</b><span>Contrast, names, roles, ARIA validity on rendered pages and stories</span></div><div><b>Keyboard script</b><span>Tab through, Escape closes, focus returns</span></div></div></div>
+    <div class="w-arch-link">before merge</div>
+    <div class="w-arch-row"><span class="w-arch-k">People</span><div class="w-arch-n"><div class="hi"><b>Keyboard and screen reader pass</b><span>For new flows and complex widgets</span></div></div></div>
+  </div>
+  <figcaption>Accessibility checks at three levels. Automated tools don't replace testing with assistive technology.</figcaption>
+</figure>
+<pre><code><span class="c">// a keyboard check with Playwright</span>
+test(<span class="s">"remove dialog is keyboard-operable"</span>, <span class="k">async</span> ({ page }) =&gt; {
+  <span class="k">await</span> page.goto(<span class="s">"/employees/42"</span>);
+  <span class="k">const</span> trigger = page.getByRole(<span class="s">"button"</span>, { name: <span class="s">"Remove from payroll"</span> });
+  <span class="k">await</span> trigger.focus();
+  <span class="k">await</span> page.keyboard.press(<span class="s">"Enter"</span>);
+  <span class="k">await</span> expect(page.getByRole(<span class="s">"alertdialog"</span>)).toBeVisible();
+  <span class="k">await</span> expect(page.getByRole(<span class="s">"button"</span>, { name: <span class="s">"Cancel"</span> })).toBeFocused();
+  <span class="k">await</span> page.keyboard.press(<span class="s">"Escape"</span>);
+  <span class="k">await</span> expect(trigger).toBeFocused();   <span class="c">// focus returns to the trigger</span>
+});</code></pre>
+<p>Queries like <code>getByRole</code> double as accessibility checks: if the test can't find a button by its role and name, neither can a screen reader user.</p>
+
+<h2>Prompting for accessibility: helpful, not sufficient</h2>
+<p>Research and experience agree that stating accessibility requirements in the prompt improves results. Make it specific rather than general:</p>
+<div class="cols2">
+  <div class="cell"><span class="k">VAGUE</span><p>"Make it accessible."</p></div>
+  <div class="cell cell--accent"><span class="k">SPECIFIC</span><p>"Use Harbor components only. Every field has a visible label. The dialog must be operable by keyboard. Run pnpm check and fix any accessibility errors."</p></div>
+</div>
+<p>But don't rely on prompts. People forget to include them, and results vary between runs. Components, lint and tests apply every time.</p>
+
+<h2>For designers using AI prototyping tools</h2>
+<p>Prototypes generated in tools like Figma Make, v0 or Lovable (<a href="/writing/ai-prototyping-tools-design-system">part 15</a>) often move toward production quickly. A few habits keep accessibility from being lost on the way:</p>
+<ul class="checklist">
+  <li><b>Include accessibility rules in the tool's guidelines</b> for your design system, the same ones as in AGENTS.md.</li>
+  <li><b>Tab through every prototype</b> before sharing it. It takes a minute and catches the worst problems.</li>
+  <li><b>Check contrast on anything that isn't a system token.</b> AI tools often invent tints for hover states and badges.</li>
+  <li><b>Label prototypes as prototypes.</b> Generated code should go through the same checks as any other code before it ships.</li>
+</ul>
+
+<h2>Common mistakes</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">MISTAKE</span><h4>Trusting a clean axe report</h4><p>Automated tools can't judge whether alt text is meaningful or a flow makes sense. Treat a pass as "no obvious problems".</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Optional labels "for flexibility"</h4><p>Every optional accessibility prop will be omitted by someone, human or agent. Require it, and offer a visually hidden option.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Letting agents "fix" accessibility with ARIA</h4><p>Asking an agent to "make it accessible" often adds ARIA to broken markup. Ask it to use the right component instead.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Accessibility only at the end</h4><p>If checks only run before release, hundreds of agent-generated screens pile up first. Run them on every change.</p></div>
+</div>
+
+<h2>The short version</h2>
+<div class="short"><ul>
+  <li>AI-generated UI copies common, often inaccessible patterns, and the problems don't show in screenshots.</li>
+  <li>Build accessibility into components and make misuse a type error: required labels and names, built-in focus handling.</li>
+  <li>Write accessibility rules into metadata and AGENTS.md; tell agents not to add ARIA to system components.</li>
+  <li>Run lint, axe and keyboard checks in the agent's loop; keep human checks with assistive technology.</li>
+  <li>Specific prompts help, but components and checks apply every time.</li>
+</ul></div>
+<p>Next: <a href="/writing/figma-code-token-drift">Figma variables out of sync with code tokens? Fix the drift before AI copies it.</a></p>
+
+<h2>Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>Is AI-generated code accessible?</summary><div><p>Often not by default. Studies from 2025 and 2026 find recurring problems such as missing labels, wrong semantics and ARIA misuse, and results vary with the prompt and model. Treat generated UI as untested until it passes accessibility checks.</p></div></details>
+  <details><summary>How do I make AI generate accessible UI?</summary><div><p>Steer it to accessible design system components, make accessibility props required in their types, include specific rules in your rules file, and run lint, axe and keyboard checks so the agent sees and fixes errors.</p></div></details>
+  <details><summary>Does asking for accessibility in the prompt work?</summary><div><p>It helps, especially when specific, but research shows it isn't sufficient on its own. Back prompts with components that are accessible by default and with automated checks.</p></div></details>
+  <details><summary>Can automated tests catch all accessibility problems?</summary><div><p>No. Tools like axe-core find a meaningful share of issues, such as contrast and missing names, but not problems like unclear content or awkward flows. Keyboard and screen reader testing by people is still needed.</p></div></details>
+  <details><summary>Should AI tools add ARIA attributes?</summary><div><p>Only when the component's documentation says so. Native HTML elements and well-built components already provide roles and names; extra or incorrect ARIA can make things worse.</p></div></details>
+</div>
+
+<h2>Further reading</h2>
+<ul class="refs">
+  <li><a href="https://faculty.washington.edu/wobbrock/pubs/assets-26.04.pdf" target="_blank" rel="noopener">Prompt and circumstance (ASSETS 2026)</a><span>A benchmark of accessibility in LLM-generated code.</span></li>
+  <li><a href="https://www.w3.org/WAI/ARIA/apg/" target="_blank" rel="noopener">WAI-ARIA Authoring Practices Guide</a><span>Keyboard and ARIA patterns for common widgets.</span></li>
+  <li><a href="https://github.com/jsx-eslint/eslint-plugin-jsx-a11y" target="_blank" rel="noopener">eslint-plugin-jsx-a11y</a><span>Lint rules for accessible JSX.</span></li>
+  <li><a href="https://github.com/dequelabs/axe-core" target="_blank" rel="noopener">axe-core</a><span>The automated accessibility engine used in the tests.</span></li>
+  <li><a href="/writing/accessible-design-system">Accessibility in a design system</a><span>The wider practice, beyond AI.</span></li>
+</ul>

@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Figma Variables Out of Sync with Code Tokens? Fix the Drift | Layer One</title>
+<meta name="description" content="Fix drift between Figma variables and code tokens: pick a source of truth, reconcile with a script, sync via DTCG import or Tokens Studio, check in CI.">
+<meta property="og:title" content="Figma Variables Out of Sync with Code Tokens? Fix the Drift | Layer One">
+<meta property="og:description" content="Fix drift between Figma variables and code tokens: pick a source of truth, reconcile with a script, sync via DTCG import or Tokens Studio, check in CI.">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-11-18">
+<meta property="article:modified_time" content="2026-11-18">
+<meta property="article:author" content="Aniket Pandey">
+<meta property="article:section" content="AI-ready design systems">
+<meta property="og:image" content="https://www.layerone.co.in/assets/images/writing/figma-code-token-drift.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image:alt" content="Figma Variables Out of Sync with Code Tokens? Fix the Drift | Layer One">
+<meta name="theme-color" content="#0b0d12">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/writing.css?v=f693a735">
+<script defer src="/_vercel/insights/script.js"></script>
+<script>try{if(localStorage.getItem('l1-read')==='light')document.documentElement.dataset.read='light';}catch(e){}</script>
+<meta name="keywords" content="Figma variables out of sync, sync Figma variables with code, design token drift, Figma DTCG export, Tokens Studio sync, single source of truth tokens">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Figma Variables Out of Sync with Code Tokens? Fix the Drift", "description": "Fix drift between Figma variables and code tokens: pick a source of truth, reconcile with a script, sync via DTCG import or Tokens Studio, check in CI.", "image": "https://www.layerone.co.in/assets/images/writing/figma-code-token-drift.jpg", "datePublished": "2026-11-18", "dateModified": "2026-11-18", "mainEntityOfPage": "https://www.layerone.co.in/writing/figma-code-token-drift", "wordCount": 1972, "articleSection": "AI-ready design systems", "author": {"@type": "Person", "name": "Aniket Pandey", "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"}, "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/", "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}, "keywords": "Figma variables out of sync, sync Figma variables with code, design token drift, Figma DTCG export, Tokens Studio sync, single source of truth tokens", "isPartOf": {"@type": "CreativeWorkSeries", "name": "Making your design system AI-ready", "url": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"}, {"@type": "ListItem", "position": 2, "name": "AI-ready design systems", "item": "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"}, {"@type": "ListItem", "position": 3, "name": "Figma variables and code tokens out of sync? How to fix token drift before AI copies it", "item": "https://www.layerone.co.in/writing/figma-code-token-drift"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How do I keep Figma variables and design tokens in sync?", "acceptedAnswer": {"@type": "Answer", "text": "Choose one source people edit (usually DTCG token files in code), generate the other with Figma's DTCG import, a plugin such as Tokens Studio or the Variables REST API, and run a scheduled comparison that flags any differences."}}, {"@type": "Question", "name": "Can Figma export variables as DTCG JSON?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Figma supports importing and exporting variables in the DTCG format, with export done per mode. Check which fields are kept for your files, as some details may not survive a round trip."}}, {"@type": "Question", "name": "Should Figma or code be the source of truth for tokens?", "acceptedAnswer": {"@type": "Answer", "text": "Either can work if only one side is edited by people. Code is the more common choice because changes are reviewed, versioned and released together, and agents read the code side."}}, {"@type": "Question", "name": "Why does AI copy hex values from Figma instead of using tokens?", "acceptedAnswer": {"@type": "Answer", "text": "Usually because the layer isn't bound to a variable, or the variable's name and code syntax don't match a code token, so the agent has no way to map it. Bind values to variables named like your tokens and set code syntax."}}, {"@type": "Question", "name": "How do I find differences between Figma and code tokens?", "acceptedAnswer": {"@type": "Answer", "text": "Export both to DTCG JSON for the same mode, flatten them to name-value pairs with normalised names, and compare with a script that lists tokens only on one side and values that differ."}}]}</script>
+<link rel="canonical" href="https://www.layerone.co.in/writing/figma-code-token-drift">
+<meta property="og:url" content="https://www.layerone.co.in/writing/figma-code-token-drift">
+<meta property="og:site_name" content="Layer One">
+<meta name="twitter:title" content="Figma Variables Out of Sync with Code Tokens? Fix the Drift | Layer One">
+<meta name="twitter:description" content="Fix drift between Figma variables and code tokens: pick a source of truth, reconcile with a script, sync via DTCG import or Tokens Studio, check in CI.">
+<meta name="twitter:image" content="https://www.layerone.co.in/assets/images/writing/figma-code-token-drift.jpg">
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>
+</head>
+<body class="theme-dark reader">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="topbar-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <nav class="topnav" aria-label="Main"><a href="/">Home</a><a href="/work">Work</a><a href="/experience">Experience</a><a href="/studio">Studio</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/writing" aria-current="page">Writing</a><a href="/contact">Contact</a></nav>
+  <button class="pill menu-btn" type="button" aria-expanded="false">Menu</button>
+  <button class="ed-theme" type="button" data-rd-theme aria-label="Switch between dark and light reading" title="Light or dark reading"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="3.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 1.8v2.1M10 16.1v2.1M1.8 10h2.1M16.1 10h2.1M4.2 4.2l1.5 1.5M14.3 14.3l1.5 1.5M4.2 15.8l1.5-1.5M14.3 5.7l1.5-1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 12.6A6.8 6.8 0 0 1 7.4 3.5a6.8 6.8 0 1 0 9.1 9.1Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></button><a class="pill book" href="https://cal.com/layerone" target="_blank" rel="noopener">Book a call</a>
+</div></header>
+<main id="main" class="ed-wrap"><article class="ed-article">
+  <div class="ed-layout">
+    <aside class="ed-meta" aria-label="About this article"><div class="ed-meta-in">
+      <div class="ed-meta-who"><img src="../assets/studio/aniket.jpg" alt="" width="40" height="40"><p><b>Aniket Pandey</b><span>Founder, Layer One</span></p></div>
+      <dl class="ed-meta-dl"><div><dt>Published</dt><dd>18 November 2026</dd></div><div><dt>Reading time</dt><dd>9 minutes</dd></div><div><dt>Topic</dt><dd><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a></dd></div></dl>
+      <div class="ed-meta-sec"><p class="ed-meta-h">Making your design system AI-ready</p><ol class="ed-steps"><li><a href="/writing/ai-ready-design-system">What is an AI-ready design system?</a></li><li><a href="/writing/how-ai-agents-use-design-systems">How AI coding agents use your design system, and where they go wrong</a></li><li><a href="/writing/design-tokens-for-ai-agents">Design tokens for AI agents</a></li><li><a href="/writing/component-metadata-for-ai-agents">Component metadata for AI agents</a></li><li><a href="/writing/design-system-documentation-for-ai">Writing design system documentation AI agents can use, and how retrieval finds it</a></li><li><a href="/writing/agents-md-llms-txt-design-system">AGENTS.md, llms.txt and rules files for design systems</a></li><li><a href="/writing/design-system-mcp-server">Build an MCP server for your design system</a></li><li><a href="/writing/figma-mcp-design-to-code">Figma to code with AI</a></li><li><a href="/writing/ai-generated-ui-guardrails">Guardrails for AI-generated UI</a></li><li><a href="/writing/legacy-design-system-ai-ready">How to make a legacy design system AI-ready</a></li><li><a href="/writing/why-ai-ignores-design-system">Why does AI ignore my design system?</a></li><li><a href="/writing/design-system-context-window">How much design system context does an AI agent need?</a></li><li><a href="/writing/ai-generated-ui-accessibility">Why is AI-generated UI inaccessible, and how can a design system fix it?</a></li><li aria-current="step"><a href="/writing/figma-code-token-drift">Figma variables and code tokens out of sync?</a></li><li><a href="/writing/ai-prototyping-tools-design-system">How do I make Figma Make, v0 and Lovable use my design system?</a></li><li><a href="/writing/shadcn-ui-design-system-ai">Is shadcn/ui better for AI?</a></li><li><a href="/writing/designers-ai-ready-design-system">Can designers make a design system AI-ready without coding?</a></li><li><a href="/writing/ai-design-system-governance">Who owns the AI rules?</a></li><li><a href="/writing/design-system-ai-security">Is it safe to connect your design system to AI tools?</a></li><li><a href="/writing/ai-ready-design-system-roi">How do you prove the ROI of an AI-ready design system?</a></li></ol></div><div class="ed-meta-sec"><p class="ed-meta-h">Tags</p><ul class="ed-tags"><li>Figma</li><li>Design tokens</li><li>Sync</li><li>DTCG</li></ul></div><div class="ed-meta-sec"><p class="ed-meta-h">Share</p><p class="ed-share"><button type="button" data-copy="https://www.layerone.co.in/writing/figma-code-token-drift">Copy link</button><a href="https://www.linkedin.com/sharing/share-offsite/?url=https://www.layerone.co.in/writing/figma-code-token-drift" target="_blank" rel="noopener">LinkedIn</a><a href="https://x.com/intent/post?url=https://www.layerone.co.in/writing/figma-code-token-drift" target="_blank" rel="noopener">X</a></p></div>
+    </div></aside>
+    <header class="ed-head">
+      <p class="ed-crumb"><a href="/writing">Writing</a><span aria-hidden="true">/</span><a href="/writing/topics/ai-ready-design-systems">AI-ready design systems</a><span class="ed-crumb-s">Part 14 of 20 in <a href="/writing#ai-ready">Making your design system AI-ready</a></span></p>
+      <h1 class="ed-title">Figma variables and code tokens out of sync? How to fix token drift before AI copies it</h1>
+      <p class="ed-dek">Design-to-code agents read Figma; coding agents read code. When the two disagree, both produce "correct" screens that don't match. Choose one source, reconcile every difference with a script, automate one direction and catch new drift within a day.</p>
+      <p class="ed-byline"><img src="../assets/studio/aniket.jpg" alt="" width="36" height="36"><span><b>Aniket Pandey</b><span>9 min read · 18 November 2026</span></span></p>
+    </header>
+    <figure class="ed-cover"><img src="../assets/images/writing/figma-code-token-drift.w1200.webp" alt="Diagram: Figma variables and code tokens compared line by line, with differences flagged, then a one-way sync from the token files to Figma." width="1600" height="900" sizes="(max-width: 1024px) calc(100vw - 32px), 760px" fetchpriority="high" srcset="../assets/images/writing/figma-code-token-drift.w480.webp 480w, ../assets/images/writing/figma-code-token-drift.w800.webp 800w, ../assets/images/writing/figma-code-token-drift.w1200.webp 1200w, ../assets/images/writing/figma-code-token-drift.jpg 1600w" decoding="async"></figure>
+    <details class="ed-mtoc"><summary><span>On this page</span><b data-mtoc-current>The problem: two sources of truth, two kinds of agent</b></summary><ol><li><a href="#the-problem-two-sources-of-truth-two-kinds-of-agent">The problem: two sources of truth, two kinds of agent</a></li><li><a href="#step-1-choose-one-source-of-truth">Step 1: choose one source of truth</a></li><li><a href="#step-2-reconcile-once-with-a-script">Step 2: reconcile once, with a script</a></li><li><a href="#step-3-automate-one-direction">Step 3: automate one direction</a></li><li><a href="#step-4-catch-drift-in-ci">Step 4: catch drift in CI</a></li><li><a href="#name-and-structure-rules-that-keep-both-sides-aligned">Name and structure rules that keep both sides aligned</a></li><li><a href="#what-changes-for-agents-once-drift-is-gone">What changes for agents once drift is gone</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol></details>
+    <div class="ed-body post-body"><div class="answer">
+  <p class="k">The short answer</p>
+  <p>When Figma variables and code tokens drift apart (different names, different values, tokens that exist on one side only), AI makes it worse: design-to-code agents read Figma's version, coding agents read code's version, and both produce "correct" output that doesn't match. Fix it in four steps. <b>Pick one source of truth</b> (usually the DTCG token files in code). <b>Reconcile once</b>: export both sides, compare them with a script, and decide every difference. <b>Automate one direction</b>: generate Figma variables from the token files, using Figma's DTCG import, a plugin such as Tokens Studio, or the Variables REST API. <b>Check for drift in CI</b>, so any new difference is caught within a day. Never let people edit both sides by hand.</p>
+  <ul>
+    <li>Same structure, different separators: <code>color/bg/surface</code> in Figma, <code>color.bg.surface</code> in tokens, <code>--color-bg-surface</code> in CSS.</li>
+    <li>Check what your sync tool keeps: descriptions and some token types don't survive every export or import.</li>
+    <li>Part 14 of 20 in the series on AI-ready design systems.</li>
+  </ul>
+</div>
+
+<h2 id="the-problem-two-sources-of-truth-two-kinds-of-agent">The problem: two sources of truth, two kinds of agent</h2>
+<p>Almost every mature design system has some drift between Figma and code. A designer adjusted a grey in Figma last spring; an engineer added a token for a new chart that never made it into the library; a rename happened on one side only. People work around it. Agents can't, because each kind of agent only sees one side.</p>
+<figure class="w-fig">
+  <div class="w-arch">
+    <div class="w-arch-row"><span class="w-arch-k">Figma</span><div class="w-arch-n"><div class="bad"><b>Text/Subtle</b><span>#6B7280</span></div><div class="bad"><b>Surface/Raised</b><span>#FFFFFF</span></div><div class="dash"><b>(missing)</b><span>no chart tokens</span></div></div></div>
+    <div class="w-arch-link">read by design-to-code agents through the Figma MCP server</div>
+    <div class="w-arch-row"><span class="w-arch-k">Code</span><div class="w-arch-n"><div class="bad"><b>color.text.secondary</b><span>#5A606B</span></div><div class="bad"><b>color.bg.raised</b><span>#FAFAF8</span></div><div><b>color.chart.1–8</b><span>only in code</span></div></div></div>
+    <div class="w-arch-link">read by coding agents through the manifest and MCP tools</div>
+    <div class="w-arch-row"><span class="w-arch-k">Result</span><div class="w-arch-n"><div class="hi"><b>Two "correct" screens that don't match</b><span>One uses #6B7280 copied from Figma; one uses the token</span></div></div></div>
+  </div>
+  <figcaption><span class="ev ev--ill">Illustration</span> Drift in Harbor. Different names stop agents connecting the two sides; different values mean the same name produces different colours.</figcaption>
+</figure>
+<p>There are four kinds of drift, and each causes a different agent failure:</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Kind</th><th>Example</th><th>What agents do</th></tr></thead>
+  <tbody>
+    <tr><td><b>Name drift</b></td><td><code>Text/Subtle</code> vs <code>color.text.secondary</code></td><td>Can't map the Figma variable to a token, so copy the hex value</td></tr>
+    <tr><td><b>Value drift</b></td><td>Same name, #6B7280 vs #5A606B</td><td>Output looks "wrong" to designers even when the agent used the right token</td></tr>
+    <tr><td><b>Missing on one side</b></td><td>Chart colours only in code</td><td>Design-to-code invents colours; designers detach and hard-code</td></tr>
+    <tr><td><b>Structure drift</b></td><td>Modes in Figma (light, dark, compact) don't match themes in code</td><td>Generated code ignores a theme, or applies the wrong one</td></tr>
+  </tbody>
+</table></div></figure>
+
+<h2 id="step-1-choose-one-source-of-truth">Step 1: choose one source of truth</h2>
+<p>The single most important decision. Two-way sync, where people edit both sides and a tool tries to merge, sounds ideal and usually becomes a third source of conflicts. Choose one side people edit, and generate the other.</p>
+<div class="cols2">
+  <div class="cell cell--accent"><span class="k">RECOMMENDED</span><h4>Code is the source</h4><p>DTCG token files in the design system repo. Changes are reviewed in pull requests, versioned with releases, and generate CSS, native platforms, the agent manifest and Figma variables. Best when engineers ship tokens and you need releases to be exact.</p></div>
+  <div class="cell"><span class="k">ALSO WORKS</span><h4>Figma is the source</h4><p>Designers edit variables in Figma; a pipeline exports them to DTCG files, which go through review before release. Best for design-led teams, as long as the export is automated and reviewed, not copied by hand.</p></div>
+</div>
+<p>Either way, the token files in the repo are what ships, what agents read, and what releases version. The question is only where people make edits. More on the wider practice in <a href="/writing/figma-code-sync">keeping Figma and code in sync</a>.</p>
+
+<h2 id="step-2-reconcile-once-with-a-script">Step 2: reconcile once, with a script</h2>
+<p>Before automating anything, make the two sides agree. Export both to the same format and compare them mechanically. Comparing by eye misses things.</p>
+<ol class="w-steps">
+  <li><h3>Export Figma variables as DTCG JSON</h3><p>Figma can export variables in the DTCG format natively (export works per mode), and plugins such as Tokens Studio can export too. Save one file per mode, e.g. <code>figma-light.json</code>.</p></li>
+  <li><h3>Build the code tokens for the same mode</h3><p>Resolved values, not aliases, so you compare final colours.</p></li>
+  <li><h3>Normalise names</h3><p>Convert both to dot-separated lowercase (<code>Text/Subtle</code> → <code>text.subtle</code>) and apply a rename map for known differences.</p></li>
+  <li><h3>Compare and list differences</h3><p>Only in Figma, only in code, same name with different values.</p></li>
+  <li><h3>Decide every difference</h3><p>A designer and an engineer go through the list together. Each line gets one decision: keep code, keep Figma, rename, add, or delete.</p></li>
+</ol>
+<pre><code><span class="c">// scripts/token-drift.mjs: node token-drift.mjs figma-light.json dist/tokens-light.json</span>
+<span class="k">import</span> { readFileSync } <span class="k">from</span> <span class="s">"node:fs"</span>;
+
+<span class="k">const</span> RENAME = { <span class="s">"text.subtle"</span>: <span class="s">"color.text.secondary"</span>, <span class="s">"surface.raised"</span>: <span class="s">"color.bg.raised"</span> };
+
+<span class="c">// Flatten DTCG JSON into { "color.bg.surface": "#ffffff", … }</span>
+<span class="k">function</span> flatten(node, path = [], out = {}) {
+  <span class="k">for</span> (<span class="k">const</span> [key, val] <span class="k">of</span> Object.entries(node)) {
+    <span class="k">if</span> (key.startsWith(<span class="s">"$"</span>)) <span class="k">continue</span>;
+    <span class="k">const</span> p = [...path, key.toLowerCase().replace(<span class="s">/\s+/g</span>, <span class="s">"-"</span>)];
+    <span class="k">if</span> (val &amp;&amp; <span class="k">typeof</span> val === <span class="s">"object"</span> &amp;&amp; <span class="s">"$value"</span> <span class="k">in</span> val) out[p.join(<span class="s">"."</span>)] = normalise(val.$value);
+    <span class="k">else if</span> (val &amp;&amp; <span class="k">typeof</span> val === <span class="s">"object"</span>) flatten(val, p, out);
+  }
+  <span class="k">return</span> out;
+}
+<span class="c">// Colours may be hex strings or DTCG colour objects; compare as lowercase hex.</span>
+<span class="k">const</span> normalise = (v) =&gt; (<span class="k">typeof</span> v === <span class="s">"object"</span> &amp;&amp; v?.hex ? v.hex : String(v)).toLowerCase();
+
+<span class="k">const</span> load = (f) =&gt; flatten(JSON.parse(readFileSync(f, <span class="s">"utf8"</span>)));
+<span class="k">const</span> figma = Object.fromEntries(Object.entries(load(process.argv[2])).map(([k, v]) =&gt; [RENAME[k] ?? k, v]));
+<span class="k">const</span> code = load(process.argv[3]);
+
+<span class="k">const</span> rows = [];
+<span class="k">for</span> (<span class="k">const</span> k <span class="k">of</span> <span class="k">new</span> Set([...Object.keys(figma), ...Object.keys(code)])) {
+  <span class="k">if</span> (!(k <span class="k">in</span> code)) rows.push([<span class="s">"only in Figma"</span>, k, figma[k]]);
+  <span class="k">else if</span> (!(k <span class="k">in</span> figma)) rows.push([<span class="s">"only in code"</span>, k, code[k]]);
+  <span class="k">else if</span> (figma[k] !== code[k]) rows.push([<span class="s">"value differs"</span>, k, <span class="s">`${figma[k]} (Figma) vs ${code[k]} (code)`</span>]);
+}
+console.table(rows);
+process.exit(rows.length ? 1 : 0);</code></pre>
+<p>Adjust <code>flatten</code> to match how your exports are nested (some exports put the collection name at the top level). The output is the decision list for the reconciliation meeting, and later the CI check.</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Difference</th><th>Token</th><th>Detail</th><th>Decision</th></tr></thead>
+  <tbody>
+    <tr><td>value differs</td><td><code>color.text.secondary</code></td><td>#6b7280 (Figma) vs #5a606b (code)</td><td>Keep code: Figma's fails 4.5:1 on raised surfaces</td></tr>
+    <tr><td>value differs</td><td><code>color.bg.raised</code></td><td>#ffffff vs #fafaf8</td><td>Keep Figma: the change was intended, never shipped</td></tr>
+    <tr><td>only in code</td><td><code>color.chart.1</code>…<code>8</code></td><td>Added for reports</td><td>Add to Figma</td></tr>
+    <tr><td>only in Figma</td><td><code>color.promo.gradient-start</code></td><td>Used on one marketing banner</td><td>Delete; not a system decision</td></tr>
+  </tbody>
+</table></div>
+<figcaption><span class="ev ev--ill">Illustration</span> Every line needs a person's decision. Some differences are mistakes, some are improvements that never shipped.</figcaption></figure>
+
+<h2 id="step-3-automate-one-direction">Step 3: automate one direction</h2>
+<p>With the sides agreed, set up the pipeline so the generated side can't be edited by hand. For code as the source, there are three common ways to get tokens into Figma variables:</p>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Method</th><th>How</th><th>Good for</th><th>Check</th></tr></thead>
+  <tbody>
+    <tr><td><b>Figma's native DTCG import</b></td><td>Import token JSON files into a variable collection in Figma</td><td>Simple setups; occasional updates</td><td>Manual step; check which fields and types are kept</td></tr>
+    <tr><td><b>A plugin (e.g. Tokens Studio)</b></td><td>The plugin reads token files from your Git repo and writes variables</td><td>Teams that want Git sync without writing code</td><td>Plugin settings decide naming and modes; review them once</td></tr>
+    <tr><td><b>Figma Variables REST API</b></td><td>A CI job creates and updates variables on release</td><td>Fully automated pipelines</td><td>Requires an Enterprise plan; you maintain the script</td></tr>
+  </tbody>
+</table></div>
+<figcaption>Three sync options. <span class="ev ev--doc">Documented</span> Figma's native import and export follow the DTCG format; community reports suggest some fields (such as descriptions) and composite token types may not round-trip, so test with your own files.</figcaption></figure>
+<p>Whichever you choose, make the generated side clearly read-only for people:</p>
+<ul class="checklist">
+  <li><b>Label the collection</b> in Figma: "Generated from harbor/tokens. Don't edit here; request changes in #harbor."</li>
+  <li><b>Restrict edit access</b> to the variables file to the people who run the sync.</li>
+  <li><b>Set code syntax on every variable</b> as part of the sync, so Dev Mode and agents see <code>var(--color-bg-surface)</code> (<a href="/writing/figma-mcp-design-to-code">part 8</a>).</li>
+  <li><b>Copy descriptions</b> into the variable description field, if your sync method supports it, so designers see the same guidance agents do (<a href="/writing/design-tokens-for-ai-agents">part 3</a>).</li>
+</ul>
+
+<h2 id="step-4-catch-drift-in-ci">Step 4: catch drift in CI</h2>
+<p>Drift comes back the moment someone edits the wrong side. Make it visible within a day.</p>
+<figure class="w-fig">
+  <div class="w-flow">
+    <div><b>Nightly job</b><span>Export Figma variables per mode (API or exported files committed by the sync)</span></div><i>→</i>
+    <div><b>Build tokens</b><span>Resolved values per mode from the repo</span></div><i>→</i>
+    <div><b>Compare</b><span>token-drift.mjs</span></div><i>→</i>
+    <div class="hi"><b>Differences?</b><span>Open an issue for the system team with the table</span></div>
+  </div>
+  <figcaption>A drift check. It doesn't fix anything automatically; it tells a person what changed, so they can decide.</figcaption>
+</figure>
+<p>If you can't automate the Figma export, a monthly manual export and a script run is still far better than nothing.</p>
+
+<h2 id="name-and-structure-rules-that-keep-both-sides-aligned">Name and structure rules that keep both sides aligned</h2>
+<figure class="w-fig"><div class="w-tbl"><table>
+  <thead><tr><th>Concept</th><th>Tokens (DTCG)</th><th>Figma</th><th>CSS</th></tr></thead>
+  <tbody>
+    <tr><td>Hierarchy</td><td>Nested groups: <code>color.bg.surface</code></td><td>Slashes: <code>color/bg/surface</code></td><td>Hyphens: <code>--color-bg-surface</code></td></tr>
+    <tr><td>Themes</td><td>Token sets or resolver contexts: light, dark</td><td>Modes on the semantic collection</td><td><code>[data-theme="dark"]</code></td></tr>
+    <tr><td>Primitives</td><td>A separate file or group, marked as primitive</td><td>A separate collection, hidden from publishing</td><td>Variables used only by semantic ones</td></tr>
+    <tr><td>Descriptions</td><td><code>$description</code></td><td>Variable description</td><td>Agent manifest; docs</td></tr>
+  </tbody>
+</table></div>
+<figcaption>One structure, three spellings. Mode names in Figma should exactly match theme names in code.</figcaption></figure>
+
+<h2 id="what-changes-for-agents-once-drift-is-gone">What changes for agents once drift is gone</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">BEFORE</span><h4>Design-to-code</h4><pre><code>color: #6B7280; /* Text/Subtle */</code></pre><p>The agent couldn't map Figma's name to a token, so it copied the value.</p></div>
+  <div class="cell"><span class="k">AFTER</span><h4>Design-to-code</h4><pre><code>color: var(--color-text-secondary);</code></pre><p>The Figma variable's name and code syntax match the token, so the agent writes the token.</p></div>
+</div>
+
+<h2 id="common-mistakes">Common mistakes</h2>
+<div class="cols2">
+  <div class="cell"><span class="k">MISTAKE</span><h4>Two-way sync with two editing sides</h4><p>Conflicts multiply. One side is edited; the other is generated.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Reconciling by eye</h4><p>Two greys a few points apart look identical in a meeting. Compare values with a script.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Assuming every field survives export</h4><p>Descriptions, composite types and aliases may be dropped or flattened. Diff a round trip once before relying on it.</p></div>
+  <div class="cell"><span class="k">MISTAKE</span><h4>Fixing drift without a check</h4><p>A one-off cleanup drifts again within months. The CI check is what keeps it fixed.</p></div>
+</div>
+
+<h2 id="the-short-version">The short version</h2>
+<div class="short"><ul>
+  <li>Drift between Figma and code means design-to-code and coding agents produce different "correct" answers.</li>
+  <li>Choose one side people edit; generate the other. Usually DTCG token files in code are the source.</li>
+  <li>Reconcile once with a script, and decide every difference with a designer and an engineer.</li>
+  <li>Automate sync through Figma's DTCG import, a plugin or the Variables API, and make the generated side read-only.</li>
+  <li>Run a drift check on a schedule so new differences surface within a day.</li>
+</ul></div>
+<p>Next: <a href="/writing/ai-prototyping-tools-design-system">How do I make Figma Make, v0 and Lovable use my design system?</a></p>
+
+<h2 id="frequently-asked-questions">Frequently asked questions</h2>
+<div class="w-faq">
+  <details><summary>How do I keep Figma variables and design tokens in sync?</summary><div><p>Choose one source people edit (usually DTCG token files in code), generate the other with Figma's DTCG import, a plugin such as Tokens Studio or the Variables REST API, and run a scheduled comparison that flags any differences.</p></div></details>
+  <details><summary>Can Figma export variables as DTCG JSON?</summary><div><p>Yes. Figma supports importing and exporting variables in the DTCG format, with export done per mode. Check which fields are kept for your files, as some details may not survive a round trip.</p></div></details>
+  <details><summary>Should Figma or code be the source of truth for tokens?</summary><div><p>Either can work if only one side is edited by people. Code is the more common choice because changes are reviewed, versioned and released together, and agents read the code side.</p></div></details>
+  <details><summary>Why does AI copy hex values from Figma instead of using tokens?</summary><div><p>Usually because the layer isn't bound to a variable, or the variable's name and code syntax don't match a code token, so the agent has no way to map it. Bind values to variables named like your tokens and set code syntax.</p></div></details>
+  <details><summary>How do I find differences between Figma and code tokens?</summary><div><p>Export both to DTCG JSON for the same mode, flatten them to name-value pairs with normalised names, and compare with a script that lists tokens only on one side and values that differ.</p></div></details>
+</div>
+
+<h2 id="further-reading">Further reading</h2>
+<ul class="refs">
+  <li><a href="https://www.designtokens.org/tr/2025.10/" target="_blank" rel="noopener">Design Tokens Technical Reports 2025.10</a><span>The format both sides should share.</span></li>
+  <li><a href="https://docs.tokens.studio/" target="_blank" rel="noopener">Tokens Studio documentation</a><span>Syncing token files in Git with Figma variables.</span></li>
+  <li><a href="https://developers.figma.com/docs/rest-api/variables/" target="_blank" rel="noopener">Figma REST API: variables</a><span>Reading and writing variables programmatically.</span></li>
+  <li><a href="/writing/figma-code-sync">Keeping Figma and code in sync</a><span>The broader practice beyond tokens.</span></li>
+</ul>
+</div>
+    <aside class="ed-aside" aria-label="On this page"><nav class="ed-toc"><p>On this page</p><ol><li><a href="#the-problem-two-sources-of-truth-two-kinds-of-agent">The problem: two sources of truth, two kinds of agent</a></li><li><a href="#step-1-choose-one-source-of-truth">Step 1: choose one source of truth</a></li><li><a href="#step-2-reconcile-once-with-a-script">Step 2: reconcile once, with a script</a></li><li><a href="#step-3-automate-one-direction">Step 3: automate one direction</a></li><li><a href="#step-4-catch-drift-in-ci">Step 4: catch drift in CI</a></li><li><a href="#name-and-structure-rules-that-keep-both-sides-aligned">Name and structure rules that keep both sides aligned</a></li><li><a href="#what-changes-for-agents-once-drift-is-gone">What changes for agents once drift is gone</a></li><li><a href="#common-mistakes">Common mistakes</a></li><li><a href="#the-short-version">The short version</a></li><li><a href="#frequently-asked-questions">Frequently asked questions</a></li><li><a href="#further-reading">Further reading</a></li></ol><a class="ed-top" href="#main">Back to top ↑</a></nav></aside>
+  </div>
+  <footer class="ed-end">
+    <section class="ed-more" aria-labelledby="more-h"><h2 class="ed-sec-h" id="more-h">next in making your design system ai-ready:</h2><div class="ec-grid"><a class="ec " href="/writing/ai-prototyping-tools-design-system" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/ai-prototyping-tools-design-system.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/ai-prototyping-tools-design-system.w480.webp 480w, ../assets/images/writing/ai-prototyping-tools-design-system.w800.webp 800w, ../assets/images/writing/ai-prototyping-tools-design-system.w1200.webp 1200w, ../assets/images/writing/ai-prototyping-tools-design-system.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">How do I make Figma Make, v0 and Lovable use my design system?</b><span class="ec-d">Get AI prototyping tools to use your design system: Figma Make kits, v0 design systems and registries, Lovable design system projects, and guidelines that work.</span><span class="ec-f">9 min read</span></a><a class="ec " href="/writing/figma-code-sync" data-topic="building"><span class="ec-m"><img src="../assets/images/writing/figma-code-sync.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/figma-code-sync.w480.webp 480w, ../assets/images/writing/figma-code-sync.w800.webp 800w, ../assets/images/writing/figma-code-sync.w1200.webp 1200w, ../assets/images/writing/figma-code-sync.jpg 1600w"></span><span class="ec-k">Building a system</span><b class="ec-t">Keeping Figma and code in sync: five habits that stop drift</b><span class="ec-d">How to stop Figma and code drifting apart: one vocabulary, one token source, a shared definition of done, a monthly twin check and links between them.</span><span class="ec-f">7 min read</span></a><a class="ec " href="/writing/design-tokens-for-ai-agents" data-topic="ai-ready-design-systems"><span class="ec-m"><img src="../assets/images/writing/design-tokens-for-ai-agents.w1200.webp" alt="" width="1600" height="900" sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1100px) 45vw, 400px" decoding="async" loading="lazy" srcset="../assets/images/writing/design-tokens-for-ai-agents.w480.webp 480w, ../assets/images/writing/design-tokens-for-ai-agents.w800.webp 800w, ../assets/images/writing/design-tokens-for-ai-agents.w1200.webp 1200w, ../assets/images/writing/design-tokens-for-ai-agents.jpg 1600w"></span><span class="ec-k">AI-ready design systems</span><b class="ec-t">Design tokens for AI agents</b><span class="ec-d">Make design tokens usable by AI agents: DTCG 2025.10 JSON, semantic names, $description and $deprecated, an agent manifest from Style Dictionary, and checks.</span><span class="ec-f">13 min read</span></a></div></section>
+    <aside class="ed-note" aria-label="From Layer One"><div><p class="ed-note-k">From Layer One</p><h2>Generate a clean token file</h2><p>The free token generator outputs DTCG JSON, CSS and Tailwind from one set of decisions, a good starting point for a single source of truth.</p></div><a href="/lab/design-token-generator">Open the token generator <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></aside>
+  </footer>
+</article>
+<div class="ed-progress" aria-hidden="true"><span></span></div></main><footer class="ed-foot"><div class="ed-foot-in">
+  <a class="logo" href="/" aria-label="Layer One, home"><svg viewBox="0 0 100 100" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M50 0a50 50 0 1 1 0 100A50 50 0 0 1 50 0ZM16.3 50A34 34 0 0 0 50 16.3V49.2a.8.8 0 0 1-.8.8ZM83.7 50A34 34 0 0 0 50 83.7V50.8a.8.8 0 0 1 .8-.8Z"/></svg><span>LAYER ONE</span></a>
+  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
+  <nav aria-label="Studio"><a href="/work">Work</a><a href="/pricing">Pricing</a><a href="/lab">Lab</a><a href="/contact">Contact</a><a href="https://www.linkedin.com/company/layerone.co.in/" target="_blank" rel="noopener">LinkedIn</a><a href="https://medium.com/@layerone_11803" target="_blank" rel="noopener">Medium</a></nav>
+</div></footer><script src="../assets/site.js?v=3de6a9b6" defer></script>
+</body>
+</html>
