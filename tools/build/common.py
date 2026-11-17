@@ -41,6 +41,9 @@ BANNER = ('<svg viewBox="0 0 1000 150" role="img" aria-label="Layer One">'
                     for d, o, f in ((18, 0.3, False), (9, 0.55, False), (0, 1, True)))
           + "</svg>")
 
+from optimize import SITE  # noqa: E402  the canonical origin
+
+
 def ver(path):
     """Short content hash for cache busting, so a deploy never pairs new HTML with a cached old CSS, JS or video."""
     with open(os.path.join(OUT, path), "rb") as f:
@@ -48,7 +51,7 @@ def ver(path):
 
 
 NAV = [("home", "Home", "index.html"), ("work", "Work", "work.html"), ("experience", "Experience", "clients.html"),
-       ("studio", "Studio", "studio.html"), ("pricing", "Pricing", "pricing.html"), ("lab", "Lab", "lab.html"),
+       ("studio", "Studio", "studio.html"), ("services", "Services", "services.html"), ("pricing", "Pricing", "pricing.html"), ("lab", "Lab", "lab.html"),
        ("writing", "Writing", "blog.html"), ("contact", "Contact", "contact.html")]
 
 
@@ -64,7 +67,7 @@ def head(title, desc, depth=0, theme="dark", og="assets/og/layer-one.jpg"):
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:type" content="website">
-<meta property="og:image" content="https://www.layerone.co.in/{og}">
+<meta property="og:image" content="{SITE}/{og}">
 <meta name="twitter:card" content="summary_large_image">
 <meta property="og:image:alt" content="{title}">
 <meta name="theme-color" content="{"#0b0d12" if theme == "dark" else "#f6f6f3"}">
@@ -108,7 +111,7 @@ def sidebar(subnav, depth=0, card="founding"):
     return f'''<aside class="side" aria-label="Studio">
     <nav class="side-nav" aria-label="On this page">{sub}</nav>
     {c}
-    <p class="side-blurb">Layer One is a design systems studio in Bangalore, India.<br>Led by Aniket Pandey.</p>
+    <p class="side-blurb">Layer One is a design system studio in Bangalore, India, working with product teams worldwide.<br>Led by Aniket Pandey.</p>
     <div class="wordmark">{WORDMARK}</div>
     <div class="side-foot">
       <ul><li><a href="{LINKEDIN}" target="_blank" rel="noopener">linkedin</a></li><li><a href="{X}" target="_blank" rel="noopener">x</a></li><li><a href="{MEDIUM}" target="_blank" rel="noopener">medium</a></li></ul>
@@ -235,6 +238,26 @@ PROJECTS = [
 ]
 
 
+# Search titles and descriptions for case studies: the on-page titles are long and narrative; these say what
+# the page is in the words people search with, and fit search results (about 60 and 160 characters).
+SEO = {'cars24-lego': ('CARS24 LEGO: Mobile Component Library Case Study', 'How CARS24 built LEGO, a mobile component system after its rebrand: 44 composable components, adopted in India, the UAE and Australia.'),
+       'ibm-cardinal-health': ('Cardinal Health Jarvis Design System Case Study (IBM)', 'Jarvis, built at IBM for Cardinal Health: 110 colours in 11 ramps, purpose-named tokens and 40+ components behind a new pharmacy storefront.'),
+       'ibm-riyadh-air': ('Riyadh Air Design System Case Study (IBM)', 'A design system for an airline starting from zero: 71 components in 13 families, in English and Arabic, light and dark, for 8+ apps.'),
+       'cars24-pattern-library': ('CARS24 Pattern Library: Design System Case Study', 'Six families of page blocks wired to the CMS and design tokens, so the CARS24 super app ships new pages in days.'),
+       'cars24-tokens': ('CARS24 Colour System and Design Tokens Case Study', 'A new OKLCH palette and a four-layer token system that carried the CARS24 rebrand across 10+ products in India, the UAE and Australia.'),
+       'cars24-governance': ('CARS24 Design System Governance Case Study', 'How the CARS24 design system team stopped being the bottleneck: one front door, a 70-point request scorecard and three ownership tiers.'),
+       'cars24-internal-tools': ('CARS24 Internal Tools Design System Case Study', 'One design system for 30+ data-heavy internal tools: an audit, tokens, Storybook and a contribution model, with 93 component sets to beta.'),
+       'ibm-riyadh-air-ops': ('Riyadh Air Design System Operations Case Study', "The operating model behind Riyadh Air's design system: six roles, one front door, four quality gates and routines shared by three companies."),
+       'jpmc-system-checks': ('JPMorgan Chase Design System Checks', 'Tools that check design files and code against the design system for 500+ designers and 1,000+ engineers at JPMorgan Chase.'),
+       'jpmc-patterns': ('JPMorgan Chase Design Patterns with an AI Workflow', 'Company-wide design patterns at JPMorgan Chase, with an AI agent that researches and drafts each pattern for designers to review.'),
+       'ibm-design-systems': ('IBM Product Design Systems: Project Overview', 'Product design systems built and launched at IBM in Bangalore, with a contribution process, regular releases and training.')}
+
+
+def seo_head(proj, depth=1):
+    t, d = SEO.get(proj["slug"], (proj["title"], proj["blurb"]))
+    return head(f"{t} | Layer One", d, depth=depth, og=proj["cover"])
+
+
 def href(proj, depth=0):
     return ("../" * depth) + f"work/{proj['slug']}.html"
 
@@ -244,7 +267,7 @@ def frame(proj, depth=0, show_year=False):
     year = f'<span>{proj["year"]}</span>' if show_year and proj["year"] else ""
     illus = '<span class="illus">Illustration</span>' if proj.get("illus") else ""
     return f'''<a class="frame" href="{href(proj, depth)}" style="--f:{proj["f"]};--ft:{proj["ft"]}">
-      <div class="frame-media"><img src="{p}{proj["cover"]}" alt="" loading="lazy" width="1800" height="1238">{illus}</div>
+      <div class="frame-media"><img src="{p}{proj["cover"]}" alt="{proj["client"]} design system work: {proj["title"].split(": ", 1)[-1]}{" (illustration)" if proj.get("illus") else ""}" loading="lazy" width="1800" height="1238">{illus}</div>
       <h3>{proj["title"]}</h3>
       <div class="frame-meta"><span class="kind">{proj["kind"]}</span>{year}</div>
     </a>'''

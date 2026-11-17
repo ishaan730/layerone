@@ -28,16 +28,6 @@
       "permanent": true
     },
     {
-      "source": "/services",
-      "destination": "/pricing",
-      "permanent": true
-    },
-    {
-      "source": "/services.html",
-      "destination": "/pricing",
-      "permanent": true
-    },
-    {
       "source": "/blog-librarian-vs-leader",
       "destination": "/writing/librarian-vs-leader",
       "permanent": true
@@ -45,6 +35,11 @@
     {
       "source": "/blog-librarian-vs-leader.html",
       "destination": "/writing/librarian-vs-leader",
+      "permanent": true
+    },
+    {
+      "source": "/services.html",
+      "destination": "/services",
       "permanent": true
     }
   ],

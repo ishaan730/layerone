@@ -11,7 +11,9 @@
 import os, re
 from PIL import Image
 
-SITE = "https://www.layerone.co.in"
+# The site's one canonical origin. Every absolute URL (canonical, og:image, JSON-LD, sitemap) comes from here,
+# so moving to a new domain is this one line plus redirects (see the SEO notes in README.md).
+SITE = os.environ.get("LAYERONE_SITE", "https://www.layerone.co.in").rstrip("/")
 WIDTHS = (480, 800, 1200, 1800)
 RENAME = {"clients.html": "experience.html", "blog.html": "writing.html"}
 _dims = {}
@@ -136,11 +138,75 @@ def clean_links(html, page):
     return re.sub(r'\b(href)="([^"]*)"', fix, html)
 
 
-ORG = ('<script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","name":"Layer One",'
-       '"description":"A design systems studio: building, scaling and governing design systems, and getting teams to adopt them.",'
-       f'"url":"{SITE}/","logo":"{SITE}/assets/favicon.svg","image":"{SITE}/assets/og/layer-one.jpg","email":"layerone@proton.me",'
-       '"founder":{"@type":"Person","name":"Aniket Pandey"},"address":{"@type":"PostalAddress","addressLocality":"Bangalore","addressCountry":"IN"},'
-       '"areaServed":"Worldwide","sameAs":["https://www.linkedin.com/company/layerone.co.in/","https://x.com/LayeroneStudios","https://medium.com/@layerone_11803"]}</script>')
+import json as _json
+
+ORG_ID = SITE + "/#organization"
+# Countries we actively serve. Bangalore is the base, not the boundary: listing markets tells search engines
+# the business is international even though the domain is .co.in (see README, "SEO").
+AREA = ["Worldwide", "India", "United States", "United Kingdom", "Germany", "Netherlands", "United Arab Emirates",
+        "Saudi Arabia", "Singapore", "Australia", "Canada"]
+SAME_AS = ["https://www.linkedin.com/company/layerone.co.in/", "https://x.com/LayeroneStudios", "https://medium.com/@layerone_11803"]
+
+
+def ld(obj):
+    return f'<script type="application/ld+json">{_json.dumps(obj, ensure_ascii=False)}</script>'
+
+
+SERVICES = [  # (name, path, description) — shared by the home page's offer catalogue and the services pages
+    ("Design system audit", "/services/design-system-audit", "A two-week audit of every style, token and component in Figma and code, with a ranked roadmap. $1,500 fixed."),
+    ("Design system development", "/services/design-system-development", "A six-week build of design system foundations: OKLCH palette, token architecture, up to 12 components mapped to code. $5,900 fixed."),
+    ("Design system consulting", "/services/design-system-consulting", "A monthly design system partnership: governance, contribution, releases and adoption. $2,900 a month."),
+    ("AI-ready design systems", "/services/ai-ready-design-system", "Make your design system usable by AI agents: described tokens, component metadata, AGENTS.md, an MCP server, Figma Code Connect and guardrails."),
+]
+
+ORG_FULL = {
+    "@context": "https://schema.org", "@type": "ProfessionalService", "@id": ORG_ID, "name": "Layer One",
+    "alternateName": "Layer One design systems studio",
+    "description": "A design system agency and consultancy: building, scaling and governing design systems, making them ready for AI agents, and getting teams to adopt them. Based in Bangalore, India, working with product teams worldwide.",
+    "url": SITE + "/", "logo": SITE + "/assets/favicon.svg", "image": SITE + "/assets/og/layer-one.jpg", "email": "layerone@proton.me",
+    "priceRange": "$1,500–$5,900", "currenciesAccepted": "USD",
+    "founder": {"@type": "Person", "@id": SITE + "/studio#founder", "name": "Aniket Pandey"},
+    "address": {"@type": "PostalAddress", "addressLocality": "Bengaluru", "addressRegion": "Karnataka", "addressCountry": "IN"},
+    "areaServed": AREA,
+    "knowsAbout": ["Design systems", "Design tokens", "Component libraries", "Figma", "Design system governance",
+                   "Accessibility", "AI-ready design systems", "Model Context Protocol", "Design system audits"],
+    "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Design system services", "itemListElement": [
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": n, "url": SITE + u, "description": d}} for n, u, d in SERVICES]},
+    "sameAs": SAME_AS,
+}
+WEBSITE = {"@context": "https://schema.org", "@type": "WebSite", "@id": SITE + "/#website", "name": "Layer One", "url": SITE + "/",
+           "publisher": {"@id": ORG_ID}, "inLanguage": "en"}
+ORG_REF = {"@context": "https://schema.org", "@type": "Organization", "@id": ORG_ID, "name": "Layer One", "url": SITE + "/",
+           "logo": SITE + "/assets/favicon.svg", "sameAs": SAME_AS}
+
+
+def crumbs(*items):
+    return {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": i, "name": n, "item": SITE + u} for i, (n, u) in enumerate(items, 1)]}
+
+
+def page_ld(html, page):
+    """Structured data for pages that don't build their own: the full business on the home page, a light
+    organisation reference everywhere else, and breadcrumbs plus a CreativeWork for each case study."""
+    out = []
+    t = re.search(r"<title>(.*?)</title>", html)
+    d = re.search(r'<meta name="description" content="([^"]*)"', html)
+    img = re.search(r'<meta property="og:image" content="([^"]*)"', html)
+    h1 = re.search(r"<h1[^>]*>(.*?)</h1>", html, re.S)
+    name = re.sub(r"<[^>]+>", "", h1.group(1)).strip() if h1 else (t.group(1) if t else "")
+    if page == "index.html":
+        out += [ORG_FULL, WEBSITE]
+    elif '"Organization"' not in html and '"ProfessionalService"' not in html:
+        out.append(ORG_REF)
+    if page.startswith("work/") and '"BreadcrumbList"' not in html:
+        url = SITE + url_path(page)
+        out.append({"@context": "https://schema.org", "@type": "CreativeWork", "name": name, "headline": re.split(r" [|—] ", t.group(1))[0] if t else name,
+                    "description": d.group(1) if d else "", "image": img.group(1) if img else "", "url": url,
+                    "creator": {"@type": "Person", "@id": SITE + "/studio#founder", "name": "Aniket Pandey"},
+                    "publisher": {"@id": ORG_ID}, "genre": "Design system case study", "inLanguage": "en"})
+        out.append(crumbs(("Work", "/work"), (name, url_path(page))))
+    return "".join(ld(o) for o in out)
+
 
 SPEC = ('<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":"/assets/*"}}]},"eagerness":"moderate"}],'
         '"prefetch":[{"where":{"href_matches":"/*"},"eagerness":"moderate"}]}</script>')
@@ -162,8 +228,8 @@ def head_extras(html, page):
             extra += f'<meta name="twitter:image" content="{img.group(1)}">\n'
     if "speculationrules" not in html:
         extra += SPEC + "\n"
-    if page == "index.html" and "application/ld+json" not in html:
-        extra += ORG + "\n"
+    if "<!--no-ld-->" not in html:
+        extra += page_ld(html, page) + "\n"
     return html.replace("</head>", extra + "</head>", 1) if extra and "</head>" in html else html
 
 

@@ -121,9 +121,9 @@ def seg(attr, opts, label):
 
 def playbook(rows, employer="IBM"):
     """The offer, mapped to what this project did. rows = {"audit": text, "foundations": text, "partner": text}"""
-    plans = [("audit", "Audit", "2 weeks, fixed", "$1,500", "pricing.html#plan-audit", False),
-             ("foundations", "Foundations", "6 weeks, fixed", "$5,900", "pricing.html#plan-foundations", True),
-             ("partner", "Partner", "Monthly, pause any time", "$2,900<small>/mo</small>", "pricing.html#plan-partner", False)]
+    plans = [("audit", "Audit", "2 weeks, fixed", "$1,500", "services/design-system-audit.html", False),
+             ("foundations", "Foundations", "6 weeks, fixed", "$5,900", "services/design-system-development.html", True),
+             ("partner", "Partner", "Monthly, pause any time", "$2,900<small>/mo</small>", "services/design-system-consulting.html", False)]
     cards = "".join(f'''<a href="../{h}"{" class=" + chr(34) + "is-rec" + chr(34) if rec else ""}>
         <div class="top"><span>{d}</span>{"<span>Most teams start here</span>" if rec else ""}</div>
         <h3>{n}</h3><p class="price"><b>{p}</b></p>
@@ -229,7 +229,7 @@ def page(slug, spec):
     # IBM client work shows "IBM × client"; work for the employer itself shows just the employer's logo.
     ident = (f'{logo_tile("ibm", depth=1, size=36, label=False)}<span class="x">×</span>{cl}' if " × " in proj["client"]
              else f'{logo_tile(proj["co"], depth=1, size=36, label=False)}<span class="cl">{COMPANIES[proj["co"]]["name"]}</span>')
-    html = (head(f"{proj['title']} — Layer One", proj["blurb"], depth=1, og=proj["cover"])
+    html = (seo_head(proj)
             + topbar("work", depth=1) + f'''<main id="main" class="sc" style="--f:{proj["f"]};--ft:{proj["ft"]}">
   <header class="sc-hero"><div class="sc-in">
     <div class="sc-hero-bar"><p class="sc-crumb"><a href="../work.html">Work</a> / {proj["client"]}</p><div class="sc-id">{ident}</div></div>

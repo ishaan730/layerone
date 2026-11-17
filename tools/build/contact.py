@@ -49,7 +49,7 @@ details = f'''{when}{size}
       <textarea name="message" rows="3" placeholder="Products, platforms, deadlines, or a link to your Figma library or Storybook"></textarea></label>'''
 
 content = f'''
-<h1 class="statement">Start a project</h1>
+<h1 class="statement">Start a design system project</h1>
 <p class="sub muted">Tell us where your system is today. You'll hear back from Aniket within one working day.</p>
 
 <div class="contact">
@@ -69,7 +69,7 @@ content = f'''
       <div class="c-person"><img src="assets/studio/aniket.jpg" alt="" width="56" height="56"><div><strong>You'll talk to Aniket</strong><span>Founder. Design systems at CARS24, IBM and JPMorgan Chase.</span></div></div>
       <div class="c-mail"><a href="mailto:{EMAIL}">{EMAIL}</a><button type="button" class="btn-line" data-copy-email="{EMAIL}">Copy</button></div>
       <a class="pill c-book" href="{CAL}" target="_blank" rel="noopener">Book a 30-minute call {ARROW}</a>
-      <p class="small muted">Mon–Fri, 10:00–19:00 IST. Calls can be early or late for US and European teams.</p>
+      <p class="small muted">Mon–Fri, 10:00–19:00 IST (UTC+5:30). Europe and the Gulf overlap most of the day, Singapore and Australia our mornings, and the US East Coast early in its morning.</p>
     </div>
     <div class="c-card">
       <h2>What happens next</h2>
@@ -82,5 +82,5 @@ content = f'''
   </aside>
 </div>
 '''
-write("contact.html", head("Contact — Layer One", "Start a design system project with Layer One.")
+write("contact.html", head("Contact Layer One: Start a Design System Project", "Tell us about your design system. Audits, builds, governance and AI-ready design systems for product teams worldwide. We reply within one working day.")
       + shell("contact", [("Start a project", "#main")], content))

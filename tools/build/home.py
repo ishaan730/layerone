@@ -37,8 +37,8 @@ post_html = "".join(
     for h, t, tag, img, ext in posts)
 
 content = f'''
-<h1 class="statement hero-statement"><span class="accent">Layer One</span> builds and scales design systems for product companies.</h1>
-<p class="sub muted">A design systems studio in Bangalore. We set up the foundations, scale them across products and markets, and put in the governance that keeps teams using them.</p>
+<h1 class="statement hero-statement"><span class="accent">Layer One</span> builds, scales and governs design systems for product teams worldwide.</h1>
+<p class="sub muted">A design system agency and consultancy, based in Bangalore, India. We audit what you have, build the foundations and components, put in the governance that keeps teams using them, and make the system ready for AI agents. Fixed prices in US dollars, with working hours that overlap the US, Europe and the Gulf.</p>
 {reel()}
 {trust("Built by the team behind the design systems at")}
 
@@ -56,9 +56,18 @@ content = f'''
     <p>We map every style, component and token you have in Figma and code, check accessibility, and give you a ranked plan for what to fix first. <b>$1,500, fixed.</b> Credited in full if you go on to a Foundations build.</p>
     <div class="slots" aria-label="Founding partner slots for 2027: three open"><span></span><span></span><span></span></div>
     <p>Three founding partners in 2027 get 20% off, and we publish the case study together.</p>
-    <a class="pill" href="pricing.html">See pricing</a>
+    <div class="btn-row"><a class="pill" href="services/design-system-audit.html">How the audit works</a><a class="pill" href="pricing.html">See pricing</a></div>
   </div>
 </div>
+
+<h2 class="label" id="services">design system services:</h2>
+<div class="link-bars">
+  <a href="services/design-system-audit.html">Design system audit: two weeks, $1,500 fixed</a>
+  <a href="services/design-system-development.html">Design system development: foundations in six weeks, $5,900</a>
+  <a href="services/design-system-consulting.html">Design system consulting: monthly, $2,900, pause any time</a>
+  <a href="services/ai-ready-design-system.html">AI-ready design systems: make your system usable by AI agents</a>
+</div>
+<p class="small muted" style="margin-top:12px">Based in Bangalore, India. Working with product teams in the US, Europe, the Gulf and Asia-Pacific. <a href="studio.html#worldwide">How we work across time zones</a>.</p>
 
 <h2 class="label" id="rules">rules we work by:</h2>
 <ol class="rules">{rules_html}</ol>
@@ -72,8 +81,8 @@ content = f'''
 </section>
 '''
 
-sub = [("Work", "#work"), ("Experience", "#experience"), ("How to start", "#offer"), ("Rules", "#rules"), ("Writing", "#writing")]
-html = head("Layer One — Design systems studio",
-            "Layer One is a design systems studio in Bangalore. We build, scale and govern design systems for product companies.",
-            ) + shell("home", sub, content)
+sub = [("Work", "#work"), ("Experience", "#experience"), ("How to start", "#offer"), ("Services", "#services"), ("Rules", "#rules"), ("Writing", "#writing")]
+html = head("Design System Agency & Consultancy | Layer One",
+            "Layer One is a design system agency and consultancy for product teams worldwide: audits, builds, governance and AI-ready design systems, at fixed prices.",
+            ).replace("</head>", f'<link rel="preload" as="image" href="assets/video/hero-poster.jpg?v={ver("assets/video/hero-poster.jpg")}" fetchpriority="high">\n</head>', 1) + shell("home", sub, content)
 write("index.html", html)

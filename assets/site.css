@@ -1085,6 +1085,17 @@ figure { margin: 0; }
 .addon { padding: 18px; border-radius: var(--r); background: var(--bg-raised); border: 1px solid var(--rule); display: grid; gap: 6px; align-content: start; }
 .addon h3 { font-size: 18px; font-weight: 500; } .addon-p { font-size: 14px; color: var(--text-muted); } .addon-p b { font-size: 22px; font-weight: 500; color: var(--text); letter-spacing: -.02em; margin-right: 4px; }
 .addon p:last-child { font-size: 14px; color: var(--text-muted); }
+/* Services (hub and service pages) */
+.svc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.svc-card { text-decoration: none; color: inherit; transition: border-color .15s; }
+.svc-card:hover { border-color: var(--accent); }
+.svc-card .go { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--accent); margin-top: 6px; }
+.svc-card .go svg { width: 14px; height: 14px; }
+.incl--steps { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.incl--steps b { color: var(--accent); }
+.incl a { color: var(--text); }
+@media (max-width: 860px) { .svc-grid { grid-template-columns: 1fr; } .incl--steps { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .incl--steps { grid-template-columns: 1fr; } }
 @media (max-width: 860px) { .addons { grid-template-columns: 1fr; } }
 .assure { margin-top: 56px; display: grid; gap: 10px; }
 .promises { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }

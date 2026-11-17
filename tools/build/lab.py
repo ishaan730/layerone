@@ -16,7 +16,7 @@ import re
 
 from common import *
 
-SITE = "https://www.layerone.co.in"
+from optimize import SITE  # noqa: E402
 
 
 def esc(s):

@@ -4,15 +4,15 @@ from common import *
 cases = [p for p in PROJECTS if p["case"]]
 others = [p for p in PROJECTS if not p["case"]]
 work_c = f'''
-<h1 class="statement" id="case-studies">featured work</h1>
-<p class="sub muted">Full, interactive case studies: the problem, the decisions and the numbers.</p>
+<h1 class="statement" id="case-studies">Design system case studies</h1>
+<p class="sub muted">Full, interactive case studies from CARS24, IBM and JPMorgan Chase: the problem, the decisions and the numbers.</p>
 <div class="frames" style="margin-top:20px">{"".join(frame(p, show_year=True) for p in cases)}</div>
 <h2 class="label" id="projects">more projects</h2>
 <p class="sub muted" style="margin:-8px 0 20px">Systems the team has shipped at CARS24, IBM and JPMorgan Chase. Walkthroughs on request.</p>
 <div class="frames frames--2">{"".join(frame(p, show_year=True) for p in others)}</div>
 <p class="small muted" style="margin-top:28px;max-width:72ch">This work was led by Aniket Pandey while employed at CARS24, IBM and JPMorgan Chase. Cardinal Health and Riyadh Air were IBM clients. Images marked "Illustration" are drawn by us to describe the work, because the real screens can't be shared.</p>
 '''
-write("work.html", head("Work — Layer One", "Design system case studies and projects from CARS24, IBM and JPMorgan Chase.")
+write("work.html", head("Design System Case Studies | Layer One", "Design system case studies from CARS24, IBM and JPMorgan Chase: tokens and colour, component libraries, governance, pattern libraries and AI-assisted checks.", og=cases[0]["cover"])
       + shell("work", [("Featured", "#case-studies"), ("More projects", "#projects")], work_c, card="bar"))
 
 # ======================= Experience =======================
@@ -32,12 +32,12 @@ for key, facts in [
       <div class="xprojs">{p_html}</div>
     </article>'''
 ex_c = f'''
-<h1 class="statement">Where we've built systems</h1>
+<h1 class="statement">Where we've built design systems</h1>
 <p class="sub muted">Three companies, from a fast-growing marketplace to global enterprise. This is where the methods we bring to every engagement were learned.</p>
 <div class="xrows">{xp}</div>
 <p class="small muted" style="margin-top:32px;max-width:72ch">This experience was gained by our founder while employed at these companies. Layer One opened for studio engagements in 2026; our first studio clients will be listed here as their case studies are published.</p>
 '''
-write("clients.html", head("Experience — Layer One", "Design systems built by the Layer One team at CARS24, IBM and JPMorgan Chase.")
+write("clients.html", head("Design System Experience: CARS24, IBM, JPMorgan Chase | Layer One", "Six years of design system work at CARS24, IBM and JPMorgan Chase: systems for 70+ designers and 1,000+ engineers, used across products and countries.")
       + shell("experience", [("CARS24", "#cars24"), ("IBM", "#ibm"), ("JPMorgan Chase", "#jpmc")], ex_c))
 
 # ======================= Studio (about) =======================
@@ -98,7 +98,7 @@ services_list = ["Design system audits", "Token architecture", "Colour systems a
 svc_rows = "".join(f"<li>{s}<span>{i + 1:02d}</span></li>" for i, s in enumerate(services_list))
 
 st_c = f'''
-<h1 class="statement" id="overview">A design systems studio in Bangalore, building the shared foundations product teams ship on.</h1>
+<h1 class="statement" id="overview">A design system studio in Bangalore, building the shared foundations product teams ship on, wherever they are.</h1>
 <div class="studio-banner">{STUDIO_ART}</div>
 <p class="about-p">Layer One was started by Aniket Pandey after six years inside design systems teams: first at IBM in Bangalore, then leading the CARS24 design system through a rebrand across three countries, and now on the design systems team at JPMorgan Chase.</p>
 <p class="about-p muted">The same problems came up everywhere. Teams didn't need another component kit. They needed decisions that hold across products, a way to run the system without becoming a bottleneck, and a reason for people to use it. That's the work Layer One exists to do, and it's the only work we do.</p>
@@ -126,6 +126,7 @@ st_c = f'''
 
 <h2 class="label" id="services">what we do</h2>
 <ol class="rows">{svc_rows}</ol>
+<p class="sub muted" style="margin-top:16px">How each engagement works, step by step: <a href="services.html">design system services</a>.</p>
 
 <h2 class="label" id="how">how we work</h2>
 <ol class="rules">
@@ -136,6 +137,18 @@ st_c = f'''
   <li>Fixed prices and fixed timelines. No hourly billing.<span>05</span></li>
   <li>We leave documentation and a governance model your team can run alone.<span>06</span></li>
 </ol>
+
+
+<h2 class="label" id="worldwide">working with teams worldwide</h2>
+<p class="about-p muted">Bangalore is where we're based, not where we stop. Most of the systems behind this studio served products in several countries, and studio engagements run remotely with teams anywhere.</p>
+<ul class="incl">
+  <li><b>United States</b><span>8–10am Eastern is 6:30–8:30pm in India. We keep those hours free for calls and reviews.</span></li>
+  <li><b>UK and Europe</b><span>Most of your morning overlaps our afternoon, so a daily check-in is easy.</span></li>
+  <li><b>Gulf and Middle East</b><span>Almost the whole working day overlaps. Experience with Arabic and right-to-left systems.</span></li>
+  <li><b>Asia-Pacific</b><span>Singapore and Australia afternoons overlap our morning; India is home.</span></li>
+  <li><b>Contracts and payment</b><span>Fixed prices in US dollars, invoiced from India, with a written scope before any work starts.</span></li>
+  <li><b>Async by default</b><span>Weekly demos, written decisions and a shared channel, so progress doesn't depend on meetings.</span></li>
+</ul>
 
 <h2 class="label" id="invitation">invitation</h2>
 <div class="invite">
@@ -151,12 +164,22 @@ st_c = f'''
 <div class="link-bars">
   <a href="work.html">Case studies: colour, tokens, governance and patterns at CARS24</a>
   <a href="work.html#projects">Projects: JPMorgan Chase, IBM and more from CARS24</a>
+  <a href="services.html">Services: audits, builds, consulting and AI-ready design systems</a>
   <a href="pricing.html">Pricing: fixed prices for every engagement</a>
   <a href="lab.html">Lab: tools we built to think with</a>
 </div>
 '''
-write("studio.html", head("Studio — Layer One", "Layer One is a design systems studio in Bangalore, India, founded by Aniket Pandey.")
-      + shell("studio", [("Overview", "#overview"), ("Founder", "#founder"), ("What we do", "#services"), ("How we work", "#how"), ("Invitation", "#invitation"), ("Our work", "#our-work")], st_c, card="bar"))
+from optimize import ld, SITE as _SITE, ORG_ID
+PERSON = ld({"@context": "https://schema.org", "@type": "AboutPage", "url": _SITE + "/studio", "name": "About Layer One",
+             "about": {"@id": ORG_ID},
+             "mainEntity": {"@type": "Person", "@id": _SITE + "/studio#founder", "name": "Aniket Pandey", "jobTitle": "Founder",
+                            "worksFor": {"@id": ORG_ID}, "image": _SITE + "/assets/studio/aniket.jpg",
+                            "homeLocation": {"@type": "Place", "name": "Bengaluru, India"},
+                            "knowsAbout": ["Design systems", "Design tokens", "Design system governance", "Figma", "Accessibility", "AI-ready design systems"],
+                            "alumniOf": [{"@type": "Organization", "name": n} for n in ("IBM", "CARS24")],
+                            "url": _SITE + "/studio#founder"}})
+write("studio.html", head("About Layer One: a Design System Studio in Bangalore, India", "A design system studio and consultancy founded by Aniket Pandey in Bangalore, India, working with product teams in India, the US, Europe and the Gulf.").replace("</head>", PERSON + "\n</head>", 1)
+      + shell("studio", [("Overview", "#overview"), ("Founder", "#founder"), ("What we do", "#services"), ("How we work", "#how"), ("Worldwide", "#worldwide"), ("Invitation", "#invitation"), ("Our work", "#our-work")], st_c, card="bar"))
 
 # Lab: see lab.py
 
@@ -187,11 +210,11 @@ for p in others:
   </section>
   <section class="cs-wrap cs-end">
     <div class="cs-cta"><div><h2>Need this for your product?</h2><p>Start with a two-week audit, $1,500 fixed.</p></div>
-      <div class="btn-row"><a class="pill pill--accent" href="../pricing.html">See pricing</a><a class="pill" href="../contact.html">Start a project</a></div></div>
+      <div class="btn-row"><a class="pill pill--accent" href="../services/design-system-audit.html">How the audit works</a><a class="pill" href="../contact.html">Start a project</a></div></div>
     <h2 class="nx-h">More work</h2><div class="nxs">{nxt}</div>
   </section>
 </main>'''
-    write(f"work/{p['slug']}.html", head(f"{p['title']} — Layer One", p["blurb"], depth=1, og=p["cover"])
+    write(f"work/{p['slug']}.html", seo_head(p)
           + topbar("work", depth=1) + body + close(depth=1))
 
-# /services redirects to /pricing in vercel.json
+# /services is its own page now: see services.py

@@ -643,23 +643,23 @@ def short_title(a):
 
 
 def ld(a):
-    url = f"https://www.layerone.co.in/writing/{a['slug']}"
+    url = f"{SITE}/writing/{a['slug']}"
     post = {"@context": "https://schema.org", "@type": "BlogPosting", "headline": a["title"], "description": a["desc"],
-            "image": f"https://www.layerone.co.in/{a['cover']}", "datePublished": a["date"], "dateModified": a.get("updated", a["date"]),
+            "image": f"{SITE}/{a['cover']}", "datePublished": a["date"], "dateModified": a.get("updated", a["date"]),
             "mainEntityOfPage": url, "wordCount": words(a["body"]), "articleSection": TOPIC[a["topic"]][0],
-            "author": {"@type": "Person", "name": AUTHOR, "url": "https://www.layerone.co.in/studio", "jobTitle": "Founder, Layer One"},
-            "publisher": {"@type": "Organization", "name": "Layer One", "url": "https://www.layerone.co.in/",
-                          "logo": {"@type": "ImageObject", "url": "https://www.layerone.co.in/assets/og/layer-one.jpg"}}}
+            "author": {"@type": "Person", "name": AUTHOR, "url": f"{SITE}/studio", "jobTitle": "Founder, Layer One"},
+            "publisher": {"@type": "Organization", "name": "Layer One", "url": f"{SITE}/",
+                          "logo": {"@type": "ImageObject", "url": f"{SITE}/assets/og/layer-one.jpg"}}}
     if a.get("keywords"):
         post["keywords"] = ", ".join(a["keywords"])
     s = series_of(a["slug"])
     if s:
-        post["isPartOf"] = {"@type": "CreativeWorkSeries", "name": s[1], "url": f"https://www.layerone.co.in/writing#{s[0]}"}
+        post["isPartOf"] = {"@type": "CreativeWorkSeries", "name": s[1], "url": f"{SITE}/writing#{s[0]}"}
         if a["topic"] == "ai-ready-design-systems":
-            post["isPartOf"]["url"] = "https://www.layerone.co.in/writing/topics/ai-ready-design-systems"
+            post["isPartOf"]["url"] = f"{SITE}/writing/topics/ai-ready-design-systems"
     crumbs = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
-        {"@type": "ListItem", "position": 1, "name": "Writing", "item": "https://www.layerone.co.in/writing"},
-        {"@type": "ListItem", "position": 2, "name": TOPIC[a["topic"]][0], "item": f"https://www.layerone.co.in/writing/topics/{a['topic']}"},
+        {"@type": "ListItem", "position": 1, "name": "Writing", "item": f"{SITE}/writing"},
+        {"@type": "ListItem", "position": 2, "name": TOPIC[a["topic"]][0], "item": f"{SITE}/writing/topics/{a['topic']}"},
         {"@type": "ListItem", "position": 3, "name": short_title(a), "item": url}]}
     out = [post, crumbs]
     faq = faq_ld(a["body"])
@@ -716,8 +716,8 @@ def theme_toggle():
 def ed_foot(p):
     return f'''<footer class="ed-foot"><div class="ed-foot-in">
   <a class="logo" href="{p}index.html" aria-label="Layer One, home">{LOGO}<span>LAYER ONE</span></a>
-  <p>A design systems studio in Bangalore, India. Led by Aniket Pandey.</p>
-  <nav aria-label="Studio"><a href="{p}work.html">Work</a><a href="{p}pricing.html">Pricing</a><a href="{p}lab.html">Lab</a><a href="{p}contact.html">Contact</a><a href="{LINKEDIN}" target="_blank" rel="noopener">LinkedIn</a><a href="{MEDIUM}" target="_blank" rel="noopener">Medium</a></nav>
+  <p>A design system studio in Bangalore, India, working with product teams worldwide. Led by Aniket Pandey.</p>
+  <nav aria-label="Studio"><a href="{p}work.html">Work</a><a href="{p}services.html">Services</a><a href="{p}pricing.html">Pricing</a><a href="{p}lab.html">Lab</a><a href="{p}contact.html">Contact</a><a href="{LINKEDIN}" target="_blank" rel="noopener">LinkedIn</a><a href="{MEDIUM}" target="_blank" rel="noopener">Medium</a></nav>
 </div></footer>'''
 
 
@@ -801,6 +801,20 @@ NUDGE = {
 }
 
 
+# Every article ends by pointing to the service that matches its topic, so readers (and search engines) can
+# follow a path from a question to the service that answers it.
+TOPIC_SERVICE = {"ai-ready-design-systems": "ai-ready-design-system", "governance": "design-system-consulting",
+                 "operations": "design-system-consulting", "building": "design-system-development",
+                 "foundations-and-tokens": "design-system-development", "fundamentals": "design-system-audit",
+                 "business-case": "design-system-audit"}
+SERVICE_NUDGE = {
+    "design-system-audit": ("Want to know where your system stands?", "A two-week design system audit maps every style, token and component in Figma and code, checks accessibility and ends in a ranked plan. $1,500, fixed.", "How the audit works", "services/design-system-audit.html"),
+    "design-system-development": ("Building this into your own system?", "Our six-week design system development engagement sets up colour, tokens and your first 12 components, mapped to code. $5,900, fixed.", "Design system development", "services/design-system-development.html"),
+    "design-system-consulting": ("Need help running your system?", "Design system consulting, about two days a week: governance, requests, releases and adoption. $2,900 a month, pause any time.", "Design system consulting", "services/design-system-consulting.html"),
+    "ai-ready-design-system": ("Want this done for your design system?", "We make design systems usable by AI agents: described tokens, component metadata, AGENTS.md, an MCP server, Code Connect and guardrails. Starts with a $1,500 audit.", "AI-ready design systems", "services/ai-ready-design-system.html"),
+}
+
+
 def build_article(a):
     p = "../"
     s = series_of(a["slug"])
@@ -812,7 +826,7 @@ def build_article(a):
         series_line = f'<span class="ed-crumb-s">Part {i + 1} of {len(s[3])} in <a href="{p}writing.html#{s[0]}">{s[1]}</a></span>'
         nxt = BY[s[3][i + 1]] if i + 1 < len(s[3]) else None
     toc = "".join(f'<li><a href="#{i}">{t}</a></li>' for t, i in a["toc"])
-    nh, nt, nl, nu = TOOL_FOR.get(a["slug"]) or NUDGE[a["cta"]]
+    nh, nt, nl, nu = TOOL_FOR.get(a["slug"]) or (SERVICE_NUDGE[TOPIC_SERVICE[a["topic"]]] if a["cta"] != "lab" else NUDGE["lab"])
     ext = nu.startswith("http")
     nattr = ' target="_blank" rel="noopener"' if ext else ""
     nhref = nu if ext else p + nu
@@ -831,7 +845,7 @@ def build_article(a):
     if a.get("tags"):
         tags = "".join(f"<li>{H.escape(t)}</li>" for t in a["tags"])
         tags = f'<div class="ed-meta-sec"><p class="ed-meta-h">Tags</p><ul class="ed-tags">{tags}</ul></div>'
-    url = f"https://www.layerone.co.in/writing/{a['slug']}"
+    url = f"{SITE}/writing/{a['slug']}"
     share = (f'<div class="ed-meta-sec"><p class="ed-meta-h">Share</p><p class="ed-share">'
              f'<button type="button" data-copy="{url}">Copy link</button>'
              f'<a href="https://www.linkedin.com/sharing/share-offsite/?url={url}" target="_blank" rel="noopener">LinkedIn</a>'
@@ -930,11 +944,11 @@ def build_hub():
   <div class="ed-sec-bar"><h2 class="ed-sec-h" id="topics-h">explore by topic:</h2><p class="ed-sec-d">Older essays are on <a href="{MEDIUM}" target="_blank" rel="noopener">Medium</a>.</p></div>
   <div class="et-grid">{topics}</div>
 </section>'''
-    items = [{"@type": "ListItem", "position": i, "url": f"https://www.layerone.co.in/writing/{a['slug']}", "name": short_title(a)} for i, a in enumerate(NEW + [BY["librarian-vs-leader"]], 1)]
-    ldj = json.dumps({"@context": "https://schema.org", "@type": "Blog", "name": "Layer One: Writing", "url": "https://www.layerone.co.in/writing",
+    items = [{"@type": "ListItem", "position": i, "url": f"{SITE}/writing/{a['slug']}", "name": short_title(a)} for i, a in enumerate(NEW + [BY["librarian-vs-leader"]], 1)]
+    ldj = json.dumps({"@context": "https://schema.org", "@type": "Blog", "name": "Layer One: Writing", "url": f"{SITE}/writing",
                       "description": "A practical library on building and running design systems.", "publisher": {"@type": "Organization", "name": "Layer One"},
                       "mainEntity": {"@type": "ItemList", "itemListElement": items}}, ensure_ascii=False)
-    h = reader_head("Writing: design systems guides | Layer One",
+    h = reader_head("Design System Guides and Articles | Layer One",
                     "Practical guides on design systems: what they are, tokens and colour, governance, team structure, operating models, metrics and ROI. From Layer One.",
                     0, extra=f'<script type="application/ld+json">{ldj}</script>')
     write("blog.html", h + page(p, 0, content))
@@ -999,9 +1013,9 @@ def build_ai_topic(k, n, d):
 </header>
 {out}
 <section class="ed-sec" aria-labelledby="rel-h"><div class="ed-sec-bar"><h2 class="ed-sec-h" id="rel-h">background reading:</h2>{filter_bar(p, k)}</div><div class="ec-grid">{more_cards}</div></section>'''
-    items = [{"@type": "ListItem", "position": i, "url": f"https://www.layerone.co.in/writing/{x}", "name": short_title(BY[x])} for i, x in enumerate(AI_PATH, 1) if x in BY]
+    items = [{"@type": "ListItem", "position": i, "url": f"{SITE}/writing/{x}", "name": short_title(BY[x])} for i, x in enumerate(AI_PATH, 1) if x in BY]
     ldj = json.dumps({"@context": "https://schema.org", "@type": "CollectionPage", "name": f"{n}: a practical course",
-                      "url": f"https://www.layerone.co.in/writing/topics/{k}", "description": d,
+                      "url": f"{SITE}/writing/topics/{k}", "description": d,
                       "publisher": {"@type": "Organization", "name": "Layer One"},
                       "mainEntity": {"@type": "ItemList", "itemListOrder": "https://schema.org/ItemListOrderAscending", "itemListElement": items}}, ensure_ascii=False)
     h = reader_head(f"AI-Ready Design Systems: A {len(AI_PATH)}-Part Course | Layer One",
